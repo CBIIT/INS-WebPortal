@@ -2,16 +2,33 @@ import gql from 'graphql-tag';
 
 // --------------- Dashboard Sidebar Filters configuration --------------
 // A maximum of 12 facetSearchData are allowed
-export const facetSearchData = [
-  {
-    label: 'Program', field: 'group', api: 'projectCountByProgram', apiForFiltering: 'filterProjectCountByProgram', datafield: 'programs', section: 'Filter By Projects', show: true,
-  },
-  {
-    label: 'DOC', field: 'group', api: 'projectCountByDOC', apiForFiltering: 'filterProjectCountByDOC', datafield: 'docs', section: 'Filter By Projects', show: true,
-  },
-  {
-    label: 'Fiscal Year', field: 'group', api: 'projectCountByFiscalYear', apiForFiltering: 'filterProjectCountByFiscalYear', datafield: 'fiscal_years', section: 'Filter By Projects', show: true,
-  },
+export const facetSearchData = [{
+  label: 'Program',
+  field: 'group',
+  api: 'projectCountByProgram',
+  apiForFiltering: 'filterProjectCountByProgram',
+  datafield: 'programs',
+  section: 'Filter By Projects',
+  show: true,
+},
+{
+  label: 'DOC',
+  field: 'group',
+  api: 'projectCountByDOC',
+  apiForFiltering: 'filterProjectCountByDOC',
+  datafield: 'docs',
+  section: 'Filter By Projects',
+  show: true,
+},
+{
+  label: 'Fiscal Year',
+  field: 'group',
+  api: 'projectCountByFiscalYear',
+  apiForFiltering: 'filterProjectCountByFiscalYear',
+  datafield: 'fiscal_years',
+  section: 'Filter By Projects',
+  show: true,
+},
 ];
 
 // --------------- Dashboard Sidebar Sections styling --------------
@@ -50,7 +67,30 @@ export const defaultFacetSectionVariables = {
 
 // --------------- Dashboard Widgets configuration --------------
 // A maximum of 6 widgets are allowed
-export const widgetsData = [
+export const widgetsData = [{
+  type: 'donut',
+  label: 'Project by NCI DOC (division, office, center)',
+  dataName: 'projectCountByDOC',
+  datatable_field: 'docs',
+  titleText: 'Projects',
+  show: true,
+},
+{
+  type: 'donut',
+  label: 'Publications by Publication Year',
+  dataName: 'publicationCountByYear',
+  datatable_field: 'publication_years',
+  titleText: 'Publications',
+  show: true,
+},
+{
+  type: 'donut',
+  label: 'Publications by RCR Range',
+  dataName: 'publicationCountByRCR',
+  datatable_field: 'rcr',
+  titleText: 'Publications',
+  show: true,
+},
 ];
 
 // --------------- Dahboard Table external link configuration --------------
