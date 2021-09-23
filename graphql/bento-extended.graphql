@@ -87,6 +87,14 @@ type GroupCount {
     subjects: Int
 }
 
+type FundAmountRangeCount {
+  funded_amount_1: Int
+  funded_amount_2: Int
+  funded_amount_3: Int
+  funded_amount_4: Int
+  funded_amount_5: Int
+}
+
 type ProgramInfo {
     program_id: String
     program_name: String
@@ -311,6 +319,27 @@ type QueryType {
     """, passThrough: true)
 
     "Group counts"
+    projectCountInProgramByDOC(program_id: String): [GroupCount] @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        MATCH (p)<--(pr:project)
+        WITH DISTINCT pr
+        RETURN { group: pr.lead_doc,
+                 subjects: COUNT(DISTINCT pr.project_id)}
+    """, passThrough: true)
+
+    projectCountInProgramByFundedAmount(program_id: String): [FundAmountRangeCount] @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        MATCH (p)<--(pr:project)
+        WITH DISTINCT pr
+        RETURN {
+          funded_amount_1: SUM(CASE WHEN toInteger(pr.nci_funded_amount) < 500000 THEN 1 ELSE 0 END),
+          funded_amount_2: SUM(CASE WHEN 500000 <= toInteger(pr.nci_funded_amount) < 1000000 THEN 1 ELSE 0 END),
+          funded_amount_3: SUM(CASE WHEN 1000000 <= toInteger(pr.nci_funded_amount) < 3000000 THEN 1 ELSE 0 END),
+          funded_amount_4: SUM(CASE WHEN 3000000 <= toInteger(pr.nci_funded_amount) < 10000000 THEN 1 ELSE 0 END),
+          funded_amount_5: SUM(CASE WHEN 10000000 <= toInteger(pr.nci_funded_amount) THEN 1 ELSE 0 END)
+        }
+    """, passThrough: true)
+
     projectCountByProgram(project_ids: [String] = []): [GroupCount] @cypher(statement: """
         MATCH (p:program)
         OPTIONAL MATCH (p)<--(pr:project)
@@ -326,12 +355,29 @@ type QueryType {
         RETURN { group: pr.lead_doc,
                  subjects: COUNT(DISTINCT pr.project_id)}
     """, passThrough: true)
+
     projectCountByFiscalYear(project_ids: [String] = []): [GroupCount] @cypher(statement: """
         MATCH (pr:project)
         WITH DISTINCT pr
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
         RETURN { group: pr.fiscal_year,
                  subjects: COUNT(DISTINCT pr.project_id)}
+    """, passThrough: true)
+
+    publicationCountByYear(project_ids: [String] = []): [GroupCount] @cypher(statement: """
+        MATCH (pr:project)<--(pub:publication)
+        WITH DISTINCT pub, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        RETURN { group: pub.year,
+                 subjects: COUNT(DISTINCT pub.publication_id)}
+    """, passThrough: true)
+
+    publicationCountByRCR(project_ids: [String] = []): [GroupCount] @cypher(statement: """
+        MATCH (pr:project)<--(pub:publication)
+        WITH DISTINCT pub, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        RETURN { group: pub.rcr_range,
+                 subjects: COUNT(DISTINCT pub.publication_id)}
     """, passThrough: true)
 
     projectOverViewPaged(project_ids: [String] = [""], order_by: String = ""): [ProjectOverview] @cypher(statement: """

@@ -148,6 +148,17 @@ const table = {
 // --------------- GraphQL query - Retrieve program details --------------
 const GET_PROGRAM_DETAIL_DATA_QUERY = gql`
 query programDetail($program_id: String!) {
+  projectCountInProgramByDOC(program_id: $program_id) {
+    group
+    subjects
+  }
+  projectCountInProgramByFundedAmount(program_id: $program_id) {
+    funded_amount_1
+    funded_amount_2
+    funded_amount_3
+    funded_amount_4
+    funded_amount_5
+  }
   programDetail(program_id: $program_id) {
     program_id
     program_name

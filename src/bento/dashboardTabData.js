@@ -337,6 +337,16 @@ export const DASHBOARD_QUERY = gql`
     subjects
   }
 
+  publicationCountByYear{
+    group
+    subjects
+  }
+
+  publicationCountByRCR{
+    group
+    subjects
+  }
+
   projectOverViewPaged(first: 100) {
     project_id
     application_id
