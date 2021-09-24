@@ -65,20 +65,41 @@ const leftPanel = {
 const rightPanel = {
   widget: [
     {
-      dataField: 'projectsByDOC',
-      label: 'Projects',
-      display: true,
+      type: 'donut',
+      label: 'Projects by NCI DOC',
+      dataName: 'projectCountInProgramByDOC',
+      datatable_field: 'docs',
+      titleText: 'Projects',
+      show: true,
     },
-  ],
-  files: [
     {
-      dataField: 'num_publications',
-      label: 'Number of publications',
-      fileIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/programNumberofFilesIcon.svg',
-      fileIconAlt: 'Number of files icon',
-      display: true,
+      type: 'donut',
+      label: 'Projects by NCI Funded Amount (MM $)',
+      dataName: 'projectCountInProgramByFundedAmount',
+      datatable_field: 'funded_amount',
+      titleText: 'Projects',
+      show: true,
     },
+    // {
+    //   dataField: 'projectCountInProgramByDOC',
+    //   label: 'Projects',
+    //   display: true,
+    // },
+    // {
+    //   dataField: 'projectCountInProgramByFundedAmount',
+    //   label: 'Projects',
+    //   display: true,
+    // },
   ],
+  // files: [
+  //   {
+  //     dataField: 'num_publications',
+  //     label: 'Number of publications',
+  //     fileIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/programNumberofFilesIcon.svg',
+  //     fileIconAlt: 'Number of files icon',
+  //     display: true,
+  //   },
+  // ],
 };
 
 // --------------- Table configuration --------------

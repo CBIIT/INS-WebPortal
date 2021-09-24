@@ -271,7 +271,7 @@ const ProgramView = ({ classes, data, theme }) => {
                   </Grid>
                 ) : ''}
 
-                { rightPanel.files[0].display ? (
+                {/* { rightPanel.files[0].display ? (
                   <Grid item xs={12}>
                     <div className={classes.fileContainer}>
                       <span
@@ -292,7 +292,7 @@ const ProgramView = ({ classes, data, theme }) => {
                       </div>
                     </div>
                   </Grid>
-                ) : ''}
+                ) : ''} */}
               </Grid>
             </Grid>
 
