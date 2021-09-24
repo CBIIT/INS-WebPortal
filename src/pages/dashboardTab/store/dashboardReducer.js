@@ -977,6 +977,23 @@ const reducers = {
       } : { ...state };
   },
   CLEAR_ALL: (state, item) => {
+    // --------------- Transform RCR data --------------
+    const publicationCountByRCRTransformedData = [];
+
+    for (let i = 0; i < item.data.publicationCountByRCR.length; i += 1) {
+      if (item.data.publicationCountByRCR[i].group !== 'N/A') {
+        publicationCountByRCRTransformedData.push(item.data.publicationCountByRCR[i]);
+      }
+    }
+
+    for (let j = 0; j < publicationCountByRCRTransformedData.length; j += 1) {
+      if (publicationCountByRCRTransformedData[j].group === null) {
+        publicationCountByRCRTransformedData[j].group = '0';
+      }
+    }
+
+    item.data.publicationCountByRCRTransformed = publicationCountByRCRTransformedData;
+
     const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(state.currentActiveTab, null, null, null);
     return item.data
