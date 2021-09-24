@@ -86,7 +86,7 @@ export const widgetsData = [{
 {
   type: 'donut',
   label: 'Publications by RCR Range',
-  dataName: 'publicationCountByRCR',
+  dataName: 'publicationCountByRCRTransformed',
   datatable_field: 'rcr',
   titleText: 'Publications',
   show: true,

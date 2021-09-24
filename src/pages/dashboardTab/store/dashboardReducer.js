@@ -158,7 +158,7 @@ function fetchDashboardTabForClearAll() {
       query: DASHBOARD_QUERY,
     })
     .then((result) => store.dispatch({ type: 'CLEAR_ALL', payload: _.cloneDeep(result) }))
-    .then((result)=> store.dispatch({ type: 'SORT_ALL_GROUP_CHECKBOX' }))
+    .then((result) => store.dispatch({ type: 'SORT_ALL_GROUP_CHECKBOX' }))
     .catch((error) => store.dispatch(
       { type: 'DASHBOARDTAB_QUERY_ERR', error },
     ));
@@ -219,7 +219,7 @@ function clearGroup(data) {
  * @param {object} payload
  * @return distpatcher
  */
- export function resetGroupSelections(payload) {
+export function resetGroupSelections(payload) {
   return () => {
     const { dataField, groupName } = payload;
     const currentAllFilterVariables = clearGroup(dataField);
@@ -432,7 +432,7 @@ async function getFileIDs(
     // check if file
     if (files && files.length > 0) {
       return accumulator.concat(files.map((f) => {
-        if(typeof f.file_id !== 'undefined'){
+        if (typeof f.file_id !== 'undefined') {
           return f.file_id
         }
         return f
@@ -452,10 +452,10 @@ function filterOutFileIds(fileIds) {
   const { filteredFileIds } = getState();
 
   if (fileIds
-      && fileIds.length > 0
-       && filteredFileIds
-        && filteredFileIds != null
-        && filteredFileIds.length > 0) {
+    && fileIds.length > 0
+    && filteredFileIds
+    && filteredFileIds != null
+    && filteredFileIds.length > 0) {
     return fileIds.filter((x) => filteredFileIds.includes(x));
   }
   return fileIds;
@@ -699,7 +699,7 @@ export function clearSectionSort(groupName) {
   });
 }
 
-export function sortAll(){
+export function sortAll() {
   store.dispatch({
     type: 'SORT_ALL_GROUP_CHECKBOX',
   });
@@ -748,7 +748,7 @@ export async function tableHasSelections() {
   if (!hasFilter()) {
     return selectedRowInfo.length > 0;
   }
-  
+
   const filteredNames = await getFileNamesByFileIds(getState().filteredFileIds);
   switch (getState().currentActiveTab) {
     case tabIndex[2].title:
@@ -802,7 +802,7 @@ export async function getFileNamesByFileIds(fileIds) {
  * @return {func}
  */
 
- export function getTableRowSelectionEvent() {
+export function getTableRowSelectionEvent() {
   const currentState = getState();
   const tableRowSelectionEvent = currentState.currentActiveTab === tabIndex[2].title
     ? setDataFileSelected
@@ -919,6 +919,23 @@ const reducers = {
     };
   },
   RECEIVE_DASHBOARDTAB: (state, item) => {
+    // --------------- Transform RCR data --------------
+    const publicationCountByRCRTransformedData = [];
+
+    for (let i = 0; i < item.data.publicationCountByRCR.length; i += 1) {
+      if (item.data.publicationCountByRCR[i].group !== 'N/A') {
+        publicationCountByRCRTransformedData.push(item.data.publicationCountByRCR[i]);
+      }
+    }
+
+    for (let j = 0; j < publicationCountByRCRTransformedData.length; j += 1) {
+      if (publicationCountByRCRTransformedData[j].group === null) {
+        publicationCountByRCRTransformedData[j].group = '0';
+      }
+    }
+
+    item.data.publicationCountByRCRTransformed = publicationCountByRCRTransformedData;
+
     const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, null, null, null);
     return item.data
@@ -1044,7 +1061,7 @@ const reducers = {
   CLEAR_SECTION_SORT: (state, item) => {
     let { sortByList = {} } = state;
     const { groupName } = item;
-    sortByList[groupName] ? delete sortByList[groupName] : null ;
+    sortByList[groupName] ? delete sortByList[groupName] : null;
 
     return { ...state, sortByList };
   },
