@@ -67,7 +67,7 @@ const rightPanel = {
     {
       type: 'donut',
       label: 'Projects by NCI DOC',
-      dataName: 'projectCountInProgramByDOC',
+      dataName: 'projectCountInProgramByDOCData',
       datatable_field: 'docs',
       titleText: 'Projects',
       show: true,
@@ -75,7 +75,7 @@ const rightPanel = {
     {
       type: 'donut',
       label: 'Projects by NCI Funded Amount (MM $)',
-      dataName: 'projectCountInProgramByFundedAmount',
+      dataName: 'projectCountInProgramByFundedAmountData',
       datatable_field: 'funded_amount',
       titleText: 'Projects',
       show: true,
