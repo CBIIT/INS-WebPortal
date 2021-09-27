@@ -135,96 +135,97 @@ const ProgramView = ({ classes, data, theme }) => {
                   <Grid item xs={12}>
                     <div>
                       {
-                      attribute.internalLink
-                        ? (
-                          <div>
-                            <span className={classes.detailContainerHeader}>{attribute.label}</span>
-                            <div>
-                              <span className={classes.content}>
-                                {' '}
-                                <Link
-                                  className={classes.link}
-                                  to={`${attribute.actualLink}${programData[updatedAttributesData[attribute.actualLinkId].dataField]}`}
-                                >
-                                  {programData[attribute.dataField]}
-                                </Link>
-                                {' '}
-                              </span>
-                            </div>
-                          </div>
-                        )
-                        : attribute.externalLink
+                        attribute.internalLink
                           ? (
                             <div>
-                              <span
-                                className={classes.detailContainerHeader}
-                              >
-                                {attribute.label}
-                              </span>
+                              {/* eslint-disable-next-line max-len */}
+                              <span className={classes.detailContainerHeader}>{attribute.label}</span>
                               <div>
                                 <span className={classes.content}>
                                   {' '}
-                                  <a
-                                    href={`${attribute.actualLink}${programData[updatedAttributesData[attribute.actualLinkId].dataField]}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                  <Link
                                     className={classes.link}
+                                    to={`${attribute.actualLink}${programData[updatedAttributesData[attribute.actualLinkId].dataField]}`}
                                   >
                                     {programData[attribute.dataField]}
-                                  </a>
-                                  <img
-                                    src={externalLinkIcon.src}
-                                    alt={externalLinkIcon.alt}
-                                    className={classes.externalLinkIcon}
-                                  />
+                                  </Link>
                                   {' '}
                                 </span>
                               </div>
                             </div>
                           )
-                          : attribute.internalLinkToLabel
+                          : attribute.externalLink
                             ? (
                               <div>
                                 <span
-                                  className={classes.detailContainerHeaderLink}
+                                  className={classes.detailContainerHeader}
                                 >
-                                  <a href={`${programData[attribute.dataField]}`} rel="noopener noreferrer">{attribute.label}</a>
+                                  {attribute.label}
                                 </span>
-                              </div>
-                            )
-                            : attribute.externalLinkToLabel
-                              ? (
                                 <div>
-                                  <span
-                                    className={classes.detailContainerHeaderLink}
-                                  >
-                                    <a href={`${programData[attribute.dataField]}`} target="_blank" rel="noopener noreferrer">{attribute.label}</a>
+                                  <span className={classes.content}>
+                                    {' '}
+                                    <a
+                                      href={`${attribute.actualLink}${programData[updatedAttributesData[attribute.actualLinkId].dataField]}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className={classes.link}
+                                    >
+                                      {programData[attribute.dataField]}
+                                    </a>
                                     <img
                                       src={externalLinkIcon.src}
                                       alt={externalLinkIcon.alt}
                                       className={classes.externalLinkIcon}
                                     />
+                                    {' '}
                                   </span>
                                 </div>
-                              )
-                              : (
+                              </div>
+                            )
+                            : attribute.internalLinkToLabel
+                              ? (
                                 <div>
                                   <span
-                                    className={classes.detailContainerHeader}
-                                    id={`program_detail_left_section_title_${index + 1}`}
+                                    className={classes.detailContainerHeaderLink}
                                   >
-                                    {attribute.label}
+                                    <a href={`${programData[attribute.dataField]}`} rel="noopener noreferrer">{attribute.label}</a>
                                   </span>
-                                  <div>
-                                    <span className={classes.content} id={`program_detail_left_section_description_${index + 1}`}>
-                                      {' '}
-                                      {programData[attribute.dataField]}
-                                      {' '}
-                                    </span>
-                                  </div>
                                 </div>
                               )
-}
+                              : attribute.externalLinkToLabel
+                                ? (
+                                  <div>
+                                    <span
+                                      className={classes.detailContainerHeaderLink}
+                                    >
+                                      <a href={`${programData[attribute.dataField]}`} target="_blank" rel="noopener noreferrer">{attribute.label}</a>
+                                      <img
+                                        src={externalLinkIcon.src}
+                                        alt={externalLinkIcon.alt}
+                                        className={classes.externalLinkIcon}
+                                      />
+                                    </span>
+                                  </div>
+                                )
+                                : (
+                                  <div>
+                                    <span
+                                      className={classes.detailContainerHeader}
+                                      id={`program_detail_left_section_title_${index + 1}`}
+                                    >
+                                      {attribute.label}
+                                    </span>
+                                    <div>
+                                      <span className={classes.content} id={`program_detail_left_section_description_${index + 1}`}>
+                                        {' '}
+                                        {programData[attribute.dataField]}
+                                        {' '}
+                                      </span>
+                                    </div>
+                                  </div>
+                                )
+                      }
                     </div>
                   </Grid>
                 ))}
@@ -239,7 +240,7 @@ const ProgramView = ({ classes, data, theme }) => {
               xs={12}
             >
               <Grid container spacing={16} direction="row" className={classes.detailContainerRight}>
-                { rightPanel.widget[0].display ? (
+                {/* { rightPanel.widget[0].display ? (
                   <Grid
                     item
                     xs={12}
@@ -263,6 +264,72 @@ const ProgramView = ({ classes, data, theme }) => {
                         cx="50%"
                         cy="50%"
                         fontSize="12px"
+                        colors={colors}
+                        titleLocation="bottom"
+                        titleAlignment="center"
+                      />
+                    </Widget>
+                  </Grid>
+                ) : ''} */}
+
+                {rightPanel.widget[0].display ? (
+                  <Grid
+                    item
+                    xs={12}
+                    className={classes.marginTopN37}
+                  >
+                    <Widget
+                      title={rightPanel.widget[0].label}
+                      upperTitle
+                      bodyClass={classes.fullHeightBody}
+                      className={classes.card}
+                      color={theme.palette.lochmara.contrastText}
+                      widgetBorderDivider
+                      customBackGround
+                    >
+                      <CustomActiveDonut
+                        data={data[rightPanel.widget[0].dataName]}
+                        titleText={rightPanel.widget[0].titleText || 'Cases'}
+                        width={400}
+                        height={225}
+                        innerRadius={50}
+                        outerRadius={75}
+                        cx="50%"
+                        cy="50%"
+                        textColor={theme.palette.widgetBackground.contrastText}
+                        colors={colors}
+                        titleLocation="bottom"
+                        titleAlignment="center"
+                      />
+                    </Widget>
+                  </Grid>
+                ) : ''}
+
+                {rightPanel.widget[0].display ? (
+                  <Grid
+                    item
+                    xs={12}
+                    className={classes.marginTopN37}
+                  >
+                    <Widget
+                      title={rightPanel.widget[1].label}
+                      upperTitle
+                      bodyClass={classes.fullHeightBody}
+                      className={classes.card}
+                      color={theme.palette.lochmara.contrastText}
+                      widgetBorderDivider
+                      customBackGround
+                    >
+                      <CustomActiveDonut
+                        data={data[rightPanel.widget[1].dataName]}
+                        titleText={rightPanel.widget[1].titleText || 'Cases'}
+                        width={400}
+                        height={225}
+                        innerRadius={50}
+                        outerRadius={75}
+                        cx="50%"
+                        cy="50%"
+                        textColor={theme.palette.widgetBackground.contrastText}
                         colors={colors}
                         titleLocation="bottom"
                         titleAlignment="center"
@@ -299,7 +366,7 @@ const ProgramView = ({ classes, data, theme }) => {
           </Grid>
         </div>
       </div>
-      { table.display ? (
+      {table.display ? (
         <div id="table_program_detail" className={classes.tableContainer}>
 
           <div className={classes.tableDiv}>

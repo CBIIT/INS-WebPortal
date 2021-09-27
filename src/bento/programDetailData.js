@@ -65,29 +65,27 @@ const leftPanel = {
 const rightPanel = {
   widget: [
     {
-      type: 'donut',
       label: 'Projects by NCI DOC',
       dataName: 'projectCountInProgramByDOCData',
       datatable_field: 'docs',
       titleText: 'Projects',
-      show: true,
+      display: true,
     },
     {
-      type: 'donut',
       label: 'Projects by NCI Funded Amount (MM $)',
       dataName: 'projectCountInProgramByFundedAmountData',
       datatable_field: 'funded_amount',
       titleText: 'Projects',
-      show: true,
+      display: true,
     },
     // {
-    //   dataField: 'projectCountInProgramByDOC',
-    //   label: 'Projects',
+    //   dataField: 'projectCountInProgramByDOCData',
+    //   label: 'Projects by NCI DOC',
     //   display: true,
     // },
     // {
-    //   dataField: 'projectCountInProgramByFundedAmount',
-    //   label: 'Projects',
+    //   dataField: 'projectCountInProgramByFundedAmountData',
+    //   label: 'Projects by NCI Funded Amount (MM $)',
     //   display: true,
     // },
   ],
