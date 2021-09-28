@@ -65,7 +65,7 @@ const leftPanel = {
 const rightPanel = {
   widget: [
     {
-      label: 'Projects by NCI DOC',
+      label: 'Projects by NCI DOCs',
       dataName: 'projectCountInProgramByDOCData',
       datatable_field: 'docs',
       titleText: 'Projects',

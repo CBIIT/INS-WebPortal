@@ -69,7 +69,7 @@ export const defaultFacetSectionVariables = {
 // A maximum of 6 widgets are allowed
 export const widgetsData = [{
   type: 'donut',
-  label: 'Project by NCI DOC (division, office, center)',
+  label: 'Project by NCI DOCs (division, office, center)',
   dataName: 'projectCountByDOC',
   datatable_field: 'docs',
   titleText: 'Projects',
