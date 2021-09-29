@@ -122,14 +122,8 @@ function getFilteredStat(input, statCountVariables) {
  */
 const removeEmptySubjectsFromDonutData = (data) => data.filter((item) => item.subjects !== 0);
 
-/**
- * Returns the widgets data.
- * @param {object} data
- * @param {json} widgetsInfoFromCustConfig
- * @return {json}r
- */
-function getWidgetsInitData(data, widgetsInfoFromCustConfig) {
-  // --------------- Transform RCR data --------------
+// --------------- Transform RCR data --------------
+const transformRCRData = (data) => {
   const publicationCountByRCRTransformedData = [];
 
   for (let i = 0; i < data.publicationCountByRCR.length; i += 1) {
@@ -144,7 +138,17 @@ function getWidgetsInitData(data, widgetsInfoFromCustConfig) {
     }
   }
 
-  data.publicationCountByRCRTransformed = publicationCountByRCRTransformedData;
+  return publicationCountByRCRTransformedData;
+}
+
+/**
+ * Returns the widgets data.
+ * @param {object} data
+ * @param {json} widgetsInfoFromCustConfig
+ * @return {json}r
+ */
+function getWidgetsInitData(data, widgetsInfoFromCustConfig) {
+  data.publicationCountByRCRTransformed = transformRCRData(data);
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.dataName]) : removeEmptySubjectsFromDonutData(data[widget.dataName]);
@@ -934,22 +938,7 @@ const reducers = {
     };
   },
   RECEIVE_DASHBOARDTAB: (state, item) => {
-    // --------------- Transform RCR data --------------
-    const publicationCountByRCRTransformedData = [];
-
-    for (let i = 0; i < item.data.publicationCountByRCR.length; i += 1) {
-      if (item.data.publicationCountByRCR[i].group !== 'N/A') {
-        publicationCountByRCRTransformedData.push(item.data.publicationCountByRCR[i]);
-      }
-    }
-
-    for (let j = 0; j < publicationCountByRCRTransformedData.length; j += 1) {
-      if (publicationCountByRCRTransformedData[j].group === null) {
-        publicationCountByRCRTransformedData[j].group = '0';
-      }
-    }
-
-    item.data.publicationCountByRCRTransformed = publicationCountByRCRTransformedData;
+    item.data.publicationCountByRCRTransformed = transformRCRData(item.data);;
 
     const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, null, null, null);
@@ -992,22 +981,7 @@ const reducers = {
       } : { ...state };
   },
   CLEAR_ALL: (state, item) => {
-    // --------------- Transform RCR data --------------
-    const publicationCountByRCRTransformedData = [];
-
-    for (let i = 0; i < item.data.publicationCountByRCR.length; i += 1) {
-      if (item.data.publicationCountByRCR[i].group !== 'N/A') {
-        publicationCountByRCRTransformedData.push(item.data.publicationCountByRCR[i]);
-      }
-    }
-
-    for (let j = 0; j < publicationCountByRCRTransformedData.length; j += 1) {
-      if (publicationCountByRCRTransformedData[j].group === null) {
-        publicationCountByRCRTransformedData[j].group = '0';
-      }
-    }
-
-    item.data.publicationCountByRCRTransformed = publicationCountByRCRTransformedData;
+    item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
 
     const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(state.currentActiveTab, null, null, null);
