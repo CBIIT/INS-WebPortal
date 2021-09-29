@@ -577,8 +577,7 @@ const styles = (theme) => ({
     color: '#000000',
     size: '12px',
     lineHeight: '23px',
-    height: '525px',
-
+    height: '725px',
   },
   detailContainerHeader: {
     textTransform: 'uppercase',
@@ -601,8 +600,8 @@ const styles = (theme) => ({
   detailContainerLeft: {
     display: 'block',
     padding: '5px  20px 5px 0px !important',
-    minHeight: '500px',
-    maxHeight: '500px',
+    minHeight: '700px',
+    maxHeight: '700px',
     overflowY: 'auto',
     overflowX: 'hidden',
     width: '103.9%',
@@ -613,17 +612,16 @@ const styles = (theme) => ({
   },
   detailContainerRight: {
     padding: '5px 0 5px 36px !important',
-    minHeight: '500px',
-    maxHeight: '500px',
+    minHeight: '700px',
+    maxHeight: '700px',
     overflowY: 'auto',
     overflowX: 'hidden',
-    height: '500px',
+    height: '700px',
     width: '105%',
     borderLeft: '1px solid #81A6BA',
     borderRight: '1px solid #81A6BA',
     marginLeft: '-26px',
   },
-
   tableContainer: {
     background: '#f3f3f3',
   },
