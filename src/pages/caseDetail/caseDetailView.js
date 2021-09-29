@@ -55,8 +55,6 @@ const CaseDetail = ({ data, classes }) => {
     numberOfClinicalTrials: data.clinical_trials.length,
   };
 
-  console.log(data);
-
   const breadCrumbJson = [{
     name: 'ALL PROJECTS /',
     to: '/projects',

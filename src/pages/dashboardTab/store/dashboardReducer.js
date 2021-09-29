@@ -116,7 +116,7 @@ function getFilteredStat(input, statCountVariables) {
 }
 
 /**
- * removes EmptySubjectsFromDonutDataa.
+ * removes EmptySubjectsFromDonutData.
  * @param {object} data
  *  @param {object}
  */
@@ -129,6 +129,23 @@ const removeEmptySubjectsFromDonutData = (data) => data.filter((item) => item.su
  * @return {json}r
  */
 function getWidgetsInitData(data, widgetsInfoFromCustConfig) {
+  // --------------- Transform RCR data --------------
+  const publicationCountByRCRTransformedData = [];
+
+  for (let i = 0; i < data.publicationCountByRCR.length; i += 1) {
+    if (data.publicationCountByRCR[i].group !== 'N/A') {
+      publicationCountByRCRTransformedData.push(data.publicationCountByRCR[i]);
+    }
+  }
+
+  for (let j = 0; j < publicationCountByRCRTransformedData.length; j += 1) {
+    if (publicationCountByRCRTransformedData[j].group === null) {
+      publicationCountByRCRTransformedData[j].group = '0';
+    }
+  }
+
+  data.publicationCountByRCRTransformed = publicationCountByRCRTransformedData;
+
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.dataName]) : removeEmptySubjectsFromDonutData(data[widget.dataName]);
     const label = widget.dataName;
@@ -280,7 +297,6 @@ export function fetchDataForDashboardTab(
   fileIDsAfterFilter = null,
 ) {
   const { QUERY, sortfield, sortDirection } = getQueryAndDefaultSort(payload);
-  console.log("here!");
   return client
     .query({
       query: QUERY,
@@ -850,7 +866,6 @@ const reducers = {
     const updatedCheckboxData1 = updateFilteredAPIDataIntoCheckBoxData(
       item.data, facetSearchData,
     );
-    console.log(item.data);
     const checkboxData1 = setSelectedFilterValues(updatedCheckboxData1, item.allFilters);
     fetchDataForDashboardTab(state.currentActiveTab,
       item.data.searchProjects.projectIds, item.data.searchProjects.publicationIds,

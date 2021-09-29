@@ -382,8 +382,15 @@ export const FILTER_GROUP_QUERY = gql`
       group
       subjects
     } 
-}
- `;
+    publicationCountByYear(project_ids: $subject_ids){
+      group
+      subjects
+    }
+    publicationCountByRCR(project_ids: $subject_ids){
+      group
+    subjects
+    }
+  }`;
 
 export const FILTER_QUERY = gql`
 query search($programs: [String] ,
