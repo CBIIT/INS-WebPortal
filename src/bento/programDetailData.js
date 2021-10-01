@@ -17,7 +17,7 @@ const breadCrumb = {
 
 // --------------- Aggregated count configuration --------------
 const aggregateCount = {
-  labelText: 'Cases',
+  labelText: 'Projects',
   dataField: 'num_projects',
   link: '/projects',
   display: true,
