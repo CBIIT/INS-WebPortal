@@ -99,21 +99,21 @@ const TabView = ({
     }
   };
 
-  async function updateButtonStatus(status) {
-    if (!status) {
-      updateActiveSaveButtonStyle(true, saveButton);
-      updateActiveSaveButtonStyle(true, saveButton2);
-    } else {
-      updateActiveSaveButtonStyle(false, saveButton);
-      updateActiveSaveButtonStyle(false, saveButton2);
-    }
-  }
+  // async function updateButtonStatus(status) {
+  //   if (!status) {
+  //     updateActiveSaveButtonStyle(true, saveButton);
+  //     updateActiveSaveButtonStyle(true, saveButton2);
+  //   } else {
+  //     updateActiveSaveButtonStyle(false, saveButton);
+  //     updateActiveSaveButtonStyle(false, saveButton2);
+  //   }
+  // }
 
-  useEffect(() => {
-    initSaveButtonDefaultStyle(saveButton);
-    initSaveButtonDefaultStyle(saveButton2);
-    updateButtonStatus(selectedRowInfo.length > 0);
-  });
+  // useEffect(() => {
+  //   initSaveButtonDefaultStyle(saveButton);
+  //   initSaveButtonDefaultStyle(saveButton2);
+  //   updateButtonStatus(selectedRowInfo.length > 0);
+  // });
 
   async function exportFiles() {
     const selectedIDs = await fetchAllFileIDs(getFilesCount(), selectedRowInfo);
@@ -236,7 +236,7 @@ const TabView = ({
 
   return (
     <div>
-      <Grid item xs={12} className={classes.saveButtonDiv}>
+      {/* <Grid item xs={12} className={classes.saveButtonDiv}>
         <SelectAllModal tableIDForButton={tableID} openSnack={openSnack} />
         <AddToCartAlertDialog
           cartWillFull={cartIsFull}
@@ -251,7 +251,13 @@ const TabView = ({
         >
           { buttonText }
         </button>
-        <IconButton aria-label="help" className={classes.helpIconButton} onMouseOver={() => toggleMessageStatus('top', 'open')} onMouseEnter={() => toggleMessageStatus('top', 'open')} onMouseLeave={() => toggleMessageStatus('top', 'close')}>
+        <IconButton
+          aria-label="help"
+          className={classes.helpIconButton}
+          onMouseOver={() => toggleMessageStatus('top', 'open')}
+          onMouseEnter={() => toggleMessageStatus('top', 'open')}
+          onMouseLeave={() => toggleMessageStatus('top', 'close')}
+        >
           {TopMessageStatus.src ? (
             <img
               onMouseEnter={() => toggleMessageStatus('top', 'open')}
@@ -272,12 +278,12 @@ const TabView = ({
           )}
         </IconButton>
 
-      </Grid>
+      </Grid> */}
       <Grid container>
         <Grid item xs={12} id={tableID}>
           <CustomDataTable
             data={data}
-            columns={getColumns(customColumn, classes, data, externalLinkIcon, '', () => {}, DocumentDownload)}
+            columns={getColumns(customColumn, classes, data, externalLinkIcon, '', () => { }, DocumentDownload)}
             options={finalOptions}
             count={count}
             overview={getOverviewQuery(api)}
@@ -295,7 +301,7 @@ const TabView = ({
           />
         </Grid>
       </Grid>
-      <Grid item xs={12} className={classes.saveButtonDivBottom}>
+      {/* <Grid item xs={12} className={classes.saveButtonDivBottom}>
         <button
           type="button"
           ref={saveButton}
@@ -305,7 +311,13 @@ const TabView = ({
           { buttonText }
         </button>
 
-        <IconButton aria-label="help" className={classes.helpIconButton} onMouseOver={() => toggleMessageStatus('bottom', 'open')} onMouseEnter={() => toggleMessageStatus('bottom', 'open')} onMouseLeave={() => toggleMessageStatus('bottom', 'close')}>
+        <IconButton
+          aria-label="help"
+          className={classes.helpIconButton}
+          onMouseOver={() => toggleMessageStatus('bottom', 'open')}
+          onMouseEnter={() => toggleMessageStatus('bottom', 'open')}
+          onMouseLeave={() => toggleMessageStatus('bottom', 'close')}
+        >
           {BottomMessageStatus.src ? (
             <img
               onMouseEnter={() => toggleMessageStatus('bottom', 'open')}
@@ -346,7 +358,7 @@ const TabView = ({
           </Link>
         </div>
 
-      </Grid>
+      </Grid> */}
     </div>
   );
 };

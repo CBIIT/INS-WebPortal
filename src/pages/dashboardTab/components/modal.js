@@ -62,9 +62,9 @@ const SelectAllModalDialog = ({
 
   return (
     <>
-      <button type="button" onClick={handleClickOpen} className={classes.button}>
+      {/* <button type="button" onClick={handleClickOpen} className={classes.button}>
         Add All Files
-      </button>
+      </button> */}
       <Dialog
         ref={childRef}
         onYesClick={OnYesClick}
