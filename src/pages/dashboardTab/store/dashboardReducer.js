@@ -276,7 +276,7 @@ const querySwitch = (payload, tabContainer) => {
  * Function to get getquery and default sort.
  *
  * @param {string} payload
- * @return {json} with three keys QUERY,GET_CASES_OVERVIEW_DESC_QUERY, sortfield
+ * @return {json} with three keys QUERY,GET_PROJECTS_OVERVIEW_DESC_QUERY, sortfield
  */
 
 const getQueryAndDefaultSort = (payload = tabIndex[0].title) => {
