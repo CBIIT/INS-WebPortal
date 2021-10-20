@@ -27,6 +27,9 @@ import Widget from '../../components/Widgets/WidgetView';
 import colors from '../../utils/colors';
 
 const ProgramView = ({ classes, data, theme }) => {
+  const {
+    programPublicationCount, programGEOCount, programSRACount, programClinicalTrialCount,
+  } = data;
   const programData = data.programDetail;
 
   const redirectTo = () => {
@@ -56,10 +59,10 @@ const ProgramView = ({ classes, data, theme }) => {
   const stat = {
     numberOfPrograms: 1,
     numberOfProjects: programData.num_projects,
-    numberOfPublications: programData.num_publications,
-    numberOfGEOs: programData.num_geos,
-    numberOfSRAs: programData.num_sras,
-    numberOfClinicalTrials: programData.num_clinical_trials,
+    numberOfPublications: programPublicationCount,
+    numberOfGEOs: programGEOCount,
+    numberOfSRAs: programSRACount,
+    numberOfClinicalTrials: programClinicalTrialCount,
   };
 
   const breadCrumbJson = [{
