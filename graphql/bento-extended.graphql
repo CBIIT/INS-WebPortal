@@ -318,6 +318,41 @@ type QueryType {
         }
     """, passThrough: true)
 
+    programPublicationCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(pub:publication)
+        RETURN count(DISTINCT pub)
+    """, passThrough: true)
+
+    programGEOCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(g:geo)
+        RETURN count(DISTINCT g)
+    """, passThrough: true)
+
+    programSRACount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(s:sra)
+        RETURN count(DISTINCT s)
+    """, passThrough: true)
+    
+    programDBGapCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(d:dbgap)
+        RETURN count(DISTINCT d)
+    """, passThrough: true)
+
+    programClinicalTrialCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(c:clinical_trial)
+        RETURN count(DISTINCT c)
+    """, passThrough: true)
+
     "Group counts"
     projectCountInProgramByDOC(program_id: String): [GroupCount] @cypher(statement: """
         MATCH (p:program {program_id: $program_id})
@@ -683,22 +718,17 @@ type QueryType {
     programDetail(program_id: String): ProgramDetail @cypher(statement:  """
         MATCH (p:program {program_id: $program_id})
         MATCH (p)<--(pr:project)
-        OPTIONAL MATCH (pr)<--(pub:publication)
-        OPTIONAL MATCH (pr)<--(g:geo)
-        OPTIONAL MATCH (pr)<--(s:sra)
-        OPTIONAL MATCH (pr)<--(d:dbgap)
-        OPTIONAL MATCH (pr)<--(c:clinical_trial)
-        WITH p, pr, pub, g, s, d, c
+        WITH p, pr
         RETURN {
             program_id: p.program_id,
             program_name: p.program_name,
             program_description: p.program_description,
             program_website: p.program_website,
-            num_publications: COUNT(DISTINCT pub.publication_id),
+            num_publications: 1,
             num_projects: COUNT(DISTINCT pr.project_id),
-            num_geos: COUNT(DISTINCT g.accession),
-            num_sras: COUNT(DISTINCT s.accession),
-            num_clinical_trials: COUNT(DISTINCT c.clinical_trial_id),
+            num_geos: 1,
+            num_sras: 1,
+            num_clinical_trials: 1,
             projects: collect(DISTINCT pr {.*})
         }
     """, passThrough: true)
