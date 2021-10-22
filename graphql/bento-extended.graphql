@@ -281,11 +281,6 @@ type SearchResult {
     accessions: [String]
     numberOfPrograms: Int
     numberOfProjects: Int
-    numberOfPublications: Int
-    numberOfGEOs: Int
-    numberOfSRAs: Int
-    numberOfDBGaps: Int
-    numberOfClinicalTrials: Int
     firstPage: [ProjectOverview]
 }
 
@@ -413,6 +408,41 @@ type QueryType {
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
         RETURN { group: pub.rcr_range,
                  subjects: COUNT(DISTINCT pub.publication_id)}
+    """, passThrough: true)
+
+    numberOfPublicationsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)<--(pub:publication)
+        WITH pub, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        return COUNT(DISTINCT pub.publication_id)
+    """, passThrough: true)
+
+    numberOfGEOsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)<--(g:geo)
+        WITH g, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        return COUNT(DISTINCT g.accession)
+    """, passThrough: true)
+
+    numberOfSRAsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)<--(s:sra)
+        WITH s, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        return  COUNT(DISTINCT s.accession)
+    """, passThrough: true)
+
+    numberOfDBGapsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)<--(d:dbgap)
+        WITH d, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        return  COUNT(DISTINCT d.accession)
+    """, passThrough: true)
+
+    numberOfClinicalTrialsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)<--(c:clinical_trial)
+        WITH c, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        return  COUNT(DISTINCT c.clinical_trial_id)
     """, passThrough: true)
 
     projectOverViewPaged(project_ids: [String] = [""], order_by: String = ""): [ProjectOverview] @cypher(statement: """
@@ -675,43 +705,14 @@ type QueryType {
             AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
         OPTIONAL MATCH (pr)<--(pub:publication)
         OPTIONAL MATCH (pr)<--(g:geo)
-        OPTIONAL MATCH (pr)<--(s:sra)
-        OPTIONAL MATCH (pr)<--(d:dbgap)
-        OPTIONAL MATCH (pr)<--(c:clinical_trial)
-        WITH DISTINCT p, pr, pub, g, s, d, c
+        WITH DISTINCT p, pr, pub, g
         RETURN  {
             projectIds: COLLECT(DISTINCT pr.project_id),
             publicationIds: COLLECT(DISTINCT pub.publication_id),
             accessions: COLLECT(DISTINCT g.accession),
             numberOfPrograms: COUNT(DISTINCT p.program_id),
             numberOfProjects: COUNT(DISTINCT pr.project_id),
-            numberOfPublications: COUNT(DISTINCT pub.publication_id),
-            numberOfGEOs: COUNT(DISTINCT g.accession),
-            numberOfSRAs: COUNT(DISTINCT s.accession),
-            numberOfDBGaps: COUNT(DISTINCT d.accession),
-            numberOfClinicalTrials: COUNT(DISTINCT c.clinical_trial_id),
-            firstPage: COLLECT( DISTINCT({
-                        project_id: pr.project_id,
-                        application_id: pr.application_id,
-                        fiscal_year: pr.fiscal_year,
-                        project_title: pr.project_title,
-                        project_type: pr.project_type,
-                        abstract_text: pr.abstract_text,
-                        keywords: pr.keywords,
-                        org_name: pr.org_name,
-                        org_city: pr.org_city,
-                        org_state: pr.org_state,
-                        org_country: pr.org_country,
-                        principal_investigators: pr.principal_investigators,
-                        lead_doc: pr.lead_doc,
-                        program_officers: pr.program_officers,
-                        award_amount: pr.award_amount,
-                        nci_funded_amount: pr.nci_funded_amount,
-                        award_notice_date: pr.award_notice_date,
-                        project_start_date: pr.project_start_date,
-                        project_end_date: pr.project_end_date,
-                        full_foa: pr.full_foa
-                      }))[0..$first]
+            firstPage: []
         }
     """, passThrough:true)
 

@@ -388,8 +388,13 @@ export const FILTER_GROUP_QUERY = gql`
     }
     publicationCountByRCR(project_ids: $subject_ids){
       group
-    subjects
+      subjects
     }
+    numberOfPublicationsByProjects(project_ids: $subject_ids)
+    numberOfGEOsByProjects(project_ids: $subject_ids)
+    numberOfSRAsByProjects(project_ids: $subject_ids)
+    numberOfDBGapsByProjects(project_ids: $subject_ids)
+    numberOfClinicalTrialsByProjects(project_ids: $subject_ids)
   }`;
 
 export const FILTER_QUERY = gql`
@@ -406,33 +411,6 @@ searchProjects(programs: $programs,
         accessions
         numberOfPrograms
         numberOfProjects
-        numberOfPublications
-        numberOfGEOs
-        numberOfSRAs
-        numberOfDBGaps
-        numberOfClinicalTrials
-        firstPage {
-          project_id
-          application_id
-          fiscal_year
-          project_title
-          project_type
-          abstract_text
-          keywords
-          org_name
-          org_city
-          org_state
-          org_country
-          principal_investigators
-          lead_doc
-          program_officers
-          award_amount
-          nci_funded_amount
-          award_notice_date
-          project_start_date
-          project_end_date
-          full_foa
-        }
 }
 filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years) {
   group
