@@ -455,7 +455,7 @@ query projectOverViewPaged($project_ids: [String], $offset: Int = 0, $first: Int
   `;
 
 export const GET_PROJECTS_OVERVIEW_DESC_QUERY = gql`
-  query projectOverViewPagedDesc($project_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="project_id"){
+  query projectOverViewPagedDesc($project_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String =""){
     projectOverViewPagedDesc(project_ids: $project_ids, offset: $offset,first: $first, order_by: $order_by) {
       project_id
       application_id
