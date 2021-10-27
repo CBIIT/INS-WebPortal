@@ -59,10 +59,10 @@ const ProgramView = ({ classes, data, theme }) => {
   const stat = {
     numberOfPrograms: 1,
     numberOfProjects: programData.num_projects,
-    numberOfPublications: programPublicationCount,
+    numberOfPublicationsByProjects: programPublicationCount,
     numberOfGEOsByProjects: programGEOCount,
-    numberOfSRAs: programSRACount,
-    numberOfClinicalTrials: programClinicalTrialCount,
+    numberOfSRAsByProjects: programSRACount,
+    numberOfClinicalTrialsByProjects: programClinicalTrialCount,
   };
 
   const breadCrumbJson = [{

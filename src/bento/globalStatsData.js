@@ -24,7 +24,7 @@ export const globalStatsData = [
   {
     statTitle: 'Publications',
     type: 'field',
-    statAPI: 'numberOfPublications',
+    statAPI: 'numberOfPublicationsByProjects',
   },
   {
     statTitle: 'GEOs',
@@ -34,12 +34,12 @@ export const globalStatsData = [
   {
     statTitle: 'SRAs',
     type: 'field',
-    statAPI: 'numberOfSRAs',
+    statAPI: 'numberOfSRAsByProjects',
   },
   {
     statTitle: 'Clinial Trials',
     type: 'field',
-    statAPI: 'numberOfClinicalTrials',
+    statAPI: 'numberOfClinicalTrialsByProjects',
   },
 ];
 
@@ -47,10 +47,10 @@ export const globalStatsData = [
 export const GET_GLOBAL_STATS_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
-  numberOfPublications
+  numberOfPublicationsByProjects
   numberOfGEOsByProjects
-  numberOfSRAs
-  numberOfDBGaps
-  numberOfClinicalTrials
+  numberOfSRAsByProjects
+  numberOfDBGapsByProjects
+  numberOfClinicalTrialsByProjects
   }
   `;

@@ -48,11 +48,11 @@ const CaseDetail = ({ data, classes }) => {
   const stat = {
     numberOfPrograms: 1,
     numberOfProjects: 1,
-    numberOfPublications: data.publications.length,
+    numberOfPublicationsByProjects: data.publications.length,
     numberOfGEOsByProjects: data.geos.length,
-    numberOfSRAs: data.sras.length,
-    numberOfDBGaps: data.dbgaps.length,
-    numberOfClinicalTrials: data.clinical_trials.length,
+    numberOfSRAsByProjects: data.sras.length,
+    numberOfDBGapsByProjects: data.dbgaps.length,
+    numberOfClinicalTrialsByProjects: data.clinical_trials.length,
   };
 
   const breadCrumbJson = [{

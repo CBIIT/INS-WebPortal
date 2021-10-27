@@ -123,7 +123,7 @@ export const tabContainers = [
     paginationAPIFieldDesc: 'publicationOverViewPagedDesc',
     defaultSortField: 'publication_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfPublications',
+    count: 'numberOfPublicationsByProjects',
     buttonText: 'Add Selected Files',
     dataKey: 'publication_id',
     saveButtonDefaultStyle: {
@@ -283,7 +283,7 @@ export const tabs = [
     id: 'publication_tab',
     title: 'Publications',
     dataField: 'dataPublication',
-    count: 'numberOfPublications',
+    count: 'numberOfPublicationsByProjects',
   },
   {
     id: 'geo_tab',
@@ -319,11 +319,11 @@ export const DASHBOARD_QUERY = gql`
 {
   numberOfPrograms
   numberOfProjects
-  numberOfPublications
+  numberOfPublicationsByProjects
   numberOfGEOsByProjects
-  numberOfSRAs
-  numberOfDBGaps
-  numberOfClinicalTrials
+  numberOfSRAsByProjects
+  numberOfDBGapsByProjects
+  numberOfClinicalTrialsByProjects
   projectCountByProgram{
     group
     subjects

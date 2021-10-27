@@ -24,7 +24,7 @@ export const landingPageData = {
     },
     {
       statTitle: 'publications',
-      statAPI: 'numberOfPublications',
+      statAPI: 'numberOfPublicationsByProjects',
     },
     {
       statTitle: 'geos',
@@ -32,15 +32,15 @@ export const landingPageData = {
     },
     {
       statTitle: 'sras',
-      statAPI: 'numberOfSRAs',
+      statAPI: 'numberOfSRAsByProjects',
     },
     {
       statTitle: 'dbgaps',
-      statAPI: 'numberOfDBGaps',
+      statAPI: 'numberOfDBGapsByProjects',
     },
     {
       statTitle: 'clinicaltrials',
-      statAPI: 'numberOfClinicalTrials',
+      statAPI: 'numberOfClinicalTrialsByProjects',
     },
   ],
   tile1: {
@@ -81,10 +81,10 @@ export const landingPageData = {
 export const GET_LANDING_PAGE_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
-  numberOfPublications
+  numberOfPublicationsByProjects
   numberOfGEOsByProjects
-  numberOfSRAs
-  numberOfDBGaps
-  numberOfClinicalTrials
+  numberOfSRAsByProjects
+  numberOfDBGapsByProjects
+  numberOfClinicalTrialsByProjects
   }
   `;
