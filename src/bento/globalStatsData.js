@@ -29,7 +29,7 @@ export const globalStatsData = [
   {
     statTitle: 'GEOs',
     type: 'field',
-    statAPI: 'numberOfGEOs',
+    statAPI: 'numberOfGEOsByProjects',
   },
   {
     statTitle: 'SRAs',
@@ -48,7 +48,7 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
   numberOfPublications
-  numberOfGEOs
+  numberOfGEOsByProjects
   numberOfSRAs
   numberOfDBGaps
   numberOfClinicalTrials

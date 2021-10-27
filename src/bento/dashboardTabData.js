@@ -206,7 +206,7 @@ export const tabContainers = [
     paginationAPIFieldDesc: 'geoOverViewPagedDesc',
     defaultSortField: 'accession',
     defaultSortDirection: 'asc',
-    count: 'numberOfGEOs',
+    count: 'numberOfGEOsByProjects',
     buttonText: 'Add Selected Files',
     dataKey: 'accession',
     saveButtonDefaultStyle: {
@@ -289,7 +289,7 @@ export const tabs = [
     id: 'geo_tab',
     title: 'GEOs',
     dataField: 'dataGEO',
-    count: 'numberOfGEOs',
+    count: 'numberOfGEOsByProjects',
   },
 ];
 
@@ -320,7 +320,7 @@ export const DASHBOARD_QUERY = gql`
   numberOfPrograms
   numberOfProjects
   numberOfPublications
-  numberOfGEOs
+  numberOfGEOsByProjects
   numberOfSRAs
   numberOfDBGaps
   numberOfClinicalTrials

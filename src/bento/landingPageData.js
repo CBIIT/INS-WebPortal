@@ -28,7 +28,7 @@ export const landingPageData = {
     },
     {
       statTitle: 'geos',
-      statAPI: 'numberOfGEOs',
+      statAPI: 'numberOfGEOsByProjects',
     },
     {
       statTitle: 'sras',
@@ -82,7 +82,7 @@ export const GET_LANDING_PAGE_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
   numberOfPublications
-  numberOfGEOs
+  numberOfGEOsByProjects
   numberOfSRAs
   numberOfDBGaps
   numberOfClinicalTrials

@@ -49,7 +49,7 @@ const CaseDetail = ({ data, classes }) => {
     numberOfPrograms: 1,
     numberOfProjects: 1,
     numberOfPublications: data.publications.length,
-    numberOfGEOs: data.geos.length,
+    numberOfGEOsByProjects: data.geos.length,
     numberOfSRAs: data.sras.length,
     numberOfDBGaps: data.dbgaps.length,
     numberOfClinicalTrials: data.clinical_trials.length,

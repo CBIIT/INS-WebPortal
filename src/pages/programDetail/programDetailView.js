@@ -60,7 +60,7 @@ const ProgramView = ({ classes, data, theme }) => {
     numberOfPrograms: 1,
     numberOfProjects: programData.num_projects,
     numberOfPublications: programPublicationCount,
-    numberOfGEOs: programGEOCount,
+    numberOfGEOsByProjects: programGEOCount,
     numberOfSRAs: programSRACount,
     numberOfClinicalTrials: programClinicalTrialCount,
   };
