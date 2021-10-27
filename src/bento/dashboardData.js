@@ -70,7 +70,7 @@ export const defaultFacetSectionVariables = {
 export const widgetsData = [{
   type: 'donut',
   label: 'Project by NCI DOCs (division, office, center)',
-  dataName: 'projectCountByDOC',
+  dataName: 'projectCountByDOCSorted',
   datatable_field: 'docs',
   titleText: 'Projects',
   show: true,
@@ -78,7 +78,7 @@ export const widgetsData = [{
 {
   type: 'donut',
   label: 'Publications by Publication Year',
-  dataName: 'publicationCountByYear',
+  dataName: 'publicationCountByYearSorted',
   datatable_field: 'publication_years',
   titleText: 'Publications',
   show: true,

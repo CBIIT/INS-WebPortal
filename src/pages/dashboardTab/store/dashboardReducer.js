@@ -138,6 +138,8 @@ const transformRCRData = (data) => {
     }
   }
 
+  publicationCountByRCRTransformedData.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+
   return publicationCountByRCRTransformedData;
 }
 
@@ -149,6 +151,8 @@ const transformRCRData = (data) => {
  */
 function getWidgetsInitData(data, widgetsInfoFromCustConfig) {
   data.publicationCountByRCRTransformed = transformRCRData(data);
+  data.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+  data.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.dataName]) : removeEmptySubjectsFromDonutData(data[widget.dataName]);
@@ -941,7 +945,9 @@ const reducers = {
     };
   },
   RECEIVE_DASHBOARDTAB: (state, item) => {
-    item.data.publicationCountByRCRTransformed = transformRCRData(item.data);;
+    item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
+    item.data.projectCountByDOCSorted = item.data.projectCountByDOC.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+    item.data.publicationCountByYearSorted = item.data.publicationCountByYear.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
 
     const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, null, null, null);
@@ -985,6 +991,8 @@ const reducers = {
   },
   CLEAR_ALL: (state, item) => {
     item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
+    item.data.projectCountByDOCSorted = item.data.projectCountByDOC.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+    item.data.publicationCountByYearSorted = item.data.publicationCountByYear.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
 
     const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(state.currentActiveTab, null, null, null);
