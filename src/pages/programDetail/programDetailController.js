@@ -14,9 +14,10 @@ const ProgramDetailContainer = ({ match }) => {
   const transformedData = _.cloneDeep(data);
 
   if (data) {
-    transformedData.projectCountInProgramByDOCData = data.projectCountInProgramByDOC;
+    // eslint-disable-next-line max-len
+    transformedData.projectCountInProgramByDOCData = [...data.projectCountInProgramByDOC].sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
-    const projectCountInProgramByFundedAmountData = [
+    let projectCountInProgramByFundedAmountData = [
       {
         group: '< $0.5',
         subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_1,
@@ -38,6 +39,9 @@ const ProgramDetailContainer = ({ match }) => {
         subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_5,
       },
     ];
+
+    // eslint-disable-next-line max-len
+    projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
     // eslint-disable-next-line max-len
     transformedData.projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData;
