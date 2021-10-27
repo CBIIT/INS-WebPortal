@@ -568,7 +568,7 @@ function toggleCheckBoxWithAPIAction(payload, currentAllFilterVariables) {
       variables: { subject_ids: result.data.searchProjects.projectIds },
     })
       .then((result2) => store.dispatch({
-        type: 'TOGGGLE_CHECKBOX_WITH_API',
+        type: 'TOGGLE_CHECKBOX_WITH_API',
         payload: {
           filter: payload,
           allFilters: currentAllFilterVariables,
@@ -866,7 +866,10 @@ const reducers = {
     setSideBarLoading: false,
     isDashboardTableLoading: false,
   }),
-  TOGGGLE_CHECKBOX_WITH_API: (state, item) => {
+  TOGGLE_CHECKBOX_WITH_API: (state, item) => {
+    const statsData1 = item.data.searchProjects
+    const statsData2 = item.groups.data
+    const statsDataAll = { ...statsData1, ...statsData2 }
     const updatedCheckboxData1 = updateFilteredAPIDataIntoCheckBoxData(
       item.data, facetSearchData,
     );
@@ -884,7 +887,7 @@ const reducers = {
       checkbox: {
         data: checkboxData1,
       },
-      stats: getFilteredStat(item.data.searchProjects, statsCount),
+      stats: getFilteredStat(statsDataAll, statsCount),
       widgets: getWidgetsInitData(item.groups.data, widgetsData),
     };
   },
