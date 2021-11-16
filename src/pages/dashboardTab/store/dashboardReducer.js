@@ -309,7 +309,7 @@ export function fetchDataForDashboardTab(
     .query({
       query: QUERY,
       variables: {
-        submitted_file_ids: subjectIDsAfterFilter, sample_ids: sampleIDsAfterFilter, file_ids: fileIDsAfterFilter, order_by: sortfield || '',
+        project_ids: subjectIDsAfterFilter, publication_ids: sampleIDsAfterFilter, accessions: fileIDsAfterFilter, order_by: sortfield || '',
       },
     })
     .then((result) => store.dispatch({ type: 'UPDATE_CURRRENT_TAB_DATA', payload: { currentTab: payload, sortDirection, ..._.cloneDeep(result) } }))
