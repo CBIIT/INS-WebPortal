@@ -39,7 +39,7 @@ export const landingPageData = {
       statAPI: 'numberOfDBGapsByProjects',
     },
     {
-      statTitle: 'clinicaltrials',
+      statTitle: 'clinical trials',
       statAPI: 'numberOfClinicalTrialsByProjects',
     },
   ],

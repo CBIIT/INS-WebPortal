@@ -36,11 +36,21 @@ export const globalStatsData = [
     type: 'field',
     statAPI: 'numberOfSRAsByProjects',
   },
+  // {
+  //   statTitle: 'Datasets',
+  //   type: 'field',
+  //   statAPI: 'numberOfDatasetsByProjects',
+  // },
   {
-    statTitle: 'Clinial Trials',
+    statTitle: 'Clinical Trials',
     type: 'field',
     statAPI: 'numberOfClinicalTrialsByProjects',
   },
+  // {
+  //   statTitle: 'Patents',
+  //   type: 'field',
+  //   statAPI: 'numberOfPatentsByProjects',
+  // },
 ];
 
 // --------------- GraphQL query - Retrieve stats details --------------
@@ -48,9 +58,12 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
   numberOfPublicationsByProjects
+  numberOfClinicalTrialsByProjects
   numberOfGEOsByProjects
   numberOfSRAsByProjects
-  numberOfDBGapsByProjects
-  numberOfClinicalTrialsByProjects
   }
   `;
+
+// numberOfDBGapsByProjects
+// numberOfPatentsByProjects
+// numberOfDatasetsByProjects
