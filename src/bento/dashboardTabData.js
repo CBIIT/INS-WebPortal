@@ -157,9 +157,16 @@ export const tabContainers = [
     columns: [
       {
         dataField: 'publication_id',
-        header: 'Publication ID',
+        header: 'PubMed ID',
         sort: 'asc',
+        link: 'https://pubmed.ncbi.nlm.nih.gov/26988926/{publication_id}',
         primary: true,
+        display: true,
+      },
+      {
+        dataField: 'queried_project_id',
+        header: 'Project ID',
+        sort: 'asc',
         display: true,
       },
       {
@@ -192,12 +199,12 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
       },
-      {
-        dataField: 'doi',
-        header: 'DOI',
-        sort: 'asc',
-        display: true,
-      },
+      // {
+      //   dataField: 'doi',
+      //   header: 'DOI',
+      //   sort: 'asc',
+      //   display: true,
+      // },
     ],
     id: 'publication_tab',
     onRowsSelect: 'type3',
