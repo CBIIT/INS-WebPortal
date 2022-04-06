@@ -27,20 +27,28 @@ export const landingPageData = {
       statAPI: 'numberOfPublicationsByProjects',
     },
     {
-      statTitle: 'geos',
-      statAPI: 'numberOfGEOsByProjects',
+      statTitle: 'datasets',
+      statAPI: 'numberOfDatasetsByProjects',
     },
-    {
-      statTitle: 'sras',
-      statAPI: 'numberOfSRAsByProjects',
-    },
-    {
-      statTitle: 'dbgaps',
-      statAPI: 'numberOfDBGapsByProjects',
-    },
+    // {
+    //   statTitle: 'geos',
+    //   statAPI: 'numberOfGEOsByProjects',
+    // },
+    // {
+    //   statTitle: 'sras',
+    //   statAPI: 'numberOfSRAsByProjects',
+    // },
+    // {
+    //   statTitle: 'dbgaps',
+    //   statAPI: 'numberOfDBGapsByProjects',
+    // },
     {
       statTitle: 'clinical trials',
       statAPI: 'numberOfClinicalTrialsByProjects',
+    },
+    {
+      statTitle: 'patents',
+      statAPI: 'numberOfPatentsByProjects',
     },
   ],
   tile1: {

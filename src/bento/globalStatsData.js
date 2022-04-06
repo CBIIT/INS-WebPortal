@@ -26,31 +26,31 @@ export const globalStatsData = [
     type: 'field',
     statAPI: 'numberOfPublicationsByProjects',
   },
-  {
-    statTitle: 'GEOs',
-    type: 'field',
-    statAPI: 'numberOfGEOsByProjects',
-  },
-  {
-    statTitle: 'SRAs',
-    type: 'field',
-    statAPI: 'numberOfSRAsByProjects',
-  },
   // {
-  //   statTitle: 'Datasets',
+  //   statTitle: 'GEOs',
   //   type: 'field',
-  //   statAPI: 'numberOfDatasetsByProjects',
+  //   statAPI: 'numberOfGEOsByProjects',
   // },
+  // {
+  //   statTitle: 'SRAs',
+  //   type: 'field',
+  //   statAPI: 'numberOfSRAsByProjects',
+  // },
+  {
+    statTitle: 'Datasets',
+    type: 'field',
+    statAPI: 'numberOfDatasetsByProjects',
+  },
   {
     statTitle: 'Clinical Trials',
     type: 'field',
     statAPI: 'numberOfClinicalTrialsByProjects',
   },
-  // {
-  //   statTitle: 'Patents',
-  //   type: 'field',
-  //   statAPI: 'numberOfPatentsByProjects',
-  // },
+  {
+    statTitle: 'Patents',
+    type: 'field',
+    statAPI: 'numberOfPatentsByProjects',
+  },
 ];
 
 // --------------- GraphQL query - Retrieve stats details --------------
@@ -58,12 +58,12 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
   numberOfPublicationsByProjects
+  numberOfDatasetsByProjects
   numberOfClinicalTrialsByProjects
-  numberOfGEOsByProjects
-  numberOfSRAsByProjects
-  }
+  numberOfPatentsByProjects
+}
   `;
 
 // numberOfDBGapsByProjects
-// numberOfPatentsByProjects
-// numberOfDatasetsByProjects
+// numberOfGEOsByProjects
+// numberOfSRAsByProjects
