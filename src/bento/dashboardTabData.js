@@ -304,18 +304,18 @@ export const tabs = [
     dataField: 'dataPublication',
     count: 'numberOfPublicationsByProjects',
   },
-  // {
-  //   id: 'geo_tab',
-  //   title: 'GEOs',
-  //   dataField: 'dataGEO',
-  //   count: 'numberOfGEOsByProjects',
-  // },
   {
-    id: 'dataset_tab',
-    title: 'Datasets',
-    dataField: 'dataDataset',
-    count: 'numberOfDatasetsByProjects',
+    id: 'geo_tab',
+    title: 'GEOs',
+    dataField: 'dataGEO',
+    count: 'numberOfGEOsByProjects',
   },
+  // {
+  //   id: 'dataset_tab',
+  //   title: 'Datasets',
+  //   dataField: 'dataDataset',
+  //   count: 'numberOfDatasetsByProjects',
+  // },
 ];
 
 // --------------- Tabs Header Style configuration --------------
@@ -332,18 +332,18 @@ export const tabIndex = [
     secondaryColor: '#FFDFB8',
     selectedColor: '#10A075',
   },
-  {
-    title: 'Datasets',
-    primaryColor: '#CFEDF9',
-    secondaryColor: '#C9F1F1',
-    selectedColor: '#0DAFEC',
-  },
   // {
-  //   title: 'GEOs',
+  //   title: 'Datasets',
   //   primaryColor: '#CFEDF9',
   //   secondaryColor: '#C9F1F1',
   //   selectedColor: '#0DAFEC',
   // },
+  {
+    title: 'GEOs',
+    primaryColor: '#CFEDF9',
+    secondaryColor: '#C9F1F1',
+    selectedColor: '#0DAFEC',
+  },
 ];
 
 export const DASHBOARD_QUERY = gql`
