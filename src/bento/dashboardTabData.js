@@ -316,6 +316,18 @@ export const tabs = [
   //   dataField: 'dataDataset',
   //   count: 'numberOfDatasetsByProjects',
   // },
+  // {
+  //   id: 'clinical_trials_tab',
+  //   title: 'Clinical Trials',
+  //   dataField: 'dataClinicalTrials',
+  //   count: 'numberOfClinicalTrialssByProjects',
+  // },
+  // {
+  //   id: 'patent_tab',
+  //   title: 'Patents',
+  //   dataField: 'dataPatent',
+  //   count: 'numberOfPatentssByProjects',
+  // },
 ];
 
 // --------------- Tabs Header Style configuration --------------
@@ -332,18 +344,30 @@ export const tabIndex = [
     secondaryColor: '#FFDFB8',
     selectedColor: '#10A075',
   },
-  // {
-  //   title: 'Datasets',
-  //   primaryColor: '#CFEDF9',
-  //   secondaryColor: '#C9F1F1',
-  //   selectedColor: '#0DAFEC',
-  // },
   {
     title: 'GEOs',
     primaryColor: '#CFEDF9',
     secondaryColor: '#C9F1F1',
     selectedColor: '#0DAFEC',
   },
+  // {
+  //   title: 'Datasets',
+  //   primaryColor: '#CFEDF9',
+  //   secondaryColor: '#C9F1F1',
+  //   selectedColor: '#0DAFEC',
+  // },
+  // {
+  //   title: 'Clinical Trials',
+  //   primaryColor: '#CFEDF9',
+  //   secondaryColor: '#C9F1F1',
+  //   selectedColor: '#0DAFEC',
+  // },
+  // {
+  //   title: 'Patents',
+  //   primaryColor: '#CFEDF9',
+  //   secondaryColor: '#C9F1F1',
+  //   selectedColor: '#0DAFEC',
+  // },
 ];
 
 export const DASHBOARD_QUERY = gql`
