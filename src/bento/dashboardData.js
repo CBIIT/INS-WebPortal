@@ -117,14 +117,14 @@ export const widgetsData = [
     titleText: 'Publications',
     show: true,
   },
-  {
-    type: 'donut',
-    label: 'Publications by Citations',
-    dataName: 'publicationCountByCitationSorted',
-    datatable_field: 'citation',
-    titleText: 'Publications',
-    show: true,
-  },
+  // {
+  //   type: 'donut',
+  //   label: 'Publications by Citations',
+  //   dataName: 'publicationCountByCitationSorted',
+  //   datatable_field: 'citation',
+  //   titleText: 'Publications',
+  //   show: true,
+  // },
 ];
 
 // --------------- Dahboard Table external link configuration --------------
