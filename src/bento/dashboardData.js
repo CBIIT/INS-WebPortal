@@ -29,15 +29,15 @@ export const facetSearchData = [{
   section: 'Filter By Projects',
   show: true,
 },
-// {
-//   label: 'Award Amount',
-//   field: 'group',
-//   api: 'projectCountByAwardAmount',
-//   apiForFiltering: 'filterProjectCountByAwardAmount',
-//   datafield: 'award_amounts',
-//   section: 'Filter By Projects',
-//   show: true,
-// },
+  // {
+  //   label: 'Award Amount',
+  //   field: 'group',
+  //   api: 'projectCountByAwardAmount',
+  //   apiForFiltering: 'filterProjectCountByAwardAmount',
+  //   datafield: 'award_amounts',
+  //   section: 'Filter By Projects',
+  //   show: true,
+  // },
 ];
 
 // --------------- Dashboard Sidebar Sections styling --------------
@@ -76,30 +76,55 @@ export const defaultFacetSectionVariables = {
 
 // --------------- Dashboard Widgets configuration --------------
 // A maximum of 6 widgets are allowed
-export const widgetsData = [{
-  type: 'donut',
-  label: 'Project by NCI DOCs (division, office, center)',
-  dataName: 'projectCountByDOCSorted',
-  datatable_field: 'docs',
-  titleText: 'Projects',
-  show: true,
-},
-{
-  type: 'donut',
-  label: 'Publications by Publication Year',
-  dataName: 'publicationCountByYearSorted',
-  datatable_field: 'publication_years',
-  titleText: 'Publications',
-  show: true,
-},
-{
-  type: 'donut',
-  label: 'Publications by RCR Range',
-  dataName: 'publicationCountByRCRTransformed',
-  datatable_field: 'rcr',
-  titleText: 'Publications',
-  show: true,
-},
+export const widgetsData = [
+  // {
+  //   type: 'donut',
+  //   label: 'Project by Fiscal Year',
+  //   dataName: 'projectCountByFiscalYearSorted',
+  //   datatable_field: 'fiscal_year',
+  //   titleText: 'Projects',
+  //   show: true,
+  // },
+  {
+    type: 'donut',
+    label: 'Project by NCI DOCs (division, office, center)',
+    dataName: 'projectCountByDOCSorted',
+    datatable_field: 'docs',
+    titleText: 'Projects',
+    show: true,
+  },
+  // {
+  //   type: 'donut',
+  //   label: 'Project by Award Amount',
+  //   dataName: 'projectCountByAwardAmountSorted',
+  //   datatable_field: 'award_amount',
+  //   titleText: 'Projects',
+  //   show: true,
+  // },
+  {
+    type: 'donut',
+    label: 'Publications by Publication Year',
+    dataName: 'publicationCountByYearSorted',
+    datatable_field: 'publication_years',
+    titleText: 'Publications',
+    show: true,
+  },
+  {
+    type: 'donut',
+    label: 'Publications by RCR Range',
+    dataName: 'publicationCountByRCRTransformed',
+    datatable_field: 'rcr',
+    titleText: 'Publications',
+    show: true,
+  },
+  {
+    type: 'donut',
+    label: 'Publications by Citations',
+    dataName: 'publicationCountByCitationSorted',
+    datatable_field: 'citation',
+    titleText: 'Publications',
+    show: true,
+  },
 ];
 
 // --------------- Dahboard Table external link configuration --------------
