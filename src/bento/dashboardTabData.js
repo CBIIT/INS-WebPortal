@@ -305,17 +305,11 @@ export const tabs = [
     count: 'numberOfPublicationsByProjects',
   },
   {
-    id: 'geo_tab',
-    title: 'GEOs',
-    dataField: 'dataGEO',
-    count: 'numberOfGEOsByProjects',
+    id: 'dataset_tab',
+    title: 'Datasets',
+    dataField: 'dataDataset',
+    count: 'numberOfDatasetsByProjects',
   },
-  // {
-  //   id: 'dataset_tab',
-  //   title: 'Datasets',
-  //   dataField: 'dataDataset',
-  //   count: 'numberOfDatasetsByProjects',
-  // },
   // {
   //   id: 'clinical_trials_tab',
   //   title: 'Clinical Trials',
@@ -375,10 +369,9 @@ export const DASHBOARD_QUERY = gql`
   numberOfPrograms
   numberOfProjects
   numberOfPublicationsByProjects
-  numberOfGEOsByProjects
-  numberOfSRAsByProjects
-  numberOfDBGapsByProjects
+  numberOfDatasetsByProjects
   numberOfClinicalTrialsByProjects
+  numberOfPatentsByProjects
   projectCountByProgram{
     group
     subjects
@@ -446,10 +439,9 @@ export const FILTER_GROUP_QUERY = gql`
       subjects
     }
     numberOfPublicationsByProjects(project_ids: $subject_ids)
-    numberOfGEOsByProjects(project_ids: $subject_ids)
-    numberOfSRAsByProjects(project_ids: $subject_ids)
-    numberOfDBGapsByProjects(project_ids: $subject_ids)
+    numberOfDatasetsByProjects(project_ids: $subject_ids)
     numberOfClinicalTrialsByProjects(project_ids: $subject_ids)
+    numberOfPatentsByProjects(project_ids: $subject_ids)
   }`;
 
 export const FILTER_QUERY = gql`

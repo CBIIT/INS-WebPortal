@@ -30,18 +30,6 @@ export const landingPageData = {
       statTitle: 'datasets',
       statAPI: 'numberOfDatasetsByProjects',
     },
-    // {
-    //   statTitle: 'geos',
-    //   statAPI: 'numberOfGEOsByProjects',
-    // },
-    // {
-    //   statTitle: 'sras',
-    //   statAPI: 'numberOfSRAsByProjects',
-    // },
-    // {
-    //   statTitle: 'dbgaps',
-    //   statAPI: 'numberOfDBGapsByProjects',
-    // },
     {
       statTitle: 'clinical trials',
       statAPI: 'numberOfClinicalTrialsByProjects',
@@ -90,9 +78,8 @@ export const GET_LANDING_PAGE_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
   numberOfPublicationsByProjects
-  numberOfGEOsByProjects
-  numberOfSRAsByProjects
-  numberOfDBGapsByProjects
+  numberOfDatasetsByProjects
   numberOfClinicalTrialsByProjects
-  }
+  numberOfPatentsByProjects
+}
   `;

@@ -26,16 +26,6 @@ export const globalStatsData = [
     type: 'field',
     statAPI: 'numberOfPublicationsByProjects',
   },
-  // {
-  //   statTitle: 'GEOs',
-  //   type: 'field',
-  //   statAPI: 'numberOfGEOsByProjects',
-  // },
-  // {
-  //   statTitle: 'SRAs',
-  //   type: 'field',
-  //   statAPI: 'numberOfSRAsByProjects',
-  // },
   {
     statTitle: 'Datasets',
     type: 'field',
