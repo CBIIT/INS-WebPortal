@@ -16,6 +16,10 @@ import {
   GET_PUBLICATIONS_OVERVIEW_DESC_QUERY,
   GET_GEOS_OVERVIEW_QUERY,
   GET_GEOS_OVERVIEW_DESC_QUERY,
+  GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
+  GET_CLINICAL_TRIALS_OVERVIEW_DESC_QUERY,
+  GET_PATENTS_OVERVIEW_QUERY,
+  GET_PATENTS_OVERVIEW_DESC_QUERY,
 } from '../../../bento/dashboardTabData';
 import CustomDataTable from '../../../components/serverPaginatedTable/serverPaginatedTable';
 import { addToCart, getCart, cartWillFull } from '../../fileCentricCart/store/cart';
@@ -23,10 +27,10 @@ import Message from '../../../components/Message';
 import AddToCartAlertDialog from '../../../components/AddToCartDialog';
 import DocumentDownload from '../../../components/DocumentDownload/DocumentDownloadView';
 
-const getOverviewQuery = (api) => (api === 'GET_PROJECTS_OVERVIEW_QUERY' ? GET_PROJECTS_OVERVIEW_QUERY : (api === 'GET_PUBLICATIONS_OVERVIEW_QUERY' ? GET_PUBLICATIONS_OVERVIEW_QUERY : GET_GEOS_OVERVIEW_QUERY));
+const getOverviewQuery = (api) => (api === 'GET_PROJECTS_OVERVIEW_QUERY' ? GET_PROJECTS_OVERVIEW_QUERY : (api === 'GET_PUBLICATIONS_OVERVIEW_QUERY' ? GET_PUBLICATIONS_OVERVIEW_QUERY : (api === 'GET_GEOS_OVERVIEW_QUERY' ? GET_GEOS_OVERVIEW_QUERY : (api === 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY' ? GET_CLINICAL_TRIALS_OVERVIEW_QUERY : GET_PATENTS_OVERVIEW_QUERY))));
 
 // Due to cypher limitation we have to send seperate query get descending list
-const getOverviewDescQuery = (api) => (api === 'GET_PROJECTS_OVERVIEW_QUERY' ? GET_PROJECTS_OVERVIEW_DESC_QUERY : (api === 'GET_PUBLICATIONS_OVERVIEW_QUERY' ? GET_PUBLICATIONS_OVERVIEW_DESC_QUERY : GET_GEOS_OVERVIEW_DESC_QUERY));
+const getOverviewDescQuery = (api) => (api === 'GET_PROJECTS_OVERVIEW_QUERY' ? GET_PROJECTS_OVERVIEW_QUERY : (api === 'GET_PUBLICATIONS_OVERVIEW_QUERY' ? GET_PUBLICATIONS_OVERVIEW_DESC_QUERY : (api === 'GET_GEOS_OVERVIEW_QUERY' ? GET_GEOS_OVERVIEW_DESC_QUERY : (api === 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY' ? GET_CLINICAL_TRIALS_OVERVIEW_DESC_QUERY : GET_PATENTS_OVERVIEW_DESC_QUERY))));
 
 const TabView = ({
   classes,

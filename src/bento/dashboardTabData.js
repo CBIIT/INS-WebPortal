@@ -85,24 +85,6 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
       },
-      // {
-      //   dataField: 'nci_funded_amount',
-      //   header: 'NCI Funded Amount',
-      //   sort: 'asc',
-      //   display: true,
-      // },
-      // {
-      //   dataField: 'award_notice_date',
-      //   header: 'Award Notice Date',
-      //   sort: 'asc',
-      //   display: true,
-      // },
-      // {
-      //   dataField: 'project_start_date',
-      //   header: 'Project Start Date',
-      //   sort: 'asc',
-      //   display: true,
-      // },
       {
         dataField: 'project_end_date',
         header: 'Project End Date',
@@ -199,16 +181,10 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
       },
-      // {
-      //   dataField: 'doi',
-      //   header: 'DOI',
-      //   sort: 'asc',
-      //   display: true,
-      // },
     ],
     id: 'publication_tab',
-    onRowsSelect: 'type3',
-    disableRowSelection: 'type3',
+    onRowsSelect: 'type2',
+    disableRowSelection: 'type2',
     tableID: 'publication_tab_table',
     selectableRows: false,
     tabIndex: '1',
@@ -288,6 +264,219 @@ export const tabContainers = [
     headerPagination: true,
     footerPagination: true,
   },
+  // {
+  //   name: 'Datasets',
+  //   dataField: 'dataDataset',
+  //   api: 'GET_GEOS_OVERVIEW_QUERY',
+  //   paginationAPIField: 'geoOverViewPaged',
+  //   paginationAPIFieldDesc: 'geoOverViewPagedDesc',
+  //   defaultSortField: 'accession',
+  //   defaultSortDirection: 'asc',
+  //   count: 'numberOfDatasetsByProjects',
+  //   buttonText: 'Add Selected Files',
+  //   dataKey: 'accession',
+  //   saveButtonDefaultStyle: {
+  //     color: '#fff',
+  //     backgroundColor: '#DC2FDA',
+  //     opacity: '1',
+  //     border: '0px',
+  //     cursor: 'pointer',
+  //   },
+  //   DeactiveSaveButtonDefaultStyle: {
+  //     opacity: '0.3',
+  //     cursor: 'auto',
+  //   },
+  //   ActiveSaveButtonDefaultStyle: {
+  //     cursor: 'pointer',
+  //     opacity: 'unset',
+  //     border: 'unset',
+  //   },
+  //   columns: [
+  //     {
+  //       dataField: 'accession',
+  //       header: 'Accession',
+  //       sort: 'asc',
+  //       primary: true,
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'title',
+  //       header: 'Title',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'status',
+  //       header: 'Status',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'submission_date',
+  //       header: 'Submission Date',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'last_update_date',
+  //       header: 'Last Update Date',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //   ],
+  //   id: 'geo_tab',
+  //   onRowsSelect: 'type3',
+  //   disableRowSelection: 'type3',
+  //   tableID: 'geo_tab_table',
+  //   selectableRows: false,
+  //   tabIndex: '2',
+  //   tableDownloadCSV: customFilesTabDownloadCSV,
+  //   downloadFileName: 'INS_Dashboard_files_download',
+  //   headerPagination: true,
+  //   footerPagination: true,
+  // },
+  // {
+  //   name: 'Clinical Trials',
+  //   dataField: 'dataClinicalTrial',
+  //   api: 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY',
+  //   paginationAPIField: 'clinicalTrialsOverViewPaged',
+  //   paginationAPIFieldDesc: 'clinicalTrialsOverViewPagedDesc',
+  //   defaultSortField: 'accession',
+  //   defaultSortDirection: 'asc',
+  //   count: 'numberOfClinicalTrialsByProjects',
+  //   buttonText: 'Add Selected Files',
+  //   dataKey: 'accession',
+  //   saveButtonDefaultStyle: {
+  //     color: '#fff',
+  //     backgroundColor: '#DC2FDA',
+  //     opacity: '1',
+  //     border: '0px',
+  //     cursor: 'pointer',
+  //   },
+  //   DeactiveSaveButtonDefaultStyle: {
+  //     opacity: '0.3',
+  //     cursor: 'auto',
+  //   },
+  //   ActiveSaveButtonDefaultStyle: {
+  //     cursor: 'pointer',
+  //     opacity: 'unset',
+  //     border: 'unset',
+  //   },
+  //   columns: [
+  //     {
+  //       dataField: 'accession',
+  //       header: 'Accession',
+  //       sort: 'asc',
+  //       primary: true,
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'title',
+  //       header: 'Title',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'status',
+  //       header: 'Status',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'submission_date',
+  //       header: 'Submission Date',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'last_update_date',
+  //       header: 'Last Update Date',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //   ],
+  //   id: 'clinical_trials_tab',
+  //   onRowsSelect: 'type4',
+  //   disableRowSelection: 'type4',
+  //   tableID: 'clinical_trials_tab_table',
+  //   selectableRows: false,
+  //   tabIndex: '3',
+  //   tableDownloadCSV: customFilesTabDownloadCSV,
+  //   downloadFileName: 'INS_Dashboard_files_download',
+  //   headerPagination: true,
+  //   footerPagination: true,
+  // },
+  // {
+  //   name: 'Patents',
+  //   dataField: 'dataPatent',
+  //   api: 'GET_PATENTS_OVERVIEW_QUERY',
+  //   paginationAPIField: 'patentOverViewPaged',
+  //   paginationAPIFieldDesc: 'patentOverViewPagedDesc',
+  //   defaultSortField: 'accession',
+  //   defaultSortDirection: 'asc',
+  //   count: 'numberOfPatentsByProjects',
+  //   buttonText: 'Add Selected Files',
+  //   dataKey: 'accession',
+  //   saveButtonDefaultStyle: {
+  //     color: '#fff',
+  //     backgroundColor: '#DC2FDA',
+  //     opacity: '1',
+  //     border: '0px',
+  //     cursor: 'pointer',
+  //   },
+  //   DeactiveSaveButtonDefaultStyle: {
+  //     opacity: '0.3',
+  //     cursor: 'auto',
+  //   },
+  //   ActiveSaveButtonDefaultStyle: {
+  //     cursor: 'pointer',
+  //     opacity: 'unset',
+  //     border: 'unset',
+  //   },
+  //   columns: [
+  //     {
+  //       dataField: 'accession',
+  //       header: 'Accession',
+  //       sort: 'asc',
+  //       primary: true,
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'title',
+  //       header: 'Title',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'status',
+  //       header: 'Status',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'submission_date',
+  //       header: 'Submission Date',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //     {
+  //       dataField: 'last_update_date',
+  //       header: 'Last Update Date',
+  //       sort: 'asc',
+  //       display: true,
+  //     },
+  //   ],
+  //   id: 'patent_tab',
+  //   onRowsSelect: 'type5',
+  //   disableRowSelection: 'type5',
+  //   tableID: 'patent_tab_table',
+  //   selectableRows: false,
+  //   tabIndex: '4',
+  //   tableDownloadCSV: customFilesTabDownloadCSV,
+  //   downloadFileName: 'INS_Dashboard_files_download',
+  //   headerPagination: true,
+  //   footerPagination: true,
+  // },
 ];
 
 // --------------- Tabs Header Data configuration --------------
@@ -350,18 +539,18 @@ export const tabIndex = [
   //   secondaryColor: '#C9F1F1',
   //   selectedColor: '#0DAFEC',
   // },
-  // {
-  //   title: 'Clinical Trials',
-  //   primaryColor: '#CFEDF9',
-  //   secondaryColor: '#C9F1F1',
-  //   selectedColor: '#0DAFEC',
-  // },
-  // {
-  //   title: 'Patents',
-  //   primaryColor: '#CFEDF9',
-  //   secondaryColor: '#C9F1F1',
-  //   selectedColor: '#0DAFEC',
-  // },
+  {
+    title: 'Clinical Trials',
+    primaryColor: '#CFEDF9',
+    secondaryColor: '#C9F1F1',
+    selectedColor: '#0DAFEC',
+  },
+  {
+    title: 'Patents',
+    primaryColor: '#CFEDF9',
+    secondaryColor: '#C9F1F1',
+    selectedColor: '#0DAFEC',
+  },
 ];
 
 export const DASHBOARD_QUERY = gql`
@@ -579,6 +768,54 @@ export const GET_GEOS_OVERVIEW_QUERY = gql`
 export const GET_GEOS_OVERVIEW_DESC_QUERY = gql`
   query geoOverViewPagedDesc($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
     geoOverViewPagedDesc(accessions: $accessions, offset: $offset,first: $first, order_by: $order_by) {
+      accession
+      title
+      status
+      submission_date
+      last_update_date
+    }
+  }
+    `;
+
+export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
+  query clinicalTrialOverViewPaged($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
+    clinicalTrialOverViewPaged(accessions: $accessions, first: $first, offset: $offset, order_by: $order_by) {
+      accession
+      title
+      status
+      submission_date
+      last_update_date
+    }
+}
+  `;
+
+export const GET_CLINICAL_TRIALS_OVERVIEW_DESC_QUERY = gql`
+  query clinicalTrialOverViewPagedDesc($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
+    clinicalTrialOverViewPagedDesc(accessions: $accessions, offset: $offset,first: $first, order_by: $order_by) {
+      accession
+      title
+      status
+      submission_date
+      last_update_date
+    }
+  }
+    `;
+
+export const GET_PATENTS_OVERVIEW_QUERY = gql`
+  query patentOverViewPaged($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
+    patentOverViewPaged(accessions: $accessions, first: $first, offset: $offset, order_by: $order_by) {
+      accession
+      title
+      status
+      submission_date
+      last_update_date
+    }
+}
+  `;
+
+export const GET_PATENTS_OVERVIEW_DESC_QUERY = gql`
+  query patentOverViewPagedDesc($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
+    patentOverViewPagedDesc(accessions: $accessions, offset: $offset,first: $first, order_by: $order_by) {
       accession
       title
       status
