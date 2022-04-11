@@ -77,14 +77,14 @@ export const defaultFacetSectionVariables = {
 // --------------- Dashboard Widgets configuration --------------
 // A maximum of 6 widgets are allowed
 export const widgetsData = [
-  // {
-  //   type: 'donut',
-  //   label: 'Project by Fiscal Year',
-  //   dataName: 'projectCountByFiscalYearSorted',
-  //   datatable_field: 'fiscal_year',
-  //   titleText: 'Projects',
-  //   show: true,
-  // },
+  {
+    type: 'donut',
+    label: 'Project by Fiscal Year',
+    dataName: 'projectCountByFiscalYearSorted',
+    datatable_field: 'fiscal_year',
+    titleText: 'Projects',
+    show: true,
+  },
   {
     type: 'donut',
     label: 'Project by NCI DOCs (division, office, center)',
@@ -93,14 +93,14 @@ export const widgetsData = [
     titleText: 'Projects',
     show: true,
   },
-  // {
-  //   type: 'donut',
-  //   label: 'Project by Award Amount',
-  //   dataName: 'projectCountByAwardAmountSorted',
-  //   datatable_field: 'award_amount',
-  //   titleText: 'Projects',
-  //   show: true,
-  // },
+  {
+    type: 'donut',
+    label: 'Project by Award Amount',
+    dataName: 'projectCountByAwardAmountSorted',
+    datatable_field: 'award_amount',
+    titleText: 'Projects',
+    show: true,
+  },
   {
     type: 'donut',
     label: 'Publications by Publication Year',
@@ -117,14 +117,14 @@ export const widgetsData = [
     titleText: 'Publications',
     show: true,
   },
-  // {
-  //   type: 'donut',
-  //   label: 'Publications by Citations',
-  //   dataName: 'publicationCountByCitationSorted',
-  //   datatable_field: 'citation',
-  //   titleText: 'Publications',
-  //   show: true,
-  // },
+  {
+    type: 'donut',
+    label: 'Publications by Citations',
+    dataName: 'publicationCountByCitationSorted',
+    datatable_field: 'citation',
+    titleText: 'Publications',
+    show: true,
+  },
 ];
 
 // --------------- Dahboard Table external link configuration --------------

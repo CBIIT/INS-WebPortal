@@ -157,6 +157,9 @@ function getWidgetsInitData(data, widgetsInfoFromCustConfig) {
   data.publicationCountByRCRTransformed = transformRCRData(data);
   data.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
   data.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+  data.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+  data.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+  data.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.dataName]) : removeEmptySubjectsFromDonutData(data[widget.dataName]);
@@ -960,6 +963,9 @@ const reducers = {
     item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
     item.data.projectCountByDOCSorted = item.data.projectCountByDOC.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
     item.data.publicationCountByYearSorted = item.data.publicationCountByYear.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+    item.data.projectCountByFiscalYearSorted = item.data.projectCountByFiscalYear.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+    item.data.projectCountByAwardAmountSorted = item.data.projectCountByAwardAmount.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+    item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
 
     const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, null, null, null);
@@ -1005,6 +1011,9 @@ const reducers = {
     item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
     item.data.projectCountByDOCSorted = item.data.projectCountByDOC.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
     item.data.publicationCountByYearSorted = item.data.publicationCountByYear.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+    item.data.projectCountByFiscalYearSorted = item.data.projectCountByFiscalYear.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+    item.data.projectCountByAwardAmountSorted = item.data.projectCountByAwardAmount.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
+    item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
 
     const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(state.currentActiveTab, null, null, null);

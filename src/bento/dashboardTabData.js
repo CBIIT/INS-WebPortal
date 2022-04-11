@@ -585,6 +585,11 @@ export const DASHBOARD_QUERY = gql`
     group
     subjects
   }
+  publicationCountByCitation
+  {
+    group
+    subjects
+  }
   projectOverViewPaged(first: 100) {
     project_id
     application_id
@@ -632,6 +637,10 @@ export const FILTER_GROUP_QUERY = gql`
       subjects
     }
     publicationCountByRCR(project_ids: $subject_ids){
+      group
+      subjects
+    }
+    publicationCountByCitation(project_ids: $subject_ids){
       group
       subjects
     }
