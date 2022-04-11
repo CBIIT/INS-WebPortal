@@ -573,6 +573,10 @@ export const DASHBOARD_QUERY = gql`
     group
     subjects
   }
+  projectCountByAwardAmount{
+    group
+    subjects
+  }
   publicationCountByYear{
     group
     subjects
@@ -619,6 +623,10 @@ export const FILTER_GROUP_QUERY = gql`
       group
       subjects
     } 
+    projectCountByAwardAmountr(project_ids: $subject_ids){
+      group
+      subjects
+    } 
     publicationCountByYear(project_ids: $subject_ids){
       group
       subjects
@@ -648,15 +656,19 @@ searchProjects(programs: $programs,
         numberOfPrograms
         numberOfProjects
 }
-filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years) {
+filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amount: $award_amount) {
   group
   subjects
 }
-filterProjectCountByDOC(programs: $programs, docs: $docs, fiscal_years: $fiscal_years) {
+filterProjectCountByDOC(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amount: $award_amount) {
   group
   subjects
 }
-filterProjectCountByFiscalYear(programs: $programs, docs: $docs, fiscal_years: $fiscal_years) {
+filterProjectCountByFiscalYear(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amount: $award_amount) {
+  group
+  subjects
+}
+filterProjectCountByAwardAmount(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amount: $award_amount) {
   group
   subjects
 }

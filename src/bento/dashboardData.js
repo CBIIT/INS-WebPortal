@@ -29,15 +29,15 @@ export const facetSearchData = [{
   section: 'Filter By Projects',
   show: true,
 },
-  // {
-  //   label: 'Award Amount',
-  //   field: 'group',
-  //   api: 'projectCountByAwardAmount',
-  //   apiForFiltering: 'filterProjectCountByAwardAmount',
-  //   datafield: 'award_amounts',
-  //   section: 'Filter By Projects',
-  //   show: true,
-  // },
+{
+  label: 'Award Amount',
+  field: 'group',
+  api: 'projectCountByAwardAmount',
+  apiForFiltering: 'filterProjectCountByAwardAmount',
+  datafield: 'award_amounts',
+  section: 'Filter By Projects',
+  show: true,
+},
 ];
 
 // --------------- Dashboard Sidebar Sections styling --------------
