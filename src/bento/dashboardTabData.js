@@ -146,8 +146,8 @@ export const tabContainers = [
         display: true,
       },
       {
-        dataField: 'queried_project_id',
-        header: 'Project ID',
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
         sort: 'asc',
         display: true,
       },
@@ -752,6 +752,7 @@ query publicationOverViewPaged($publication_ids: [String], $offset: Int = 0, $fi
     relative_citation_ratio
     nih_percentile
     doi
+    queried_project_ids
   }
 }
   `;
@@ -770,6 +771,7 @@ export const GET_PUBLICATIONS_OVERVIEW_DESC_QUERY = gql`
       relative_citation_ratio
       nih_percentile
       doi
+      queried_project_ids
     }
   }
     `;
