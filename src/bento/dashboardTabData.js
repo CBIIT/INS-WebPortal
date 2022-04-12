@@ -611,6 +611,7 @@ export const DASHBOARD_QUERY = gql`
     project_start_date
     project_end_date
     full_foa
+    program
   }
   }`;
 
@@ -707,6 +708,7 @@ query projectOverViewPaged($project_ids: [String], $offset: Int = 0, $first: Int
     project_start_date
     project_end_date
     full_foa
+    program
   }
 }
   `;
