@@ -629,7 +629,7 @@ export const FILTER_GROUP_QUERY = gql`
       group
       subjects
     } 
-    projectCountByAwardAmountr(project_ids: $subject_ids){
+    projectCountByAwardAmount(project_ids: $subject_ids){
       group
       subjects
     } 
