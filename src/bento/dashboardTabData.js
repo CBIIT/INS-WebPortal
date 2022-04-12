@@ -267,9 +267,9 @@ export const tabContainers = [
   // {
   //   name: 'Datasets',
   //   dataField: 'dataDataset',
-  //   api: 'GET_GEOS_OVERVIEW_QUERY',
-  //   paginationAPIField: 'geoOverViewPaged',
-  //   paginationAPIFieldDesc: 'geoOverViewPagedDesc',
+  //   api: 'GET_DATASETS_OVERVIEW_QUERY',
+  //   paginationAPIField: 'datasetOverViewPaged',
+  //   paginationAPIFieldDesc: 'datasetOverViewPagedDesc',
   //   defaultSortField: 'accession',
   //   defaultSortDirection: 'asc',
   //   count: 'numberOfDatasetsByProjects',
@@ -324,10 +324,10 @@ export const tabContainers = [
   //       display: true,
   //     },
   //   ],
-  //   id: 'geo_tab',
+  //   id: 'dataset_tab',
   //   onRowsSelect: 'type3',
   //   disableRowSelection: 'type3',
-  //   tableID: 'geo_tab_table',
+  //   tableID: 'dataset_tab_table',
   //   selectableRows: false,
   //   tabIndex: '2',
   //   tableDownloadCSV: customFilesTabDownloadCSV,
@@ -655,10 +655,12 @@ export const FILTER_QUERY = gql`
 query search($programs: [String] ,
   $docs: [String] ,
   $fiscal_years: [String] ,
+  $award_amounts: [String] ,
   $first: Int ) {
 searchProjects(programs: $programs,
   docs: $docs,
   fiscal_years: $fiscal_years,
+  award_amounts: $award_amounts,
       first: $first) {
         projectIds
         publicationIds
@@ -666,19 +668,19 @@ searchProjects(programs: $programs,
         numberOfPrograms
         numberOfProjects
 }
-filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amount: $award_amount) {
+filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
   group
   subjects
 }
-filterProjectCountByDOC(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amount: $award_amount) {
+filterProjectCountByDOC(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
   group
   subjects
 }
-filterProjectCountByFiscalYear(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amount: $award_amount) {
+filterProjectCountByFiscalYear(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
   group
   subjects
 }
-filterProjectCountByAwardAmount(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amount: $award_amount) {
+filterProjectCountByAwardAmount(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
   group
   subjects
 }
