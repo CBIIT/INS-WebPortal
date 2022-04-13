@@ -141,8 +141,8 @@ export const tabContainers = [
         dataField: 'publication_id',
         header: 'PubMed ID',
         sort: 'asc',
-        link: 'https://pubmed.ncbi.nlm.nih.gov/26988926/{publication_id}',
         primary: true,
+        link: 'https://pubmed.ncbi.nlm.nih.gov/{publication_id}/',
         display: true,
       },
       {
@@ -419,14 +419,14 @@ export const tabs = [
   {
     id: 'clinical_trials_tab',
     title: 'Clinical Trials',
-    dataField: 'dataClinicalTrials',
-    count: 'numberOfClinicalTrialssByProjects',
+    dataField: 'dataClinicalTrial',
+    count: 'numberOfClinicalTrialsByProjects',
   },
   {
     id: 'patent_tab',
     title: 'Patents',
     dataField: 'dataPatent',
-    count: 'numberOfPatentssByProjects',
+    count: 'numberOfPatentsByProjects',
   },
 ];
 
