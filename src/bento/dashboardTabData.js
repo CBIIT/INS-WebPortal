@@ -222,15 +222,21 @@ export const tabContainers = [
     },
     columns: [
       {
-        dataField: 'accession',
-        header: 'Accession',
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
         sort: 'asc',
         primary: true,
         display: true,
       },
       {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
+        dataField: 'accession',
+        header: 'Accession',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'type',
+        header: 'Type',
         sort: 'asc',
         display: true,
       },
@@ -713,6 +719,7 @@ export const GET_DATASETS_OVERVIEW_QUERY = gql`
       release_date
       registration_date
       queried_project_ids
+      type
     }
 }
   `;
@@ -727,6 +734,7 @@ export const GET_DATASETS_OVERVIEW_DESC_QUERY = gql`
       release_date
       registration_date
       queried_project_ids
+      type
     }
   }
     `;
