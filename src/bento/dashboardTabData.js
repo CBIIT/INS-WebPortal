@@ -416,18 +416,18 @@ export const tabs = [
     dataField: 'dataDataset',
     count: 'numberOfDatasetsByProjects',
   },
-  // {
-  //   id: 'clinical_trials_tab',
-  //   title: 'Clinical Trials',
-  //   dataField: 'dataClinicalTrials',
-  //   count: 'numberOfClinicalTrialssByProjects',
-  // },
-  // {
-  //   id: 'patent_tab',
-  //   title: 'Patents',
-  //   dataField: 'dataPatent',
-  //   count: 'numberOfPatentssByProjects',
-  // },
+  {
+    id: 'clinical_trials_tab',
+    title: 'Clinical Trials',
+    dataField: 'dataClinicalTrials',
+    count: 'numberOfClinicalTrialssByProjects',
+  },
+  {
+    id: 'patent_tab',
+    title: 'Patents',
+    dataField: 'dataPatent',
+    count: 'numberOfPatentssByProjects',
+  },
 ];
 
 // --------------- Tabs Header Style configuration --------------
