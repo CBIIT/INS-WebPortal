@@ -440,21 +440,21 @@ export const tabIndex = [
   },
   {
     title: 'Publications',
+    primaryColor: '#E7E5F1',
+    secondaryColor: '#C3DBD4',
+    selectedColor: '#6D679E',
+  },
+  {
+    title: 'Datasets',
     primaryColor: '#D6F2EA',
     secondaryColor: '#FFDFB8',
     selectedColor: '#10A075',
   },
   {
-    title: 'Datasets',
-    primaryColor: '#CFEDF9',
-    secondaryColor: '#C9F1F1',
-    selectedColor: '#0DAFEC',
-  },
-  {
     title: 'Clinical Trials',
-    primaryColor: '#CFEDF9',
-    secondaryColor: '#C9F1F1',
-    selectedColor: '#0DAFEC',
+    primaryColor: '#D3F0F2',
+    secondaryColor: '#E4E8D5',
+    selectedColor: '#0FA8B1',
   },
   {
     title: 'Patents',
