@@ -229,14 +229,14 @@ export const tabContainers = [
         display: true,
       },
       {
-        dataField: 'title',
-        header: 'Title',
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
         sort: 'asc',
         display: true,
       },
       {
-        dataField: 'status',
-        header: 'Status',
+        dataField: 'title',
+        header: 'Title',
         sort: 'asc',
         display: true,
       },
@@ -249,6 +249,18 @@ export const tabContainers = [
       {
         dataField: 'last_update_date',
         header: 'Last Update Date',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'release_date',
+        header: 'Release Date',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'registration_date',
+        header: 'Registration Date',
         sort: 'asc',
         display: true,
       },
@@ -696,9 +708,11 @@ export const GET_DATASETS_OVERVIEW_QUERY = gql`
     datasetOverViewPaged(accessions: $accessions, first: $first, offset: $offset, order_by: $order_by) {
       accession
       title
-      status
       submission_date
       last_update_date
+      release_date
+      registration_date
+      queried_project_ids
     }
 }
   `;
@@ -708,9 +722,11 @@ export const GET_DATASETS_OVERVIEW_DESC_QUERY = gql`
     datasetOverViewPagedDesc(accessions: $accessions, offset: $offset,first: $first, order_by: $order_by) {
       accession
       title
-      status
       submission_date
       last_update_date
+      release_date
+      registration_date
+      queried_project_ids
     }
   }
     `;
