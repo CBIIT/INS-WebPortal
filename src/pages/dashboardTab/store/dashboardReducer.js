@@ -278,7 +278,7 @@ const querySwitch = (payload, tabContainer) => {
       return { QUERY: tabContainer.defaultSortDirection === 'desc' ? GET_PROJECTS_OVERVIEW_DESC_QUERY : GET_PROJECTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     case ('Publications'):
       return { QUERY: tabContainer.defaultSortDirection === 'desc' ? GET_PUBLICATIONS_OVERVIEW_DESC_QUERY : GET_PUBLICATIONS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
-    case ('DATASETs'):
+    case ('Datasets'):
       return { QUERY: tabContainer.defaultSortDirection === 'desc' ? GET_DATASETS_OVERVIEW_DESC_QUERY : GET_DATASETS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     case ('Clinical Trials'):
       return { QUERY: tabContainer.defaultSortDirection === 'desc' ? GET_CLINICAL_TRIALS_OVERVIEW_DESC_QUERY : GET_CLINICAL_TRIALS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
@@ -378,7 +378,7 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
       },
     })
     .then((result) => {
-      const RESULT_DATA = getState().currentActiveTab === tabIndex[2].title ? 'datasetOverViewPaged' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverViewPaged' : 'projectOverViewPaged';
+      const RESULT_DATA = getState().currentActiveTab === tabIndex[3].title ? 'patentOverViewPaged' : getState().currentActiveTab === tabIndex[3].title ? 'clinicalTrialOverViewPaged' : getState().currentActiveTab === tabIndex[2].title ? 'datasetOverViewPaged' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverViewPaged' : 'projectOverViewPaged';
       const fileIdsFromQuery = RESULT_DATA === 'projectOverViewPaged' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverViewPaged' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
       return fileIdsFromQuery;
     });
