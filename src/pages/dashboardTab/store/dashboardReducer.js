@@ -24,7 +24,7 @@ import {
   FILTER_GROUP_QUERY,
   GET_PROJECTS_OVERVIEW_QUERY,
   GET_PUBLICATIONS_OVERVIEW_QUERY,
-  GET_GEOS_OVERVIEW_QUERY,
+  GET_DATASETS_OVERVIEW_QUERY,
   GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
   GET_PATENTS_OVERVIEW_QUERY,
   GET_ALL_FILEIDS_CASESTAB_FOR_SELECT_ALL,
@@ -32,7 +32,7 @@ import {
   GET_ALL_FILEIDS_FILESTAB_FOR_SELECT_ALL,
   GET_PROJECTS_OVERVIEW_DESC_QUERY,
   GET_PUBLICATIONS_OVERVIEW_DESC_QUERY,
-  GET_GEOS_OVERVIEW_DESC_QUERY,
+  GET_DATASETS_OVERVIEW_DESC_QUERY,
   GET_CLINICAL_TRIALS_OVERVIEW_DESC_QUERY,
   GET_PATENTS_OVERVIEW_DESC_QUERY,
   GET_FILES_NAME_QUERY,
@@ -278,8 +278,8 @@ const querySwitch = (payload, tabContainer) => {
       return { QUERY: tabContainer.defaultSortDirection === 'desc' ? GET_PROJECTS_OVERVIEW_DESC_QUERY : GET_PROJECTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     case ('Publications'):
       return { QUERY: tabContainer.defaultSortDirection === 'desc' ? GET_PUBLICATIONS_OVERVIEW_DESC_QUERY : GET_PUBLICATIONS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
-    case ('GEOs'):
-      return { QUERY: tabContainer.defaultSortDirection === 'desc' ? GET_GEOS_OVERVIEW_DESC_QUERY : GET_GEOS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
+    case ('DATASETs'):
+      return { QUERY: tabContainer.defaultSortDirection === 'desc' ? GET_DATASETS_OVERVIEW_DESC_QUERY : GET_DATASETS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     case ('Clinical Trials'):
       return { QUERY: tabContainer.defaultSortDirection === 'desc' ? GET_CLINICAL_TRIALS_OVERVIEW_DESC_QUERY : GET_CLINICAL_TRIALS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     default:
@@ -378,8 +378,8 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
       },
     })
     .then((result) => {
-      const RESULT_DATA = getState().currentActiveTab === tabIndex[2].title ? 'geoOverViewPaged' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverViewPaged' : 'projectOverViewPaged';
-      const fileIdsFromQuery = RESULT_DATA === 'projectOverViewPaged' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'geoOverViewPaged' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
+      const RESULT_DATA = getState().currentActiveTab === tabIndex[2].title ? 'datasetOverViewPaged' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverViewPaged' : 'projectOverViewPaged';
+      const fileIdsFromQuery = RESULT_DATA === 'projectOverViewPaged' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverViewPaged' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
       return fileIdsFromQuery;
     });
 
@@ -915,9 +915,7 @@ const reducers = {
         ...state.datatable,
         dataProject: item.sortDirection === 'desc' ? item.data.projectOverViewPagedDesc : item.data.projectOverViewPaged,
         dataPublication: item.sortDirection === 'desc' ? item.data.publicationOverViewPagedDesc : item.data.publicationOverViewPaged,
-        dataGEO: item.sortDirection === 'desc' ? item.data.geoOverViewPagedDesc : item.data.geoOverViewPaged,
-        dataSRA: item.sortDirection === 'desc' ? item.data.sraOverViewPagedDesc : item.data.sraOverViewPaged,
-        dataDbGap: item.sortDirection === 'desc' ? item.data.dbGapOverViewPagedDesc : item.data.dbGapOverViewPaged,
+        dataDataset: item.sortDirection === 'desc' ? item.data.datasetOverViewPagedDesc : item.data.datasetOverViewPaged,
         dataClinicalTrial: item.sortDirection === 'desc' ? item.data.clinicalTrialOverViewPagedDesc : item.data.clinicalTrialOverViewPaged,
         dataPatent: item.sortDirection === 'desc' ? item.data.patentOverViewPagedDesc : item.data.patentOverViewPaged,
       },
@@ -1041,9 +1039,7 @@ const reducers = {
         datatable: {
           dataProject: item.data.projectOverViewPaged,
           dataPublication: item.data.publicationOverViewPaged,
-          dataGEO: item.data.geoOverViewPaged,
-          dataSRA: item.data.sraOverViewPaged,
-          dataDbGap: item.data.dbGapOverViewPaged,
+          dataDataset: item.data.datasetOverViewPaged,
           dataClinicalTrial: item.data.clinicalTrialOverViewPaged,
           dataPatent: item.data.patentOverViewPaged,
           filters: [],

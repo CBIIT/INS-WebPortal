@@ -194,14 +194,14 @@ export const tabContainers = [
     footerPagination: true,
   },
   {
-    name: 'GEOs',
-    dataField: 'dataGEO',
-    api: 'GET_GEOS_OVERVIEW_QUERY',
-    paginationAPIField: 'geoOverViewPaged',
-    paginationAPIFieldDesc: 'geoOverViewPagedDesc',
+    name: 'Datasets',
+    dataField: 'dataDataset',
+    api: 'GET_DATASETS_OVERVIEW_QUERY',
+    paginationAPIField: 'datasetOverViewPaged',
+    paginationAPIFieldDesc: 'datasetOverViewPagedDesc',
     defaultSortField: 'accession',
     defaultSortDirection: 'asc',
-    count: 'numberOfGEOsByProjects',
+    count: 'numberOfDatasetsByProjects',
     buttonText: 'Add Selected Files',
     dataKey: 'accession',
     saveButtonDefaultStyle: {
@@ -253,10 +253,10 @@ export const tabContainers = [
         display: true,
       },
     ],
-    id: 'geo_tab',
+    id: 'dataset_tab',
     onRowsSelect: 'type3',
     disableRowSelection: 'type3',
-    tableID: 'geo_tab_table',
+    tableID: 'dataset_tab_table',
     selectableRows: false,
     tabIndex: '2',
     tableDownloadCSV: customFilesTabDownloadCSV,
@@ -264,77 +264,6 @@ export const tabContainers = [
     headerPagination: true,
     footerPagination: true,
   },
-  // {
-  //   name: 'Datasets',
-  //   dataField: 'dataDataset',
-  //   api: 'GET_DATASETS_OVERVIEW_QUERY',
-  //   paginationAPIField: 'datasetOverViewPaged',
-  //   paginationAPIFieldDesc: 'datasetOverViewPagedDesc',
-  //   defaultSortField: 'accession',
-  //   defaultSortDirection: 'asc',
-  //   count: 'numberOfDatasetsByProjects',
-  //   buttonText: 'Add Selected Files',
-  //   dataKey: 'accession',
-  //   saveButtonDefaultStyle: {
-  //     color: '#fff',
-  //     backgroundColor: '#DC2FDA',
-  //     opacity: '1',
-  //     border: '0px',
-  //     cursor: 'pointer',
-  //   },
-  //   DeactiveSaveButtonDefaultStyle: {
-  //     opacity: '0.3',
-  //     cursor: 'auto',
-  //   },
-  //   ActiveSaveButtonDefaultStyle: {
-  //     cursor: 'pointer',
-  //     opacity: 'unset',
-  //     border: 'unset',
-  //   },
-  //   columns: [
-  //     {
-  //       dataField: 'accession',
-  //       header: 'Accession',
-  //       sort: 'asc',
-  //       primary: true,
-  //       display: true,
-  //     },
-  //     {
-  //       dataField: 'title',
-  //       header: 'Title',
-  //       sort: 'asc',
-  //       display: true,
-  //     },
-  //     {
-  //       dataField: 'status',
-  //       header: 'Status',
-  //       sort: 'asc',
-  //       display: true,
-  //     },
-  //     {
-  //       dataField: 'submission_date',
-  //       header: 'Submission Date',
-  //       sort: 'asc',
-  //       display: true,
-  //     },
-  //     {
-  //       dataField: 'last_update_date',
-  //       header: 'Last Update Date',
-  //       sort: 'asc',
-  //       display: true,
-  //     },
-  //   ],
-  //   id: 'dataset_tab',
-  //   onRowsSelect: 'type3',
-  //   disableRowSelection: 'type3',
-  //   tableID: 'dataset_tab_table',
-  //   selectableRows: false,
-  //   tabIndex: '2',
-  //   tableDownloadCSV: customFilesTabDownloadCSV,
-  //   downloadFileName: 'INS_Dashboard_files_download',
-  //   headerPagination: true,
-  //   footerPagination: true,
-  // },
   // {
   //   name: 'Clinical Trials',
   //   dataField: 'dataClinicalTrial',
@@ -528,17 +457,11 @@ export const tabIndex = [
     selectedColor: '#10A075',
   },
   {
-    title: 'GEOs',
+    title: 'Datasets',
     primaryColor: '#CFEDF9',
     secondaryColor: '#C9F1F1',
     selectedColor: '#0DAFEC',
   },
-  // {
-  //   title: 'Datasets',
-  //   primaryColor: '#CFEDF9',
-  //   secondaryColor: '#C9F1F1',
-  //   selectedColor: '#0DAFEC',
-  // },
   {
     title: 'Clinical Trials',
     primaryColor: '#CFEDF9',
@@ -780,9 +703,9 @@ export const GET_PUBLICATIONS_OVERVIEW_DESC_QUERY = gql`
   }
     `;
 
-export const GET_GEOS_OVERVIEW_QUERY = gql`
-  query geoOverViewPaged($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
-    geoOverViewPaged(accessions: $accessions, first: $first, offset: $offset, order_by: $order_by) {
+export const GET_DATASETS_OVERVIEW_QUERY = gql`
+  query datasetOverViewPaged($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
+    datasetOverViewPaged(accessions: $accessions, first: $first, offset: $offset, order_by: $order_by) {
       accession
       title
       status
@@ -792,9 +715,9 @@ export const GET_GEOS_OVERVIEW_QUERY = gql`
 }
   `;
 
-export const GET_GEOS_OVERVIEW_DESC_QUERY = gql`
-  query geoOverViewPagedDesc($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
-    geoOverViewPagedDesc(accessions: $accessions, offset: $offset,first: $first, order_by: $order_by) {
+export const GET_DATASETS_OVERVIEW_DESC_QUERY = gql`
+  query datasetOverViewPagedDesc($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
+    datasetOverViewPagedDesc(accessions: $accessions, offset: $offset,first: $first, order_by: $order_by) {
       accession
       title
       status
@@ -805,49 +728,45 @@ export const GET_GEOS_OVERVIEW_DESC_QUERY = gql`
     `;
 
 export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
-  query clinicalTrialOverViewPaged($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
-    clinicalTrialOverViewPaged(accessions: $accessions, first: $first, offset: $offset, order_by: $order_by) {
-      accession
+  query clinicalTrialOverViewPaged($clinical_trial_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="clinical_trial_id"){
+    clinicalTrialOverViewPaged(clinical_trial_ids: $clinical_trial_ids, first: $first, offset: $offset, order_by: $order_by) {
+      clinical_trial_id
       title
-      status
-      submission_date
-      last_update_date
+      last_update_posted
+      recruitment_status
+      queried_project_ids
     }
 }
   `;
 
 export const GET_CLINICAL_TRIALS_OVERVIEW_DESC_QUERY = gql`
-  query clinicalTrialOverViewPagedDesc($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
-    clinicalTrialOverViewPagedDesc(accessions: $accessions, offset: $offset,first: $first, order_by: $order_by) {
-      accession
+  query clinicalTrialOverViewPagedDesc($clinical_trial_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="clinical_trial_id"){
+    clinicalTrialOverViewPagedDesc(clinical_trial_ids: $clinical_trial_ids, offset: $offset,first: $first, order_by: $order_by) {
+      clinical_trial_id
       title
-      status
-      submission_date
-      last_update_date
+      last_update_posted
+      recruitment_status
+      queried_project_ids
     }
   }
     `;
 
 export const GET_PATENTS_OVERVIEW_QUERY = gql`
-  query patentOverViewPaged($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
-    patentOverViewPaged(accessions: $accessions, first: $first, offset: $offset, order_by: $order_by) {
-      accession
-      title
-      status
-      submission_date
-      last_update_date
+  query patentOverViewPaged($patent_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="patent_id"){
+    patentOverViewPaged(patent_ids: $patent_ids, first: $first, offset: $offset, order_by: $order_by) {
+      patent_id
+      fulfilled_date
+      queried_project_ids
     }
 }
   `;
 
 export const GET_PATENTS_OVERVIEW_DESC_QUERY = gql`
-  query patentOverViewPagedDesc($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="accession"){
-    patentOverViewPagedDesc(accessions: $accessions, offset: $offset,first: $first, order_by: $order_by) {
-      accession
-      title
-      status
-      submission_date
-      last_update_date
+  query patentOverViewPagedDesc($patent_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="patent_id"){
+    patentOverViewPagedDesc(patent_ids: $patent_ids, offset: $offset,first: $first, order_by: $order_by) {
+      patent_id
+      fulfilled_date
+      queried_project_ids
     }
   }
     `;
