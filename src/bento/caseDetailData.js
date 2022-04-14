@@ -525,6 +525,10 @@ const GET_CASE_DETAIL_DATA_QUERY = gql`
         last_update_posted
         recruitment_status
       }
+      patents {
+        patent_id
+        fulfilled_date
+      }
     }
   }
 `;

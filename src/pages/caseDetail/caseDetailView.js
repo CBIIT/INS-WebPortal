@@ -49,10 +49,9 @@ const CaseDetail = ({ data, classes }) => {
     numberOfPrograms: 1,
     numberOfProjects: 1,
     numberOfPublicationsByProjects: data.publications.length,
-    numberOfGEOsByProjects: data.geos.length,
-    numberOfSRAsByProjects: data.sras.length,
-    numberOfDBGapsByProjects: data.dbgaps.length,
+    numberOfDatasetsByProjects: data.geos.length + data.sras.length + data.dbgaps.length,
     numberOfClinicalTrialsByProjects: data.clinical_trials.length,
+    numberOfPatentsByProjects: data.patents.length,
   };
 
   const breadCrumbJson = [{
@@ -84,7 +83,7 @@ const CaseDetail = ({ data, classes }) => {
             <div className={classes.headerTitle}>
               <div className={classes.headerMainTitle}>
                 {`${caseHeader.label} :`}
-                { data[caseHeader.dataField]
+                {data[caseHeader.dataField]
                   ? (
                     <span className={classes.headerMainTitleTwo}>
                       {' '}
