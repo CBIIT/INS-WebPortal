@@ -179,10 +179,9 @@ query programDetail($program_id: String!) {
     funded_amount_5
   }
   programPublicationCount(program_id: $program_id)
-  programGEOCount(program_id: $program_id)
-  programSRACount(program_id: $program_id)
-  programDBGapCount(program_id: $program_id)
+  programDatasetCount(program_id: $program_id)
   programClinicalTrialCount(program_id: $program_id)
+  programPatentCount(program_id: $program_id)
   programDetail(program_id: $program_id) {
     program_id
     program_name

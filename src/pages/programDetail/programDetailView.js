@@ -28,7 +28,7 @@ import colors from '../../utils/colors';
 
 const ProgramView = ({ classes, data, theme }) => {
   const {
-    programPublicationCount, programGEOCount, programSRACount, programClinicalTrialCount,
+    programPublicationCount, programDatasetCount, programClinicalTrialCount, programPatentCount,
   } = data;
   const programData = data.programDetail;
 
@@ -60,9 +60,9 @@ const ProgramView = ({ classes, data, theme }) => {
     numberOfPrograms: 1,
     numberOfProjects: programData.num_projects,
     numberOfPublicationsByProjects: programPublicationCount,
-    numberOfGEOsByProjects: programGEOCount,
-    numberOfSRAsByProjects: programSRACount,
+    numberOfDatasetsByProjects: programDatasetCount,
     numberOfClinicalTrialsByProjects: programClinicalTrialCount,
+    numberOfPatentsByProjects: programPatentCount,
   };
 
   const breadCrumbJson = [{
