@@ -468,6 +468,12 @@ const styles = () => ({
     verticalAlign: 'top',
     marginLeft: '-5px',
   },
+  externalLinkIcon: {
+    width: '14.5px',
+    verticalAlign: 'sub',
+    marginLeft: '4px',
+    paddingBottom: '2px',
+  },
 });
 
 export default withStyles(styles, { withTheme: true })(TabView);
