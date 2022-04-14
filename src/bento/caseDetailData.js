@@ -455,6 +455,64 @@ const table5 = {
   customOnRowsSelect: FileOnRowsSelect,
 };
 
+// --------------- Table 6 configuration --------------
+const table6 = {
+  // Set 'display' to false to hide the table entirely
+  display: true,
+  // Table title
+  tableTitle: 'Patents',
+  // Field name for files data, need to be updated only when using a different GraphQL query
+  subjectDetailField: 'patents',
+  // Value must be one of the 'dataField's in fileTableColumns
+  defaultSortField: 'patent_id',
+  // 'asc' or 'desc'
+  defaultSortDirection: 'asc',
+  // Text to appear on Add to cart button
+  buttonText: 'Add Selected Files',
+  saveButtonDefaultStyle: {
+    color: '#fff',
+    backgroundColor: '#09A175',
+    opacity: '1',
+    border: '0px',
+    cursor: 'pointer',
+  },
+  ActiveSaveButtonDefaultStyle: {
+    disabled: 'true',
+    opacity: '0.3',
+    cursor: 'auto',
+  },
+  DeactiveSaveButtonDefaultStyle: {
+    cursor: 'pointer',
+    opacity: 'unset',
+    border: 'unset',
+  },
+  // Help Icon Message
+  tooltipMessage: 'Click button to add selected files.',
+  helpMessage: 'Here help message',
+  // showHideColumns 'true' or 'false'
+  showHideColumns: true,
+  // download csv 'true' or 'false'
+  download: false,
+  // downloaded File Name
+  downloadFileName: 'Bento_case_samples_download',
+  // Set 'selectableRows' to true to show the row selection
+  selectableRows: false,
+  // A maximum of 10 columns are allowed
+  columns: [
+    {
+      dataField: 'patent_id',
+      header: 'Patent ID',
+    },
+    {
+      dataField: 'fulfilled_date',
+      header: 'Fulfilled Date',
+    },
+  ],
+  // Util Functions
+  // Custom function on selct checkbox is selected.
+  customOnRowsSelect: FileOnRowsSelect,
+};
+
 // --------------- GraphQL query configuration --------------
 
 // query name, also used as root of returned data
@@ -545,5 +603,6 @@ export {
   table3,
   table4,
   table5,
+  table6,
   GET_CASE_DETAIL_DATA_QUERY,
 };

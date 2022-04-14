@@ -20,6 +20,7 @@ import {
   table3,
   table4,
   table5,
+  table6,
   externalLinkIcon,
   tooltipContent,
 } from '../../bento/caseDetailData';
@@ -294,6 +295,39 @@ const CaseDetail = ({ data, classes }) => {
                       ActiveSaveButtonDefaultStyle={table5.ActiveSaveButtonDefaultStyle}
                       DeactiveSaveButtonDefaultStyle={table5.DeactiveSaveButtonDefaultStyle}
                       tooltipMessage={table5.tooltipMessage}
+                      tooltipContent={tooltipContent}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </div>
+          </div>
+        ) : ''}
+      {table6.display
+        ? (
+          <div id="case_detail_table_associated_participants" className={classes.tableContainer}>
+            <div className={classes.tableDiv}>
+              <Grid item xs={12}>
+                <Grid container spacing={4}>
+                  <Grid item xs={12}>
+                    <GridWithFooter
+                      data={data[table6.subjectDetailField]}
+                      title={(
+                        <div className={classes.tableTitle}>
+                          <span className={classes.tableHeader}>{table6.tableTitle}</span>
+                        </div>
+                      )}
+                      columns={getColumns(table6, classes, data)}
+                      options={getOptions(table6, classes)}
+                      customOnRowsSelect={table6.customOnRowsSelect}
+                      openSnack={openSnack}
+                      closeSnack={closeSnack}
+                      disableRowSelection={table6.disableRowSelection}
+                      buttonText={table6.buttonText}
+                      saveButtonDefaultStyle={table6.saveButtonDefaultStyle}
+                      ActiveSaveButtonDefaultStyle={table6.ActiveSaveButtonDefaultStyle}
+                      DeactiveSaveButtonDefaultStyle={table6.DeactiveSaveButtonDefaultStyle}
+                      tooltipMessage={table6.tooltipMessage}
                       tooltipContent={tooltipContent}
                     />
                   </Grid>
