@@ -234,7 +234,7 @@ const table2 = {
     {
       dataField: 'accession',
       header: 'Accession',
-      link: 'https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id={accession}',
+      link: 'https://www.ncbi.nlm.nih.gov/gds/?term={accession}',
     },
     {
       dataField: 'title',
@@ -305,7 +305,7 @@ const table3 = {
     {
       dataField: 'accession',
       header: 'Accession',
-      link: 'https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id={accession}',
+      link: 'https://www.ncbi.nlm.nih.gov/sra/?term={accession}',
     },
     {
       dataField: 'study_title',
@@ -372,7 +372,7 @@ const table4 = {
     {
       dataField: 'accession',
       header: 'Accession',
-      link: 'https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id={accession}',
+      link: 'https://www.ncbi.nlm.nih.gov/gap/?term={accession}',
     },
     {
       dataField: 'title',
