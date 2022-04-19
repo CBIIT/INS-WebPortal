@@ -596,6 +596,12 @@ searchProjects(programs: $programs,
         accessions
         numberOfPrograms
         numberOfProjects
+        clinicalTrialIds
+        patentIds
+        numberOfPublications
+        numberOfAccessions
+        numberOfClinicalTrials
+        numberOfPatents
 }
 filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
   group
