@@ -222,15 +222,15 @@ export const tabContainers = [
     },
     columns: [
       {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
+        dataField: 'accession',
+        header: 'Accession',
         sort: 'asc',
         primary: true,
         display: true,
       },
       {
-        dataField: 'accession',
-        header: 'Accession',
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
         sort: 'asc',
         display: true,
       },
