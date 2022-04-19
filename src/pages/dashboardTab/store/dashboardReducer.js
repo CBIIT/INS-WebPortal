@@ -378,7 +378,7 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
       },
     })
     .then((result) => {
-      const RESULT_DATA = getState().currentActiveTab === tabIndex[3].title ? 'patentOverViewPaged' : getState().currentActiveTab === tabIndex[3].title ? 'clinicalTrialOverViewPaged' : getState().currentActiveTab === tabIndex[2].title ? 'datasetOverViewPaged' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverViewPaged' : 'projectOverViewPaged';
+      const RESULT_DATA = getState().currentActiveTab === tabIndex[4].title ? 'patentOverViewPaged' : getState().currentActiveTab === tabIndex[3].title ? 'clinicalTrialOverViewPaged' : getState().currentActiveTab === tabIndex[2].title ? 'datasetOverViewPaged' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverViewPaged' : 'projectOverViewPaged';
       const fileIdsFromQuery = RESULT_DATA === 'projectOverViewPaged' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverViewPaged' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
       return fileIdsFromQuery;
     });
