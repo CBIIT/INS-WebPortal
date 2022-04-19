@@ -318,7 +318,7 @@ export const tabContainers = [
         display: true,
       },
       {
-        dataField: 'queried_project_ids',
+        dataField: 'Project IDs',
         header: 'queried_project_ids',
         sort: 'asc',
         display: true,
