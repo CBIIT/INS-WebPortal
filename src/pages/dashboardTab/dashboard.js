@@ -11,7 +11,8 @@ import { widgetsData } from '../../bento/dashboardData';
 import Tab from './components/tabController';
 import colors from '../../utils/colors';
 
-const displaywidgets = widgetsData.filter((widget) => widget.show === true).slice(0, 6);
+const displaywidgetsProjects = widgetsData.filter((widget) => widget.show === true).slice(0, 3);
+const displaywidgetsPublications = widgetsData.filter((widget) => widget.show === true).slice(3, 6);
 
 const Dashboard = ({
   classes, data, theme,
@@ -35,7 +36,71 @@ const Dashboard = ({
               <div className={classes.widgetsContainer}>
                 <Collapse in={collapse} className={classes.backgroundWidgets}>
                   <Grid container>
-                    {displaywidgets.map((widget, index) => {
+                    {displaywidgetsProjects.map((widget, index) => {
+                      if (widget.type === 'sunburst' && widget.show) {
+                        return (
+                          <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
+                            <Widget
+                              title={widget.label}
+                              upperTitle
+                              bodyClass={classes.fullHeightBody}
+                              className={classes.card}
+                              color={theme.palette.lochmara.contrastText}
+                              widgetBorderDivider
+                              customBackGround
+                            >
+                              <ProgramSunburst
+                                data={data[widget.dataName]}
+                                titleText={widget.titleText || 'Cases'}
+                                width={250}
+                                height={173}
+                                innerRadius={40}
+                                outerRadius={65}
+                                cx="50%"
+                                cy="50%"
+                                textColor={theme.palette.widgetBackground.contrastText}
+                                titleLocation="bottom"
+                                titleAlignment="center"
+                              />
+                            </Widget>
+                          </Grid>
+                        );
+                      }
+                      if (widget.type === 'donut' && widget.show) {
+                        return (
+                          <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
+                            <Widget
+                              title={widget.label}
+                              upperTitle
+                              bodyClass={classes.fullHeightBody}
+                              className={classes.card}
+                              color={theme.palette.lochmara.contrastText}
+                              widgetBorderDivider
+                              customBackGround
+                            >
+                              <CustomActiveDonut
+                                data={data[widget.dataName]}
+                                titleText={widget.titleText || 'Cases'}
+                                width={400}
+                                height={225}
+                                innerRadius={50}
+                                outerRadius={75}
+                                cx="50%"
+                                cy="50%"
+                                textColor={theme.palette.widgetBackground.contrastText}
+                                colors={colors}
+                                titleLocation="bottom"
+                                titleAlignment="center"
+                              />
+                            </Widget>
+                          </Grid>
+                        );
+                      }
+                      return <></>;
+                    })}
+                  </Grid>
+                  <Grid container>
+                    {displaywidgetsPublications.map((widget, index) => {
                       if (widget.type === 'sunburst' && widget.show) {
                         return (
                           <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
@@ -100,7 +165,7 @@ const Dashboard = ({
                   </Grid>
                 </Collapse>
               </div>
-              { collapse && <div className={classes.dashboardDividerTop} />}
+              {collapse && <div className={classes.dashboardDividerTop} />}
               <Tab />
             </div>
           </div>
