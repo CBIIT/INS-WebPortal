@@ -1,0 +1,1146 @@
+scalar Date
+
+type patent_application {
+    patent_id: String
+    fulfilled_date: Date
+    projects: [project] @relation(name:"has_patent_application", direction:OUT)
+}
+
+type granted_patent {
+    patent_id: String
+    fulfilled_date: Date
+    projects: [project] @relation(name:"has_granted_patent", direction:OUT)
+}
+
+type clinical_trial {
+  clinical_trial_id: String
+  title: String
+  last_update_posted: Date
+  recruitment_status: String
+  projects: [project] @relation(name:"has_clinical_trial", direction:OUT)
+  publications: [publication] @relation(name:"has_publication", direction:OUT)
+}
+
+type dbgap {
+  accession: String
+  title: String
+  release_date: Date
+  publications: [publication] @relation(name:"has_dbgap", direction:OUT)
+}
+
+type geo {
+  accession: String
+  title: String
+  status: String
+  submission_date: Date
+  last_update_date: Date
+  publications: [publication] @relation(name:"has_geo", direction:OUT)
+}
+
+type sra {
+  accession: String
+  study_title: String
+  bioproject_accession: String
+  registration_date: Date
+  publications: [publication] @relation(name:"has_sra", direction:OUT)
+}
+
+type program {
+  program_id: String
+  program_name: String
+  program_description: String
+  program_website: String
+  projects: [project] @relation(name:"projects_of_program", direction:IN)
+}
+
+type project {
+  project_id: String
+  application_id: String
+  fiscal_year: Date
+  project_title: String
+  project_type: String
+  abstract_text: String
+  keywords: String
+  org_name: String
+  org_city: String
+  org_state: String
+  org_country: String
+  principal_investigators: String
+  lead_doc: String
+  program_officers: String
+  award_amount: Int
+  award_amount_category: String
+  nci_funded_amount: Int
+  award_notice_date: Date
+  project_start_date: Date
+  project_end_date: Date
+  full_foa: String
+  publications: [publication] @relation(name:"has_publication", direction:IN)
+  clinical_trials: [clinical_trial] @relation(name:"has_clinical_trial", direction:IN)
+  granted_patents: [granted_patent] @relation(name:"has_granted_patent", direction:IN)
+  patent_application: [patent_application] @relation(name:"has_patent_application", direction:IN)
+  program: program @relation(name:"projects_of_program", direction:OUT)
+}
+
+type publication {
+  publication_id: String
+  pmc_id: String
+  year: Date
+  journal: String
+  title: String
+  authors: String
+  publish_date: Date
+  citation_count: Int
+  citation_count_category: String
+  relative_citation_ratio: String
+  nih_percentile: Float
+  doi: String
+  projects: [project] @relation(name:"has_publication", direction:OUT)
+  sras: [sra] @relation(name:"has_sra", direction:IN)
+  geos: [geo] @relation(name:"has_geo", direction:IN)
+  dbgaps: [dbgap] @relation(name:"has_dbgap", direction:IN)
+  clinical_trials: [clinical_trial] @relation(name:"has_clinical_trial", direction:IN)
+}
+
+type GroupCount {
+    group: String
+    subjects: Int
+}
+
+type FundAmountRangeCount {
+  funded_amount_1: Int
+  funded_amount_2: Int
+  funded_amount_3: Int
+  funded_amount_4: Int
+  funded_amount_5: Int
+}
+
+type ProgramInfo {
+    program_id: String
+    program_name: String
+    program_description: String
+    program_website: String
+    num_projects: Int
+    num_publications: Int
+}
+
+type ProjectInfo {
+    project_id: String
+    application_id: String
+    fiscal_year: String
+    project_title: String
+    project_type: String
+    abstract_text: String
+    keywords: String
+    org_name: String
+    org_city: String
+    org_state: String
+    org_country: String
+    principal_investigators: String
+    lead_doc: String
+    program_officers: String
+    award_amount: String
+    nci_funded_amount: String
+    award_notice_date: String
+    project_start_date: String
+    project_end_date: String
+    full_foa: String
+} 
+
+type PublicationInfo {
+    publication_id: String
+    pmc_id: String
+    year: String
+    journal: String
+    title: String
+    authors: String
+    publish_date: String
+    citation_count: String
+    relative_citation_ratio: String
+    nih_percentile: String
+    doi: String
+}
+
+type GEOInfo {
+    accession: String
+    title: String
+    status: String
+    submission_date: String
+    last_update_date: String
+}
+
+type SRAInfo {
+    accession: String
+    study_title: String
+    bioproject_accession: String
+    registration_date: String
+}
+
+type DBGapInfo {
+    accession: String
+    title: String
+    release_date: String
+}
+
+type ClinicalTrialInfo {
+    clinical_trial_id: String
+    title: String
+    last_update_posted: String
+    recruitment_status: String
+}
+
+type PatentInfo {
+    patent_id: String
+    fulfilled_date: Date
+}
+
+type ProgramDetail {
+    program_id: String
+    program_name: String
+    program_description: String
+    program_website: String
+    num_publications: Int
+    num_projects: Int
+    num_geos: Int
+    num_sras: Int
+    num_clinical_trials: Int
+    projects: [ProjectInfo]
+}
+
+type ProjectDetail {
+    project_id: String
+    application_id: String
+    fiscal_year: String
+    project_title: String
+    project_type: String
+    abstract_text: String
+    keywords: String
+    org_name: String
+    org_city: String
+    org_state: String
+    org_country: String
+    principal_investigators: String
+    lead_doc: String
+    program_officers: String
+    award_amount: String
+    nci_funded_amount: String
+    award_notice_date: String
+    project_start_date: String
+    project_end_date: String
+    full_foa: String
+    publications: [PublicationInfo]
+    geos: [GEOInfo]
+    sras: [SRAInfo]
+    dbgaps: [DBGapInfo]
+    clinical_trials: [ClinicalTrialInfo]
+    patents: [PatentInfo]
+}
+
+type ProjectOverview {
+    program: String
+    project_id: String
+    application_id: String
+    fiscal_year: Date
+    project_title: String
+    project_type: String
+    abstract_text: String
+    keywords: String
+    org_name: String
+    org_city: String
+    org_state: String
+    org_country: String
+    principal_investigators: String
+    lead_doc: String
+    program_officers: String
+    award_amount: Int
+    nci_funded_amount: Int
+    award_notice_date: Date
+    project_start_date: Date
+    project_end_date: Date
+    full_foa: String
+}
+
+type PublicationOverview {
+    queried_project_ids: String
+    publication_id: String
+    pmc_id: String
+    year: Date
+    journal: String
+    title: String
+    authors: String
+    publish_date: Date
+    citation_count: Int
+    relative_citation_ratio: String
+    nih_percentile: Float
+    doi: String
+}
+
+type GEOOverview {
+    accession: String
+    title: String
+    status: String
+    submission_date: Date
+    last_update_date: Date
+    queried_project_ids: String
+}
+
+type SRAOverview {
+    accession: String
+    study_title: String
+    bioproject_accession: String
+    registration_date: Date
+    queried_project_ids: String
+}
+
+type DBGAPOverview {
+    accession: String
+    title: String
+    release_date: Date
+    queried_project_ids: String
+}
+
+type DatasetOverview {
+    type: String
+    accession: String
+    title: String
+    release_date: Date
+    registration_date: Date
+    bioproject_accession: String
+    status: String
+    submission_date: Date
+    last_update_date: Date
+    queried_project_ids: String
+}
+
+type ClinicalTrialOverview {
+    clinical_trial_id: String
+    title: String
+    last_update_posted: Date
+    recruitment_status: String
+    queried_project_ids: String
+}
+
+type PatentOverview {
+    patent_id: String
+    fulfilled_date: Date
+    queried_project_ids: String
+}
+
+type SearchResult {
+    projectIds: [String]
+    publicationIds: [String]
+    accessions: [String]
+    clinicalTrialIds: [String]
+    patentIds: [String]
+    numberOfPrograms: Int
+    numberOfProjects: Int
+    numberOfPublications: Int
+    numberOfAccessions: Int
+    numberOfClinicalTrials: Int
+    numberOfPatents: Int
+    firstPage: [ProjectOverview]
+}
+
+schema {
+    query: QueryType
+}
+
+type QueryType {
+    schemaVersion: String @cypher(statement: "RETURN '1.1.0'")
+
+    "Simple counts"
+    numberOfPrograms: Int @cypher(statement: "MATCH (n:program) return count(n)")
+    numberOfProjects: Int @cypher(statement: "MATCH (n:project) return count(n)")
+    numberOfPublications: Int @cypher(statement: "MATCH (n:publication) return count(n)")
+    numberOfGEOs: Int @cypher(statement: "MATCH (n:geo) return count(n)")
+    numberOfSRAs: Int @cypher(statement: "MATCH (n:sra) return count(n)")
+    numberOfDBGaps: Int @cypher(statement: "MATCH (n:dbgap) return count(n)")
+    numberOfClinicalTrials: Int @cypher(statement: "MATCH (n:clinical_trial) return count(n)")
+
+    programInfo: [ProgramInfo] @cypher(statement: """
+        MATCH (p:program)
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(pub:publication)
+        RETURN {
+            program_id: p.program_id,
+            program_name: p.program_name,
+            program_website: p.program_website,
+            num_projects: COUNT(DISTINCT pr),
+            num_publications: COUNT(DISTINCT pub)
+        }
+    """, passThrough: true)
+
+    programPublicationCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(pub:publication)
+        RETURN count(DISTINCT pub)
+    """, passThrough: true)
+
+    programGEOCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(g:geo)
+        RETURN count(DISTINCT g)
+    """, passThrough: true)
+
+    programSRACount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(s:sra)
+        RETURN count(DISTINCT s)
+    """, passThrough: true)
+    
+    programDBGapCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(d:dbgap)
+        RETURN count(DISTINCT d)
+    """, passThrough: true)
+
+    programDatasetCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(:project)<--(:publication)<--(ds)
+        WHERE ds:geo OR ds:sra OR ds:dbgap
+        RETURN COUNT(DISTINCT ds)
+    """, passThrough: true)
+
+    programClinicalTrialCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(c:clinical_trial)
+        RETURN COUNT(DISTINCT c)
+    """, passThrough: true)
+
+    programPatentCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(:project)<--(pat)
+        WHERE pat:granted_patent OR pat:patent_application
+        RETURN COUNT(DISTINCT pat)
+    """, passThrough: true)
+
+    "Group counts"
+    projectCountInProgramByDOC(program_id: String): [GroupCount] @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        MATCH (p)<--(pr:project)
+        WITH DISTINCT pr
+        RETURN { group: pr.lead_doc,
+                 subjects: COUNT(DISTINCT pr.project_id)}
+    """, passThrough: true)
+
+    projectCountInProgramByFundedAmount(program_id: String): [FundAmountRangeCount] @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        MATCH (p)<--(pr:project)
+        WITH DISTINCT pr
+        RETURN {
+          funded_amount_1: SUM(CASE WHEN toInteger(pr.nci_funded_amount) < 500000 THEN 1 ELSE 0 END),
+          funded_amount_2: SUM(CASE WHEN 500000 <= toInteger(pr.nci_funded_amount) < 1000000 THEN 1 ELSE 0 END),
+          funded_amount_3: SUM(CASE WHEN 1000000 <= toInteger(pr.nci_funded_amount) < 3000000 THEN 1 ELSE 0 END),
+          funded_amount_4: SUM(CASE WHEN 3000000 <= toInteger(pr.nci_funded_amount) < 10000000 THEN 1 ELSE 0 END),
+          funded_amount_5: SUM(CASE WHEN 10000000 <= toInteger(pr.nci_funded_amount) THEN 1 ELSE 0 END)
+        }
+    """, passThrough: true)
+
+    projectCountByProgram(project_ids: [String] = []): [GroupCount] @cypher(statement: """
+        MATCH (p:program)
+        OPTIONAL MATCH (p)<--(pr:project)
+        WITH DISTINCT p, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        RETURN { group: p.program_id,
+                 subjects: count(pr.project_id) }
+    """, passThrough: true)
+    projectCountByDOC(project_ids: [String] = []): [GroupCount] @cypher(statement: """
+        MATCH (pr:project)
+        WITH DISTINCT pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        RETURN { group: pr.lead_doc,
+                 subjects: COUNT(DISTINCT pr.project_id)}
+    """, passThrough: true)
+
+    projectCountByFiscalYear(project_ids: [String] = []): [GroupCount] @cypher(statement: """
+        MATCH (pr:project)
+        WITH DISTINCT pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        RETURN { group: pr.fiscal_year,
+                 subjects: COUNT(DISTINCT pr.project_id)}
+    """, passThrough: true)
+
+    projectCountByAwardAmount(project_ids: [String] = []): [GroupCount] @cypher(statement: """
+        MATCH (pr:project)
+        WITH DISTINCT pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        RETURN { group: pr.award_amount_category,
+                 subjects: COUNT(DISTINCT pr.project_id)}
+    """, passThrough: true)
+
+    publicationCountByYear(project_ids: [String] = []): [GroupCount] @cypher(statement: """
+        MATCH (pr:project)<--(pub:publication)
+        WITH DISTINCT pub, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        RETURN { group: pub.year,
+                 subjects: COUNT(DISTINCT pub.publication_id)}
+    """, passThrough: true)
+
+    publicationCountByRCR(project_ids: [String] = []): [GroupCount] @cypher(statement: """
+        MATCH (pr:project)<--(pub:publication)
+        WITH DISTINCT pub, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        RETURN { group: pub.rcr_range,
+                 subjects: COUNT(DISTINCT pub.publication_id)}
+    """, passThrough: true)
+
+    publicationCountByCitation(project_ids: [String] = []): [GroupCount] @cypher(statement: """
+        MATCH (pr:project)<--(pub:publication)
+        WITH DISTINCT pub, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        RETURN { group: pub.citation_count_category,
+                 subjects: COUNT(DISTINCT pub.publication_id)}
+    """, passThrough: true)
+
+    numberOfPublicationsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        OPTIONAL MATCH (pr)<--(pub:publication)
+        WITH pub
+        return COUNT(DISTINCT pub.publication_id)
+    """, passThrough: true)
+
+    numberOfGEOsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(g:geo)
+        WITH g, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        return COUNT(DISTINCT g.accession)
+    """, passThrough: true)
+
+    numberOfSRAsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(s:sra)
+        WITH s, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        return  COUNT(DISTINCT s.accession)
+    """, passThrough: true)
+
+    numberOfDBGapsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(d:dbgap)
+        WITH d, pr
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        return  COUNT(DISTINCT d.accession)
+    """, passThrough: true)
+
+    numberOfDatasetsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        OPTIONAL MATCH (pr)<--(:publication)<--(dt)
+        WITH dt
+            WHERE (dt:geo OR dt:sra OR dt:dbgap)
+        RETURN COUNT(DISTINCT dt.accession)
+    """, passThrough: true)
+
+    numberOfPatentsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        OPTIONAL MATCH (pr)<--(p)
+        WITH p
+            WHERE (p:patent_application OR p:granted_patent)
+        return  COUNT(DISTINCT p.patent_id)
+    """, passThrough: true)
+
+    numberOfClinicalTrialsByProjects(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        OPTIONAL MATCH (pr)<--(cta:clinical_trial)
+        OPTIONAL MATCH (pr)<--(:publication)<--(ctb:clinical_trial)
+        WITH COLLECT(cta) + COLLECT(ctb) AS cts
+        UNWIND cts AS ct
+        RETURN COUNT(DISTINCT ct.clinical_trial_id)
+    """, passThrough: true)
+
+    projectOverViewPaged(project_ids: [String] = [""], order_by: String = ""): [ProjectOverview] @cypher(statement: """
+        MATCH (pr:project)-->(pg:program)
+          WHERE ($project_ids IS NULL OR $project_ids = [""] OR pr.project_id IN $project_ids)
+        WITH DISTINCT pr, pg
+        RETURN {
+            program: pg.program_id,
+            project_id: pr.project_id,
+            application_id: pr.application_id,
+            fiscal_year: pr.fiscal_year,
+            project_title: pr.project_title,
+            project_type: pr.project_type,
+            abstract_text: pr.abstract_text,
+            keywords: pr.keywords,
+            org_name: pr.org_name,
+            org_city: pr.org_city,
+            org_state: pr.org_state,
+            org_country: pr.org_country,
+            principal_investigators: pr.principal_investigators,
+            lead_doc: pr.lead_doc,
+            program_officers: pr.program_officers,
+            award_amount: pr.award_amount,
+            nci_funded_amount: pr.nci_funded_amount,
+            award_notice_date: pr.award_notice_date,
+            project_start_date: pr.project_start_date,
+            project_end_date: pr.project_end_date,
+            full_foa: pr.full_foa
+        }
+        ORDER BY CASE $order_by
+            WHEN 'program' THEN pg.program_id
+            WHEN 'project_id' THEN pr.project_id
+            WHEN 'application_id' THEN pr.application_id
+            WHEN 'fiscal_year' THEN pr.fiscal_year
+            WHEN 'project_title' THEN pr.project_title
+            WHEN 'project_type' THEN pr.project_type
+            WHEN 'abstract_text' THEN pr.abstract_text
+            WHEN 'keywords' THEN pr.keywords
+            WHEN 'org_name' THEN pr.org_name
+            WHEN 'org_city' THEN pr.org_city
+            WHEN 'org_state' THEN pr.org_state
+            WHEN 'org_country' THEN pr.org_country
+            WHEN 'principal_investigators' THEN pr.principal_investigators
+            WHEN 'lead_doc' THEN pr.lead_doc
+            WHEN 'program_officers' THEN pr.program_officers
+            WHEN 'award_amount' THEN pr.award_amount
+            WHEN 'nci_funded_amount' THEN pr.nci_funded_amount
+            WHEN 'award_notice_date' THEN pr.award_notice_date
+            WHEN 'project_start_date' THEN pr.project_start_date
+            WHEN 'project_end_date' THEN pr.project_end_date
+            WHEN 'full_foa' THEN pr.full_foa
+            ELSE pr.project_id END
+    """, passThrough: true)
+
+    projectOverViewPagedDesc(project_ids: [String] = [""], order_by: String = ""): [ProjectOverview] @cypher(statement: """
+        MATCH (pr:project)-->(pg:program)
+          WHERE ($project_ids IS NULL OR $project_ids = [""] OR pr.project_id IN $project_ids)
+        WITH DISTINCT pr, pg
+        RETURN {
+            program: pg.program_id,
+            project_id: pr.project_id,
+            application_id: pr.application_id,
+            fiscal_year: pr.fiscal_year,
+            project_title: pr.project_title,
+            project_type: pr.project_type,
+            abstract_text: pr.abstract_text,
+            keywords: pr.keywords,
+            org_name: pr.org_name,
+            org_city: pr.org_city,
+            org_state: pr.org_state,
+            org_country: pr.org_country,
+            principal_investigators: pr.principal_investigators,
+            lead_doc: pr.lead_doc,
+            program_officers: pr.program_officers,
+            award_amount: pr.award_amount,
+            nci_funded_amount: pr.nci_funded_amount,
+            award_notice_date: pr.award_notice_date,
+            project_start_date: pr.project_start_date,
+            project_end_date: pr.project_end_date,
+            full_foa: pr.full_foa
+        }
+        ORDER BY CASE $order_by
+            WHEN 'program' THEN pg.program_id
+            WHEN 'project_id' THEN pr.project_id
+            WHEN 'application_id' THEN pr.application_id
+            WHEN 'fiscal_year' THEN pr.fiscal_year
+            WHEN 'project_title' THEN pr.project_title
+            WHEN 'project_type' THEN pr.project_type
+            WHEN 'abstract_text' THEN pr.abstract_text
+            WHEN 'keywords' THEN pr.keywords
+            WHEN 'org_name' THEN pr.org_name
+            WHEN 'org_city' THEN pr.org_city
+            WHEN 'org_state' THEN pr.org_state
+            WHEN 'org_country' THEN pr.org_country
+            WHEN 'principal_investigators' THEN pr.principal_investigators
+            WHEN 'lead_doc' THEN pr.lead_doc
+            WHEN 'program_officers' THEN pr.program_officers
+            WHEN 'award_amount' THEN pr.award_amount
+            WHEN 'nci_funded_amount' THEN pr.nci_funded_amount
+            WHEN 'award_notice_date' THEN pr.award_notice_date
+            WHEN 'project_start_date' THEN pr.project_start_date
+            WHEN 'project_end_date' THEN pr.project_end_date
+            WHEN 'full_foa' THEN pr.full_foa
+            ELSE pr.project_id END DESC
+    """, passThrough: true)
+
+    publicationOverViewPaged(publication_ids: [String] = [""], order_by: String = ""): [PublicationOverview] @cypher(statement: """
+        MATCH (pr:project)<--(pub:publication)
+          WHERE ($publication_ids IS NULL OR $publication_ids = [""] OR pub.publication_id IN $publication_ids)
+        WITH pub, pr
+        ORDER BY CASE $order_by
+            WHEN 'queried_project_ids' THEN pr.queried_project_id
+            WHEN 'publication_id' THEN pub.publication_id
+            WHEN 'pmc_id' THEN pub.pmc_id
+            WHEN 'year' THEN pub.year
+            WHEN 'journal' THEN pub.journal
+            WHEN 'title' THEN pub.title
+            WHEN 'authors' THEN pub.authors
+            WHEN 'publish_date' THEN pub.publish_date
+            WHEN 'citation_count' THEN pub.citation_count
+            WHEN 'relative_citation_ratio' THEN pub.relative_citation_ratio
+            WHEN 'nih_percentile' THEN pub.nih_percentile
+            WHEN 'doi' THEN pub.doi
+            ELSE pub.publication_id END        
+        RETURN DISTINCT {
+            queried_project_ids: pr.queried_project_id,
+            publication_id: pub.publication_id,
+            pmc_id: pub.pmc_id,
+            year: pub.year,
+            journal: pub.journal,
+            title: pub.title,
+            authors: pub.authors,
+            publish_date: pub.publish_date,
+            citation_count: pub.citation_count,
+            relative_citation_ratio: pub.relative_citation_ratio,
+            nih_percentile: pub.nih_percentile,
+            doi: pub.doi
+        }
+    """, passThrough: true)
+
+    publicationOverViewPagedDesc(publication_ids: [String] = [""], order_by: String = ""): [PublicationOverview] @cypher(statement: """
+        MATCH (pr:project)<--(pub:publication)
+          WHERE ($publication_ids IS NULL OR $publication_ids = [""] OR pub.publication_id IN $publication_ids)
+        WITH pub, pr
+        ORDER BY CASE $order_by
+            WHEN 'queried_project_ids' THEN pr.queried_project_id
+            WHEN 'publication_id' THEN pub.publication_id
+            WHEN 'pmc_id' THEN pub.pmc_id
+            WHEN 'year' THEN pub.year
+            WHEN 'journal' THEN pub.journal
+            WHEN 'title' THEN pub.title
+            WHEN 'authors' THEN pub.authors
+            WHEN 'publish_date' THEN pub.publish_date
+            WHEN 'citation_count' THEN pub.citation_count
+            WHEN 'relative_citation_ratio' THEN pub.relative_citation_ratio
+            WHEN 'nih_percentile' THEN pub.nih_percentile
+            WHEN 'doi' THEN pub.doi
+            ELSE pub.publication_id END DESC
+        RETURN DISTINCT {
+            queried_project_ids: pr.queried_project_id,
+            publication_id: pub.publication_id,
+            pmc_id: pub.pmc_id,
+            year: pub.year,
+            journal: pub.journal,
+            title: pub.title,
+            authors: pub.authors,
+            publish_date: pub.publish_date,
+            citation_count: pub.citation_count,
+            relative_citation_ratio: pub.relative_citation_ratio,
+            nih_percentile: pub.nih_percentile,
+            doi: pub.doi
+        }
+    """, passThrough: true)
+
+    geoOverViewPaged(project_ids: [String] = [""], order_by: String = ""): [GEOOverview] @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(g:geo)
+          WHERE ($project_ids IS NULL OR $project_ids = [""] OR pr.project_id IN $project_ids)
+        WITH DISTINCT g, pr
+        RETURN {
+            accession: g.accession,
+            title: g.title,
+            status: g.status,
+            submission_date: g.submission_date,
+            last_update_date: g.last_update_date,
+            queried_project_ids: pr.queried_project_id
+        }
+        ORDER BY CASE $order_by
+            WHEN 'accession' THEN g.accession
+            WHEN 'title' THEN g.title
+            WHEN 'status' THEN g.status
+            WHEN 'submission_date' THEN g.submission_date
+            WHEN 'last_update_date' THEN g.last_update_date
+            ELSE g.accession END
+    """, passThrough: true)
+
+    geoOverViewPagedDesc(project_ids: [String] = [""], order_by: String = ""): [GEOOverview] @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(g:geo)
+          WHERE ($project_ids IS NULL OR $project_ids = [""] OR pr.project_id IN $project_ids)
+        WITH DISTINCT g, pr
+        RETURN {
+            accession: g.accession,
+            title: g.title,
+            status: g.status,
+            submission_date: g.submission_date,
+            last_update_date: g.last_update_date,
+            queried_project_ids: pr.queried_project_id
+        }
+        ORDER BY CASE $order_by
+            WHEN 'accession' THEN g.accession
+            WHEN 'title' THEN g.title
+            WHEN 'status' THEN g.status
+            WHEN 'submission_date' THEN g.submission_date
+            WHEN 'last_update_date' THEN g.last_update_date
+            ELSE g.accession END DESC
+    """, passThrough: true)
+
+    sraOverViewPaged(project_ids: [String] = [""], order_by: String = ""): [SRAOverview] @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(s:sra)
+          WHERE ($project_ids IS NULL OR $project_ids = [""] OR pr.project_id IN $project_ids)
+        WITH DISTINCT s, pr
+        RETURN {
+            accession: s.accession,
+            title: s.study_title,
+            bioproject_accession: s.bioproject_accession,
+            registration_date: s.registration_date,
+            queried_project_ids: pr.queried_project_id
+        }
+        ORDER BY CASE $order_by
+            WHEN 'accession' THEN s.accession
+            WHEN 'title' THEN s.study_title
+            WHEN 'bioproject_accession' THEN s.bioproject_accession
+            WHEN 'registration_date' THEN s.registration_date
+            ELSE s.accession END
+    """, passThrough: true)
+
+    sraOverViewPagedDesc(project_ids: [String] = [""], order_by: String = ""): [SRAOverview] @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(s:sra)
+          WHERE ($project_ids IS NULL OR $project_ids = [""] OR pr.project_id IN $project_ids)
+        WITH DISTINCT s, pr
+        RETURN {
+            accession: s.accession,
+            title: s.study_title,
+            bioproject_accession: s.bioproject_accession,
+            registration_date: s.registration_date,
+            queried_project_ids: pr.queried_project_id
+        }
+        ORDER BY CASE $order_by
+            WHEN 'accession' THEN s.accession
+            WHEN 'title' THEN s.study_title
+            WHEN 'bioproject_accession' THEN s.bioproject_accession
+            WHEN 'registration_date' THEN s.registration_date
+            ELSE s.accession END DESC
+    """, passThrough: true)
+
+    dbGapOverViewPaged(project_ids: [String] = [""], order_by: String = ""): [DBGAPOverview] @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(d:dbgap)
+          WHERE ($project_ids IS NULL OR $project_ids = [""] OR pr.project_id IN $project_ids)
+        WITH DISTINCT d, pr
+        RETURN {
+            accession: d.accession,
+            title: d.title,
+            release_date: d.release_date,
+            queried_project_ids: pr.queried_project_id
+        }
+        ORDER BY CASE $order_by
+            WHEN 'accession' THEN d.accession
+            WHEN 'title' THEN d.study_title
+            WHEN 'release_date' THEN d.release_date
+            ELSE d.accession END
+    """, passThrough: true)
+
+    dbGapOverViewPagedDesc(project_ids: [String] = [""], order_by: String = ""): [DBGAPOverview] @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(d:dbgap)
+          WHERE ($project_ids IS NULL OR $project_ids = [""] OR pr.project_id IN $project_ids)
+        WITH DISTINCT d, pr
+         RETURN {
+            accession: d.accession,
+            title: d.title,
+            release_date: d.release_date,
+            queried_project_ids: pr.queried_project_id
+        }
+        ORDER BY CASE $order_by
+            WHEN 'accession' THEN d.accession
+            WHEN 'title' THEN d.study_title
+            WHEN 'release_date' THEN d.release_date
+            ELSE d.accession END DESC
+    """, passThrough: true)
+
+    datasetOverViewPaged(accessions: [String] = [""], order_by: String = ""): [DatasetOverview] @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(dt)
+            WHERE ($accessions IS NULL OR $accessions = [""] OR dt.accession IN $accessions)
+              AND (dt:geo OR dt:sra OR dt:dbgap)
+        WITH dt, pr
+        ORDER BY CASE $order_by
+            WHEN 'type' THEN LABELS(dt)
+            WHEN 'accession' THEN dt.accession
+            WHEN 'title' THEN dt.study_title
+            WHEN 'release_date' THEN dt.release_date
+            WHEN 'registration_date' THEN dt.registration_date
+            WHEN 'submission_date' THEN dt.submission_date
+            WHEN 'last_update_date' THEN dt.last_update_date
+            WHEN 'queried_project_ids' THEN pr.queried_project_id
+            ELSE pr.queried_project_id END
+        RETURN DISTINCT {
+            type: LABELS(dt),
+            accession: dt.accession,
+            title: dt.title,
+            release_date: dt.release_date,
+            registration_date: dt.registration_date,
+            bioproject_accession: dt.bioproject_accession,
+            status: dt.status,
+            submission_date: dt.submission_date,
+            last_update_date: dt.last_update_date,
+            queried_project_ids: pr.queried_project_id
+        }
+    """, passThrough: true)
+
+    datasetOverViewPagedDesc(accessions: [String] = [""], order_by: String = ""): [DatasetOverview] @cypher(statement: """
+        MATCH (pr:project)<--(:publication)<--(dt)
+            WHERE ($accessions IS NULL OR $accessions = [""] OR dt.accession IN $accessions)
+              AND (dt:geo OR dt:sra OR dt:dbgap)
+        WITH dt, pr
+        ORDER BY CASE $order_by
+            WHEN 'type' THEN LABELS(dt)
+            WHEN 'accession' THEN dt.accession
+            WHEN 'title' THEN dt.study_title
+            WHEN 'release_date' THEN dt.release_date
+            WHEN 'registration_date' THEN dt.registration_date
+            WHEN 'submission_date' THEN dt.submission_date
+            WHEN 'last_update_date' THEN dt.last_update_date
+            WHEN 'queried_project_ids' THEN pr.queried_project_id
+            ELSE pr.queried_project_id END DESC
+        RETURN DISTINCT {
+            type: LABELS(dt),
+            accession: dt.accession,
+            title: dt.title,
+            release_date: dt.release_date,
+            registration_date: dt.registration_date,
+            bioproject_accession: dt.bioproject_accession,
+            status: dt.status,
+            submission_date: dt.submission_date,
+            last_update_date: dt.last_update_date,
+            queried_project_ids: pr.queried_project_id
+        }
+    """, passThrough: true)
+
+    clinicalTrialOverViewPaged(clinical_trial_ids: [String] = [""], order_by: String = ""): [ClinicalTrialOverview] @cypher(statement: """
+        MATCH (p:project)<--(cta:clinical_trial)
+            WHERE ($clinical_trial_ids IS NULL OR $clinical_trial_ids = [""] OR cta.clinical_trial_id IN $clinical_trial_ids)
+        WITH p AS pr, cta AS ct
+        MATCH (p:project)<--(:publication)<--(cta:clinical_trial)
+            WHERE ($clinical_trial_ids IS NULL OR $clinical_trial_ids = [""] OR cta.clinical_trial_id IN $clinical_trial_ids)
+        WITH p AS pr, cta AS ct
+        WITH pr, ct
+        ORDER BY CASE $order_by
+            WHEN 'clinical_trial_id' THEN ct.clinical_trial_id
+            WHEN 'title' THEN ct.title
+            WHEN 'last_update_posted' THEN ct.last_update_posted
+            WHEN 'recruitment_status' THEN ct.recruitment_status
+            WHEN 'queried_project_ids' THEN pr.queried_project_id
+            ELSE ct.clinical_trial_id END
+        RETURN DISTINCT {
+            clinical_trial_id: ct.clinical_trial_id,
+            title: ct.title,
+            last_update_posted: ct.last_update_posted,
+            recruitment_status: ct.recruitment_status,
+            queried_project_ids: pr.queried_project_id
+        }
+    """, passThrough: true)
+
+    clinicalTrialOverViewPagedDesc(clinical_trial_ids: [String] = [""], order_by: String = ""): [ClinicalTrialOverview] @cypher(statement: """
+        MATCH (p:project)<--(cta:clinical_trial)
+            WHERE ($clinical_trial_ids IS NULL OR $clinical_trial_ids = [""] OR cta.clinical_trial_id IN $clinical_trial_ids)
+        WITH p AS pr, cta AS ct
+        MATCH (p:project)<--(:publication)<--(cta:clinical_trial)
+            WHERE ($clinical_trial_ids IS NULL OR $clinical_trial_ids = [""] OR cta.clinical_trial_id IN $clinical_trial_ids)
+        WITH p AS pr, cta AS ct
+        WITH pr, ct
+        ORDER BY CASE $order_by
+            WHEN 'clinical_trial_id' THEN ct.clinical_trial_id
+            WHEN 'title' THEN ct.title
+            WHEN 'last_update_posted' THEN ct.last_update_posted
+            WHEN 'recruitment_status' THEN ct.recruitment_status
+            WHEN 'queried_project_ids' THEN pr.queried_project_id
+            ELSE ct.clinical_trial_id END DESC
+        RETURN DISTINCT {
+            clinical_trial_id: ct.clinical_trial_id,
+            title: ct.title,
+            last_update_posted: ct.last_update_posted,
+            recruitment_status: ct.recruitment_status,
+            queried_project_ids: pr.queried_project_id
+        }
+    """, passThrough: true)
+
+    patentOverViewPaged(patent_ids: [String] = [""], order_by: String = ""): [PatentOverview] @cypher(statement: """
+        MATCH (pr:project)<--(p)
+          WHERE (p:granted_patent OR p:patent_application) AND
+                ($patent_ids IS NULL OR $patent_ids = [""] OR p.patent_id IN $patent_ids)
+        WITH p, pr
+        ORDER BY CASE $order_by
+            WHEN 'patent_id' THEN p.patent_id
+            WHEN 'fulfilled_date' THEN p.fulfilled_date
+            WHEN 'queried_project_ids' THEN pr.queried_project_id
+            ELSE p.patent_id END        
+        RETURN DISTINCT {
+            patent_id: p.patent_id,
+            fulfilled_date: p.fulfilled_date,
+            queried_project_ids: pr.queried_project_id
+        }
+    """, passThrough: true)
+
+    patentOverViewPagedDesc(patent_ids: [String] = [""], order_by: String = ""): [PatentOverview] @cypher(statement: """
+        MATCH (pr:project)<--(p)
+          WHERE (p:granted_patent OR p:patent_application) AND
+                ($patent_ids IS NULL OR $patent_ids = [""] OR p.patent_id IN $patent_ids)
+        WITH p, pr
+        ORDER BY CASE $order_by
+            WHEN 'patent_id' THEN p.patent_id
+            WHEN 'fulfilled_date' THEN p.fulfilled_date
+            WHEN 'queried_project_ids' THEN pr.queried_project_id
+            ELSE p.patent_id END DESC
+        RETURN DISTINCT {
+            patent_id: p.patent_id,
+            fulfilled_date: p.fulfilled_date,
+            queried_project_ids: pr.queried_project_id
+        }
+    """, passThrough: true)
+
+    "Facet search counts"
+    filterProjectCountByProgram(
+        programs: [String] = [],
+        docs: [String] = [],
+        fiscal_years: [String] = [],
+        award_amounts: [String] = []
+    ): [GroupCount] @cypher(statement: """
+        // Filtering subjects
+        MATCH (p:program)<--(pr:project)
+          WHERE (size($programs) = 0 OR p.program_id IN $programs)
+            AND (size($docs) = 0 OR pr.lead_doc IN $docs)
+            AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
+            AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
+        WITH DISTINCT p, pr
+        RETURN {group: p.program_id , subjects: count(DISTINCT pr)}
+    """, passThrough: true)
+
+    filterProjectCountByDOC(
+        programs: [String] = [],
+        docs: [String] = [],
+        fiscal_years: [String] = [],
+        award_amounts: [String] = []
+    ): [GroupCount] @cypher(statement: """
+        // Filtering subjects
+        MATCH (p:program)<--(pr:project)
+          WHERE (size($programs) = 0 OR p.program_id IN $programs)
+            AND (size($docs) = 0 OR pr.lead_doc IN $docs)
+            AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
+            AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
+        WITH DISTINCT p, pr
+        RETURN {group: pr.lead_doc , subjects: COUNT(DISTINCT pr.project_id)}
+    """, passThrough: true)
+
+    filterProjectCountByFiscalYear(
+        programs: [String] = [],
+        docs: [String] = [],
+        fiscal_years: [String] = [],
+        award_amounts: [String] = []
+    ): [GroupCount] @cypher(statement: """
+        // Filtering subjects
+        MATCH (p:program)<--(pr:project)
+          WHERE (size($programs) = 0 OR p.program_id IN $programs)
+            AND (size($docs) = 0 OR pr.lead_doc IN $docs)
+            AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
+            AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
+        WITH DISTINCT p, pr
+        RETURN {group: pr.fiscal_year , subjects: COUNT(DISTINCT pr.project_id)}
+    """, passThrough: true)
+
+    filterProjectCountByAwardAmount(
+        programs: [String] = [],
+        docs: [String] = [],
+        fiscal_years: [String] = [],
+        award_amounts: [String] = []
+    ): [GroupCount] @cypher(statement: """
+        // Filtering subjects
+        MATCH (p:program)<--(pr:project)
+          WHERE (size($programs) = 0 OR p.program_id IN $programs)
+            AND (size($docs) = 0 OR pr.lead_doc IN $docs)
+            AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
+            AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
+        WITH DISTINCT p, pr
+        RETURN {group: pr.award_amount_category , subjects: COUNT(DISTINCT pr.project_id)}
+    """, passThrough: true)
+
+    searchProjects (
+          programs: [String] = [],
+          docs: [String] = [],
+          fiscal_years: [String] = [],
+          award_amounts: [String] = [],
+          first: Int = 100
+    ): SearchResult @cypher(statement: """
+        // Filtering subjects
+        MATCH (p:program)<--(pr:project)
+          WHERE (size($programs) = 0 OR p.program_id IN $programs)
+            AND (size($docs) = 0 OR pr.lead_doc IN $docs)
+            AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
+            AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
+        WITH p, pr, COLLECT(pr) AS prs
+        OPTIONAL MATCH (pr)<--(pub:publication)
+        OPTIONAL MATCH (pr)<--(:publication)<--(dt)
+            WHERE dt:geo OR dt:sra OR dt:dbgap
+        OPTIONAL MATCH (ct:clinical_trial)
+            WHERE ALL(proj IN prs WHERE (ct)-->(:publication)-->(proj) OR (proj)<--(ct))
+        OPTIONAL MATCH (pr)<--(pat)
+            WHERE pat:granted_patent OR pat:patent_application
+        WITH p, pr, pub, dt, ct, pat
+        RETURN  {
+            projectIds: COLLECT(DISTINCT pr.project_id),
+            publicationIds: COLLECT(DISTINCT pub.publication_id),
+            accessions: COLLECT(DISTINCT dt.accession),
+            clinicalTrialIds: COLLECT(DISTINCT ct.clinical_trial_id),
+            patentIds: COLLECT(DISTINCT pat.patent_id),
+            numberOfPrograms: COUNT(DISTINCT p.program_id),
+            numberOfProjects: COUNT(DISTINCT pr.project_id),
+            numberOfPublications: COUNT(DISTINCT pub.publication_id),
+            numberOfAccessions: COUNT(DISTINCT dt.accession),
+            numberOfClinicalTrials: COUNT(DISTINCT ct.clinical_trial_id),
+            numberOfPatents: COUNT(DISTINCT pat.patent_id),
+            firstPage: []
+        }
+    """, passThrough:true)
+
+    programDetail(program_id: String): ProgramDetail @cypher(statement:  """
+        MATCH (p:program {program_id: $program_id})
+        MATCH (p)<--(pr:project)
+        WITH p, pr
+        RETURN {
+            program_id: p.program_id,
+            program_name: p.program_name,
+            program_description: p.program_description,
+            program_website: p.program_website,
+            num_publications: 1,
+            num_projects: COUNT(DISTINCT pr.project_id),
+            num_geos: 1,
+            num_sras: 1,
+            num_clinical_trials: 1,
+            projects: collect(DISTINCT pr {.*})
+        }
+    """, passThrough: true)
+
+    projectDetail(project_id: String): ProjectDetail @cypher(statement:  """
+        MATCH (pr:project {project_id: $project_id})
+        OPTIONAL MATCH (pr)<--(pub:publication)
+        OPTIONAL MATCH (pr)<--(:publication)<--(g:geo)
+        OPTIONAL MATCH (pr)<--(:publication)<--(s:sra)
+        OPTIONAL MATCH (pr)<--(:publication)<--(d:dbgap)
+        OPTIONAL MATCH (pr)<--(c:clinical_trial)
+        OPTIONAL MATCH (pr)<--(:publication)<--(c:clinical_trial)
+        OPTIONAL MATCH (pr)<--(gp:granted_patent)
+        OPTIONAL MATCH (pr)<--(pa:patent_application)
+        WITH pr, pub, g, s, d, c, COLLECT(gp {.*}) AS gps, COLLECT(pa {.*}) AS pas
+        WITH pr, pub, g, s, d, c, gps + pas AS pat
+        RETURN {
+            project_id: pr.project_id,
+            application_id: pr.application_id,
+            fiscal_year: pr.fiscal_year,
+            project_title: pr.project_title,
+            project_type: pr.project_type,
+            abstract_text: pr.abstract_text,
+            keywords: pr.keywords,
+            org_name: pr.org_name,
+            org_city: pr.org_city,
+            org_state: pr.org_state,
+            org_country: pr.org_country,
+            principal_investigators: pr.principal_investigators,
+            lead_doc: pr.lead_doc,
+            program_officers: pr.program_officers,
+            award_amount: pr.award_amount,
+            nci_funded_amount: pr.nci_funded_amount,
+            award_notice_date: pr.award_notice_date,
+            project_start_date: pr.project_start_date,
+            project_end_date: pr.project_end_date,
+            full_foa: pr.full_foa,
+            publications: COLLECT(DISTINCT pub {.*}),
+            geos: COLLECT(DISTINCT g {.*}),
+            sras: COLLECT(DISTINCT s {.*}),
+            dbgaps: COLLECT(DISTINCT d {.*}),
+            clinical_trials: COLLECT(DISTINCT c {.*}),
+            patents: pat
+        }
+    """, passThrough: true)
+
+}
