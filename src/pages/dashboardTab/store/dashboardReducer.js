@@ -306,6 +306,8 @@ const getQueryAndDefaultSort = (payload = tabIndex[0].title) => {
  * @param {Array} subjectIDsAfterFilter
  * @param {Array} sampleIDsAfterFilter
  * @param {Array} fileIDsAfterFilter
+ * @param {Array} clinicalTrialIDsAfterFilter
+ * @param {Array} patentIDsAfterFilter
  * @return {json}
  */
 
@@ -314,13 +316,15 @@ export function fetchDataForDashboardTab(
   subjectIDsAfterFilter = null,
   sampleIDsAfterFilter = null,
   fileIDsAfterFilter = null,
+  clinicalTrialIDsAfterFilter = null,
+  patentIDsAfterFilter = null,
 ) {
   const { QUERY, sortfield, sortDirection } = getQueryAndDefaultSort(payload);
   return client
     .query({
       query: QUERY,
       variables: {
-        project_ids: subjectIDsAfterFilter, publication_ids: sampleIDsAfterFilter, accessions: fileIDsAfterFilter, order_by: sortfield || '',
+        project_ids: subjectIDsAfterFilter, publication_ids: sampleIDsAfterFilter, accessions: fileIDsAfterFilter, clinical_trial_ids: clinicalTrialIDsAfterFilter, patent_ids: patentIDsAfterFilter, order_by: sortfield || '',
       },
     })
     .then((result) => store.dispatch({ type: 'UPDATE_CURRRENT_TAB_DATA', payload: { currentTab: payload, sortDirection, ..._.cloneDeep(result) } }))
@@ -361,6 +365,8 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
   const subjectIds = getState().filteredSubjectIds;
   const sampleIds = getState().filteredSampleIds;
   const fileIds = getState().filteredFileIds;
+  const clinicalTrialIds = getState().filteredClinicalTrialIds;
+  const patentIds = getState().filteredPatentIds;
   const SELECT_ALL_QUERY = getState().currentActiveTab === tabIndex[2].title
     ? GET_ALL_FILEIDS_FILESTAB_FOR_SELECT_ALL
     : getState().currentActiveTab === tabIndex[1].title
@@ -889,9 +895,14 @@ const reducers = {
       item.data, facetSearchData,
     );
     const checkboxData1 = setSelectedFilterValues(updatedCheckboxData1, item.allFilters);
-    fetchDataForDashboardTab(state.currentActiveTab,
-      item.data.searchProjects.projectIds, item.data.searchProjects.publicationIds,
-      item.data.searchProjects.accessions);
+    fetchDataForDashboardTab(
+      state.currentActiveTab,
+      item.data.searchProjects.projectIds,
+      item.data.searchProjects.publicationIds,
+      item.data.searchProjects.accessions,
+      item.data.searchProjects.clinical_trial_ids,
+      item.data.searchProjects.patent_ids
+    );
     return {
       ...state,
       setSideBarLoading: false,
@@ -899,6 +910,8 @@ const reducers = {
       filteredSubjectIds: item.data.searchProjects.projectIds,
       filteredSampleIds: item.data.searchProjects.publicationIds,
       filteredFileIds: item.data.searchProjects.accessions,
+      filteredClinicalTrialIds: item.data.searchProjects.clinical_trial_ids,
+      filteredPatentIds: item.data.searchProjects.patent_ids,
       checkbox: {
         data: checkboxData1,
       },
@@ -980,6 +993,8 @@ const reducers = {
         filteredSubjectIds: null,
         filteredSampleIds: null,
         filteredFileIds: null,
+        filteredClinicalTrialIds: null,
+        filteredPatentIds: null,
         checkboxForAll: {
           data: checkboxData,
         },
@@ -1027,6 +1042,8 @@ const reducers = {
         filteredSubjectIds: null,
         filteredSampleIds: null,
         filteredFileIds: null,
+        filteredClinicalTrialIds: null,
+        filteredPatentIds: null,
         subjectOverView: {
           data: item.data.projectOverViewPaged,
         },
