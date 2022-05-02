@@ -899,13 +899,11 @@ type QueryType {
     """, passThrough: true)
 
     clinicalTrialOverViewPaged(clinical_trial_ids: [String] = [""], order_by: String = ""): [ClinicalTrialOverview] @cypher(statement: """
-        MATCH (p:project)<--(cta:clinical_trial)
-            WHERE ($clinical_trial_ids IS NULL OR $clinical_trial_ids = [""] OR cta.clinical_trial_id IN $clinical_trial_ids)
-        WITH p AS pr, cta AS ct
-        MATCH (p:project)<--(:publication)<--(cta:clinical_trial)
-            WHERE ($clinical_trial_ids IS NULL OR $clinical_trial_ids = [""] OR cta.clinical_trial_id IN $clinical_trial_ids)
-        WITH p AS pr, cta AS ct
-        WITH pr, ct
+        MATCH (ct:clinical_trial)
+            WHERE ($clinical_trial_ids IS NULL OR $clinical_trial_ids = [""] OR ct.clinical_trial_id IN $clinical_trial_ids)
+        OPTIONAL MATCH (pr:project)
+            WHERE (pr)<--(:publication)<--(ct) OR (pr)<--(ct)
+        WITH ct, pr
         ORDER BY CASE $order_by
             WHEN 'clinical_trial_id' THEN ct.clinical_trial_id
             WHEN 'title' THEN ct.title
@@ -923,13 +921,11 @@ type QueryType {
     """, passThrough: true)
 
     clinicalTrialOverViewPagedDesc(clinical_trial_ids: [String] = [""], order_by: String = ""): [ClinicalTrialOverview] @cypher(statement: """
-        MATCH (p:project)<--(cta:clinical_trial)
-            WHERE ($clinical_trial_ids IS NULL OR $clinical_trial_ids = [""] OR cta.clinical_trial_id IN $clinical_trial_ids)
-        WITH p AS pr, cta AS ct
-        MATCH (p:project)<--(:publication)<--(cta:clinical_trial)
-            WHERE ($clinical_trial_ids IS NULL OR $clinical_trial_ids = [""] OR cta.clinical_trial_id IN $clinical_trial_ids)
-        WITH p AS pr, cta AS ct
-        WITH pr, ct
+        MATCH (ct:clinical_trial)
+            WHERE ($clinical_trial_ids IS NULL OR $clinical_trial_ids = [""] OR ct.clinical_trial_id IN $clinical_trial_ids)
+        OPTIONAL MATCH (pr:project)
+            WHERE (pr)<--(:publication)<--(ct) OR (pr)<--(ct)
+        WITH ct, pr
         ORDER BY CASE $order_by
             WHEN 'clinical_trial_id' THEN ct.clinical_trial_id
             WHEN 'title' THEN ct.title
@@ -947,11 +943,10 @@ type QueryType {
     """, passThrough: true)
 
     patentOverViewPaged(patent_ids: [String] = [""], order_by: String = ""): [PatentOverview] @cypher(statement: """
-        MATCH (p)
+        MATCH (pr:project)<--(p)
           WHERE (p:granted_patent OR p:patent_application) AND
                 ($patent_ids IS NULL OR $patent_ids = [""] OR p.patent_id IN $patent_ids)
-        OPTIONAL MATCH (pr:project)<--(p)
-        WITH DISTINCT pr, p
+        WITH p, pr
         ORDER BY CASE $order_by
             WHEN 'patent_id' THEN p.patent_id
             WHEN 'fulfilled_date' THEN p.fulfilled_date
@@ -1059,12 +1054,11 @@ type QueryType {
             AND (size($docs) = 0 OR pr.lead_doc IN $docs)
             AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
             AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
-        WITH p, pr, COLLECT(pr) AS prs
         OPTIONAL MATCH (pr)<--(pub:publication)
         OPTIONAL MATCH (pr)<--(:publication)<--(dt)
             WHERE dt:geo OR dt:sra OR dt:dbgap
         OPTIONAL MATCH (ct:clinical_trial)
-            WHERE ALL(proj IN prs WHERE (ct)-->(:publication)-->(proj) OR (proj)<--(ct))
+            WHERE EXISTS((ct)-->(:publication)-->(pr)) OR EXISTS((pr)<--(ct))
         OPTIONAL MATCH (pr)<--(pat)
             WHERE pat:granted_patent OR pat:patent_application
         WITH p, pr, pub, dt, ct, pat
