@@ -4,7 +4,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { getOptions, getColumns } from 'bento-components';
+import { getOptions, getColumns, cn } from 'bento-components';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
 import GridWithFooter from '../../components/GridWithFooter/GridView';
@@ -23,9 +23,12 @@ import {
   table6,
   externalLinkIcon,
   tooltipContent,
+  tab,
 } from '../../bento/caseDetailData';
 import Snackbar from '../../components/Snackbar';
 import { fetchDataForDashboardDataTable } from '../dashboard/dashboardState';
+import Tab from '../../components/Tab/Tab';
+import TabPanel from '../../components/Tab/TabPanel';
 
 // Main case detail component
 const CaseDetail = ({ data, classes }) => {
@@ -39,6 +42,10 @@ const CaseDetail = ({ data, classes }) => {
   function closeSnack() {
     setsnackbarState({ open: false });
   }
+  const [currentTab, setCurrentTab] = React.useState(0);
+  const handleTabChange = (event, value) => {
+    setCurrentTab(value);
+  };
   const dispatch = useDispatch();
 
   // make sure dashboard data has been loaded first for stats bar to work
@@ -138,204 +145,230 @@ const CaseDetail = ({ data, classes }) => {
           </Grid>
         </div>
       </div>
-      {table1.display
-        ? (
-          <div id="case_detail_table_associated_samples" className={classes.tableContainer}>
-            <div className={classes.tableDiv}>
-              <Grid item xs={12}>
-                <Grid container spacing={4}>
-                  <Grid item xs={12}>
-                    <GridWithFooter
-                      data={data[table1.subjectDetailField]}
-                      title={(
-                        <div className={classes.tableTitle}>
-                          <span className={classes.tableHeader}>{table1.tableTitle}</span>
-                        </div>
-                      )}
-                      columns={getColumns(table1, classes, data, externalLinkIcon)}
-                      options={getOptions(table1, classes)}
-                      customOnRowsSelect={table1.customOnRowsSelect}
-                      openSnack={openSnack}
-                      closeSnack={closeSnack}
-                      disableRowSelection={table1.disableRowSelection}
-                      buttonText={table1.buttonText}
-                      saveButtonDefaultStyle={table1.saveButtonDefaultStyle}
-                      ActiveSaveButtonDefaultStyle={table1.ActiveSaveButtonDefaultStyle}
-                      DeactiveSaveButtonDefaultStyle={table1.DeactiveSaveButtonDefaultStyle}
-                      tooltipMessage={table1.tooltipMessage}
-                      tooltipContent={tooltipContent}
-                    />
+      <div className={classes.container}>
+        <div className={classes.detailContainer}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Tab
+                styleClasses={classes}
+                tabItems={tab.items}
+                currentTab={currentTab}
+                handleTabChange={handleTabChange}
+              />
+            </Grid>
+          </Grid>
+        </div>
+      </div>
+      <TabPanel value={currentTab} index={0}>
+        {table1.display
+          ? (
+            <div id="case_detail_table_associated_samples" className={classes.tableContainer}>
+              <div className={classes.tableDiv}>
+                <Grid item xs={12}>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                      <GridWithFooter
+                        data={data[table1.subjectDetailField]}
+                        title={(
+                          <div className={classes.tableTitle}>
+                            <span className={classes.tableHeader}>{table1.tableTitle}</span>
+                          </div>
+                        )}
+                        columns={getColumns(table1, classes, data, externalLinkIcon)}
+                        options={getOptions(table1, classes)}
+                        customOnRowsSelect={table1.customOnRowsSelect}
+                        openSnack={openSnack}
+                        closeSnack={closeSnack}
+                        disableRowSelection={table1.disableRowSelection}
+                        buttonText={table1.buttonText}
+                        saveButtonDefaultStyle={table1.saveButtonDefaultStyle}
+                        ActiveSaveButtonDefaultStyle={table1.ActiveSaveButtonDefaultStyle}
+                        DeactiveSaveButtonDefaultStyle={table1.DeactiveSaveButtonDefaultStyle}
+                        tooltipMessage={table1.tooltipMessage}
+                        tooltipContent={tooltipContent}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
+              </div>
             </div>
-          </div>
-        ) : ''}
-      {table2.display
-        ? (
-          <div id="case_detail_table_associated_files" className={classes.tableContainer}>
-            <div className={classes.tableDiv}>
-              <Grid item xs={12}>
-                <Grid container spacing={4}>
-                  <Grid item xs={12}>
-                    <GridWithFooter
-                      data={data[table2.subjectDetailField]}
-                      title={(
-                        <div className={classes.tableTitle}>
-                          <span className={classes.tableHeader}>{table2.tableTitle}</span>
-                        </div>
-                      )}
-                      columns={getColumns(table2, classes, data)}
-                      options={getOptions(table2, classes)}
-                      customOnRowsSelect={table2.customOnRowsSelect}
-                      openSnack={openSnack}
-                      closeSnack={closeSnack}
-                      disableRowSelection={table2.disableRowSelection}
-                      buttonText={table2.buttonText}
-                      saveButtonDefaultStyle={table1.saveButtonDefaultStyle}
-                      ActiveSaveButtonDefaultStyle={table1.ActiveSaveButtonDefaultStyle}
-                      DeactiveSaveButtonDefaultStyle={table1.DeactiveSaveButtonDefaultStyle}
-                      tooltipMessage={table2.tooltipMessage}
-                      tooltipContent={tooltipContent}
-                    />
+          ) : ''}
+      </TabPanel>
+      <TabPanel value={currentTab} index={1}>
+        {table2.display
+          ? (
+            <div id="case_detail_table_associated_files" className={classes.tableContainer}>
+              <div className={classes.tableDiv}>
+                <Grid item xs={12}>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                      <GridWithFooter
+                        data={data[table2.subjectDetailField]}
+                        title={(
+                          <div className={classes.tableTitle}>
+                            <span className={classes.tableHeader}>{table2.tableTitle}</span>
+                          </div>
+                        )}
+                        columns={getColumns(table2, classes, data)}
+                        options={getOptions(table2, classes)}
+                        customOnRowsSelect={table2.customOnRowsSelect}
+                        openSnack={openSnack}
+                        closeSnack={closeSnack}
+                        disableRowSelection={table2.disableRowSelection}
+                        buttonText={table2.buttonText}
+                        saveButtonDefaultStyle={table1.saveButtonDefaultStyle}
+                        ActiveSaveButtonDefaultStyle={table1.ActiveSaveButtonDefaultStyle}
+                        DeactiveSaveButtonDefaultStyle={table1.DeactiveSaveButtonDefaultStyle}
+                        tooltipMessage={table2.tooltipMessage}
+                        tooltipContent={tooltipContent}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
+              </div>
             </div>
-          </div>
-        ) : ''}
-      {table3.display
-        ? (
-          <div id="case_detail_table_associated_participants" className={classes.tableContainer}>
-            <div className={classes.tableDiv}>
-              <Grid item xs={12}>
-                <Grid container spacing={4}>
-                  <Grid item xs={12}>
-                    <GridWithFooter
-                      data={data[table3.subjectDetailField]}
-                      title={(
-                        <div className={classes.tableTitle}>
-                          <span className={classes.tableHeader}>{table3.tableTitle}</span>
-                        </div>
-                      )}
-                      columns={getColumns(table3, classes, data)}
-                      options={getOptions(table3, classes)}
-                      customOnRowsSelect={table3.customOnRowsSelect}
-                      openSnack={openSnack}
-                      closeSnack={closeSnack}
-                      disableRowSelection={table3.disableRowSelection}
-                      buttonText={table3.buttonText}
-                      saveButtonDefaultStyle={table3.saveButtonDefaultStyle}
-                      ActiveSaveButtonDefaultStyle={table3.ActiveSaveButtonDefaultStyle}
-                      DeactiveSaveButtonDefaultStyle={table3.DeactiveSaveButtonDefaultStyle}
-                      tooltipMessage={table3.tooltipMessage}
-                      tooltipContent={tooltipContent}
-                    />
+          ) : ''}
+      </TabPanel>
+      <TabPanel value={currentTab} index={2}>
+        {table3.display
+          ? (
+            <div id="case_detail_table_associated_participants" className={classes.tableContainer}>
+              <div className={classes.tableDiv}>
+                <Grid item xs={12}>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                      <GridWithFooter
+                        data={data[table3.subjectDetailField]}
+                        title={(
+                          <div className={classes.tableTitle}>
+                            <span className={classes.tableHeader}>{table3.tableTitle}</span>
+                          </div>
+                        )}
+                        columns={getColumns(table3, classes, data)}
+                        options={getOptions(table3, classes)}
+                        customOnRowsSelect={table3.customOnRowsSelect}
+                        openSnack={openSnack}
+                        closeSnack={closeSnack}
+                        disableRowSelection={table3.disableRowSelection}
+                        buttonText={table3.buttonText}
+                        saveButtonDefaultStyle={table3.saveButtonDefaultStyle}
+                        ActiveSaveButtonDefaultStyle={table3.ActiveSaveButtonDefaultStyle}
+                        DeactiveSaveButtonDefaultStyle={table3.DeactiveSaveButtonDefaultStyle}
+                        tooltipMessage={table3.tooltipMessage}
+                        tooltipContent={tooltipContent}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
+              </div>
             </div>
-          </div>
-        ) : ''}
-      {table4.display
-        ? (
-          <div id="case_detail_table_associated_participants" className={classes.tableContainer}>
-            <div className={classes.tableDiv}>
-              <Grid item xs={12}>
-                <Grid container spacing={4}>
-                  <Grid item xs={12}>
-                    <GridWithFooter
-                      data={data[table4.subjectDetailField]}
-                      title={(
-                        <div className={classes.tableTitle}>
-                          <span className={classes.tableHeader}>{table4.tableTitle}</span>
-                        </div>
-                      )}
-                      columns={getColumns(table4, classes, data)}
-                      options={getOptions(table4, classes)}
-                      customOnRowsSelect={table4.customOnRowsSelect}
-                      openSnack={openSnack}
-                      closeSnack={closeSnack}
-                      disableRowSelection={table4.disableRowSelection}
-                      buttonText={table4.buttonText}
-                      saveButtonDefaultStyle={table4.saveButtonDefaultStyle}
-                      ActiveSaveButtonDefaultStyle={table4.ActiveSaveButtonDefaultStyle}
-                      DeactiveSaveButtonDefaultStyle={table4.DeactiveSaveButtonDefaultStyle}
-                      tooltipMessage={table4.tooltipMessage}
-                      tooltipContent={tooltipContent}
-                    />
+          ) : ''}
+      </TabPanel>
+      <TabPanel value={currentTab} index={3}>
+        {table4.display
+          ? (
+            <div id="case_detail_table_associated_participants" className={classes.tableContainer}>
+              <div className={classes.tableDiv}>
+                <Grid item xs={12}>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                      <GridWithFooter
+                        data={data[table4.subjectDetailField]}
+                        title={(
+                          <div className={classes.tableTitle}>
+                            <span className={classes.tableHeader}>{table4.tableTitle}</span>
+                          </div>
+                        )}
+                        columns={getColumns(table4, classes, data)}
+                        options={getOptions(table4, classes)}
+                        customOnRowsSelect={table4.customOnRowsSelect}
+                        openSnack={openSnack}
+                        closeSnack={closeSnack}
+                        disableRowSelection={table4.disableRowSelection}
+                        buttonText={table4.buttonText}
+                        saveButtonDefaultStyle={table4.saveButtonDefaultStyle}
+                        ActiveSaveButtonDefaultStyle={table4.ActiveSaveButtonDefaultStyle}
+                        DeactiveSaveButtonDefaultStyle={table4.DeactiveSaveButtonDefaultStyle}
+                        tooltipMessage={table4.tooltipMessage}
+                        tooltipContent={tooltipContent}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
+              </div>
             </div>
-          </div>
-        ) : ''}
-      {table5.display
-        ? (
-          <div id="case_detail_table_associated_participants" className={classes.tableContainer}>
-            <div className={classes.tableDiv}>
-              <Grid item xs={12}>
-                <Grid container spacing={4}>
-                  <Grid item xs={12}>
-                    <GridWithFooter
-                      data={data[table5.subjectDetailField]}
-                      title={(
-                        <div className={classes.tableTitle}>
-                          <span className={classes.tableHeader}>{table5.tableTitle}</span>
-                        </div>
-                      )}
-                      columns={getColumns(table5, classes, data)}
-                      options={getOptions(table5, classes)}
-                      customOnRowsSelect={table5.customOnRowsSelect}
-                      openSnack={openSnack}
-                      closeSnack={closeSnack}
-                      disableRowSelection={table5.disableRowSelection}
-                      buttonText={table5.buttonText}
-                      saveButtonDefaultStyle={table5.saveButtonDefaultStyle}
-                      ActiveSaveButtonDefaultStyle={table5.ActiveSaveButtonDefaultStyle}
-                      DeactiveSaveButtonDefaultStyle={table5.DeactiveSaveButtonDefaultStyle}
-                      tooltipMessage={table5.tooltipMessage}
-                      tooltipContent={tooltipContent}
-                    />
+          ) : ''}
+      </TabPanel>
+      <TabPanel value={currentTab} index={4}>
+        {table5.display
+          ? (
+            <div id="case_detail_table_associated_participants" className={classes.tableContainer}>
+              <div className={classes.tableDiv}>
+                <Grid item xs={12}>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                      <GridWithFooter
+                        data={data[table5.subjectDetailField]}
+                        title={(
+                          <div className={classes.tableTitle}>
+                            <span className={classes.tableHeader}>{table5.tableTitle}</span>
+                          </div>
+                        )}
+                        columns={getColumns(table5, classes, data)}
+                        options={getOptions(table5, classes)}
+                        customOnRowsSelect={table5.customOnRowsSelect}
+                        openSnack={openSnack}
+                        closeSnack={closeSnack}
+                        disableRowSelection={table5.disableRowSelection}
+                        buttonText={table5.buttonText}
+                        saveButtonDefaultStyle={table5.saveButtonDefaultStyle}
+                        ActiveSaveButtonDefaultStyle={table5.ActiveSaveButtonDefaultStyle}
+                        DeactiveSaveButtonDefaultStyle={table5.DeactiveSaveButtonDefaultStyle}
+                        tooltipMessage={table5.tooltipMessage}
+                        tooltipContent={tooltipContent}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
+              </div>
             </div>
-          </div>
-        ) : ''}
-      {table6.display
-        ? (
-          <div id="case_detail_table_associated_participants" className={classes.tableContainer}>
-            <div className={classes.tableDiv}>
-              <Grid item xs={12}>
-                <Grid container spacing={4}>
-                  <Grid item xs={12}>
-                    <GridWithFooter
-                      data={data[table6.subjectDetailField]}
-                      title={(
-                        <div className={classes.tableTitle}>
-                          <span className={classes.tableHeader}>{table6.tableTitle}</span>
-                        </div>
-                      )}
-                      columns={getColumns(table6, classes, data)}
-                      options={getOptions(table6, classes)}
-                      customOnRowsSelect={table6.customOnRowsSelect}
-                      openSnack={openSnack}
-                      closeSnack={closeSnack}
-                      disableRowSelection={table6.disableRowSelection}
-                      buttonText={table6.buttonText}
-                      saveButtonDefaultStyle={table6.saveButtonDefaultStyle}
-                      ActiveSaveButtonDefaultStyle={table6.ActiveSaveButtonDefaultStyle}
-                      DeactiveSaveButtonDefaultStyle={table6.DeactiveSaveButtonDefaultStyle}
-                      tooltipMessage={table6.tooltipMessage}
-                      tooltipContent={tooltipContent}
-                    />
+          ) : ''}
+      </TabPanel>
+      <TabPanel value={currentTab} index={5}>
+        {table6.display
+          ? (
+            <div id="case_detail_table_associated_participants" className={classes.tableContainer}>
+              <div className={classes.tableDiv}>
+                <Grid item xs={12}>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                      <GridWithFooter
+                        data={data[table6.subjectDetailField]}
+                        title={(
+                          <div className={classes.tableTitle}>
+                            <span className={classes.tableHeader}>{table6.tableTitle}</span>
+                          </div>
+                        )}
+                        columns={getColumns(table6, classes, data)}
+                        options={getOptions(table6, classes)}
+                        customOnRowsSelect={table6.customOnRowsSelect}
+                        openSnack={openSnack}
+                        closeSnack={closeSnack}
+                        disableRowSelection={table6.disableRowSelection}
+                        buttonText={table6.buttonText}
+                        saveButtonDefaultStyle={table6.saveButtonDefaultStyle}
+                        ActiveSaveButtonDefaultStyle={table6.ActiveSaveButtonDefaultStyle}
+                        DeactiveSaveButtonDefaultStyle={table6.DeactiveSaveButtonDefaultStyle}
+                        tooltipMessage={table6.tooltipMessage}
+                        tooltipContent={tooltipContent}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
+              </div>
             </div>
-          </div>
-        ) : ''}
+          ) : ''}
+      </TabPanel>
       <div className={classes.blankSpace} />
     </>
   );
