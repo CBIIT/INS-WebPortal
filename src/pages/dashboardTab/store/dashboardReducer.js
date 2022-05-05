@@ -82,6 +82,14 @@ const initialState = {
       selectedRowInfo: [],
       selectedRowIndex: [],
     },
+    dataClinicalTrialSelected: {
+      selectedRowInfo: [],
+      selectedRowIndex: [],
+    },
+    dataPatentSelected: {
+      selectedRowInfo: [],
+      selectedRowIndex: [],
+    },
     widgets: {},
   },
 };
@@ -792,15 +800,26 @@ export async function tableHasSelections() {
 
   const filteredNames = await getFileNamesByFileIds(getState().filteredFileIds);
   switch (getState().currentActiveTab) {
+    case tabIndex[4].title:
+      filteredIds = filteredPatentIds;
+      selectedRowInfo = getState().dataPatentSelected.selectedRowInfo;
+      break;
+
+    case tabIndex[3].title:
+      filteredIds = filteredClinicalTrialIds;
+      selectedRowInfo = getState().dataClinicalTrialSelected.selectedRowInfo;
+      break;
+
     case tabIndex[2].title:
       filteredIds = filteredNames;
       selectedRowInfo = getState().dataFileSelected.selectedRowInfo;
-
       break;
+
     case tabIndex[1].title:
       filteredIds = getState().filteredSampleIds;
       selectedRowInfo = getState().dataSampleSelected.selectedRowInfo;
       break;
+
     default:
       filteredIds = getState().filteredSubjectIds;
       selectedRowInfo = getState().dataCaseSelected.selectedRowInfo;
@@ -845,10 +864,16 @@ export async function getFileNamesByFileIds(fileIds) {
 
 export function getTableRowSelectionEvent() {
   const currentState = getState();
-  const tableRowSelectionEvent = currentState.currentActiveTab === tabIndex[2].title
-    ? setDataFileSelected
-    : currentState.currentActiveTab === tabIndex[1].title
-      ? setDataSampleSelected : setDataCaseSelected;
+  const tableRowSelectionEvent =
+    currentState.currentActiveTab === tabIndex[4].title
+      ? setDataPatentSelected
+      : currentState.currentActiveTab === tabIndex[3].title
+        ? setDataClinicalTrialSelected
+        : currentState.currentActiveTab === tabIndex[2].title
+          ? setDataFileSelected
+          : currentState.currentActiveTab === tabIndex[1].title
+            ? setDataSampleSelected
+            : setDataCaseSelected;
   return tableRowSelectionEvent;
 }
 
@@ -862,6 +887,14 @@ function setDataFileSelected(result) {
 
 function setDataSampleSelected(result) {
   store.dispatch({ type: 'SET_SAMPLE_SELECTION', payload: result });
+}
+
+function setDataClinicalTrialSelected(result) {
+  store.dispatch({ type: 'SET_CLINICAL_TRIAL_SELECTION', payload: result });
+}
+
+function setDataPatentSelected(result) {
+  store.dispatch({ type: 'SET_PATENT_SELECTION', payload: result });
 }
 
 
@@ -1017,7 +1050,14 @@ const reducers = {
           selectedRowInfo: [],
           selectedRowIndex: [],
         },
-
+        dataClinicalTrialSelected: {
+          selectedRowInfo: [],
+          selectedRowIndex: [],
+        },
+        dataPatentSelected: {
+          selectedRowInfo: [],
+          selectedRowIndex: [],
+        },
       } : { ...state };
   },
   CLEAR_ALL: (state, item) => {
@@ -1069,6 +1109,12 @@ const reducers = {
         },
         dataFileSelected: {
           ...state.dataFileSelected,
+        },
+        dataClinicalTrialSelected: {
+          ...state.dataClinicalTrialSelected,
+        },
+        dataPatentSelected: {
+          ...state.dataPatentSelected,
         },
         sortByList: {
           ...state.sortByList,
@@ -1138,6 +1184,18 @@ const reducers = {
       dataFileSelected: item,
     }
   ),
+  SET_CLINICAL_TRIAL_SELECTION: (state, item) => (
+    {
+      ...state,
+      dataClinicalTrialSelected: item,
+    }
+  ),
+  SET_PATENT_SELECTION: (state, item) => (
+    {
+      ...state,
+      dataPatentSelected: item,
+    }
+  ),
   CLEAR_TABLE_SELECTION: (state) => ({
     ...state,
     dataCaseSelected: {
@@ -1149,6 +1207,14 @@ const reducers = {
       selectedRowIndex: [],
     },
     dataFileSelected: {
+      selectedRowInfo: [],
+      selectedRowIndex: [],
+    },
+    dataClinicalTrialSelected: {
+      selectedRowInfo: [],
+      selectedRowIndex: [],
+    },
+    dataPatentSelected: {
       selectedRowInfo: [],
       selectedRowIndex: [],
     },
