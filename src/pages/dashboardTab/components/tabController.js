@@ -48,18 +48,23 @@ const tabController = (classes) => {
 
   // data from store
   const dashboard = useSelector((state) => (state.dashboardTab
-&& state.dashboardTab.datatable
+    && state.dashboardTab.datatable
     ? state.dashboardTab.datatable : {}));
-    // get stats data from store
+  // get stats data from store
   const dashboardStats = useSelector((state) => (state.dashboardTab
     && state.dashboardTab.stats ? state.dashboardTab.stats : {}));
 
   const filteredSubjectIds = useSelector((state) => (state.dashboardTab
-      && state.dashboardTab.filteredSubjectIds ? state.dashboardTab.filteredSubjectIds : null));
+    && state.dashboardTab.filteredSubjectIds ? state.dashboardTab.filteredSubjectIds : null));
   const filteredSampleIds = useSelector((state) => (state.dashboardTab
     && state.dashboardTab.filteredSampleIds ? state.dashboardTab.filteredSampleIds : null));
   const filteredFileIds = useSelector((state) => (state.dashboardTab
     && state.dashboardTab.filteredFileIds ? state.dashboardTab.filteredFileIds : null));
+  const filteredClinicalTrialIds = useSelector((state) => (state.dashboardTab
+    // eslint-disable-next-line max-len
+    && state.dashboardTab.filteredClinicalTrialIds ? state.dashboardTab.filteredClinicalTrialIds : null));
+  const filteredPatentIds = useSelector((state) => (state.dashboardTab
+    && state.dashboardTab.filteredPatentIds ? state.dashboardTab.filteredPatentIds : null));
 
   const [TopMessageStatus, setTopMessageStatus] = React.useState({
     text: tooltipContent[currentTab],
@@ -118,7 +123,9 @@ const tabController = (classes) => {
     fetchDataForDashboardTab(tabIndex[value].title,
       filteredSubjectIds,
       filteredSampleIds,
-      filteredFileIds);
+      filteredFileIds,
+      filteredClinicalTrialIds,
+      filteredPatentIds);
   };
 
   const [snackbarState, setsnackbarState] = React.useState({
@@ -165,7 +172,7 @@ const tabController = (classes) => {
     @output [f.uuid]
   */
   function Type1OnRowsSelect(data, allRowsSelected) {
-  // use reduce to combine all the files' id into single array
+    // use reduce to combine all the files' id into single array
     return allRowsSelected.reduce((accumulator, currentValue) => {
       if (data[currentValue.dataIndex]) {
         const { files } = data[currentValue.dataIndex];
@@ -193,7 +200,7 @@ const tabController = (classes) => {
     @output [f.uuid]
   */
   function Type3OnRowsSelect(data, allRowsSelected) {
-  // use reduce to combine all the files' id into single array
+    // use reduce to combine all the files' id into single array
     return allRowsSelected.reduce((accumulator, currentValue) => {
       const { files } = data[currentValue.dataIndex];
       // check if file
@@ -282,6 +289,8 @@ const tabController = (classes) => {
         filteredSubjectIds={filteredSubjectIds}
         filteredSampleIds={filteredSampleIds}
         filteredFileIds={filteredFileIds}
+        filteredClinicalTrialIds={filteredClinicalTrialIds}
+        filteredPatentIds={filteredPatentIds}
         tableHasSelections={tableHasSelections}
         setRowSelection={getTableRowSelectionEvent()}
         // selectedRowInfo={tableRowSelectionData[container.tabIndex].selectedRowInfo}
@@ -314,9 +323,9 @@ const tabController = (classes) => {
               File(s) successfully added to your cart
             </span>
           </div>
-)}
+        )}
       />
-      { TopMessageStatus.isActive ? (
+      {TopMessageStatus.isActive ? (
         <div className={classes.classes.messageTop} style={tooltipStyle(TopMessageStatus.text)}>
           {' '}
           <Message data={TopMessageStatus.text} />

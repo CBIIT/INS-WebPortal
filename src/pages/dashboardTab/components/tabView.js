@@ -58,6 +58,8 @@ const TabView = ({
   filteredSubjectIds,
   filteredSampleIds,
   filteredFileIds,
+  filteredClinicalTrialIds,
+  filteredPatentIds,
   defaultSortCoulmn,
   defaultSortDirection,
   // tableHasSelections,
@@ -298,6 +300,8 @@ const TabView = ({
               subject_ids: filteredSubjectIds,
               sample_ids: filteredSampleIds,
               file_ids: filteredFileIds,
+              clinical_trial_ida: filteredClinicalTrialIds,
+              patent_ids: filteredPatentIds,
             }}
             defaultSortCoulmn={defaultSortCoulmn}
             defaultSortDirection={defaultSortDirection}
