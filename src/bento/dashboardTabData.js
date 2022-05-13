@@ -225,9 +225,16 @@ export const tabContainers = [
         dataField: 'accession',
         header: 'Accession',
         sort: 'asc',
-        link: 'https://www.ncbi.nlm.nih.gov/gds/?term={accession}',
+        link: '{link}',
         primary: true,
         display: true,
+      },
+      {
+        dataField: 'link',
+        header: 'Link',
+        sort: 'asc',
+        link: '{link}',
+        display: false,
       },
       {
         dataField: 'queried_project_ids',
@@ -236,7 +243,7 @@ export const tabContainers = [
         display: true,
       },
       {
-        dataField: 'type',
+        dataField: 'transformed_type',
         header: 'Type',
         sort: 'asc',
         display: true,
@@ -728,6 +735,8 @@ export const GET_DATASETS_OVERVIEW_QUERY = gql`
       registration_date
       queried_project_ids
       type
+      link
+      transformed_type
     }
 }
   `;
@@ -743,6 +752,8 @@ export const GET_DATASETS_OVERVIEW_DESC_QUERY = gql`
       registration_date
       queried_project_ids
       type
+      link
+      transformed_type
     }
   }
     `;
