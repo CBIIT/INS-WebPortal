@@ -590,10 +590,10 @@ export const FILTER_GROUP_QUERY = gql`
   }`;
 
 export const FILTER_QUERY = gql`
-query search($programs: [String] ,
-  $docs: [String] ,
-  $fiscal_years: [String] ,
-  $award_amounts: [String] ,
+query search($programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
+  $award_amounts: [String],
   $first: Int ) {
 searchProjects(programs: $programs,
   docs: $docs,
@@ -603,10 +603,10 @@ searchProjects(programs: $programs,
         projectIds
         publicationIds
         accessions
-        numberOfPrograms
-        numberOfProjects
         clinicalTrialIds
         patentIds
+        numberOfPrograms
+        numberOfProjects
         numberOfPublications
         numberOfAccessions
         numberOfClinicalTrials

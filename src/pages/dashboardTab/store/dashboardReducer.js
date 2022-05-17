@@ -1012,7 +1012,7 @@ const reducers = {
     item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
 
     const checkboxData = customCheckBox(item.data, facetSearchData);
-    fetchDataForDashboardTab(tabIndex[0].title, null, null, null);
+    fetchDataForDashboardTab(tabIndex[0].title, null, null, null, null, null);
     return item.data
       ? {
         ...state.dashboard,
@@ -1069,7 +1069,7 @@ const reducers = {
     item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => (a.subjects < b.subjects) ? 1 : -1)
 
     const checkboxData = customCheckBox(item.data, facetSearchData);
-    fetchDataForDashboardTab(state.currentActiveTab, null, null, null);
+    fetchDataForDashboardTab(state.currentActiveTab, null, null, null, null, null);
     return item.data
       ? {
         ...state.dashboard,
