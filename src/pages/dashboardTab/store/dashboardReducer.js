@@ -933,8 +933,8 @@ const reducers = {
       item.data.searchProjects.projectIds,
       item.data.searchProjects.publicationIds,
       item.data.searchProjects.accessions,
-      item.data.searchProjects.clinical_trial_ids,
-      item.data.searchProjects.patent_ids
+      item.data.searchProjects.clinicalTrialIds,
+      item.data.searchProjects.patentIds
     );
     return {
       ...state,
@@ -943,8 +943,8 @@ const reducers = {
       filteredSubjectIds: item.data.searchProjects.projectIds,
       filteredSampleIds: item.data.searchProjects.publicationIds,
       filteredFileIds: item.data.searchProjects.accessions,
-      filteredClinicalTrialIds: item.data.searchProjects.clinical_trial_ids,
-      filteredPatentIds: item.data.searchProjects.patent_ids,
+      filteredClinicalTrialIds: item.data.searchProjects.clinicalTrialIds,
+      filteredPatentIds: item.data.searchProjects.patentIds,
       checkbox: {
         data: checkboxData1,
       },
