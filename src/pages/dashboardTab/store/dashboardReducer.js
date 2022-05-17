@@ -388,6 +388,8 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
         subject_ids: subjectIds,
         sample_ids: sampleIds,
         file_ids: fileIds,
+        clinical_trial_ids: clinicalTrialIds,
+        patent_ids: patentIds,
         first: fileCount,
       },
     })
@@ -408,14 +410,6 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
   }, []);
 
   return filesArray;
-
-  // Removing fileIds that are not in our current list of filtered fileIds
-  /*
-  const filteredFilesArray = fileIds != null
-    ? filesArray.filter((x) => fileIds.includes(x))
-    : filesArray;
-  return filteredFilesArray;
-  */
 }
 
 /**
@@ -451,8 +445,10 @@ async function getFileIDsByFileName(file_name = [], offset = 0, first = 100000, 
  * Returns file IDs of given sampleids or subjectids.
  * @param int fileCount
  * @param graphqlquery SELECT_ALL_QUERY
- * @param array caseIds
+ * @param array subjectIds
  * @param array sampleIds
+ * @param array clinicalTrialIds
+ * @param array patentIds
  * @param string apiReturnField
  * @return {json}
  */
@@ -460,17 +456,21 @@ async function getFileIDsByFileName(file_name = [], offset = 0, first = 100000, 
 async function getFileIDs(
   fileCount = 100000,
   SELECT_ALL_QUERY,
-  caseIds = [],
+  subjectIds = [],
   sampleIds = [],
+  clinicalTrialIds = [],
+  patentIds = [],
   apiReturnField,
 ) {
   const fetchResult = await client
     .query({
       query: SELECT_ALL_QUERY,
       variables: {
-        subject_ids: caseIds,
+        subject_ids: subjectIds,
         sample_ids: sampleIds,
         file_ids: [],
+        clinical_trial_ids: clinicalTrialIds,
+        patent_ids: patentIds,
         first: fileCount,
       },
     })
