@@ -17,12 +17,12 @@ export const myFilesPageData = {
   subTitle: 'Selected Files',
   downButtonText: 'DOWNLOAD MANIFEST',
   headerIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Icon-Cart-Workflow.svg',
-  headerIconAlt: 'CCDI Data Catalog MyFiles header logo',
-  manifestFileName: 'CCDI Data Catalog File Manifest',
+  headerIconAlt: 'Bento MyFiles header logo',
+  manifestFileName: 'BENTO File Manifest',
   tooltipIcon: 'https://raw.githubusercontent.com/google/material-design-icons/master/src/action/help/materialicons/24px.svg',
   tooltipAlt: 'tooltip icon',
   tooltipMessage: 'To access and analyze files: select and remove unwanted files,  click the “Download Manifest” button, and upload the resulting Manifest file to your Seven Bridges Genomics account.',
-  textareaPlaceholder: 'Please add a description for the XML file you are about to download.',
+  textareaPlaceholder: 'Please add a description for the CSV file you are about to download.',
   errorMessage: 'An error has occurred in loading CART',
   popUpWindow: {
     showNumberOfFileBeRemoved: true,
@@ -36,8 +36,8 @@ export const myFilesPageData = {
 };
 
 export const manifestData = {
-  keysToInclude: ['file_id', 'file_ordinal', 'file_name', 'file_md5', 'file_content_format', 'file_deposit_location'],
-  header: ['File UUID', 'File Ordinal', 'File Name', 'File Md5', 'File Content Format', 'File Deposit Location', 'User Comments'],
+  keysToInclude: ['study_code', 'subject_id', 'file_name', 'file_id', 'md5sum'],
+  header: ['Study Code', 'Case ID', 'File Name', 'File ID', 'Md5sum', 'User Comments'],
 };
 
 // --------------- File table configuration --------------
@@ -45,66 +45,73 @@ export const manifestData = {
 export const table = {
   dataField: 'filesInList',
   // Value must be one of the 'dataField's in "columns"
-  defaultSortField: 'file_set_id',
+  defaultSortField: 'file_name',
   // 'asc' or 'desc'
   defaultSortDirection: 'asc',
+  paginationAPIField: 'filesInList',
   tableDownloadCSV: customMyFilesTabDownloadCSV,
 
   columns: [
-    {
-      dataField: 'file_set_id',
-      header: 'File ID',
-    },
-    {
-      dataField: 'file_ordinal',
-      header: 'File Ordinal',
-    },
-    {
-      dataField: 'file_id',
-      header: 'File UUID',
-    },
     {
       dataField: 'file_name',
       header: 'File Name',
     },
     {
-      dataField: 'file_md5',
-      header: 'File MD5',
+      dataField: 'file_type',
+      header: 'File Type',
     },
     {
-      dataField: 'file_content_format',
-      header: 'File Content Format',
+      dataField: 'association',
+      header: 'Association',
     },
     {
-      dataField: 'file_deposit_location',
-      header: 'File Deposit Location',
+      dataField: 'file_description',
+      header: 'Description',
+    },
+    {
+      dataField: 'file_format',
+      header: 'Format',
+    },
+    {
+      dataField: 'file_size',
+      header: 'Size',
+      // set formatBytes to true to display file size (in bytes) in a more human readable format
+      formatBytes: true,
+    },
+    {
+      dataField: 'subject_id',
+      header: 'Case ID',
+    },
+    {
+      dataField: 'study_code',
+      header: 'Study Code',
+    },
+    {
+      dataField: 'file_id',
+      header: 'UUID',
+      display: false,
+    },
+    {
+      dataField: 'md5sum',
+      header: 'Md5Sum',
+      display: false,
     },
   ],
 };
 
 // --------------- GraphQL query - Retrieve selected cases info --------------
 export const GET_MY_CART_DATA_QUERY = gql`
-query filesInList($file_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="") {
-    filesInList(file_ids: $file_ids, offset: $offset,first: $first, order_by: $order_by) {
-      file_set_id
-      file_ordinal
-      file_id
-      file_name
-      file_md5
-      file_content_format
-      file_deposit_location
-    }
-}`;
-
-// --------------- GraphQL query - Retrieve selected files info Desc --------------
-export const GET_MY_CART_DATA_QUERY_DESC = gql`
-query filesInListDesc($file_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="") {
-  filesInListDesc(file_ids: $file_ids, offset: $offset,first: $first, order_by: $order_by) {
-    file_set_id
-    file_ordinal
-    file_id
-    file_name
-    file_md5
-    file_content_format
+query filesInList($file_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String ="file_name", $sort_direction:String="asc") {
+    filesInList(file_ids: $file_ids, offset: $offset,first: $first, order_by: $order_by, sort_direction: $sort_direction) {
+        study_code
+        subject_id
+        file_name
+        file_type
+        association
+        file_description
+        file_format
+        file_size
+        file_id
+        md5sum
     }
 }`;

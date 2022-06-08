@@ -47,14 +47,14 @@ export const navBarData = [
     link: '/home',
   },
   {
+    labelText: 'explore',
+    type: 'link',
+    link: '/explore',
+  },
+  {
     labelText: 'programs',
     type: 'link',
     link: '/programs',
-  },
-  {
-    labelText: 'projects',
-    type: 'link',
-    link: '/projects',
   },
   {
     labelText: 'about',
@@ -77,12 +77,8 @@ export const navBarData = [
 ];
 
 export const navBarCartData = {
-  cartLabel: '',
-  cartLink: '',
-  cartIcon: '',
-  cartIconAlt: '',
-  // cartLabel: 'MY Files',
-  // cartLink: '/fileCentricCart',
-  // cartIcon: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Icon-Cart-Navbar.svg',
-  // cartIconAlt: 'cart_logo',
+  cartLabel: 'MY Files',
+  cartLink: '/fileCentricCart',
+  cartIcon: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Icon-Cart-Navbar.svg',
+  cartIconAlt: 'cart_logo',
 };

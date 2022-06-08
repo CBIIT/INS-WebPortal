@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Tabs, Tab, withStyles,
@@ -11,7 +11,6 @@ import TabView from './tabView';
 import SuccessOutlinedIcon from '../../../utils/SuccessOutlined';
 import TabThemeProvider from './tabThemeConfig';
 import TabLabel from './tabLabel';
-import Message from '../../../components/Message';
 import {
   tabs, tooltipContent, tabContainers, tabIndex, externalLinkIcon,
 } from '../../../bento/dashboardTabData';
@@ -50,82 +49,32 @@ const tabController = (classes) => {
   const dashboard = useSelector((state) => (state.dashboardTab
     && state.dashboardTab.datatable
     ? state.dashboardTab.datatable : {}));
+
   // get stats data from store
   const dashboardStats = useSelector((state) => (state.dashboardTab
     && state.dashboardTab.stats ? state.dashboardTab.stats : {}));
 
-  const filteredSubjectIds = useSelector((state) => (state.dashboardTab
-    && state.dashboardTab.filteredSubjectIds ? state.dashboardTab.filteredSubjectIds : null));
-  const filteredSampleIds = useSelector((state) => (state.dashboardTab
-    && state.dashboardTab.filteredSampleIds ? state.dashboardTab.filteredSampleIds : null));
   const filteredFileIds = useSelector((state) => (state.dashboardTab
     && state.dashboardTab.filteredFileIds ? state.dashboardTab.filteredFileIds : null));
-  const filteredClinicalTrialIds = useSelector((state) => (state.dashboardTab
-    // eslint-disable-next-line max-len
-    && state.dashboardTab.filteredClinicalTrialIds ? state.dashboardTab.filteredClinicalTrialIds : null));
-  const filteredPatentIds = useSelector((state) => (state.dashboardTab
-    && state.dashboardTab.filteredPatentIds ? state.dashboardTab.filteredPatentIds : null));
+  const allFilters = useSelector((state) => (state.dashboardTab
+    && state.dashboardTab.allActiveFilters ? state.dashboardTab.allActiveFilters : {}));
+  const autoCompleteSelection = useSelector((state) => (state.dashboardTab
+    && state.dashboardTab.autoCompleteSelection
+    ? state.dashboardTab.autoCompleteSelection.subject_ids : {}));
+  const bulkUpload = useSelector((state) => (state.dashboardTab
+    && state.dashboardTab.bulkUpload ? state.dashboardTab.bulkUpload.subject_ids : {}));
+  const subjectIds = autoCompleteSelection.concat(bulkUpload);
+  useEffect(() => {
+    setCurrentTab(0);
+  }, [dashboardStats]);
 
-  const [TopMessageStatus, setTopMessageStatus] = React.useState({
-    text: tooltipContent[currentTab],
-    src: tooltipContent.icon,
-    alt: tooltipContent.alt,
-    isActive: false,
-    currentTab,
-  });
-  const [BottomMessageStatus, setBottomMessageStatus] = React.useState({
-    text: tooltipContent[currentTab],
-    src: tooltipContent.icon,
-    alt: tooltipContent.alt,
-    isActive: false,
-    currentTab,
-  });
-
-  function setTooltip(status, tabInfo = '', icon, alt) {
-    return {
-      text: tabInfo,
-      src: icon,
-      alt,
-      isActive: status,
-      currentTab,
-    };
-  }
-
-  const tooltipConfig = {
-    location: {
-      top: {
-        open: () => setTopMessageStatus(setTooltip(true,
-          tooltipContent[currentTab],
-          tooltipContent.icon,
-          tooltipContent.alt)),
-        close: () => setTopMessageStatus(setTooltip(false, tooltipContent[currentTab],
-          tooltipContent.icon,
-          tooltipContent.alt)),
-      },
-      bottom: {
-        open: () => setBottomMessageStatus(setTooltip(true, tooltipContent[currentTab],
-          tooltipContent.icon,
-          tooltipContent.alt)),
-        close: () => setBottomMessageStatus(setTooltip(false, tooltipContent[currentTab],
-          tooltipContent.icon,
-          tooltipContent.alt)),
-      },
-    },
-
-  };
-
-  function toggleMessageStatus(location, status) {
-    return tooltipConfig.location[location][status]();
-  }
+  const { isCaseSelected } = useSelector((state) => state.dashboardTab);
 
   const handleTabChange = (event, value) => {
     setCurrentTab(value);
-    fetchDataForDashboardTab(tabIndex[value].title,
-      filteredSubjectIds,
-      filteredSampleIds,
-      filteredFileIds,
-      filteredClinicalTrialIds,
-      filteredPatentIds);
+    if (!isCaseSelected) {
+      fetchDataForDashboardTab(tabIndex[value].title);
+    }
   };
 
   const [snackbarState, setsnackbarState] = React.useState({
@@ -251,12 +200,6 @@ const tabController = (classes) => {
     />
   ));
 
-  // Calculate the properate marginTop value for the tooltip on the top
-  function tooltipStyle(text) {
-    const marginTopValue = text.length > 40 ? '-25px' : '-3px';
-    return { marginTop: marginTopValue };
-  }
-
   // Tab table Generator
   const TABContainers = tabContainers.map((container) => (
     <TabContainer id={container.id}>
@@ -273,9 +216,6 @@ const tabController = (classes) => {
         saveButtonDefaultStyle={container.saveButtonDefaultStyle}
         ActiveSaveButtonDefaultStyle={container.ActiveSaveButtonDefaultStyle}
         DeactiveSaveButtonDefaultStyle={container.DeactiveSaveButtonDefaultStyle}
-        toggleMessageStatus={toggleMessageStatus}
-        BottomMessageStatus={BottomMessageStatus}
-        TopMessageStatus={TopMessageStatus}
         // eslint-disable-next-line jsx-a11y/tabindex-no-positive
         tabIndex={container.tabIndex}
         externalLinkIcon={externalLinkIcon}
@@ -286,19 +226,19 @@ const tabController = (classes) => {
         defaultSortCoulmn={container.defaultSortField || ''}
         defaultSortDirection={container.defaultSortDirection || 'asc'}
         dataKey={container.dataKey}
-        filteredSubjectIds={filteredSubjectIds}
-        filteredSampleIds={filteredSampleIds}
         filteredFileIds={filteredFileIds}
-        filteredClinicalTrialIds={filteredClinicalTrialIds}
-        filteredPatentIds={filteredPatentIds}
+        allFilters={{ ...allFilters, ...{ subject_ids: subjectIds } }}
         tableHasSelections={tableHasSelections}
         setRowSelection={getTableRowSelectionEvent()}
-        // selectedRowInfo={tableRowSelectionData[container.tabIndex].selectedRowInfo}
-        // selectedRowIndex={tableRowSelectionData[container.tabIndex].selectedRowIndex}
+        selectedRowInfo={tableRowSelectionData[container.tabIndex].selectedRowInfo}
+        selectedRowIndex={tableRowSelectionData[container.tabIndex].selectedRowIndex}
         clearTableSelections={clearTableSelections}
         fetchAllFileIDs={fetchAllFileIDs}
         tableDownloadCSV={container.tableDownloadCSV || false}
         getFilesCount={getFilesCount}
+        tooltipMessage={tooltipContent[currentTab]}
+        tooltipIcon={tooltipContent.icon}
+        tooltipAlt={tooltipContent.alt}
       />
     </TabContainer>
   ));
@@ -325,13 +265,6 @@ const tabController = (classes) => {
           </div>
         )}
       />
-      {TopMessageStatus.isActive ? (
-        <div className={classes.classes.messageTop} style={tooltipStyle(TopMessageStatus.text)}>
-          {' '}
-          <Message data={TopMessageStatus.text} />
-          {' '}
-        </div>
-      ) : ' '}
       <TabThemeProvider tableBorder={getBorderStyle()} tablecolor={getTableColor()}>
         <Tabs
           classes
@@ -339,7 +272,6 @@ const tabController = (classes) => {
           onChange={handleTabChange}
           indicatorColor="primary"
           textColor="primary"
-          textColorPrimary
         >
           {TABs}
         </Tabs>

@@ -3,11 +3,11 @@ import gql from 'graphql-tag';
 // --------------- Page title configuration --------------
 const pageTitle = {
   label: 'Program :',
-  dataField: 'program_id',
+  dataField: 'program_acronym',
 };
 
 const pageSubTitle = {
-  dataField: 'program_name',
+  dataField: 'program_id',
 };
 
 const breadCrumb = {
@@ -17,9 +17,9 @@ const breadCrumb = {
 
 // --------------- Aggregated count configuration --------------
 const aggregateCount = {
-  labelText: 'Projects',
-  dataField: 'num_projects',
-  link: '/projects',
+  labelText: 'Cases',
+  dataField: 'num_subjects',
+  link: '/explore',
   display: true,
 };
 
@@ -41,7 +41,7 @@ const externalLinkIcon = {
 const leftPanel = {
   attributes: [
     {
-      dataField: 'program_id',
+      dataField: 'program_acronym',
       label: 'Program',
     },
     {
@@ -49,11 +49,19 @@ const leftPanel = {
       label: 'Program Name',
     },
     {
-      dataField: 'program_description',
+      dataField: 'program_id',
+      label: 'Program Id',
+    },
+    {
+      dataField: 'program_full_description',
       label: 'Program Description',
     },
     {
-      dataField: 'program_website',
+      dataField: 'institution_name',
+      label: 'Institution',
+    },
+    {
+      dataField: 'program_external_url',
       label: 'External Link to Program',
       externalLinkToLabel: true,
     },
@@ -65,39 +73,20 @@ const leftPanel = {
 const rightPanel = {
   widget: [
     {
-      label: 'Projects by NCI DOCs',
-      dataName: 'projectCountInProgramByDOCData',
-      datatable_field: 'docs',
-      titleText: 'Projects',
+      dataField: 'diagnoses',
+      label: 'Diagnosis',
       display: true,
     },
-    {
-      label: 'Projects by NCI Funded Amount (MM $)',
-      dataName: 'projectCountInProgramByFundedAmountData',
-      datatable_field: 'funded_amount',
-      titleText: 'Projects',
-      display: true,
-    },
-    // {
-    //   dataField: 'projectCountInProgramByDOCData',
-    //   label: 'Projects by NCI DOC',
-    //   display: true,
-    // },
-    // {
-    //   dataField: 'projectCountInProgramByFundedAmountData',
-    //   label: 'Projects by NCI Funded Amount (MM $)',
-    //   display: true,
-    // },
   ],
-  // files: [
-  //   {
-  //     dataField: 'num_publications',
-  //     label: 'Number of publications',
-  //     fileIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/programNumberofFilesIcon.svg',
-  //     fileIconAlt: 'Number of files icon',
-  //     display: true,
-  //   },
-  // ],
+  files: [
+    {
+      dataField: 'num_files',
+      label: 'Number of files',
+      fileIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/programNumberofFilesIcon.svg',
+      fileIconAlt: 'Number of files icon',
+      display: true,
+    },
+  ],
 };
 
 // --------------- Table configuration --------------
@@ -105,11 +94,11 @@ const table = {
   // Set 'display' to false to hide the table entirely
   display: true,
   // Table title
-  title: 'Projects',
+  title: 'ARMS',
   // Field name for table data, need to be updated only when using a different GraphQL query
-  dataField: 'projects',
+  dataField: 'studies',
   // Value must be one of the 'field' in columns
-  defaultSortField: 'project_id',
+  defaultSortField: 'study_acronym',
   // 'asc' or 'desc'
   defaultSortDirection: 'asc',
   // Set 'selectableRows' to true to show the row selection
@@ -117,49 +106,25 @@ const table = {
   // A maximum of 10 columns are allowed
   columns: [
     {
-      dataField: 'project_id',
-      header: 'Project',
-      link: '/project/{project_id}',
+      dataField: 'study_acronym',
+      header: 'Arm',
+      link: '/arm/{study_acronym}',
     },
     {
-      dataField: 'application_id',
-      header: 'Application ID',
+      dataField: 'study_name',
+      header: 'Arm Name',
     },
     {
-      dataField: 'project_title',
-      header: 'Project Title',
+      dataField: 'study_full_description',
+      header: 'Arm Description',
     },
     {
-      dataField: 'principal_investigators',
-      header: 'Principal Investigators',
+      dataField: 'study_type',
+      header: 'Arm Type',
     },
     {
-      dataField: 'lead_doc',
-      header: 'Lead DOC',
-    },
-    {
-      dataField: 'lead_doc',
-      header: 'Lead DOC',
-    },
-    {
-      dataField: 'award_amount',
-      header: 'Award Amount',
-    },
-    {
-      dataField: 'nci_funded_amount',
-      header: 'NCI Funded Amount',
-    },
-    {
-      dataField: 'award_notice_date',
-      header: 'Award Notice Date',
-    },
-    {
-      dataField: 'project_start_date',
-      header: 'Project Start Date',
-    },
-    {
-      dataField: 'project_end_date',
-      header: 'Project End Date',
+      dataField: 'num_subjects',
+      header: 'Associated Cases',
     },
   ],
 };
@@ -167,45 +132,29 @@ const table = {
 // --------------- GraphQL query - Retrieve program details --------------
 const GET_PROGRAM_DETAIL_DATA_QUERY = gql`
 query programDetail($program_id: String!) {
-  projectCountInProgramByDOC(program_id: $program_id) {
-    group
-    subjects
-  }
-  projectCountInProgramByFundedAmount(program_id: $program_id) {
-    funded_amount_1
-    funded_amount_2
-    funded_amount_3
-    funded_amount_4
-    funded_amount_5
-  }
-  programPublicationCount(program_id: $program_id)
-  programDatasetCount(program_id: $program_id)
-  programClinicalTrialCount(program_id: $program_id)
-  programPatentCount(program_id: $program_id)
   programDetail(program_id: $program_id) {
+    program_acronym
     program_id
     program_name
-    program_description
-    program_website
-    num_publications
-    num_projects
-    num_geos
-    num_sras
-    num_clinical_trials
-    projects { 
-      project_id
-      application_id
-      fiscal_year
-      project_title
-      project_type
-      principal_investigators
-      lead_doc
-      program_officers
-      award_amount
-      nci_funded_amount
-      award_notice_date
-      project_start_date
-      project_end_date
+    program_full_description
+    institution_name
+    program_external_url
+    num_subjects
+    num_files
+    num_samples
+    num_lab_procedures
+    disease_subtypes
+    diagnoses {
+      group
+      subjects
+    }
+    studies { 
+      study_name
+      study_type
+      study_acronym
+      study_info
+      study_full_description
+      num_subjects
     }
   }
 }`;

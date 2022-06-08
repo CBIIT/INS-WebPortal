@@ -10,8 +10,8 @@ export const tooltipContent = {
 
 // -------------- Case ID area configurations --------------
 const caseHeader = {
-  label: 'Project ID',
-  dataField: 'project_id',
+  label: 'Case ID',
+  dataField: 'subject_id',
 };
 
 // --------------- Data panel configuration --------------
@@ -19,44 +19,101 @@ const leftPanel = [
   // Each object here represents a subsection in the panel
   // A maximum of 3 subsections are allowed
   {
-    sectionHeader: 'Basic Info',
+    sectionHeader: 'Program',
     // sectionDesc: 'Subsection description goes here',
     properties: [
       // A maximum of 10 properties are allowed
       {
-        label: 'Project Title',
-        dataField: 'project_title',
+        label: 'Assigned to Program',
+        dataField: 'program_acronym',
+        // link property specify URL value should link to
+        // space holder "{program_id}" will be replaced by actual value in the property program_id
+        link: '/program/{program_id}',
+        // labelLink property specify URL label should link to
+        // labelLink: '/programs',
+        // external links must have URL scheme part such as "https://"
       },
       {
-        label: 'Fiscal Year',
-        dataField: 'fiscal_year',
+        label: 'Arm',
+        dataField: 'study_acronym',
+        link: '/arm/{study_acronym}',
       },
       {
-        label: 'Description',
-        dataField: 'abstract_text',
+        label: 'Arm Description',
+        dataField: 'study_name',
       },
     ],
   },
   {
-    sectionHeader: 'PI and Orginazation',
+    sectionHeader: 'Demographics',
     // sectionDesc: 'Demographic Related Info',
     properties: [
       // A maximum of 10 properties are allowed
       {
-        label: 'Principal Investigators',
-        dataField: 'principal_investigators',
+        label: 'Gender',
+        dataField: 'gender',
       },
       {
-        label: 'Program Officers',
-        dataField: 'program_officers',
+        label: 'Race',
+        dataField: 'race',
       },
       {
-        label: 'Orginzation',
-        dataField: 'org_name',
+        label: 'Ethnicity',
+        dataField: 'ethnicity',
       },
       {
-        label: 'Lead DOC',
-        dataField: 'lead_doc',
+        label: 'Age At Enrollment',
+        dataField: 'age_at_index',
+      },
+      {
+        label: 'Menopause Status',
+        dataField: 'menopause_status',
+      },
+      {
+        label: 'Vital Status',
+        dataField: 'vital_status',
+      },
+      {
+        label: 'Cause Of Death',
+        dataField: 'cause_of_death',
+      },
+    ],
+  },
+  {
+    sectionHeader: 'Diagnosis',
+    // sectionDesc: 'Diagnosis Related Info',
+    properties: [
+      {
+        label: 'Diagnosis',
+        dataField: 'disease_type',
+      },
+      {
+        label: 'Diagnosis Subtype',
+        dataField: 'disease_subtype',
+      },
+      {
+        label: 'Tumor Grade',
+        dataField: 'tumor_grade',
+      },
+      {
+        label: 'Tumor Grade (mm)',
+        dataField: 'tumor_largest_dimension_diameter',
+      },
+      {
+        label: 'ER Status',
+        dataField: 'er_status',
+      },
+      {
+        label: 'PR Status',
+        dataField: 'pr_status',
+      },
+      {
+        label: 'Nuclear Grade',
+        dataField: 'nuclear_grade',
+      },
+      {
+        label: 'Recurrence Score',
+        dataField: 'recurrence_score',
       },
     ],
   },
@@ -66,33 +123,60 @@ const rightPanel = [
   // Each object here represents a subsection in the panel
   // A maximum of 3 subsections are allowed
   {
-    sectionHeader: 'Award',
+    sectionHeader: 'Treatment',
     // sectionDesc: 'Treatment Related Info',
     properties: [
       // A maximum of 10 properties are allowed
       {
-        label: 'Award Amount',
-        dataField: 'award_amount',
+        label: 'Primary Surgical Procedure',
+        dataField: 'primary_surgical_procedure',
       },
       {
-        label: 'NCI Funded Amount',
-        dataField: 'nci_funded_amount',
+        label: 'Chemotherapy Regimen Group',
+        dataField: 'chemotherapy_regimen_group',
       },
       {
-        label: 'Award Notice Date',
-        dataField: 'award_notice_date',
+        label: 'Chemotherapy Regimen',
+        dataField: 'chemotherapy_regimen',
       },
       {
-        label: 'Project Start Date',
-        dataField: 'project_start_date',
+        label: 'Endocrine Therapy Type',
+        dataField: 'endocrine_therapy_type',
+      },
+    ],
+  },
+  {
+    sectionHeader: 'Follow Up',
+    // sectionDesc: 'Follow Up Related Info',
+    properties: [
+      // A maximum of 10 properties are allowed
+      {
+        label: 'Is Disease Free',
+        dataField: 'dfs_event_indicator',
       },
       {
-        label: 'Project End Datae',
-        dataField: 'project_end_date',
+        label: 'Is Recurrence Free',
+        dataField: 'recurrence_free_indicator',
       },
       {
-        label: 'FOA',
-        dataField: 'full_foa',
+        label: 'Is Distant Recurrence Free',
+        dataField: 'distant_recurrence_indicator',
+      },
+      {
+        label: 'Disease Free Event Type',
+        dataField: 'dfs_event_type',
+      },
+      {
+        label: 'Recurrence Event Type',
+        dataField: 'first_recurrence_type',
+      },
+      {
+        label: 'Days to Progression',
+        dataField: 'days_to_progression',
+      },
+      {
+        label: 'Days to Recurrence',
+        dataField: 'days_to_recurrence',
       },
     ],
   },
@@ -105,51 +189,16 @@ export const externalLinkIcon = {
   alt: 'External link icon',
 };
 
-export const tab = {
-  items: [
-    {
-      index: 0,
-      label: 'PUBLICATIONS',
-      value: 'publications',
-    },
-    {
-      index: 1,
-      label: 'GEOS',
-      value: 'geos',
-    },
-    {
-      index: 2,
-      label: 'SRAS',
-      value: 'sras',
-    },
-    {
-      index: 3,
-      label: 'DBGAPS',
-      value: 'dbgaps',
-    },
-    {
-      index: 4,
-      label: 'CLINICAL TRIALS',
-      value: 'clinical_trials',
-    },
-    {
-      index: 5,
-      label: 'PATENTS',
-      value: 'patents',
-    },
-  ],
-};
-
 // --------------- Table 1 configuration --------------
 const table1 = {
   // Set 'display' to false to hide the table entirely
   display: true,
   // Table title
-  tableTitle: 'Publications',
+  tableTitle: 'ASSOCIATED SAMPLES',
   // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'publications',
+  subjectDetailField: 'samples',
   // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'publication_id',
+  defaultSortField: 'sample_id',
   // 'asc' or 'desc'
   defaultSortDirection: 'asc',
   // Text to appear on Add to cart button
@@ -181,40 +230,41 @@ const table1 = {
   // downloaded File Name
   downloadFileName: 'Bento_case_files_download',
   // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
+  selectableRows: true,
   // A maximum of 10 columns are allowed
   columns: [
     {
-      dataField: 'publication_id',
-      header: 'Publication ID',
+      dataField: 'sample_id',
+      header: 'Sample ID',
       sort: 'asc',
       primary: true,
-      link: 'https://pubmed.ncbi.nlm.nih.gov/{publication_id}/',
       display: true,
     },
     {
-      dataField: 'title',
-      header: 'Title',
+      dataField: 'disease_subtype',
+      header: 'Diagnosis',
+      dataFromRoot: true,
     },
     {
-      dataField: 'authors',
-      header: 'Authors',
+      dataField: 'tissue_type',
+      header: 'Tissue Type',
     },
     {
-      dataField: 'citation_count',
-      header: 'Citation Count',
+      dataField: 'composition',
+      header: 'Tissue Composition',
     },
     {
-      dataField: 'relative_citation_ratio',
-      header: 'Relative Citation Ratio',
+      dataField: 'sample_anatomic_site',
+      header: 'Sample Anatomic Site',
     },
     {
-      dataField: 'nih_percentile',
-      header: 'NIH Percentile',
+      dataField: 'method_of_sample_procurement',
+      header: 'Sample Procurement Method',
     },
     {
-      dataField: 'doi',
-      header: 'DOI',
+      dataField: 'test_name',
+      header: 'Platform',
+      dataFromRoot: true,
     },
   ],
   // Util Functions
@@ -227,11 +277,11 @@ const table2 = {
   // Set 'display' to false to hide the table entirely
   display: true,
   // Table title
-  tableTitle: 'GEOs',
+  tableTitle: 'ASSOCIATED FILES',
   // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'geos',
+  subjectDetailField: 'files',
   // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'accession',
+  defaultSortField: 'file_name',
   // 'asc' or 'desc'
   defaultSortDirection: 'asc',
   // Text to appear on Add to cart button
@@ -263,284 +313,34 @@ const table2 = {
   // downloaded File Name
   downloadFileName: 'Bento_case_samples_download',
   // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
+  selectableRows: true,
   // A maximum of 10 columns are allowed
   columns: [
     {
-      dataField: 'accession',
-      header: 'Accession',
-      link: 'https://www.ncbi.nlm.nih.gov/gds/?term={accession}',
+      dataField: 'file_name',
+      header: 'File Name',
     },
     {
-      dataField: 'title',
-      header: 'Title',
+      dataField: 'file_type',
+      header: 'File Type',
     },
     {
-      dataField: 'status',
-      header: 'Status',
+      dataField: 'association',
+      header: 'Association',
     },
     {
-      dataField: 'submission_date',
-      header: 'Submission Date',
+      dataField: 'file_description',
+      header: 'Description',
     },
     {
-      dataField: 'last_update_date',
-      header: 'Last Update Date',
-    },
-  ],
-  // Util Functions
-  // Custom function on selct checkbox is selected.
-  customOnRowsSelect: FileOnRowsSelect,
-};
-
-// --------------- Table 3 configuration --------------
-const table3 = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
-  tableTitle: 'SRAs',
-  // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'sras',
-  // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'accession',
-  // 'asc' or 'desc'
-  defaultSortDirection: 'asc',
-  // Text to appear on Add to cart button
-  buttonText: 'Add Selected Files',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#09A175',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
-  },
-  ActiveSaveButtonDefaultStyle: {
-    disabled: 'true',
-    opacity: '0.3',
-    cursor: 'auto',
-  },
-  DeactiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
-  },
-  // Help Icon dbgap
-  tooltipMessage: 'Click button to add selected files.',
-  helpMessage: 'Here help message',
-  // showHideColumns 'true' or 'false'
-  showHideColumns: true,
-  // download csv 'true' or 'false'
-  download: false,
-  // downloaded File Name
-  downloadFileName: 'Bento_case_samples_download',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
-  columns: [
-    {
-      dataField: 'accession',
-      header: 'Accession',
-      link: 'https://www.ncbi.nlm.nih.gov/sra/?term={accession}',
+      dataField: 'file_format',
+      header: 'Format',
     },
     {
-      dataField: 'study_title',
-      header: 'Study Title',
-    },
-    {
-      dataField: 'bioproject_accession',
-      header: 'Bioproject Accession',
-    },
-    {
-      dataField: 'registration_date',
-      header: 'Registration Date',
-    },
-  ],
-  // Util Functions
-  // Custom function on selct checkbox is selected.
-  customOnRowsSelect: FileOnRowsSelect,
-};
-
-// --------------- Table 4 configuration --------------
-const table4 = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
-  tableTitle: 'DBGaps',
-  // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'dbgaps',
-  // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'accession',
-  // 'asc' or 'desc'
-  defaultSortDirection: 'asc',
-  // Text to appear on Add to cart button
-  buttonText: 'Add Selected Files',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#09A175',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
-  },
-  ActiveSaveButtonDefaultStyle: {
-    disabled: 'true',
-    opacity: '0.3',
-    cursor: 'auto',
-  },
-  DeactiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
-  },
-  // Help Icon Message
-  tooltipMessage: 'Click button to add selected files.',
-  helpMessage: 'Here help message',
-  // showHideColumns 'true' or 'false'
-  showHideColumns: true,
-  // download csv 'true' or 'false'
-  download: false,
-  // downloaded File Name
-  downloadFileName: 'Bento_case_samples_download',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
-  columns: [
-    {
-      dataField: 'accession',
-      header: 'Accession',
-      link: 'https://www.ncbi.nlm.nih.gov/gap/?term={accession}',
-    },
-    {
-      dataField: 'title',
-      header: 'Title',
-    },
-    {
-      dataField: 'release_date',
-      header: 'Release Date',
-    },
-  ],
-  // Util Functions
-  // Custom function on selct checkbox is selected.
-  customOnRowsSelect: FileOnRowsSelect,
-};
-
-// --------------- Table 5 configuration --------------
-const table5 = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
-  tableTitle: 'Clinical Trials',
-  // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'clinical_trials',
-  // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'clinical_trial_id',
-  // 'asc' or 'desc'
-  defaultSortDirection: 'asc',
-  // Text to appear on Add to cart button
-  buttonText: 'Add Selected Files',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#09A175',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
-  },
-  ActiveSaveButtonDefaultStyle: {
-    disabled: 'true',
-    opacity: '0.3',
-    cursor: 'auto',
-  },
-  DeactiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
-  },
-  // Help Icon Message
-  tooltipMessage: 'Click button to add selected files.',
-  helpMessage: 'Here help message',
-  // showHideColumns 'true' or 'false'
-  showHideColumns: true,
-  // download csv 'true' or 'false'
-  download: false,
-  // downloaded File Name
-  downloadFileName: 'Bento_case_samples_download',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
-  columns: [
-    {
-      dataField: 'clinical_trial_id',
-      header: 'Clinical Trial',
-      link: 'https://clinicaltrials.gov/ct2/show/{clinical_trial_id}/',
-    },
-    {
-      dataField: 'title',
-      header: 'Title',
-    },
-    {
-      dataField: 'last_update_posted',
-      header: 'Last Update Posted',
-    },
-    {
-      dataField: 'recruitment_status',
-      header: 'Recruitment Status',
-    },
-  ],
-  // Util Functions
-  // Custom function on selct checkbox is selected.
-  customOnRowsSelect: FileOnRowsSelect,
-};
-
-// --------------- Table 6 configuration --------------
-const table6 = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
-  tableTitle: 'Patents',
-  // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'patents',
-  // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'patent_id',
-  // 'asc' or 'desc'
-  defaultSortDirection: 'asc',
-  // Text to appear on Add to cart button
-  buttonText: 'Add Selected Files',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#09A175',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
-  },
-  ActiveSaveButtonDefaultStyle: {
-    disabled: 'true',
-    opacity: '0.3',
-    cursor: 'auto',
-  },
-  DeactiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
-  },
-  // Help Icon Message
-  tooltipMessage: 'Click button to add selected files.',
-  helpMessage: 'Here help message',
-  // showHideColumns 'true' or 'false'
-  showHideColumns: true,
-  // download csv 'true' or 'false'
-  download: false,
-  // downloaded File Name
-  downloadFileName: 'Bento_case_samples_download',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
-  columns: [
-    {
-      dataField: 'patent_id',
-      header: 'Patent ID',
-    },
-    {
-      dataField: 'fulfilled_date',
-      header: 'Fulfilled Date',
+      dataField: 'file_size',
+      header: 'Size',
+      // set formatBytes to true to display file size (in bytes) in a more human readable format
+      formatBytes: true,
     },
   ],
   // Util Functions
@@ -551,76 +351,75 @@ const table6 = {
 // --------------- GraphQL query configuration --------------
 
 // query name, also used as root of returned data
-const dataRoot = 'projectDetail';
+const dataRoot = 'subjectDetail';
 // query name, also used as key for files to Samples Mapping.
 const filesOfSamples = 'samplesForSubjectId';
 // Primary ID field used to query a case
-const caseIDField = 'project_id';
+const caseIDField = 'subject_id';
 
 // GraphQL query to retrieve detailed info for a case
 const GET_CASE_DETAIL_DATA_QUERY = gql`
-  query projectDetail($project_id: String!) {
-    projectDetail(project_id: $project_id) {
-      project_id
-      application_id
-      fiscal_year
-      project_title
-      project_type
-      abstract_text
-      keywords
-      org_name
-      org_city
-      org_state
-      org_country
-      principal_investigators
-      lead_doc
-      program_officers
-      award_amount
-      nci_funded_amount
-      award_notice_date
-      project_start_date
-      project_end_date
-      full_foa
-      publications {
-        publication_id
-        pmc_id
-        year
-        journal
-        title
-        authors
-        publish_date
-        citation_count
-        relative_citation_ratio
-        nih_percentile
-        doi
+  query subjectDetail($subject_id: String!) {
+    subjectDetail(subject_id: $subject_id) {
+      subject_id
+      program_acronym
+      program_id
+      study_acronym
+      study_name
+      gender
+      race
+      ethnicity
+      age_at_index
+      menopause_status
+      vital_status
+      cause_of_death
+      disease_type
+      disease_subtype
+      tumor_grade
+      tumor_largest_dimension_diameter
+      er_status
+      pr_status
+      nuclear_grade
+      recurrence_score
+      primary_surgical_procedure
+      chemotherapy_regimen_group
+      chemotherapy_regimen
+      endocrine_therapy_type
+      dfs_event_indicator
+      recurrence_free_indicator
+      distant_recurrence_indicator
+      dfs_event_type
+      first_recurrence_type
+      days_to_progression
+      days_to_recurrence
+      test_name
+      files {
+        subject_id
+        file_name
+        file_type
+        association
+        file_description
+        file_format
+        file_size
+        file_id
+        md5sum
       }
-      geos {
-        accession
-        title
-        status
-        submission_date
-        last_update_date
+      samples {
+        sample_id
+        sample_anatomic_site
+        composition
+        method_of_sample_procurement
+        tissue_type
+        sample_type
       }
-      sras {
-        accession
-        study_title
-        bioproject_accession
-        registration_date
-      }
-      dbgaps {
-        accession
-        title
-        release_date
-      }
-      clinical_trials {
-        clinical_trial_id
-        title
-        last_update_posted
-        recruitment_status
-      }
-      patents {
-        patent_id
-        fulfilled_date
+      num_samples
+      num_lab_procedures
+    }
+    samplesForSubjectId(subject_id: $subject_id) {
+      sample_id
+      files {
+        file_id
+        file_name
       }
     }
   }
@@ -635,9 +434,5 @@ export {
   rightPanel,
   table1,
   table2,
-  table3,
-  table4,
-  table5,
-  table6,
   GET_CASE_DETAIL_DATA_QUERY,
 };

@@ -8,35 +8,31 @@ export const landingPageData = {
   callToActionTitle: 'Explore, Analyze, Visualize Clinical Trial Data Sets',
   callToActionDescription: 'Model, Store and Share your Data Sets using the Bento Framework for Data Sharing Platforms.',
   callToActionButtonText: 'EXPLORE THE SITE',
-  callToActionLink: '/cases',
+  callToActionLink: '/explore',
   landingPageHero: {
     alt: 'Alt tag1',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/png/landing_Hero_Graphic.png',
   },
   landingPageStatsBar: [
     {
-      statTitle: 'programs',
+      statTitle: 'Programs',
       statAPI: 'numberOfPrograms',
     },
     {
-      statTitle: 'projects',
-      statAPI: 'numberOfProjects',
+      statTitle: 'Arms',
+      statAPI: 'numberOfStudies',
     },
     {
-      statTitle: 'publications',
-      statAPI: 'numberOfPublicationsByProjects',
+      statTitle: 'Cases',
+      statAPI: 'numberOfSubjects',
     },
     {
-      statTitle: 'datasets',
-      statAPI: 'numberOfDatasetsByProjects',
+      statTitle: 'samples',
+      statAPI: 'numberOfSamples',
     },
     {
-      statTitle: 'clinical trials',
-      statAPI: 'numberOfClinicalTrialsByProjects',
-    },
-    {
-      statTitle: 'patents',
-      statAPI: 'numberOfPatentsByProjects',
+      statTitle: 'files',
+      statAPI: 'numberOfFiles',
     },
   ],
   tile1: {
@@ -69,17 +65,16 @@ export const landingPageData = {
     titleText: 'Cases',
     descriptionText: 'Analyze cases from the TAILORx clinical trial.',
     callToActionText: 'Explore',
-    callToActionLink: '/cases', // This links to the cases dashboard.
+    callToActionLink: '/explore', // This links to the cases dashboard.
   },
 };
 
 // --------------- GraphQL query - Retrieve Landing page data --------------
 export const GET_LANDING_PAGE_DATA_QUERY = gql`{
   numberOfPrograms
-  numberOfProjects
-  numberOfPublicationsByProjects
-  numberOfDatasetsByProjects
-  numberOfClinicalTrialsByProjects
-  numberOfPatentsByProjects
-}
+  numberOfStudies
+  numberOfSubjects
+  numberOfSamples
+  numberOfFiles
+  }
   `;

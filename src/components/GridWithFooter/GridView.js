@@ -84,56 +84,56 @@ const GridView = ({
   };
 
   // Calculate the properate marginTop value for the tooltip on the top
-  // function tooltipStyle(text) {
-  //   const topValue = text.length > 35 ? '-78px' : '-51px';
-  //   return { top: topValue };
-  // }
+  function tooltipStyle(text) {
+    const topValue = text.length > 35 ? '-78px' : '-51px';
+    return { top: topValue };
+  }
 
-  // const btnStyle = {
-  //   borderRadius: '10px',
-  //   width: '156px',
-  //   lineHeight: '37px',
-  //   fontSize: '12px',
-  //   textTransform: 'uppercase',
-  //   fontFamily: 'Lato',
-  //   color: '#fff',
-  //   backgroundColor: '#10A075',
-  //   marginTop: '6px',
-  //   marginBottom: '10px',
-  //   marginRight: '4px',
-  // };
+  const btnStyle = {
+    borderRadius: '10px',
+    width: '156px',
+    lineHeight: '37px',
+    fontSize: '12px',
+    textTransform: 'uppercase',
+    fontFamily: 'Lato',
+    color: '#fff',
+    backgroundColor: '#10A075',
+    marginTop: '6px',
+    marginBottom: '10px',
+    marginRight: '4px',
+  };
 
-  // useEffect(() => {
-  //   initSaveButtonDefaultStyle(saveButton);
+  useEffect(() => {
+    initSaveButtonDefaultStyle(saveButton);
 
-  //   if (selectedIDs.length === 0) {
-  //     updateActiveSaveButtonStyle(true, saveButton);
-  //   } else {
-  //     updateActiveSaveButtonStyle(false, saveButton);
-  //   }
-  // });
+    if (selectedIDs.length === 0) {
+      updateActiveSaveButtonStyle(true, saveButton);
+    } else {
+      updateActiveSaveButtonStyle(false, saveButton);
+    }
+  });
 
-  // function exportFiles() {
-  //   // Find the newly added files by comparing
-  //   const newFileIDS = fileIDs !== null ? selectedIDs.filter(
-  //     (e) => !fileIDs.find((a) => e === a),
-  //   ).length : selectedIDs.length;
-  //   if (cartWillFull(newFileIDS)) {
-  //     // throw an alert
-  //     setCartIsFull(true);
-  //     AddToCartAlertDialogRef.current.open();
-  //   } else if (newFileIDS > 0) {
-  //     addToCart({ fileIds: selectedIDs });
-  //     openSnack(newFileIDS);
-  //     setSelectedIDs([]);
-  //   }
-  // }
+  function exportFiles() {
+    // Find the newly added files by comparing
+    const newFileIDS = fileIDs !== null ? selectedIDs.filter(
+      (e) => !fileIDs.find((a) => e === a),
+    ).length : selectedIDs.length;
+    if (cartWillFull(newFileIDS)) {
+      // throw an alert
+      setCartIsFull(true);
+      AddToCartAlertDialogRef.current.open();
+    } else if (newFileIDS >= 0) {
+      addToCart({ fileIds: selectedIDs });
+      openSnack(newFileIDS);
+      setSelectedIDs([]);
+    }
+  }
 
-  // function divStyle() {
-  //   const css = {};
-  //   css.display = 'inherit';
-  //   return css;
-  // }
+  function divStyle() {
+    const css = {};
+    css.display = 'inherit';
+    return css;
+  }
 
   function rowSelectionEvent(displayData, rowsSelected) {
     const displayedDataKeies = displayData;
@@ -220,7 +220,7 @@ const GridView = ({
         </Grid>
 
       </Grid>
-      {/* <div className={classes.topButtonGroup} style={divStyle()}>
+      <div className={classes.topButtonGroup} style={divStyle()}>
         <button
           type="button"
           style={btnStyle}
@@ -228,15 +228,9 @@ const GridView = ({
           onClick={exportFiles}
           id={`button_${buttonText}`}
         >
-          {buttonText}
+          { buttonText }
         </button>
-        <IconButton
-          aria-label="help"
-          className={classes.helpIconButton}
-          onMouseOver={() => toggleMessageStatus('top', 'open')}
-          onMouseEnter={() => toggleMessageStatus('top', 'open')}
-          onMouseLeave={() => toggleMessageStatus('top', 'close')}
-        >
+        <IconButton aria-label="help" className={classes.helpIconButton} onMouseOver={() => toggleMessageStatus('top', 'open')} onMouseEnter={() => toggleMessageStatus('top', 'open')} onMouseLeave={() => toggleMessageStatus('top', 'close')}>
           {tooltipContent.src ? (
             <img
               onMouseEnter={() => toggleMessageStatus('top', 'open')}
@@ -256,14 +250,14 @@ const GridView = ({
             />
           )}
         </IconButton>
-        {messageStatus ? (
+        { messageStatus ? (
           <div className={classes.messageBottom} style={tooltipStyle(tooltipMessage)}>
             {' '}
             <Message data={tooltipMessage} />
             {' '}
           </div>
         ) : ''}
-      </div> */}
+      </div>
     </div>
   );
 };

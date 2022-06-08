@@ -22,7 +22,7 @@ const table = {
   // Field name for table data, need to be updated only when using a different GraphQL query
   dataField: 'programInfo',
   // Value must be one of the 'field' in columns
-  defaultSortField: 'program_id',
+  defaultSortField: 'program_acronym',
   // 'asc' or 'desc'
   defaultSortDirection: 'asc',
   // Set 'selectableRows' to true to show the row selection
@@ -30,27 +30,39 @@ const table = {
   // A maximum of 10 columns are allowed
   columns: [
     {
-      dataField: 'program_id',
-      header: 'Program Name',
+      dataField: 'program_acronym',
+      header: 'Program Code',
       link: '/program/{program_id}',
       display: true,
+    },
+    {
+      dataField: 'program_id',
+      header: 'Program ID',
     },
     {
       dataField: 'program_name',
       header: 'Program Name',
     },
     {
-      dataField: 'program_website',
-      header: 'Program Website',
-      link: '{program_website}',
+      dataField: 'start_date',
+      header: 'Start Date',
     },
     {
-      dataField: 'num_projects',
-      header: 'Number of Projects',
+      dataField: 'end_date',
+      header: 'End Date',
     },
     {
-      dataField: 'num_publications',
-      header: 'Number of Publications',
+      dataField: 'pubmed_id',
+      header: 'PubMed ID',
+      link: 'https://pubmed.ncbi.nlm.nih.gov/{pubmed_id}',
+    },
+    {
+      dataField: 'num_studies',
+      header: 'Number of Arms',
+    },
+    {
+      dataField: 'num_subjects',
+      header: 'Associated Cases',
     },
   ],
 };
@@ -58,11 +70,14 @@ const table = {
 // --------------- GraphQL query - Retrieve program info --------------
 const GET_PROGRAMS_DATA_QUERY = gql`{
   programInfo {
-    program_id
-    program_name
-    program_website
-    num_projects
-    num_publications
+ program_acronym
+ program_id
+ program_name
+ start_date
+ end_date
+ pubmed_id
+ num_studies
+ num_subjects
  }
 }
  `;
