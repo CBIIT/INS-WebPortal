@@ -1,6 +1,5 @@
-/* eslint-disable */
 import gql from 'graphql-tag';
-import { customCasesTabDownloadCSV, customFilesTabDownloadCSV, customSamplesTabDownloadCSV } from './tableDownloadCSV';
+import { customFilesTabDownloadCSV, customParticipantsTabDownloadCSV } from './tableDownloadCSV';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -21,19 +20,19 @@ export const externalLinkIcon = {
 // --------------- Tabs Table configuration --------------
 export const tabContainers = [
   {
-
-    name: 'Cases',
-    dataField: 'dataCase',
-    api: 'GET_CASES_OVERVIEW_QUERY',
-    paginationAPIField: 'subjectOverview',
-    count: 'numberOfSubjects',
-    dataKey: 'subject_id',
-    defaultSortField: 'subject_id',
+    name: 'Projects',
+    dataField: 'dataProject',
+    api: 'GET_PROJECTS_OVERVIEW_QUERY',
+    paginationAPIField: 'projectOverViewPaged',
+    paginationAPIFieldDesc: 'projectOverViewPagedDesc',
+    defaultSortField: 'project_id',
     defaultSortDirection: 'asc',
+    count: 'numberOfProjects',
     buttonText: 'Add Selected Files',
+    dataKey: 'project_id',
     saveButtonDefaultStyle: {
       color: '#fff',
-      backgroundColor: '#09A175',
+      backgroundColor: '#DC2FDA',
       opacity: '1',
       border: '0px',
       cursor: 'pointer',
@@ -49,207 +48,78 @@ export const tabContainers = [
     },
     columns: [
       {
-        dataField: 'subject_id',
-        header: 'Case ID',
+        dataField: 'project_id',
+        header: 'Project ID',
         sort: 'asc',
-        link: '/case/{subject_id}',
+        link: '/project/{project_id}',
         primary: true,
         display: true,
       },
       {
         dataField: 'program',
-        header: 'Program Code',
-        sort: 'asc',
-        link: '/program/{program_id}',
-        display: true,
-      },
-      {
-        dataField: 'program_id',
-        header: 'Program ID',
+        header: 'Program',
         sort: 'asc',
         display: true,
       },
       {
-        dataField: 'study_acronym',
-        header: 'Arm',
-        sort: 'asc',
-        link: '/arm/{study_acronym}',
-        display: true,
-      },
-      {
-        dataField: 'diagnosis',
-        header: 'Diagnosis',
+        dataField: 'project_title',
+        header: 'Project Title',
         sort: 'asc',
         display: true,
       },
       {
-        dataField: 'recurrence_score',
-        header: 'Recurrence Score',
+        dataField: 'principal_investigators',
+        header: 'Principal Investigators',
         sort: 'asc',
         display: true,
       },
       {
-        dataField: 'tumor_size',
-        header: 'Tumor Size (cm)',
+        dataField: 'lead_doc',
+        header: 'Lead DOC',
         sort: 'asc',
         display: true,
       },
       {
-        dataField: 'er_status',
-        header: 'ER Status',
+        dataField: 'award_amount',
+        header: 'Award Amount',
         sort: 'asc',
         display: true,
       },
       {
-        dataField: 'pr_status',
-        header: 'PR Status',
+        dataField: 'project_end_date',
+        header: 'Project End Date',
         sort: 'asc',
         display: true,
       },
       {
-        dataField: 'age_at_index',
-        header: 'Age (years)',
-        sort: 'asc',
-        display: true,
-      },
-      {
-        dataField: 'survival_time',
-        header: 'Survival (days)',
+        dataField: 'fiscal_year',
+        header: 'Fiscal Year',
         sort: 'asc',
         display: true,
       },
     ],
-    id: 'case_tab',
+    id: 'project_tab',
     onRowsSelect: 'type1',
     disableRowSelection: 'type1',
-    tableID: 'case_tab_table',
-    selectableRows: true,
-    tableDownloadCSV: customCasesTabDownloadCSV,
+    tableID: 'project_tab_table',
+    selectableRows: false,
     tabIndex: '0',
-    downloadFileName: 'Bento_Dashboard_cases_download',
+    tableDownloadCSV: customFilesTabDownloadCSV,
+    downloadFileName: 'INS_Dashboard_files_download',
     headerPagination: true,
     footerPagination: true,
   },
   {
-    name: 'Samples',
-    dataField: 'dataSample',
-    api: 'GET_SAMPLES_OVERVIEW_QUERY',
-    count: 'numberOfSamples',
-    paginationAPIField: 'sampleOverview',
-    dataKey: 'sample_id',
-    defaultSortField: 'sample_id',
+    name: 'Publications',
+    dataField: 'dataPublication',
+    api: 'GET_PUBLICATIONS_OVERVIEW_QUERY',
+    paginationAPIField: 'publicationOverViewPaged',
+    paginationAPIFieldDesc: 'publicationOverViewPagedDesc',
+    defaultSortField: 'publication_id',
     defaultSortDirection: 'asc',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#00AEEF',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-
-    columns: [
-      {
-        dataField: 'sample_id',
-        header: 'Sample ID',
-        sort: 'asc',
-        primary: true,
-        display: true,
-      },
-      {
-        dataField: 'subject_id',
-        header: 'Case ID',
-        sort: 'asc',
-        link: '/case/{subject_id}',
-        display: true,
-      },
-      {
-        dataField: 'program',
-        header: 'Program Code',
-        sort: 'asc',
-        link: '/program/{program_id}',
-        display: true,
-      },
-      {
-        dataField: 'program_id',
-        header: 'Program ID',
-        sort: 'asc',
-        display: false,
-      },
-      {
-        dataField: 'arm',
-        header: 'Arm',
-        sort: 'asc',
-        link: '/arm/{arm}',
-        display: true,
-      },
-      {
-        dataField: 'diagnosis',
-        header: 'Diagnosis',
-        sort: 'asc',
-        display: true,
-      },
-      {
-        dataField: 'tissue_type',
-        header: 'Tissue Type',
-        sort: 'asc',
-        display: true,
-      },
-      {
-        dataField: 'tissue_composition',
-        header: 'Tissue Composition',
-        sort: 'asc',
-        display: true,
-      },
-      {
-        dataField: 'sample_anatomic_site',
-        header: 'Sample Anatomic Site',
-        sort: 'asc',
-        display: true,
-      },
-      {
-        dataField: 'sample_procurement_method',
-        header: 'Sample Procurement Method',
-        sort: 'asc',
-        display: true,
-      },
-      {
-        dataField: 'platform',
-        header: 'platform',
-        sort: 'asc',
-        display: true,
-      },
-    ],
-    id: 'sample_tab',
-    onRowsSelect: 'type3',
-    disableRowSelection: 'type2',
+    count: 'numberOfPublicationsByProjects',
     buttonText: 'Add Selected Files',
-    tableID: 'sample_tab_table',
-    selectableRows: true,
-    tabIndex: '1',
-    tableDownloadCSV: customSamplesTabDownloadCSV,
-    downloadFileName: 'Bento_Dashboard_cases_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Files',
-    dataField: 'dataFile',
-    api: 'GET_FILES_OVERVIEW_QUERY',
-    paginationAPIField: 'fileOverview',
-    defaultSortField: 'file_name',
-    defaultSortDirection: 'asc',
-    count: 'numberOfFiles',
-    buttonText: 'Add Selected Files',
-    dataKey: 'file_name',
+    dataKey: 'publication_id',
     saveButtonDefaultStyle: {
       color: '#fff',
       backgroundColor: '#DC2FDA',
@@ -268,124 +138,286 @@ export const tabContainers = [
     },
     columns: [
       {
-        dataField: 'file_name',
-        header: 'File Name',
+        dataField: 'publication_id',
+        header: 'PubMed ID',
+        sort: 'asc',
+        primary: true,
+        link: 'https://pubmed.ncbi.nlm.nih.gov/{publication_id}/',
+        display: true,
+      },
+      {
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'authors',
+        header: 'Authors',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'citation_count',
+        header: 'Citation Count',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'relative_citation_ratio',
+        header: 'Relative Citation Ratio',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'nih_percentile',
+        header: 'NIH Percentile',
+        sort: 'asc',
+        display: true,
+      },
+    ],
+    id: 'publication_tab',
+    onRowsSelect: 'type2',
+    disableRowSelection: 'type2',
+    tableID: 'publication_tab_table',
+    selectableRows: false,
+    tabIndex: '1',
+    tableDownloadCSV: customFilesTabDownloadCSV,
+    downloadFileName: 'INS_Dashboard_files_download',
+    headerPagination: true,
+    footerPagination: true,
+  },
+  {
+    name: 'Datasets',
+    dataField: 'dataDataset',
+    api: 'GET_DATASETS_OVERVIEW_QUERY',
+    paginationAPIField: 'datasetOverViewPaged',
+    paginationAPIFieldDesc: 'datasetOverViewPagedDesc',
+    defaultSortField: 'accession',
+    defaultSortDirection: 'asc',
+    count: 'numberOfDatasetsByProjects',
+    buttonText: 'Add Selected Files',
+    dataKey: 'accession',
+    saveButtonDefaultStyle: {
+      color: '#fff',
+      backgroundColor: '#DC2FDA',
+      opacity: '1',
+      border: '0px',
+      cursor: 'pointer',
+    },
+    DeactiveSaveButtonDefaultStyle: {
+      opacity: '0.3',
+      cursor: 'auto',
+    },
+    ActiveSaveButtonDefaultStyle: {
+      cursor: 'pointer',
+      opacity: 'unset',
+      border: 'unset',
+    },
+    columns: [
+      {
+        dataField: 'accession',
+        header: 'Accession',
+        sort: 'asc',
+        link: '{link}',
+        primary: true,
+        display: true,
+      },
+      {
+        dataField: 'link',
+        header: 'Link',
+        sort: 'asc',
+        link: '{link}',
+        display: false,
+      },
+      {
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'transformed_type',
+        header: 'Type',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'submission_date',
+        header: 'Submission Date',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'last_update_date',
+        header: 'Last Update Date',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'release_date',
+        header: 'Release Date',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'registration_date',
+        header: 'Registration Date',
+        sort: 'asc',
+        display: true,
+      },
+    ],
+    id: 'dataset_tab',
+    onRowsSelect: 'type3',
+    disableRowSelection: 'type3',
+    tableID: 'dataset_tab_table',
+    selectableRows: false,
+    tabIndex: '2',
+    tableDownloadCSV: customFilesTabDownloadCSV,
+    downloadFileName: 'INS_Dashboard_files_download',
+    headerPagination: true,
+    footerPagination: true,
+  },
+  {
+    name: 'Clinical Trials',
+    dataField: 'dataClinicalTrial',
+    api: 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY',
+    paginationAPIField: 'clinicalTrialOverViewPaged',
+    paginationAPIFieldDesc: 'clinicalTrialOverViewPagedDesc',
+    defaultSortField: 'clinical_trial_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfClinicalTrialsByProjects',
+    buttonText: 'Add Selected Files',
+    dataKey: 'clinical_trial_id',
+    saveButtonDefaultStyle: {
+      color: '#fff',
+      backgroundColor: '#DC2FDA',
+      opacity: '1',
+      border: '0px',
+      cursor: 'pointer',
+    },
+    DeactiveSaveButtonDefaultStyle: {
+      opacity: '0.3',
+      cursor: 'auto',
+    },
+    ActiveSaveButtonDefaultStyle: {
+      cursor: 'pointer',
+      opacity: 'unset',
+      border: 'unset',
+    },
+    columns: [
+      {
+        dataField: 'clinical_trial_id',
+        header: 'Clinical Trial ID',
+        sort: 'asc',
+        link: 'https://clinicaltrials.gov/ct2/show/{clinical_trial_id}/',
+        primary: true,
+        display: true,
+      },
+      {
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'last_update_posted',
+        header: 'Last Update Posted',
+        sort: 'asc',
+        display: true,
+      },
+      {
+        dataField: 'recruitment_status',
+        header: 'Recruitment Status',
+        sort: 'asc',
+        display: true,
+      },
+    ],
+    id: 'clinical_trial_tab',
+    onRowsSelect: 'type4',
+    disableRowSelection: 'type4',
+    tableID: 'clinical_trial_tab_table',
+    selectableRows: false,
+    tabIndex: '3',
+    tableDownloadCSV: customFilesTabDownloadCSV,
+    downloadFileName: 'INS_Dashboard_files_download',
+    headerPagination: true,
+    footerPagination: true,
+  },
+  {
+    name: 'Patents',
+    dataField: 'dataPatent',
+    api: 'GET_PATENTS_OVERVIEW_QUERY',
+    paginationAPIField: 'patentOverViewPaged',
+    paginationAPIFieldDesc: 'patentOverViewPagedDesc',
+    defaultSortField: 'patent_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfPatentsByProjects',
+    buttonText: 'Add Selected Files',
+    dataKey: 'patent_id',
+    saveButtonDefaultStyle: {
+      color: '#fff',
+      backgroundColor: '#DC2FDA',
+      opacity: '1',
+      border: '0px',
+      cursor: 'pointer',
+    },
+    DeactiveSaveButtonDefaultStyle: {
+      opacity: '0.3',
+      cursor: 'auto',
+    },
+    ActiveSaveButtonDefaultStyle: {
+      cursor: 'pointer',
+      opacity: 'unset',
+      border: 'unset',
+    },
+    columns: [
+      {
+        dataField: 'patent_id',
+        header: 'Patent ID',
         sort: 'asc',
         primary: true,
         display: true,
       },
       {
-        dataField: 'file_id',
-        header: 'File ID',
-        sort: 'asc',
-        display: false,
-      },
-      {
-        dataField: 'association',
-        header: 'Association',
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
         sort: 'asc',
         display: true,
       },
       {
-        dataField: 'file_description',
-        header: 'Description',
-        sort: 'asc',
-        display: true,
-      },
-      {
-        dataField: 'file_format',
-        header: 'File Format',
-        sort: 'asc',
-        display: true,
-      },
-      {
-        dataField: 'file_size',
-        header: 'Size',
-        sort: 'asc',
-        display: true,
-        formatBytes: true,
-      },
-      {
-        dataField: '', // This need to left empty if no data need to be displayed before file download icon
-        header: 'Access',
-        sort: 'asc',
-        display: true,
-        downloadDocument: true, // To indicate that column is document donwload
-        documentDownloadProps: {
-          // Max file size needs to bin Bytes to seperate two support file preview and download
-          maxFileSize: 315,
-          // Tool top text for Unauthenticated users
-          toolTipTextUnauthenticated: 'Login to access this file',
-          // Tool top text for file download
-          toolTipTextFileDownload: 'Download a copy of this file',
-          // Tool top text for file preview
-          toolTipTextFilePreview: 'Because of its size and/or format, this file is unavailable for download and must be accessed via the My Files workflow',
-          // datafield where file file column exists in the table
-          fileSizeColumn: 'file_size',
-          // datafield where file file id exists in the table which is used to get file location
-          fileLocationColumn: 'file_id',
-          // datafield where file format exists in the table
-          fileFormatColumn: 'file_format',
-          // datafield where file case id exists in the table which is used to get file information
-          caseIdColumn: 'subject_id',
-          // Unauthenticated lock icon
-          iconUnauthenticated: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Access_Lock.svg',
-          // file download icon
-          iconFileDownload: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/DocumentDownloadPDF.svg',
-          // file preview icon
-          iconFilePreview: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/DocumentDownloadCloud.svg',
-          // file viewer icon JBrowse
-          iconFileViewer: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/DocumentDownloadBAM.svg',
-        },
-      },
-      {
-        dataField: 'program',
-        header: 'Program Code',
-        sort: 'asc',
-        link: '/program/{program_id}',
-        display: true,
-      },
-      {
-        dataField: 'program_id',
-        header: 'Program ID',
-        sort: 'asc',
-        display: false,
-      },
-      {
-        dataField: 'arm',
-        header: 'Arm',
-        sort: 'asc',
-        link: '/arm/{arm}',
-        display: true,
-      },
-      {
-        dataField: 'subject_id',
-        header: 'Case ID',
-        sort: 'asc',
-        link: '/case/{subject_id}',
-        display: true,
-      },
-      {
-        dataField: 'sample_id',
-        header: 'Sample ID',
-        sort: 'asc',
-        display: true,
-      },
-      {
-        dataField: 'diagnosis',
-        header: 'Diagnosis',
+        dataField: 'fulfilled_date',
+        header: 'Fulfilled Date',
         sort: 'asc',
         display: true,
       },
     ],
-    id: 'file_tab',
-    onRowsSelect: 'type2',
-    disableRowSelection: 'type3',
-    tableID: 'file_tab_table',
-    selectableRows: true,
-    tabIndex: '2',
+    id: 'patent_tab',
+    onRowsSelect: 'type5',
+    disableRowSelection: 'type5',
+    tableID: 'patent_tab_table',
+    selectableRows: false,
+    tabIndex: '4',
     tableDownloadCSV: customFilesTabDownloadCSV,
-    downloadFileName: 'Bento_Dashboard_cases_download',
+    downloadFileName: 'INS_Dashboard_files_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -394,835 +426,368 @@ export const tabContainers = [
 // --------------- Tabs Header Data configuration --------------
 export const tabs = [
   {
-    id: 'case_tab',
-    title: 'Cases',
-    dataField: 'dataCase',
-    count: 'numberOfSubjects',
+    id: 'project_tab',
+    title: 'Projects',
+    dataField: 'dataProject',
+    count: 'numberOfProjects',
   },
   {
-    id: 'sample_tab',
-    title: 'Samples',
-    dataField: 'dataSample',
-    count: 'numberOfSamples',
+    id: 'publication_tab',
+    title: 'Publications',
+    dataField: 'dataPublication',
+    count: 'numberOfPublicationsByProjects',
   },
   {
-    id: 'file_tab',
-    title: 'Files',
-    dataField: 'dataFile',
-    count: 'numberOfFiles',
+    id: 'dataset_tab',
+    title: 'Datasets',
+    dataField: 'dataDataset',
+    count: 'numberOfDatasetsByProjects',
+  },
+  {
+    id: 'clinical_trial_tab',
+    title: 'Clinical Trials',
+    dataField: 'dataClinicalTrial',
+    count: 'numberOfClinicalTrialsByProjects',
+  },
+  {
+    id: 'patent_tab',
+    title: 'Patents',
+    dataField: 'dataPatent',
+    count: 'numberOfPatentsByProjects',
   },
 ];
 
 // --------------- Tabs Header Style configuration --------------
 export const tabIndex = [
   {
-    title: 'Cases',
+    title: 'Projects',
+    primaryColor: '#F7D7F7',
+    secondaryColor: '#86D6F0',
+    selectedColor: '#C92EC7',
+  },
+  {
+    title: 'Publications',
+    primaryColor: '#E7E5F1',
+    secondaryColor: '#C3DBD4',
+    selectedColor: '#6D679E',
+  },
+  {
+    title: 'Datasets',
     primaryColor: '#D6F2EA',
     secondaryColor: '#FFDFB8',
     selectedColor: '#10A075',
   },
   {
-    title: 'Samples',
+    title: 'Clinical Trials',
+    primaryColor: '#D3F0F2',
+    secondaryColor: '#E4E8D5',
+    selectedColor: '#0FA8B1',
+  },
+  {
+    title: 'Patents',
     primaryColor: '#CFEDF9',
     secondaryColor: '#C9F1F1',
     selectedColor: '#0DAFEC',
   },
-  {
-    title: 'Files',
-    primaryColor: '#F7D7F7',
-    secondaryColor: '#86D6F0',
-    selectedColor: '#C92EC7',
-  },
 ];
 
-export const DASHBOARD_QUERY_NEW = gql`
-query search (          
-    $subject_ids: [String],
-    $programs: [String] ,
-    $studies: [String] ,
-    $diagnoses: [String] ,
-    $rc_scores: [String] ,
-    $tumor_sizes: [String] ,
-    $chemo_regimen: [String] ,
-    $tumor_grades: [String] ,
-    $er_status: [String] ,
-    $pr_status: [String] ,
-    $endo_therapies: [String] ,
-    $meno_status: [String] ,
-    $tissue_type: [String],
-    $composition: [String],
-    $association: [String],
-    $file_type: [String],
-    $age_at_index: [Float]
-){
-    searchSubjects (          
-        subject_ids: $subject_ids,
-        programs: $programs,
-        studies: $studies,
-        diagnoses: $diagnoses,
-        rc_scores: $rc_scores,
-        tumor_sizes: $tumor_sizes,
-        chemo_regimen: $chemo_regimen,
-        tumor_grades: $tumor_grades,
-        er_status: $er_status,
-        pr_status: $pr_status,
-        endo_therapies: $endo_therapies,
-        meno_status: $meno_status,
-        tissue_type: $tissue_type,
-        composition: $composition,
-        association: $association,       
-        file_type: $file_type,
-        age_at_index: $age_at_index
-    ) {
-        numberOfPrograms
-        numberOfStudies
-        numberOfSubjects
-        numberOfSamples
-        numberOfLabProcedures
-        numberOfFiles
-        armsByPrograms {
-            program
-            caseSize
-            children {
-                arm
-                caseSize
-                size
-            }
-        }
-        subjectCountByProgram {
-            group
-            subjects
-        }
-        subjectCountByStudy {
-            group
-            subjects
-        }
-        subjectCountByDiagnoses {
-            group
-            subjects
-        }
-        subjectCountByRecurrenceScore {
-            group
-            subjects
-        }
-        subjectCountByTumorSize {
-            group
-            subjects
-        }
-        subjectCountByChemotherapyRegimen {
-            group
-            subjects
-        }
-        subjectCountByEndocrineTherapy {
-            group
-            subjects
-        }
-        subjectCountByTumorGrade{
-            group
-            subjects
-        }
-        subjectCountByErStatus{
-            group
-            subjects
-        }
-        subjectCountByPrStatus{
-            group
-            subjects
-        }
-        subjectCountByMenopauseStatus{
-            group
-            subjects
-        }
-        subjectCountByFileType {
-            group
-            subjects
-        }
-        subjectCountByFileAssociation {
-            group
-            subjects
-        }
-        subjectCountByTissueComposition {
-            group
-            subjects
-        }
-        subjectCountByTissueType {
-            group
-            subjects
-        }
-        filterSubjectCountByProgram {
-            group
-            subjects
-        }
-        filterSubjectCountByStudy{
-            group
-            subjects
-        }
-        filterSubjectCountByDiagnoses{
-            group
-            subjects
-        }
-        filterSubjectCountByRecurrenceScore{
-            group
-            subjects
-        }
-        filterSubjectCountByTumorSize{
-            group
-            subjects
-        }
-        filterSubjectCountByTumorGrade{
-            group
-            subjects
-        }
-        filterSubjectCountByErStatus{
-            group
-            subjects
-        }
-        filterSubjectCountByPrStatus{
-            group
-            subjects
-        }
-        filterSubjectCountByChemotherapyRegimen{
-            group
-            subjects
-        }
-        filterSubjectCountByEndocrineTherapy{
-            group
-            subjects
-        }
-        filterSubjectCountByMenopauseStatus{
-            group
-            subjects
-        }
-        filterSubjectCountByTissueType{
-            group
-            subjects
-        }
-        filterSubjectCountByTissueComposition{
-            group
-            subjects
-        }
-        filterSubjectCountByFileAssociation{
-            group
-            subjects
-        }
-        filterSubjectCountByFileType{
-            group
-            subjects
-        }
-        filterSubjectCountByAge{
-            lowerBound
-            upperBound
-            subjects
-        }
-    }
-}
-`;
-
 export const DASHBOARD_QUERY = gql`
-    query search (          
-      $programs: [String] ,
-      $studies: [String] ,
-      $diagnoses: [String] ,
-      $rc_scores: [String] ,
-      $tumor_sizes: [String] ,
-      $chemo_regimen: [String] ,
-      $tumor_grades: [String] ,
-      $er_status: [String] ,
-      $pr_status: [String] ,
-      $endo_therapies: [String] ,
-      $meno_status: [String] ,
-      $tissue_type: [String],
-      $composition: [String],
-      $association: [String],
-      $file_type: [String],
-      $age_at_index: [Float]
-  ){
-      searchSubjects (          
-          programs: $programs,
-          studies: $studies,
-          diagnoses: $diagnoses,
-          rc_scores: $rc_scores,
-          tumor_sizes: $tumor_sizes,
-          chemo_regimen: $chemo_regimen,
-          tumor_grades: $tumor_grades,
-          er_status: $er_status,
-          pr_status: $pr_status,
-          endo_therapies: $endo_therapies,
-          meno_status: $meno_status,
-          tissue_type: $tissue_type,
-          composition: $composition,
-          association: $association,       
-          file_type: $file_type,
-          age_at_index: $age_at_index
-      ) {
-          numberOfPrograms
-          numberOfStudies
-          numberOfSubjects
-          numberOfSamples
-          numberOfLabProcedures
-          numberOfFiles
-          armsByPrograms {
-              program
-              caseSize
-              children {
-                  arm
-                  caseSize
-                  size
-              }
-  
-          }
-  
-      subjectCountByProgram {
-              group
-              subjects
-          }
-          subjectCountByStudy {
-              group
-              subjects
-          }
-          subjectCountByDiagnoses {
-              group
-              subjects
-          }
-          subjectCountByRecurrenceScore {
-              group
-              subjects
-          }
-          subjectCountByTumorSize {
-              group
-              subjects
-          }
-          subjectCountByChemotherapyRegimen {
-              group
-              subjects
-          }
-          subjectCountByEndocrineTherapy {
-              group
-              subjects
-          }
-          subjectCountByTumorGrade{
-              group
-              subjects
-          }
-          subjectCountByErStatus{
-              group
-              subjects
-          }
-          subjectCountByPrStatus{
-              group
-              subjects
-          }
-          subjectCountByMenopauseStatus{
-              group
-              subjects
-          }
-          subjectCountByFileType {
-              group
-              subjects
-          }
-          subjectCountByFileAssociation {
-              group
-              subjects
-          }
-          subjectCountByTissueComposition {
-              group
-              subjects
-          }
-          subjectCountByTissueType {
-              group
-              subjects
-          }
-  
-          filterSubjectCountByProgram {
-              group
-              subjects
-          }
-          filterSubjectCountByStudy{
-              group
-              subjects
-          }
-          filterSubjectCountByDiagnoses{
-              group
-              subjects
-          }
-          filterSubjectCountByRecurrenceScore{
-              group
-              subjects
-          }
-          filterSubjectCountByTumorSize{
-              group
-              subjects
-          }
-          filterSubjectCountByTumorGrade{
-              group
-              subjects
-          }
-          filterSubjectCountByErStatus{
-              group
-              subjects
-          }
-          filterSubjectCountByPrStatus{
-              group
-              subjects
-          }
-          filterSubjectCountByChemotherapyRegimen{
-              group
-              subjects
-          }
-          filterSubjectCountByEndocrineTherapy{
-              group
-              subjects
-          }
-          filterSubjectCountByMenopauseStatus{
-              group
-              subjects
-          }
-          filterSubjectCountByTissueType{
-              group
-              subjects
-          }
-          filterSubjectCountByTissueComposition{
-              group
-              subjects
-          }
-          filterSubjectCountByFileAssociation{
-              group
-              subjects
-          }
-          filterSubjectCountByFileType{
-              group
-              subjects
-          }
-          filterSubjectCountByAge{
-            lowerBound
-            upperBound
-            subjects
-        }
-  
-      }
+{
+  numberOfPrograms
+  numberOfProjects
+  numberOfPublicationsByProjects
+  numberOfDatasetsByProjects
+  numberOfClinicalTrialsByProjects
+  numberOfPatentsByProjects
+  projectCountByProgram{
+    group
+    subjects
   }
-  
-   `;
+  projectCountByDOC{
+    group
+    subjects
+  }
+  projectCountByFiscalYear{
+    group
+    subjects
+  }
+  projectCountByAwardAmount{
+    group
+    subjects
+  }
+  publicationCountByYear{
+    group
+    subjects
+  }
+  publicationCountByRCR{
+    group
+    subjects
+  }
+  publicationCountByCitation
+  {
+    group
+    subjects
+  }
+  projectOverViewPaged(first: 100) {
+    project_id
+    application_id
+    fiscal_year
+    project_title
+    project_type
+    abstract_text
+    keywords
+    org_name
+    org_city
+    org_state
+    org_country
+    principal_investigators
+    lead_doc
+    program_officers
+    award_amount
+    nci_funded_amount
+    award_notice_date
+    project_start_date
+    project_end_date
+    full_foa
+    program
+  }
+  }`;
+
+export const DASHBOARD_QUERY_NEW = gql`
+{
+  numberOfPrograms
+  numberOfProjects
+  numberOfPublicationsByProjects
+  numberOfDatasetsByProjects
+  numberOfClinicalTrialsByProjects
+  numberOfPatentsByProjects
+  projectCountByProgram{
+    group
+    subjects
+  }
+  projectCountByDOC{
+    group
+    subjects
+  }
+  projectCountByFiscalYear{
+    group
+    subjects
+  }
+  projectCountByAwardAmount{
+    group
+    subjects
+  }
+  publicationCountByYear{
+    group
+    subjects
+  }
+  publicationCountByRCR{
+    group
+    subjects
+  }
+  publicationCountByCitation
+  {
+    group
+    subjects
+  }
+  projectOverViewPaged(first: 100) {
+    project_id
+    application_id
+    fiscal_year
+    project_title
+    project_type
+    abstract_text
+    keywords
+    org_name
+    org_city
+    org_state
+    org_country
+    principal_investigators
+    lead_doc
+    program_officers
+    award_amount
+    nci_funded_amount
+    award_notice_date
+    project_start_date
+    project_end_date
+    full_foa
+    program
+  }
+  }`;
 
 export const FILTER_GROUP_QUERY = gql`
   query groupCounts($subject_ids: [String]){
-   armsByPrograms(subject_ids: $subject_ids) {
-     program
-     caseSize
-     children {
-         arm
-         caseSize
-         size
-     }
- }
- subjectCountByDiagnoses (subject_ids: $subject_ids){
-  group
-  subjects
-}
-subjectCountByRecurrenceScore (subject_ids: $subject_ids){
-  group
-  subjects
-}
-subjectCountByTumorSize(subject_ids: $subject_ids) {
-  group
-  subjects
-}
-subjectCountByChemotherapyRegimen(subject_ids: $subject_ids) {
-  group
-  subjects
-}
-subjectCountByEndocrineTherapy (subject_ids: $subject_ids){
-  group
-  subjects
-}
-   
-}
- `;
+    projectCountByProgram(project_ids: $subject_ids){
+      group
+      subjects
+    }
+    projectCountByDOC(project_ids: $subject_ids){
+      group
+      subjects
+    }
+    projectCountByFiscalYear(project_ids: $subject_ids){
+      group
+      subjects
+    } 
+    projectCountByAwardAmount(project_ids: $subject_ids){
+      group
+      subjects
+    } 
+    publicationCountByYear(project_ids: $subject_ids){
+      group
+      subjects
+    }
+    publicationCountByRCR(project_ids: $subject_ids){
+      group
+      subjects
+    }
+    publicationCountByCitation(project_ids: $subject_ids){
+      group
+      subjects
+    }
+    numberOfPublicationsByProjects(project_ids: $subject_ids)
+    numberOfDatasetsByProjects(project_ids: $subject_ids)
+    numberOfClinicalTrialsByProjects(project_ids: $subject_ids)
+    numberOfPatentsByProjects(project_ids: $subject_ids)
+  }`;
 
 export const FILTER_QUERY = gql`
-query search (          
-  $programs: [String] ,
-  $studies: [String] ,
-  $diagnoses: [String] ,
-  $rc_scores: [String] ,
-  $tumor_sizes: [String] ,
-  $chemo_regimen: [String] ,
-  $tumor_grades: [String] ,
-  $er_status: [String] ,
-  $pr_status: [String] ,
-  $endo_therapies: [String] ,
-  $meno_status: [String] ,
-  $tissue_type: [String],
-  $composition: [String],
-  $association: [String],
-  $file_type: [String],
-  $age_at_index: [Float]
-){
-  searchSubjects (          
-      programs: $programs,
-      studies: $studies,
-      diagnoses: $diagnoses,
-      rc_scores: $rc_scores,
-      tumor_sizes: $tumor_sizes,
-      chemo_regimen: $chemo_regimen,
-      tumor_grades: $tumor_grades,
-      er_status: $er_status,
-      pr_status: $pr_status,
-      endo_therapies: $endo_therapies,
-      meno_status: $meno_status,
-      tissue_type: $tissue_type,
-      composition: $composition,
-      association: $association,       
-      file_type: $file_type,
-      age_at_index: $age_at_index
-  ) {
-      numberOfPrograms
-      numberOfStudies
-      numberOfSubjects
-      numberOfSamples
-      numberOfLabProcedures
-      numberOfFiles
-      armsByPrograms {
-          program
-          caseSize
-          children {
-              arm
-              caseSize
-              size
-          }
+query search($programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
+  $award_amounts: [String],
+  $first: Int ) {
+searchProjects(programs: $programs,
+  docs: $docs,
+  fiscal_years: $fiscal_years,
+  award_amounts: $award_amounts,
+      first: $first) {
+        projectIds
+        publicationIds
+        accessions
+        clinicalTrialIds
+        patentIds
+        numberOfPrograms
+        numberOfProjects
+        numberOfPublications
+        numberOfAccessions
+        numberOfClinicalTrials
+        numberOfPatents
+}
+filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+  group
+  subjects
+}
+filterProjectCountByDOC(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+  group
+  subjects
+}
+filterProjectCountByFiscalYear(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+  group
+  subjects
+}
+filterProjectCountByAwardAmount(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+  group
+  subjects
+}
+}`;
 
-      }
-
-  subjectCountByProgram {
-          group
-          subjects
-      }
-      subjectCountByStudy {
-          group
-          subjects
-      }
-      subjectCountByDiagnoses {
-          group
-          subjects
-      }
-      subjectCountByRecurrenceScore {
-          group
-          subjects
-      }
-      subjectCountByTumorSize {
-          group
-          subjects
-      }
-      subjectCountByChemotherapyRegimen {
-          group
-          subjects
-      }
-      subjectCountByEndocrineTherapy {
-          group
-          subjects
-      }
-      subjectCountByTumorGrade{
-          group
-          subjects
-      }
-      subjectCountByErStatus{
-          group
-          subjects
-      }
-      subjectCountByPrStatus{
-          group
-          subjects
-      }
-      subjectCountByMenopauseStatus{
-          group
-          subjects
-      }
-      subjectCountByFileType {
-          group
-          subjects
-      }
-      subjectCountByFileAssociation {
-          group
-          subjects
-      }
-      subjectCountByTissueComposition {
-          group
-          subjects
-      }
-      subjectCountByTissueType {
-          group
-          subjects
-      }
-
-      filterSubjectCountByProgram {
-          group
-          subjects
-      }
-      filterSubjectCountByStudy{
-          group
-          subjects
-      }
-      filterSubjectCountByDiagnoses{
-          group
-          subjects
-      }
-      filterSubjectCountByRecurrenceScore{
-          group
-          subjects
-      }
-      filterSubjectCountByTumorSize{
-          group
-          subjects
-      }
-      filterSubjectCountByTumorGrade{
-          group
-          subjects
-      }
-      filterSubjectCountByErStatus{
-          group
-          subjects
-      }
-      filterSubjectCountByPrStatus{
-          group
-          subjects
-      }
-      filterSubjectCountByChemotherapyRegimen{
-          group
-          subjects
-      }
-      filterSubjectCountByEndocrineTherapy{
-          group
-          subjects
-      }
-      filterSubjectCountByMenopauseStatus{
-          group
-          subjects
-      }
-      filterSubjectCountByTissueType{
-          group
-          subjects
-      }
-      filterSubjectCountByTissueComposition{
-          group
-          subjects
-      }
-      filterSubjectCountByFileAssociation{
-          group
-          subjects
-      }
-      filterSubjectCountByFileType{
-          group
-          subjects
-      }
-      filterSubjectCountByAge{
-        lowerBound
-        upperBound
-        subjects
-      }
-
+// --------------- GraphQL query - Retrieve files tab details --------------
+export const GET_PROJECTS_OVERVIEW_QUERY = gql`
+query projectOverView($project_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "project_id", $sort_direction: String = "asc"){
+  projectOverView(project_ids: $project_ids, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+    project_id,
+    application_id,
+    fiscal_year,
+    project_title,
+    project_type,
+    abstract_text,
+    keywords,
+    org_name,
+    org_city,
+    org_state,
+    org_country,
+    principal_investigators,
+    lead_doc,
+    program_officers,
+    award_amount,
+    nci_funded_amount,
+    award_notice_date,
+    project_start_date,
+    project_end_date,
+    full_foa,
+    program
   }
 }
-`;
+  `;
 
-export const GET_FILES_OVERVIEW_QUERY = gql`
-query fileOverview(
-    $subject_ids: [String],
-    $file_ids: [String],
-    $programs: [String] ,
-    $studies: [String] ,
-    $diagnoses: [String] ,
-    $rc_scores: [String] ,
-    $tumor_sizes: [String] ,
-    $chemo_regimen: [String] ,
-    $tumor_grades: [String] ,
-    $er_status: [String] ,
-    $pr_status: [String] ,
-    $endo_therapies: [String] ,
-    $meno_status: [String] ,
-    $tissue_type: [String],
-    $composition: [String],
-    $association: [String],
-    $file_type: [String],
-    $age_at_index: [Float],
-    $first: Int, 
-    $offset: Int, 
-    $order_by:  String
-    $sort_direction: String ){
-    fileOverview(
-        subject_ids: $subject_ids,
-        file_ids: $file_ids,
-        programs: $programs,
-        studies: $studies,
-        diagnoses: $diagnoses,
-        rc_scores: $rc_scores,
-        tumor_sizes: $tumor_sizes,
-        chemo_regimen: $chemo_regimen,
-        tumor_grades: $tumor_grades,
-        er_status: $er_status,
-        pr_status: $pr_status,
-        endo_therapies: $endo_therapies,
-        meno_status: $meno_status,
-        tissue_type: $tissue_type,
-        composition: $composition,
-        association: $association,       
-        file_type: $file_type,
-        age_at_index: $age_at_index,
-        first: $first, 
-        offset: $offset, 
-        order_by: $order_by,
-        sort_direction: $sort_direction
-    ){
-        file_id,
-        program_id,
-        file_name,
-        association,
-        file_description,
-        file_format,
-        file_size,
-        program,
-        arm,
-        subject_id,
-        sample_id,
-        diagnosis,
+export const GET_PUBLICATIONS_OVERVIEW_QUERY = gql`
+query publicationOverView($publication_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "publication_id", $sort_direction: String = "asc"){
+  publicationOverView(publication_ids: $publication_ids, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+    publication_id,
+    pmc_id,
+    year,
+    journal,
+    title,
+    authors,
+    publish_date,
+    citation_count,
+    relative_citation_ratio,
+    nih_percentile,
+    doi,
+    queried_project_ids
+  }
+}
+  `;
+
+export const GET_DATASETS_OVERVIEW_QUERY = gql`
+  query datasetOverView($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "accession", $sort_direction: String = "asc"){
+    datasetOverView(accessions: $accessions, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+      accession,
+      title,
+      submission_date,
+      last_update_date,
+      release_date,
+      registration_date,
+      queried_project_ids,
+      type,
+      link,
+      transformed_type
     }
 }
-`;
+  `;
 
-export const GET_SAMPLES_OVERVIEW_QUERY = gql`
-query sampleOverview(
-    $subject_ids: [String],
-    $sample_ids: [String],
-    $programs: [String] ,
-    $studies: [String] ,
-    $diagnoses: [String] ,
-    $rc_scores: [String] ,
-    $tumor_sizes: [String] ,
-    $chemo_regimen: [String] ,
-    $tumor_grades: [String] ,
-    $er_status: [String] ,
-    $pr_status: [String] ,
-    $endo_therapies: [String] ,
-    $meno_status: [String] ,
-    $tissue_type: [String],
-    $composition: [String],
-    $association: [String],
-    $file_type: [String],
-    $age_at_index: [Float],
-    $first: Int, 
-    $offset: Int, 
-    $order_by:  String
-    $sort_direction: String ){
-    sampleOverview(
-        subject_ids: $subject_ids,
-        sample_ids: $sample_ids,
-        programs: $programs,
-        studies: $studies,
-        diagnoses: $diagnoses,
-        rc_scores: $rc_scores,
-        tumor_sizes: $tumor_sizes,
-        chemo_regimen: $chemo_regimen,
-        tumor_grades: $tumor_grades,
-        er_status: $er_status,
-        pr_status: $pr_status,
-        endo_therapies: $endo_therapies,
-        meno_status: $meno_status,
-        tissue_type: $tissue_type,
-        composition: $composition,
-        association: $association,       
-        file_type: $file_type,
-        age_at_index: $age_at_index,
-        first: $first, 
-        offset: $offset, 
-        order_by: $order_by,
-        sort_direction: $sort_direction
-    ){
-        sample_id,
-        subject_id,
-        program,
-        program_id,
-        arm,
-        diagnosis,
-        tissue_type,
-        tissue_composition,
-        sample_anatomic_site,
-        sample_procurement_method,
-        platform,
-        files 
+export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
+  query clinicalTrialOverView($clinical_trial_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "clinical_trial_id", $sort_direction: String = "asc"){
+    clinicalTrialOverView(clinical_trial_ids: $clinical_trial_ids, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+      clinical_trial_id,
+      title,
+      last_update_posted,
+      recruitment_status,
+      queried_project_ids
     }
 }
-`;
+  `;
 
-export const GET_CASES_OVERVIEW_QUERY = gql`
-query subjectOverview(
-    $subject_ids: [String],
-    $programs: [String] ,
-    $studies: [String] ,
-    $diagnoses: [String] ,
-    $rc_scores: [String] ,
-    $tumor_sizes: [String] ,
-    $chemo_regimen: [String] ,
-    $tumor_grades: [String] ,
-    $er_status: [String] ,
-    $pr_status: [String] ,
-    $endo_therapies: [String] ,
-    $meno_status: [String] ,
-    $tissue_type: [String],
-    $composition: [String],
-    $association: [String],
-    $file_type: [String],
-    $age_at_index: [Float],
-    $first: Int, 
-    $offset: Int, 
-    $order_by:  String
-    $sort_direction: String ){
-    subjectOverview(
-        subject_ids: $subject_ids,
-        programs: $programs,
-        studies: $studies,
-        diagnoses: $diagnoses,
-        rc_scores: $rc_scores,
-        tumor_sizes: $tumor_sizes,
-        chemo_regimen: $chemo_regimen,
-        tumor_grades: $tumor_grades,
-        er_status: $er_status,
-        pr_status: $pr_status,
-        endo_therapies: $endo_therapies,
-        meno_status: $meno_status,
-        tissue_type: $tissue_type,
-        composition: $composition,
-        association: $association,       
-        file_type: $file_type,
-        age_at_index: $age_at_index,
-        first: $first, 
-        offset: $offset, 
-        order_by: $order_by,
-        sort_direction: $sort_direction
-        
-        ) {
-        subject_id
-        program
-        program_id
-        study_acronym
-        study_short_description
-        study_info
-        diagnosis
-        recurrence_score
-        tumor_size
-        tumor_grade
-        er_status
-        pr_status
-        chemotherapy
-        endocrine_therapy
-        menopause_status
-        age_at_index
-        survival_time
-        survival_time_unit
-        files
-        lab_procedures
-        samples
+export const GET_PATENTS_OVERVIEW_QUERY = gql`
+  query patentOverView($patent_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "patent_id", $sort_direction: String = "asc"){
+    patentOverView(patent_ids: $patent_ids, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+      patent_id,
+      fulfilled_date,
+      queried_project_ids
     }
 }
-`;
+  `;
+
+// export const GET_ALL_FILEIDS_CASESTAB_FOR_SELECT_ALL = gql`
+//   query subjectOverView($subject_ids: [String], $first: Int = 10000000){
+//     fileOverView(submitted_file_ids: $subject_ids, first: $first) {
+//         files {
+//               file_id: file_set_id
+//         }
+//     }
+// }
+//   `;
 
 export const GET_ALL_FILEIDS_CASESTAB_FOR_SELECT_ALL = gql`
 query search (          
@@ -1234,6 +799,15 @@ query search (
 }
   `;
 
+// export const GET_ALL_FILEIDS_SAMPLESTAB_FOR_SELECT_ALL = gql`
+// eslint-disable-next-line max-len
+// query sampleOverview($sample_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String =""){
+//   sampleOverview(sample_ids: $sample_ids, offset: $offset,first: $first, order_by: $order_by) {
+//     files
+// }
+// }
+//   `;
+
 export const GET_ALL_FILEIDS_SAMPLESTAB_FOR_SELECT_ALL = gql`
 query search (          
   $sample_ids: [String],
@@ -1243,6 +817,15 @@ query search (
   ) 
 }
   `;
+
+// export const GET_ALL_FILEIDS_FILESTAB_FOR_SELECT_ALL = gql`
+// eslint-disable-next-line max-len
+// query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "file_name") {
+//   fileOverview(file_ids: $file_ids, offset: $offset, first: $first, order_by: $order_by) {
+//     file_id
+//   }
+// }
+//   `;
 
 export const GET_ALL_FILEIDS_FILESTAB_FOR_SELECT_ALL = gql`
 query search (          
@@ -1438,4 +1021,3 @@ export const GET_FILE_IDS_FROM_FILE_NAME = gql`
           file_id
       }
   }`;
-  

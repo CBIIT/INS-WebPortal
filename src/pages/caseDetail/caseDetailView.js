@@ -14,7 +14,7 @@ import icon from '../../assets/icons/Cases.Icon.svg';
 import Subsection from '../../components/PropertySubsection/caseDetailSubsection';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import {
-  caseHeader,
+  projectHeader,
   leftPanel,
   rightPanel,
   table1,
@@ -103,17 +103,17 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
             </div>
             <div className={classes.headerTitle}>
               <div className={classes.headerMainTitle}>
-                {`${caseHeader.label} :`}
-                { data[caseHeader.dataField]
+                {`${projectHeader.label} :`}
+                { data[projectHeader.dataField]
                   ? (
                     <span className={classes.headerMainTitleTwo}>
                       {' '}
-                      {data[caseHeader.dataField]}
+                      {data[projectHeader.dataField]}
                     </span>
                   )
                   : (
                     <Typography variant="h5" color="error" size="sm">
-                      {`"${caseHeader.dataField}" is not a valid property name`}
+                      {`"${projectHeader.dataField}" is not a valid property name`}
                     </Typography>
                   )}
               </div>

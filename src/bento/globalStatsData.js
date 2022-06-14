@@ -7,6 +7,11 @@ export const statsStyling = {
     height: '47px',
     background: '#8DCAFF',
   },
+  statsIcon: {
+    width: '40px',
+    height: '45px',
+    margin: '-7px',
+  },
 };
 
 export const globalStatsData = [
@@ -15,41 +20,53 @@ export const globalStatsData = [
     statTitle: 'Programs',
     type: 'field',
     statAPI: 'numberOfPrograms',
+    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Programs_.svg',
+    statIconAlt: 'Temp',
   },
   {
-    statTitle: 'Arms',
+    statTitle: 'Projects',
     type: 'field',
-    statAPI: 'numberOfStudies',
+    statAPI: 'numberOfProjects',
+    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Studies_.svg',
+    statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
-    statTitle: 'Cases',
+    statTitle: 'Publications',
     type: 'field',
-    statAPI: 'numberOfSubjects',
+    statAPI: 'numberOfPublicationsByProjects',
+    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Cases_.svg',
+    statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
-    statTitle: 'samples',
+    statTitle: 'Datasets',
     type: 'field',
-    statAPI: 'numberOfSamples',
+    statAPI: 'numberOfDatasetsByProjects',
+    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Samples_.svg',
+    statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
-    statTitle: 'Assays',
+    statTitle: 'Clinical Trials',
     type: 'field',
-    statAPI: 'numberOfLabProcedures',
+    statAPI: 'numberOfClinicalTrialsByProjects',
+    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/CaseFiles_.svg',
+    statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
-    statTitle: 'files',
+    statTitle: 'Patents',
     type: 'field',
-    statAPI: 'numberOfFiles',
+    statAPI: 'numberOfPatentsByProjects',
+    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/StudyFiles_.svg',
+    statIconAlt: 'Data Volume Stats Bar Icon',
   },
 ];
 
 // --------------- GraphQL query - Retrieve stats details --------------
 export const GET_GLOBAL_STATS_DATA_QUERY = gql`{
   numberOfPrograms
-  numberOfStudies
-  numberOfSubjects
-  numberOfSamples
-  numberOfLabProcedures
-  numberOfFiles
-  }
+  numberOfProjects
+  numberOfPublicationsByProjects
+  numberOfDatasetsByProjects
+  numberOfClinicalTrialsByProjects
+  numberOfPatentsByProjects
+}
   `;

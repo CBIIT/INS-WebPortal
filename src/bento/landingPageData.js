@@ -19,26 +19,30 @@ export const landingPageData = {
       statAPI: 'numberOfPrograms',
     },
     {
-      statTitle: 'Arms',
-      statAPI: 'numberOfStudies',
+      statTitle: 'Projects',
+      statAPI: 'numberOfProjects',
     },
     {
-      statTitle: 'Cases',
-      statAPI: 'numberOfSubjects',
+      statTitle: 'Publications',
+      statAPI: 'numberOfPublicationsByProjects',
     },
     {
-      statTitle: 'samples',
-      statAPI: 'numberOfSamples',
+      statTitle: 'Datasets',
+      statAPI: 'numberOfDatasetsByProjects',
     },
     {
-      statTitle: 'files',
-      statAPI: 'numberOfFiles',
+      statTitle: 'Clinical Trials',
+      statAPI: 'numberOfClinicalTrialsByProjects',
+    },
+    {
+      statTitle: 'Patents',
+      statAPI: 'numberOfPatentsByProjects',
     },
   ],
   tile1: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/png/landing_tileAbout.png',
-    titleText: 'The Bento Framework',
+    titleText: 'INS Home',
     descriptionText: 'Effective data management is key to scientific discovery. Bento is an open source framework, developed by the Frederick National Laboratory for Cancer Research, to support the creation of data sharing platforms, that adhere to the FAIR principles of scientific data management.',
     callToActionText: 'Read More',
     callToActionLink: '/bento', // This links to the "About" static page.
@@ -72,9 +76,10 @@ export const landingPageData = {
 // --------------- GraphQL query - Retrieve Landing page data --------------
 export const GET_LANDING_PAGE_DATA_QUERY = gql`{
   numberOfPrograms
-  numberOfStudies
-  numberOfSubjects
-  numberOfSamples
-  numberOfFiles
-  }
+  numberOfProjects
+  numberOfPublicationsByProjects
+  numberOfDatasetsByProjects
+  numberOfClinicalTrialsByProjects
+  numberOfPatentsByProjects
+}
   `;
