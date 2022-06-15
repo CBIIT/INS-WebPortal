@@ -13,7 +13,7 @@ const BentoNavBar = ({ cartFieldIds }) => (
         navBarData={navBarData}
         navBarCartData={navBarCartData}
         navBarstyling={navBarstyling}
-        numberOfCases={cartFieldIds.length || 0}
+        // numberOfCases={cartFieldIds.length || 0}
         LoginComponent={Login}
       />
     ) : (
@@ -21,7 +21,7 @@ const BentoNavBar = ({ cartFieldIds }) => (
         navBarData={navBarData}
         navBarCartData={navBarCartData}
         navBarstyling={navBarstyling}
-        numberOfCases={cartFieldIds.length || 0}
+        // numberOfCases={cartFieldIds.length || 0}
       />
     ) }
   </>

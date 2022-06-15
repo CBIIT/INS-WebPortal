@@ -9,12 +9,14 @@ const ICDCHeader = (props) => {
   return location.pathname.match('/search') ? (
     <Header
       logo={headerData.globalHeaderLogo}
+      easter={headerData.globalHeaderImage}
       alt={headerData.globalHeaderLogoAltText}
       homeLink={headerData.globalHeaderLogoLink}
     />
   ) : (
     <Header
       logo={headerData.globalHeaderLogo}
+      easter={headerData.globalHeaderImage}
       alt={headerData.globalHeaderLogoAltText}
       homeLink={headerData.globalHeaderLogoLink}
       SearchComponent={SearchAUtoFill}
