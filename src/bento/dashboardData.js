@@ -301,7 +301,7 @@ export const GET_DASHBOARD_DATA_QUERY = gql`{
     group
     subjects
   }
-  fileOverViewPaged(first: 100) {
+  fileOverView(first: 100) {
     submitted_file_id
     ccdi_arm
     submission_date
@@ -322,7 +322,7 @@ export const GET_DASHBOARD_DATA_QUERY = gql`{
 
 // --------------- Dashboard Query configuration --------------
 export const GET_DASHBOARD_TABLE_DATA_QUERY = gql`{
-  fileOverViewPaged(first: 1000000) {
+  fileOverView(first: 1000000) {
     submitted_file_id
     ccdi_arm
     submission_date

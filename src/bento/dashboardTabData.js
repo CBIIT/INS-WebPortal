@@ -1,5 +1,5 @@
+/* eslint-disable */
 import gql from 'graphql-tag';
-import { customFilesTabDownloadCSV, customParticipantsTabDownloadCSV } from './tableDownloadCSV';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -23,8 +23,7 @@ export const tabContainers = [
     name: 'Projects',
     dataField: 'dataProject',
     api: 'GET_PROJECTS_OVERVIEW_QUERY',
-    paginationAPIField: 'projectOverViewPaged',
-    paginationAPIFieldDesc: 'projectOverViewPagedDesc',
+    paginationAPIField: 'projectOverView',
     defaultSortField: 'project_id',
     defaultSortDirection: 'asc',
     count: 'numberOfProjects',
@@ -104,8 +103,6 @@ export const tabContainers = [
     tableID: 'project_tab_table',
     selectableRows: false,
     tabIndex: '0',
-    tableDownloadCSV: customFilesTabDownloadCSV,
-    downloadFileName: 'INS_Dashboard_files_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -113,8 +110,7 @@ export const tabContainers = [
     name: 'Publications',
     dataField: 'dataPublication',
     api: 'GET_PUBLICATIONS_OVERVIEW_QUERY',
-    paginationAPIField: 'publicationOverViewPaged',
-    paginationAPIFieldDesc: 'publicationOverViewPagedDesc',
+    paginationAPIField: 'publicationOverView',
     defaultSortField: 'publication_id',
     defaultSortDirection: 'asc',
     count: 'numberOfPublicationsByProjects',
@@ -188,8 +184,6 @@ export const tabContainers = [
     tableID: 'publication_tab_table',
     selectableRows: false,
     tabIndex: '1',
-    tableDownloadCSV: customFilesTabDownloadCSV,
-    downloadFileName: 'INS_Dashboard_files_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -197,8 +191,7 @@ export const tabContainers = [
     name: 'Datasets',
     dataField: 'dataDataset',
     api: 'GET_DATASETS_OVERVIEW_QUERY',
-    paginationAPIField: 'datasetOverViewPaged',
-    paginationAPIFieldDesc: 'datasetOverViewPagedDesc',
+    paginationAPIField: 'datasetOverView',
     defaultSortField: 'accession',
     defaultSortDirection: 'asc',
     count: 'numberOfDatasetsByProjects',
@@ -285,8 +278,6 @@ export const tabContainers = [
     tableID: 'dataset_tab_table',
     selectableRows: false,
     tabIndex: '2',
-    tableDownloadCSV: customFilesTabDownloadCSV,
-    downloadFileName: 'INS_Dashboard_files_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -294,8 +285,7 @@ export const tabContainers = [
     name: 'Clinical Trials',
     dataField: 'dataClinicalTrial',
     api: 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY',
-    paginationAPIField: 'clinicalTrialOverViewPaged',
-    paginationAPIFieldDesc: 'clinicalTrialOverViewPagedDesc',
+    paginationAPIField: 'clinicalTrialOverView',
     defaultSortField: 'clinical_trial_id',
     defaultSortDirection: 'asc',
     count: 'numberOfClinicalTrialsByProjects',
@@ -357,8 +347,6 @@ export const tabContainers = [
     tableID: 'clinical_trial_tab_table',
     selectableRows: false,
     tabIndex: '3',
-    tableDownloadCSV: customFilesTabDownloadCSV,
-    downloadFileName: 'INS_Dashboard_files_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -366,8 +354,7 @@ export const tabContainers = [
     name: 'Patents',
     dataField: 'dataPatent',
     api: 'GET_PATENTS_OVERVIEW_QUERY',
-    paginationAPIField: 'patentOverViewPaged',
-    paginationAPIFieldDesc: 'patentOverViewPagedDesc',
+    paginationAPIField: 'patentOverView',
     defaultSortField: 'patent_id',
     defaultSortDirection: 'asc',
     count: 'numberOfPatentsByProjects',
@@ -416,8 +403,6 @@ export const tabContainers = [
     tableID: 'patent_tab_table',
     selectableRows: false,
     tabIndex: '4',
-    tableDownloadCSV: customFilesTabDownloadCSV,
-    downloadFileName: 'INS_Dashboard_files_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -491,68 +476,6 @@ export const tabIndex = [
   },
 ];
 
-export const DASHBOARD_QUERY = gql`
-{
-  numberOfPrograms
-  numberOfProjects
-  numberOfPublicationsByProjects
-  numberOfDatasetsByProjects
-  numberOfClinicalTrialsByProjects
-  numberOfPatentsByProjects
-  projectCountByProgram{
-    group
-    subjects
-  }
-  projectCountByDOC{
-    group
-    subjects
-  }
-  projectCountByFiscalYear{
-    group
-    subjects
-  }
-  projectCountByAwardAmount{
-    group
-    subjects
-  }
-  publicationCountByYear{
-    group
-    subjects
-  }
-  publicationCountByRCR{
-    group
-    subjects
-  }
-  publicationCountByCitation
-  {
-    group
-    subjects
-  }
-  projectOverViewPaged(first: 100) {
-    project_id
-    application_id
-    fiscal_year
-    project_title
-    project_type
-    abstract_text
-    keywords
-    org_name
-    org_city
-    org_state
-    org_country
-    principal_investigators
-    lead_doc
-    program_officers
-    award_amount
-    nci_funded_amount
-    award_notice_date
-    project_start_date
-    project_end_date
-    full_foa
-    program
-  }
-  }`;
-
 export const DASHBOARD_QUERY_NEW = gql`
 {
   numberOfPrograms
@@ -590,7 +513,69 @@ export const DASHBOARD_QUERY_NEW = gql`
     group
     subjects
   }
-  projectOverViewPaged(first: 100) {
+  projectOverView(first: 100) {
+    project_id
+    application_id
+    fiscal_year
+    project_title
+    project_type
+    abstract_text
+    keywords
+    org_name
+    org_city
+    org_state
+    org_country
+    principal_investigators
+    lead_doc
+    program_officers
+    award_amount
+    nci_funded_amount
+    award_notice_date
+    project_start_date
+    project_end_date
+    full_foa
+    program
+  }
+  }`;
+
+export const DASHBOARD_QUERY = gql`
+{
+  numberOfPrograms
+  numberOfProjects
+  numberOfPublicationsByProjects
+  numberOfDatasetsByProjects
+  numberOfClinicalTrialsByProjects
+  numberOfPatentsByProjects
+  projectCountByProgram{
+    group
+    subjects
+  }
+  projectCountByDOC{
+    group
+    subjects
+  }
+  projectCountByFiscalYear{
+    group
+    subjects
+  }
+  projectCountByAwardAmount{
+    group
+    subjects
+  }
+  publicationCountByYear{
+    group
+    subjects
+  }
+  publicationCountByRCR{
+    group
+    subjects
+  }
+  publicationCountByCitation
+  {
+    group
+    subjects
+  }
+  projectOverView(first: 100) {
     project_id
     application_id
     fiscal_year
