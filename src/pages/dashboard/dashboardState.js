@@ -293,7 +293,7 @@ export default function dashboardReducer(state = initialState, action) {
           error: '',
           stats: getStatInit(action.payload.data),
           subjectOverView: {
-            data: action.payload.data.projectOverView,
+            data: action.payload.data.projectOverViewPaged,
           },
           checkboxForAll: {
             data: checkboxData,
@@ -302,7 +302,7 @@ export default function dashboardReducer(state = initialState, action) {
             data: checkboxData,
           },
           datatable: {
-            data: action.payload.data.projectOverView,
+            data: action.payload.data.projectOverViewPaged,
             filters: [],
           },
           widgets: getWidgetsInitData(action.payload.data),
@@ -323,10 +323,10 @@ export default function dashboardReducer(state = initialState, action) {
         ...state,
         isDataTableUptoDate: true,
         subjectOverView: {
-          data: action.payload.data.projectOverView,
+          data: action.payload.data.projectOverViewPaged,
         },
         datatable: {
-          data: action.payload.data.projectOverView,
+          data: action.payload.data.projectOverViewPaged,
           filters: [],
         },
       };

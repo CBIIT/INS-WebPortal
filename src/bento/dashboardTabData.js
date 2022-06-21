@@ -23,7 +23,7 @@ export const tabContainers = [
     name: 'Projects',
     dataField: 'dataProject',
     api: 'GET_PROJECTS_OVERVIEW_QUERY',
-    paginationAPIField: 'projectOverView',
+    paginationAPIField: 'projectOverViewPaged',
     defaultSortField: 'project_id',
     defaultSortDirection: 'asc',
     count: 'numberOfProjects',
@@ -513,7 +513,7 @@ export const DASHBOARD_QUERY_NEW = gql`
     group
     subjects
   }
-  projectOverView(first: 100) {
+  projectOverViewPaged(first: 100) {
     project_id
     application_id
     fiscal_year
@@ -575,7 +575,7 @@ export const DASHBOARD_QUERY = gql`
     group
     subjects
   }
-  projectOverView(first: 100) {
+  projectOverViewPaged(first: 100) {
     project_id
     application_id
     fiscal_year
@@ -679,8 +679,8 @@ filterProjectCountByAwardAmount(programs: $programs, docs: $docs, fiscal_years: 
 
 // --------------- GraphQL query - Retrieve files tab details --------------
 export const GET_PROJECTS_OVERVIEW_QUERY = gql`
-query projectOverView($project_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "project_id", $sort_direction: String = "asc"){
-  projectOverView(project_ids: $project_ids, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+query projectOverViewPaged($project_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "project_id", $sort_direction: String = "asc"){
+  projectOverViewPaged(project_ids: $project_ids, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
     project_id,
     application_id,
     fiscal_year,
