@@ -14,7 +14,7 @@ const BentoNavBar = ({ cartFieldIds }) => (
         navBarCartData={navBarCartData}
         navBarstyling={navBarstyling}
         // numberOfCases={cartFieldIds.length || 0}
-        LoginComponent={Login}
+        // LoginComponent={Login}
       />
     ) : (
       <NavBar
