@@ -652,7 +652,7 @@ export function fetchDataForDashboardTab(
   const { QUERY, sortfield, sortDirection } = getQueryAndDefaultSort(payload);
   const newFilters = filters;
   // deal with empty string inside the age_at_index filter
-  if (filters && filters.age_at_index.length === 2) {
+  if (filters && filters.age_at_index && filters.age_at_index.length === 2) {
     if (filters.age_at_index.includes('')) {
       newFilters.age_at_index = [];
     }
@@ -1088,27 +1088,28 @@ so it contains more information and easy for front-end to show it correctly.
  * @return {json}
  */
 
-function customCheckBox(data, facetSearchData1, isEmpty) {
-  const caseCountField = 'subjects';
-  return (
-    facetSearchData1.map((mapping) => ({
-      groupName: mapping.label,
-      checkboxItems: mapping.slider === true
-        ? data[mapping.api]
-        : (isEmpty ? getCheckbox(data, mapping.apiForFiltering) : transformAPIDataIntoCheckBoxData(
-          data[mapping.api],
-          mapping.field,
-          caseCountField,
-          mapping.customNumberSort,
-        )),
-      datafield: mapping.datafield,
-      show: mapping.show,
-      slider: mapping.slider,
-      quantifier: mapping.slider,
-      section: mapping.section,
-    }))
-  );
-}
+// function customCheckBox(data, facetSearchData1, isEmpty) {
+//   const caseCountField = 'subjects';
+//   return (
+//     facetSearchData1.map((mapping) => ({
+//       groupName: mapping.label,
+//       checkboxItems: mapping.slider === true
+//         ? data[mapping.api]
+// eslint-disable-next-line max-len
+//         : (isEmpty ? getCheckbox(data, mapping.apiForFiltering) : transformAPIDataIntoCheckBoxData(
+//           data[mapping.api],
+//           mapping.field,
+//           caseCountField,
+//           mapping.customNumberSort,
+//         )),
+//       datafield: mapping.datafield,
+//       show: mapping.show,
+//       slider: mapping.slider,
+//       quantifier: mapping.slider,
+//       section: mapping.section,
+//     }))
+//   );
+// }
 
 export function updateFilteredAPIDataIntoCheckBoxData(data, facetSearchDataFromConfig) {
   return (
@@ -1314,33 +1315,34 @@ const reducers = {
     const isEmpty = item.subjectResponse.data
       && item.subjectResponse.data.subjectOverview
       && item.subjectResponse.data.subjectOverview.length < 1;
-    const checkboxData = customCheckBox(item.result.data, facetSearchData, isEmpty);
-    const newCheckboxData = [...checkboxData];
-    checkboxData.map((val, idx) => {
-      if (item.variables && item.variables[val.datafield] && item.variables[val.datafield].length) {
-        const checkboxItem = newCheckboxData[idx].checkboxItems;
-        checkboxItem.map((data, id) => {
-          // eslint-disable-next-line max-len
-          const index = item.variables[val.datafield].findIndex((check) => check === data.name);
-          if (index >= 0) {
-            checkboxItem[id].isChecked = true;
-          }
-          return null;
-        });
-        newCheckboxData[idx].checkboxItems = checkboxItem;
-      }
-      return null;
-    });
+    // const checkboxData = customCheckBox(item.result.data, facetSearchData, isEmpty);
+    // const newCheckboxData = [...checkboxData];
+    // checkboxData.map((val, idx) => {
+    // eslint-disable-next-line max-len
+    //   if (item.variables && item.variables[val.datafield] && item.variables[val.datafield].length) {
+    //     const checkboxItem = newCheckboxData[idx].checkboxItems;
+    //     checkboxItem.map((data, id) => {
+    //       // eslint-disable-next-line max-len
+    //       const index = item.variables[val.datafield].findIndex((check) => check === data.name);
+    //       if (index >= 0) {
+    //         checkboxItem[id].isChecked = true;
+    //       }
+    //       return null;
+    //     });
+    //     newCheckboxData[idx].checkboxItems = checkboxItem;
+    //   }
+    //   return null;
+    // });
     return {
       ...state,
       setSideBarLoading: false,
       datatable: {
         dataCase: item.subjectResponse.data.subjectOverview,
       },
-      checkbox: {
-        data: newCheckboxData,
-        variables: item.variables,
-      },
+      // checkbox: {
+      //   data: newCheckboxData,
+      //   variables: item.variables,
+      // },
       stats: getFilteredStat(item.result.data.nodeCountsFromLists, statsCount),
       widgets: getSearchWidgetsData(item.result.data, widgetsSearchData),
 
@@ -1416,7 +1418,7 @@ const reducers = {
     // eslint-disable-next-line max-len
     item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
-    const checkboxData = customCheckBox(item.data.searchSubjects, facetSearchData);
+    // const checkboxData = customCheckBox(item.data.searchSubjects, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
@@ -1434,12 +1436,12 @@ const reducers = {
         filteredFileIds: null,
         filteredClinicalTrialIds: null,
         filteredPatentIds: null,
-        checkboxForAll: {
-          data: checkboxData,
-        },
-        checkbox: {
-          data: checkboxData,
-        },
+        // checkboxForAll: {
+        //   data: checkboxData,
+        // },
+        // checkbox: {
+        //   data: checkboxData,
+        // },
         datatable: {
           filters: [],
         },
@@ -1491,7 +1493,7 @@ const reducers = {
     // eslint-disable-next-line max-len
     item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
-    const checkboxData = customCheckBox(item.data.searchSubjects, facetSearchData);
+    // const checkboxData = customCheckBox(item.data.searchSubjects, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
@@ -1511,9 +1513,9 @@ const reducers = {
         subjectOverView: {
           data: item.data.projectOverView,
         },
-        checkboxForAll: {
-          data: checkboxData,
-        },
+        // checkboxForAll: {
+        //   data: checkboxData,
+        // },
         autoCompleteSelection: {
           subject_ids: [],
           sample_ids: [],
@@ -1524,10 +1526,10 @@ const reducers = {
           sample_ids: [],
           file_ids: [],
         },
-        checkbox: {
-          data: checkboxData,
-          variables: {},
-        },
+        // checkbox: {
+        //   data: checkboxData,
+        //   variables: {},
+        // },
         datatable: {
           dataProject: item.data.projectOverView,
           dataPublication: item.data.publicationOverView,
