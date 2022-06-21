@@ -31,9 +31,13 @@ import {
   // GET_FILE_IDS_FROM_FILE_NAME,
   tabIndex,
   DASHBOARD_QUERY_NEW,
-  GET_FILES_OVERVIEW_QUERY,
-  GET_CASES_OVERVIEW_QUERY,
-  GET_SAMPLES_OVERVIEW_QUERY,
+  GET_PROJECTS_OVERVIEW_QUERY,
+  GET_PUBLICATIONS_OVERVIEW_QUERY,
+  GET_DATASETS_OVERVIEW_QUERY,
+  GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
+  GET_PATENTS_OVERVIEW_QUERY,
+  // FILTER_QUERY,
+  // FILTER_GROUP_QUERY,
 } from '../../../bento/dashboardTabData';
 import {
   GET_IDS_BY_TYPE,
@@ -94,6 +98,14 @@ const initialState = {
       selectedRowIndex: [],
     },
     dataFileSelected: {
+      selectedRowInfo: [],
+      selectedRowIndex: [],
+    },
+    dataClinicalTrialSelected: {
+      selectedRowInfo: [],
+      selectedRowIndex: [],
+    },
+    dataPatentSelected: {
       selectedRowInfo: [],
       selectedRowIndex: [],
     },
@@ -167,11 +179,32 @@ function getFilteredStat(input, statCountVariables) {
 }
 
 /**
- * removes EmptySubjectsFromDonutDataa.
+ * removes EmptySubjectsFromDonutData.
  * @param {object} data
  *  @param {object}
  */
 const removeEmptySubjectsFromDonutData = (data) => data.filter((item) => item.subjects !== 0);
+
+// --------------- Transform RCR data --------------
+const transformRCRData = (data) => {
+  const publicationCountByRCRTransformedData = [];
+
+  for (let i = 0; i < data.publicationCountByRCR.length; i += 1) {
+    if (data.publicationCountByRCR[i].group !== 'N/A') {
+      publicationCountByRCRTransformedData.push(data.publicationCountByRCR[i]);
+    }
+  }
+
+  for (let j = 0; j < publicationCountByRCRTransformedData.length; j += 1) {
+    if (publicationCountByRCRTransformedData[j].group === null) {
+      publicationCountByRCRTransformedData[j].group = '0';
+    }
+  }
+
+  publicationCountByRCRTransformedData.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+
+  return publicationCountByRCRTransformedData;
+};
 
 /**
  * Returns the widgets data.
@@ -179,7 +212,21 @@ const removeEmptySubjectsFromDonutData = (data) => data.filter((item) => item.su
  * @param {json} widgetsInfoFromCustConfig
  * @return {json}r
  */
-function getWidgetsInitData(data, widgetsInfoFromCustConfig) {
+function getWidgetsInitData(rawData, widgetsInfoFromCustConfig) {
+  const data = rawData;
+  // TO_DO: Create function
+  data.publicationCountByRCRTransformed = transformRCRData(data);
+  // eslint-disable-next-line max-len
+  data.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  data.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  data.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  data.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  data.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.dataName]) : removeEmptySubjectsFromDonutData(data[widget.dataName]);
     const label = widget.dataName;
@@ -210,7 +257,21 @@ function allFilters() {
  * @return {json}r
  */
 
-function getSearchWidgetsData(data, widgetsInfoFromCustConfig) {
+function getSearchWidgetsData(rawData, widgetsInfoFromCustConfig) {
+  const data = rawData;
+  // TO_DO: Create function
+  data.publicationCountByRCRTransformed = transformRCRData(data);
+  // eslint-disable-next-line max-len
+  data.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  data.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  data.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  data.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  data.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.mapWithDashboardWidget]) : removeEmptySubjectsFromDonutData(data[widget.mapWithDashboardWidget]);
     const label = widget.dataName;
@@ -487,7 +548,7 @@ function toggleCheckBoxWithAPIAction(payload, currentAllFilterVariables) {
       },
     })
     .then((result) => store.dispatch({
-      type: 'TOGGGLE_CHECKBOX_WITH_API',
+      type: 'TOGGLE_CHECKBOX_WITH_API',
       payload: {
         filter: payload,
         allFilters: currentAllFilterVariables,
@@ -542,12 +603,16 @@ export function addAutoComplete({ newValue, type, isFilteredData = false }) {
 
 const querySwitch = (payload, tabContainer) => {
   switch (payload) {
-    case ('Samples'):
-      return { QUERY: GET_SAMPLES_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
-    case ('Files'):
-      return { QUERY: GET_FILES_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
+    case ('Projects'):
+      return { QUERY: GET_PROJECTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
+    case ('Publications'):
+      return { QUERY: GET_PUBLICATIONS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
+    case ('Datasets'):
+      return { QUERY: GET_DATASETS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
+    case ('Clinical Trials'):
+      return { QUERY: GET_CLINICAL_TRIALS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     default:
-      return { QUERY: GET_CASES_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
+      return { QUERY: GET_PATENTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
   }
 };
 
@@ -555,7 +620,7 @@ const querySwitch = (payload, tabContainer) => {
  * Function to get getquery and default sort.
  *
  * @param {string} payload
- * @return {json} with three keys QUERY,GET_CASES_OVERVIEW_DESC_QUERY, sortfield
+ * @return {json} with three keys QUERY,GET_PATENTS_OVERVIEW_QUERY, sortfield
  */
 
 const getQueryAndDefaultSort = (payload = tabIndex[0].title) => {
@@ -570,11 +635,19 @@ const getQueryAndDefaultSort = (payload = tabIndex[0].title) => {
  * @param {Array} subjectIDsAfterFilter
  * @param {Array} sampleIDsAfterFilter
  * @param {Array} fileIDsAfterFilter
+ * @param {Array} clinicalTrialIDsAfterFilter
+ * @param {Array} patentIDsAfterFilter
  * @return {json}
  */
 
 export function fetchDataForDashboardTab(
-  payload, filters = null,
+  payload,
+  filters = null,
+  subjectIDsAfterFilter = null,
+  sampleIDsAfterFilter = null,
+  fileIDsAfterFilter = null,
+  clinicalTrialIDsAfterFilter = null,
+  patentIDsAfterFilter = null,
 ) {
   const { QUERY, sortfield, sortDirection } = getQueryAndDefaultSort(payload);
   const newFilters = filters;
@@ -601,6 +674,11 @@ export function fetchDataForDashboardTab(
     .query({
       query: QUERY,
       variables: {
+        project_ids: subjectIDsAfterFilter,
+        publication_ids: sampleIDsAfterFilter,
+        accessions: fileIDsAfterFilter,
+        clinical_trial_ids: clinicalTrialIDsAfterFilter,
+        patent_ids: patentIDsAfterFilter,
         ...activeFilters,
         order_by: sortfield || '',
         sort_direction: sortDirection || 'asc',
@@ -641,7 +719,11 @@ function transformfileIdsToFiles(data) {
  * @return {json}
  */
 export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
+  const subjectIds = getState().filteredSubjectIds;
+  const sampleIds = getState().filteredSampleIds;
   const fileIds = getState().filteredFileIds;
+  const clinicalTrialIds = getState().filteredClinicalTrialIds;
+  const patentIds = getState().filteredPatentIds;
 
   const activeFilters = getState().allActiveFilters !== {}
     ? getState().allActiveFilters : allFilters();
@@ -656,14 +738,19 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
     .query({
       query: SELECT_ALL_QUERY,
       variables: {
+        subject_ids: subjectIds,
+        sample_ids: sampleIds,
+        file_ids: fileIds,
+        clinical_trial_ids: clinicalTrialIds,
+        patent_ids: patentIds,
         ...activeFilters,
         first: fileCount,
         ..._.mergeWith({}, getState().bulkUpload, getState().autoCompleteSelection, customizer),
       },
     })
     .then((result) => {
-      const RESULT_DATA = getState().currentActiveTab === tabIndex[2].title ? 'fileOverview' : getState().currentActiveTab === tabIndex[1].title ? 'sampleOverview' : 'subjectOverview';
-      const fileIdsFromQuery = RESULT_DATA === 'fileOverview' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'subjectOverViewPaged' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
+      const RESULT_DATA = getState().currentActiveTab === tabIndex[4].title ? 'patentOverView' : getState().currentActiveTab === tabIndex[3].title ? 'clinicalTrialOverView' : getState().currentActiveTab === tabIndex[2].title ? 'datasetOverView' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverView' : 'projectOverView';
+      const fileIdsFromQuery = RESULT_DATA === 'projectOverView' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverView' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
       return fileIdsFromQuery;
     });
 
@@ -719,8 +806,10 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
  * Returns file IDs of given sampleids or subjectids.
  * @param int fileCount
  * @param graphqlquery SELECT_ALL_QUERY
- * @param array caseIds
+ * @param array subjectIds
  * @param array sampleIds
+ * @param array clinicalTrialIds
+ * @param array patentIds
  * @param string apiReturnField
  * @return {json}
  */
@@ -728,8 +817,10 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
 async function getFileIDs(
   fileCount = 100000,
   SELECT_ALL_QUERY,
-  caseIds = [],
+  subjectIds = [],
   sampleIds = [],
+  clinicalTrialIds = [],
+  patentIds = [],
   fileNames = [],
   apiReturnField,
 ) {
@@ -737,8 +828,10 @@ async function getFileIDs(
     .query({
       query: SELECT_ALL_QUERY,
       variables: {
-        subject_ids: caseIds,
+        subject_ids: subjectIds,
         sample_ids: sampleIds,
+        clinical_trial_ids: clinicalTrialIds,
+        patent_ids: patentIds,
         file_names: fileNames,
         first: fileCount,
       },
@@ -1083,15 +1176,26 @@ export async function tableHasSelections() {
 
   const filteredNames = await getFileNamesByFileIds(getState().filteredFileIds);
   switch (getState().currentActiveTab) {
+    case tabIndex[4].title:
+      filteredIds = getState().filteredPatentIds;
+      selectedRowInfo = getState().dataPatentSelected.selectedRowInfo;
+      break;
+
+    case tabIndex[3].title:
+      filteredIds = getState().filteredClinicalTrialIds;
+      selectedRowInfo = getState().dataClinicalTrialSelected.selectedRowInfo;
+      break;
+
     case tabIndex[2].title:
       filteredIds = filteredNames;
       selectedRowInfo = getState().dataFileSelected.selectedRowInfo;
-
       break;
+
     case tabIndex[1].title:
       filteredIds = getState().filteredSampleIds;
       selectedRowInfo = getState().dataSampleSelected.selectedRowInfo;
       break;
+
     default:
       filteredIds = getState().filteredSubjectIds;
       selectedRowInfo = getState().dataCaseSelected.selectedRowInfo;
@@ -1113,6 +1217,14 @@ function setDataFileSelected(result) {
 function setDataSampleSelected(result) {
   store.dispatch({ type: 'SET_SAMPLE_SELECTION', payload: result });
 }
+
+function setDataClinicalTrialSelected(result) {
+  store.dispatch({ type: 'SET_CLINICAL_TRIAL_SELECTION', payload: result });
+}
+
+function setDataPatentSelected(result) {
+  store.dispatch({ type: 'SET_PATENT_SELECTION', payload: result });
+}
 /**
  *  Returns the functuion depend on current active tab
  * @return {func}
@@ -1120,10 +1232,15 @@ function setDataSampleSelected(result) {
 
 export function getTableRowSelectionEvent() {
   const currentState = getState();
-  const tableRowSelectionEvent = currentState.currentActiveTab === tabIndex[2].title
-    ? setDataFileSelected
-    : currentState.currentActiveTab === tabIndex[1].title
-      ? setDataSampleSelected : setDataCaseSelected;
+  const tableRowSelectionEvent = currentState.currentActiveTab === tabIndex[4].title
+    ? setDataPatentSelected
+    : currentState.currentActiveTab === tabIndex[3].title
+      ? setDataClinicalTrialSelected
+      : currentState.currentActiveTab === tabIndex[2].title
+        ? setDataFileSelected
+        : currentState.currentActiveTab === tabIndex[1].title
+          ? setDataSampleSelected
+          : setDataCaseSelected;
   return tableRowSelectionEvent;
 }
 
@@ -1158,7 +1275,7 @@ const reducers = {
       isDashboardTableLoading: false,
     };
   },
-  TOGGGLE_CHECKBOX_WITH_API: (state, item) => {
+  TOGGLE_CHECKBOX_WITH_API: (state, item) => {
     let updatedCheckboxData1 = updateFilteredAPIDataIntoCheckBoxData(
       item.data.searchSubjects, facetSearchData,
     );
@@ -1167,11 +1284,24 @@ const reducers = {
     let checkboxData1 = setSelectedFilterValues(updatedCheckboxData1, item.allFilters);
     updatedCheckboxData1 = updatedCheckboxData1.concat(rangeData);
     checkboxData1 = checkboxData1.concat(rangeData);
-    fetchDataForDashboardTab(tabIndex[0].title, item.allFilters);
+    fetchDataForDashboardTab(
+      tabIndex[0].title,
+      item.allFilters,
+      item.data.searchProjects.projectIds,
+      item.data.searchProjects.publicationIds,
+      item.data.searchProjects.accessions,
+      item.data.searchProjects.clinicalTrialIds,
+      item.data.searchProjects.patentIds,
+    );
     return {
       ...state,
       setSideBarLoading: false,
       allActiveFilters: item.allFilters,
+      filteredSubjectIds: item.data.searchProjects.projectIds,
+      filteredSampleIds: item.data.searchProjects.publicationIds,
+      filteredFileIds: item.data.searchProjects.accessions,
+      filteredClinicalTrialIds: item.data.searchProjects.clinicalTrialIds,
+      filteredPatentIds: item.data.searchProjects.patentIds,
       checkbox: {
         data: checkboxData1,
         variables: item.allFilters,
@@ -1223,9 +1353,11 @@ const reducers = {
       currentActiveTab: item.currentTab,
       datatable: {
         ...state.datatable,
-        dataCase: item.data.subjectOverview,
-        dataSample: item.data.sampleOverview,
-        dataFile: item.data.fileOverview,
+        dataProject: item.data.projectOverView,
+        dataPublication: item.publicationOverView,
+        dataDataset: item.datasetOverView,
+        dataClinicalTrial: item.clinicalTrialOverView,
+        dataPatent: item.patentOverView,
       },
     }
   ),
@@ -1269,9 +1401,23 @@ const reducers = {
       widgets: getWidgetsData(tableData, widgetsData),
     };
   },
-  RECEIVE_DASHBOARDTAB: (state, item) => {
+  RECEIVE_DASHBOARDTAB: (state, rawItem) => {
+    const item = rawItem;
+    // TO_DO: Create function
+    item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
+    // eslint-disable-next-line max-len
+    item.data.projectCountByDOCSorted = item.data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    // eslint-disable-next-line max-len
+    item.data.publicationCountByYearSorted = item.data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    // eslint-disable-next-line max-len
+    item.data.projectCountByFiscalYearSorted = item.data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    // eslint-disable-next-line max-len
+    item.data.projectCountByAwardAmountSorted = item.data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    // eslint-disable-next-line max-len
+    item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+
     const checkboxData = customCheckBox(item.data.searchSubjects, facetSearchData);
-    fetchDataForDashboardTab(tabIndex[0].title, allFilters());
+    fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
         ...state.dashboard,
@@ -1286,6 +1432,8 @@ const reducers = {
         filteredSubjectIds: null,
         filteredSampleIds: null,
         filteredFileIds: null,
+        filteredClinicalTrialIds: null,
+        filteredPatentIds: null,
         checkboxForAll: {
           data: checkboxData,
         },
@@ -1308,6 +1456,14 @@ const reducers = {
           selectedRowInfo: [],
           selectedRowIndex: [],
         },
+        dataClinicalTrialSelected: {
+          selectedRowInfo: [],
+          selectedRowIndex: [],
+        },
+        dataPatentSelected: {
+          selectedRowInfo: [],
+          selectedRowIndex: [],
+        },
         autoCompleteSelection: {
           subject_ids: [],
           sample_ids: [],
@@ -1320,9 +1476,23 @@ const reducers = {
         },
       } : { ...state };
   },
-  CLEAR_ALL: (state, item) => {
+  CLEAR_ALL: (state, rawItem) => {
+    const item = rawItem;
+    // TO_DO: Create function
+    item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
+    // eslint-disable-next-line max-len
+    item.data.projectCountByDOCSorted = item.data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    // eslint-disable-next-line max-len
+    item.data.publicationCountByYearSorted = item.data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    // eslint-disable-next-line max-len
+    item.data.projectCountByFiscalYearSorted = item.data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    // eslint-disable-next-line max-len
+    item.data.projectCountByAwardAmountSorted = item.data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    // eslint-disable-next-line max-len
+    item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+
     const checkboxData = customCheckBox(item.data.searchSubjects, facetSearchData);
-    fetchDataForDashboardTab(tabIndex[0].title, allFilters());
+    fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
         ...state.dashboard,
@@ -1336,6 +1506,11 @@ const reducers = {
         filteredSubjectIds: null,
         filteredSampleIds: null,
         filteredFileIds: null,
+        filteredClinicalTrialIds: null,
+        filteredPatentIds: null,
+        subjectOverView: {
+          data: item.data.projectOverView,
+        },
         checkboxForAll: {
           data: checkboxData,
         },
@@ -1354,6 +1529,11 @@ const reducers = {
           variables: {},
         },
         datatable: {
+          dataProject: item.data.projectOverView,
+          dataPublication: item.data.publicationOverView,
+          dataDataset: item.data.datasetOverView,
+          dataClinicalTrial: item.data.clinicalTrialOverView,
+          dataPatent: item.data.patentOverView,
           filters: [],
         },
         widgets: getWidgetsInitData(item.data.searchSubjects, widgetsData),
@@ -1365,6 +1545,12 @@ const reducers = {
         },
         dataFileSelected: {
           ...state.dataFileSelected,
+        },
+        dataClinicalTrialSelected: {
+          ...state.dataClinicalTrialSelected,
+        },
+        dataPatentSelected: {
+          ...state.dataPatentSelected,
         },
         sortByList: {
           ...state.sortByList,
@@ -1434,13 +1620,24 @@ const reducers = {
       dataFileSelected: item,
     }
   ),
+  SET_CLINICAL_TRIAL_SELECTION: (state, item) => (
+    {
+      ...state,
+      dataClinicalTrialSelected: item,
+    }
+  ),
+  SET_PATENT_SELECTION: (state, item) => (
+    {
+      ...state,
+      dataPatentSelected: item,
+    }
+  ),
   RESET_CHECKBOXES: (state) => (
     {
       ...state,
       allActiveFilters: allFilters(),
     }
   ),
-
   CLEAR_TABLE_SELECTION: (state) => ({
     ...state,
     dataCaseSelected: {
@@ -1452,6 +1649,14 @@ const reducers = {
       selectedRowIndex: [],
     },
     dataFileSelected: {
+      selectedRowInfo: [],
+      selectedRowIndex: [],
+    },
+    dataClinicalTrialSelected: {
+      selectedRowInfo: [],
+      selectedRowIndex: [],
+    },
+    dataPatentSelected: {
       selectedRowInfo: [],
       selectedRowIndex: [],
     },

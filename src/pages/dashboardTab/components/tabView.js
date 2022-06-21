@@ -11,9 +11,11 @@ import { getColumns, ToolTip } from 'bento-components';
 import _ from 'lodash';
 import SelectAllModal from './modal';
 import {
-  GET_FILES_OVERVIEW_QUERY,
-  GET_SAMPLES_OVERVIEW_QUERY,
-  GET_CASES_OVERVIEW_QUERY,
+  GET_PROJECTS_OVERVIEW_QUERY,
+  GET_PUBLICATIONS_OVERVIEW_QUERY,
+  GET_DATASETS_OVERVIEW_QUERY,
+  GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
+  GET_PATENTS_OVERVIEW_QUERY,
 } from '../../../bento/dashboardTabData';
 import CustomDataTable from '../../../components/serverPaginatedTable/serverPaginatedTable';
 import { addToCart, getCart, cartWillFull } from '../../fileCentricCart/store/cart';
@@ -21,7 +23,7 @@ import AddToCartAlertDialog from '../../../components/AddToCartDialog';
 import DocumentDownload from '../../../components/DocumentDownload/DocumentDownloadView';
 import globalData from '../../../bento/siteWideConfig';
 
-const getOverviewQuery = (api) => (api === 'GET_SAMPLES_OVERVIEW_QUERY' ? GET_SAMPLES_OVERVIEW_QUERY : api === 'GET_FILES_OVERVIEW_QUERY' ? GET_FILES_OVERVIEW_QUERY : GET_CASES_OVERVIEW_QUERY);
+const getOverviewQuery = (api) => (api === 'GET_PROJECTS_OVERVIEW_QUERY' ? GET_PROJECTS_OVERVIEW_QUERY : (api === 'GET_PUBLICATIONS_OVERVIEW_QUERY' ? GET_PUBLICATIONS_OVERVIEW_QUERY : (api === 'GET_DATASETS_OVERVIEW_QUERY' ? GET_DATASETS_OVERVIEW_QUERY : (api === 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY' ? GET_CLINICAL_TRIALS_OVERVIEW_QUERY : GET_PATENTS_OVERVIEW_QUERY))));
 
 const TabView = ({
   classes,
@@ -42,7 +44,11 @@ const TabView = ({
   paginationAPIField,
   paginationAPIFieldDesc,
   dataKey,
+  filteredSubjectIds,
+  filteredSampleIds,
   filteredFileIds,
+  filteredClinicalTrialIds,
+  filteredPatentIds,
   allFilters,
   defaultSortCoulmn,
   defaultSortDirection,
@@ -92,21 +98,21 @@ const TabView = ({
     }
   };
 
-  async function updateButtonStatus(status) {
-    if (!status) {
-      updateActiveSaveButtonStyle(true, saveButton);
-      updateActiveSaveButtonStyle(true, saveButton2);
-    } else {
-      updateActiveSaveButtonStyle(false, saveButton);
-      updateActiveSaveButtonStyle(false, saveButton2);
-    }
-  }
+  // async function updateButtonStatus(status) {
+  //   if (!status) {
+  //     updateActiveSaveButtonStyle(true, saveButton);
+  //     updateActiveSaveButtonStyle(true, saveButton2);
+  //   } else {
+  //     updateActiveSaveButtonStyle(false, saveButton);
+  //     updateActiveSaveButtonStyle(false, saveButton2);
+  //   }
+  // }
 
-  useEffect(() => {
-    initSaveButtonDefaultStyle(saveButton);
-    initSaveButtonDefaultStyle(saveButton2);
-    updateButtonStatus(selectedRowInfo.length > 0);
-  });
+  // useEffect(() => {
+  //   initSaveButtonDefaultStyle(saveButton);
+  //   initSaveButtonDefaultStyle(saveButton2);
+  //   updateButtonStatus(selectedRowInfo.length > 0);
+  // });
 
   async function exportFiles() {
     const selectedIDs = await fetchAllFileIDs(getFilesCount(), selectedRowInfo);
@@ -223,7 +229,7 @@ const TabView = ({
 
   return (
     <div>
-      <Grid item xs={12} className={classes.saveButtonDiv}>
+      {/* <Grid item xs={12} className={classes.saveButtonDiv}>
         <SelectAllModal tableIDForButton={tableID} openSnack={openSnack} />
         <AddToCartAlertDialog
           cartWillFull={cartIsFull}
@@ -236,7 +242,7 @@ const TabView = ({
           className={classes.button}
           id={`${tableID}_${buttonText}`}
         >
-          { buttonText }
+          {buttonText}
         </button>
         <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={tooltipMessage} arrow placement="bottom">
           <IconButton
@@ -258,33 +264,40 @@ const TabView = ({
           </IconButton>
         </ToolTip>
 
-      </Grid>
+      </Grid> */}
       <Grid container>
         <Grid item xs={12} id={tableID}>
           <CustomDataTable
             key={data.length}
             data={data}
-            columns={getColumns(customColumn, classes, data, externalLinkIcon, '', () => {}, DocumentDownload, globalData.replaceEmptyValueWith)}
+            columns={getColumns(customColumn, classes, data, externalLinkIcon, '', () => { }, DocumentDownload, globalData.replaceEmptyValueWith)}
             options={finalOptions}
             count={count}
             overview={getOverviewQuery(api)}
             paginationAPIField={paginationAPIField}
             paginationAPIFieldDesc={paginationAPIFieldDesc}
-            queryCustomVaribles={allFilters}
+            queryCustomVaribles={{
+              subject_ids: filteredSubjectIds,
+              sample_ids: filteredSampleIds,
+              file_ids: filteredFileIds,
+              clinical_trial_ida: filteredClinicalTrialIds,
+              patent_ids: filteredPatentIds,
+              allFilters,
+            }}
             defaultSortCoulmn={defaultSortCoulmn}
             defaultSortDirection={defaultSortDirection}
             tableDownloadCSV={tableDownloadCSV}
           />
         </Grid>
       </Grid>
-      <Grid item xs={12} className={classes.saveButtonDivBottom}>
+      {/* <Grid item xs={12} className={classes.saveButtonDivBottom}>
         <button
           type="button"
           ref={saveButton}
           onClick={exportFiles}
           className={classes.button}
         >
-          { buttonText }
+          {buttonText}
         </button>
 
         <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={tooltipMessage} arrow placement="bottom">
@@ -319,7 +332,7 @@ const TabView = ({
           </Link>
         </div>
 
-      </Grid>
+      </Grid> */}
     </div>
   );
 };
@@ -432,6 +445,12 @@ const styles = () => ({
     '&::before': {
       border: '#03A383 1px solid',
     },
+  },
+  externalLinkIcon: {
+    width: '14.5px',
+    verticalAlign: 'sub',
+    marginLeft: '4px',
+    paddingBottom: '2px',
   },
 });
 

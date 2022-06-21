@@ -54,8 +54,17 @@ const tabController = (classes) => {
   const dashboardStats = useSelector((state) => (state.dashboardTab
     && state.dashboardTab.stats ? state.dashboardTab.stats : {}));
 
+  const filteredSubjectIds = useSelector((state) => (state.dashboardTab
+    && state.dashboardTab.filteredSubjectIds ? state.dashboardTab.filteredSubjectIds : null));
+  const filteredSampleIds = useSelector((state) => (state.dashboardTab
+    && state.dashboardTab.filteredSampleIds ? state.dashboardTab.filteredSampleIds : null));
   const filteredFileIds = useSelector((state) => (state.dashboardTab
     && state.dashboardTab.filteredFileIds ? state.dashboardTab.filteredFileIds : null));
+  const filteredClinicalTrialIds = useSelector((state) => (state.dashboardTab
+    // eslint-disable-next-line max-len
+    && state.dashboardTab.filteredClinicalTrialIds ? state.dashboardTab.filteredClinicalTrialIds : null));
+  const filteredPatentIds = useSelector((state) => (state.dashboardTab
+    && state.dashboardTab.filteredPatentIds ? state.dashboardTab.filteredPatentIds : null));
   const allFilters = useSelector((state) => (state.dashboardTab
     && state.dashboardTab.allActiveFilters ? state.dashboardTab.allActiveFilters : {}));
   const autoCompleteSelection = useSelector((state) => (state.dashboardTab
@@ -73,7 +82,12 @@ const tabController = (classes) => {
   const handleTabChange = (event, value) => {
     setCurrentTab(value);
     if (!isCaseSelected) {
-      fetchDataForDashboardTab(tabIndex[value].title);
+      fetchDataForDashboardTab(tabIndex[value].title,
+        filteredSubjectIds,
+        filteredSampleIds,
+        filteredFileIds,
+        filteredClinicalTrialIds,
+        filteredPatentIds);
     }
   };
 
@@ -226,12 +240,16 @@ const tabController = (classes) => {
         defaultSortCoulmn={container.defaultSortField || ''}
         defaultSortDirection={container.defaultSortDirection || 'asc'}
         dataKey={container.dataKey}
+        filteredSubjectIds={filteredSubjectIds}
+        filteredSampleIds={filteredSampleIds}
         filteredFileIds={filteredFileIds}
+        filteredClinicalTrialIds={filteredClinicalTrialIds}
+        filteredPatentIds={filteredPatentIds}
         allFilters={{ ...allFilters, ...{ subject_ids: subjectIds } }}
         tableHasSelections={tableHasSelections}
         setRowSelection={getTableRowSelectionEvent()}
-        selectedRowInfo={tableRowSelectionData[container.tabIndex].selectedRowInfo}
-        selectedRowIndex={tableRowSelectionData[container.tabIndex].selectedRowIndex}
+        // selectedRowInfo={tableRowSelectionData[container.tabIndex].selectedRowInfo}
+        // selectedRowIndex={tableRowSelectionData[container.tabIndex].selectedRowIndex}
         clearTableSelections={clearTableSelections}
         fetchAllFileIDs={fetchAllFileIDs}
         tableDownloadCSV={container.tableDownloadCSV || false}
