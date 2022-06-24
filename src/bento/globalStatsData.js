@@ -10,7 +10,7 @@ export const statsStyling = {
   statsIcon: {
     width: '40px',
     height: '45px',
-    margin: '-7px',
+    margin: '0px 0px 0px -45px',
   },
 };
 
