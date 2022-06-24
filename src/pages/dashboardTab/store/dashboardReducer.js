@@ -1278,7 +1278,7 @@ const reducers = {
   },
   TOGGLE_CHECKBOX_WITH_API: (state, item) => {
     let updatedCheckboxData1 = updateFilteredAPIDataIntoCheckBoxData(
-      item.data.searchSubjects, facetSearchData,
+      item.data, facetSearchData,
     );
     const rangeData = updatedCheckboxData1.filter((sideBar) => sideBar.slider === true);
     updatedCheckboxData1 = updatedCheckboxData1.filter((sideBar) => sideBar.slider !== true);
@@ -1307,8 +1307,8 @@ const reducers = {
         data: checkboxData1,
         variables: item.allFilters,
       },
-      stats: getFilteredStat(item.data.searchSubjects, statsCount),
-      widgets: getWidgetsInitData(item.data.searchSubjects, widgetsData),
+      stats: getFilteredStat(item.data, statsCount),
+      widgets: getWidgetsInitData(item.data, widgetsData),
     };
   },
   LOCAL_SEARCH: (state, item) => {
@@ -1418,7 +1418,7 @@ const reducers = {
     // eslint-disable-next-line max-len
     item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
-    // const checkboxData = customCheckBox(item.data.searchSubjects, facetSearchData);
+    // const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
@@ -1429,7 +1429,7 @@ const reducers = {
         setSideBarLoading: false,
         searchCriteria: null,
         error: '',
-        stats: getStatInit(item.data.searchSubjects, statsCount),
+        stats: getStatInit(item.data, statsCount),
         allActiveFilters: allFilters(),
         filteredSubjectIds: null,
         filteredSampleIds: null,
@@ -1445,7 +1445,7 @@ const reducers = {
         datatable: {
           filters: [],
         },
-        widgets: getWidgetsInitData(item.data.searchSubjects, widgetsData),
+        widgets: getWidgetsInitData(item.data, widgetsData),
         dataCaseSelected: {
           selectedRowInfo: [],
           selectedRowIndex: [],
@@ -1493,7 +1493,7 @@ const reducers = {
     // eslint-disable-next-line max-len
     item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
-    // const checkboxData = customCheckBox(item.data.searchSubjects, facetSearchData);
+    // const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
@@ -1503,7 +1503,7 @@ const reducers = {
         hasError: false,
         setSideBarLoading: false,
         error: '',
-        stats: getStatInit(item.data.searchSubjects, statsCount),
+        stats: getStatInit(item.data, statsCount),
         allActiveFilters: allFilters(),
         filteredSubjectIds: null,
         filteredSampleIds: null,
@@ -1538,7 +1538,7 @@ const reducers = {
           dataPatent: item.data.patentOverView,
           filters: [],
         },
-        widgets: getWidgetsInitData(item.data.searchSubjects, widgetsData),
+        widgets: getWidgetsInitData(item.data, widgetsData),
         dataCaseSelected: {
           ...state.dataCaseSelected,
         },
