@@ -423,14 +423,14 @@ export async function clearAllFiltersExceptBulkUpload() {
 const convertResultInPrevType = (result) => {
   const payload = result;
   payload.data = {
-    ...result.data.searchSubjects,
+    ...result.data,
     nodeCountsFromLists: {
-      numberOfFiles: result.data.searchSubjects.numberOfFiles,
-      numberOfLabProcedures: result.data.searchSubjects.numberOfLabProcedures,
-      numberOfPrograms: result.data.searchSubjects.numberOfPrograms,
-      numberOfSamples: result.data.searchSubjects.numberOfSamples,
-      numberOfStudies: result.data.searchSubjects.numberOfStudies,
-      numberOfSubjects: result.data.searchSubjects.numberOfSubjects,
+      numberOfPrograms: result.data.numberOfPrograms,
+      numberOfProjects: result.data.numberOfProjects,
+      numberOfPublicationsByProjects: result.data.numberOfPublications,
+      numberOfDatasetsByProjects: result.data.numberOfAccessions,
+      numberOfClinicalTrialsByProjects: result.data.numberOfClinicalTrials,
+      numberOfPatentsByProjects: result.data.numberOfPatents,
     },
   };
 
