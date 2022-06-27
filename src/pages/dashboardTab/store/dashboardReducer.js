@@ -1354,10 +1354,10 @@ const reducers = {
       datatable: {
         ...state.datatable,
         dataProject: item.data.projectOverViewPaged,
-        dataPublication: item.publicationOverView,
-        dataDataset: item.datasetOverView,
-        dataClinicalTrial: item.clinicalTrialOverView,
-        dataPatent: item.patentOverView,
+        dataPublication: item.data.publicationOverView,
+        dataDataset: item.data.datasetOverView,
+        dataClinicalTrial: item.data.clinicalTrialOverView,
+        dataPatent: item.data.patentOverView,
       },
     }
   ),
