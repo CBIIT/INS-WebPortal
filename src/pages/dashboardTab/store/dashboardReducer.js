@@ -206,6 +206,23 @@ const transformRCRData = (data) => {
   return publicationCountByRCRTransformedData;
 };
 
+// --------------- Transform Donut data --------------
+const transformDonutData = (data) => {
+  const transformedData = data;
+  transformedData.publicationCountByRCRTransformed = transformRCRData(data);
+  // eslint-disable-next-line max-len
+  transformedData.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  transformedData.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  transformedData.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  transformedData.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  return transformedData;
+};
+
 /**
  * Returns the widgets data.
  * @param {object} data
@@ -214,18 +231,7 @@ const transformRCRData = (data) => {
  */
 function getWidgetsInitData(rawData, widgetsInfoFromCustConfig) {
   const data = rawData;
-  // TO_DO: Create function
-  data.publicationCountByRCRTransformed = transformRCRData(data);
-  // eslint-disable-next-line max-len
-  data.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  transformDonutData(data);
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.dataName]) : removeEmptySubjectsFromDonutData(data[widget.dataName]);
@@ -259,18 +265,7 @@ function allFilters() {
 
 function getSearchWidgetsData(rawData, widgetsInfoFromCustConfig) {
   const data = rawData;
-  // TO_DO: Create function
-  data.publicationCountByRCRTransformed = transformRCRData(data);
-  // eslint-disable-next-line max-len
-  data.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  transformDonutData(data);
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.mapWithDashboardWidget]) : removeEmptySubjectsFromDonutData(data[widget.mapWithDashboardWidget]);
@@ -1403,18 +1398,7 @@ const reducers = {
   },
   RECEIVE_DASHBOARDTAB: (state, rawItem) => {
     const item = rawItem;
-    // TO_DO: Create function
-    item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
-    // eslint-disable-next-line max-len
-    item.data.projectCountByDOCSorted = item.data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.publicationCountByYearSorted = item.data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.projectCountByFiscalYearSorted = item.data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.projectCountByAwardAmountSorted = item.data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    transformDonutData(item.data);
 
     const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
@@ -1478,18 +1462,7 @@ const reducers = {
   },
   CLEAR_ALL: (state, rawItem) => {
     const item = rawItem;
-    // TO_DO: Create function
-    item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
-    // eslint-disable-next-line max-len
-    item.data.projectCountByDOCSorted = item.data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.publicationCountByYearSorted = item.data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.projectCountByFiscalYearSorted = item.data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.projectCountByAwardAmountSorted = item.data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    transformDonutData(item.data);
 
     const checkboxData = customCheckBox(item.data, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
