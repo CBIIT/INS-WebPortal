@@ -32,15 +32,13 @@ query searchProjects (
   $programs: [String] ,
   $docs: [String] ,
   $fiscal_years: [String] ,
-  $award_amounts: [String] ,
-  $first: Int
+  $award_amounts: [String]
 ){
   searchProjects (          
       programs: $programs,
       docs: $docs,
       fiscal_years: $fiscal_years,
       award_amounts: $award_amounts,
-      first: $first,
   ) {
     numberOfPrograms
     numberOfProjects
@@ -92,29 +90,6 @@ query searchProjects (
     filterProjectCountByAwardAmount{
       key
       doc_count
-    }
-    projectOverViewPaged(first: 100) {
-      project_id
-      application_id
-      fiscal_year
-      project_title
-      project_type
-      abstract_text
-      keywords
-      org_name
-      org_city
-      org_state
-      org_country
-      principal_investigators
-      lead_doc
-      program_officers
-      award_amount
-      nci_funded_amount
-      award_notice_date
-      project_start_date
-      project_end_date
-      full_foa
-      program
     }
   }
 }`;
