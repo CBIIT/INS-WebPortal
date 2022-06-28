@@ -183,25 +183,25 @@ function getFilteredStat(input, statCountVariables) {
  * @param {object} data
  *  @param {object}
  */
-const removeEmptySubjectsFromDonutData = (data) => data.filter((item) => item.subjects !== 0);
+const removeEmptySubjectsFromDonutData = (data) => data.filter((item) => item.doc_count !== 0);
 
 // --------------- Transform RCR data --------------
 const transformRCRData = (data) => {
   const publicationCountByRCRTransformedData = [];
 
   for (let i = 0; i < data.publicationCountByRCR.length; i += 1) {
-    if (data.publicationCountByRCR[i].group !== 'N/A') {
+    if (data.publicationCountByRCR[i].key !== 'N/A') {
       publicationCountByRCRTransformedData.push(data.publicationCountByRCR[i]);
     }
   }
 
   for (let j = 0; j < publicationCountByRCRTransformedData.length; j += 1) {
-    if (publicationCountByRCRTransformedData[j].group === null) {
-      publicationCountByRCRTransformedData[j].group = '0';
+    if (publicationCountByRCRTransformedData[j].key === null) {
+      publicationCountByRCRTransformedData[j].key = '0';
     }
   }
 
-  publicationCountByRCRTransformedData.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  publicationCountByRCRTransformedData.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
 
   return publicationCountByRCRTransformedData;
 };
@@ -211,15 +211,15 @@ const transformDonutData = (data) => {
   const transformedData = data;
   transformedData.publicationCountByRCRTransformed = transformRCRData(data);
   // eslint-disable-next-line max-len
-  transformedData.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  transformedData.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
   // eslint-disable-next-line max-len
-  transformedData.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  transformedData.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
   // eslint-disable-next-line max-len
-  transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
   // eslint-disable-next-line max-len
-  transformedData.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  transformedData.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
   // eslint-disable-next-line max-len
-  transformedData.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  transformedData.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
   return transformedData;
 };
 
@@ -380,7 +380,7 @@ function createFilterVariablesRange(value, sideBarItem) {
 }
 
 /**
- * Returns active filter list while removing the param group.
+ * Returns active filter list while removing the param key.
  *
  * @param {object} data
  * @return {json}
@@ -422,10 +422,10 @@ const convertResultInPrevType = (result) => {
     nodeCountsFromLists: {
       numberOfPrograms: result.data.numberOfPrograms,
       numberOfProjects: result.data.numberOfProjects,
-      numberOfPublicationsByProjects: result.data.numberOfPublications,
-      numberOfDatasetsByProjects: result.data.numberOfAccessions,
-      numberOfClinicalTrialsByProjects: result.data.numberOfClinicalTrials,
-      numberOfPatentsByProjects: result.data.numberOfPatents,
+      numberOfPublications: result.data.numberOfPublications,
+      numberOfDatasets: result.data.numberOfAccessions,
+      numberOfClinicalTrials: result.data.numberOfClinicalTrials,
+      numberOfPatents: result.data.numberOfPatents,
     },
   };
 
@@ -533,7 +533,7 @@ export async function localSearch(searchcriteria, isQuery = false) {
  */
 function toggleCheckBoxWithAPIAction(payload, currentAllFilterVariables) {
   return client
-    .query({ // request to get the filtered subjects
+    .query({ // request to get the filtered doc_count
       query: DASHBOARD_QUERY_NEW,
       variables: {
         first: 100,
@@ -560,7 +560,7 @@ function toggleCheckBoxWithAPIAction(payload, currentAllFilterVariables) {
 }
 
 /**
- * Resets the group selections
+ * Resets the key selections
  *
  * @param {object} payload
  * @return distpatcher
@@ -958,7 +958,7 @@ function sortByCheckboxItemsByAlphabet(checkboxData) {
  */
 
 function sortByCheckboxItemsByCount(checkboxData) {
-  checkboxData.sort((a, b) => b.subjects - a.subjects);
+  checkboxData.sort((a, b) => b.doc_count - a.doc_count);
   return sortByCheckboxByIsChecked(checkboxData);
 }
 
@@ -1068,7 +1068,7 @@ export function sortAll() {
 
 function getCheckbox(data, mapping) {
   const checkboxData = data[mapping].map((item) => {
-    return { name: item.group, isChecked: false, subjects: item.subjects };
+    return { name: item.key, isChecked: false, doc_count: item.doc_count };
   });
   return checkboxData;
 }
@@ -1084,7 +1084,7 @@ so it contains more information and easy for front-end to show it correctly.
  */
 
 function customCheckBox(data, facetSearchData1, isEmpty) {
-  const caseCountField = 'subjects';
+  const caseCountField = 'doc_count';
   return (
     facetSearchData1.map((mapping) => ({
       groupName: mapping.label,
@@ -1531,7 +1531,7 @@ const reducers = {
       } : { ...state };
   },
   SORT_SINGLE_GROUP_CHECKBOX: (state, item) => {
-    const groupData = state.checkbox.data.filter((group) => item.groupName === group.groupName)[0];
+    const groupData = state.checkbox.data.filter((key) => item.groupName === key.groupName)[0];
     let { sortByList } = state;
     sortByList = sortByList || {};
     const sortedCheckboxItems = item.sortBy === 'count'
@@ -1539,14 +1539,14 @@ const reducers = {
       : sortByCheckboxItemsByAlphabet(groupData.checkboxItems);
 
     sortByList[groupData.groupName] = item.sortBy;
-    const data = state.checkbox.data.map((group) => {
-      if (group.groupName === groupData.groupName) {
-        const updatedGroupData = group;
+    const data = state.checkbox.data.map((key) => {
+      if (key.groupName === groupData.groupName) {
+        const updatedGroupData = key;
         updatedGroupData.checkboxItems = sortedCheckboxItems;
         return updatedGroupData;
       }
 
-      return group;
+      return key;
     });
 
     return { ...state, checkbox: { data }, sortByList };
@@ -1556,11 +1556,11 @@ const reducers = {
     let { data } = state.checkbox;
     const rangeData = data.filter((sideBar) => sideBar.slider === true);
     data = data.filter((sideBar) => sideBar.slider !== true);
-    data.map((group) => {
-      const checkboxItems = sortByList[group.groupName] === 'count'
-        ? sortByCheckboxItemsByCount(group.checkboxItems)
-        : sortByCheckboxItemsByAlphabet(group.checkboxItems);
-      const updatedGroupData = group;
+    data.map((key) => {
+      const checkboxItems = sortByList[key.groupName] === 'count'
+        ? sortByCheckboxItemsByCount(key.checkboxItems)
+        : sortByCheckboxItemsByAlphabet(key.checkboxItems);
+      const updatedGroupData = key;
       updatedGroupData.checkboxItems = checkboxItems;
       return updatedGroupData;
     });

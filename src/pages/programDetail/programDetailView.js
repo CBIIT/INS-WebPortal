@@ -60,10 +60,10 @@ const ProgramView = ({ classes, data, theme }) => {
   const stat = {
     numberOfPrograms: 1,
     numberOfProjects: programData.num_projects !== undefined ? programData.num_projects : 'undefined',
-    numberOfPublicationsByProjects: programPublicationCount !== undefined ? programPublicationCount : 'undefined',
-    numberOfDatasetsByProjects: programDatasetCount !== undefined ? programDatasetCount : 'undefined',
-    numberOfClinicalTrialsByProjects: programClinicalTrialCount !== undefined ? programClinicalTrialCount : 'undefined',
-    numberOfPatentsByProjects: programPatentCount !== undefined ? programPatentCount : 'undefined',
+    numberOfPublications: programPublicationCount !== undefined ? programPublicationCount : 'undefined',
+    numberOfDatasets: programDatasetCount !== undefined ? programDatasetCount : 'undefined',
+    numberOfClinicalTrials: programClinicalTrialCount !== undefined ? programClinicalTrialCount : 'undefined',
+    numberOfPatents: programPatentCount !== undefined ? programPatentCount : 'undefined',
   };
 
   const breadCrumbJson = [{

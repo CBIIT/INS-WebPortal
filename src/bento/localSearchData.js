@@ -31,38 +31,38 @@ export const GET_SEARCH_NODES_BY_FACET = gql`
 {
   numberOfPrograms
   numberOfProjects
-  numberOfPublicationsByProjects
-  numberOfDatasetsByProjects
-  numberOfClinicalTrialsByProjects
-  numberOfPatentsByProjects
+  numberOfPublications
+  numberOfDatasets
+  numberOfClinicalTrials
+  numberOfPatents
   projectCountByProgram{
-    group
-    subjects
+    key
+    doc_count
   }
   projectCountByDOC{
-    group
-    subjects
+    key
+    doc_count
   }
   projectCountByFiscalYear{
-    group
-    subjects
+    key
+    doc_count
   }
   projectCountByAwardAmount{
-    group
-    subjects
+    key
+    doc_count
   }
   publicationCountByYear{
-    group
-    subjects
+    key
+    doc_count
   }
   publicationCountByRCR{
-    group
-    subjects
+    key
+    doc_count
   }
   publicationCountByCitation
   {
-    group
-    subjects
+    key
+    doc_count
   }
   projectOverViewPaged(first: 100) {
     project_id
@@ -105,20 +105,20 @@ export const GET_SEARCH_NODECOUNTS = gql`
       numberOfPatents
   }
   filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-    group
-    subjects
+    key
+    doc_count
   }
   filterProjectCountByDOC(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-    group
-    subjects
+    key
+    doc_count
   }
   filterProjectCountByFiscalYear(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-    group
-    subjects
+    key
+    doc_count
   }
   filterProjectCountByAwardAmount(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-    group
-    subjects
+    key
+    doc_count
   }
 }
   `;

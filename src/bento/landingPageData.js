@@ -24,19 +24,19 @@ export const landingPageData = {
     },
     {
       statTitle: 'Publications',
-      statAPI: 'numberOfPublicationsByProjects',
+      statAPI: 'numberOfPublications',
     },
     {
       statTitle: 'Datasets',
-      statAPI: 'numberOfDatasetsByProjects',
+      statAPI: 'numberOfDatasets',
     },
     {
       statTitle: 'Clinical Trials',
-      statAPI: 'numberOfClinicalTrialsByProjects',
+      statAPI: 'numberOfClinicalTrials',
     },
     {
       statTitle: 'Patents',
-      statAPI: 'numberOfPatentsByProjects',
+      statAPI: 'numberOfPatents',
     },
   ],
   tile1: {
@@ -77,9 +77,9 @@ export const landingPageData = {
 export const GET_LANDING_PAGE_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
-  numberOfPublicationsByProjects
-  numberOfDatasetsByProjects
-  numberOfClinicalTrialsByProjects
-  numberOfPatentsByProjects
+  numberOfPublications
+  numberOfDatasets
+  numberOfClinicalTrials
+  numberOfPatents
 }
   `;

@@ -138,8 +138,8 @@ const GET_ARM_DETAIL_DATA_QUERY = gql`
       num_samples
       num_lab_procedures
       diagnoses {
-        group
-        subjects
+        key
+        doc_count
       }
       files {
         file_name

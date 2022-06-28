@@ -149,8 +149,8 @@ const table = {
 const GET_PROGRAM_DETAIL_DATA_QUERY = gql`
 query programDetail($program_id: String!) {
   projectCountInProgramByDOC(program_id: $program_id) {
-    group
-    subjects
+    key
+    doc_count
   }
   projectCountInProgramByFundedAmount(program_id: $program_id) {
     funded_amount_1

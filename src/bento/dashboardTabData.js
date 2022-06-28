@@ -113,7 +113,7 @@ export const tabContainers = [
     paginationAPIField: 'publicationOverView',
     defaultSortField: 'publication_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfPublicationsByProjects',
+    count: 'numberOfPublications',
     buttonText: 'Add Selected Files',
     dataKey: 'publication_id',
     saveButtonDefaultStyle: {
@@ -194,7 +194,7 @@ export const tabContainers = [
     paginationAPIField: 'datasetOverView',
     defaultSortField: 'accession',
     defaultSortDirection: 'asc',
-    count: 'numberOfDatasetsByProjects',
+    count: 'numberOfDatasets',
     buttonText: 'Add Selected Files',
     dataKey: 'accession',
     saveButtonDefaultStyle: {
@@ -288,7 +288,7 @@ export const tabContainers = [
     paginationAPIField: 'clinicalTrialOverView',
     defaultSortField: 'clinical_trial_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfClinicalTrialsByProjects',
+    count: 'numberOfClinicalTrials',
     buttonText: 'Add Selected Files',
     dataKey: 'clinical_trial_id',
     saveButtonDefaultStyle: {
@@ -357,7 +357,7 @@ export const tabContainers = [
     paginationAPIField: 'patentOverView',
     defaultSortField: 'patent_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfPatentsByProjects',
+    count: 'numberOfPatents',
     buttonText: 'Add Selected Files',
     dataKey: 'patent_id',
     saveButtonDefaultStyle: {
@@ -420,25 +420,25 @@ export const tabs = [
     id: 'publication_tab',
     title: 'Publications',
     dataField: 'dataPublication',
-    count: 'numberOfPublicationsByProjects',
+    count: 'numberOfPublications',
   },
   {
     id: 'dataset_tab',
     title: 'Datasets',
     dataField: 'dataDataset',
-    count: 'numberOfDatasetsByProjects',
+    count: 'numberOfDatasets',
   },
   {
     id: 'clinical_trial_tab',
     title: 'Clinical Trials',
     dataField: 'dataClinicalTrial',
-    count: 'numberOfClinicalTrialsByProjects',
+    count: 'numberOfClinicalTrials',
   },
   {
     id: 'patent_tab',
     title: 'Patents',
     dataField: 'dataPatent',
-    count: 'numberOfPatentsByProjects',
+    count: 'numberOfPatents',
   },
 ];
 
@@ -477,115 +477,131 @@ export const tabIndex = [
 ];
 
 export const DASHBOARD_QUERY_NEW = gql`
-{
-  numberOfPrograms
-  numberOfProjects
-  numberOfPublicationsByProjects
-  numberOfDatasetsByProjects
-  numberOfClinicalTrialsByProjects
-  numberOfPatentsByProjects
-  projectCountByProgram{
-    group
-    subjects
+query searchProjects (          
+  $programs: [String] ,
+  $docs: [String] ,
+  $fiscal_years: [String] ,
+  $award_amounts: [String]
+){
+  searchProjects (          
+      programs: $programs,
+      docs: $docs,
+      fiscal_years: $fiscal_years,
+      award_amounts: $award_amounts,
+  ) {
+    numberOfPrograms
+    numberOfProjects
+    numberOfPublications
+    numberOfDatasets
+    numberOfClinicalTrials
+    numberOfPatents
+    projectCountByProgram{
+      key
+      doc_count
+    }
+    projectCountByDOC{
+      key
+      doc_count
+    }
+    projectCountByFiscalYear{
+      key
+      doc_count
+    }
+    projectCountByAwardAmount{
+      key
+      doc_count
+    }
+    publicationCountByYear{
+      key
+      doc_count
+    }
+    publicationCountByRCR{
+      key
+      doc_count
+    }
+    publicationCountByCitation
+    {
+      key
+      doc_count
+    }
+    filterProjectCountByProgram{
+      key
+      doc_count
+    }
+    filterProjectCountByDOC{
+      key
+      doc_count
+    }
+    filterProjectCountByFiscalYear{
+      key
+      doc_count
+    }
+    filterProjectCountByAwardAmount{
+      key
+      doc_count
+    }
+    projectOverViewPaged(first: 100) {
+      project_id
+      application_id
+      fiscal_year
+      project_title
+      project_type
+      abstract_text
+      keywords
+      org_name
+      org_city
+      org_state
+      org_country
+      principal_investigators
+      lead_doc
+      program_officers
+      award_amount
+      nci_funded_amount
+      award_notice_date
+      project_start_date
+      project_end_date
+      full_foa
+      program
+    }
   }
-  projectCountByDOC{
-    group
-    subjects
-  }
-  projectCountByFiscalYear{
-    group
-    subjects
-  }
-  projectCountByAwardAmount{
-    group
-    subjects
-  }
-  publicationCountByYear{
-    group
-    subjects
-  }
-  publicationCountByRCR{
-    group
-    subjects
-  }
-  publicationCountByCitation
-  {
-    group
-    subjects
-  }
-  filterProjectCountByProgram{
-    group
-    subjects
-  }
-  filterProjectCountByDOC{
-    group
-    subjects
-  }
-  filterProjectCountByFiscalYear{
-    group
-    subjects
-  }
-  projectOverViewPaged(first: 100) {
-    project_id
-    application_id
-    fiscal_year
-    project_title
-    project_type
-    abstract_text
-    keywords
-    org_name
-    org_city
-    org_state
-    org_country
-    principal_investigators
-    lead_doc
-    program_officers
-    award_amount
-    nci_funded_amount
-    award_notice_date
-    project_start_date
-    project_end_date
-    full_foa
-    program
-  }
-  }`;
+}`;
 
 export const DASHBOARD_QUERY = gql`
 {
   numberOfPrograms
   numberOfProjects
-  numberOfPublicationsByProjects
-  numberOfDatasetsByProjects
-  numberOfClinicalTrialsByProjects
-  numberOfPatentsByProjects
+  numberOfPublications
+  numberOfDatasets
+  numberOfClinicalTrials
+  numberOfPatents
   projectCountByProgram{
-    group
-    subjects
+    key
+    doc_count
   }
   projectCountByDOC{
-    group
-    subjects
+    key
+    doc_count
   }
   projectCountByFiscalYear{
-    group
-    subjects
+    key
+    doc_count
   }
   projectCountByAwardAmount{
-    group
-    subjects
+    key
+    doc_count
   }
   publicationCountByYear{
-    group
-    subjects
+    key
+    doc_count
   }
   publicationCountByRCR{
-    group
-    subjects
+    key
+    doc_count
   }
   publicationCountByCitation
   {
-    group
-    subjects
+    key
+    doc_count
   }
   projectOverViewPaged(first: 100) {
     project_id
@@ -615,37 +631,37 @@ export const DASHBOARD_QUERY = gql`
 export const FILTER_GROUP_QUERY = gql`
   query groupCounts($subject_ids: [String]){
     projectCountByProgram(project_ids: $subject_ids){
-      group
-      subjects
+      key
+      doc_count
     }
     projectCountByDOC(project_ids: $subject_ids){
-      group
-      subjects
+      key
+      doc_count
     }
     projectCountByFiscalYear(project_ids: $subject_ids){
-      group
-      subjects
+      key
+      doc_count
     } 
     projectCountByAwardAmount(project_ids: $subject_ids){
-      group
-      subjects
+      key
+      doc_count
     } 
     publicationCountByYear(project_ids: $subject_ids){
-      group
-      subjects
+      key
+      doc_count
     }
     publicationCountByRCR(project_ids: $subject_ids){
-      group
-      subjects
+      key
+      doc_count
     }
     publicationCountByCitation(project_ids: $subject_ids){
-      group
-      subjects
+      key
+      doc_count
     }
-    numberOfPublicationsByProjects(project_ids: $subject_ids)
-    numberOfDatasetsByProjects(project_ids: $subject_ids)
-    numberOfClinicalTrialsByProjects(project_ids: $subject_ids)
-    numberOfPatentsByProjects(project_ids: $subject_ids)
+    numberOfPublications(project_ids: $subject_ids)
+    numberOfDatasets(project_ids: $subject_ids)
+    numberOfClinicalTrials(project_ids: $subject_ids)
+    numberOfPatents(project_ids: $subject_ids)
   }`;
 
 export const FILTER_QUERY = gql`
@@ -672,20 +688,20 @@ searchProjects(programs: $programs,
         numberOfPatents
 }
 filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-  group
-  subjects
+  key
+  doc_count
 }
 filterProjectCountByDOC(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-  group
-  subjects
+  key
+  doc_count
 }
 filterProjectCountByFiscalYear(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-  group
-  subjects
+  key
+  doc_count
 }
 filterProjectCountByAwardAmount(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-  group
-  subjects
+  key
+  doc_count
 }
 }`;
 
