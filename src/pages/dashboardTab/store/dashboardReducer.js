@@ -231,7 +231,7 @@ const transformDonutData = (data) => {
  */
 function getWidgetsInitData(rawData, widgetsInfoFromCustConfig) {
   const data = rawData;
-  transformDonutData(data);
+  transformDonutData(data.searchProjects);
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.dataName]) : removeEmptySubjectsFromDonutData(data[widget.dataName]);
@@ -265,7 +265,7 @@ function allFilters() {
 
 function getSearchWidgetsData(rawData, widgetsInfoFromCustConfig) {
   const data = rawData;
-  transformDonutData(data);
+  transformDonutData(data.searchProjects);
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.mapWithDashboardWidget]) : removeEmptySubjectsFromDonutData(data[widget.mapWithDashboardWidget]);
@@ -418,14 +418,14 @@ export async function clearAllFiltersExceptBulkUpload() {
 const convertResultInPrevType = (result) => {
   const payload = result;
   payload.data = {
-    ...result.data,
+    ...result.data.searchProjects,
     nodeCountsFromLists: {
-      numberOfPrograms: result.data.numberOfPrograms,
-      numberOfProjects: result.data.numberOfProjects,
-      numberOfPublications: result.data.numberOfPublications,
-      numberOfDatasets: result.data.numberOfAccessions,
-      numberOfClinicalTrials: result.data.numberOfClinicalTrials,
-      numberOfPatents: result.data.numberOfPatents,
+      numberOfPrograms: result.data.searchProjects.numberOfPrograms,
+      numberOfProjects: result.data.searchProjects.numberOfProjects,
+      numberOfPublications: result.data.searchProjects.numberOfPublications,
+      numberOfDatasets: result.data.searchProjects.numberOfAccessions,
+      numberOfClinicalTrials: result.data.searchProjects.numberOfClinicalTrials,
+      numberOfPatents: result.data.searchProjects.numberOfPatents,
     },
   };
 
@@ -1272,7 +1272,7 @@ const reducers = {
   },
   TOGGLE_CHECKBOX_WITH_API: (state, item) => {
     let updatedCheckboxData1 = updateFilteredAPIDataIntoCheckBoxData(
-      item.data, facetSearchData,
+      item.data.searchProjects, facetSearchData,
     );
     const rangeData = updatedCheckboxData1.filter((sideBar) => sideBar.slider === true);
     updatedCheckboxData1 = updatedCheckboxData1.filter((sideBar) => sideBar.slider !== true);
@@ -1301,8 +1301,8 @@ const reducers = {
         data: checkboxData1,
         variables: item.allFilters,
       },
-      stats: getFilteredStat(item.data, statsCount),
-      widgets: getWidgetsInitData(item.data, widgetsData),
+      stats: getFilteredStat(item.data.searchProjects, statsCount),
+      widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
     };
   },
   LOCAL_SEARCH: (state, item) => {
@@ -1348,11 +1348,11 @@ const reducers = {
       currentActiveTab: item.currentTab,
       datatable: {
         ...state.datatable,
-        dataProject: item.data.projectOverViewPaged,
-        dataPublication: item.data.publicationOverView,
-        dataDataset: item.data.datasetOverView,
-        dataClinicalTrial: item.data.clinicalTrialOverView,
-        dataPatent: item.data.patentOverView,
+        dataProject: item.data.searchProjects.projectOverViewPaged,
+        dataPublication: item.data.searchProjects.publicationOverView,
+        dataDataset: item.data.searchProjects.datasetOverView,
+        dataClinicalTrial: item.data.searchProjects.clinicalTrialOverView,
+        dataPatent: item.data.searchProjects.patentOverView,
       },
     }
   ),
@@ -1398,9 +1398,9 @@ const reducers = {
   },
   RECEIVE_DASHBOARDTAB: (state, rawItem) => {
     const item = rawItem;
-    transformDonutData(item.data);
+    transformDonutData(item.data.searchProjects);
 
-    const checkboxData = customCheckBox(item.data, facetSearchData);
+    const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
@@ -1411,7 +1411,7 @@ const reducers = {
         setSideBarLoading: false,
         searchCriteria: null,
         error: '',
-        stats: getStatInit(item.data, statsCount),
+        stats: getStatInit(item.data.searchProjects, statsCount),
         allActiveFilters: allFilters(),
         filteredSubjectIds: null,
         filteredSampleIds: null,
@@ -1427,7 +1427,7 @@ const reducers = {
         datatable: {
           filters: [],
         },
-        widgets: getWidgetsInitData(item.data, widgetsData),
+        widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
         dataCaseSelected: {
           selectedRowInfo: [],
           selectedRowIndex: [],
@@ -1462,9 +1462,9 @@ const reducers = {
   },
   CLEAR_ALL: (state, rawItem) => {
     const item = rawItem;
-    transformDonutData(item.data);
+    transformDonutData(item.data.searchProjects);
 
-    const checkboxData = customCheckBox(item.data, facetSearchData);
+    const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
@@ -1474,7 +1474,7 @@ const reducers = {
         hasError: false,
         setSideBarLoading: false,
         error: '',
-        stats: getStatInit(item.data, statsCount),
+        stats: getStatInit(item.data.searchProjects, statsCount),
         allActiveFilters: allFilters(),
         filteredSubjectIds: null,
         filteredSampleIds: null,
@@ -1482,7 +1482,7 @@ const reducers = {
         filteredClinicalTrialIds: null,
         filteredPatentIds: null,
         subjectOverView: {
-          data: item.data.projectOverViewPaged,
+          data: item.data.searchProjects.projectOverViewPaged,
         },
         checkboxForAll: {
           data: checkboxData,
@@ -1502,14 +1502,14 @@ const reducers = {
           variables: {},
         },
         datatable: {
-          dataProject: item.data.projectOverViewPaged,
-          dataPublication: item.data.publicationOverView,
-          dataDataset: item.data.datasetOverView,
-          dataClinicalTrial: item.data.clinicalTrialOverView,
-          dataPatent: item.data.patentOverView,
+          dataProject: item.data.searchProjects.projectOverViewPaged,
+          dataPublication: item.data.searchProjects.publicationOverView,
+          dataDataset: item.data.searchProjects.datasetOverView,
+          dataClinicalTrial: item.data.searchProjects.clinicalTrialOverView,
+          dataPatent: item.data.searchProjects.patentOverView,
           filters: [],
         },
-        widgets: getWidgetsInitData(item.data, widgetsData),
+        widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
         dataCaseSelected: {
           ...state.dataCaseSelected,
         },

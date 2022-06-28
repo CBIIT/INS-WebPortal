@@ -481,13 +481,15 @@ query searchProjects (
   $programs: [String] ,
   $docs: [String] ,
   $fiscal_years: [String] ,
-  $award_amounts: [String]
+  $award_amounts: [String] ,
+  $first: Int
 ){
   searchProjects (          
       programs: $programs,
       docs: $docs,
       fiscal_years: $fiscal_years,
       award_amounts: $award_amounts,
+      first: $first,
   ) {
     numberOfPrograms
     numberOfProjects
@@ -495,6 +497,11 @@ query searchProjects (
     numberOfDatasets
     numberOfClinicalTrials
     numberOfPatents
+    projectIds
+    publicationIds
+    accessions
+    clinicalTrialIds
+    patentIds
     projectCountByProgram{
       key
       doc_count
@@ -566,68 +573,6 @@ query searchProjects (
   }
 }`;
 
-export const DASHBOARD_QUERY = gql`
-{
-  numberOfPrograms
-  numberOfProjects
-  numberOfPublications
-  numberOfDatasets
-  numberOfClinicalTrials
-  numberOfPatents
-  projectCountByProgram{
-    key
-    doc_count
-  }
-  projectCountByDOC{
-    key
-    doc_count
-  }
-  projectCountByFiscalYear{
-    key
-    doc_count
-  }
-  projectCountByAwardAmount{
-    key
-    doc_count
-  }
-  publicationCountByYear{
-    key
-    doc_count
-  }
-  publicationCountByRCR{
-    key
-    doc_count
-  }
-  publicationCountByCitation
-  {
-    key
-    doc_count
-  }
-  projectOverViewPaged(first: 100) {
-    project_id
-    application_id
-    fiscal_year
-    project_title
-    project_type
-    abstract_text
-    keywords
-    org_name
-    org_city
-    org_state
-    org_country
-    principal_investigators
-    lead_doc
-    program_officers
-    award_amount
-    nci_funded_amount
-    award_notice_date
-    project_start_date
-    project_end_date
-    full_foa
-    program
-  }
-  }`;
-
 export const FILTER_GROUP_QUERY = gql`
   query groupCounts($subject_ids: [String]){
     projectCountByProgram(project_ids: $subject_ids){
@@ -665,7 +610,7 @@ export const FILTER_GROUP_QUERY = gql`
   }`;
 
 export const FILTER_QUERY = gql`
-query search($programs: [String],
+query searchProjects($programs: [String],
   $docs: [String],
   $fiscal_years: [String],
   $award_amounts: [String],
@@ -687,21 +632,73 @@ searchProjects(programs: $programs,
         numberOfClinicalTrials
         numberOfPatents
 }
-filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+projectCountByProgram{
   key
   doc_count
 }
-filterProjectCountByDOC(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+projectCountByDOC{
   key
   doc_count
 }
-filterProjectCountByFiscalYear(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+projectCountByFiscalYear{
   key
   doc_count
 }
-filterProjectCountByAwardAmount(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+projectCountByAwardAmount{
   key
   doc_count
+}
+publicationCountByYear{
+  key
+  doc_count
+}
+publicationCountByRCR{
+  key
+  doc_count
+}
+publicationCountByCitation
+{
+  key
+  doc_count
+}
+filterProjectCountByProgram{
+  key
+  doc_count
+}
+filterProjectCountByDOC{
+  key
+  doc_count
+}
+filterProjectCountByFiscalYear{
+  key
+  doc_count
+}
+filterProjectCountByAwardAmount{
+  key
+  doc_count
+}
+projectOverViewPaged(first: 100) {
+  project_id
+  application_id
+  fiscal_year
+  project_title
+  project_type
+  abstract_text
+  keywords
+  org_name
+  org_city
+  org_state
+  org_country
+  principal_investigators
+  lead_doc
+  program_officers
+  award_amount
+  nci_funded_amount
+  award_notice_date
+  project_start_date
+  project_end_date
+  full_foa
+  program
 }
 }`;
 
