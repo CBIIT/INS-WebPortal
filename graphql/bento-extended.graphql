@@ -554,7 +554,7 @@ type QueryType {
         RETURN COUNT(DISTINCT ct.clinical_trial_id)
     """, passThrough: true)
 
-    projectOverViewPaged(project_ids: [String] = [""], order_by: String = ""): [ProjectOverview] @cypher(statement: """
+    projectOverView(project_ids: [String] = [""], order_by: String = ""): [ProjectOverview] @cypher(statement: """
         MATCH (pr:project)-->(pg:program)
           WHERE ($project_ids IS NULL OR $project_ids = [""] OR pr.project_id IN $project_ids)
         WITH DISTINCT pr, pg

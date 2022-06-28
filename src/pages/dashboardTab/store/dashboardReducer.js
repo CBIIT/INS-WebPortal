@@ -744,8 +744,8 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
       },
     })
     .then((result) => {
-      const RESULT_DATA = getState().currentActiveTab === tabIndex[4].title ? 'patentOverView' : getState().currentActiveTab === tabIndex[3].title ? 'clinicalTrialOverView' : getState().currentActiveTab === tabIndex[2].title ? 'datasetOverView' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverView' : 'projectOverViewPaged';
-      const fileIdsFromQuery = RESULT_DATA === 'projectOverViewPaged' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverView' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
+      const RESULT_DATA = getState().currentActiveTab === tabIndex[4].title ? 'patentOverView' : getState().currentActiveTab === tabIndex[3].title ? 'clinicalTrialOverView' : getState().currentActiveTab === tabIndex[2].title ? 'datasetOverView' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverView' : 'projectOverView';
+      const fileIdsFromQuery = RESULT_DATA === 'projectOverView' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverView' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
       return fileIdsFromQuery;
     });
 
@@ -1348,7 +1348,7 @@ const reducers = {
       currentActiveTab: item.currentTab,
       datatable: {
         ...state.datatable,
-        dataProject: item.data.searchProjects.projectOverViewPaged,
+        dataProject: item.data.searchProjects.projectOverView,
         dataPublication: item.data.searchProjects.publicationOverView,
         dataDataset: item.data.searchProjects.datasetOverView,
         dataClinicalTrial: item.data.searchProjects.clinicalTrialOverView,
@@ -1482,7 +1482,7 @@ const reducers = {
         filteredClinicalTrialIds: null,
         filteredPatentIds: null,
         subjectOverView: {
-          data: item.data.searchProjects.projectOverViewPaged,
+          data: item.data.searchProjects.projectOverView,
         },
         checkboxForAll: {
           data: checkboxData,
@@ -1502,7 +1502,7 @@ const reducers = {
           variables: {},
         },
         datatable: {
-          dataProject: item.data.searchProjects.projectOverViewPaged,
+          dataProject: item.data.searchProjects.projectOverView,
           dataPublication: item.data.searchProjects.publicationOverView,
           dataDataset: item.data.searchProjects.datasetOverView,
           dataClinicalTrial: item.data.searchProjects.clinicalTrialOverView,
