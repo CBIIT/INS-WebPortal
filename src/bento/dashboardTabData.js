@@ -497,11 +497,6 @@ query searchProjects (
     numberOfDatasets
     numberOfClinicalTrials
     numberOfPatents
-    projectIds
-    publicationIds
-    accessions
-    clinicalTrialIds
-    patentIds
     projectCountByProgram{
       key
       doc_count
@@ -573,6 +568,12 @@ query searchProjects (
   }
 }`;
 
+// projectIds
+// publicationIds
+// accessions
+// clinicalTrialIds
+// patentIds
+
 export const FILTER_GROUP_QUERY = gql`
   query groupCounts($subject_ids: [String]){
     projectCountByProgram(project_ids: $subject_ids){
@@ -620,11 +621,6 @@ searchProjects(programs: $programs,
   fiscal_years: $fiscal_years,
   award_amounts: $award_amounts,
       first: $first) {
-        projectIds
-        publicationIds
-        accessions
-        clinicalTrialIds
-        patentIds
         numberOfPrograms
         numberOfProjects
         numberOfPublications

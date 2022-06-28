@@ -48,11 +48,6 @@ query searchProjects (
     numberOfDatasets
     numberOfClinicalTrials
     numberOfPatents
-    projectIds
-    publicationIds
-    accessions
-    clinicalTrialIds
-    patentIds
     projectCountByProgram{
       key
       doc_count
