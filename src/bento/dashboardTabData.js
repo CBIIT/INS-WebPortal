@@ -513,6 +513,18 @@ export const DASHBOARD_QUERY_NEW = gql`
     group
     subjects
   }
+  filterProjectCountByProgram{
+    group
+    subjects
+  }
+  filterProjectCountByDOC{
+    group
+    subjects
+  }
+  filterProjectCountByFiscalYear{
+    group
+    subjects
+  }
   projectOverViewPaged(first: 100) {
     project_id
     application_id
