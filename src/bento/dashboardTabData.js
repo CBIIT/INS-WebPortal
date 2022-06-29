@@ -644,8 +644,26 @@ filterProjectCountByAwardAmount{
 
 // --------------- GraphQL query - Retrieve files tab details --------------
 export const GET_PROJECTS_OVERVIEW_QUERY = gql`
-query projectOverView($project_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "project_id", $sort_direction: String = "asc"){
-  projectOverView(project_ids: $project_ids, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+query projectOverView(
+  $programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
+  $award_amounts: [String],
+  $offset: Int = 0,
+  $first: Int = 10,
+  $order_by: String = "project_id",
+  $sort_direction: String = "asc"
+  ){
+  projectOverView(
+    programs: $programs,
+    docs: $docs,
+    fiscal_years: $fiscal_years,
+    award_amounts: $award_amounts,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+    ) {
     project_id,
     application_id,
     fiscal_year,
@@ -672,8 +690,26 @@ query projectOverView($project_ids: [String], $offset: Int = 0, $first: Int = 10
   `;
 
 export const GET_PUBLICATIONS_OVERVIEW_QUERY = gql`
-query publicationOverView($publication_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "publication_id", $sort_direction: String = "asc"){
-  publicationOverView(publication_ids: $publication_ids, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+query publicationOverView(
+  $programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
+  $award_amounts: [String],
+  $offset: Int = 0,
+  $first: Int = 10,
+  $order_by: String = "publication_id",
+  $sort_direction: String = "asc"
+  ){
+  publicationOverView(
+    programs: $programs,
+    docs: $docs,
+    fiscal_years: $fiscal_years,
+    award_amounts: $award_amounts,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+  ) {
     publication_id,
     pmc_id,
     year,
@@ -691,8 +727,26 @@ query publicationOverView($publication_ids: [String], $offset: Int = 0, $first: 
   `;
 
 export const GET_DATASETS_OVERVIEW_QUERY = gql`
-  query datasetOverView($accessions: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "accession", $sort_direction: String = "asc"){
-    datasetOverView(accessions: $accessions, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+  query datasetOverView(
+    $programs: [String],
+    $docs: [String],
+    $fiscal_years: [String],
+    $award_amounts: [String],
+    $offset: Int = 0,
+    $first: Int = 10,
+    $order_by: String = "accession",
+    $sort_direction: String = "asc"
+    ){
+    datasetOverView(
+      programs: $programs,
+      docs: $docs,
+      fiscal_years: $fiscal_years,
+      award_amounts: $award_amounts,
+      first: $first,
+      offset: $offset,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+    ) {
       accession,
       title,
       submission_date,
@@ -708,8 +762,26 @@ export const GET_DATASETS_OVERVIEW_QUERY = gql`
   `;
 
 export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
-  query clinicalTrialOverView($clinical_trial_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "clinical_trial_id", $sort_direction: String = "asc"){
-    clinicalTrialOverView(clinical_trial_ids: $clinical_trial_ids, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+  query clinicalTrialOverView(
+    $programs: [String],
+    $docs: [String],
+    $fiscal_years: [String],
+    $award_amounts: [String],
+    $offset: Int = 0,
+    $first: Int = 10,
+    $order_by: String = "clinical_trial_id",
+    $sort_direction: String = "asc"
+    ){
+    clinicalTrialOverView(
+      programs: $programs,
+      docs: $docs,
+      fiscal_years: $fiscal_years,
+      award_amounts: $award_amounts,
+      first: $first,
+      offset: $offset,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+    ) {
       clinical_trial_id,
       title,
       last_update_posted,
@@ -720,8 +792,26 @@ export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
   `;
 
 export const GET_PATENTS_OVERVIEW_QUERY = gql`
-  query patentOverView($patent_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "patent_id", $sort_direction: String = "asc"){
-    patentOverView(patent_ids: $patent_ids, first: $first, offset: $offset, order_by: $order_by, sort_direction: $sort_direction) {
+  query patentOverView($
+    $programs: [String],
+    $docs: [String],
+    $fiscal_years: [String],
+    $award_amounts: [String],
+    $offset: Int = 0,
+    $first: Int = 10,
+    $order_by: String = "patent_id",
+    $sort_direction: String = "asc"
+    ){
+    patentOverView(
+      programs: $programs,
+      docs: $docs,
+      fiscal_years: $fiscal_years,
+      award_amounts: $award_amounts,
+      first: $first,
+      offset: $offset,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+    ) {
       patent_id,
       fulfilled_date,
       queried_project_ids
