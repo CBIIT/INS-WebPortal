@@ -231,7 +231,7 @@ const transformDonutData = (data) => {
  */
 function getWidgetsInitData(rawData, widgetsInfoFromCustConfig) {
   const data = rawData;
-  transformDonutData(data.searchProjects);
+  transformDonutData(data);
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.dataName]) : removeEmptySubjectsFromDonutData(data[widget.dataName]);
@@ -1013,7 +1013,6 @@ export function toggleCheckBox(payload, isQuery = false) {
 }
 
 export function toggleSlider(value, sideBarItem) {
-  // console.log(value);
   if (!value.includes('')) {
     const payload = {};
     const currentAllFilterVariables = createFilterVariablesRange(value, sideBarItem);
@@ -1348,11 +1347,11 @@ const reducers = {
       currentActiveTab: item.currentTab,
       datatable: {
         ...state.datatable,
-        dataProject: item.data.searchProjects.projectOverView,
-        dataPublication: item.data.searchProjects.publicationOverView,
-        dataDataset: item.data.searchProjects.datasetOverView,
-        dataClinicalTrial: item.data.searchProjects.clinicalTrialOverView,
-        dataPatent: item.data.searchProjects.patentOverView,
+        dataProject: item.data.projectOverView,
+        dataPublication: item.data.publicationOverView,
+        dataDataset: item.data.datasetOverView,
+        dataClinicalTrial: item.data.clinicalTrialOverView,
+        dataPatent: item.data.patentOverView,
       },
     }
   ),
