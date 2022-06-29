@@ -40,7 +40,7 @@ export const globalStatsData = [
   {
     statTitle: 'Datasets',
     type: 'field',
-    statAPI: 'numberOfDatasets',
+    statAPI: 'numberOfDatasetsByProjects',
     statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Samples_.svg',
     statIconAlt: 'Data Volume Stats Bar Icon',
   },
@@ -54,7 +54,7 @@ export const globalStatsData = [
   {
     statTitle: 'Patents',
     type: 'field',
-    statAPI: 'numberOfPatents',
+    statAPI: 'numberOfPatentsByProjects',
     statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/StudyFiles_.svg',
     statIconAlt: 'Data Volume Stats Bar Icon',
   },
@@ -65,8 +65,8 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
   numberOfPublications
-  numberOfDatasets
+  numberOfDatasetsByProjects
   numberOfClinicalTrials
-  numberOfPatents
+  numberOfPatentsByProjects
 }
   `;
