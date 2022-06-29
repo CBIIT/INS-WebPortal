@@ -792,7 +792,7 @@ export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
   `;
 
 export const GET_PATENTS_OVERVIEW_QUERY = gql`
-  query patentOverView($
+  query patentOverView(
     $programs: [String],
     $docs: [String],
     $fiscal_years: [String],
