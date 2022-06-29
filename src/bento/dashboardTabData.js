@@ -496,49 +496,49 @@ query searchProjects (
     numberOfClinicalTrials
     numberOfPatents
     projectCountByProgram{
-      key
-      doc_count
+      group
+      subjects
     }
     projectCountByDOC{
-      key
-      doc_count
+      group
+      subjects
     }
     projectCountByFiscalYear{
-      key
-      doc_count
+      group
+      subjects
     }
     projectCountByAwardAmount{
-      key
-      doc_count
+      group
+      subjects
     }
     publicationCountByYear{
-      key
-      doc_count
+      group
+      subjects
     }
     publicationCountByRCR{
-      key
-      doc_count
+      group
+      subjects
     }
     publicationCountByCitation
     {
-      key
-      doc_count
+      group
+      subjects
     }
     filterProjectCountByProgram{
-      key
-      doc_count
+      group
+      subjects
     }
     filterProjectCountByDOC{
-      key
-      doc_count
+      group
+      subjects
     }
     filterProjectCountByFiscalYear{
-      key
-      doc_count
+      group
+      subjects
     }
     filterProjectCountByAwardAmount{
-      key
-      doc_count
+      group
+      subjects
     }
   }
 }`;
@@ -546,32 +546,32 @@ query searchProjects (
 export const FILTER_GROUP_QUERY = gql`
   query groupCounts($subject_ids: [String]){
     projectCountByProgram(project_ids: $subject_ids){
-      key
-      doc_count
+      group
+      subjects
     }
     projectCountByDOC(project_ids: $subject_ids){
-      key
-      doc_count
+      group
+      subjects
     }
     projectCountByFiscalYear(project_ids: $subject_ids){
-      key
-      doc_count
+      group
+      subjects
     } 
     projectCountByAwardAmount(project_ids: $subject_ids){
-      key
-      doc_count
+      group
+      subjects
     } 
     publicationCountByYear(project_ids: $subject_ids){
-      key
-      doc_count
+      group
+      subjects
     }
     publicationCountByRCR(project_ids: $subject_ids){
-      key
-      doc_count
+      group
+      subjects
     }
     publicationCountByCitation(project_ids: $subject_ids){
-      key
-      doc_count
+      group
+      subjects
     }
     numberOfPublications(project_ids: $subject_ids)
     numberOfDatasets(project_ids: $subject_ids)
@@ -596,49 +596,49 @@ searchProjects(programs: $programs,
         numberOfPatents
 }
 projectCountByProgram{
-  key
-  doc_count
+  group
+  subjects
 }
 projectCountByDOC{
-  key
-  doc_count
+  group
+  subjects
 }
 projectCountByFiscalYear{
-  key
-  doc_count
+  group
+  subjects
 }
 projectCountByAwardAmount{
-  key
-  doc_count
+  group
+  subjects
 }
 publicationCountByYear{
-  key
-  doc_count
+  group
+  subjects
 }
 publicationCountByRCR{
-  key
-  doc_count
+  group
+  subjects
 }
 publicationCountByCitation
 {
-  key
-  doc_count
+  group
+  subjects
 }
 filterProjectCountByProgram{
-  key
-  doc_count
+  group
+  subjects
 }
 filterProjectCountByDOC{
-  key
-  doc_count
+  group
+  subjects
 }
 filterProjectCountByFiscalYear{
-  key
-  doc_count
+  group
+  subjects
 }
 filterProjectCountByAwardAmount{
-  key
-  doc_count
+  group
+  subjects
 }
 }`;
 

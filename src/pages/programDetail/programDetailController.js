@@ -15,33 +15,33 @@ const ProgramDetailContainer = ({ match }) => {
 
   if (data) {
     // eslint-disable-next-line max-len
-    transformedData.projectCountInProgramByDOCData = [...data.projectCountInProgramByDOC].sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
+    transformedData.projectCountInProgramByDOCData = [...data.projectCountInProgramByDOC].sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
     let projectCountInProgramByFundedAmountData = [
       {
-        key: '< $0.5',
-        doc_count: data.projectCountInProgramByFundedAmount[0].funded_amount_1,
+        group: '< $0.5',
+        subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_1,
       },
       {
-        key: '$0.5 to $1',
-        doc_count: data.projectCountInProgramByFundedAmount[0].funded_amount_2,
+        group: '$0.5 to $1',
+        subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_2,
       },
       {
-        key: '$1 to $3',
-        doc_count: data.projectCountInProgramByFundedAmount[0].funded_amount_3,
+        group: '$1 to $3',
+        subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_3,
       },
       {
-        key: '$3 to $10',
-        doc_count: data.projectCountInProgramByFundedAmount[0].funded_amount_4,
+        group: '$3 to $10',
+        subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_4,
       },
       {
-        key: '> $10',
-        doc_count: data.projectCountInProgramByFundedAmount[0].funded_amount_5,
+        group: '> $10',
+        subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_5,
       },
     ];
 
     // eslint-disable-next-line max-len
-    projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
+    projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
     // eslint-disable-next-line max-len
     transformedData.projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData;

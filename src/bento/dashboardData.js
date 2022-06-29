@@ -9,7 +9,7 @@ export const searchTabTitleText = 'Search';
 // A maximum of 12 facetSearchData are allowed
 export const facetSearchData = [{
   label: 'Program',
-  field: 'key',
+  field: 'group',
   api: 'projectCountByProgram',
   apiForFiltering: 'filterProjectCountByProgram',
   datafield: 'programs',
@@ -18,7 +18,7 @@ export const facetSearchData = [{
 },
 {
   label: 'DOC',
-  field: 'key',
+  field: 'group',
   api: 'projectCountByDOC',
   apiForFiltering: 'filterProjectCountByDOC',
   datafield: 'docs',
@@ -27,7 +27,7 @@ export const facetSearchData = [{
 },
 {
   label: 'Fiscal Year',
-  field: 'key',
+  field: 'group',
   api: 'projectCountByFiscalYear',
   apiForFiltering: 'filterProjectCountByFiscalYear',
   datafield: 'fiscal_years',
@@ -36,7 +36,7 @@ export const facetSearchData = [{
 },
 {
   label: 'Award Amount',
-  field: 'key',
+  field: 'group',
   api: 'projectCountByAwardAmount',
   apiForFiltering: 'filterProjectCountByAwardAmount',
   datafield: 'award_amounts',
@@ -296,12 +296,12 @@ export const GET_DASHBOARD_DATA_QUERY = gql`{
   numberOfDBGaps
   numberOfClinicalTrials
   fileCountByProgram{
-    key
-    doc_count
+    group
+    subjects
   }
   fileCountByContentFormat{
-    key
-    doc_count
+    group
+    subjects
   }
   fileOverView(first: 100) {
     submitted_file_id

@@ -183,7 +183,7 @@ function getFilteredStat(input, statCountVariables) {
  * @param {object} data
  *  @param {object}
  */
-const removeEmptySubjectsFromDonutData = (data) => data.filter((item) => item.doc_count !== 0);
+const removeEmptySubjectsFromDonutData = (data) => data.filter((item) => item.subjects !== 0);
 
 // --------------- Transform RCR data --------------
 const transformRCRData = (data) => {
@@ -201,7 +201,7 @@ const transformRCRData = (data) => {
     }
   }
 
-  publicationCountByRCRTransformedData.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
+  publicationCountByRCRTransformedData.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
   return publicationCountByRCRTransformedData;
 };
@@ -211,15 +211,15 @@ const transformDonutData = (data) => {
   const transformedData = data;
   transformedData.publicationCountByRCRTransformed = transformRCRData(data);
   // eslint-disable-next-line max-len
-  transformedData.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
+  transformedData.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
   // eslint-disable-next-line max-len
-  transformedData.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
+  transformedData.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
   // eslint-disable-next-line max-len
-  transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
+  transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
   // eslint-disable-next-line max-len
-  transformedData.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
+  transformedData.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
   // eslint-disable-next-line max-len
-  transformedData.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.doc_count < b.doc_count) ? 1 : -1));
+  transformedData.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
   return transformedData;
 };
 
@@ -533,7 +533,7 @@ export async function localSearch(searchcriteria, isQuery = false) {
  */
 function toggleCheckBoxWithAPIAction(payload, currentAllFilterVariables) {
   return client
-    .query({ // request to get the filtered doc_count
+    .query({ // request to get the filtered subjects
       query: DASHBOARD_QUERY_NEW,
       variables: {
         first: 100,
@@ -958,7 +958,7 @@ function sortByCheckboxItemsByAlphabet(checkboxData) {
  */
 
 function sortByCheckboxItemsByCount(checkboxData) {
-  checkboxData.sort((a, b) => b.doc_count - a.doc_count);
+  checkboxData.sort((a, b) => b.subjects - a.subjects);
   return sortByCheckboxByIsChecked(checkboxData);
 }
 
@@ -1067,7 +1067,7 @@ export function sortAll() {
 
 function getCheckbox(data, mapping) {
   const checkboxData = data[mapping].map((item) => {
-    return { name: item.key, isChecked: false, doc_count: item.doc_count };
+    return { name: item.key, isChecked: false, subjects: item.subjects };
   });
   return checkboxData;
 }
@@ -1083,7 +1083,7 @@ so it contains more information and easy for front-end to show it correctly.
  */
 
 function customCheckBox(data, facetSearchData1, isEmpty) {
-  const caseCountField = 'doc_count';
+  const caseCountField = 'subjects';
   return (
     facetSearchData1.map((mapping) => ({
       groupName: mapping.label,

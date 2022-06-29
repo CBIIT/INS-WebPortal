@@ -47,49 +47,49 @@ query searchProjects (
     numberOfClinicalTrials
     numberOfPatents
     projectCountByProgram{
-      key
-      doc_count
+      group
+      subjects
     }
     projectCountByDOC{
-      key
-      doc_count
+      group
+      subjects
     }
     projectCountByFiscalYear{
-      key
-      doc_count
+      group
+      subjects
     }
     projectCountByAwardAmount{
-      key
-      doc_count
+      group
+      subjects
     }
     publicationCountByYear{
-      key
-      doc_count
+      group
+      subjects
     }
     publicationCountByRCR{
-      key
-      doc_count
+      group
+      subjects
     }
     publicationCountByCitation
     {
-      key
-      doc_count
+      group
+      subjects
     }
     filterProjectCountByProgram{
-      key
-      doc_count
+      group
+      subjects
     }
     filterProjectCountByDOC{
-      key
-      doc_count
+      group
+      subjects
     }
     filterProjectCountByFiscalYear{
-      key
-      doc_count
+      group
+      subjects
     }
     filterProjectCountByAwardAmount{
-      key
-      doc_count
+      group
+      subjects
     }
   }
 }`;
@@ -110,20 +110,20 @@ export const GET_SEARCH_NODECOUNTS = gql`
       numberOfPatents
   }
   filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-    key
-    doc_count
+    group
+    subjects
   }
   filterProjectCountByDOC(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-    key
-    doc_count
+    group
+    subjects
   }
   filterProjectCountByFiscalYear(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-    key
-    doc_count
+    group
+    subjects
   }
   filterProjectCountByAwardAmount(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
-    key
-    doc_count
+    group
+    subjects
   }
 }
   `;
