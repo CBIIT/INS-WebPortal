@@ -335,7 +335,7 @@ type SearchResult {
     numberOfPrograms: Int
     numberOfProjects: Int
     numberOfPublications: Int
-    numberOfAccessions: Int
+    numberOfDatasets: Int
     numberOfClinicalTrials: Int
     numberOfPatents: Int
     firstPage: [ProjectOverview]
@@ -1071,7 +1071,7 @@ type QueryType {
             numberOfPrograms: COUNT(DISTINCT p.program_id),
             numberOfProjects: COUNT(DISTINCT pr.project_id),
             numberOfPublications: COUNT(DISTINCT pub.publication_id),
-            numberOfAccessions: COUNT(DISTINCT dt.accession),
+            numberOfDatasets: COUNT(DISTINCT dt.accession),
             numberOfClinicalTrials: COUNT(DISTINCT ct.clinical_trial_id),
             numberOfPatents: COUNT(DISTINCT pat.patent_id),
             firstPage: []

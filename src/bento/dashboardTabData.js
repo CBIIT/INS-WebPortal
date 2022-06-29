@@ -591,7 +591,7 @@ searchProjects(programs: $programs,
         numberOfPrograms
         numberOfProjects
         numberOfPublications
-        numberOfAccessions
+        numberOfDatasets
         numberOfClinicalTrials
         numberOfPatents
 }

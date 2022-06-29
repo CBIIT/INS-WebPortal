@@ -105,7 +105,7 @@ export const GET_SEARCH_NODECOUNTS = gql`
       numberOfPrograms
       numberOfProjects
       numberOfPublications
-      numberOfAccessions
+      numberOfDatasets
       numberOfClinicalTrials
       numberOfPatents
   }

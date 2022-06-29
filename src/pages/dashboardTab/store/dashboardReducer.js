@@ -423,7 +423,7 @@ const convertResultInPrevType = (result) => {
       numberOfPrograms: result.data.searchProjects.numberOfPrograms,
       numberOfProjects: result.data.searchProjects.numberOfProjects,
       numberOfPublications: result.data.searchProjects.numberOfPublications,
-      numberOfDatasets: result.data.searchProjects.numberOfAccessions,
+      numberOfDatasets: result.data.searchProjects.numberOfDatasets,
       numberOfClinicalTrials: result.data.searchProjects.numberOfClinicalTrials,
       numberOfPatents: result.data.searchProjects.numberOfPatents,
     },
