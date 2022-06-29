@@ -136,7 +136,9 @@ export const defaultSearch = {
 };
 
 // --------------- Dashboard ActiveFiltersQuery configuration --------------
-export const displayActiveFiltersQuery = true;
+export const displayActiveFiltersQuery = false;
+// TO_DO: fix error
+// export const displayActiveFiltersQuery = true;
 
 // --------------- Dashboard Widgets configuration --------------
 // A maximum of 6 widgets are allowed
