@@ -190,14 +190,14 @@ const transformRCRData = (data) => {
   const publicationCountByRCRTransformedData = [];
 
   for (let i = 0; i < data.publicationCountByRCR.length; i += 1) {
-    if (data.publicationCountByRCR[i].key !== 'N/A') {
+    if (data.publicationCountByRCR[i].group !== 'N/A') {
       publicationCountByRCRTransformedData.push(data.publicationCountByRCR[i]);
     }
   }
 
   for (let j = 0; j < publicationCountByRCRTransformedData.length; j += 1) {
-    if (publicationCountByRCRTransformedData[j].key === null) {
-      publicationCountByRCRTransformedData[j].key = '0';
+    if (publicationCountByRCRTransformedData[j].group === null) {
+      publicationCountByRCRTransformedData[j].group = '0';
     }
   }
 
@@ -1067,7 +1067,7 @@ export function sortAll() {
 
 function getCheckbox(data, mapping) {
   const checkboxData = data[mapping].map((item) => {
-    return { name: item.key, isChecked: false, subjects: item.subjects };
+    return { name: item.group, isChecked: false, subjects: item.subjects };
   });
   return checkboxData;
 }
@@ -1530,7 +1530,7 @@ const reducers = {
       } : { ...state };
   },
   SORT_SINGLE_GROUP_CHECKBOX: (state, item) => {
-    const groupData = state.checkbox.data.filter((key) => item.groupName === key.groupName)[0];
+    const groupData = state.checkbox.data.filter((group) => item.groupName === group.groupName)[0];
     let { sortByList } = state;
     sortByList = sortByList || {};
     const sortedCheckboxItems = item.sortBy === 'count'
@@ -1538,14 +1538,14 @@ const reducers = {
       : sortByCheckboxItemsByAlphabet(groupData.checkboxItems);
 
     sortByList[groupData.groupName] = item.sortBy;
-    const data = state.checkbox.data.map((key) => {
-      if (key.groupName === groupData.groupName) {
-        const updatedGroupData = key;
+    const data = state.checkbox.data.map((group) => {
+      if (group.groupName === groupData.groupName) {
+        const updatedGroupData = group;
         updatedGroupData.checkboxItems = sortedCheckboxItems;
         return updatedGroupData;
       }
 
-      return key;
+      return group;
     });
 
     return { ...state, checkbox: { data }, sortByList };
@@ -1555,11 +1555,11 @@ const reducers = {
     let { data } = state.checkbox;
     const rangeData = data.filter((sideBar) => sideBar.slider === true);
     data = data.filter((sideBar) => sideBar.slider !== true);
-    data.map((key) => {
-      const checkboxItems = sortByList[key.groupName] === 'count'
-        ? sortByCheckboxItemsByCount(key.checkboxItems)
-        : sortByCheckboxItemsByAlphabet(key.checkboxItems);
-      const updatedGroupData = key;
+    data.map((group) => {
+      const checkboxItems = sortByList[group.groupName] === 'count'
+        ? sortByCheckboxItemsByCount(group.checkboxItems)
+        : sortByCheckboxItemsByAlphabet(group.checkboxItems);
+      const updatedGroupData = group;
       updatedGroupData.checkboxItems = checkboxItems;
       return updatedGroupData;
     });
