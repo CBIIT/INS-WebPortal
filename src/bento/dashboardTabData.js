@@ -649,10 +649,10 @@ query projectOverView(
   $docs: [String],
   $fiscal_years: [String],
   $award_amounts: [String],
-  $offset: Int = 0,
-  $first: Int = 10,
-  $order_by: String = "project_id",
-  $sort_direction: String = "asc"
+  $offset: Int ,
+  $first: Int ,
+  $order_by: String ,
+  $sort_direction: String 
   ){
   projectOverView(
     programs: $programs,
@@ -695,10 +695,10 @@ query publicationOverView(
   $docs: [String],
   $fiscal_years: [String],
   $award_amounts: [String],
-  $offset: Int = 0,
-  $first: Int = 10,
-  $order_by: String = "publication_id",
-  $sort_direction: String = "asc"
+  $offset: Int ,
+  $first: Int ,
+  $order_by: String ,
+  $sort_direction: String 
   ){
   publicationOverView(
     programs: $programs,
@@ -732,10 +732,10 @@ export const GET_DATASETS_OVERVIEW_QUERY = gql`
     $docs: [String],
     $fiscal_years: [String],
     $award_amounts: [String],
-    $offset: Int = 0,
-    $first: Int = 10,
-    $order_by: String = "accession",
-    $sort_direction: String = "asc"
+    $offset: Int ,
+    $first: Int ,
+    $order_by: String ,
+    $sort_direction: String 
     ){
     datasetOverView(
       programs: $programs,
@@ -767,10 +767,10 @@ export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
     $docs: [String],
     $fiscal_years: [String],
     $award_amounts: [String],
-    $offset: Int = 0,
-    $first: Int = 10,
-    $order_by: String = "clinical_trial_id",
-    $sort_direction: String = "asc"
+    $offset: Int ,
+    $first: Int ,
+    $order_by: String ,
+    $sort_direction: String 
     ){
     clinicalTrialOverView(
       programs: $programs,
@@ -797,10 +797,10 @@ export const GET_PATENTS_OVERVIEW_QUERY = gql`
     $docs: [String],
     $fiscal_years: [String],
     $award_amounts: [String],
-    $offset: Int = 0,
-    $first: Int = 10,
-    $order_by: String = "patent_id",
-    $sort_direction: String = "asc"
+    $offset: Int ,
+    $first: Int ,
+    $order_by: String ,
+    $sort_direction: String 
     ){
     patentOverView(
       programs: $programs,

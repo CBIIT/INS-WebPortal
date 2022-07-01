@@ -638,11 +638,6 @@ const getQueryAndDefaultSort = (payload = tabIndex[0].title) => {
 export function fetchDataForDashboardTab(
   payload,
   filters = null,
-  subjectIDsAfterFilter = null,
-  sampleIDsAfterFilter = null,
-  fileIDsAfterFilter = null,
-  clinicalTrialIDsAfterFilter = null,
-  patentIDsAfterFilter = null,
 ) {
   const { QUERY, sortfield, sortDirection } = getQueryAndDefaultSort(payload);
   const newFilters = filters;
@@ -669,11 +664,6 @@ export function fetchDataForDashboardTab(
     .query({
       query: QUERY,
       variables: {
-        project_ids: subjectIDsAfterFilter,
-        publication_ids: sampleIDsAfterFilter,
-        accessions: fileIDsAfterFilter,
-        clinical_trial_ids: clinicalTrialIDsAfterFilter,
-        patent_ids: patentIDsAfterFilter,
         ...activeFilters,
         order_by: sortfield || '',
         sort_direction: sortDirection || 'asc',
@@ -714,11 +704,7 @@ function transformfileIdsToFiles(data) {
  * @return {json}
  */
 export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
-  const subjectIds = getState().filteredSubjectIds;
-  const sampleIds = getState().filteredSampleIds;
   const fileIds = getState().filteredFileIds;
-  const clinicalTrialIds = getState().filteredClinicalTrialIds;
-  const patentIds = getState().filteredPatentIds;
 
   const activeFilters = getState().allActiveFilters !== {}
     ? getState().allActiveFilters : allFilters();
@@ -733,11 +719,6 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
     .query({
       query: SELECT_ALL_QUERY,
       variables: {
-        subject_ids: subjectIds,
-        sample_ids: sampleIds,
-        file_ids: fileIds,
-        clinical_trial_ids: clinicalTrialIds,
-        patent_ids: patentIds,
         ...activeFilters,
         first: fileCount,
         ..._.mergeWith({}, getState().bulkUpload, getState().autoCompleteSelection, customizer),
@@ -1281,21 +1262,11 @@ const reducers = {
     fetchDataForDashboardTab(
       tabIndex[0].title,
       item.allFilters,
-      item.data.searchProjects.projectIds,
-      item.data.searchProjects.publicationIds,
-      item.data.searchProjects.accessions,
-      item.data.searchProjects.clinicalTrialIds,
-      item.data.searchProjects.patentIds,
     );
     return {
       ...state,
       setSideBarLoading: false,
       allActiveFilters: item.allFilters,
-      filteredSubjectIds: item.data.searchProjects.projectIds,
-      filteredSampleIds: item.data.searchProjects.publicationIds,
-      filteredFileIds: item.data.searchProjects.accessions,
-      filteredClinicalTrialIds: item.data.searchProjects.clinicalTrialIds,
-      filteredPatentIds: item.data.searchProjects.patentIds,
       checkbox: {
         data: checkboxData1,
         variables: item.allFilters,
@@ -1464,7 +1435,7 @@ const reducers = {
     transformDonutData(item.data.searchProjects);
 
     const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
-    fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
+    fetchDataForDashboardTab(tabIndex[0].title, allFilters());
     return item.data
       ? {
         ...state.dashboard,
@@ -1501,11 +1472,6 @@ const reducers = {
           variables: {},
         },
         datatable: {
-          dataProject: item.data.searchProjects.projectOverView,
-          dataPublication: item.data.searchProjects.publicationOverView,
-          dataDataset: item.data.searchProjects.datasetOverView,
-          dataClinicalTrial: item.data.searchProjects.clinicalTrialOverView,
-          dataPatent: item.data.searchProjects.patentOverView,
           filters: [],
         },
         widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
