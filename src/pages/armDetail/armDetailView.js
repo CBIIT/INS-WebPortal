@@ -56,11 +56,11 @@ const ArmDetail = ({ data, classes }) => {
 
   const stat = {
     numberOfPrograms: 1,
-    numberOfStudies: 1,
-    numberOfSubjects: data.num_subjects,
-    numberOfSamples: data.num_samples,
-    numberOfLabProcedures: data.num_lab_procedures,
-    numberOfFiles: data.num_files,
+    numberOfProjects: 1,
+    numberOfPublications: data.programPublicationCount,
+    numberOfDatasets: data.programDatasetCount,
+    numberOfClinicalTrials: data.programClinicalTrialCount,
+    numberOfPatents: data.programPatentCount,
   };
 
   return (
@@ -86,7 +86,7 @@ const ArmDetail = ({ data, classes }) => {
             <div className={classes.headerTitle}>
               <div className={classes.headerMainTitle} id="arm_detail_title">
                 {`${header.label} :`}
-                { data[header.dataField]
+                {data[header.dataField]
                   ? (
                     <span className={classes.headerMainTitleTwo}>
                       {' '}
@@ -100,7 +100,7 @@ const ArmDetail = ({ data, classes }) => {
                   )}
               </div>
             </div>
-            { /* Case Count */ }
+            { /* Case Count */}
             <div className={classes.headerButton}>
               <div className={classes.headerButtonLinkArea}>
                 <span className={classes.headerButtonLinkText}>Number of cases:</span>
@@ -122,7 +122,7 @@ const ArmDetail = ({ data, classes }) => {
             <Grid item lg={7} sm={6} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
               <div className={classes.innerPanel}>
                 <Grid container spacing={2}>
-                  { subsections.slice(0, 6).map((section, index) => (
+                  {subsections.slice(0, 6).map((section, index) => (
                     <PropertySubsection key={index} section={section} data={data} />
                   ))}
                 </Grid>
@@ -165,7 +165,7 @@ const ArmDetail = ({ data, classes }) => {
           </Grid>
           <div id="arm_detail_table" className={classes.tableContainer}>
             <div className={classes.tableDiv}>
-              { table.display
+              {table.display
                 ? (
                   <>
                     <div className={classes.tableTitle} id="arm_detail_table_title">
@@ -177,7 +177,7 @@ const ArmDetail = ({ data, classes }) => {
                           <GridWithFooter
                             tableConfig={table}
                             data={data[table.filesField]}
-                            columns={getColumns(table, classes, data, '', '', () => {}, '', globalData.replaceEmptyValueWith)}
+                            columns={getColumns(table, classes, data, '', '', () => { }, '', globalData.replaceEmptyValueWith)}
                             options={getOptions(table, classes)}
                             customOnRowsSelect={table.customOnRowsSelect}
                             openSnack={openSnack}

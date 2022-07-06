@@ -82,7 +82,7 @@ function searchComponent({ classes }) {
             classes={{ root: classes.inputRoot }}
             variant="outlined"
             hiddenLabel
-            placeholder="SEARCH BENTO"
+            placeholder="SEARCH INS"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && e.target.value) {
                 onChange([e.target.value]);

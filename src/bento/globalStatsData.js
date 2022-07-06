@@ -10,7 +10,7 @@ export const statsStyling = {
   statsIcon: {
     width: '40px',
     height: '45px',
-    margin: '-7px',
+    margin: '0px 0px 0px -45px',
   },
 };
 
@@ -33,28 +33,28 @@ export const globalStatsData = [
   {
     statTitle: 'Publications',
     type: 'field',
-    statAPI: 'numberOfPublicationsByProjects',
+    statAPI: 'numberOfPublications',
     statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Cases_.svg',
     statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
     statTitle: 'Datasets',
     type: 'field',
-    statAPI: 'numberOfDatasetsByProjects',
+    statAPI: 'numberOfDatasets',
     statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Samples_.svg',
     statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
     statTitle: 'Clinical Trials',
     type: 'field',
-    statAPI: 'numberOfClinicalTrialsByProjects',
+    statAPI: 'numberOfClinicalTrials',
     statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/CaseFiles_.svg',
     statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
     statTitle: 'Patents',
     type: 'field',
-    statAPI: 'numberOfPatentsByProjects',
+    statAPI: 'numberOfPatents',
     statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/StudyFiles_.svg',
     statIconAlt: 'Data Volume Stats Bar Icon',
   },
@@ -64,9 +64,9 @@ export const globalStatsData = [
 export const GET_GLOBAL_STATS_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
-  numberOfPublicationsByProjects
-  numberOfDatasetsByProjects
-  numberOfClinicalTrialsByProjects
-  numberOfPatentsByProjects
+  numberOfPublications
+  numberOfDatasets
+  numberOfClinicalTrials
+  numberOfPatents
 }
   `;
