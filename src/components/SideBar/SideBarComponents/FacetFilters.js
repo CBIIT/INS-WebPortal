@@ -472,7 +472,8 @@ export const FacetPanelComponent = ({ classes }, ref) => {
             >
               {/* <ListItemText primary={sideBarItem.groupName} /> */}
               {
-                currentSection.sectionName === 'Projects' ? (
+                // TO_DO: NEW SEARCH add 's'
+                currentSection.sectionName === 'Project' ? (
                   <div
                     id={currentSection.sectionName}
                     className={classes.sectionSummaryTextCase}
