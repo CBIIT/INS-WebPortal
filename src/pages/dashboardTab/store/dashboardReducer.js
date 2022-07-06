@@ -206,6 +206,23 @@ const transformRCRData = (data) => {
   return publicationCountByRCRTransformedData;
 };
 
+// --------------- Transform Donut data --------------
+const transformDonutData = (data) => {
+  const transformedData = data;
+  transformedData.publicationCountByRCRTransformed = transformRCRData(data);
+  // eslint-disable-next-line max-len
+  transformedData.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  transformedData.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  transformedData.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // eslint-disable-next-line max-len
+  transformedData.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  return transformedData;
+};
+
 /**
  * Returns the widgets data.
  * @param {object} data
@@ -214,18 +231,7 @@ const transformRCRData = (data) => {
  */
 function getWidgetsInitData(rawData, widgetsInfoFromCustConfig) {
   const data = rawData;
-  // TO_DO: Create function
-  data.publicationCountByRCRTransformed = transformRCRData(data);
-  // eslint-disable-next-line max-len
-  data.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  transformDonutData(data);
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.dataName]) : removeEmptySubjectsFromDonutData(data[widget.dataName]);
@@ -259,18 +265,7 @@ function allFilters() {
 
 function getSearchWidgetsData(rawData, widgetsInfoFromCustConfig) {
   const data = rawData;
-  // TO_DO: Create function
-  data.publicationCountByRCRTransformed = transformRCRData(data);
-  // eslint-disable-next-line max-len
-  data.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
-  data.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  transformDonutData(data.searchProjects);
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.mapWithDashboardWidget]) : removeEmptySubjectsFromDonutData(data[widget.mapWithDashboardWidget]);
@@ -385,7 +380,7 @@ function createFilterVariablesRange(value, sideBarItem) {
 }
 
 /**
- * Returns active filter list while removing the param group.
+ * Returns active filter list while removing the param key.
  *
  * @param {object} data
  * @return {json}
@@ -423,14 +418,14 @@ export async function clearAllFiltersExceptBulkUpload() {
 const convertResultInPrevType = (result) => {
   const payload = result;
   payload.data = {
-    ...result.data.searchSubjects,
+    ...result.data.searchProjects,
     nodeCountsFromLists: {
-      numberOfFiles: result.data.searchSubjects.numberOfFiles,
-      numberOfLabProcedures: result.data.searchSubjects.numberOfLabProcedures,
-      numberOfPrograms: result.data.searchSubjects.numberOfPrograms,
-      numberOfSamples: result.data.searchSubjects.numberOfSamples,
-      numberOfStudies: result.data.searchSubjects.numberOfStudies,
-      numberOfSubjects: result.data.searchSubjects.numberOfSubjects,
+      numberOfPrograms: result.data.searchProjects.numberOfPrograms,
+      numberOfProjects: result.data.searchProjects.numberOfProjects,
+      numberOfPublications: result.data.searchProjects.numberOfPublications,
+      numberOfDatasets: result.data.searchProjects.numberOfDatasets,
+      numberOfClinicalTrials: result.data.searchProjects.numberOfClinicalTrials,
+      numberOfPatents: result.data.searchProjects.numberOfPatents,
     },
   };
 
@@ -565,7 +560,7 @@ function toggleCheckBoxWithAPIAction(payload, currentAllFilterVariables) {
 }
 
 /**
- * Resets the group selections
+ * Resets the key selections
  *
  * @param {object} payload
  * @return distpatcher
@@ -643,11 +638,6 @@ const getQueryAndDefaultSort = (payload = tabIndex[0].title) => {
 export function fetchDataForDashboardTab(
   payload,
   filters = null,
-  subjectIDsAfterFilter = null,
-  sampleIDsAfterFilter = null,
-  fileIDsAfterFilter = null,
-  clinicalTrialIDsAfterFilter = null,
-  patentIDsAfterFilter = null,
 ) {
   const { QUERY, sortfield, sortDirection } = getQueryAndDefaultSort(payload);
   const newFilters = filters;
@@ -674,11 +664,6 @@ export function fetchDataForDashboardTab(
     .query({
       query: QUERY,
       variables: {
-        project_ids: subjectIDsAfterFilter,
-        publication_ids: sampleIDsAfterFilter,
-        accessions: fileIDsAfterFilter,
-        clinical_trial_ids: clinicalTrialIDsAfterFilter,
-        patent_ids: patentIDsAfterFilter,
         ...activeFilters,
         order_by: sortfield || '',
         sort_direction: sortDirection || 'asc',
@@ -719,11 +704,7 @@ function transformfileIdsToFiles(data) {
  * @return {json}
  */
 export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
-  const subjectIds = getState().filteredSubjectIds;
-  const sampleIds = getState().filteredSampleIds;
   const fileIds = getState().filteredFileIds;
-  const clinicalTrialIds = getState().filteredClinicalTrialIds;
-  const patentIds = getState().filteredPatentIds;
 
   const activeFilters = getState().allActiveFilters !== {}
     ? getState().allActiveFilters : allFilters();
@@ -738,19 +719,14 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
     .query({
       query: SELECT_ALL_QUERY,
       variables: {
-        subject_ids: subjectIds,
-        sample_ids: sampleIds,
-        file_ids: fileIds,
-        clinical_trial_ids: clinicalTrialIds,
-        patent_ids: patentIds,
         ...activeFilters,
         first: fileCount,
         ..._.mergeWith({}, getState().bulkUpload, getState().autoCompleteSelection, customizer),
       },
     })
     .then((result) => {
-      const RESULT_DATA = getState().currentActiveTab === tabIndex[4].title ? 'patentOverView' : getState().currentActiveTab === tabIndex[3].title ? 'clinicalTrialOverView' : getState().currentActiveTab === tabIndex[2].title ? 'datasetOverView' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverView' : 'projectOverViewPaged';
-      const fileIdsFromQuery = RESULT_DATA === 'projectOverViewPaged' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverView' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
+      const RESULT_DATA = getState().currentActiveTab === tabIndex[4].title ? 'patentOverView' : getState().currentActiveTab === tabIndex[3].title ? 'clinicalTrialOverView' : getState().currentActiveTab === tabIndex[2].title ? 'datasetOverView' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverView' : 'projectOverView';
+      const fileIdsFromQuery = RESULT_DATA === 'projectOverView' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverView' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
       return fileIdsFromQuery;
     });
 
@@ -1018,7 +994,6 @@ export function toggleCheckBox(payload, isQuery = false) {
 }
 
 export function toggleSlider(value, sideBarItem) {
-  // console.log(value);
   if (!value.includes('')) {
     const payload = {};
     const currentAllFilterVariables = createFilterVariablesRange(value, sideBarItem);
@@ -1088,28 +1063,27 @@ so it contains more information and easy for front-end to show it correctly.
  * @return {json}
  */
 
-// function customCheckBox(data, facetSearchData1, isEmpty) {
-//   const caseCountField = 'subjects';
-//   return (
-//     facetSearchData1.map((mapping) => ({
-//       groupName: mapping.label,
-//       checkboxItems: mapping.slider === true
-//         ? data[mapping.api]
-// eslint-disable-next-line max-len
-//         : (isEmpty ? getCheckbox(data, mapping.apiForFiltering) : transformAPIDataIntoCheckBoxData(
-//           data[mapping.api],
-//           mapping.field,
-//           caseCountField,
-//           mapping.customNumberSort,
-//         )),
-//       datafield: mapping.datafield,
-//       show: mapping.show,
-//       slider: mapping.slider,
-//       quantifier: mapping.slider,
-//       section: mapping.section,
-//     }))
-//   );
-// }
+function customCheckBox(data, facetSearchData1, isEmpty) {
+  const caseCountField = 'subjects';
+  return (
+    facetSearchData1.map((mapping) => ({
+      groupName: mapping.label,
+      checkboxItems: mapping.slider === true
+        ? data[mapping.api]
+        : (isEmpty ? getCheckbox(data, mapping.apiForFiltering) : transformAPIDataIntoCheckBoxData(
+          data[mapping.api],
+          mapping.field,
+          caseCountField,
+          mapping.customNumberSort,
+        )),
+      datafield: mapping.datafield,
+      show: mapping.show,
+      slider: mapping.slider,
+      quantifier: mapping.slider,
+      section: mapping.section,
+    }))
+  );
+}
 
 export function updateFilteredAPIDataIntoCheckBoxData(data, facetSearchDataFromConfig) {
   return (
@@ -1278,7 +1252,7 @@ const reducers = {
   },
   TOGGLE_CHECKBOX_WITH_API: (state, item) => {
     let updatedCheckboxData1 = updateFilteredAPIDataIntoCheckBoxData(
-      item.data.searchSubjects, facetSearchData,
+      item.data.searchProjects, facetSearchData,
     );
     const rangeData = updatedCheckboxData1.filter((sideBar) => sideBar.slider === true);
     updatedCheckboxData1 = updatedCheckboxData1.filter((sideBar) => sideBar.slider !== true);
@@ -1288,61 +1262,50 @@ const reducers = {
     fetchDataForDashboardTab(
       tabIndex[0].title,
       item.allFilters,
-      item.data.searchProjects.projectIds,
-      item.data.searchProjects.publicationIds,
-      item.data.searchProjects.accessions,
-      item.data.searchProjects.clinicalTrialIds,
-      item.data.searchProjects.patentIds,
     );
     return {
       ...state,
       setSideBarLoading: false,
       allActiveFilters: item.allFilters,
-      filteredSubjectIds: item.data.searchProjects.projectIds,
-      filteredSampleIds: item.data.searchProjects.publicationIds,
-      filteredFileIds: item.data.searchProjects.accessions,
-      filteredClinicalTrialIds: item.data.searchProjects.clinicalTrialIds,
-      filteredPatentIds: item.data.searchProjects.patentIds,
       checkbox: {
         data: checkboxData1,
         variables: item.allFilters,
       },
-      stats: getFilteredStat(item.data.searchSubjects, statsCount),
-      widgets: getWidgetsInitData(item.data.searchSubjects, widgetsData),
+      stats: getFilteredStat(item.data.searchProjects, statsCount),
+      widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
     };
   },
   LOCAL_SEARCH: (state, item) => {
     const isEmpty = item.subjectResponse.data
       && item.subjectResponse.data.subjectOverview
       && item.subjectResponse.data.subjectOverview.length < 1;
-    // const checkboxData = customCheckBox(item.result.data, facetSearchData, isEmpty);
-    // const newCheckboxData = [...checkboxData];
-    // checkboxData.map((val, idx) => {
-    // eslint-disable-next-line max-len
-    //   if (item.variables && item.variables[val.datafield] && item.variables[val.datafield].length) {
-    //     const checkboxItem = newCheckboxData[idx].checkboxItems;
-    //     checkboxItem.map((data, id) => {
-    //       // eslint-disable-next-line max-len
-    //       const index = item.variables[val.datafield].findIndex((check) => check === data.name);
-    //       if (index >= 0) {
-    //         checkboxItem[id].isChecked = true;
-    //       }
-    //       return null;
-    //     });
-    //     newCheckboxData[idx].checkboxItems = checkboxItem;
-    //   }
-    //   return null;
-    // });
+    const checkboxData = customCheckBox(item.result.data, facetSearchData, isEmpty);
+    const newCheckboxData = [...checkboxData];
+    checkboxData.map((val, idx) => {
+      if (item.variables && item.variables[val.datafield] && item.variables[val.datafield].length) {
+        const checkboxItem = newCheckboxData[idx].checkboxItems;
+        checkboxItem.map((data, id) => {
+          // eslint-disable-next-line max-len
+          const index = item.variables[val.datafield].findIndex((check) => check === data.name);
+          if (index >= 0) {
+            checkboxItem[id].isChecked = true;
+          }
+          return null;
+        });
+        newCheckboxData[idx].checkboxItems = checkboxItem;
+      }
+      return null;
+    });
     return {
       ...state,
       setSideBarLoading: false,
       datatable: {
         dataCase: item.subjectResponse.data.subjectOverview,
       },
-      // checkbox: {
-      //   data: newCheckboxData,
-      //   variables: item.variables,
-      // },
+      checkbox: {
+        data: newCheckboxData,
+        variables: item.variables,
+      },
       stats: getFilteredStat(item.result.data.nodeCountsFromLists, statsCount),
       widgets: getSearchWidgetsData(item.result.data, widgetsSearchData),
 
@@ -1355,11 +1318,11 @@ const reducers = {
       currentActiveTab: item.currentTab,
       datatable: {
         ...state.datatable,
-        dataProject: item.data.projectOverViewPaged,
-        dataPublication: item.publicationOverView,
-        dataDataset: item.datasetOverView,
-        dataClinicalTrial: item.clinicalTrialOverView,
-        dataPatent: item.patentOverView,
+        dataProject: item.data.projectOverView,
+        dataPublication: item.data.publicationOverView,
+        dataDataset: item.data.datasetOverView,
+        dataClinicalTrial: item.data.clinicalTrialOverView,
+        dataPatent: item.data.patentOverView,
       },
     }
   ),
@@ -1405,20 +1368,9 @@ const reducers = {
   },
   RECEIVE_DASHBOARDTAB: (state, rawItem) => {
     const item = rawItem;
-    // TO_DO: Create function
-    item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
-    // eslint-disable-next-line max-len
-    item.data.projectCountByDOCSorted = item.data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.publicationCountByYearSorted = item.data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.projectCountByFiscalYearSorted = item.data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.projectCountByAwardAmountSorted = item.data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    transformDonutData(item.data.searchProjects);
 
-    // const checkboxData = customCheckBox(item.data.searchSubjects, facetSearchData);
+    const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
@@ -1429,23 +1381,23 @@ const reducers = {
         setSideBarLoading: false,
         searchCriteria: null,
         error: '',
-        stats: getStatInit(item.data.searchSubjects, statsCount),
+        stats: getStatInit(item.data.searchProjects, statsCount),
         allActiveFilters: allFilters(),
         filteredSubjectIds: null,
         filteredSampleIds: null,
         filteredFileIds: null,
         filteredClinicalTrialIds: null,
         filteredPatentIds: null,
-        // checkboxForAll: {
-        //   data: checkboxData,
-        // },
-        // checkbox: {
-        //   data: checkboxData,
-        // },
+        checkboxForAll: {
+          data: checkboxData,
+        },
+        checkbox: {
+          data: checkboxData,
+        },
         datatable: {
           filters: [],
         },
-        widgets: getWidgetsInitData(item.data.searchSubjects, widgetsData),
+        widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
         dataCaseSelected: {
           selectedRowInfo: [],
           selectedRowIndex: [],
@@ -1480,21 +1432,10 @@ const reducers = {
   },
   CLEAR_ALL: (state, rawItem) => {
     const item = rawItem;
-    // TO_DO: Create function
-    item.data.publicationCountByRCRTransformed = transformRCRData(item.data);
-    // eslint-disable-next-line max-len
-    item.data.projectCountByDOCSorted = item.data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.publicationCountByYearSorted = item.data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.projectCountByFiscalYearSorted = item.data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.projectCountByAwardAmountSorted = item.data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    // eslint-disable-next-line max-len
-    item.data.publicationCountByCitationSorted = item.data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    transformDonutData(item.data.searchProjects);
 
-    // const checkboxData = customCheckBox(item.data.searchSubjects, facetSearchData);
-    fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
+    const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
+    fetchDataForDashboardTab(tabIndex[0].title, allFilters());
     return item.data
       ? {
         ...state.dashboard,
@@ -1503,7 +1444,7 @@ const reducers = {
         hasError: false,
         setSideBarLoading: false,
         error: '',
-        stats: getStatInit(item.data.searchSubjects, statsCount),
+        stats: getStatInit(item.data.searchProjects, statsCount),
         allActiveFilters: allFilters(),
         filteredSubjectIds: null,
         filteredSampleIds: null,
@@ -1511,11 +1452,11 @@ const reducers = {
         filteredClinicalTrialIds: null,
         filteredPatentIds: null,
         subjectOverView: {
-          data: item.data.projectOverViewPaged,
+          data: item.data.searchProjects.projectOverView,
         },
-        // checkboxForAll: {
-        //   data: checkboxData,
-        // },
+        checkboxForAll: {
+          data: checkboxData,
+        },
         autoCompleteSelection: {
           subject_ids: [],
           sample_ids: [],
@@ -1526,19 +1467,14 @@ const reducers = {
           sample_ids: [],
           file_ids: [],
         },
-        // checkbox: {
-        //   data: checkboxData,
-        //   variables: {},
-        // },
+        checkbox: {
+          data: checkboxData,
+          variables: {},
+        },
         datatable: {
-          dataProject: item.data.projectOverViewPaged,
-          dataPublication: item.data.publicationOverView,
-          dataDataset: item.data.datasetOverView,
-          dataClinicalTrial: item.data.clinicalTrialOverView,
-          dataPatent: item.data.patentOverView,
           filters: [],
         },
-        widgets: getWidgetsInitData(item.data.searchSubjects, widgetsData),
+        widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
         dataCaseSelected: {
           ...state.dataCaseSelected,
         },

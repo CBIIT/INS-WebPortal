@@ -692,8 +692,8 @@ type therapeutic_procedure {
 }
 
 type GroupCount {
-    group: String
-    subjects: Int
+    key: String
+    doc_count: Int
 }
 
 type SubjectInfo {
@@ -851,8 +851,8 @@ type FileOverview {
 }
 
 type GroupList {
-    group: String
-    subjects: [String]
+    key: String
+    doc_count: [String]
 }
 
 type IdsLists {

@@ -276,14 +276,7 @@ const TabView = ({
             overview={getOverviewQuery(api)}
             paginationAPIField={paginationAPIField}
             paginationAPIFieldDesc={paginationAPIFieldDesc}
-            queryCustomVaribles={{
-              subject_ids: filteredSubjectIds,
-              sample_ids: filteredSampleIds,
-              file_ids: filteredFileIds,
-              clinical_trial_ida: filteredClinicalTrialIds,
-              patent_ids: filteredPatentIds,
-              allFilters,
-            }}
+            queryCustomVaribles={allFilters}
             defaultSortCoulmn={defaultSortCoulmn}
             defaultSortDirection={defaultSortDirection}
             tableDownloadCSV={tableDownloadCSV}

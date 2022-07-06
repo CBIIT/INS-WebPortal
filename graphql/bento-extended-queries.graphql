@@ -1,6 +1,6 @@
 type GroupCount {
-    group: String
-    subjects: Int
+    key: String
+    doc_count: Int
 }
 
 type SubjectInfo {
@@ -158,8 +158,8 @@ type FileOverview {
 }
 
 type GroupList {
-    group: String
-    subjects: [String]
+    key: String
+    doc_count: [String]
 }
 
 type IdsLists {
@@ -219,8 +219,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN { 
-            group: p.program_acronym,
-            subjects: COUNT(DISTINCT ss) 
+            key: p.program_acronym,
+            doc_count: COUNT(DISTINCT ss) 
         }
     """, passThrough: true)
 
@@ -232,8 +232,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN { 
-            group: s.study_acronym + ': ' + s.study_short_description,
-            subjects: COUNT(DISTINCT ss)
+            key: s.study_acronym + ': ' + s.study_short_description,
+            doc_count: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
 
@@ -248,8 +248,8 @@ type QueryType {
             OR (f.file_id IN $file_ids))
             OR (f.file_name IN $file_names)
         RETURN { 
-            group: disease_subtypes, 
-            subjects: COUNT(DISTINCT ss)
+            key: disease_subtypes, 
+            doc_count: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
 
@@ -261,8 +261,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {   
-            group: sf.grouped_recurrence_score, 
-            subjects: COUNT(DISTINCT ss)
+            key: sf.grouped_recurrence_score, 
+            doc_count: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
 
@@ -274,8 +274,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: d.tumor_size_group, 
-            subjects: COUNT(DISTINCT ss)
+            key: d.tumor_size_group, 
+            doc_count: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
 
@@ -287,8 +287,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: d.tumor_grade, 
-            subjects: COUNT(DISTINCT ss)
+            key: d.tumor_grade, 
+            doc_count: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
 
@@ -300,8 +300,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: d.er_status, 
-            subjects: COUNT(DISTINCT ss)
+            key: d.er_status, 
+            doc_count: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
 
@@ -313,8 +313,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: d.pr_status, 
-            subjects: COUNT(DISTINCT ss)
+            key: d.pr_status, 
+            doc_count: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
 
@@ -326,8 +326,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: tp.chemotherapy_regimen, 
-            subjects: COUNT(DISTINCT ss)
+            key: tp.chemotherapy_regimen, 
+            doc_count: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
 
@@ -339,8 +339,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: tp.endocrine_therapy_type, 
-            subjects: COUNT(DISTINCT ss)
+            key: tp.endocrine_therapy_type, 
+            doc_count: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
 
@@ -352,8 +352,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: demo.menopause_status, 
-            subjects: COUNT(DISTINCT ss)
+            key: demo.menopause_status, 
+            doc_count: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
 
@@ -368,8 +368,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names))
         RETURN {
-            group: tissue_types, 
-            subjects: COUNT(DISTINCT samp)
+            key: tissue_types, 
+            doc_count: COUNT(DISTINCT samp)
         }
     """, passThrough: true)
 
@@ -384,8 +384,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names))
         RETURN {
-            group: compositions, 
-            subjects: COUNT(DISTINCT samp)
+            key: compositions, 
+            doc_count: COUNT(DISTINCT samp)
         }
     """, passThrough: true)
 
@@ -401,8 +401,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names))
         RETURN {
-            group: head(labels(parent)), 
-            subjects: COUNT(DISTINCT f)
+            key: head(labels(parent)), 
+            doc_count: COUNT(DISTINCT f)
         }
     """, passThrough: true)
 
@@ -418,8 +418,8 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names))
         RETURN {
-            group: file_types, 
-            subjects: COUNT(DISTINCT f)
+            key: file_types, 
+            doc_count: COUNT(DISTINCT f)
         }
     """, passThrough: true)
 
@@ -557,8 +557,8 @@ type QueryType {
         OPTIONAL MATCH (p)<-[:laboratory_procedure_of_program]-(lp)
         WITH study, p, num_files, num_subjects, disease_subtypes, num_samples, ins, lp
         MATCH (p)<-[:study_of_program]-()<-[:study_subject_of_study]-(ss)
-        WITH p, ss.disease_subtype as group, count(*) as subjects, study, num_files, num_subjects, disease_subtypes, num_samples, ins, lp
-        WITH p, COLLECT ({group: group, subjects:  subjects}) AS diagnoses, study, num_files, num_subjects, disease_subtypes, num_samples, ins, lp
+        WITH p, ss.disease_subtype as key, count(*) as doc_count, study, num_files, num_subjects, disease_subtypes, num_samples, ins, lp
+        WITH p, COLLECT ({key: key, doc_count:  doc_count}) AS diagnoses, study, num_files, num_subjects, disease_subtypes, num_samples, ins, lp
         RETURN {
             program_acronym: p.program_acronym,
             program_id: p.program_id,
@@ -633,8 +633,8 @@ type QueryType {
 
     armDetail(study_acronym: String): ArmDetail @cypher(statement:  """
         MATCH (s:study {study_acronym: $study_acronym})<-[:study_subject_of_study]-(ss)
-        WITH s, ss.disease_subtype AS group, COUNT(DISTINCT ss) AS subjects
-        WITH s, COLLECT ({group: group, subjects:  subjects}) AS diagnoses
+        WITH s, ss.disease_subtype AS key, COUNT(DISTINCT ss) AS doc_count
+        WITH s, COLLECT ({key: key, doc_count:  doc_count}) AS diagnoses
         OPTIONAL MATCH (s)<-[:file_of_study]-(f)
         WITH s, diagnoses, COLLECT(DISTINCT f {.file_name, .file_type, .file_description, .file_format, .file_size, .file_id, .md5sum, association: "study"}) AS files
         OPTIONAL MATCH (s)<-[:study_subject_of_study]-()<-[:sample_of_study_subject]-()<-[:file_of_sample]-(f)-[:file_of_laboratory_procedure]->(lp)
@@ -687,41 +687,41 @@ type QueryType {
     subjectList: [GroupList] @cypher(statement: """
     MATCH (ss:study_subject)
     RETURN
-    {group: 'all', subjects: collect(DISTINCT ss.study_subject_id)}
+    {key: 'all', doc_count: collect(DISTINCT ss.study_subject_id)}
     """)
 
     subjectListByProgram: [GroupList] @cypher(statement: """
     MATCH (p:program)
     OPTIONAL MATCH (p)<--(s:study)<--(ss:study_subject)
     RETURN
-    {group: 'program:'+p.program_acronym, subjects: collect(DISTINCT ss.study_subject_id)}
+    {key: 'program:'+p.program_acronym, doc_count: collect(DISTINCT ss.study_subject_id)}
     """)
 
     subjectListByStudy: [GroupList] @cypher(statement: """
     MATCH (s:study)
     OPTIONAL MATCH (s)<-[:study_subject_of_study]-(ss:study_subject)
     RETURN
-    {group: 'study:'+s.study_acronym + ': ' + s.study_short_description, subjects: collect(DISTINCT ss.study_subject_id)}
+    {key: 'study:'+s.study_acronym + ': ' + s.study_short_description, doc_count: collect(DISTINCT ss.study_subject_id)}
     """)
 
     subjectListByDiagnoses: [GroupList] @cypher(statement: """
     MATCH (ss:study_subject)
     RETURN
-    {group: 'diagnosis:'+ss.disease_subtype, subjects: collect(DISTINCT ss.study_subject_id)}
+    {key: 'diagnosis:'+ss.disease_subtype, doc_count: collect(DISTINCT ss.study_subject_id)}
     """)
 
     subjectListByRecurrenceScore: [GroupList] @cypher(statement: """
     MATCH (g:stratification_factor)
     OPTIONAL MATCH (g)-->(ss:study_subject)
     RETURN
-    {group: 'recurrence score:'+g.grouped_recurrence_score, subjects: collect(DISTINCT ss.study_subject_id)}
+    {key: 'recurrence score:'+g.grouped_recurrence_score, doc_count: collect(DISTINCT ss.study_subject_id)}
     """)
 
     subjectListByTumorSize: [GroupList] @cypher(statement: """
     MATCH (g:diagnosis)
     OPTIONAL MATCH (g)-->(ss:study_subject)
     RETURN
-    {group: 'tumor size:'+g.tumor_size_group, subjects: collect(DISTINCT ss.study_subject_id)}
+    {key: 'tumor size:'+g.tumor_size_group, doc_count: collect(DISTINCT ss.study_subject_id)}
     """)
 
     subjectListByTumorGrade: [GroupList] @cypher(statement: """
@@ -729,8 +729,8 @@ type QueryType {
     OPTIONAL MATCH (g)-->(ss:study_subject)
     RETURN
     {
-        group: 'tumor grade:'+g.tumor_grade,
-        subjects: collect(DISTINCT ss.study_subject_id)
+        key: 'tumor grade:'+g.tumor_grade,
+        doc_count: collect(DISTINCT ss.study_subject_id)
     }
     """)
 
@@ -739,8 +739,8 @@ type QueryType {
     OPTIONAL MATCH (g)-->(ss:study_subject)
     RETURN
     {
-        group: 'er status:'+g.er_status,
-        subjects: collect(DISTINCT ss.study_subject_id)
+        key: 'er status:'+g.er_status,
+        doc_count: collect(DISTINCT ss.study_subject_id)
     }
     """)
 
@@ -749,8 +749,8 @@ type QueryType {
     OPTIONAL MATCH (g)-->(ss:study_subject)
     RETURN
     {
-        group: 'pr status:'+g.pr_status,
-        subjects: collect(DISTINCT ss.study_subject_id)
+        key: 'pr status:'+g.pr_status,
+        doc_count: collect(DISTINCT ss.study_subject_id)
     }
     """)
 
@@ -759,8 +759,8 @@ type QueryType {
     OPTIONAL MATCH (g)-->()-->(ss:study_subject)
     RETURN
     {
-        group: 'chemotherapy regimen:'+g.chemotherapy_regimen,
-        subjects: collect(DISTINCT ss.study_subject_id)
+        key: 'chemotherapy regimen:'+g.chemotherapy_regimen,
+        doc_count: collect(DISTINCT ss.study_subject_id)
     }
     """)
 
@@ -769,8 +769,8 @@ type QueryType {
     OPTIONAL MATCH (g)-->()-->(ss:study_subject)
     RETURN
     {
-        group: 'endocrine therapy:'+g.endocrine_therapy_type,
-        subjects: collect(DISTINCT ss.study_subject_id)
+        key: 'endocrine therapy:'+g.endocrine_therapy_type,
+        doc_count: collect(DISTINCT ss.study_subject_id)
     }
     """)
 
@@ -779,8 +779,8 @@ type QueryType {
     OPTIONAL MATCH (g)-->(ss:study_subject)
     RETURN
     {
-        group: 'menopause status:'+g.menopause_status,
-        subjects: collect(DISTINCT ss.study_subject_id)
+        key: 'menopause status:'+g.menopause_status,
+        doc_count: collect(DISTINCT ss.study_subject_id)
     }
     """)
 
@@ -789,8 +789,8 @@ type QueryType {
     OPTIONAL MATCH (g)-->(ss:study_subject)
     RETURN
     {
-        group: 'tissue type:'+g.tissue_type,
-        subjects: collect(DISTINCT ss.study_subject_id)
+        key: 'tissue type:'+g.tissue_type,
+        doc_count: collect(DISTINCT ss.study_subject_id)
     }
     """)
 
@@ -799,8 +799,8 @@ type QueryType {
     OPTIONAL MATCH (g)-->(ss:study_subject)
     RETURN
     {
-        group: 'sample:'+g.composition,
-        subjects: collect(DISTINCT ss.study_subject_id)
+        key: 'sample:'+g.composition,
+        doc_count: collect(DISTINCT ss.study_subject_id)
     }
     """)
 
@@ -809,8 +809,8 @@ type QueryType {
     OPTIONAL MATCH (g)-->(parent)-->(ss:study_subject)
     RETURN
     {
-        group: 'file association:'+head(labels(parent)),
-        subjects: collect(DISTINCT ss.study_subject_id)
+        key: 'file association:'+head(labels(parent)),
+        doc_count: collect(DISTINCT ss.study_subject_id)
     }
     """)
 
@@ -819,8 +819,8 @@ type QueryType {
     OPTIONAL MATCH (g)-->(parent)-->(ss:study_subject)
     RETURN
     {
-        group: 'file type:'+g.file_type,
-        subjects: collect(DISTINCT ss.study_subject_id)
+        key: 'file type:'+g.file_type,
+        doc_count: collect(DISTINCT ss.study_subject_id)
     }
     """)
 

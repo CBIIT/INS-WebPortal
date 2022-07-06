@@ -310,7 +310,7 @@ const FacetModal = ({
     >
       <div className={classes.paper}>
         <h1 className={classes.modalTitle}>
-          <span>Upload Case Set</span>
+          <span>Upload Project Set</span>
           <span
             className={classes.closeIcon}
             onClick={cancelModal}
@@ -323,15 +323,15 @@ const FacetModal = ({
           <div className={classes.textSection}>
             <div className={classes.inputLabel}>
               <Typography>
-                <p className={classes.listTitle}>Add a list of Case IDs:</p>
+                <p className={classes.listTitle}>Add a list of Project IDs:</p>
               </Typography>
-              {getToolTip('Add the case indentifier.')}
+              {getToolTip('Add the project indentifier.')}
             </div>
             <TextareaAutosize
               value={fileContent}
               name="caseDescription"
               onChange={handleChange}
-              placeholder="eg. BENTO-CASE-06, BENTO-CASE-22"
+              placeholder="eg. INS-PROJECT-06, INS-PROJECT-22"
               className={classes.textArea}
             />
           </div>
@@ -341,7 +341,7 @@ const FacetModal = ({
               <Typography>
                 <p className={classes.listTitle}>Choose a file to upload:</p>
               </Typography>
-              {getToolTip('Add the case indentifier.')}
+              {getToolTip('Add the project indentifier.')}
             </div>
             <FileUploader
               clearData={clearData}

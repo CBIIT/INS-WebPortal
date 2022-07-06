@@ -186,7 +186,8 @@ export const FacetPanelComponent = ({ classes }, ref) => {
 
   React.useEffect(() => {
     // Open toggle chnages
-    if (sectionExpanded.includes('Cases')) {
+    // TO_DO: NEW SEARCH add 's'
+    if (sectionExpanded.includes('Project')) {
       toggleSearch(true);
     } else {
       toggleSearch(false);
@@ -471,7 +472,8 @@ export const FacetPanelComponent = ({ classes }, ref) => {
             >
               {/* <ListItemText primary={sideBarItem.groupName} /> */}
               {
-                currentSection.sectionName === 'Cases' ? (
+                // TO_DO: NEW SEARCH add 's'
+                currentSection.sectionName === 'Project' ? (
                   <div
                     id={currentSection.sectionName}
                     className={classes.sectionSummaryTextCase}
@@ -498,7 +500,7 @@ export const FacetPanelComponent = ({ classes }, ref) => {
                             className={classes.uploadButton}
                             id="localFindUploadCaseSetButton"
                           >
-                            { bulkUpload.subject_ids.length !== 0 ? 'View Case Set' : 'Upload Case Set' }
+                            { bulkUpload.subject_ids.length !== 0 ? 'View Project Set' : 'Upload Project Set' }
                             <span className={classes.iconSpan}>
                               <img
                                 className={classes.uploadIcon}
