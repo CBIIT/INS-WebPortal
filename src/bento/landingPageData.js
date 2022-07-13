@@ -5,9 +5,9 @@ import gql from 'graphql-tag';
 // Tile1 Tile2 Tile3 images 293x349 px
 // Tile4 image optimum size 600x 436 px
 export const landingPageData = {
-  callToActionTitle: 'Explore, Analyze, Visualize Clinical Trial Data Sets',
-  callToActionDescription: 'Model, Store and Share your Data Sets using the Bento Framework for Data Sharing Platforms.',
-  callToActionButtonText: 'EXPLORE THE SITE',
+  callToActionTitle: 'Delivering accurate accounting of NCI-funded studies',
+  callToActionDescription: 'A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output.',
+  callToActionButtonText: 'EXPLORE INS DATA',
   callToActionLink: '/explore',
   landingPageHero: {
     alt: 'Alt tag1',

@@ -104,7 +104,7 @@ function searchComponent({ classes }) {
                   <SearchIcon
                     size={20}
                     style={{
-                      color: '#4A8ECB', stroke: '#4A8ECB', strokeWidth: '1.1px', marginRight: '8px', cursor: 'pointer',
+                      color: '#000000', stroke: '#000000', strokeWidth: '1.1px', marginRight: '8px', cursor: 'pointer',
                     }}
                     onClick={() => onChange(inputValue)}
                   />
@@ -131,7 +131,7 @@ const styles = () => ({
   },
   input: {
     borderRadius: '8px',
-    color: '#4A8ECB',
+    color: '#000000',
     fontFamily: 'Lato',
     fontSize: '16px',
     borderColor: 'red',
@@ -143,13 +143,13 @@ const styles = () => ({
   inputRoot: {
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
-        borderColor: '#4A8ECB',
+        borderColor: '#000000',
       },
       '&:hover fieldset': {
-        borderColor: '#4A8ECB',
+        borderColor: '#000000',
       },
       '&.Mui-focused fieldset': {
-        borderColor: '#4A8ECB',
+        borderColor: '#000000',
       },
     },
   },
@@ -161,7 +161,7 @@ const styles = () => ({
       fontSize: '12px',
       color: '#142D64',
       fontWeight: 500,
-      border: '2px solid #4A8ECB',
+      border: '2px solid #000000',
       padding: '0px',
 
       '& li': {
