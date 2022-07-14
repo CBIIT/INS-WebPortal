@@ -7,13 +7,14 @@ import Pagination from '@material-ui/lab/Pagination';
 import Components from './component';
 import client from '../../../utils/graphqlClient';
 import {
-  SEARCH_PAGE_RESULT_PROGRAM,
-  SEARCH_PAGE_RESULT_STUDIES,
-  SEARCH_PAGE_RESULT_SUBJECTS,
-  SEARCH_PAGE_RESULT_SAMPLES,
-  SEARCH_PAGE_RESULT_FILES,
-  SEARCH_PAGE_RESULT_MODEL,
-  SEARCH_PAGE_RESULT_ABOUT,
+  SEARCH_PAGE_RESULT_PROJECT,
+  // SEARCH_PAGE_RESULT_PROGRAM,
+  // SEARCH_PAGE_RESULT_STUDIES,
+  // SEARCH_PAGE_RESULT_SUBJECTS,
+  // SEARCH_PAGE_RESULT_SAMPLES,
+  // SEARCH_PAGE_RESULT_FILES,
+  // SEARCH_PAGE_RESULT_MODEL,
+  // SEARCH_PAGE_RESULT_ABOUT,
 } from '../../../bento/search';
 import { getSearchPageResults } from '../../dashboardTab/store/dashboardReducer';
 
@@ -61,23 +62,25 @@ function SearchPagination({
   function getQuery(field) {
     switch (field) {
       case 'all':
-        return { QUERY: SEARCH_PAGE_RESULT_SUBJECTS, field: 'all' };
-      case 'subjects':
-        return { QUERY: SEARCH_PAGE_RESULT_SUBJECTS, field: 'subjects' };
-      case 'samples':
-        return { QUERY: SEARCH_PAGE_RESULT_SAMPLES, field: 'samples' };
-      case 'files':
-        return { QUERY: SEARCH_PAGE_RESULT_FILES, field: 'files' };
-      case 'programs':
-        return { QUERY: SEARCH_PAGE_RESULT_PROGRAM, field: 'programs' };
-      case 'studies':
-        return { QUERY: SEARCH_PAGE_RESULT_STUDIES, field: 'studies' };
-      case 'model':
-        return { QUERY: SEARCH_PAGE_RESULT_MODEL, field: 'model' };
-      case 'about_page':
-        return { QUERY: SEARCH_PAGE_RESULT_ABOUT, field: 'about_page' };
+        return { QUERY: SEARCH_PAGE_RESULT_PROJECT, field: 'all' };
+      case 'projects':
+        return { QUERY: SEARCH_PAGE_RESULT_PROJECT, field: 'projects' };
+      // case 'subjects':
+      //   return { QUERY: SEARCH_PAGE_RESULT_SUBJECTS, field: 'subjects' };
+      // case 'samples':
+      //   return { QUERY: SEARCH_PAGE_RESULT_SAMPLES, field: 'samples' };
+      // case 'files':
+      //   return { QUERY: SEARCH_PAGE_RESULT_FILES, field: 'files' };
+      // case 'programs':
+      //   return { QUERY: SEARCH_PAGE_RESULT_PROGRAM, field: 'programs' };
+      // case 'studies':
+      //   return { QUERY: SEARCH_PAGE_RESULT_STUDIES, field: 'studies' };
+      // case 'model':
+      //   return { QUERY: SEARCH_PAGE_RESULT_MODEL, field: 'model' };
+      // case 'about_page':
+      //   return { QUERY: SEARCH_PAGE_RESULT_ABOUT, field: 'about_page' };
       default:
-        return { QUERY: SEARCH_PAGE_RESULT_SUBJECTS, field: 'subjects' };
+        return { QUERY: SEARCH_PAGE_RESULT_PROJECT, field: 'projects' };
     }
   }
 
@@ -170,60 +173,60 @@ function SearchPagination({
   return (
     <>
       {Math.ceil(count / pageSize) !== 0 && (
-      <div className={classes.totalResults}>
-        <span className={classes.totalCount}>{count}</span>
-        {' '}
-        Results
-      </div>
-      ) }
+        <div className={classes.totalResults}>
+          <span className={classes.totalCount}>{count}</span>
+          {' '}
+          Results
+        </div>
+      )}
       <Grid className={classes.subsection}>
         <Grid item container direction="column" className={classes.subsectionBody} xs={9}>
 
-          { data !== undefined ? data.length !== 0 ? data.map(
-          // eslint-disable-next-line max-len
+          {data !== undefined ? data.length !== 0 ? data.map(
+            // eslint-disable-next-line max-len
             (block, index) => <Components searchText={searchText} data={block} classes index={(page - 1) * pageSize + index} />,
           )
             : <div>No data</div> : <div>No data</div>}
         </Grid>
       </Grid>
       {Math.ceil(count / pageSize) > 1 && (
-      <div className={classes.paginationContainer}>
-        <Button sx={{ borderRadius: 100 }} onClick={onPrevious} className={classes.prevButton}>
-          <span>
-            <img
-              className={classes.prevIcon}
-              src="https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/globalSearchPrevious.svg"
-              alt="previous button"
-            />
+        <div className={classes.paginationContainer}>
+          <Button sx={{ borderRadius: 100 }} onClick={onPrevious} className={classes.prevButton}>
+            <span>
+              <img
+                className={classes.prevIcon}
+                src="https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/globalSearchPrevious.svg"
+                alt="previous button"
+              />
 
-          </span>
-          previous
-        </Button>
+            </span>
+            previous
+          </Button>
 
-        <Pagination
-          classes={{ ul: classes.paginationUl }}
-          className={classes.paginationRoot}
-          count={Math.ceil(count / pageSize)}
-          page={page}
-          siblingCount={2}
-          boundaryCount={1}
-          shape="rounded"
-          hideNextButton
-          hidePrevButton
-          onChange={handleChangePage}
-        />
-        <Button sx={{ borderRadius: 100 }} onClick={onNext} className={classes.nextButton}>
-          next
-          <span>
-            <img
-              className={classes.nextIcon}
-              src="https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/globalSearchNext.svg"
-              alt="previous button"
-            />
-          </span>
-        </Button>
+          <Pagination
+            classes={{ ul: classes.paginationUl }}
+            className={classes.paginationRoot}
+            count={Math.ceil(count / pageSize)}
+            page={page}
+            siblingCount={2}
+            boundaryCount={1}
+            shape="rounded"
+            hideNextButton
+            hidePrevButton
+            onChange={handleChangePage}
+          />
+          <Button sx={{ borderRadius: 100 }} onClick={onNext} className={classes.nextButton}>
+            next
+            <span>
+              <img
+                className={classes.nextIcon}
+                src="https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/globalSearchNext.svg"
+                alt="previous button"
+              />
+            </span>
+          </Button>
 
-      </div>
+        </div>
       )}
     </>
   );
