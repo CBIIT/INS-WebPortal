@@ -103,8 +103,8 @@ type publication {
 }
 
 type GroupCount {
-    key: String
-    doc_count: Int
+    group: String
+    subjects: Int
 }
 
 type FundAmountRangeCount {
@@ -326,21 +326,6 @@ type PatentOverview {
     queried_project_ids: String
 }
 
-type SearchResult {
-    projectIds: [String]
-    publicationIds: [String]
-    accessions: [String]
-    clinicalTrialIds: [String]
-    patentIds: [String]
-    numberOfPrograms: Int
-    numberOfProjects: Int
-    numberOfPublications: Int
-    numberOfDatasets: Int
-    numberOfClinicalTrials: Int
-    numberOfPatents: Int
-    firstPage: [ProjectOverview]
-}
-
 schema {
     query: QueryType
 }
@@ -424,8 +409,8 @@ type QueryType {
         MATCH (p:program {program_id: $program_id})
         MATCH (p)<--(pr:project)
         WITH DISTINCT pr
-        RETURN { key: pr.lead_doc,
-                 doc_count: COUNT(DISTINCT pr.project_id)}
+        RETURN { group: pr.lead_doc,
+                 subjects: COUNT(DISTINCT pr.project_id)}
     """, passThrough: true)
 
     projectCountInProgramByFundedAmount(program_id: String): [FundAmountRangeCount] @cypher(statement: """
@@ -446,58 +431,58 @@ type QueryType {
         OPTIONAL MATCH (p)<--(pr:project)
         WITH DISTINCT p, pr
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
-        RETURN { key: p.program_id,
-                 doc_count: count(pr.project_id) }
+        RETURN { group: p.program_id,
+                 subjects: count(pr.project_id) }
     """, passThrough: true)
     projectCountByDOC(project_ids: [String] = []): [GroupCount] @cypher(statement: """
         MATCH (pr:project)
         WITH DISTINCT pr
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
-        RETURN { key: pr.lead_doc,
-                 doc_count: COUNT(DISTINCT pr.project_id)}
+        RETURN { group: pr.lead_doc,
+                 subjects: COUNT(DISTINCT pr.project_id)}
     """, passThrough: true)
 
     projectCountByFiscalYear(project_ids: [String] = []): [GroupCount] @cypher(statement: """
         MATCH (pr:project)
         WITH DISTINCT pr
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
-        RETURN { key: pr.fiscal_year,
-                 doc_count: COUNT(DISTINCT pr.project_id)}
+        RETURN { group: pr.fiscal_year,
+                 subjects: COUNT(DISTINCT pr.project_id)}
     """, passThrough: true)
 
     projectCountByAwardAmount(project_ids: [String] = []): [GroupCount] @cypher(statement: """
         MATCH (pr:project)
         WITH DISTINCT pr
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
-        RETURN { key: pr.award_amount_category,
-                 doc_count: COUNT(DISTINCT pr.project_id)}
+        RETURN { group: pr.award_amount_category,
+                 subjects: COUNT(DISTINCT pr.project_id)}
     """, passThrough: true)
 
     publicationCountByYear(project_ids: [String] = []): [GroupCount] @cypher(statement: """
         MATCH (pr:project)<--(pub:publication)
         WITH DISTINCT pub, pr
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
-        RETURN { key: pub.year,
-                 doc_count: COUNT(DISTINCT pub.publication_id)}
+        RETURN { group: pub.year,
+                 subjects: COUNT(DISTINCT pub.publication_id)}
     """, passThrough: true)
 
     publicationCountByRCR(project_ids: [String] = []): [GroupCount] @cypher(statement: """
         MATCH (pr:project)<--(pub:publication)
         WITH DISTINCT pub, pr
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
-        RETURN { key: pub.rcr_range,
-                 doc_count: COUNT(DISTINCT pub.publication_id)}
+        RETURN { group: pub.rcr_range,
+                 subjects: COUNT(DISTINCT pub.publication_id)}
     """, passThrough: true)
 
     publicationCountByCitation(project_ids: [String] = []): [GroupCount] @cypher(statement: """
         MATCH (pr:project)<--(pub:publication)
         WITH DISTINCT pub, pr
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
-        RETURN { key: pub.citation_count_category,
-                 doc_count: COUNT(DISTINCT pub.publication_id)}
+        RETURN { group: pub.citation_count_category,
+                 subjects: COUNT(DISTINCT pub.publication_id)}
     """, passThrough: true)
 
-    numberOfPublications(project_ids: [String] = []): Int @cypher(statement: """
+    numberOfPublicationsByProjects(project_ids: [String] = []): Int @cypher(statement: """
         MATCH (pr:project)
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
         OPTIONAL MATCH (pr)<--(pub:publication)
@@ -544,7 +529,7 @@ type QueryType {
         return  COUNT(DISTINCT p.patent_id)
     """, passThrough: true)
 
-    numberOfClinicalTrials(project_ids: [String] = []): Int @cypher(statement: """
+    numberOfClinicalTrialsByProjects(project_ids: [String] = []): Int @cypher(statement: """
         MATCH (pr:project)
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
         OPTIONAL MATCH (pr)<--(cta:clinical_trial)
@@ -554,7 +539,7 @@ type QueryType {
         RETURN COUNT(DISTINCT ct.clinical_trial_id)
     """, passThrough: true)
 
-    projectOverView(project_ids: [String] = [""], order_by: String = ""): [ProjectOverview] @cypher(statement: """
+    projectOverViewPaged(project_ids: [String] = [""], order_by: String = ""): [ProjectOverview] @cypher(statement: """
         MATCH (pr:project)-->(pg:program)
           WHERE ($project_ids IS NULL OR $project_ids = [""] OR pr.project_id IN $project_ids)
         WITH DISTINCT pr, pg
@@ -983,14 +968,14 @@ type QueryType {
         fiscal_years: [String] = [],
         award_amounts: [String] = []
     ): [GroupCount] @cypher(statement: """
-        // Filtering doc_count
+        // Filtering subjects
         MATCH (p:program)<--(pr:project)
           WHERE (size($programs) = 0 OR p.program_id IN $programs)
             AND (size($docs) = 0 OR pr.lead_doc IN $docs)
             AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
             AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
         WITH DISTINCT p, pr
-        RETURN {key: p.program_id , doc_count: count(DISTINCT pr)}
+        RETURN {group: p.program_id , subjects: count(DISTINCT pr)}
     """, passThrough: true)
 
     filterProjectCountByDOC(
@@ -999,14 +984,14 @@ type QueryType {
         fiscal_years: [String] = [],
         award_amounts: [String] = []
     ): [GroupCount] @cypher(statement: """
-        // Filtering doc_count
+        // Filtering subjects
         MATCH (p:program)<--(pr:project)
           WHERE (size($programs) = 0 OR p.program_id IN $programs)
             AND (size($docs) = 0 OR pr.lead_doc IN $docs)
             AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
             AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
         WITH DISTINCT p, pr
-        RETURN {key: pr.lead_doc , doc_count: COUNT(DISTINCT pr.project_id)}
+        RETURN {group: pr.lead_doc , subjects: COUNT(DISTINCT pr.project_id)}
     """, passThrough: true)
 
     filterProjectCountByFiscalYear(
@@ -1015,14 +1000,14 @@ type QueryType {
         fiscal_years: [String] = [],
         award_amounts: [String] = []
     ): [GroupCount] @cypher(statement: """
-        // Filtering doc_count
+        // Filtering subjects
         MATCH (p:program)<--(pr:project)
           WHERE (size($programs) = 0 OR p.program_id IN $programs)
             AND (size($docs) = 0 OR pr.lead_doc IN $docs)
             AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
             AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
         WITH DISTINCT p, pr
-        RETURN {key: pr.fiscal_year , doc_count: COUNT(DISTINCT pr.project_id)}
+        RETURN {group: pr.fiscal_year , subjects: COUNT(DISTINCT pr.project_id)}
     """, passThrough: true)
 
     filterProjectCountByAwardAmount(
@@ -1031,52 +1016,15 @@ type QueryType {
         fiscal_years: [String] = [],
         award_amounts: [String] = []
     ): [GroupCount] @cypher(statement: """
-        // Filtering doc_count
+        // Filtering subjects
         MATCH (p:program)<--(pr:project)
           WHERE (size($programs) = 0 OR p.program_id IN $programs)
             AND (size($docs) = 0 OR pr.lead_doc IN $docs)
             AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
             AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
         WITH DISTINCT p, pr
-        RETURN {key: pr.award_amount_category , doc_count: COUNT(DISTINCT pr.project_id)}
+        RETURN {group: pr.award_amount_category , subjects: COUNT(DISTINCT pr.project_id)}
     """, passThrough: true)
-
-    searchProjects (
-          programs: [String] = [],
-          docs: [String] = [],
-          fiscal_years: [String] = [],
-          award_amounts: [String] = [],
-          first: Int = 100
-    ): SearchResult @cypher(statement: """
-        // Filtering doc_count
-        MATCH (p:program)<--(pr:project)
-          WHERE (size($programs) = 0 OR p.program_id IN $programs)
-            AND (size($docs) = 0 OR pr.lead_doc IN $docs)
-            AND (size($fiscal_years) = 0 OR pr.fiscal_year IN $fiscal_years)
-            AND (size($award_amounts) = 0 OR pr.award_amount_category IN $award_amounts)
-        OPTIONAL MATCH (pr)<--(pub:publication)
-        OPTIONAL MATCH (pr)<--(:publication)<--(dt)
-            WHERE dt:geo OR dt:sra OR dt:dbgap
-        OPTIONAL MATCH (ct:clinical_trial)
-            WHERE EXISTS((ct)-->(:publication)-->(pr)) OR EXISTS((pr)<--(ct))
-        OPTIONAL MATCH (pr)<--(pat)
-            WHERE pat:granted_patent OR pat:patent_application
-        WITH p, pr, pub, dt, ct, pat
-        RETURN  {
-            projectIds: COLLECT(DISTINCT pr.project_id),
-            publicationIds: COLLECT(DISTINCT pub.publication_id),
-            accessions: COLLECT(DISTINCT dt.accession),
-            clinicalTrialIds: COLLECT(DISTINCT ct.clinical_trial_id),
-            patentIds: COLLECT(DISTINCT pat.patent_id),
-            numberOfPrograms: COUNT(DISTINCT p.program_id),
-            numberOfProjects: COUNT(DISTINCT pr.project_id),
-            numberOfPublications: COUNT(DISTINCT pub.publication_id),
-            numberOfDatasets: COUNT(DISTINCT dt.accession),
-            numberOfClinicalTrials: COUNT(DISTINCT ct.clinical_trial_id),
-            numberOfPatents: COUNT(DISTINCT pat.patent_id),
-            firstPage: []
-        }
-    """, passThrough:true)
 
     programDetail(program_id: String): ProgramDetail @cypher(statement:  """
         MATCH (p:program {program_id: $program_id})
