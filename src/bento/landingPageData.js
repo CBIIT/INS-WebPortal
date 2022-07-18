@@ -15,7 +15,7 @@ export const landingPageData = {
   callToActionButtonText: 'EXPLORE INS DATA',
   callToActionLink: '/explore',
   landingPageHero: {
-    alt: 'Alt tag1',
+    alt: 'background',
     img: backgroundImg,
   },
   landingPageStatsBar: [
@@ -45,7 +45,7 @@ export const landingPageData = {
     },
   ],
   tile1: {
-    alt: '',
+    alt: 'about',
     img: aboutImg,
     titleText: 'ABOUT THE INDEX OF NCI-FUNDED STUDIES',
     descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -53,7 +53,7 @@ export const landingPageData = {
     callToActionLink: '/bento', // This links to the "About" static page.
   },
   tile2: {
-    alt: '',
+    alt: 'program',
     img: programImg,
     titleText: 'PROGRAMS',
     descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -61,7 +61,7 @@ export const landingPageData = {
     callToActionLink: '/programs', // This links to the Programs Listing Page.
   },
   tile3: {
-    alt: '',
+    alt: 'support',
     img: supportImg,
     titleText: 'INS SUPPORT',
     descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -69,7 +69,7 @@ export const landingPageData = {
     callToActionLink: '/resources', // Link to the "Resources" Static Page
   },
   tile4: {
-    alt: '',
+    alt: 'explore',
     img: exploreImg,
     titleText: 'INS DATA OUTLETS',
     descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
