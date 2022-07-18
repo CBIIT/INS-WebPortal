@@ -31,8 +31,10 @@ function searchComponent({ classes }) {
   async function getAutoCompleteRes(newValue = []) {
     setInputValue(newValue);
     const searchResp = await getSearch(newValue);
-    const keys = ['programs', 'studies', 'subjects', 'samples', 'files'];
-    const datafields = ['program_id', 'study_id', 'subject_id', 'sample_id', 'file_id'];
+    // const keys = ['programs', 'studies', 'subjects', 'samples', 'files'];
+    const keys = ['projects'];
+    // const datafields = ['program_id', 'study_id', 'subject_id', 'sample_id', 'file_id'];
+    const datafields = ['project_id'];
 
     const mapOption = keys.map((key, ind) => searchResp[key].map((id) => (id[datafields[ind]])));
     const option = mapOption.reduce((acc = [], iterator) => [...acc, ...iterator]);
