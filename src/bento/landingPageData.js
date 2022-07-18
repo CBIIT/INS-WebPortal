@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import backgroundImg from '../assets/landing/backgroundImg.png';
 // import Test from '../assets/header/CTDC_Logo.svg';
 
 // The ideal image size of landingPageHero 1400x600px
@@ -11,7 +12,7 @@ export const landingPageData = {
   callToActionLink: '/explore',
   landingPageHero: {
     alt: 'Alt tag1',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/png/landing_Hero_Graphic.png',
+    img: backgroundImg,
   },
   landingPageStatsBar: [
     {
