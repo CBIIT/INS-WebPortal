@@ -67,8 +67,10 @@ function searchComponent({ classes, searchparam = '' }) {
     }
     setInputValue(newValue);
     const searchResp = await getSearch(newValue);
-    const keys = ['programs', 'studies', 'subjects', 'samples', 'files', 'model'];
-    const datafields = ['program_id', 'study_id', 'subject_id', 'sample_id', 'file_id', 'node_name'];
+    // const keys = ['programs', 'studies', 'subjects', 'samples', 'files', 'model'];
+    const keys = ['projects'];
+    // const datafields = ['program_id', 'study_id', 'subject_id', 'sample_id', 'file_id'];
+    const datafields = ['project_id'];
 
     const mapOption = keys.map(
       (key, index) => searchResp[key].map((id) => (id[datafields[index]])),
@@ -158,7 +160,7 @@ function searchComponent({ classes, searchparam = '' }) {
             <Box sx={{ borderBottom: '1px solid #828282' }}>
               <TabList onChange={handleChange} aria-label="tabs" classes={{ root: classes.tabContainter, indicator: classes.indicator }}>
                 <Tab label={AllLabel()} classes={{ root: classes.buttonRoot, wrapper: classes.allTab }} value="1" />
-                <Tab classes={{ root: classes.buttonRoot, wrapper: classes.projectTab }} label={`Cases ${searchResults.project_count || 0}`} value="2" />
+                <Tab classes={{ root: classes.buttonRoot, wrapper: classes.projectTab }} label={`Projects ${searchResults.project_count || 0}`} value="2" />
                 {/* <Tab classes={{ root: classes.buttonRoot, wrapper: classes.sampleTab }} label={`Samples ${searchResults.sample_count || 0}`} value="3" />
                 <Tab classes={{ root: classes.buttonRoot, wrapper: classes.fileTab }} label={`Files ${searchResults.file_count || 0}`} value="4" />
                 <Tab classes={{ root: classes.buttonRoot, wrapper: classes.programTab }} label={`Programs ${searchResults.program_count || 0}`} value="5" />
