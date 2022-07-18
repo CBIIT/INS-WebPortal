@@ -54,8 +54,8 @@ const ProjectCard = ({ data, classes, index }) => {
           <div>
             <span className={classes.detailContainerHeader}>PROJECT</span>
             <span>
-              <Link to={`/project/${data.projectt_id}`} className={classes.cardTitle}>
-                {data.subject_id}
+              <Link to={`/project/${data.project_id}`} className={classes.cardTitle}>
+                {data.project_id}
               </Link>
 
             </span>
