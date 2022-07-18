@@ -57,7 +57,7 @@ function SearchPagination({
       // eslint-disable-next-line max-len
       return { datafieldValue: filter.nameField, offsetValue: (Math.abs(calcOffset - val) / pageSize) * pageSize };
     }
-    return { datafieldValue: 'subject', offsetValue: 0 };
+    return { datafieldValue: 'project', offsetValue: 0 };
   }
 
   function getQuery(field) {

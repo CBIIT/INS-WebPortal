@@ -170,7 +170,7 @@ function searchComponent({ classes, searchparam = '' }) {
               </TabList>
             </Box>
             <TabPanel value="1"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_PROJECT} count={allCount() || 0} datafield="all" /></TabPanel>
-            <TabPanel value="2"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_PROJECT} count={searchResults.subject_count || 0} datafield="projects" /></TabPanel>
+            <TabPanel value="2"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_PROJECT} count={searchResults.project_count || 0} datafield="projects" /></TabPanel>
             {/* <TabPanel value="2"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_SUBJECTS} count={searchResults.subject_count || 0} datafield="subjects" /></TabPanel>
             <TabPanel value="3"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_SAMPLES} count={searchResults.sample_count || 0} datafield="samples" /></TabPanel>
             <TabPanel value="4"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_FILES} count={searchResults.file_count || 0} datafield="files" /></TabPanel>
@@ -191,7 +191,7 @@ const styles = () => ({
   allText: {
     marginLeft: '8px',
   },
-  subjectTab: {
+  projectTab: {
     color: '#142D64',
   },
   indicator: {
