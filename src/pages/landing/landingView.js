@@ -26,7 +26,7 @@ const LandingView = ({ classes, statsData }) => (
               </div>
               <div className={classes.headerButtonSection}>
                 <Link to={landingPageData.callToActionLink} className={classes.headerLink}>
-                  <Button className={classes.buttonText} bgColor="neonBlue" color="white">
+                  <Button className={classes.buttonText} color="red">
                     {landingPageData.callToActionButtonText}
                   </Button>
                 </Link>
@@ -222,7 +222,7 @@ const styles = () => ({
     fontSize: '38px',
     fontWeight: '600',
     lineHeight: '35px',
-    color: '#0077E3',
+    color: 'black',
     letterSpacing: '-0px',
   },
   paddingLeft50: {
@@ -340,7 +340,7 @@ const styles = () => ({
     minHeight: '138px',
   },
   contentHeader: {
-    color: '#033D6F',
+    color: '#20506A',
     fontFamily: 'Lato',
     fontSize: '28px',
     fontWeight: 'bold',
@@ -414,7 +414,7 @@ const styles = () => ({
     textTransform: 'uppercase',
   },
   mountainMeadowContentHeader: {
-    color: '#033D6F',
+    color: '#FEFEFE',
     fontFamily: 'Lato',
     fontSize: '28px',
     fontWeight: 'bold',
@@ -424,7 +424,7 @@ const styles = () => ({
   mountainMeadowContent: {
     height: '143px',
     width: '230px',
-    color: '#010101',
+    color: '#FEFEFE',
     fontFamily: 'Nunito',
     fontSize: '15px',
     lineHeight: '22px',

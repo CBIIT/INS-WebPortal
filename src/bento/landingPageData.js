@@ -10,7 +10,7 @@ import exploreImg from '../assets/landing/explore.png';
 // Tile1 Tile2 Tile3 images 293x349 px
 // Tile4 image optimum size 600x 436 px
 export const landingPageData = {
-  callToActionTitle: 'Delivering accurate accounting of NCI-funded studies',
+  callToActionTitle: 'Delivering accurate accounting of NCI studies',
   callToActionDescription: 'A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output.',
   callToActionButtonText: 'EXPLORE INS DATA',
   callToActionLink: '/explore',
@@ -47,7 +47,7 @@ export const landingPageData = {
   tile1: {
     alt: 'about',
     img: aboutImg,
-    titleText: 'ABOUT THE INDEX OF NCI-FUNDED STUDIES',
+    titleText: 'ABOUT THE INDEX OF NCI STUDIES',
     descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     callToActionText: 'Read More',
     callToActionLink: '/bento', // This links to the "About" static page.
