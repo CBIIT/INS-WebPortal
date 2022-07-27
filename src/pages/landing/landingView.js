@@ -199,7 +199,7 @@ const styles = () => ({
   },
   texture: {
     backgroundSize: 'cover',
-    background: '#B6DCFC',
+    background: '#9D0995',
     padding: '120px 0 80px 0',
   },
   container: {
@@ -268,7 +268,7 @@ const styles = () => ({
   },
   DCWords: {
     height: '200px',
-    background: '#274FA5',
+    background: '#380157',
     color: '#FFFFFF',
     fontSize: '28px',
     fontWeight: 'bold',
@@ -317,12 +317,12 @@ const styles = () => ({
   },
   aboutButtonLeft: {
     float: 'left',
-    background: '#443CBB',
+    background: '#380157',
     height: '45px',
     width: '48px',
   },
   aboutButtonRight: {
-    background: '#7747FF',
+    background: '#574586',
     float: 'left',
     height: '45px',
     width: '132px',
