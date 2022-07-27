@@ -75,7 +75,7 @@ const rightPanel = [
         dataField: 'award_amount',
       },
       {
-        label: 'NCI Funded Amount',
+        label: 'NCI Award Amount',
         dataField: 'nci_funded_amount',
       },
       {
