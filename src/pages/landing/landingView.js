@@ -496,7 +496,7 @@ const styles = () => ({
     width: '360px',
   },
   buttonText: {
-    padding: '12px 30px',
+    padding: '0px 30px 12px 0px',
     height: '40px',
   },
 });
