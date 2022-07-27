@@ -298,7 +298,7 @@ const styles = () => ({
     height: '843px',
   },
   aboutContent: {
-    background: 'white',
+    background: '#bdc4cd',
     minHeight: '372px',
     width: '300px',
     padding: '30px 30px 32px 30px',
@@ -309,7 +309,7 @@ const styles = () => ({
     lineHeight: '22px',
   },
   aboutButtonSection: {
-    background: 'white',
+    background: '#bdc4cd',
     height: '71px',
   },
   imgIconAbout: {
