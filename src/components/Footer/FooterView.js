@@ -23,4 +23,8 @@ const ICDCFooter = () => {
   return <><Footer data={footerUpdatedData} /></>;
 };
 
+Footer.defaultProps = {
+  background: '#310d32',
+};
+
 export default ICDCFooter;

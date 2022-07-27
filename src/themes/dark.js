@@ -23,6 +23,7 @@ const tableHeaderBorder = '#42779A 3px solid';
 const tableHeaderFontColor = '#13344A';
 const tableFontFamily = "'Lato Regular','Raleway', sans-serif";
 const white = '#FFFFFF';
+const red = '#CE0001';
 
 export default {
   custom: {
@@ -215,6 +216,16 @@ export default {
       dark: tinycolor(info)
         .darken(darkenRate)
         .toHexString(),
+    },
+    red: {
+      main: red,
+      light: tinycolor(red)
+        .lighten(lightenRate)
+        .toHexString(),
+      dark: tinycolor(red)
+        .darken(darkenRate)
+        .toHexString(),
+      contrastText: '#FFFFFF',
     },
     text: {
       withbackground: 'white',
