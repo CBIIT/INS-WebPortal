@@ -19,10 +19,10 @@ const LandingView = ({ classes, statsData }) => (
           <div className={classes.heroTextContainer}>
             <div className={classes.heroTextWrapper}>
               <div className={classes.headerTitle}>
-                { landingPageData.callToActionTitle }
+                {landingPageData.callToActionTitle}
               </div>
               <div className={classes.headerContent}>
-                { landingPageData.callToActionDescription}
+                {landingPageData.callToActionDescription}
               </div>
               <div className={classes.headerButtonSection}>
                 <Link to={landingPageData.callToActionLink} className={classes.headerLink}>
@@ -32,6 +32,14 @@ const LandingView = ({ classes, statsData }) => (
                 </Link>
               </div>
             </div>
+          </div>
+          <div className={classes.heroImageContainer}>
+            <img
+              className={classes.bigImage}
+              src={landingPageData.interactiveImg.img}
+              alt={landingPageData.interactiveImg.alt}
+              id="interactive_img"
+            />
           </div>
         </Grid>
       </div>
@@ -199,7 +207,6 @@ const styles = () => ({
     margin: '0 auto',
 
   },
-
   whiteSection: {
     height: '8px',
     background: 'white',
@@ -240,7 +247,6 @@ const styles = () => ({
   headerLink: {
     textDecoration: 'none',
   },
-
   iconAbout: {
     height: '17px',
     width: '9px',
@@ -252,7 +258,6 @@ const styles = () => ({
     marginTop: '13px',
     marginLeft: '23px',
   },
-
   aboutImage: {
     width: '297px',
     height: '249px',
@@ -287,6 +292,10 @@ const styles = () => ({
   image: {
     width: '293px',
     height: '249px',
+  },
+  bigImage: {
+    width: '842px',
+    height: '843px',
   },
   aboutContent: {
     background: 'white',
@@ -329,7 +338,6 @@ const styles = () => ({
     boxShadow: 'none',
     letterSpacing: '1px',
   },
-
   content: {
     width: '100%',
     height: '155px',
@@ -356,7 +364,6 @@ const styles = () => ({
     paddingLeft: '2px',
     paddingBottom: '10px',
   },
-
   program: {
     float: 'left',
     padding: '0 10px 6.8px 0px',
@@ -368,7 +375,6 @@ const styles = () => ({
   studies: {
     float: 'left',
   },
-
   contentRightBottom: {
     float: 'left',
     width: '597px',
@@ -469,6 +475,18 @@ const styles = () => ({
     width: '400px',
     margin: 'auto',
     left: '12px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
+  heroImageContainer: {
+    position: 'absolute',
+    width: '1200px',
+    height: '1200px',
+    margin: 'auto',
+    left: '700px',
+    top: '-75px',
     right: 0,
     '@media (min-width: 900px)': {
       width: '906px',

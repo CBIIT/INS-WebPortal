@@ -4,6 +4,8 @@ import aboutImg from '../assets/landing/about.png';
 import programImg from '../assets/landing/program.png';
 import supportImg from '../assets/landing/support.png';
 import exploreImg from '../assets/landing/explore.png';
+import infographicBubble from '../assets/landing/infographicBubble.png';
+
 // import Test from '../assets/header/CTDC_Logo.svg';
 
 // The ideal image size of landingPageHero 1400x600px
@@ -17,6 +19,10 @@ export const landingPageData = {
   landingPageHero: {
     alt: 'background',
     img: backgroundImg,
+  },
+  interactiveImg: {
+    alt: 'EXPLORE INS DATA',
+    img: infographicBubble,
   },
   landingPageStatsBar: [
     {
