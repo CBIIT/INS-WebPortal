@@ -228,7 +228,7 @@ export const dashboardTable = {
     },
     {
       dataField: 'nci_funded_amount',
-      header: 'NCI Funded Amount',
+      header: 'NCI Award Amount',
       sort: 'asc',
       display: true,
     },
