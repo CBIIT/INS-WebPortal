@@ -11,30 +11,30 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
       [classes.statsSectionCenter]: stats.length === 6,
     })}
     >
-      { stats.length > 0 && (
-      <div
-        className={classnames({
-          [classes.boxCut]: stats.length < 6,
-          [classes.box]: stats.length === 6,
-        })}
-      >
+      {stats.length > 0 && (
+        <div
+          className={classnames({
+            [classes.boxCut]: stats.length < 6,
+            [classes.box]: stats.length === 6,
+          })}
+        >
 
-        {
-        stats.map((stat, index) => (
-          <div className={classes.statsGroup}>
-            <div className={classes.statsText}>
-              <div className={classes.statTitle} id={`title_${index + 1}`}>
-                {stat.statTitle}
+          {
+            stats.map((stat, index) => (
+              <div className={classes.statsGroup}>
+                <div className={classes.statsText}>
+                  <div className={classes.statTitle} id={`title_${index + 1}`}>
+                    {stat.statTitle}
+                  </div>
+                  <div className={classes.statCount} id={`count_${index + 1}`}>
+                    {statsData[stat.statAPI]}
+                  </div>
+                </div>
               </div>
-              <div className={classes.statCount} id={`count_${index + 1}`}>
-                {statsData[stat.statAPI]}
-              </div>
-            </div>
-          </div>
-        ))
-        }
-      </div>
-      ) }
+            ))
+          }
+        </div>
+      )}
     </div>
   </>
 );
