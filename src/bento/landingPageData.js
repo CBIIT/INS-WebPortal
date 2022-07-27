@@ -5,6 +5,7 @@ import programImg from '../assets/landing/program.png';
 import supportImg from '../assets/landing/support.png';
 import exploreImg from '../assets/landing/explore.png';
 import infographicBubble from '../assets/landing/infographicBubble.png';
+import heroExploreButtonArrow from '../assets/landing/heroExploreButtonArrow.svg';
 
 // import Test from '../assets/header/CTDC_Logo.svg';
 
@@ -23,6 +24,10 @@ export const landingPageData = {
   interactiveImg: {
     alt: 'EXPLORE INS DATA',
     img: infographicBubble,
+  },
+  heroExploreButtonArrow: {
+    alt: 'button arrow',
+    img: heroExploreButtonArrow,
   },
   landingPageStatsBar: [
     {

@@ -28,6 +28,12 @@ const LandingView = ({ classes, statsData }) => (
                 <Link to={landingPageData.callToActionLink} className={classes.headerLink}>
                   <Button className={classes.buttonText} color="red">
                     {landingPageData.callToActionButtonText}
+                    <img
+                      src={landingPageData.heroExploreButtonArrow.img}
+                      className={classes.smallImage}
+                      alt={landingPageData.heroExploreButtonArrow.alt}
+                      id="buttonArrow"
+                    />
                   </Button>
                 </Link>
               </div>
@@ -282,6 +288,11 @@ const styles = () => ({
   about: {
     width: '300px',
     backgroundColor: 'white',
+  },
+  smallImage: {
+    width: '12px',
+    height: '12px',
+    marginLeft: '30px',
   },
   image: {
     width: '293px',
