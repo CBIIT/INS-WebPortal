@@ -105,15 +105,15 @@ const LandingView = ({ classes, statsData }) => (
                   </div>
 
                 </div>
-                <div className={classes.blueButton}>
-                  <div className={classes.blueButtonLeft}>
+                <div className={classes.yellowButton}>
+                  <div className={classes.yellowButtonLeft}>
                     <img className={classes.icon} src={icon} alt="CTDC about " />
                     {' '}
                   </div>
-                  <div className={classes.blueButtonRight} id="tile2_button">
+                  <div className={classes.yellowButtonRight} id="tile2_button">
                     <Link
                       to={landingPageData.tile2.callToActionLink}
-                      className={classes.blueButton}
+                      className={classes.yellowButton}
                     >
                       {landingPageData.tile2.callToActionText}
                     </Link>
@@ -138,15 +138,15 @@ const LandingView = ({ classes, statsData }) => (
                   </div>
 
                 </div>
-                <div className={classes.blueButton}>
-                  <div className={classes.blueButtonLeft}>
+                <div className={classes.yellowButton}>
+                  <div className={classes.yellowButtonLeft}>
                     <img className={classes.icon} src={icon} alt="CTDC about " />
                     {' '}
                   </div>
-                  <div className={classes.blueButtonRight} id="tile3_button">
+                  <div className={classes.yellowButtonRight} id="tile3_button">
                     <Link
                       to={landingPageData.tile3.callToActionLink}
-                      className={classes.blueButton}
+                      className={classes.yellowButton}
                     >
                       {landingPageData.tile3.callToActionText}
                     </Link>
@@ -164,11 +164,11 @@ const LandingView = ({ classes, statsData }) => (
                   {landingPageData.tile4.descriptionText}
                 </div>
                 <div className={classes.mountainMeadowButtonSection}>
-                  <div className={classes.blueButtonLeft}>
+                  <div className={classes.yellowButtonLeft}>
                     <img className={classes.mountainMeadowIcon} src={icon} alt="CTDC about " />
                     {' '}
                   </div>
-                  <div className={classes.blueButtonRight} id="tile4_button">
+                  <div className={classes.yellowButtonRight} id="tile4_button">
                     <Link
                       to={landingPageData.tile4.callToActionLink}
                       className={classes.mountainMeadowButton}
@@ -411,6 +411,30 @@ const styles = () => ({
     float: 'left',
   },
   blueButtonRight: {
+    float: 'left',
+    lineHeight: '44px',
+    marginLeft: '8px',
+    fontFamily: 'Lato',
+    fontSize: '14px',
+    color: '#fff',
+    textTransform: 'uppercase',
+  },
+  yellowButton: {
+    height: '45px',
+    background: '#DDA211',
+    color: '#FFFFFF',
+    fontFamily: 'Raleway',
+    fontSize: '12px',
+    fontWeight: '600',
+    lineHeight: '25px',
+    paddingLeft: '8px',
+    textDecoration: 'none',
+    letterSpacing: '1px',
+  },
+  yellowButtonLeft: {
+    float: 'left',
+  },
+  yellowButtonRight: {
     float: 'left',
     lineHeight: '44px',
     marginLeft: '8px',
