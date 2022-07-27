@@ -98,7 +98,9 @@ const styles = () => ({
     direction: 'ltr',
     display: 'block',
     borderBottom: '74px solid #3E3C3F',
-    height: '350px',
+    height: '230px',
+    marginTop: '20px',
+    marginRight: '10px',
   },
   statsText: {
     height: '42px',
@@ -136,17 +138,17 @@ const styles = () => ({
     marginTop: '3px',
   },
   statsGroup: {
-    margin: '14px 48px',
+    margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '36px 400px 46px 98px',
+    padding: '36px 400px 36px 98px',
   },
   leftText: {
     color: 'white',
-    fontSize: '40px',
-    fontWeight: 'bold',
+    fontSize: '34px',
+    fontWeight: 'bolder',
     textAlign: 'left',
-    lineHeight: '40px',
+    lineHeight: '34px',
   },
   linkText: {
     color: '#E26063',
