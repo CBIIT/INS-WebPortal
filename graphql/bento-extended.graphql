@@ -393,8 +393,9 @@ type QueryType {
     programClinicalTrialCount(program_id: String): Int @cypher(statement: """
         MATCH (p:program {program_id: $program_id})
         OPTIONAL MATCH (p)<--(pr:project)
-        OPTIONAL MATCH (pr)<--(c:clinical_trial)
-        RETURN COUNT(DISTINCT c)
+        OPTIONAL MATCH (ct:clinical_trial)
+            WHERE (pr)<--(:publication)<--(ct) OR (pr)<--(ct)
+        RETURN COUNT(DISTINCT ct)
     """, passThrough: true)
 
     programPatentCount(program_id: String): Int @cypher(statement: """
