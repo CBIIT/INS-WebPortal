@@ -138,7 +138,7 @@ const ActiveFiltersQuery = ({ classes }) => {
         className={classes.filterCheckboxes}
         key={idx}
         style={{
-          color: facetSectionVariables.Cases.color,
+          color: facetSectionVariables.Projects.color,
         }}
         onClick={() => (isFilter
           ? onDeleteFilterCheckbox(filterData, data)

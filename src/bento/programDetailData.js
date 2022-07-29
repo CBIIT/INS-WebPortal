@@ -72,7 +72,7 @@ const rightPanel = {
       display: true,
     },
     {
-      label: 'Projects by NCI Funded Amount (MM $)',
+      label: 'Projects by NCI Award Amount (MM $)',
       dataName: 'projectCountInProgramByFundedAmountData',
       datatable_field: 'funded_amount',
       titleText: 'Projects',
@@ -119,16 +119,12 @@ const table = {
       header: 'Lead DOC',
     },
     {
-      dataField: 'lead_doc',
-      header: 'Lead DOC',
-    },
-    {
       dataField: 'award_amount',
       header: 'Award Amount',
     },
     {
       dataField: 'nci_funded_amount',
-      header: 'NCI Funded Amount',
+      header: 'NCI Award Amount',
     },
     {
       dataField: 'award_notice_date',
