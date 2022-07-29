@@ -19,23 +19,23 @@ const ProgramDetailContainer = ({ match }) => {
 
     let projectCountInProgramByFundedAmountData = [
       {
-        group: '< $0.5',
+        group: '<$250k',
         subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_1,
       },
       {
-        group: '$0.5 to $1',
+        group: '$250k to $499k',
         subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_2,
       },
       {
-        group: '$1 to $3',
+        group: '$500k to $749k',
         subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_3,
       },
       {
-        group: '$3 to $10',
+        group: '$750k to $999k',
         subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_4,
       },
       {
-        group: '> $10',
+        group: '>=$1M',
         subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_5,
       },
     ];
