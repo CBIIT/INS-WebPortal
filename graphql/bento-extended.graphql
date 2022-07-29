@@ -419,11 +419,11 @@ type QueryType {
         MATCH (p)<--(pr:project)
         WITH DISTINCT pr
         RETURN {
-          funded_amount_1: SUM(CASE WHEN toInteger(pr.nci_funded_amount) < 500000 THEN 1 ELSE 0 END),
-          funded_amount_2: SUM(CASE WHEN 500000 <= toInteger(pr.nci_funded_amount) < 1000000 THEN 1 ELSE 0 END),
-          funded_amount_3: SUM(CASE WHEN 1000000 <= toInteger(pr.nci_funded_amount) < 3000000 THEN 1 ELSE 0 END),
-          funded_amount_4: SUM(CASE WHEN 3000000 <= toInteger(pr.nci_funded_amount) < 10000000 THEN 1 ELSE 0 END),
-          funded_amount_5: SUM(CASE WHEN 10000000 <= toInteger(pr.nci_funded_amount) THEN 1 ELSE 0 END)
+          funded_amount_1: SUM(CASE WHEN toInteger(pr.award_amount) < 250000 THEN 1 ELSE 0 END),
+          funded_amount_2: SUM(CASE WHEN 250000 <= toInteger(pr.award_amount) < 500000 THEN 1 ELSE 0 END),
+          funded_amount_3: SUM(CASE WHEN 500000 <= toInteger(pr.award_amount) < 750000 THEN 1 ELSE 0 END),
+          funded_amount_4: SUM(CASE WHEN 750000 <= toInteger(pr.award_amount) < 1000000 THEN 1 ELSE 0 END),
+          funded_amount_5: SUM(CASE WHEN 1000000 <= toInteger(pr.award_amount) THEN 1 ELSE 0 END)
         }
     """, passThrough: true)
 
