@@ -19,19 +19,33 @@ const LandingView = ({ classes, statsData }) => (
           <div className={classes.heroTextContainer}>
             <div className={classes.heroTextWrapper}>
               <div className={classes.headerTitle}>
-                { landingPageData.callToActionTitle }
+                {landingPageData.callToActionTitle}
               </div>
               <div className={classes.headerContent}>
-                { landingPageData.callToActionDescription}
+                {landingPageData.callToActionDescription}
               </div>
               <div className={classes.headerButtonSection}>
                 <Link to={landingPageData.callToActionLink} className={classes.headerLink}>
-                  <Button className={classes.buttonText} bgColor="neonBlue" color="white">
+                  <Button className={classes.buttonText} color="red">
                     {landingPageData.callToActionButtonText}
+                    <img
+                      src={landingPageData.heroExploreButtonArrow.img}
+                      className={classes.smallImage}
+                      alt={landingPageData.heroExploreButtonArrow.alt}
+                      id="buttonArrow"
+                    />
                   </Button>
                 </Link>
               </div>
             </div>
+          </div>
+          <div className={classes.heroImageContainer}>
+            <img
+              className={classes.bigImage}
+              src={landingPageData.interactiveImg.img}
+              alt={landingPageData.interactiveImg.alt}
+              id="interactive_img"
+            />
           </div>
         </Grid>
       </div>
@@ -52,12 +66,7 @@ const LandingView = ({ classes, statsData }) => (
                 />
               </div>
               <div className={classes.DCWords} id="tile1_title">
-                {landingPageData.tile1.titleText.match(/\b(\w+)\b/g).map((word) => (
-                  <>
-                    {word}
-                    <br />
-                  </>
-                ))}
+                {landingPageData.tile1.titleText}
               </div>
               <div className={classes.aboutContent} id="tile1_description">
                 {landingPageData.tile1.descriptionText}
@@ -97,15 +106,15 @@ const LandingView = ({ classes, statsData }) => (
                   </div>
 
                 </div>
-                <div className={classes.blueButton}>
-                  <div className={classes.blueButtonLeft}>
+                <div className={classes.yellowButton}>
+                  <div className={classes.yellowButtonLeft}>
                     <img className={classes.icon} src={icon} alt="CTDC about " />
                     {' '}
                   </div>
-                  <div className={classes.blueButtonRight} id="tile2_button">
+                  <div className={classes.yellowButtonRight} id="tile2_button">
                     <Link
                       to={landingPageData.tile2.callToActionLink}
-                      className={classes.blueButton}
+                      className={classes.yellowButton}
                     >
                       {landingPageData.tile2.callToActionText}
                     </Link>
@@ -130,15 +139,15 @@ const LandingView = ({ classes, statsData }) => (
                   </div>
 
                 </div>
-                <div className={classes.blueButton}>
-                  <div className={classes.blueButtonLeft}>
+                <div className={classes.yellowButton}>
+                  <div className={classes.yellowButtonLeft}>
                     <img className={classes.icon} src={icon} alt="CTDC about " />
                     {' '}
                   </div>
-                  <div className={classes.blueButtonRight} id="tile3_button">
+                  <div className={classes.yellowButtonRight} id="tile3_button">
                     <Link
                       to={landingPageData.tile3.callToActionLink}
-                      className={classes.blueButton}
+                      className={classes.yellowButton}
                     >
                       {landingPageData.tile3.callToActionText}
                     </Link>
@@ -156,11 +165,11 @@ const LandingView = ({ classes, statsData }) => (
                   {landingPageData.tile4.descriptionText}
                 </div>
                 <div className={classes.mountainMeadowButtonSection}>
-                  <div className={classes.blueButtonLeft}>
+                  <div className={classes.yellowButtonLeft}>
                     <img className={classes.mountainMeadowIcon} src={icon} alt="CTDC about " />
                     {' '}
                   </div>
-                  <div className={classes.blueButtonRight} id="tile4_button">
+                  <div className={classes.yellowButtonRight} id="tile4_button">
                     <Link
                       to={landingPageData.tile4.callToActionLink}
                       className={classes.mountainMeadowButton}
@@ -191,15 +200,13 @@ const styles = () => ({
   },
   texture: {
     backgroundSize: 'cover',
-    background: '#B6DCFC',
-    padding: '120px 0 80px 0',
+    background: '#9D0995',
+    padding: '320px 0 80px 0',
   },
   container: {
     fontFamily: 'Raleway, sans-serif',
     margin: '0 auto',
-
   },
-
   whiteSection: {
     height: '8px',
     background: 'white',
@@ -222,7 +229,7 @@ const styles = () => ({
     fontSize: '38px',
     fontWeight: '600',
     lineHeight: '35px',
-    color: '#0077E3',
+    color: 'black',
     letterSpacing: '-0px',
   },
   paddingLeft50: {
@@ -240,7 +247,6 @@ const styles = () => ({
   headerLink: {
     textDecoration: 'none',
   },
-
   iconAbout: {
     height: '17px',
     width: '9px',
@@ -252,7 +258,6 @@ const styles = () => ({
     marginTop: '13px',
     marginLeft: '23px',
   },
-
   aboutImage: {
     width: '297px',
     height: '249px',
@@ -263,10 +268,10 @@ const styles = () => ({
   },
   DCWords: {
     height: '200px',
-    background: '#274FA5',
+    background: '#380157',
     color: '#FFFFFF',
-    fontSize: '28px',
-    fontWeight: 'bold',
+    fontSize: '36px',
+    fontWeight: 'lighter',
     textTransform: 'capitalize',
     lineHeight: '36px',
     padding: '10px 75px 26px 26px',
@@ -284,12 +289,21 @@ const styles = () => ({
     width: '300px',
     backgroundColor: 'white',
   },
+  smallImage: {
+    width: '12px',
+    height: '12px',
+    marginLeft: '30px',
+  },
   image: {
     width: '293px',
     height: '249px',
   },
+  bigImage: {
+    width: '842px',
+    height: '843px',
+  },
   aboutContent: {
-    background: 'white',
+    background: '#bdc4cd',
     minHeight: '372px',
     width: '300px',
     padding: '30px 30px 32px 30px',
@@ -300,7 +314,7 @@ const styles = () => ({
     lineHeight: '22px',
   },
   aboutButtonSection: {
-    background: 'white',
+    background: '#bdc4cd',
     height: '71px',
   },
   imgIconAbout: {
@@ -308,12 +322,12 @@ const styles = () => ({
   },
   aboutButtonLeft: {
     float: 'left',
-    background: '#443CBB',
+    background: '#380157',
     height: '45px',
     width: '48px',
   },
   aboutButtonRight: {
-    background: '#7747FF',
+    background: '#574586',
     float: 'left',
     height: '45px',
     width: '132px',
@@ -329,7 +343,6 @@ const styles = () => ({
     boxShadow: 'none',
     letterSpacing: '1px',
   },
-
   content: {
     width: '100%',
     height: '155px',
@@ -340,7 +353,7 @@ const styles = () => ({
     minHeight: '138px',
   },
   contentHeader: {
-    color: '#033D6F',
+    color: '#20506A',
     fontFamily: 'Lato',
     fontSize: '28px',
     fontWeight: 'bold',
@@ -356,7 +369,6 @@ const styles = () => ({
     paddingLeft: '2px',
     paddingBottom: '10px',
   },
-
   program: {
     float: 'left',
     padding: '0 10px 6.8px 0px',
@@ -368,7 +380,6 @@ const styles = () => ({
   studies: {
     float: 'left',
   },
-
   contentRightBottom: {
     float: 'left',
     width: '597px',
@@ -385,7 +396,7 @@ const styles = () => ({
   mountainMeadowButtonSection: {
     height: '46px',
     width: '176px',
-    backgroundColor: '#10A075',
+    backgroundColor: '#DDA211',
     marginTop: '20px',
 
   },
@@ -413,8 +424,32 @@ const styles = () => ({
     color: '#fff',
     textTransform: 'uppercase',
   },
+  yellowButton: {
+    height: '45px',
+    background: '#DDA211',
+    color: '#FFFFFF',
+    fontFamily: 'Raleway',
+    fontSize: '12px',
+    fontWeight: '600',
+    lineHeight: '25px',
+    paddingLeft: '8px',
+    textDecoration: 'none',
+    letterSpacing: '1px',
+  },
+  yellowButtonLeft: {
+    float: 'left',
+  },
+  yellowButtonRight: {
+    float: 'left',
+    lineHeight: '44px',
+    marginLeft: '8px',
+    fontFamily: 'Lato',
+    fontSize: '14px',
+    color: '#fff',
+    textTransform: 'uppercase',
+  },
   mountainMeadowContentHeader: {
-    color: '#033D6F',
+    color: '#FEFEFE',
     fontFamily: 'Lato',
     fontSize: '28px',
     fontWeight: 'bold',
@@ -424,7 +459,7 @@ const styles = () => ({
   mountainMeadowContent: {
     height: '143px',
     width: '230px',
-    color: '#010101',
+    color: '#FEFEFE',
     fontFamily: 'Nunito',
     fontSize: '15px',
     lineHeight: '22px',
@@ -474,11 +509,23 @@ const styles = () => ({
       width: '906px',
     },
   },
+  heroImageContainer: {
+    position: 'absolute',
+    width: '1200px',
+    height: '1200px',
+    margin: 'auto',
+    left: '700px',
+    top: '-75px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
   heroTextWrapper: {
     width: '360px',
   },
   buttonText: {
-    padding: '12px 30px',
+    padding: '0px 30px 12px 0px',
     height: '40px',
   },
 });

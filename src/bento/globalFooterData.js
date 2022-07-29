@@ -14,32 +14,48 @@ export default {
   // Ideal size for icon is 20x20 px
   link_sections: [
     {
-      title: 'About Bento',
+      title: 'More Information',
       items: [
         {
-          text: 'Purpose',
+          text: 'About INS',
           link: '/bento',
         },
         {
-          text: 'Resources',
+          text: 'Contact INS',
           link: '/resources',
         },
         {
-          text: 'Documentation',
+          text: 'INS Data Releases',
+          link: 'https://cbiit.github.io/bento-docs/',
+        },
+        {
+          text: 'Resources',
           link: 'https://cbiit.github.io/bento-docs/',
         },
       ],
     },
     {
-      title: 'Support',
+      title: 'NIH Policies',
       items: [
         {
-          text: 'Contact Us',
+          text: 'Policies',
           link: 'bento-help@nih.gov',
         },
         {
-          link: 'https://www.linkedin.com/company/frederick-national-laboratory-for-cancer-research/',
-          icon: 'https://raw.githubusercontent.com/CBIIT/bento-tools/master/src/components/assets/footer/linkedInIcon.svg',
+          text: 'Disclaimer',
+          link: 'bento-help@nih.gov',
+        },
+        {
+          text: 'Accessibility',
+          link: 'bento-help@nih.gov',
+        },
+        {
+          text: 'FOIA',
+          link: 'bento-help@nih.gov',
+        },
+        {
+          text: 'HHS Vulnerability Disclosure',
+          link: 'bento-help@nih.gov',
         },
       ],
     },

@@ -11,39 +11,48 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
       [classes.statsSectionCenter]: stats.length === 6,
     })}
     >
-      { stats.length > 0 && (
-      <div
-        className={classnames({
-          [classes.boxCut]: stats.length < 6,
-          [classes.box]: stats.length === 6,
-        })}
-      >
-
-        {
-        stats.map((stat, index) => (
-          <div className={classes.statsGroup}>
-            <div className={classes.statsText}>
-              <div className={classes.statTitle} id={`title_${index + 1}`}>
-                {stat.statTitle}
-              </div>
-              <div className={classes.statCount} id={`count_${index + 1}`}>
-                {statsData[stat.statAPI]}
-              </div>
-            </div>
-          </div>
-        ))
-        }
+      <div className={classes.leftGroup}>
+        <div className={classes.leftText}>
+          INS compiles programs, projects, and outputs funded by the NCI.
+          <br />
+          <br />
+          Explore the data
+          <span className={classes.linkText}> here</span>
+          .
+        </div>
       </div>
-      ) }
+      {stats.length > 0 && (
+        <div
+          className={classnames({
+            [classes.boxCut]: stats.length < 6,
+            [classes.box]: stats.length === 6,
+          })}
+        >
+          {
+            stats.map((stat, index) => (
+              <div className={classes.statsGroup}>
+                <div className={classes.statsText}>
+                  <div className={classes.statCount} id={`count_${index + 1}`}>
+                    {statsData[stat.statAPI]}
+                  </div>
+                  <div className={classes.statTitle} id={`title_${index + 1}`}>
+                    {stat.statTitle}
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      )}
     </div>
   </>
 );
 
 const styles = () => ({
   statsSection: {
-    background: 'transparent',
-    maxWidth: '906px',
-    textAlign: 'center',
+    background: '#3E3C3F',
+    maxWidth: '1200px',
+    textAlign: 'right',
     position: 'absolute',
     left: 0,
     right: 0,
@@ -52,16 +61,16 @@ const styles = () => ({
     justifyContent: 'flex-end',
   },
   statsSectionCenter: {
-    background: 'transparent',
-    maxWidth: '906px',
-    textAlign: 'center',
+    background: '#3E3C3F',
+    maxWidth: '1200px',
+    textAlign: 'right',
     position: 'absolute',
     overflow: 'auto',
     left: 0,
     right: 0,
     margin: '-24px auto auto auto',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'right',
     '@media (min-width: 900px)': {
       overflow: 'inherit',
     },
@@ -80,45 +89,43 @@ const styles = () => ({
   },
   boxCut: {
     direction: 'ltr',
-    display: 'inline-flex',
+    display: 'block',
     borderBottom: '74px solid white',
     borderLeft: '50px solid transparent',
     height: '74px',
   },
   box: {
     direction: 'ltr',
-    display: 'inline-flex',
-    borderBottom: '74px solid white',
-    height: '74px',
-    boxShadow: '-3px 5px 24px 1px rgba(27,28,28,0.15)',
-    // '@media (min-width: 900px)': {
-    //   display: 'inline-flex',
-    // },
-
+    display: 'block',
+    borderBottom: '74px solid #3E3C3F',
+    height: '230px',
+    marginTop: '20px',
+    marginRight: '10px',
   },
   statsText: {
     height: '42px',
     display: 'flex',
-    borderBottom: '3px solid #27DBFF',
+    lineHeight: '10px',
   },
   statTitle: {
     display: 'inline-block',
-    float: 'left',
-    color: '#476783',
+    float: 'right',
+    textAlign: 'right',
+    color: 'white',
     fontFamily: 'Nunito',
-    letterSpacing: 1,
     fontWeight: 900,
     fontSize: '11px',
-    marginRight: '16px',
-    marginTop: '16px',
     textTransform: 'uppercase',
   },
   statCount: {
     display: 'inline-block',
-    color: '#244264',
+    color: 'white',
+    textAlign: 'right',
+    float: 'right',
     fontFamily: 'Oswald',
     fontSize: '24px',
     fontWeight: 600,
+    marginRight: '16px',
   },
   floatLeft: {
     float: 'left',
@@ -131,9 +138,20 @@ const styles = () => ({
     marginTop: '3px',
   },
   statsGroup: {
-    // padding: '36px 48px 4px 48px',
-    // borderBottom: '2px solid',
-    margin: '14px 48px',
+    margin: '5px 5px -10px 5px',
+  },
+  leftGroup: {
+    padding: '36px 400px 36px 98px',
+  },
+  leftText: {
+    color: 'white',
+    fontSize: '34px',
+    fontWeight: 'bolder',
+    textAlign: 'left',
+    lineHeight: '34px',
+  },
+  linkText: {
+    color: '#E26063',
   },
 });
 

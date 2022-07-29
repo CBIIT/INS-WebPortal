@@ -1,6 +1,6 @@
 export const navBarstyling = {
   global: {
-    backgroundColor: '#142D64',
+    backgroundColor: '#3E3C3F',
     height: '39px',
     padding: '9px 20px 0px 20px',
   },
