@@ -72,7 +72,7 @@ const rightPanel = {
       display: true,
     },
     {
-      label: 'Projects by NCI Award Amount (MM $)',
+      label: 'Projects by Award Amount',
       dataName: 'projectCountInProgramByFundedAmountData',
       datatable_field: 'funded_amount',
       titleText: 'Projects',
