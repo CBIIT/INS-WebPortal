@@ -538,7 +538,7 @@ const styles = () => ({
     fontSize: '28px',
     fontWeight: 'bold',
     lineHeight: '32px',
-    padding: '15px 0',
+    padding: '15px 10px 15px 0px',
   },
   mountainMeadowContent: {
     height: '143px',
