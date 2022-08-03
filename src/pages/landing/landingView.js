@@ -599,7 +599,7 @@ const styles = () => ({
     height: '1200px',
     margin: 'auto',
     left: '700px',
-    top: '-75px',
+    top: '-65px',
     right: 0,
     '@media (min-width: 900px)': {
       width: '906px',
