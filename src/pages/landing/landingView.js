@@ -273,7 +273,7 @@ const styles = () => ({
   },
   heroImage: {
     width: '100%',
-    height: '420px',
+    height: '520px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     backgroundImage: `url(${landingPageData.landingPageHero.img})`,
@@ -599,7 +599,7 @@ const styles = () => ({
     height: '1200px',
     margin: 'auto',
     left: '700px',
-    top: '-65px',
+    top: '-20px',
     right: 0,
     '@media (min-width: 900px)': {
       width: '906px',
