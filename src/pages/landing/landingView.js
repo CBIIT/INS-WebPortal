@@ -590,7 +590,7 @@ const styles = () => ({
     left: '12px',
     right: 0,
     '@media (min-width: 900px)': {
-      width: '906px',
+      width: '1050px',
     },
   },
   heroImageContainer: {
