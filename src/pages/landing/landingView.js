@@ -54,6 +54,18 @@ const LandingView = ({ classes, statsData }) => (
                 id="interactive_img"
               />
             </div>
+            <div className={classes.NCICommunityLinkContainer}>
+              <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
+                <div className={classes.iconTextWrapper}>
+                  <div className={classes.iconTitle}>
+                    {landingPageData.nciCommunityTitle}
+                  </div>
+                  <div className={classes.iconContent}>
+                    {landingPageData.nciCommunityDescription}
+                  </div>
+                </div>
+              </Link>
+            </div>
             <div className={classes.AvailableOutputsImgContainer}>
               <img
                 className={classes.iconImage}
@@ -62,6 +74,18 @@ const LandingView = ({ classes, statsData }) => (
                 id="interactive_img"
               />
             </div>
+            <div className={classes.AvailableOutputsLinkContainer}>
+              <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
+                <div className={classes.iconTextWrapper}>
+                  <div className={classes.iconTitle}>
+                    {landingPageData.availableOutputsTitle}
+                  </div>
+                  <div className={classes.iconContent}>
+                    {landingPageData.availableOutputsDescription}
+                  </div>
+                </div>
+              </Link>
+            </div>
             <div className={classes.UpdatedMetricsImgContainer}>
               <img
                 className={classes.iconImage}
@@ -69,6 +93,18 @@ const LandingView = ({ classes, statsData }) => (
                 alt={landingPageData.UpdatedMetricsImg.alt}
                 id="interactive_img"
               />
+            </div>
+            <div className={classes.UpdatedMetricsLinkContainer}>
+              <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
+                <div className={classes.iconTextWrapper}>
+                  <div className={classes.iconTitle}>
+                    {landingPageData.updatedMetricsTitle}
+                  </div>
+                  <div className={classes.iconContent}>
+                    {landingPageData.updatedMetricsDescription}
+                  </div>
+                </div>
+              </Link>
             </div>
             <div className={classes.arrowCommunityImgContainer}>
               <img
@@ -152,7 +188,6 @@ const LandingView = ({ classes, statsData }) => (
                   <div className={classes.contentContainer} id="tile2_description">
                     {landingPageData.tile2.descriptionText}
                   </div>
-
                 </div>
                 <div className={classes.yellowButton}>
                   <div className={classes.yellowButtonLeft}>
@@ -185,7 +220,6 @@ const LandingView = ({ classes, statsData }) => (
                   <div className={classes.contentContainer} id="tile3_description">
                     {landingPageData.tile3.descriptionText}
                   </div>
-
                 </div>
                 <div className={classes.yellowButton}>
                   <div className={classes.yellowButtonLeft}>
@@ -202,7 +236,6 @@ const LandingView = ({ classes, statsData }) => (
                   </div>
                 </div>
               </div>
-
             </div>
             <div className={classes.contentRightBottom}>
               <div className={classes.cases} id="tile4_image">
@@ -231,7 +264,6 @@ const LandingView = ({ classes, statsData }) => (
           </div>
         </Grid>
       </div>
-
     </div>
   </div>
 );
@@ -585,6 +617,18 @@ const styles = () => ({
       width: '906px',
     },
   },
+  NCICommunityLinkContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '120px',
+    top: '225px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
   AvailableOutputsImgContainer: {
     position: 'absolute',
     width: '10px',
@@ -597,6 +641,18 @@ const styles = () => ({
       width: '906px',
     },
   },
+  AvailableOutputsLinkContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '565px',
+    top: '205px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
   UpdatedMetricsImgContainer: {
     position: 'absolute',
     width: '10px',
@@ -604,6 +660,18 @@ const styles = () => ({
     margin: 'auto',
     left: '480px',
     top: '510px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
+  UpdatedMetricsLinkContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '625px',
+    top: '515px',
     right: 0,
     '@media (min-width: 900px)': {
       width: '906px',
@@ -651,6 +719,26 @@ const styles = () => ({
   buttonText: {
     padding: '0px 30px 12px 0px',
     height: '40px',
+  },
+  iconTextWrapper: {
+    width: '165px',
+  },
+  iconTitle: {
+    fontFamily: 'Inter, Raleway, sans-serif',
+    fontSize: '20px',
+    fontWeight: '900',
+    color: '#C0BEBD',
+    letterSpacing: '-0px',
+    textAlign: 'center',
+  },
+  iconContent: {
+    color: '#C0BEBD',
+    fontFamily: 'Lato, Raleway',
+    fontSize: '16px',
+    fontWeight: '300',
+    lineHeight: '15px',
+    marginTop: '5px',
+    textAlign: 'center',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);
