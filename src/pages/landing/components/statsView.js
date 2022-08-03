@@ -3,6 +3,9 @@ import classnames from 'classnames';
 import {
   withStyles,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
+const linkPage = '/explore';
 
 const LandingStatsView = ({ classes, stats, statsData }) => (
   <>
@@ -17,7 +20,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
           <br />
           <br />
           Explore the data
-          <span className={classes.linkText}> here</span>
+          <Link to={linkPage} className={classes.linkText}> here</Link>
           .
         </div>
       </div>
@@ -152,6 +155,7 @@ const styles = () => ({
   },
   linkText: {
     color: '#E26063',
+    textDecoration: 'none',
   },
 });
 

@@ -321,7 +321,7 @@ const styles = () => ({
     fontSize: '16px',
     fontWeight: '500',
     lineHeight: '27px',
-    marginTop: '16px',
+    marginTop: '40px',
     marginBottom: '26px',
   },
   headerLink: {
@@ -714,7 +714,7 @@ const styles = () => ({
     },
   },
   heroTextWrapper: {
-    width: '360px',
+    width: '420px',
   },
   buttonText: {
     padding: '0px 30px 12px 0px',
