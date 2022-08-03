@@ -46,6 +46,54 @@ const LandingView = ({ classes, statsData }) => (
               alt={landingPageData.interactiveImg.alt}
               id="interactive_img"
             />
+            <div className={classes.NCICommunityImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.NCICommunityImg.img}
+                alt={landingPageData.NCICommunityImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.AvailableOutputsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.AvailableOutputsImg.img}
+                alt={landingPageData.AvailableOutputsImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.UpdatedMetricsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.UpdatedMetricsImg.img}
+                alt={landingPageData.UpdatedMetricsImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.arrowCommunityImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.arrowCommunityImg.img}
+                alt={landingPageData.arrowCommunityImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.arrowOutputsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.arrowOutputsImg.img}
+                alt={landingPageData.arrowOutputsImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.arrowMetricsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.arrowMetricsImg.img}
+                alt={landingPageData.arrowMetricsImg.alt}
+                id="interactive_img"
+              />
+            </div>
           </div>
         </Grid>
       </div>
@@ -227,7 +275,7 @@ const styles = () => ({
     paddingTop: '94px',
     fontFamily: 'Inter, Raleway, sans-serif',
     fontSize: '38px',
-    fontWeight: '600',
+    fontWeight: '1000',
     lineHeight: '35px',
     color: 'black',
     letterSpacing: '-0px',
@@ -288,6 +336,10 @@ const styles = () => ({
   about: {
     width: '300px',
     backgroundColor: 'white',
+  },
+  iconImage: {
+    width: '45px',
+    height: '45px',
   },
   smallImage: {
     width: '12px',
@@ -516,6 +568,78 @@ const styles = () => ({
     margin: 'auto',
     left: '700px',
     top: '-75px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
+  NCICommunityImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '285px',
+    top: '405px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
+  AvailableOutputsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '465px',
+    top: '290px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
+  UpdatedMetricsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '480px',
+    top: '510px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
+  arrowCommunityImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '280px',
+    top: '230px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
+  arrowOutputsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '510px',
+    top: '210px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '906px',
+    },
+  },
+  arrowMetricsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '580px',
+    top: '500px',
     right: 0,
     '@media (min-width: 900px)': {
       width: '906px',

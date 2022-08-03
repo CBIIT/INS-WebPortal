@@ -5,6 +5,12 @@ import programImg from '../assets/landing/program.png';
 import supportImg from '../assets/landing/support.png';
 import exploreImg from '../assets/landing/explore.png';
 import infographicBubble from '../assets/landing/infographicBubble.png';
+import NCICommunity from '../assets/landing/NCICommunity.svg';
+import AvailableOutputs from '../assets/landing/AvailableOutputs.svg';
+import UpdatedMetrics from '../assets/landing/UpdatedMetrics.svg';
+import arrowCommunity from '../assets/landing/arrow-community.svg';
+import arrowOutputs from '../assets/landing/arrow-outputs.svg';
+import arrowMetrics from '../assets/landing/arrow-metrics.svg';
 import heroExploreButtonArrow from '../assets/landing/heroExploreButtonArrow.svg';
 
 // import Test from '../assets/header/CTDC_Logo.svg';
@@ -24,6 +30,30 @@ export const landingPageData = {
   interactiveImg: {
     alt: 'EXPLORE INS DATA',
     img: infographicBubble,
+  },
+  NCICommunityImg: {
+    alt: 'EXPLORE INS DATA',
+    img: NCICommunity,
+  },
+  AvailableOutputsImg: {
+    alt: 'EXPLORE INS DATA',
+    img: AvailableOutputs,
+  },
+  UpdatedMetricsImg: {
+    alt: 'EXPLORE INS DATA',
+    img: UpdatedMetrics,
+  },
+  arrowCommunityImg: {
+    alt: 'EXPLORE INS DATA',
+    img: arrowCommunity,
+  },
+  arrowOutputsImg: {
+    alt: 'EXPLORE INS DATA',
+    img: arrowOutputs,
+  },
+  arrowMetricsImg: {
+    alt: 'EXPLORE INS DATA',
+    img: arrowMetrics,
   },
   heroExploreButtonArrow: {
     alt: 'button arrow',
