@@ -14,7 +14,7 @@ import {
   // SEARCH_PAGE_RESULT_SAMPLES,
   // SEARCH_PAGE_RESULT_FILES,
   // SEARCH_PAGE_RESULT_MODEL,
-  // SEARCH_PAGE_RESULT_ABOUT,
+  SEARCH_PAGE_RESULT_ABOUT,
 } from '../../../bento/search';
 import { getSearchPageResults } from '../../dashboardTab/store/dashboardReducer';
 
@@ -38,7 +38,7 @@ function SearchPagination({
       // { countField: 'program_count', nameField: 'programs' },
       // { countField: 'study_count', nameField: 'studies' },
       // { countField: 'model_count', nameField: 'model' },
-      // { countField: 'about_count', nameField: 'about_page' },
+      { countField: 'about_count', nameField: 'about_page' },
     ];
     let acc = 0;
 
@@ -78,8 +78,8 @@ function SearchPagination({
       //   return { QUERY: SEARCH_PAGE_RESULT_STUDIES, field: 'studies' };
       // case 'model':
       //   return { QUERY: SEARCH_PAGE_RESULT_MODEL, field: 'model' };
-      // case 'about_page':
-      //   return { QUERY: SEARCH_PAGE_RESULT_ABOUT, field: 'about_page' };
+      case 'about_page':
+        return { QUERY: SEARCH_PAGE_RESULT_ABOUT, field: 'about_page' };
       default:
         return { QUERY: SEARCH_PAGE_RESULT_PROJECT, field: 'projects' };
     }
