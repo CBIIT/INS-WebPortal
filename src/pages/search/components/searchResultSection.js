@@ -182,7 +182,6 @@ function SearchPagination({
       )}
       <Grid className={classes.subsection}>
         <Grid item container direction="column" className={classes.subsectionBody} xs={9}>
-
           {data !== undefined ? data.length !== 0 ? data.map(
             // eslint-disable-next-line max-len
             (block, index) => <Components searchText={searchText} data={block} classes index={(page - 1) * pageSize + index} />,
@@ -199,11 +198,9 @@ function SearchPagination({
                 src="https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/globalSearchPrevious.svg"
                 alt="previous button"
               />
-
             </span>
             previous
           </Button>
-
           <Pagination
             classes={{ ul: classes.paginationUl }}
             className={classes.paginationRoot}
@@ -226,7 +223,6 @@ function SearchPagination({
               />
             </span>
           </Button>
-
         </div>
       )}
     </>

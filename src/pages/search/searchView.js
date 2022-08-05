@@ -87,7 +87,6 @@ function searchComponent({ classes, searchparam = '' }) {
     onChange(searchparam);
   }, [open]);
 
-  // eslint-disable-next-line max-len
   // const allCount = () => (searchResults.sample_count + searchResults.program_count + searchResults.study_count + searchResults.file_count + searchResults.model_count);
   const allCount = () => (searchResults.project_count + searchResults.about_count);
 
@@ -166,7 +165,7 @@ function searchComponent({ classes, searchparam = '' }) {
                 <Tab classes={{ root: classes.buttonRoot, wrapper: classes.programTab }} label={`Programs ${searchResults.program_count || 0}`} value="5" />
                 <Tab classes={{ root: classes.buttonRoot, wrapper: classes.studyTab }} label={`Studies ${searchResults.study_count || 0}`} value="6" />
                 <Tab classes={{ root: classes.buttonRoot, wrapper: classes.dataTab }} label={`Data Model ${searchResults.model_count || 0}`} value="7" /> */}
-                <Tab classes={{ root: classes.buttonRoot, wrapper: classes.aboutTab }} label={`About ${searchResults.about_count || 0}`} value="8" />
+                <Tab classes={{ root: classes.buttonRoot, wrapper: classes.aboutTab }} label={`About ${searchResults.about_count || 0}`} value="3" />
               </TabList>
             </Box>
             <TabPanel value="1"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_PROJECT} count={allCount() || 0} datafield="all" /></TabPanel>
@@ -177,9 +176,8 @@ function searchComponent({ classes, searchparam = '' }) {
             <TabPanel value="5"><Subsection searchText={searchText} queryforAPI={} count={searchResults.program_count || 0} datafield="programs" /></TabPanel>
             <TabPanel value="6"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_STUDIES} count={searchResults.study_count || 0} datafield="studies" /></TabPanel>
             <TabPanel value="7"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_MODEL} count={searchResults.model_count || 0} datafield="model" /></TabPanel> */}
-            <TabPanel value="8"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_ABOUT} count={searchResults.about_count || 0} datafield="about_page" /></TabPanel>
+            <TabPanel value="3"><Subsection searchText={searchText} queryforAPI={SEARCH_PAGE_RESULT_ABOUT} count={searchResults.about_count || 0} datafield="about_page" /></TabPanel>
             {/* <Pagination count={10} shape="rounded" /> */}
-
           </TabContext>
         </Box>
       </div>
