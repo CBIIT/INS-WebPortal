@@ -281,7 +281,7 @@ const styles = () => ({
   texture: {
     backgroundSize: 'cover',
     background: '#9D0995',
-    padding: '320px 0 80px 0',
+    padding: '350px 0 80px 0',
   },
   container: {
     fontFamily: 'Raleway, sans-serif',
