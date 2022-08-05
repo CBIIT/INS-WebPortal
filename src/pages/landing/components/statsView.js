@@ -5,7 +5,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import baseImg from '../../../assets/landing/base.png';
+import baseImg from '../../../assets/landing/Base.png';
 
 const linkPage = '/explore';
 
