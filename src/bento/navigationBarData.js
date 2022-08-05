@@ -11,7 +11,7 @@ export const navBarstyling = {
   },
   dropdownMenu: {
     paper: {
-      background: '#309EC4',
+      background: '#FFFFFF',
       width: '200px',
       padding: '5px 18px 18px 18px',
       marginLeft: '15px',
@@ -24,7 +24,7 @@ export const navBarstyling = {
       textDecoration: 'none',
       color: 'black',
       fontSize: '14px',
-      fontWeight: '600',
+      fontWeight: '100',
       lineSpacing: '1px',
       lineHeight: '18px',
       fontFamily: 'Raleway, sans-serif',
@@ -32,7 +32,8 @@ export const navBarstyling = {
       marginTop: '10px',
       '&:hover': {
         cursor: 'pointer',
-        color: 'white',
+        color: 'black',
+        fontWeight: '1000',
       },
     },
   },
@@ -61,16 +62,12 @@ export const navBarData = [
     type: 'dropdown',
     dropDownLinks: [
       {
-        labelText: 'Bento',
+        labelText: 'About INS',
         link: '/bento',
       },
       {
-        labelText: 'Resources',
+        labelText: 'User Guide',
         link: '/resources',
-      },
-      {
-        labelText: 'Graphql',
-        link: '/graphql',
       },
     ],
   },
