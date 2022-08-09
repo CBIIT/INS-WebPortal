@@ -223,6 +223,25 @@ const transformDonutData = (data) => {
   return transformedData;
 };
 
+// --------------- Transform Currency --------------
+const tranformCurrency = (money) => {
+  const transformedMoney = money;
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  });
+
+  if (money) {
+    for (let i = 0; i < money.length; i += 1) {
+      transformedMoney[i].award_amount = formatter.format(transformedMoney[i].award_amount);
+    }
+  }
+
+  return transformedMoney;
+};
+
 /**
  * Returns the widgets data.
  * @param {object} data
@@ -1318,7 +1337,7 @@ const reducers = {
       currentActiveTab: item.currentTab,
       datatable: {
         ...state.datatable,
-        dataProject: item.data.projectOverView,
+        dataProject: tranformCurrency(item.data.projectOverView),
         dataPublication: item.data.publicationOverView,
         dataDataset: item.data.datasetOverView,
         dataClinicalTrial: item.data.clinicalTrialOverView,
