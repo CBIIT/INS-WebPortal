@@ -68,9 +68,9 @@ function searchComponent({ classes, searchparam = '' }) {
     setInputValue(newValue);
     const searchResp = await getSearch(newValue);
     // const keys = ['programs', 'studies', 'subjects', 'samples', 'files', 'model'];
-    const keys = ['projects'];
+    const keys = ['project_titles'];
     // const datafields = ['program_id', 'study_id', 'subject_id', 'sample_id', 'file_id'];
-    const datafields = ['project_id'];
+    const datafields = ['title'];
 
     const mapOption = keys.map(
       (key, index) => searchResp[key].map((id) => (id[datafields[index]])),
