@@ -85,6 +85,12 @@ export const tabContainers = [
         display: true,
       },
       {
+        dataField: 'activity_code',
+        header: 'Activity Code',
+        sort: 'asc',
+        display: true,
+      },
+      {
         dataField: 'award_amount',
         header: 'Award Amount',
         sort: 'asc',
@@ -673,6 +679,7 @@ query projectOverView(
     project_id,
     application_id,
     fiscal_year,
+    activity_code,
     project_title,
     project_type,
     abstract_text,
