@@ -36,8 +36,8 @@ export const programListingIcon = {
 export const SEARCH = gql`
 query globalSearch($input: String){
     globalSearch(input: $input) {
-        projects {
-          project_id
+        project_titles {
+          title
         }
     }
 }
