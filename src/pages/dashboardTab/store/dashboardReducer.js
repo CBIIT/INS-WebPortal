@@ -224,8 +224,8 @@ const transformDonutData = (data) => {
 };
 
 // --------------- Transform Currency --------------
-const tranformCurrency = (money) => {
-  const transformedMoney = money;
+const tranformCurrency = (data) => {
+  const transformedData = data;
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -233,13 +233,13 @@ const tranformCurrency = (money) => {
     maximumFractionDigits: 0,
   });
 
-  if (money) {
-    for (let i = 0; i < money.length; i += 1) {
-      transformedMoney[i].award_amount = formatter.format(transformedMoney[i].award_amount);
+  if (data) {
+    for (let i = 0; i < data.length; i += 1) {
+      transformedData[i].award_amount = formatter.format(transformedData[i].award_amount);
     }
   }
 
-  return transformedMoney;
+  return transformedData;
 };
 
 /**
@@ -1471,7 +1471,7 @@ const reducers = {
         filteredClinicalTrialIds: null,
         filteredPatentIds: null,
         subjectOverView: {
-          data: item.data.searchProjects.projectOverView,
+          data: tranformCurrency(item.data.searchProjects.projectOverView),
         },
         checkboxForAll: {
           data: checkboxData,
