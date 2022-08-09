@@ -73,6 +73,12 @@ export const tabContainers = [
         display: true,
       },
       {
+        dataField: 'program_officers',
+        header: 'Program Officers',
+        sort: 'asc',
+        display: true,
+      },
+      {
         dataField: 'lead_doc',
         header: 'Lead DOC',
         sort: 'asc',
