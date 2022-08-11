@@ -221,8 +221,8 @@ class ServerPaginatedTableView extends React.Component {
   };
 
   getSortData = (arr, sortColumn, sortDirection) => arr.sort((a, b) => {
-    const keyA = parseInt(a[sortColumn].replace(/^\D+/g, ''), 10);
-    const keyB = parseInt(b[sortColumn].replace(/^\D+/g, ''), 10);
+    const keyA = parseInt(a[sortColumn].toString().replace(/^\D+/g, ''), 10);
+    const keyB = parseInt(b[sortColumn].toString().replace(/^\D+/g, ''), 10);
     if (sortDirection === 'asc') {
       if (keyA < keyB) return -1;
       if (keyA > keyB) return 1;
