@@ -66,7 +66,7 @@ export const navBarData = [
         link: '/bento',
       },
       {
-        labelText: 'User Guide',
+        labelText: 'User Guide (PDF)',
         link: '/resources',
       },
     ],
