@@ -1337,7 +1337,7 @@ const reducers = {
       currentActiveTab: item.currentTab,
       datatable: {
         ...state.datatable,
-        dataProject: tranformCurrency(item.data.projectOverView),
+        dataProject: item.data.projectOverView,
         dataPublication: item.data.publicationOverView,
         dataDataset: item.data.datasetOverView,
         dataClinicalTrial: item.data.clinicalTrialOverView,

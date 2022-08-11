@@ -226,6 +226,9 @@ const TabView = ({
     ...defaultOptions(),
     serverTableRowCount: selectedRowInfo.length,
   };
+  const dataTransformCallbacks = customColumn.columns.filter((column, idx) => {
+    return column.dataTransform !== undefined;
+  });
 
   return (
     <div>
@@ -280,6 +283,7 @@ const TabView = ({
             defaultSortCoulmn={defaultSortCoulmn}
             defaultSortDirection={defaultSortDirection}
             tableDownloadCSV={tableDownloadCSV}
+            dataTransformation={dataTransformCallbacks}
           />
         </Grid>
       </Grid>
