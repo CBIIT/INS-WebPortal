@@ -14,7 +14,7 @@ import {
   // SEARCH_PAGE_RESULT_SAMPLES,
   // SEARCH_PAGE_RESULT_FILES,
   // SEARCH_PAGE_RESULT_MODEL,
-  // SEARCH_PAGE_RESULT_ABOUT,
+  SEARCH_PAGE_RESULT_ABOUT,
 } from '../../../bento/search';
 import { getSearchPageResults } from '../../dashboardTab/store/dashboardReducer';
 
@@ -38,7 +38,7 @@ function SearchPagination({
       // { countField: 'program_count', nameField: 'programs' },
       // { countField: 'study_count', nameField: 'studies' },
       // { countField: 'model_count', nameField: 'model' },
-      // { countField: 'about_count', nameField: 'about_page' },
+      { countField: 'about_count', nameField: 'about_page' },
     ];
     let acc = 0;
 
@@ -78,8 +78,8 @@ function SearchPagination({
       //   return { QUERY: SEARCH_PAGE_RESULT_STUDIES, field: 'studies' };
       // case 'model':
       //   return { QUERY: SEARCH_PAGE_RESULT_MODEL, field: 'model' };
-      // case 'about_page':
-      //   return { QUERY: SEARCH_PAGE_RESULT_ABOUT, field: 'about_page' };
+      case 'about_page':
+        return { QUERY: SEARCH_PAGE_RESULT_ABOUT, field: 'about_page' };
       default:
         return { QUERY: SEARCH_PAGE_RESULT_PROJECT, field: 'projects' };
     }
@@ -182,7 +182,6 @@ function SearchPagination({
       )}
       <Grid className={classes.subsection}>
         <Grid item container direction="column" className={classes.subsectionBody} xs={9}>
-
           {data !== undefined ? data.length !== 0 ? data.map(
             // eslint-disable-next-line max-len
             (block, index) => <Components searchText={searchText} data={block} classes index={(page - 1) * pageSize + index} />,
@@ -199,11 +198,9 @@ function SearchPagination({
                 src="https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/globalSearchPrevious.svg"
                 alt="previous button"
               />
-
             </span>
             previous
           </Button>
-
           <Pagination
             classes={{ ul: classes.paginationUl }}
             className={classes.paginationRoot}
@@ -226,7 +223,6 @@ function SearchPagination({
               />
             </span>
           </Button>
-
         </div>
       )}
     </>
