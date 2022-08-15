@@ -83,14 +83,14 @@ export const tabContainers = [
         header: 'Award Amount',
         sort: 'asc',
         display: true,
-        dataTransform: (data) => {
+        dataTransform: (money) => {
           const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
             maximumFractionDigits: 0,
           });
-          return formatter.format(data);
-        }
+          return formatter.format(money);
+        },
       },
       {
         dataField: 'project_end_date',

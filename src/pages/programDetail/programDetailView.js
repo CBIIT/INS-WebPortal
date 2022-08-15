@@ -84,7 +84,6 @@ const ProgramView = ({ classes, data, theme }) => {
               src={programDetailIcon.src}
               alt={programDetailIcon.alt}
             />
-
           </div>
           <div className={classes.headerTitle}>
             <div className={classes.headerMainTitle} id="program_detail_title">
@@ -103,11 +102,9 @@ const ProgramView = ({ classes, data, theme }) => {
                 {' '}
                 {programData[pageSubTitle.dataField]}
               </span>
-
             </div>
             <CustomBreadcrumb className={classes.breadCrumb} data={breadCrumbJson} />
           </div>
-
           {aggregateCount.display ? (
             <div className={classes.headerButton}>
               <span className={classes.headerButtonLinkSpan}>
@@ -120,18 +117,14 @@ const ProgramView = ({ classes, data, theme }) => {
                   <span className={classes.headerButtonLinkText}>{aggregateCount.labelText}</span>
                   <span className={classes.headerButtonColumn}>{': '}</span>
                   <span className={classes.headerButtonLinkNumber} id="program_detail_header_file_count">
-
                     {programData[aggregateCount.dataField]}
-
                   </span>
                 </Link>
               </span>
             </div>
           ) : ''}
         </div>
-
         <div className={classes.detailContainer}>
-
           <Grid container spacing={5}>
             <Grid item lg={7} sm={6} xs={12} container>
               <Grid container spacing={4} direction="row" className={classes.detailContainerLeft}>
@@ -233,10 +226,8 @@ const ProgramView = ({ classes, data, theme }) => {
                     </div>
                   </Grid>
                 ))}
-
               </Grid>
             </Grid>
-
             <Grid
               item
               lg={5}
@@ -275,7 +266,6 @@ const ProgramView = ({ classes, data, theme }) => {
                     </Widget>
                   </Grid>
                 ) : ''} */}
-
                 {rightPanel.widget[0].display ? (
                   <Grid
                     item
@@ -308,7 +298,6 @@ const ProgramView = ({ classes, data, theme }) => {
                     </Widget>
                   </Grid>
                 ) : ''}
-
                 {rightPanel.widget[0].display ? (
                   <Grid
                     item
@@ -341,7 +330,6 @@ const ProgramView = ({ classes, data, theme }) => {
                     </Widget>
                   </Grid>
                 ) : ''}
-
                 {/* { rightPanel.files[0].display ? (
                   <Grid item xs={12}>
                     <div className={classes.fileContainer}>
@@ -366,13 +354,11 @@ const ProgramView = ({ classes, data, theme }) => {
                 ) : ''} */}
               </Grid>
             </Grid>
-
           </Grid>
         </div>
       </div>
       {table.display ? (
         <div id="table_program_detail" className={classes.tableContainer}>
-
           <div className={classes.tableDiv}>
             <div className={classes.tableTitle}>
               <span className={classes.tableHeader}>{table.title}</span>
