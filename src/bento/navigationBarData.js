@@ -63,7 +63,7 @@ export const navBarData = [
     dropDownLinks: [
       {
         labelText: 'About INS',
-        link: '/bento',
+        link: '/about',
       },
       {
         labelText: 'User Guide (PDF)',

@@ -61,7 +61,7 @@ export const landingPageData = {
     titleText: 'ABOUT THE INDEX OF NCI STUDIES',
     descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     callToActionText: 'Read More',
-    callToActionLink: '/bento', // This links to the "About" static page.
+    callToActionLink: '/about', // This links to the "About" static page.
   },
   tile2: {
     alt: 'program',
