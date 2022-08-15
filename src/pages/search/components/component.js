@@ -6,7 +6,7 @@ import ProjectCard from './cards/projectCard';
 // import FileCard from './cards/fileCard';
 // import ProgamCard from './cards/progamCard';
 // import ValueCard from './cards/valueCard';
-// import AboutCard from './cards/aboutCard';
+import AboutCard from './cards/aboutCard';
 
 const Components = {
   project: ProjectCard,
@@ -18,7 +18,7 @@ const Components = {
   // node: ValueCard,
   // value: ValueCard,
   // property: ValueCard,
-  // about: AboutCard,
+  about: AboutCard,
 };
 
 export default ({
