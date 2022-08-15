@@ -223,25 +223,6 @@ const transformDonutData = (data) => {
   return transformedData;
 };
 
-// --------------- Transform Currency --------------
-const tranformCurrency = (data) => {
-  const transformedData = data;
-
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0,
-  });
-
-  if (data) {
-    for (let i = 0; i < data.length; i += 1) {
-      transformedData[i].award_amount = formatter.format(transformedData[i].award_amount);
-    }
-  }
-
-  return transformedData;
-};
-
 /**
  * Returns the widgets data.
  * @param {object} data
@@ -1471,7 +1452,7 @@ const reducers = {
         filteredClinicalTrialIds: null,
         filteredPatentIds: null,
         subjectOverView: {
-          data: tranformCurrency(item.data.searchProjects.projectOverView),
+          data: item.data.searchProjects.projectOverView,
         },
         checkboxForAll: {
           data: checkboxData,
