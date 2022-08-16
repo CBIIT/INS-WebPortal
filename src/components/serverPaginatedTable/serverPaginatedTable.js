@@ -373,12 +373,22 @@ class ServerPaginatedTableView extends React.Component {
       }
       options1.page = newPage;
     }
-    let updatedData = data;
+    let updatedData = data === 'undefined' ? [] : [...data];
     if (data.length > rowsPerPage) {
       const newData = [...data];
       const sortedData = this.getSortData(newData, sortOrder.name, sortOrder.direction);
       updatedData = sortedData.splice(0, rowsPerPage);
     }
+    const formatedUpdatedData = [];
+    updatedData.forEach((dt) => {
+      const tmp = { ...dt };
+      this.props.dataTransformation.forEach((column) => {
+        const cb = column.dataTransform;
+        const attribute = column.dataField;
+        tmp[attribute] = cb(tmp[attribute]);
+      });
+      formatedUpdatedData.push(tmp);
+    });
     return (
       <div>
         <Backdrop
@@ -387,9 +397,9 @@ class ServerPaginatedTableView extends React.Component {
         >
           <CircularProgress />
         </Backdrop>
-        {updatedData === 'undefined' ? <CircularProgress /> : (
+        {formatedUpdatedData.length === 0 ? <CircularProgress /> : (
           <CustomDataTable
-            data={updatedData}
+            data={formatedUpdatedData}
             columns={columns}
             className={className}
             options={({ ...this.props.options, ...options1 })}

@@ -45,6 +45,20 @@ const ProgramDetailContainer = ({ match }) => {
 
     // eslint-disable-next-line max-len
     transformedData.projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData;
+
+    if (data.programDetail && data.programDetail.projects.length !== 0) {
+      for (let i = 0; i < data.programDetail.projects.length; i += 1) {
+        const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          maximumFractionDigits: 0,
+        });
+        // eslint-disable-next-line max-len
+        transformedData.programDetail.projects[i].award_amount = formatter.format(data.programDetail.projects[i].award_amount);
+        // eslint-disable-next-line max-len
+        transformedData.programDetail.projects[i].nci_funded_amount = formatter.format(data.programDetail.projects[i].nci_funded_amount);
+      }
+    }
   }
 
   if (loading) return <CircularProgress />;

@@ -209,7 +209,6 @@ const TabView = ({
   }
 
   // overwrite default options
-  // overwrite default options
   const defaultOptions = () => ({
     dataKey,
     rowsSelectedTrigger: (displayData, rowsSelected) => rowSelectionEvent(
@@ -221,11 +220,16 @@ const TabView = ({
     isRowSelectable: (dataIndex) => (disableRowSelection
       ? disableRowSelection(data[dataIndex], fileIDs) : true),
   });
+
   const finalOptions = {
     ...options,
     ...defaultOptions(),
     serverTableRowCount: selectedRowInfo.length,
   };
+
+  const dataTransformCallbacks = customColumn.columns.filter((column, idx) => {
+    return column.dataTransform !== undefined;
+  });
 
   return (
     <div>
@@ -280,6 +284,7 @@ const TabView = ({
             defaultSortCoulmn={defaultSortCoulmn}
             defaultSortDirection={defaultSortDirection}
             tableDownloadCSV={tableDownloadCSV}
+            dataTransformation={dataTransformCallbacks}
           />
         </Grid>
       </Grid>
