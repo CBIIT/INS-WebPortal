@@ -36,8 +36,8 @@ export const programListingIcon = {
 export const SEARCH = gql`
 query globalSearch($input: String){
     globalSearch(input: $input) {
-        projects {
-          project_id
+        project_titles {
+          title
         }
     }
 }
@@ -185,23 +185,23 @@ query globalSearch($input: String, $first: Int, $offset: Int){
 // }
 // `;
 
-// export const SEARCH_PAGE_RESULT_ABOUT = gql`
-// query globalSearch($input: String, $first: Int, $offset: Int){
-//     globalSearch(
-//         input: $input
-//         first: $first
-//         offset: $offset
-//     ) {
+export const SEARCH_PAGE_RESULT_ABOUT = gql`
+query globalSearch($input: String, $first: Int, $offset: Int){
+    globalSearch(
+        input: $input
+        first: $first
+        offset: $offset
+    ) {
 
-//         about_page {
-//             type
-//             text
-//             page
-//             title
-//         }
-// }
-// }
-// `;
+        about_page {
+            type
+            text
+            page
+            title
+        }
+}
+}
+`;
 
 // export const SEARCH_PAGE_RESULTS = gql`
 // query globalSearch($input: String, $first: Int, $offset: Int){
@@ -229,6 +229,7 @@ query globalSearch($input: String, $first: Int, $offset: Int){
         offset: $offset
     ) {
         project_count
+        about_count
 }
 }
 `;

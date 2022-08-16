@@ -1,6 +1,7 @@
 // Component to display a property
 import { Grid, withStyles } from '@material-ui/core';
 import React from 'react';
+import _ from 'lodash';
 import { Anchor, prepareLinks } from 'bento-components';
 
 const PropertyItem = ({
@@ -25,7 +26,25 @@ const PropertyItem = ({
 
 // Component to display a subsection
 const Subsection = ({ config, data, classes }) => {
-  const properties = prepareLinks(config.properties, data);
+  const formattedData = _.cloneDeep(data);
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  });
+
+  if (data) {
+    if (data.award_amount) {
+      formattedData.award_amount = formatter.format(data.award_amount);
+    }
+
+    if (data.nci_funded_amount) {
+      formattedData.nci_funded_amount = formatter.format(data.nci_funded_amount);
+    }
+  }
+
+  const properties = prepareLinks(config.properties, formattedData);
   return (
     <Grid item container className={classes.subsection}>
       <Grid item container direction="column" className={classes.subsectionBody} xs={9}>
@@ -45,7 +64,7 @@ const Subsection = ({ config, data, classes }) => {
           <PropertyItem
             key={index}
             label={prop.label}
-            value={data[prop.dataField]}
+            value={formattedData[prop.dataField]}
             classes={classes}
             link={prop.link}
             labelLink={prop.labelLink}

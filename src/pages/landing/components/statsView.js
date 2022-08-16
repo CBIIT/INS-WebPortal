@@ -1,8 +1,13 @@
+/* eslint-disable object-curly-newline */
 import React from 'react';
 import classnames from 'classnames';
 import {
   withStyles,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import baseImg from '../../../assets/landing/Base.png';
+
+const linkPage = '/explore';
 
 const LandingStatsView = ({ classes, stats, statsData }) => (
   <>
@@ -17,7 +22,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
           <br />
           <br />
           Explore the data
-          <span className={classes.linkText}> here</span>
+          <Link to={linkPage} className={classes.linkText}> here</Link>
           .
         </div>
       </div>
@@ -38,6 +43,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
                   <div className={classes.statTitle} id={`title_${index + 1}`}>
                     {stat.statTitle}
                   </div>
+                  <div className={classnames({ [classes.statBarPrograms]: stat.statTitle === 'Programs', [classes.statBarProjects]: stat.statTitle === 'Projects', [classes.statBarPublications]: stat.statTitle === 'Publications', [classes.statBarDatasets]: stat.statTitle === 'Datasets', [classes.statBarClinicalTrials]: stat.statTitle === 'Clinical Trials', [classes.statBarPatents]: stat.statTitle === 'Patents' })} id={`bar_${index + 1}`} />
                 </div>
               </div>
             ))
@@ -47,6 +53,9 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
     </div>
   </>
 );
+
+// eslint-disable-next-line max-len
+// <div className={`classes.${`statBar${stat.statTitle.replace(/\s/g, '')}`}`} id={`bar_${index + 1}`} />
 
 const styles = () => ({
   statsSection: {
@@ -98,14 +107,16 @@ const styles = () => ({
     direction: 'ltr',
     display: 'block',
     borderBottom: '74px solid #3E3C3F',
-    height: '230px',
+    height: '255px',
     marginTop: '20px',
     marginRight: '10px',
   },
   statsText: {
+    // backgroundImage: `url(${baseImg})`,
     height: '42px',
     display: 'flex',
-    lineHeight: '10px',
+    lineHeight: '15px',
+    float: 'right',
   },
   statTitle: {
     display: 'inline-block',
@@ -116,6 +127,7 @@ const styles = () => ({
     fontWeight: 900,
     fontSize: '11px',
     textTransform: 'uppercase',
+    paddingRight: '10px',
   },
   statCount: {
     display: 'inline-block',
@@ -141,7 +153,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '36px 400px 36px 98px',
+    padding: '36px 395px 36px 98px',
   },
   leftText: {
     color: 'white',
@@ -152,6 +164,67 @@ const styles = () => ({
   },
   linkText: {
     color: '#E26063',
+    textDecoration: 'none',
+  },
+  statBarPrograms: {
+    borderRadius: '50px 0px 0px 50px',
+    background: '#B74A4B',
+    padding: '10px',
+    width: '1px',
+    height: '35px',
+    float: 'right',
+    marginTop: '-10px',
+    marginRight: '-15px',
+  },
+  statBarProjects: {
+    borderRadius: '50px 0px 0px 50px',
+    background: '#AE51CC',
+    padding: '10px',
+    width: '140px',
+    height: '35px',
+    float: 'right',
+    marginTop: '-10px',
+    marginRight: '-15px',
+  },
+  statBarPublications: {
+    borderRadius: '50px 0px 0px 50px',
+    background: '#475F8A',
+    padding: '10px',
+    width: '190px',
+    height: '35px',
+    float: 'right',
+    marginTop: '-10px',
+    marginRight: '-15px',
+  },
+  statBarDatasets: {
+    borderRadius: '50px 0px 0px 50px',
+    background: '#95ABFF',
+    padding: '10px',
+    width: '140px',
+    height: '35px',
+    float: 'right',
+    marginTop: '-10px',
+    marginRight: '-15px',
+  },
+  statBarClinicalTrials: {
+    borderRadius: '50px 0px 0px 50px',
+    background: '#FCA001',
+    padding: '10px',
+    width: '80px',
+    height: '35px',
+    float: 'right',
+    marginTop: '-10px',
+    marginRight: '-15px',
+  },
+  statBarPatents: {
+    borderRadius: '50px 0px 0px 50px',
+    background: '#7B7781',
+    padding: '10px',
+    width: '30px',
+    height: '35px',
+    float: 'right',
+    marginTop: '-10px',
+    marginRight: '-15px',
   },
 });
 

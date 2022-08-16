@@ -28,18 +28,6 @@ const ProjectCard = ({ data, classes, index }) => {
       label: 'Lead DOC',
       dataField: 'lead_doc',
     },
-    {
-      label: 'Award Amount',
-      dataField: 'award_amount',
-    },
-    {
-      label: 'Project End Date',
-      dataField: 'project_end_date',
-    },
-    {
-      label: 'Fiscal Year',
-      dataField: 'fiscal_year',
-    },
   ];
 
   const propertiesWithLinks = prepareLinks(properties, data);

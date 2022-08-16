@@ -46,6 +46,90 @@ const LandingView = ({ classes, statsData }) => (
               alt={landingPageData.interactiveImg.alt}
               id="interactive_img"
             />
+            <div className={classes.NCICommunityImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.NCICommunityImg.img}
+                alt={landingPageData.NCICommunityImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.NCICommunityLinkContainer}>
+              <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
+                <div className={classes.iconTextWrapper}>
+                  <div className={classes.iconTitle}>
+                    {landingPageData.nciCommunityTitle}
+                  </div>
+                  <div className={classes.iconContent}>
+                    {landingPageData.nciCommunityDescription}
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className={classes.AvailableOutputsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.AvailableOutputsImg.img}
+                alt={landingPageData.AvailableOutputsImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.AvailableOutputsLinkContainer}>
+              <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
+                <div className={classes.iconTextWrapper}>
+                  <div className={classes.iconTitle}>
+                    {landingPageData.availableOutputsTitle}
+                  </div>
+                  <div className={classes.iconContent}>
+                    {landingPageData.availableOutputsDescription}
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className={classes.UpdatedMetricsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.UpdatedMetricsImg.img}
+                alt={landingPageData.UpdatedMetricsImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.UpdatedMetricsLinkContainer}>
+              <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
+                <div className={classes.iconTextWrapper}>
+                  <div className={classes.iconTitle}>
+                    {landingPageData.updatedMetricsTitle}
+                  </div>
+                  <div className={classes.iconContent}>
+                    {landingPageData.updatedMetricsDescription}
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className={classes.arrowCommunityImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.arrowCommunityImg.img}
+                alt={landingPageData.arrowCommunityImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.arrowOutputsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.arrowOutputsImg.img}
+                alt={landingPageData.arrowOutputsImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.arrowMetricsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.arrowMetricsImg.img}
+                alt={landingPageData.arrowMetricsImg.alt}
+                id="interactive_img"
+              />
+            </div>
           </div>
         </Grid>
       </div>
@@ -104,7 +188,6 @@ const LandingView = ({ classes, statsData }) => (
                   <div className={classes.contentContainer} id="tile2_description">
                     {landingPageData.tile2.descriptionText}
                   </div>
-
                 </div>
                 <div className={classes.yellowButton}>
                   <div className={classes.yellowButtonLeft}>
@@ -137,7 +220,6 @@ const LandingView = ({ classes, statsData }) => (
                   <div className={classes.contentContainer} id="tile3_description">
                     {landingPageData.tile3.descriptionText}
                   </div>
-
                 </div>
                 <div className={classes.yellowButton}>
                   <div className={classes.yellowButtonLeft}>
@@ -154,7 +236,6 @@ const LandingView = ({ classes, statsData }) => (
                   </div>
                 </div>
               </div>
-
             </div>
             <div className={classes.contentRightBottom}>
               <div className={classes.cases} id="tile4_image">
@@ -183,7 +264,6 @@ const LandingView = ({ classes, statsData }) => (
           </div>
         </Grid>
       </div>
-
     </div>
   </div>
 );
@@ -193,7 +273,7 @@ const styles = () => ({
   },
   heroImage: {
     width: '100%',
-    height: '420px',
+    height: '520px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     backgroundImage: `url(${landingPageData.landingPageHero.img})`,
@@ -201,7 +281,7 @@ const styles = () => ({
   texture: {
     backgroundSize: 'cover',
     background: '#9D0995',
-    padding: '320px 0 80px 0',
+    padding: '350px 0 80px 0',
   },
   container: {
     fontFamily: 'Raleway, sans-serif',
@@ -227,7 +307,7 @@ const styles = () => ({
     paddingTop: '94px',
     fontFamily: 'Inter, Raleway, sans-serif',
     fontSize: '38px',
-    fontWeight: '600',
+    fontWeight: '1000',
     lineHeight: '35px',
     color: 'black',
     letterSpacing: '-0px',
@@ -241,7 +321,7 @@ const styles = () => ({
     fontSize: '16px',
     fontWeight: '500',
     lineHeight: '27px',
-    marginTop: '16px',
+    marginTop: '40px',
     marginBottom: '26px',
   },
   headerLink: {
@@ -288,6 +368,10 @@ const styles = () => ({
   about: {
     width: '300px',
     backgroundColor: 'white',
+  },
+  iconImage: {
+    width: '45px',
+    height: '45px',
   },
   smallImage: {
     width: '12px',
@@ -454,7 +538,7 @@ const styles = () => ({
     fontSize: '28px',
     fontWeight: 'bold',
     lineHeight: '32px',
-    padding: '15px 0',
+    padding: '15px 10px 15px 0px',
   },
   mountainMeadowContent: {
     height: '143px',
@@ -506,7 +590,7 @@ const styles = () => ({
     left: '12px',
     right: 0,
     '@media (min-width: 900px)': {
-      width: '906px',
+      width: '1050px',
     },
   },
   heroImageContainer: {
@@ -515,18 +599,119 @@ const styles = () => ({
     height: '1200px',
     margin: 'auto',
     left: '700px',
-    top: '-75px',
+    top: '-20px',
     right: 0,
     '@media (min-width: 900px)': {
       width: '906px',
     },
   },
+  NCICommunityImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '-325px',
+    top: '405px',
+    right: 0,
+  },
+  NCICommunityLinkContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '-600px',
+    top: '225px',
+    right: 0,
+  },
+  AvailableOutputsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '40px',
+    top: '290px',
+    right: 0,
+  },
+  AvailableOutputsLinkContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '215px',
+    top: '205px',
+    right: 0,
+  },
+  UpdatedMetricsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '65px',
+    top: '510px',
+    right: 0,
+  },
+  UpdatedMetricsLinkContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '355px',
+    top: '515px',
+    right: 0,
+  },
+  arrowCommunityImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '-280px',
+    top: '230px',
+    right: 0,
+  },
+  arrowOutputsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '120px',
+    top: '210px',
+    right: 0,
+  },
+  arrowMetricsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '265px',
+    top: '500px',
+    right: 0,
+  },
   heroTextWrapper: {
-    width: '360px',
+    width: '420px',
   },
   buttonText: {
     padding: '0px 30px 12px 0px',
     height: '40px',
+  },
+  iconTextWrapper: {
+    width: '165px',
+  },
+  iconTitle: {
+    fontFamily: 'Inter, Raleway, sans-serif',
+    fontSize: '20px',
+    fontWeight: '900',
+    color: '#C0BEBD',
+    letterSpacing: '-0px',
+    textAlign: 'center',
+  },
+  iconContent: {
+    color: '#C0BEBD',
+    fontFamily: 'Lato, Raleway',
+    fontSize: '16px',
+    fontWeight: '300',
+    lineHeight: '15px',
+    marginTop: '5px',
+    textAlign: 'center',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);

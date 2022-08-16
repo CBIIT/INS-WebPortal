@@ -26,11 +26,11 @@ export default {
         },
         {
           text: 'INS Data Releases',
-          link: 'https://cbiit.github.io/bento-docs/',
+          link: '/explore',
         },
         {
           text: 'Resources',
-          link: 'https://cbiit.github.io/bento-docs/',
+          link: '/resources',
         },
       ],
     },
@@ -39,23 +39,23 @@ export default {
       items: [
         {
           text: 'Policies',
-          link: 'bento-help@nih.gov',
+          link: 'https://www.cancer.gov/policies',
         },
         {
           text: 'Disclaimer',
-          link: 'bento-help@nih.gov',
+          link: 'https://www.cancer.gov/policies/disclaimer',
         },
         {
           text: 'Accessibility',
-          link: 'bento-help@nih.gov',
+          link: 'https://www.cancer.gov/policies/accessibility',
         },
         {
           text: 'FOIA',
-          link: 'bento-help@nih.gov',
+          link: 'https://www.cancer.gov/policies/foia',
         },
         {
           text: 'HHS Vulnerability Disclosure',
-          link: 'bento-help@nih.gov',
+          link: 'https://www.hhs.gov/vulnerability-disclosure-policy/index.html',
         },
       ],
     },
