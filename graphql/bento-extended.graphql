@@ -126,6 +126,7 @@ type ProgramInfo {
 
 type ProjectInfo {
     project_id: String
+    activity_code: String
     application_id: String
     fiscal_year: String
     project_title: String
@@ -1041,7 +1042,7 @@ type QueryType {
             num_geos: 1,
             num_sras: 1,
             num_clinical_trials: 1,
-            projects: collect(DISTINCT pr {.*})
+            projects: collect(DISTINCT pr {.*, activity_code: SUBSTRING(pr.project_id, 1,3)})
         }
     """, passThrough: true)
 
