@@ -22,7 +22,7 @@ export const navBarstyling = {
     link: {
       overflowWrap: 'normal',
       textDecoration: 'none',
-      color: 'black',
+      color: '#a09ea0',
       fontSize: '14px',
       fontWeight: '100',
       lineSpacing: '1px',
@@ -64,10 +64,12 @@ export const navBarData = [
       {
         labelText: 'About INS',
         link: '/about',
+        linkActiveStyle: 'black',
       },
       {
         labelText: 'User Guide (PDF)',
         link: '/resources',
+        linkActiveStyle: 'black',
       },
     ],
   },
