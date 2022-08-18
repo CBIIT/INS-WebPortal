@@ -1,0 +1,62 @@
+.aboutPageContainer {
+  background-color: #f5f5f5;
+}
+
+.aboutPageHeader {
+  color: black;
+  font-size: 42px;
+  text-align: center;
+  font-weight: bolder;
+  padding-top: 50px;
+  margin-top: -50px;
+}
+
+.aboutPageSectionContent {
+  width: 83%;
+  padding: 40px 0px 0px 0px;
+  text-align: left;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.aboutPageSectionContent ul {
+  font-size: 16px;
+}
+
+.aboutPageSectionContent p {
+  font-size: 16px;
+}
+
+.aboutContentHeader {
+  color: #20506A;
+  font-weight: 400;
+  font-family: Inter;
+  font-size: 26px;
+}
+
+.aboutContentSubHeader {
+  color: #AEABAB;
+  font-weight: 900;
+  font-family: Inter;
+  font-size: 20px;
+  padding-left: 20px;
+}
+
+.aboutImage {
+  float: right;
+  width: 700px;
+}
+
+.aboutPageSectionHeader {
+  width: 1250px;
+  padding: 0px 0px 40px 110px;
+}
+
+.p-l-20 {
+  padding-left: 20px;
+  margin-top: -20px;
+}
+
+html {
+  overflow-x: hidden;
+}
