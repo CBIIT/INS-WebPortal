@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import aboutImage from '../../assets/about/About.png';
+import flowChart from '../../assets/about/INS-Workflow.svg';
 import './aboutBody.css';
 
 const AboutBody = () => {
