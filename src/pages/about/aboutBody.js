@@ -52,7 +52,8 @@ const AboutBody = () => {
               The INS scraping script first queries PubMed with the list of project IDs, as authors typically list their funding sources in PubMed’s Grant Support section. The list of publications associated with those project IDs is collected and stored along with metadata on each publication. The scraping script also collects datasets or clinical trials listed in PubMed’s Related Information section. The INS scraping script queries ClinicalTrials.gov and the USPTO websites independently with the list of project IDs. All research outputs are thus linked to the project ID(s) that produced them, resulting in a coherent data model that links programs to projects to outputs.
             </p>
           </div>
-          <div>
+          <div className="flowChartSection">
+            <h2 className="flowChartContentHeader">INS Data Gathering Flow</h2>
             <img className="flowChartImage" src={flowChart} alt="flow_chart" id="flow-chart" />
           </div>
           <div className="aboutPageSectionContent">

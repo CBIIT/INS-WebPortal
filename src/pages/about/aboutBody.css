@@ -42,6 +42,20 @@
   padding-left: 20px;
 }
 
+.flowChartSection {
+  background-color: #413E41;
+  margin-right: -400px;
+  margin-left: 100px;
+}
+
+.flowChartContentHeader {
+  font-size: 26px;
+  color: #AEABAB;
+  padding-left: 40px;
+  padding-top: 40px;
+  font-weight: 400;
+}
+
 .aboutImage {
   float: right;
   width: 500px;
@@ -51,8 +65,8 @@
 }
 
 .flowChartImage {
-  margin-right: -300px;
-  margin-left: 100px;
+  margin-right: 50px;
+  margin-left: 50px;
 }
 
 .aboutPageSectionHeader {
