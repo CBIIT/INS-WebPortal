@@ -17,22 +17,26 @@ const AboutBody = () => {
         </div>
         <img className="aboutImage" src={aboutImage} alt="about_image" id="about-image" />
         <div className="keyTakeawaysSection">
-          <h3>
+          <h3 className="keyTakeawaysSectionHeader">
             Key Takeaways
           </h3>
           <ul>
             <li>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.
             </li>
+            <br />
             <li>
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.
             </li>
+            <br />
             <li>
               Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
             </li>
+            <br />
             <li>
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </li>
+            <br />
             <li>
               Sed ut perspiciatis unde omnis iste.
             </li>

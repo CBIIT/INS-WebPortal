@@ -74,12 +74,34 @@
   padding: 0px 0px 40px 110px;
 }
 
-.keyTakeawaysSection{
-  width: 500px;
+.keyTakeawaysSection {
+  width: 460px;
   float: right;
-  margin-right: -500px;
+  margin-right: -460px;
   margin-top: 450px;
-  padding-right: 40px;
+  padding-right: 0;
+  border: solid #8891A1;
+  border-radius: 15px;
+}
+
+.keyTakeawaysSectionHeader {
+  font-size: 23px;
+  background-color: #8891A1;
+  color: #FFFEFE;
+  padding-left: 24px;
+  padding-top: 10px;
+  padding-bottom: 9px;
+  margin-top: 0;
+  font-weight: 400;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.keyTakeawaysSection ul {
+  font-size: 16px;
+  color: #116187;
+  padding: 5px 30px 10px 40px;
+  font-weight: 500;
 }
 
 .p-l-20 {
