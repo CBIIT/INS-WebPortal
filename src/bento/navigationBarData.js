@@ -68,7 +68,7 @@ export const navBarData = [
       },
       {
         labelText: 'User Guide (PDF)',
-        link: '/resources',
+        link: '/pdf',
         linkActiveStyle: 'black',
       },
     ],
