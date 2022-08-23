@@ -74,6 +74,14 @@
   padding: 0px 0px 40px 110px;
 }
 
+.keyTakeawaysSection{
+  width: 500px;
+  float: right;
+  margin-right: -500px;
+  margin-top: 450px;
+  padding-right: 40px;
+}
+
 .p-l-20 {
   padding-left: 20px;
   margin-top: -20px;
