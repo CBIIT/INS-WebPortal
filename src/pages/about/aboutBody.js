@@ -15,6 +15,7 @@ const AboutBody = () => {
         <div className="aboutPageHeader">
           About the Index of NCI Studies (INS)
         </div>
+        <img className="aboutImage" src={aboutImage} alt="about_image" id="about-image" />
         <div className="aboutPageSectionHeader">
           <div className="aboutPageSectionContent">
             <h2 className="aboutContentHeader">
@@ -52,7 +53,7 @@ const AboutBody = () => {
             </p>
           </div>
           <div>
-            IMAGE
+            <img className="flowChartImage" src={flowChart} alt="flow_chart" id="flow-chart" />
           </div>
           <div className="aboutPageSectionContent">
             <h2 className="aboutContentHeader">

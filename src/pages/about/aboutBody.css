@@ -12,7 +12,7 @@
 }
 
 .aboutPageSectionContent {
-  width: 83%;
+  width: 80%;
   padding: 40px 0px 0px 0px;
   text-align: left;
   margin-left: 100px;
@@ -44,7 +44,15 @@
 
 .aboutImage {
   float: right;
-  width: 700px;
+  width: 500px;
+  margin-right: 100px;
+  margin-top: 60px;
+  padding-right: 40px;
+}
+
+.flowChartImage {
+  margin-right: 100px;
+  margin-left: 100px;
 }
 
 .aboutPageSectionHeader {
