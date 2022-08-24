@@ -18,7 +18,7 @@ export default {
       items: [
         {
           text: 'About INS',
-          link: '/bento',
+          link: '/about',
         },
         {
           text: 'Contact INS',
