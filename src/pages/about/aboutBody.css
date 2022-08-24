@@ -12,20 +12,19 @@
   margin-top: -50px;
 }
 
-.aboutPageSectionContent {
-  width: 80%;
-  padding: 40px 0px 0px 0px;
-  text-align: left;
+.aboutPageSection {
+  width: 90%;
+}
+
+.aboutPageSectionTop {
+  padding: 40px 0px 10px 0px;
   margin-left: 100px;
   margin-right: 100px;
 }
 
-.aboutPageSectionContent ul {
-  font-size: 16px;
-}
-
-.aboutPageSectionContent p {
-  font-size: 16px;
+.aboutPageSectionContent {
+  float: left;
+  padding-right: 100px;
 }
 
 .aboutContentHeader {
@@ -35,51 +34,18 @@
   font-size: 26px;
 }
 
-.aboutContentSubHeader {
-  color: #AEABAB;
-  font-weight: 900;
-  font-family: Inter;
-  font-size: 20px;
-  padding-left: 20px;
+.aboutPageSectionContent p {
+  font-size: 16px;
 }
 
-.flowChartSection {
-  background-color: #413E41;
-  margin-right: -350px;
-  margin-left: 100px;
-}
-
-.flowChartContentHeader {
-  font-size: 26px;
-  color: #AEABAB;
-  padding-left: 40px;
-  padding-top: 40px;
-  font-weight: 400;
-}
-
-.aboutImage {
+.aboutPageSectionImage {
   float: right;
-  width: 450px;
-  margin-right: 150px;
-  margin-top: 60px;
-  padding-right: 40px;
-}
-
-.flowChartImage {
-  margin-right: 50px;
-  margin-left: 50px;
-}
-
-.aboutPageSectionHeader {
-  width: 1250px;
-  padding: 0px 0px 40px 110px;
+  width: 100%;
 }
 
 .keyTakeawaysSection {
-  width: 410px;
   float: right;
-  margin-right: -410px;
-  margin-top: 400px;
+  margin-top: 50px;
   padding-right: 0;
   border: solid #8891A1;
   border-radius: 15px;
@@ -105,11 +71,44 @@
   font-weight: 500;
 }
 
+.aboutPageSectionMiddle {
+  background-color: #413E41;
+  margin-top: 50px;
+  margin-left: 100px;
+}
+
+.flowChartContentHeader {
+  font-size: 26px;
+  color: #AEABAB;
+  padding-left: 40px;
+  padding-top: 40px;
+  font-weight: 400;
+}
+
+.flowChartImage {
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.aboutContentSubHeader {
+  color: #AEABAB;
+  font-weight: 900;
+  font-family: Inter;
+  font-size: 20px;
+  padding-left: 20px;
+}
+
 .p-l-20 {
   padding-left: 20px;
   margin-top: -20px;
 }
 
+.aboutPageSectionBottom {
+  padding: 40px 0px 10px 0px;
+  text-align: left;
+  margin-left: 100px;
+}
+
 html {
-  overflow-x: hidden;
+  overflow-x: auto;
 }
