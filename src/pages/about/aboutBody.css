@@ -13,13 +13,12 @@
 }
 
 .aboutPageSection {
-  width: 90%;
+  width: 100%;
 }
 
 .aboutPageSectionTop {
-  padding: 40px 0px 10px 0px;
+  padding: 40px 200px 10px 0px;
   margin-left: 100px;
-  margin-right: 100px;
 }
 
 .aboutPageSectionContent {
@@ -74,20 +73,19 @@
 .aboutPageSectionMiddle {
   background-color: #413E41;
   margin-top: 50px;
-  margin-left: 100px;
 }
 
 .flowChartContentHeader {
   font-size: 26px;
   color: #AEABAB;
-  padding-left: 40px;
+  padding-left: 100px;
   padding-top: 40px;
   font-weight: 400;
 }
 
 .flowChartImage {
   margin-right: 50px;
-  margin-left: 50px;
+  margin-left: 100px;
 }
 
 .aboutContentSubHeader {
@@ -109,5 +107,5 @@
 }
 
 html {
-  overflow-x: auto;
+  overflow-x: hidden;
 }
