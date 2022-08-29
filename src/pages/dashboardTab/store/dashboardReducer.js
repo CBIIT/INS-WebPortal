@@ -216,6 +216,12 @@ const transformDonutData = (data) => {
   transformedData.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
   // eslint-disable-next-line max-len
   transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+
+  for (let i = 0; i < transformedData.publicationCountByYearSorted.length; i += 1) {
+  // eslint-disable-next-line max-len
+    transformedData.publicationCountByYearSorted[i].group = new Date(parseInt(transformedData.publicationCountByYearSorted[i].group, 10)).getFullYear();
+  }
+
   // eslint-disable-next-line max-len
   transformedData.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
   // eslint-disable-next-line max-len
@@ -265,7 +271,6 @@ function allFilters() {
 
 function getSearchWidgetsData(rawData, widgetsInfoFromCustConfig) {
   const data = rawData;
-  transformDonutData(data.searchProjects);
 
   const donut = widgetsInfoFromCustConfig.reduce((acc, widget) => {
     const Data = widget.type === 'sunburst' ? transformInitialDataForSunburst(data[widget.mapWithDashboardWidget]) : removeEmptySubjectsFromDonutData(data[widget.mapWithDashboardWidget]);
@@ -1368,7 +1373,6 @@ const reducers = {
   },
   RECEIVE_DASHBOARDTAB: (state, rawItem) => {
     const item = rawItem;
-    transformDonutData(item.data.searchProjects);
 
     const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
@@ -1432,7 +1436,6 @@ const reducers = {
   },
   CLEAR_ALL: (state, rawItem) => {
     const item = rawItem;
-    transformDonutData(item.data.searchProjects);
 
     const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
     fetchDataForDashboardTab(tabIndex[0].title, allFilters());
