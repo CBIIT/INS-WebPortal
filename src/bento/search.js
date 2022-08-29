@@ -64,7 +64,7 @@ query globalSearch($input: String, $first: Int, $offset: Int){
           principal_investigators
           program_officers
           full_foa
-          program          
+          program
         }
 }
 }
