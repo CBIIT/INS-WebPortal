@@ -101,6 +101,7 @@ export const tabContainers = [
             currency: 'USD',
             maximumFractionDigits: 0,
           });
+
           return formatter.format(money);
         },
       },
