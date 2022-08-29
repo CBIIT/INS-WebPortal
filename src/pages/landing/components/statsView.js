@@ -9,6 +9,18 @@ import baseImg from '../../../assets/landing/Base.png';
 
 const linkPage = '/explore';
 
+const dataTransform = (data) => {
+  let transformedCount = '';
+
+  if (data >= 1000) {
+    transformedCount = `${data.toString().slice(0, -3)}K`;
+  } else {
+    transformedCount = data.toString();
+  }
+
+  return transformedCount;
+};
+
 const LandingStatsView = ({ classes, stats, statsData }) => (
   <>
     <div className={classnames({
@@ -38,7 +50,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
               <div className={classes.statsGroup}>
                 <div className={classes.statsText}>
                   <div className={classes.statCount} id={`count_${index + 1}`}>
-                    {statsData[stat.statAPI]}
+                    {dataTransform(statsData[stat.statAPI])}
                   </div>
                   <div className={classes.statTitle} id={`title_${index + 1}`}>
                     {stat.statTitle}
@@ -53,9 +65,6 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
     </div>
   </>
 );
-
-// eslint-disable-next-line max-len
-// <div className={`classes.${`statBar${stat.statTitle.replace(/\s/g, '')}`}`} id={`bar_${index + 1}`} />
 
 const styles = () => ({
   statsSection: {
