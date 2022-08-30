@@ -13,26 +13,6 @@ import arrowOutputs from '../assets/landing/arrow-outputs.svg';
 import arrowMetrics from '../assets/landing/arrow-metrics.svg';
 import heroExploreButtonArrow from '../assets/landing/heroExploreButtonArrow.svg';
 
-// const transformCount = (count) => {
-//   let transformedCount = '';
-
-//   if (count >= 1000) {
-//     transformedCount = `${count.toString().slice(0, -3)}K`;
-//   } else {
-//     transformedCount = count.toString();
-//   }
-//   return transformedCount;
-// };
-
-// export const numberOfProgramsTransformed = transformCount(numberOfPrograms);
-// export const numberOfProjectsTransformed = transformCount(numberOfProjects);
-// export const numberOfPublicationsTransformed = transformCount(numberOfPublications);
-// export const numberOfDatasetsTransformed = transformCount(numberOfDatasets);
-// export const numberOfClinicalTrialsTransformed = transformCount(numberOfClinicalTrials);
-// export const numberOfPatentsTransformed = transformCount(numberOfPatents);
-
-// import Test from '../assets/header/CTDC_Logo.svg';
-
 // The ideal image size of landingPageHero 1400x600px
 // Tile1 Tile2 Tile3 images 293x349 px
 // Tile4 image optimum size 600x 436 px
@@ -90,32 +70,26 @@ export const landingPageData = {
     {
       statTitle: 'Programs',
       statAPI: 'numberOfPrograms',
-      // statCount: numberOfProgramsTransformed,
     },
     {
       statTitle: 'Projects',
       statAPI: 'numberOfProjects',
-      // statCount: numberOfProjectsTransformed,
     },
     {
       statTitle: 'Publications',
       statAPI: 'numberOfPublications',
-      // statCount: numberOfPublicationsTransformed,
     },
     {
       statTitle: 'Datasets',
       statAPI: 'numberOfDatasets',
-      // statCount: numberOfDatasetsTransformed,
     },
     {
       statTitle: 'Clinical Trials',
       statAPI: 'numberOfClinicalTrials',
-      // statCount: numberOfClinicalTrialsTransformed,
     },
     {
       statTitle: 'Patents',
       statAPI: 'numberOfPatents',
-      // statCount: numberOfPatentsTransformed,
     },
   ],
   tile1: {

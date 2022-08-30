@@ -5,12 +5,13 @@ export const statsStyling = {
     horizontalStyle: true,
     statTitleFirst: true,
     height: '47px',
-    background: '#8DCAFF',
+    background: '#B531AD',
   },
-  statsIcon: {
-    width: '40px',
-    height: '45px',
-    margin: '0px 0px 0px -45px',
+  statTitle: {
+    color: '#D0D0D0',
+  },
+  statCount: {
+    color: '#FFFFFF',
   },
 };
 
@@ -20,43 +21,31 @@ export const globalStatsData = [
     statTitle: 'Programs',
     type: 'field',
     statAPI: 'numberOfPrograms',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Programs_.svg',
-    statIconAlt: 'Temp',
   },
   {
     statTitle: 'Projects',
     type: 'field',
     statAPI: 'numberOfProjects',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Studies_.svg',
-    statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
     statTitle: 'Publications',
     type: 'field',
     statAPI: 'numberOfPublications',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Cases_.svg',
-    statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
     statTitle: 'Datasets',
     type: 'field',
     statAPI: 'numberOfDatasets',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Samples_.svg',
-    statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
     statTitle: 'Clinical Trials',
     type: 'field',
     statAPI: 'numberOfClinicalTrials',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/CaseFiles_.svg',
-    statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
     statTitle: 'Patents',
     type: 'field',
     statAPI: 'numberOfPatents',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/StudyFiles_.svg',
-    statIconAlt: 'Data Volume Stats Bar Icon',
   },
 ];
 
