@@ -6,7 +6,6 @@ import PropertyItem from '../propertyItem';
 
 const ProjectCard = ({ data, classes, index }) => {
   const properties = [
-
     {
       label: 'Project ID',
       dataField: 'project_id',
@@ -25,9 +24,29 @@ const ProjectCard = ({ data, classes, index }) => {
       dataField: 'principal_investigators',
     },
     {
+      label: 'Program Officers',
+      dataField: 'program_officers',
+    },
+    {
       label: 'Lead DOC',
       dataField: 'lead_doc',
     },
+    // {
+    //   label: 'Activity Code',
+    //   dataField: 'activity_code',
+    // },
+    // {
+    //   label: 'Award Amount',
+    //   dataField: 'award_amount',
+    // },
+    // {
+    //   label: 'Project End Date',
+    //   dataField: 'project_end_date',
+    // },
+    // {
+    //   label: 'Fiscal Year',
+    //   dataField: 'fiscal_year',
+    // },
   ];
 
   const propertiesWithLinks = prepareLinks(properties, data);
