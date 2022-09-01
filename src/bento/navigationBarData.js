@@ -59,20 +59,25 @@ export const navBarData = [
   },
   {
     labelText: 'about',
-    type: 'dropdown',
-    dropDownLinks: [
-      {
-        labelText: 'About INS',
-        link: '/about',
-        linkActiveStyle: 'black',
-      },
-      {
-        labelText: 'User Guide (PDF)',
-        link: '/pdf',
-        linkActiveStyle: 'black',
-      },
-    ],
+    type: 'link',
+    link: '/about',
   },
+  // {
+  //   labelText: 'about',
+  //   type: 'dropdown',
+  //   dropDownLinks: [
+  //     {
+  //       labelText: 'About INS',
+  //       link: '/about',
+  //       linkActiveStyle: 'black',
+  //     },
+  //     {
+  //       labelText: 'User Guide (PDF)',
+  //       link: '/pdf',
+  //       linkActiveStyle: 'black',
+  //     },
+  //   ],
+  // },
 ];
 
 export const navBarCartData = {
