@@ -24,14 +24,6 @@ export default {
           text: 'Contact INS',
           link: 'mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback',
         },
-        {
-          text: 'INS Data Releases',
-          link: '/explore',
-        },
-        {
-          text: 'Resources',
-          link: '/resources',
-        },
       ],
     },
     {
