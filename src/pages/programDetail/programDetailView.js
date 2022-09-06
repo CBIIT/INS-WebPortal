@@ -710,22 +710,6 @@ const styles = (theme) => ({
   marginTopN37: {
     marginTop: '15px',
   },
-  tableCell1: {
-    paddingLeft: '25px',
-    width: '200px',
-  },
-  tableCell2: {
-    width: '370px',
-  },
-  tableCell3: {
-    width: '370px',
-  },
-  tableCell4: {
-    width: '160px',
-  },
-  tableCell5: {
-    width: '160px',
-  },
   externalLinkIcon: {
     width: '16px',
     verticalAlign: 'sub',
