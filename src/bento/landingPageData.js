@@ -114,7 +114,7 @@ export const landingPageData = {
     titleText: 'INS SUPPORT',
     descriptionText: 'Need help? Contact us for support.',
     callToActionText: 'Contact INS',
-    callToActionLink: '/resources', // Link to the "Resources" Static Page
+    callToActionLink: 'mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback', // Link to the "Resources" Static Page
   },
   tile4: {
     alt: 'explore',
