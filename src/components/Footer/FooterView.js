@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { withStyles } from '@material-ui/core';
 import { Footer } from 'bento-components';
 import FooterData from '../../bento/globalFooterData';
 import env from '../../utils/env';
+import './footer.css';
 
 const FILE_SERVICE_API = env.REACT_APP_FILE_SERVICE_API;
 
 const styles = {
-  horizontalLine: {
-    width: '100%',
-    margin: '32px auto 16px auto',
-    borderTop: '1px solid #592A59',
-  },
+  horizontalLine: 'horizontalLineStyles',
 };
 
 const INSFooter = () => {
