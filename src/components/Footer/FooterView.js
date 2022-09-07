@@ -29,10 +29,10 @@ const INSFooter = () => {
     <>
       <Footer classes={styles} data={footerUpdatedData} />
       <span className="beVersion">
-        Site Data Update (Projects, Publications etc.): 01/08/2022
+        Site Data Update (Projects, Publications etc.): 08/01/2022
         <br />
         <br />
-        Site Data Update (Datasets): 26/05/2022
+        Site Data Update (Datasets): 05/26/2022
       </span>
     </>
   );
