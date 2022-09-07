@@ -25,7 +25,17 @@ const INSFooter = () => {
     getSystems();
   }, [FooterData]);
 
-  return <><Footer classes={styles} data={footerUpdatedData} /></>;
+  return (
+    <>
+      <Footer classes={styles} data={footerUpdatedData} />
+      <span className="beVersion">
+        Site Data Update (Projects, Publications etc.): DD/MM/YYYY
+        <br />
+        <br />
+        Site Data Update (Datasets): DD/MM/YYYY
+      </span>
+    </>
+  );
 };
 
 Footer.defaultProps = {
