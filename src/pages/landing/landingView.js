@@ -227,12 +227,16 @@ const LandingView = ({ classes, statsData }) => (
                     {' '}
                   </div>
                   <div className={classes.yellowButtonRight} id="tile3_button">
-                    <Link
-                      to={landingPageData.tile3.callToActionLink}
-                      className={classes.yellowButton}
+                    <Button
+                      to="#"
+                      className={classes.yellowButtonSupport}
+                      onClick={(e) => {
+                        window.location.href = 'mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback';
+                        e.preventDefault();
+                      }}
                     >
                       {landingPageData.tile3.callToActionText}
-                    </Link>
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -511,6 +515,16 @@ const styles = () => ({
   yellowButton: {
     height: '45px',
     background: '#DDA211',
+    color: '#FFFFFF',
+    fontFamily: 'Raleway',
+    fontSize: '12px',
+    fontWeight: '600',
+    lineHeight: '25px',
+    paddingLeft: '8px',
+    textDecoration: 'none',
+    letterSpacing: '1px',
+  },
+  yellowButtonSupport: {
     color: '#FFFFFF',
     fontFamily: 'Raleway',
     fontSize: '12px',
