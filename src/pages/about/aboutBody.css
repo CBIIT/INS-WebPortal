@@ -13,7 +13,8 @@
 }
 
 .aboutPageSection {
-  width: 100%;
+  width: 1200px;
+  margin: auto;
 }
 
 .aboutPageSectionTop {
