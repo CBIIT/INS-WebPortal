@@ -2,12 +2,15 @@
   border-top: 1px solid #592A59 !important;
 }
 
+.customizedFootorVersiontext {
+  visibility: hidden;
+}
+
 .beVersion {
   color: white;
-  margin-top: -88px;
-  margin-left: 45px;
-  padding-right: 50%;
-  position: absolute;
+  margin: -88px auto 0px auto;
+  max-width: 1800px;
+  padding-left: 45px;
   font-size: 8px;
   background-color: #310d32;
   padding-top: 10px;
