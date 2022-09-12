@@ -8,6 +8,7 @@ const FILE_SERVICE_API = env.REACT_APP_FILE_SERVICE_API;
 
 const styles = {
   horizontalLine: 'horizontalLineStyles',
+  footorVersiontext: 'customizedFootorVersiontext',
 };
 
 const INSFooter = () => {
@@ -28,12 +29,14 @@ const INSFooter = () => {
   return (
     <>
       <Footer classes={styles} data={footerUpdatedData} />
-      <span className="beVersion">
-        Site Data Update (Projects, Publications, Patents): 08/01/2022
-        <br />
-        <br />
-        Site Data Update (Datasets, Clinical Trials): 05/26/2022
-      </span>
+      <div>
+        <div className="beVersion">
+          Site Data Update (Projects, Publications, Patents): 08/01/2022
+          <br />
+          <br />
+          Site Data Update (Datasets, Clinical Trials): 05/26/2022
+        </div>
+      </div>
     </>
   );
 };
