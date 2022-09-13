@@ -98,6 +98,17 @@ const AboutBody = () => {
                   Describes the objectives and scope of the INS, its data gathering process, and the site’s functionality.
                 </p>
               </div>
+              <div className="aboutPageSectionContent">
+                <h2 className="aboutContentHeader">
+                  Contact INS
+                </h2>
+                <p>
+                  For questions or feedback, please contact
+                  <a className="link" href="mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback">
+                    &nbsp;nciofficeofdatasharing@mail.nih.gov
+                  </a>
+                </p>
+              </div>
             </Grid>
           </Grid>
         </div>
