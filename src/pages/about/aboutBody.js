@@ -1,8 +1,11 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { Grid } from '@material-ui/core';
+// import backgroundImg from '../../assets/about/backgroundImg.png';
+import backgroundTop from '../../assets/about/Background-top-section.png';
 import aboutImage from '../../assets/about/About.png';
 import flowChart from '../../assets/about/INS-Workflow.svg';
+import backgroundBottom from '../../assets/about/Background-bottom-section.png';
 import './aboutBody.css';
 
 const AboutBody = () => {
@@ -17,7 +20,7 @@ const AboutBody = () => {
           About INS
         </div>
         <div className="aboutPageSection">
-          <Grid container className="aboutPageSectionTop">
+          <Grid container className="aboutPageSectionTop" style={{ backgroundImage: `url(${backgroundTop})` }}>
             <Grid item xs={8}>
               <div className="aboutPageSectionContent">
                 <h2 className="aboutContentHeader">
@@ -67,7 +70,7 @@ const AboutBody = () => {
               <img className="flowChartImage" src={flowChart} alt="flow_chart" id="flow-chart" />
             </Grid>
           </Grid>
-          <Grid container className="aboutPageSectionBottom">
+          <Grid container className="aboutPageSectionBottom" style={{ backgroundImage: `url(${backgroundBottom})` }}>
             <Grid item xs={9}>
               <div className="aboutPageSectionContent">
                 <h2 className="aboutContentHeader">
@@ -96,6 +99,17 @@ const AboutBody = () => {
                 </h3>
                 <p className="p-l-20">
                   Describes the objectives and scope of the INS, its data gathering process, and the site’s functionality.
+                </p>
+              </div>
+              <div className="aboutPageSectionContent">
+                <h2 className="aboutContentHeader">
+                  Contact INS
+                </h2>
+                <p>
+                  For questions or feedback, please contact
+                  <a className="link" href="mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback">
+                    &nbsp;nciofficeofdatasharing@mail.nih.gov
+                  </a>
                 </p>
               </div>
             </Grid>
