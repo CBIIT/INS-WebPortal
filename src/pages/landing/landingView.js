@@ -46,6 +46,11 @@ const LandingView = ({ classes, statsData }) => (
               alt={landingPageData.interactiveImg.alt}
               id="interactive_img"
             />
+            <div className={classes.INSTextContainer}>
+              <div className={classes.INSTitle}>
+                INS
+              </div>
+            </div>
             <div className={classes.NCICommunityImgContainer}>
               <img
                 className={classes.iconImage}
@@ -738,6 +743,18 @@ const styles = () => ({
   headerLinkButton: {
     borderBottom: '2px solid #A90532',
     textDecoration: 'none',
+  },
+  INSTextContainer: {
+    marginTop: '-460px',
+    marginLeft: '-35px',
+  },
+  INSTitle: {
+    fontSize: '50px',
+    color: '#AEABAB',
+    fontFamily: 'Lato',
+    fontWeight: '1000',
+    letterSpacing: '-0px',
+    textAlign: 'center',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);
