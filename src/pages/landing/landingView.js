@@ -602,7 +602,7 @@ const styles = () => ({
   heroTextContainer: {
     position: 'absolute',
     width: '400px',
-    margin: 'auto auto auto 440px',
+    margin: 'auto auto auto 435px',
     left: '12px',
     right: 0,
     '@media (min-width: 900px)': {
