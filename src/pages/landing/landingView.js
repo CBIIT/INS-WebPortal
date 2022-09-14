@@ -25,8 +25,8 @@ const LandingView = ({ classes, statsData }) => (
                 {landingPageData.callToActionDescription}
               </div>
               <div className={classes.headerButtonSection}>
-                <Link to={landingPageData.callToActionLink} className={classes.headerLink}>
-                  <Button className={classes.buttonText} color="red">
+                <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
+                  <Button className={classes.buttonText}>
                     {landingPageData.callToActionButtonText}
                     <img
                       src={landingPageData.heroExploreButtonArrow.img}
@@ -309,11 +309,11 @@ const styles = () => ({
   },
   headerTitle: {
     paddingTop: '94px',
-    fontFamily: 'Inter, Raleway, sans-serif',
-    fontSize: '38px',
+    fontFamily: 'Inter',
+    fontSize: '40px',
     fontWeight: '1000',
-    lineHeight: '35px',
-    color: 'black',
+    lineHeight: '34px',
+    color: '#000000',
     letterSpacing: '-0px',
   },
   paddingLeft50: {
@@ -321,10 +321,10 @@ const styles = () => ({
   },
   headerContent: {
     color: '#000000',
-    fontFamily: 'Lato, Raleway',
+    fontFamily: 'Nunito',
     fontSize: '16px',
     fontWeight: '500',
-    lineHeight: '27px',
+    lineHeight: '20px',
     marginTop: '40px',
     marginBottom: '26px',
   },
@@ -704,28 +704,38 @@ const styles = () => ({
     width: '420px',
   },
   buttonText: {
-    padding: '0px 30px 12px 0px',
+    fontFamily: 'Lato',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    lineHeight: '26px',
+    padding: '0px 0px 12px 0px',
     height: '40px',
+    color: '#A90532',
   },
   iconTextWrapper: {
     width: '165px',
   },
   iconTitle: {
-    fontFamily: 'Inter, Raleway, sans-serif',
+    fontFamily: 'Lato',
     fontSize: '20px',
-    fontWeight: '900',
-    color: '#C0BEBD',
+    fontWeight: '1000',
+    color: '#AEABAB',
     letterSpacing: '-0px',
     textAlign: 'center',
+    lineHeight: '34px',
   },
   iconContent: {
-    color: '#C0BEBD',
-    fontFamily: 'Lato, Raleway',
-    fontSize: '16px',
+    color: '#404040',
+    fontFamily: 'Inter',
+    fontSize: '14px',
     fontWeight: '300',
-    lineHeight: '15px',
+    lineHeight: '17px',
     marginTop: '5px',
     textAlign: 'center',
+  },
+  headerLinkButton: {
+    borderBottom: '2px solid #A90532',
+    textDecoration: 'none',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);

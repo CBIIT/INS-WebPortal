@@ -131,7 +131,7 @@ const styles = () => ({
     display: 'inline-block',
     float: 'right',
     textAlign: 'right',
-    color: 'white',
+    color: '#CECECE',
     fontFamily: 'Nunito',
     fontWeight: 900,
     fontSize: '11px',
@@ -140,13 +140,13 @@ const styles = () => ({
   },
   statCount: {
     display: 'inline-block',
-    color: 'white',
+    color: '#FFFFFF',
     textAlign: 'right',
     float: 'right',
     fontFamily: 'Oswald',
     fontSize: '24px',
     fontWeight: 600,
-    marginRight: '16px',
+    marginRight: '5px',
   },
   floatLeft: {
     float: 'left',
@@ -162,12 +162,13 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '36px 395px 36px 98px',
+    padding: '36px 355px 36px 98px',
   },
   leftText: {
-    color: 'white',
-    fontSize: '34px',
-    fontWeight: 'bolder',
+    fontFamily: 'Inter',
+    color: '#FFFFFF',
+    fontSize: '40px',
+    fontWeight: '1000',
     textAlign: 'left',
     lineHeight: '34px',
   },
@@ -184,6 +185,7 @@ const styles = () => ({
     float: 'right',
     marginTop: '-10px',
     marginRight: '-15px',
+    boxShadow: 'inset 0 0 5px #DBA4A5',
   },
   statBarProjects: {
     borderRadius: '50px 0px 0px 50px',
@@ -194,6 +196,7 @@ const styles = () => ({
     float: 'right',
     marginTop: '-10px',
     marginRight: '-15px',
+    boxShadow: 'inset 0 0 5px #D6A8E5',
   },
   statBarPublications: {
     borderRadius: '50px 0px 0px 50px',
@@ -204,6 +207,7 @@ const styles = () => ({
     float: 'right',
     marginTop: '-10px',
     marginRight: '-15px',
+    boxShadow: 'inset 0 0 5px #A3AFC4',
   },
   statBarDatasets: {
     borderRadius: '50px 0px 0px 50px',
@@ -214,6 +218,7 @@ const styles = () => ({
     float: 'right',
     marginTop: '-10px',
     marginRight: '-15px',
+    boxShadow: 'inset 0 0 5px #CAD5FF',
   },
   statBarClinicalTrials: {
     borderRadius: '50px 0px 0px 50px',
@@ -224,6 +229,7 @@ const styles = () => ({
     float: 'right',
     marginTop: '-10px',
     marginRight: '-15px',
+    boxShadow: 'inset 0 0 5px #FDCF80',
   },
   statBarPatents: {
     borderRadius: '50px 0px 0px 50px',
@@ -234,6 +240,7 @@ const styles = () => ({
     float: 'right',
     marginTop: '-10px',
     marginRight: '-15px',
+    boxShadow: 'inset 0 0 5px #BDBBC0',
   },
 });
 
