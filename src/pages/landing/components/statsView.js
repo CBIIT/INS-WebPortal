@@ -92,6 +92,7 @@ const styles = () => ({
     '@media (min-width: 900px)': {
       overflow: 'inherit',
     },
+    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
   },
   bannerTexture: {
     color: '#4898B4',
@@ -162,7 +163,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '36px 355px 36px 98px',
+    padding: '36px 310px 36px 155px',
   },
   leftText: {
     fontFamily: 'Inter',

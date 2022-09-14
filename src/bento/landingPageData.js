@@ -112,7 +112,7 @@ export const landingPageData = {
     alt: 'support',
     img: supportImg,
     titleText: 'INS SUPPORT',
-    descriptionText: 'Need help? Contact us for support.',
+    descriptionText: 'For questions or feedback, please contact INS support.',
     callToActionText: 'Contact INS',
   },
   tile4: {

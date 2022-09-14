@@ -338,7 +338,7 @@ const styles = () => ({
     marginLeft: '20px',
   },
   icon: {
-    width: '20px',
+    width: '21px',
     marginTop: '13px',
     marginLeft: '23px',
   },
@@ -354,12 +354,12 @@ const styles = () => ({
     height: '200px',
     background: '#380157',
     color: '#FFFFFF',
-    fontSize: '36px',
+    fontSize: '26px',
     fontWeight: 'lighter',
     textTransform: 'capitalize',
-    lineHeight: '36px',
-    padding: '10px 75px 26px 26px',
-    fontFamily: 'Lato',
+    lineHeight: '30px',
+    padding: '23px 110px 26px 43px',
+    fontFamily: 'Inter',
   },
   landingContainer: {
     alignItems: 'center',
@@ -367,7 +367,7 @@ const styles = () => ({
   },
   contentLeft: {
     float: 'left',
-    paddingRight: '10px',
+    paddingRight: '15px',
   },
   about: {
     width: '300px',
@@ -403,7 +403,7 @@ const styles = () => ({
   },
   aboutButtonSection: {
     background: '#bdc4cd',
-    height: '71px',
+    height: '76px',
   },
   imgIconAbout: {
     width: '49px',
@@ -424,7 +424,8 @@ const styles = () => ({
     color: '#ffffff',
     textDecoration: 'none',
     textTransform: 'uppercase',
-    fontSize: '12px',
+    fontSize: '14px',
+    fontFamily: 'Raleway',
     fontWeight: '600',
     lineHeight: '45px',
     paddingLeft: '20px',
@@ -442,10 +443,10 @@ const styles = () => ({
   },
   contentHeader: {
     color: '#20506A',
-    fontFamily: 'Lato',
-    fontSize: '28px',
+    fontFamily: 'Inter',
+    fontSize: '26px',
     fontWeight: 'bold',
-    lineHeight: '27px',
+    lineHeight: '30px',
     padding: '10px 0',
   },
   contentContainer: {
@@ -459,7 +460,7 @@ const styles = () => ({
   },
   program: {
     float: 'left',
-    padding: '0 10px 6.8px 0px',
+    padding: '0 15px 6.8px 0px',
   },
   programImg: {
     background: '#fff',
@@ -470,11 +471,12 @@ const styles = () => ({
   },
   contentRightBottom: {
     float: 'left',
-    width: '597px',
+    width: '602px',
     background: '#fff',
     backgroundImage: `url(${landingPageData.tile4.img})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
+    marginTop: '5px',
   },
   cases: {
     height: '436px',
@@ -517,7 +519,7 @@ const styles = () => ({
     background: '#DDA211',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '12px',
+    fontSize: '14px',
     fontWeight: '600',
     lineHeight: '25px',
     paddingLeft: '8px',
@@ -548,11 +550,11 @@ const styles = () => ({
   },
   mountainMeadowContentHeader: {
     color: '#FEFEFE',
-    fontFamily: 'Lato',
-    fontSize: '28px',
+    fontFamily: 'Inter',
+    fontSize: '26px',
     fontWeight: 'bold',
-    lineHeight: '32px',
-    padding: '15px 10px 15px 0px',
+    lineHeight: '30px',
+    padding: '15px 15px 15px 0px',
   },
   mountainMeadowContent: {
     height: '143px',
@@ -563,7 +565,7 @@ const styles = () => ({
     lineHeight: '22px',
   },
   mountainMeadowIcon: {
-    width: '20px',
+    width: '21px',
     marginTop: '12px',
     marginLeft: '28px',
   },
@@ -573,7 +575,7 @@ const styles = () => ({
     width: '71px',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '12px',
+    fontSize: '14px',
     fontWeight: '600',
     lineHeight: '19.31px',
     textDecoration: 'none',
@@ -600,7 +602,7 @@ const styles = () => ({
   heroTextContainer: {
     position: 'absolute',
     width: '400px',
-    margin: 'auto',
+    margin: 'auto auto auto 440px',
     left: '12px',
     right: 0,
     '@media (min-width: 900px)': {
