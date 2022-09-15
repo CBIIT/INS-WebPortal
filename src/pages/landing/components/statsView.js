@@ -123,7 +123,7 @@ const styles = () => ({
     marginRight: '10px',
   },
   statsText: {
-    height: '42px',
+    height: '43px',
     display: 'flex',
     lineHeight: '15px',
     float: 'right',
