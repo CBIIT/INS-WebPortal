@@ -68,7 +68,6 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
 
 const styles = () => ({
   statsSection: {
-    background: '#3E3C3F',
     maxWidth: '1200px',
     textAlign: 'right',
     position: 'absolute',
@@ -80,6 +79,9 @@ const styles = () => ({
   },
   statsSectionCenter: {
     background: '#3E3C3F',
+    backgroundImage: `url(${baseImg})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: '675px 10px',
     maxWidth: '1200px',
     textAlign: 'right',
     position: 'absolute',
@@ -116,13 +118,11 @@ const styles = () => ({
   box: {
     direction: 'ltr',
     display: 'block',
-    borderBottom: '74px solid #3E3C3F',
     height: '255px',
     marginTop: '20px',
     marginRight: '10px',
   },
   statsText: {
-    // backgroundImage: `url(${baseImg})`,
     height: '42px',
     display: 'flex',
     lineHeight: '15px',
