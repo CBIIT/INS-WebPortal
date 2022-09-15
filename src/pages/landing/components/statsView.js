@@ -194,7 +194,7 @@ const styles = () => ({
     width: '140px',
     height: '40px',
     float: 'right',
-    marginTop: '-14px',
+    marginTop: '-15px',
     marginRight: '-15px',
   },
   statBarPublications: {
@@ -204,7 +204,7 @@ const styles = () => ({
     width: '190px',
     height: '40px',
     float: 'right',
-    marginTop: '-13px',
+    marginTop: '-15px',
     marginRight: '-15px',
   },
   statBarDatasets: {
@@ -214,7 +214,7 @@ const styles = () => ({
     width: '140px',
     height: '40px',
     float: 'right',
-    marginTop: '-12px',
+    marginTop: '-15px',
     marginRight: '-15px',
   },
   statBarClinicalTrials: {
@@ -224,7 +224,7 @@ const styles = () => ({
     width: '80px',
     height: '40px',
     float: 'right',
-    marginTop: '-11px',
+    marginTop: '-15px',
     marginRight: '-15px',
   },
   statBarPatents: {
@@ -234,7 +234,7 @@ const styles = () => ({
     width: '30px',
     height: '40px',
     float: 'right',
-    marginTop: '-10px',
+    marginTop: '-15px',
     marginRight: '-15px',
   },
 });
