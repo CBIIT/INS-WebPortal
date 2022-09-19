@@ -20,7 +20,7 @@ const AboutBody = () => {
           About INS
         </div>
         <div className="aboutPageSection">
-          <Grid container className="aboutPageSectionTop" style={{ backgroundImage: `url(${backgroundTop})` }}>
+          <Grid container className="aboutPageSectionTop">
             <Grid item xs={8}>
               <div className="aboutPageSectionContent">
                 <h2 className="aboutContentHeader">
@@ -70,7 +70,7 @@ const AboutBody = () => {
               <img className="flowChartImage" src={flowChart} alt="flow_chart" id="flow-chart" />
             </Grid>
           </Grid>
-          <Grid container className="aboutPageSectionBottom" style={{ backgroundImage: `url(${backgroundBottom})` }}>
+          <Grid container className="aboutPageSectionBottom">
             <Grid item xs={9}>
               <div className="aboutPageSectionContent">
                 <h2 className="aboutContentHeader">
