@@ -1,10 +1,11 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, styled } from '@material-ui/core/styles';
 import {
   Checkbox,
   ListItem,
   ListItemText,
   Divider,
+  Tooltip,
 } from '@material-ui/core';
 import {
   CheckBox as CheckBoxIcon, CheckBoxOutlineBlank as CheckBoxBlankIcon,
@@ -33,6 +34,23 @@ const styles = {
   },
 };
 const alignment = 'flex-start';
+
+const StyledTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  zIndex: theme.zIndex.tooltip + 1,
+  margin: 4,
+  '& .MuiTooltip-tooltip': {
+    width: 200,
+    backgroundColor: 'white',
+    color: '#000000',
+    fontWeight: 'bold',
+    margin: 4,
+    padding: 8,
+    whiteSpace: 'pre-line',
+    border: 'solid gray 2px',
+  },
+}));
 
 function CheckBoxView(props) {
   const {
@@ -79,9 +97,21 @@ function CheckBoxView(props) {
           classes={{ root: classes.checkboxRoot }}
         />
         <div className={classes.panelDetailText}>
-          <span>
-            {`${checkboxItem.name}`}
-          </span>
+          {
+            sideBarItem.tooltips ? (
+              <StyledTooltip
+                title={sideBarItem.tooltips[checkboxItem.name]}
+              >
+                <span>
+                  {`${checkboxItem.name}`}
+                </span>
+              </StyledTooltip>
+            ) : (
+              <span>
+                {`${checkboxItem.name}`}
+              </span>
+            )
+          }
         </div>
         <ListItemText />
         <div className={classes.panelSubjectText}>

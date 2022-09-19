@@ -1086,6 +1086,7 @@ function customCheckBox(data, facetSearchData1, isEmpty) {
       slider: mapping.slider,
       quantifier: mapping.slider,
       section: mapping.section,
+      tooltips: mapping.tooltips,
     }))
   );
 }
@@ -1102,6 +1103,7 @@ export function updateFilteredAPIDataIntoCheckBoxData(data, facetSearchDataFromC
       slider: mapping.slider,
       quantifier: mapping.quantifier,
       section: mapping.section,
+      tooltips: mapping.tooltips,
     }))
   );
 }
