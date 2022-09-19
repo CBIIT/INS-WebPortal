@@ -1266,6 +1266,9 @@ const reducers = {
     let checkboxData1 = setSelectedFilterValues(updatedCheckboxData1, item.allFilters);
     updatedCheckboxData1 = updatedCheckboxData1.concat(rangeData);
     checkboxData1 = checkboxData1.concat(rangeData);
+    checkboxData1.forEach((cbd, idx) => {
+      checkboxData1[idx].tooltips = updatedCheckboxData1[idx].tooltips;
+    });
     fetchDataForDashboardTab(
       tabIndex[0].title,
       item.allFilters,
