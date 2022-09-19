@@ -112,9 +112,8 @@ export const landingPageData = {
     alt: 'support',
     img: supportImg,
     titleText: 'INS SUPPORT',
-    descriptionText: 'Need help? Contact us for support.',
+    descriptionText: 'For questions or feedback, please contact INS support.',
     callToActionText: 'Contact INS',
-    callToActionLink: '/resources', // Link to the "Resources" Static Page
   },
   tile4: {
     alt: 'explore',

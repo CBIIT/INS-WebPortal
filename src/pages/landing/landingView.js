@@ -25,8 +25,8 @@ const LandingView = ({ classes, statsData }) => (
                 {landingPageData.callToActionDescription}
               </div>
               <div className={classes.headerButtonSection}>
-                <Link to={landingPageData.callToActionLink} className={classes.headerLink}>
-                  <Button className={classes.buttonText} color="red">
+                <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
+                  <Button className={classes.buttonText}>
                     {landingPageData.callToActionButtonText}
                     <img
                       src={landingPageData.heroExploreButtonArrow.img}
@@ -46,6 +46,11 @@ const LandingView = ({ classes, statsData }) => (
               alt={landingPageData.interactiveImg.alt}
               id="interactive_img"
             />
+            <div className={classes.INSTextContainer}>
+              <div className={classes.INSTitle}>
+                INS
+              </div>
+            </div>
             <div className={classes.NCICommunityImgContainer}>
               <img
                 className={classes.iconImage}
@@ -227,12 +232,16 @@ const LandingView = ({ classes, statsData }) => (
                     {' '}
                   </div>
                   <div className={classes.yellowButtonRight} id="tile3_button">
-                    <Link
-                      to={landingPageData.tile3.callToActionLink}
-                      className={classes.yellowButton}
+                    <Button
+                      to="#"
+                      className={classes.yellowButtonSupport}
+                      onClick={(e) => {
+                        window.location.href = 'mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback';
+                        e.preventDefault();
+                      }}
                     >
                       {landingPageData.tile3.callToActionText}
-                    </Link>
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -305,11 +314,11 @@ const styles = () => ({
   },
   headerTitle: {
     paddingTop: '94px',
-    fontFamily: 'Inter, Raleway, sans-serif',
-    fontSize: '38px',
+    fontFamily: 'Inter',
+    fontSize: '40px',
     fontWeight: '1000',
-    lineHeight: '35px',
-    color: 'black',
+    lineHeight: '34px',
+    color: '#000000',
     letterSpacing: '-0px',
   },
   paddingLeft50: {
@@ -317,10 +326,10 @@ const styles = () => ({
   },
   headerContent: {
     color: '#000000',
-    fontFamily: 'Lato, Raleway',
+    fontFamily: 'Nunito',
     fontSize: '16px',
     fontWeight: '500',
-    lineHeight: '27px',
+    lineHeight: '20px',
     marginTop: '40px',
     marginBottom: '26px',
   },
@@ -334,7 +343,7 @@ const styles = () => ({
     marginLeft: '20px',
   },
   icon: {
-    width: '20px',
+    width: '21px',
     marginTop: '13px',
     marginLeft: '23px',
   },
@@ -350,12 +359,12 @@ const styles = () => ({
     height: '200px',
     background: '#380157',
     color: '#FFFFFF',
-    fontSize: '36px',
+    fontSize: '26px',
     fontWeight: 'lighter',
     textTransform: 'capitalize',
-    lineHeight: '36px',
-    padding: '10px 75px 26px 26px',
-    fontFamily: 'Lato',
+    lineHeight: '30px',
+    padding: '23px 110px 26px 43px',
+    fontFamily: 'Inter',
   },
   landingContainer: {
     alignItems: 'center',
@@ -363,7 +372,7 @@ const styles = () => ({
   },
   contentLeft: {
     float: 'left',
-    paddingRight: '10px',
+    paddingRight: '15px',
   },
   about: {
     width: '300px',
@@ -399,7 +408,7 @@ const styles = () => ({
   },
   aboutButtonSection: {
     background: '#bdc4cd',
-    height: '71px',
+    height: '76px',
   },
   imgIconAbout: {
     width: '49px',
@@ -420,7 +429,8 @@ const styles = () => ({
     color: '#ffffff',
     textDecoration: 'none',
     textTransform: 'uppercase',
-    fontSize: '12px',
+    fontSize: '14px',
+    fontFamily: 'Raleway',
     fontWeight: '600',
     lineHeight: '45px',
     paddingLeft: '20px',
@@ -438,10 +448,10 @@ const styles = () => ({
   },
   contentHeader: {
     color: '#20506A',
-    fontFamily: 'Lato',
-    fontSize: '28px',
+    fontFamily: 'Inter',
+    fontSize: '26px',
     fontWeight: 'bold',
-    lineHeight: '27px',
+    lineHeight: '30px',
     padding: '10px 0',
   },
   contentContainer: {
@@ -455,7 +465,7 @@ const styles = () => ({
   },
   program: {
     float: 'left',
-    padding: '0 10px 6.8px 0px',
+    padding: '0 15px 6.8px 0px',
   },
   programImg: {
     background: '#fff',
@@ -466,11 +476,12 @@ const styles = () => ({
   },
   contentRightBottom: {
     float: 'left',
-    width: '597px',
+    width: '602px',
     background: '#fff',
     backgroundImage: `url(${landingPageData.tile4.img})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
+    marginTop: '5px',
   },
   cases: {
     height: '436px',
@@ -513,6 +524,16 @@ const styles = () => ({
     background: '#DDA211',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
+    fontSize: '14px',
+    fontWeight: '600',
+    lineHeight: '25px',
+    paddingLeft: '8px',
+    textDecoration: 'none',
+    letterSpacing: '1px',
+  },
+  yellowButtonSupport: {
+    color: '#FFFFFF',
+    fontFamily: 'Raleway',
     fontSize: '12px',
     fontWeight: '600',
     lineHeight: '25px',
@@ -534,11 +555,11 @@ const styles = () => ({
   },
   mountainMeadowContentHeader: {
     color: '#FEFEFE',
-    fontFamily: 'Lato',
-    fontSize: '28px',
+    fontFamily: 'Inter',
+    fontSize: '26px',
     fontWeight: 'bold',
-    lineHeight: '32px',
-    padding: '15px 10px 15px 0px',
+    lineHeight: '30px',
+    padding: '15px 15px 15px 0px',
   },
   mountainMeadowContent: {
     height: '143px',
@@ -549,7 +570,7 @@ const styles = () => ({
     lineHeight: '22px',
   },
   mountainMeadowIcon: {
-    width: '20px',
+    width: '21px',
     marginTop: '12px',
     marginLeft: '28px',
   },
@@ -559,7 +580,7 @@ const styles = () => ({
     width: '71px',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '12px',
+    fontSize: '14px',
     fontWeight: '600',
     lineHeight: '19.31px',
     textDecoration: 'none',
@@ -586,7 +607,7 @@ const styles = () => ({
   heroTextContainer: {
     position: 'absolute',
     width: '400px',
-    margin: 'auto',
+    margin: 'auto auto auto 435px',
     left: '12px',
     right: 0,
     '@media (min-width: 900px)': {
@@ -690,27 +711,49 @@ const styles = () => ({
     width: '420px',
   },
   buttonText: {
-    padding: '0px 30px 12px 0px',
+    fontFamily: 'Lato',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    lineHeight: '26px',
+    padding: '0px 0px 12px 0px',
     height: '40px',
+    color: '#A90532',
   },
   iconTextWrapper: {
     width: '165px',
   },
   iconTitle: {
-    fontFamily: 'Inter, Raleway, sans-serif',
+    fontFamily: 'Lato',
     fontSize: '20px',
-    fontWeight: '900',
-    color: '#C0BEBD',
+    fontWeight: '1000',
+    color: '#AEABAB',
     letterSpacing: '-0px',
     textAlign: 'center',
+    lineHeight: '34px',
   },
   iconContent: {
-    color: '#C0BEBD',
-    fontFamily: 'Lato, Raleway',
-    fontSize: '16px',
+    color: '#404040',
+    fontFamily: 'Inter',
+    fontSize: '14px',
     fontWeight: '300',
-    lineHeight: '15px',
+    lineHeight: '17px',
     marginTop: '5px',
+    textAlign: 'center',
+  },
+  headerLinkButton: {
+    borderBottom: '2px solid #A90532',
+    textDecoration: 'none',
+  },
+  INSTextContainer: {
+    marginTop: '-460px',
+    marginLeft: '-35px',
+  },
+  INSTitle: {
+    fontSize: '50px',
+    color: '#AEABAB',
+    fontFamily: 'Lato',
+    fontWeight: '1000',
+    letterSpacing: '-0px',
     textAlign: 'center',
   },
 });
