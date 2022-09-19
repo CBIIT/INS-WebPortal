@@ -31,13 +31,13 @@ const table = {
   columns: [
     {
       dataField: 'program_id',
-      header: 'Program Name',
+      header: 'Program',
       link: '/program/{program_id}',
       display: true,
     },
     {
       dataField: 'program_name',
-      header: 'Program Name',
+      header: 'Name',
     },
     {
       dataField: 'program_website',

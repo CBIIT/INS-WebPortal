@@ -13,17 +13,33 @@ export const facetSearchData = [{
   api: 'projectCountByProgram',
   apiForFiltering: 'filterProjectCountByProgram',
   datafield: 'programs',
-  section: 'Filter By Projects',
+  section: 'Projects',
   show: true,
+  tooltips: {
+    CCDI: 'Childhood Cancer Data Initiative',
+    Moonshot: 'Cancer Moonshot',
+  },
 },
 {
-  label: 'DOC',
+  label: 'Division/Office/Center',
   field: 'group',
   api: 'projectCountByDOC',
   apiForFiltering: 'filterProjectCountByDOC',
   datafield: 'docs',
-  section: 'Filter By Projects',
+  section: 'Projects',
   show: true,
+  tooltips: {
+    CCG: 'Center for Cancer Genomics',
+    CCT: 'Center for Cancer Training',
+    CRCHD: 'Center to Reduce Cancer Health Disparities',
+    CSSI: 'Center for Strategic Scientific Initiatives',
+    DCB: 'Division of Cancer Biology',
+    DCCPS: 'Division of Cancer Control and Population Sciences',
+    DCP: 'Division of Cancer Prevention',
+    DCTD: 'Division of Cancer Treatment and Diagnosis',
+    OD: 'Office of the Director',
+    SBIR: 'Small Business Innovation Research',
+  },
 },
 {
   label: 'Fiscal Year',
@@ -31,7 +47,7 @@ export const facetSearchData = [{
   api: 'projectCountByFiscalYear',
   apiForFiltering: 'filterProjectCountByFiscalYear',
   datafield: 'fiscal_years',
-  section: 'Filter By Projects',
+  section: 'Projects',
   show: true,
 },
 {
@@ -40,34 +56,18 @@ export const facetSearchData = [{
   api: 'projectCountByAwardAmount',
   apiForFiltering: 'filterProjectCountByAwardAmount',
   datafield: 'award_amounts',
-  section: 'Filter By Projects',
+  section: 'Projects',
   show: true,
 },
 ];
 
 // --------------- Dashboard Sidebar Sections styling --------------
 export const facetSectionVariables = {
-  Cases: {
+  Projects: {
     color: '#10A075',
     backgroundColor: '#C0E9D7',
     checkBoxColorsOne: '#E8F7DC',
     checkBoxColorsTwo: '#F5FDEE',
-    height: '5px',
-    isExpanded: true,
-  },
-  Samples: {
-    color: '#10BEFF',
-    backgroundColor: '#C3EAF5',
-    checkBoxColorsOne: '#C9EBF7',
-    checkBoxColorsTwo: '#E8F8FE',
-    height: '5px',
-    isExpanded: true,
-  },
-  Files: {
-    color: '#E636E4',
-    backgroundColor: '#F5C3F1',
-    checkBoxColorsOne: '#FBE3FB',
-    checkBoxColorsTwo: '#FFF2FF',
     height: '5px',
     isExpanded: true,
   },
@@ -76,14 +76,8 @@ export const facetSectionVariables = {
 // --------------- Dashboard Facet Local Find Configuration --------------
 
 export const facetSectionFindApi = {
-  Cases: {
+  Projects: {
     api: 'subjectIds',
-  },
-  Samples: {
-    api: 'sampleIds',
-  },
-  Files: {
-    api: 'fileIds',
   },
 };
 
@@ -250,7 +244,7 @@ export const dashboardTable = {
     },
     {
       dataField: 'nci_funded_amount',
-      header: 'NCI Funded Amount',
+      header: 'NCI Award Amount',
       sort: 'asc',
       display: true,
     },

@@ -1,21 +1,23 @@
 import React from 'react';
-import CaseCard from './cards/subjectCard';
-import SampleCard from './cards/sampleCard';
-import StudyCard from './cards/studyCard';
-import FileCard from './cards/fileCard';
-import ProgamCard from './cards/progamCard';
-import ValueCard from './cards/valueCard';
+import ProjectCard from './cards/projectCard';
+// import CaseCard from './cards/subjectCard';
+// import SampleCard from './cards/sampleCard';
+// import StudyCard from './cards/studyCard';
+// import FileCard from './cards/fileCard';
+// import ProgamCard from './cards/progamCard';
+// import ValueCard from './cards/valueCard';
 import AboutCard from './cards/aboutCard';
 
 const Components = {
-  subject: CaseCard,
-  sample: SampleCard,
-  study: StudyCard,
-  file: FileCard,
-  program: ProgamCard,
-  node: ValueCard,
-  value: ValueCard,
-  property: ValueCard,
+  project: ProjectCard,
+  // subject: CaseCard,
+  // sample: SampleCard,
+  // study: StudyCard,
+  // file: FileCard,
+  // program: ProgamCard,
+  // node: ValueCard,
+  // value: ValueCard,
+  // property: ValueCard,
   about: AboutCard,
 };
 

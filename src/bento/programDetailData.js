@@ -72,7 +72,7 @@ const rightPanel = {
       display: true,
     },
     {
-      label: 'Projects by NCI Funded Amount (MM $)',
+      label: 'Projects by Award Amount',
       dataName: 'projectCountInProgramByFundedAmountData',
       datatable_field: 'funded_amount',
       titleText: 'Projects',
@@ -103,10 +103,6 @@ const table = {
       link: '/project/{project_id}',
     },
     {
-      dataField: 'application_id',
-      header: 'Application ID',
-    },
-    {
       dataField: 'project_title',
       header: 'Project Title',
     },
@@ -115,32 +111,28 @@ const table = {
       header: 'Principal Investigators',
     },
     {
-      dataField: 'lead_doc',
-      header: 'Lead DOC',
+      dataField: 'program_officers',
+      header: 'Program Officers',
     },
     {
       dataField: 'lead_doc',
       header: 'Lead DOC',
+    },
+    {
+      dataField: 'activity_code',
+      header: 'Activity Code',
     },
     {
       dataField: 'award_amount',
       header: 'Award Amount',
     },
     {
-      dataField: 'nci_funded_amount',
-      header: 'NCI Funded Amount',
-    },
-    {
-      dataField: 'award_notice_date',
-      header: 'Award Notice Date',
-    },
-    {
-      dataField: 'project_start_date',
-      header: 'Project Start Date',
-    },
-    {
       dataField: 'project_end_date',
       header: 'Project End Date',
+    },
+    {
+      dataField: 'fiscal_year',
+      header: 'Fiscal Year',
     },
   ],
 };
@@ -187,6 +179,7 @@ query programDetail($program_id: String!) {
       award_notice_date
       project_start_date
       project_end_date
+      activity_code
     }
   }
 }`;

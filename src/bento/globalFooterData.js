@@ -4,7 +4,7 @@ import env from '../utils/env';
 export default {
   footerLogoImage: 'https://raw.githubusercontent.com/cbiit/datacommons-assets/main/bento/images/icons/png/footerlogo.png',
   footerLogoAltText: 'Footer Logo',
-  footerLogoHyperlink: 'https://frederick.cancer.gov/',
+  footerLogoHyperlink: 'https://www.cancer.gov/',
   footerStaticText: 'NIH … Turning Discovery Into Health®',
   version: env.REACT_APP_FE_VERSION,
   BEversion: env.REACT_APP_BE_VERSION,
@@ -14,32 +14,40 @@ export default {
   // Ideal size for icon is 20x20 px
   link_sections: [
     {
-      title: 'About Bento',
+      title: 'More Information',
       items: [
         {
-          text: 'Purpose',
-          link: '/bento',
+          text: 'About INS',
+          link: '/about',
         },
         {
-          text: 'Resources',
-          link: '/resources',
-        },
-        {
-          text: 'Documentation',
-          link: 'https://cbiit.github.io/bento-docs/',
+          text: 'Contact INS',
+          link: 'mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback',
         },
       ],
     },
     {
-      title: 'Support',
+      title: 'NIH Policies',
       items: [
         {
-          text: 'Contact Us',
-          link: 'bento-help@nih.gov',
+          text: 'Policies',
+          link: 'https://www.cancer.gov/policies',
         },
         {
-          link: 'https://www.linkedin.com/company/frederick-national-laboratory-for-cancer-research/',
-          icon: 'https://raw.githubusercontent.com/CBIIT/bento-tools/master/src/components/assets/footer/linkedInIcon.svg',
+          text: 'Disclaimer',
+          link: 'https://www.cancer.gov/policies/disclaimer',
+        },
+        {
+          text: 'Accessibility',
+          link: 'https://www.cancer.gov/policies/accessibility',
+        },
+        {
+          text: 'FOIA',
+          link: 'https://www.cancer.gov/policies/foia',
+        },
+        {
+          text: 'HHS Vulnerability Disclosure',
+          link: 'https://www.hhs.gov/vulnerability-disclosure-policy/index.html',
         },
       ],
     },

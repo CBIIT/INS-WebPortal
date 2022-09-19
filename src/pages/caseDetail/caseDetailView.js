@@ -59,10 +59,10 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
   const stat = {
     numberOfPrograms: 1,
     numberOfProjects: 1,
-    numberOfPublicationsByProjects: data.publications.length,
-    numberOfDatasetsByProjects: data.geos.length + data.sras.length + data.dbgaps.length,
-    numberOfClinicalTrialsByProjects: data.clinical_trials.length,
-    numberOfPatentsByProjects: data.patents.length,
+    numberOfPublications: data.publications.length,
+    numberOfDatasets: data.geos.length + data.sras.length + data.dbgaps.length,
+    numberOfClinicalTrials: data.clinical_trials.length,
+    numberOfPatents: data.patents.length,
   };
 
   const breadCrumbJson = [{
@@ -198,7 +198,7 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
                             <span className={classes.tableHeader}>{table1.tableTitle}</span>
                           </div>
                         )}
-                        columns={getColumns(table1, classes, data, externalLinkIcon, '', () => {}, '', globalData.replaceEmptyValueWith)}
+                        columns={getColumns(table1, classes, data, externalLinkIcon, '', () => { }, '', globalData.replaceEmptyValueWith)}
                         options={getOptions(table1, classes)}
                         customOnRowsSelect={table1.customOnRowsSelect}
                         openSnack={openSnack}
@@ -233,7 +233,7 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
                             <span className={classes.tableHeader}>{table2.tableTitle}</span>
                           </div>
                         )}
-                        columns={getColumns(table2, classes, data, '', '', () => {}, '', globalData.replaceEmptyValueWith)}
+                        columns={getColumns(table2, classes, data, '', '', () => { }, '', globalData.replaceEmptyValueWith)}
                         options={getOptions(table2, classes)}
                         customOnRowsSelect={table2.customOnRowsSelect}
                         openSnack={openSnack}
@@ -268,7 +268,7 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
                             <span className={classes.tableHeader}>{table3.tableTitle}</span>
                           </div>
                         )}
-                        columns={getColumns(table3, classes, data, '', '', () => {}, '', globalData.replaceEmptyValueWith)}
+                        columns={getColumns(table3, classes, data, '', '', () => { }, '', globalData.replaceEmptyValueWith)}
                         options={getOptions(table3, classes)}
                         customOnRowsSelect={table3.customOnRowsSelect}
                         openSnack={openSnack}
@@ -303,7 +303,7 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
                             <span className={classes.tableHeader}>{table4.tableTitle}</span>
                           </div>
                         )}
-                        columns={getColumns(table4, classes, data, '', '', () => {}, '', globalData.replaceEmptyValueWith)}
+                        columns={getColumns(table4, classes, data, '', '', () => { }, '', globalData.replaceEmptyValueWith)}
                         options={getOptions(table4, classes)}
                         customOnRowsSelect={table4.customOnRowsSelect}
                         openSnack={openSnack}
@@ -338,7 +338,7 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
                             <span className={classes.tableHeader}>{table5.tableTitle}</span>
                           </div>
                         )}
-                        columns={getColumns(table5, classes, data, '', '', () => {}, '', globalData.replaceEmptyValueWith)}
+                        columns={getColumns(table5, classes, data, '', '', () => { }, '', globalData.replaceEmptyValueWith)}
                         options={getOptions(table5, classes)}
                         customOnRowsSelect={table5.customOnRowsSelect}
                         openSnack={openSnack}

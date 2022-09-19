@@ -19,18 +19,121 @@ const LandingView = ({ classes, statsData }) => (
           <div className={classes.heroTextContainer}>
             <div className={classes.heroTextWrapper}>
               <div className={classes.headerTitle}>
-                { landingPageData.callToActionTitle }
+                {landingPageData.callToActionTitle}
               </div>
               <div className={classes.headerContent}>
-                { landingPageData.callToActionDescription}
+                {landingPageData.callToActionDescription}
               </div>
               <div className={classes.headerButtonSection}>
-                <Link to={landingPageData.callToActionLink} className={classes.headerLink}>
-                  <Button className={classes.buttonText} bgColor="neonBlue" color="white">
+                <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
+                  <Button className={classes.buttonText}>
                     {landingPageData.callToActionButtonText}
+                    <img
+                      src={landingPageData.heroExploreButtonArrow.img}
+                      className={classes.smallImage}
+                      alt={landingPageData.heroExploreButtonArrow.alt}
+                      id="buttonArrow"
+                    />
                   </Button>
                 </Link>
               </div>
+            </div>
+          </div>
+          <div className={classes.heroImageContainer}>
+            <img
+              className={classes.bigImage}
+              src={landingPageData.interactiveImg.img}
+              alt={landingPageData.interactiveImg.alt}
+              id="interactive_img"
+            />
+            <div className={classes.INSTextContainer}>
+              <div className={classes.INSTitle}>
+                INS
+              </div>
+            </div>
+            <div className={classes.NCICommunityImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.NCICommunityImg.img}
+                alt={landingPageData.NCICommunityImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.NCICommunityLinkContainer}>
+              <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
+                <div className={classes.iconTextWrapper}>
+                  <div className={classes.iconTitle}>
+                    {landingPageData.nciCommunityTitle}
+                  </div>
+                  <div className={classes.iconContent}>
+                    {landingPageData.nciCommunityDescription}
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className={classes.AvailableOutputsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.AvailableOutputsImg.img}
+                alt={landingPageData.AvailableOutputsImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.AvailableOutputsLinkContainer}>
+              <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
+                <div className={classes.iconTextWrapper}>
+                  <div className={classes.iconTitle}>
+                    {landingPageData.availableOutputsTitle}
+                  </div>
+                  <div className={classes.iconContent}>
+                    {landingPageData.availableOutputsDescription}
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className={classes.UpdatedMetricsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.UpdatedMetricsImg.img}
+                alt={landingPageData.UpdatedMetricsImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.UpdatedMetricsLinkContainer}>
+              <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
+                <div className={classes.iconTextWrapper}>
+                  <div className={classes.iconTitle}>
+                    {landingPageData.updatedMetricsTitle}
+                  </div>
+                  <div className={classes.iconContent}>
+                    {landingPageData.updatedMetricsDescription}
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className={classes.arrowCommunityImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.arrowCommunityImg.img}
+                alt={landingPageData.arrowCommunityImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.arrowOutputsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.arrowOutputsImg.img}
+                alt={landingPageData.arrowOutputsImg.alt}
+                id="interactive_img"
+              />
+            </div>
+            <div className={classes.arrowMetricsImgContainer}>
+              <img
+                className={classes.iconImage}
+                src={landingPageData.arrowMetricsImg.img}
+                alt={landingPageData.arrowMetricsImg.alt}
+                id="interactive_img"
+              />
             </div>
           </div>
         </Grid>
@@ -52,12 +155,7 @@ const LandingView = ({ classes, statsData }) => (
                 />
               </div>
               <div className={classes.DCWords} id="tile1_title">
-                {landingPageData.tile1.titleText.match(/\b(\w+)\b/g).map((word) => (
-                  <>
-                    {word}
-                    <br />
-                  </>
-                ))}
+                {landingPageData.tile1.titleText}
               </div>
               <div className={classes.aboutContent} id="tile1_description">
                 {landingPageData.tile1.descriptionText}
@@ -95,17 +193,16 @@ const LandingView = ({ classes, statsData }) => (
                   <div className={classes.contentContainer} id="tile2_description">
                     {landingPageData.tile2.descriptionText}
                   </div>
-
                 </div>
-                <div className={classes.blueButton}>
-                  <div className={classes.blueButtonLeft}>
+                <div className={classes.yellowButton}>
+                  <div className={classes.yellowButtonLeft}>
                     <img className={classes.icon} src={icon} alt="CTDC about " />
                     {' '}
                   </div>
-                  <div className={classes.blueButtonRight} id="tile2_button">
+                  <div className={classes.yellowButtonRight} id="tile2_button">
                     <Link
                       to={landingPageData.tile2.callToActionLink}
-                      className={classes.blueButton}
+                      className={classes.yellowButton}
                     >
                       {landingPageData.tile2.callToActionText}
                     </Link>
@@ -128,24 +225,26 @@ const LandingView = ({ classes, statsData }) => (
                   <div className={classes.contentContainer} id="tile3_description">
                     {landingPageData.tile3.descriptionText}
                   </div>
-
                 </div>
-                <div className={classes.blueButton}>
-                  <div className={classes.blueButtonLeft}>
+                <div className={classes.yellowButton}>
+                  <div className={classes.yellowButtonLeft}>
                     <img className={classes.icon} src={icon} alt="CTDC about " />
                     {' '}
                   </div>
-                  <div className={classes.blueButtonRight} id="tile3_button">
-                    <Link
-                      to={landingPageData.tile3.callToActionLink}
-                      className={classes.blueButton}
+                  <div className={classes.yellowButtonRight} id="tile3_button">
+                    <Button
+                      to="#"
+                      className={classes.yellowButtonSupport}
+                      onClick={(e) => {
+                        window.location.href = 'mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback';
+                        e.preventDefault();
+                      }}
                     >
                       {landingPageData.tile3.callToActionText}
-                    </Link>
+                    </Button>
                   </div>
                 </div>
               </div>
-
             </div>
             <div className={classes.contentRightBottom}>
               <div className={classes.cases} id="tile4_image">
@@ -156,11 +255,11 @@ const LandingView = ({ classes, statsData }) => (
                   {landingPageData.tile4.descriptionText}
                 </div>
                 <div className={classes.mountainMeadowButtonSection}>
-                  <div className={classes.blueButtonLeft}>
+                  <div className={classes.yellowButtonLeft}>
                     <img className={classes.mountainMeadowIcon} src={icon} alt="CTDC about " />
                     {' '}
                   </div>
-                  <div className={classes.blueButtonRight} id="tile4_button">
+                  <div className={classes.yellowButtonRight} id="tile4_button">
                     <Link
                       to={landingPageData.tile4.callToActionLink}
                       className={classes.mountainMeadowButton}
@@ -174,7 +273,6 @@ const LandingView = ({ classes, statsData }) => (
           </div>
         </Grid>
       </div>
-
     </div>
   </div>
 );
@@ -184,22 +282,20 @@ const styles = () => ({
   },
   heroImage: {
     width: '100%',
-    height: '420px',
+    height: '520px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     backgroundImage: `url(${landingPageData.landingPageHero.img})`,
   },
   texture: {
     backgroundSize: 'cover',
-    background: '#B6DCFC',
-    padding: '120px 0 80px 0',
+    background: '#9D0995',
+    padding: '350px 0 80px 0',
   },
   container: {
     fontFamily: 'Raleway, sans-serif',
     margin: '0 auto',
-
   },
-
   whiteSection: {
     height: '8px',
     background: 'white',
@@ -218,11 +314,11 @@ const styles = () => ({
   },
   headerTitle: {
     paddingTop: '94px',
-    fontFamily: 'Inter, Raleway, sans-serif',
-    fontSize: '38px',
-    fontWeight: '600',
-    lineHeight: '35px',
-    color: '#0077E3',
+    fontFamily: 'Inter',
+    fontSize: '40px',
+    fontWeight: '1000',
+    lineHeight: '34px',
+    color: '#000000',
     letterSpacing: '-0px',
   },
   paddingLeft50: {
@@ -230,17 +326,16 @@ const styles = () => ({
   },
   headerContent: {
     color: '#000000',
-    fontFamily: 'Lato, Raleway',
+    fontFamily: 'Nunito',
     fontSize: '16px',
     fontWeight: '500',
-    lineHeight: '27px',
-    marginTop: '16px',
+    lineHeight: '20px',
+    marginTop: '40px',
     marginBottom: '26px',
   },
   headerLink: {
     textDecoration: 'none',
   },
-
   iconAbout: {
     height: '17px',
     width: '9px',
@@ -248,11 +343,10 @@ const styles = () => ({
     marginLeft: '20px',
   },
   icon: {
-    width: '20px',
+    width: '21px',
     marginTop: '13px',
     marginLeft: '23px',
   },
-
   aboutImage: {
     width: '297px',
     height: '249px',
@@ -263,14 +357,14 @@ const styles = () => ({
   },
   DCWords: {
     height: '200px',
-    background: '#274FA5',
+    background: '#380157',
     color: '#FFFFFF',
-    fontSize: '28px',
-    fontWeight: 'bold',
+    fontSize: '26px',
+    fontWeight: 'lighter',
     textTransform: 'capitalize',
-    lineHeight: '36px',
-    padding: '10px 75px 26px 26px',
-    fontFamily: 'Lato',
+    lineHeight: '30px',
+    padding: '23px 110px 26px 43px',
+    fontFamily: 'Inter',
   },
   landingContainer: {
     alignItems: 'center',
@@ -278,18 +372,31 @@ const styles = () => ({
   },
   contentLeft: {
     float: 'left',
-    paddingRight: '10px',
+    paddingRight: '15px',
   },
   about: {
     width: '300px',
     backgroundColor: 'white',
   },
+  iconImage: {
+    width: '45px',
+    height: '45px',
+  },
+  smallImage: {
+    width: '12px',
+    height: '12px',
+    marginLeft: '30px',
+  },
   image: {
     width: '293px',
     height: '249px',
   },
+  bigImage: {
+    width: '842px',
+    height: '843px',
+  },
   aboutContent: {
-    background: 'white',
+    background: '#bdc4cd',
     minHeight: '372px',
     width: '300px',
     padding: '30px 30px 32px 30px',
@@ -300,20 +407,20 @@ const styles = () => ({
     lineHeight: '22px',
   },
   aboutButtonSection: {
-    background: 'white',
-    height: '71px',
+    background: '#bdc4cd',
+    height: '76px',
   },
   imgIconAbout: {
     width: '49px',
   },
   aboutButtonLeft: {
     float: 'left',
-    background: '#443CBB',
+    background: '#380157',
     height: '45px',
     width: '48px',
   },
   aboutButtonRight: {
-    background: '#7747FF',
+    background: '#574586',
     float: 'left',
     height: '45px',
     width: '132px',
@@ -322,14 +429,14 @@ const styles = () => ({
     color: '#ffffff',
     textDecoration: 'none',
     textTransform: 'uppercase',
-    fontSize: '12px',
+    fontSize: '14px',
+    fontFamily: 'Raleway',
     fontWeight: '600',
     lineHeight: '45px',
     paddingLeft: '20px',
     boxShadow: 'none',
     letterSpacing: '1px',
   },
-
   content: {
     width: '100%',
     height: '155px',
@@ -340,11 +447,11 @@ const styles = () => ({
     minHeight: '138px',
   },
   contentHeader: {
-    color: '#033D6F',
-    fontFamily: 'Lato',
-    fontSize: '28px',
+    color: '#20506A',
+    fontFamily: 'Inter',
+    fontSize: '26px',
     fontWeight: 'bold',
-    lineHeight: '27px',
+    lineHeight: '30px',
     padding: '10px 0',
   },
   contentContainer: {
@@ -356,10 +463,9 @@ const styles = () => ({
     paddingLeft: '2px',
     paddingBottom: '10px',
   },
-
   program: {
     float: 'left',
-    padding: '0 10px 6.8px 0px',
+    padding: '0 15px 6.8px 0px',
   },
   programImg: {
     background: '#fff',
@@ -368,14 +474,14 @@ const styles = () => ({
   studies: {
     float: 'left',
   },
-
   contentRightBottom: {
     float: 'left',
-    width: '597px',
+    width: '602px',
     background: '#fff',
     backgroundImage: `url(${landingPageData.tile4.img})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
+    marginTop: '5px',
   },
   cases: {
     height: '436px',
@@ -385,7 +491,7 @@ const styles = () => ({
   mountainMeadowButtonSection: {
     height: '46px',
     width: '176px',
-    backgroundColor: '#10A075',
+    backgroundColor: '#DDA211',
     marginTop: '20px',
 
   },
@@ -413,24 +519,58 @@ const styles = () => ({
     color: '#fff',
     textTransform: 'uppercase',
   },
-  mountainMeadowContentHeader: {
-    color: '#033D6F',
+  yellowButton: {
+    height: '45px',
+    background: '#DDA211',
+    color: '#FFFFFF',
+    fontFamily: 'Raleway',
+    fontSize: '14px',
+    fontWeight: '600',
+    lineHeight: '25px',
+    paddingLeft: '8px',
+    textDecoration: 'none',
+    letterSpacing: '1px',
+  },
+  yellowButtonSupport: {
+    color: '#FFFFFF',
+    fontFamily: 'Raleway',
+    fontSize: '12px',
+    fontWeight: '600',
+    lineHeight: '25px',
+    paddingLeft: '8px',
+    textDecoration: 'none',
+    letterSpacing: '1px',
+  },
+  yellowButtonLeft: {
+    float: 'left',
+  },
+  yellowButtonRight: {
+    float: 'left',
+    lineHeight: '44px',
+    marginLeft: '8px',
     fontFamily: 'Lato',
-    fontSize: '28px',
+    fontSize: '14px',
+    color: '#fff',
+    textTransform: 'uppercase',
+  },
+  mountainMeadowContentHeader: {
+    color: '#FEFEFE',
+    fontFamily: 'Inter',
+    fontSize: '26px',
     fontWeight: 'bold',
-    lineHeight: '32px',
-    padding: '15px 0',
+    lineHeight: '30px',
+    padding: '15px 15px 15px 0px',
   },
   mountainMeadowContent: {
     height: '143px',
     width: '230px',
-    color: '#010101',
+    color: '#FEFEFE',
     fontFamily: 'Nunito',
     fontSize: '15px',
     lineHeight: '22px',
   },
   mountainMeadowIcon: {
-    width: '20px',
+    width: '21px',
     marginTop: '12px',
     marginLeft: '28px',
   },
@@ -440,7 +580,7 @@ const styles = () => ({
     width: '71px',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '12px',
+    fontSize: '14px',
     fontWeight: '600',
     lineHeight: '19.31px',
     textDecoration: 'none',
@@ -467,19 +607,154 @@ const styles = () => ({
   heroTextContainer: {
     position: 'absolute',
     width: '400px',
-    margin: 'auto',
+    margin: 'auto auto auto 435px',
     left: '12px',
+    right: 0,
+    '@media (min-width: 900px)': {
+      width: '1050px',
+    },
+  },
+  heroImageContainer: {
+    position: 'absolute',
+    width: '1200px',
+    height: '1200px',
+    margin: 'auto',
+    left: '700px',
+    top: '-20px',
     right: 0,
     '@media (min-width: 900px)': {
       width: '906px',
     },
   },
+  NCICommunityImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '-325px',
+    top: '405px',
+    right: 0,
+  },
+  NCICommunityLinkContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '-600px',
+    top: '225px',
+    right: 0,
+  },
+  AvailableOutputsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '40px',
+    top: '290px',
+    right: 0,
+  },
+  AvailableOutputsLinkContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '215px',
+    top: '205px',
+    right: 0,
+  },
+  UpdatedMetricsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '65px',
+    top: '510px',
+    right: 0,
+  },
+  UpdatedMetricsLinkContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '355px',
+    top: '515px',
+    right: 0,
+  },
+  arrowCommunityImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '-280px',
+    top: '230px',
+    right: 0,
+  },
+  arrowOutputsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '120px',
+    top: '210px',
+    right: 0,
+  },
+  arrowMetricsImgContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '265px',
+    top: '500px',
+    right: 0,
+  },
   heroTextWrapper: {
-    width: '360px',
+    width: '420px',
   },
   buttonText: {
-    padding: '12px 30px',
+    fontFamily: 'Lato',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    lineHeight: '26px',
+    padding: '0px 0px 12px 0px',
     height: '40px',
+    color: '#A90532',
+  },
+  iconTextWrapper: {
+    width: '165px',
+  },
+  iconTitle: {
+    fontFamily: 'Lato',
+    fontSize: '20px',
+    fontWeight: '1000',
+    color: '#AEABAB',
+    letterSpacing: '-0px',
+    textAlign: 'center',
+    lineHeight: '34px',
+  },
+  iconContent: {
+    color: '#404040',
+    fontFamily: 'Inter',
+    fontSize: '14px',
+    fontWeight: '300',
+    lineHeight: '17px',
+    marginTop: '5px',
+    textAlign: 'center',
+  },
+  headerLinkButton: {
+    borderBottom: '2px solid #A90532',
+    textDecoration: 'none',
+  },
+  INSTextContainer: {
+    marginTop: '-460px',
+    marginLeft: '-35px',
+  },
+  INSTitle: {
+    fontSize: '50px',
+    color: '#AEABAB',
+    fontFamily: 'Lato',
+    fontWeight: '1000',
+    letterSpacing: '-0px',
+    textAlign: 'center',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);

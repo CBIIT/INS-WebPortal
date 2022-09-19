@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Footer } from 'bento-components';
 import FooterData from '../../bento/globalFooterData';
 import env from '../../utils/env';
+import './footer.css';
 
 const FILE_SERVICE_API = env.REACT_APP_FILE_SERVICE_API;
 
-const ICDCFooter = () => {
+const styles = {
+  horizontalLine: 'horizontalLineStyles',
+  footorVersiontext: 'customizedFootorVersiontext',
+};
+
+const INSFooter = () => {
   const [footerUpdatedData, setFooterUpdatedData] = useState(FooterData);
 
   useEffect(() => {
@@ -20,7 +26,23 @@ const ICDCFooter = () => {
     getSystems();
   }, [FooterData]);
 
-  return <><Footer data={footerUpdatedData} /></>;
+  return (
+    <>
+      <Footer classes={styles} data={footerUpdatedData} />
+      <div>
+        <div className="beVersion">
+          Site Data Update (Projects, Publications, Patents): 08/01/2022
+          <br />
+          <br />
+          Site Data Update (Datasets, Clinical Trials): 05/26/2022
+        </div>
+      </div>
+    </>
+  );
 };
 
-export default ICDCFooter;
+Footer.defaultProps = {
+  background: '#310d32',
+};
+
+export default INSFooter;

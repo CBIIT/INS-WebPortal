@@ -221,8 +221,8 @@ class ServerPaginatedTableView extends React.Component {
   };
 
   getSortData = (arr, sortColumn, sortDirection) => arr.sort((a, b) => {
-    const keyA = parseInt(a[sortColumn].replace(/^\D+/g, ''), 10);
-    const keyB = parseInt(b[sortColumn].replace(/^\D+/g, ''), 10);
+    const keyA = parseInt(a[sortColumn].toString().replace(/^\D+/g, ''), 10);
+    const keyB = parseInt(b[sortColumn].toString().replace(/^\D+/g, ''), 10);
     if (sortDirection === 'asc') {
       if (keyA < keyB) return -1;
       if (keyA > keyB) return 1;
@@ -373,12 +373,22 @@ class ServerPaginatedTableView extends React.Component {
       }
       options1.page = newPage;
     }
-    let updatedData = data;
+    let updatedData = data === 'undefined' ? [] : [...data];
     if (data.length > rowsPerPage) {
       const newData = [...data];
       const sortedData = this.getSortData(newData, sortOrder.name, sortOrder.direction);
       updatedData = sortedData.splice(0, rowsPerPage);
     }
+    const formatedUpdatedData = [];
+    updatedData.forEach((dt) => {
+      const tmp = { ...dt };
+      this.props.dataTransformation.forEach((column) => {
+        const cb = column.dataTransform;
+        const attribute = column.dataField;
+        tmp[attribute] = cb(tmp[attribute]);
+      });
+      formatedUpdatedData.push(tmp);
+    });
     return (
       <div>
         <Backdrop
@@ -387,9 +397,9 @@ class ServerPaginatedTableView extends React.Component {
         >
           <CircularProgress />
         </Backdrop>
-        {updatedData === 'undefined' ? <CircularProgress /> : (
+        {formatedUpdatedData.length === 0 ? <CircularProgress /> : (
           <CustomDataTable
-            data={updatedData}
+            data={formatedUpdatedData}
             columns={columns}
             className={className}
             options={({ ...this.props.options, ...options1 })}

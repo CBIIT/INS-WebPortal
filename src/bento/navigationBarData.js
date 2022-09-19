@@ -1,6 +1,6 @@
 export const navBarstyling = {
   global: {
-    backgroundColor: '#142D64',
+    backgroundColor: '#3E3C3F',
     height: '39px',
     padding: '9px 20px 0px 20px',
   },
@@ -11,7 +11,7 @@ export const navBarstyling = {
   },
   dropdownMenu: {
     paper: {
-      background: '#309EC4',
+      background: '#FFFFFF',
       width: '200px',
       padding: '5px 18px 18px 18px',
       marginLeft: '15px',
@@ -22,9 +22,9 @@ export const navBarstyling = {
     link: {
       overflowWrap: 'normal',
       textDecoration: 'none',
-      color: 'black',
+      color: '#a09ea0',
       fontSize: '14px',
-      fontWeight: '600',
+      fontWeight: '100',
       lineSpacing: '1px',
       lineHeight: '18px',
       fontFamily: 'Raleway, sans-serif',
@@ -32,7 +32,8 @@ export const navBarstyling = {
       marginTop: '10px',
       '&:hover': {
         cursor: 'pointer',
-        color: 'white',
+        color: 'black',
+        fontWeight: '1000',
       },
     },
   },
@@ -58,22 +59,25 @@ export const navBarData = [
   },
   {
     labelText: 'about',
-    type: 'dropdown',
-    dropDownLinks: [
-      {
-        labelText: 'Bento',
-        link: '/bento',
-      },
-      {
-        labelText: 'Resources',
-        link: '/resources',
-      },
-      {
-        labelText: 'Graphql',
-        link: '/graphql',
-      },
-    ],
+    type: 'link',
+    link: '/about',
   },
+  // {
+  //   labelText: 'about',
+  //   type: 'dropdown',
+  //   dropDownLinks: [
+  //     {
+  //       labelText: 'About INS',
+  //       link: '/about',
+  //       linkActiveStyle: 'black',
+  //     },
+  //     {
+  //       labelText: 'User Guide (PDF)',
+  //       link: '/pdf',
+  //       linkActiveStyle: 'black',
+  //     },
+  //   ],
+  // },
 ];
 
 export const navBarCartData = {
