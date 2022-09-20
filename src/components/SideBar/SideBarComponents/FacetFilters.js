@@ -519,7 +519,8 @@ export const FacetPanelComponent = ({ classes }, ref) => {
                     className={classes.sectionSummaryText}
                     id={currentSection.sectionName}
                   >
-                    {currentSection.sectionName}
+                    {/* TO DO: will not work for mutiple sections */}
+                    Filter by Projects
                   </div>
                 )
               }
