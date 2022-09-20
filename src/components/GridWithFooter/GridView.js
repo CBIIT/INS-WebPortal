@@ -324,6 +324,8 @@ const styles = () => ({
     zIndex: '600',
   },
   topButtonGroup: {
+    visibility: 'hidden',
+    height: '0',
     textAlign: 'right',
     padding: '10px 0px 0px 0px',
     position: 'relative',
