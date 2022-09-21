@@ -9,17 +9,17 @@ import baseImg from '../../../assets/landing/Base.png';
 
 const linkPage = '/explore';
 
-const dataTransform = (data) => {
-  let transformedCount = '';
+// const dataTransform = (data) => {
+//   let transformedCount = '';
 
-  if (data >= 1000) {
-    transformedCount = `${data.toString().slice(0, -3)}K`;
-  } else {
-    transformedCount = data.toString();
-  }
+//   if (data >= 1000) {
+//     transformedCount = `${data.toString().slice(0, -3)}K`;
+//   } else {
+//     transformedCount = data.toString();
+//   }
 
-  return transformedCount;
-};
+//   return transformedCount;
+// };
 
 const LandingStatsView = ({ classes, stats, statsData }) => (
   <>
@@ -50,7 +50,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
               <div className={classes.statsGroup}>
                 <div className={classes.statsText}>
                   <div className={classes.statCount} id={`count_${index + 1}`}>
-                    {dataTransform(statsData[stat.statAPI])}
+                    {statsData[stat.statAPI]}
                   </div>
                   <div className={classes.statTitle} id={`title_${index + 1}`}>
                     {stat.statTitle}
@@ -163,7 +163,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '36px 315px 36px 150px',
+    padding: '36px 290px 36px 150px',
   },
   leftText: {
     fontFamily: 'Inter',
@@ -221,7 +221,7 @@ const styles = () => ({
     borderRadius: '50px 0px 0px 50px',
     backgroundImage: 'linear-gradient(to right, #fcb333, #c98000)',
     padding: '10px',
-    width: '80px',
+    width: '85px',
     height: '40px',
     float: 'right',
     marginTop: '-15px',
@@ -231,7 +231,7 @@ const styles = () => ({
     borderRadius: '50px 0px 0px 50px',
     backgroundImage: 'linear-gradient(to right, #95929a, #625f67)',
     padding: '10px',
-    width: '30px',
+    width: '35px',
     height: '40px',
     float: 'right',
     marginTop: '-15px',
