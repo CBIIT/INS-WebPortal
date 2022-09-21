@@ -23,7 +23,10 @@ const LandingView = ({ classes, statsData }) => (
                 {landingPageData.callToActionTitle}
               </div>
               <div className={classes.headerContent}>
-                A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output. This
+                A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output.
+                <br />
+                <br />
+                This
                 <strong> pilot phase </strong>
                 of the site is temporarily limited to data generated through extramural grants from two NCI programs.
               </div>
