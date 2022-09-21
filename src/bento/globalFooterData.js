@@ -22,7 +22,7 @@ export default {
         },
         {
           text: 'Contact INS',
-          link: 'mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback',
+          link: 'nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback',
         },
       ],
     },

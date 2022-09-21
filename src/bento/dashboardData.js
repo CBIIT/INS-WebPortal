@@ -137,7 +137,7 @@ export const displayActiveFiltersQuery = true;
 export const widgetsData = [
   {
     type: 'donut',
-    label: 'Project by Fiscal Year',
+    label: 'Projects by Fiscal Year',
     dataName: 'projectCountByFiscalYearSorted',
     datatable_field: 'fiscal_year',
     titleText: 'Projects',
@@ -145,7 +145,7 @@ export const widgetsData = [
   },
   {
     type: 'donut',
-    label: 'Project by NCI DOCs (division, office, center)',
+    label: 'Projects by NCI DOC',
     dataName: 'projectCountByDOCSorted',
     datatable_field: 'docs',
     titleText: 'Projects',
@@ -153,7 +153,7 @@ export const widgetsData = [
   },
   {
     type: 'donut',
-    label: 'Project by Award Amount',
+    label: 'Projects by Award Amount',
     dataName: 'projectCountByAwardAmountSorted',
     datatable_field: 'award_amount',
     titleText: 'Projects',
@@ -161,7 +161,7 @@ export const widgetsData = [
   },
   {
     type: 'donut',
-    label: 'Publications by Publication Year',
+    label: 'Publications by Year',
     dataName: 'publicationCountByYearSorted',
     datatable_field: 'publication_years',
     titleText: 'Publications',
