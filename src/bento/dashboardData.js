@@ -145,7 +145,7 @@ export const widgetsData = [
   },
   {
     type: 'donut',
-    label: 'Projects by NCI DOCs (division, office, center)',
+    label: 'Projects by NCI DOC',
     dataName: 'projectCountByDOCSorted',
     datatable_field: 'docs',
     titleText: 'Projects',
