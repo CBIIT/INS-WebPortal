@@ -38,7 +38,7 @@ const leftPanel = [
     ],
   },
   {
-    sectionHeader: 'PI and Orginazation',
+    sectionHeader: 'PI and Organization',
     // sectionDesc: 'Demographic Related Info',
     properties: [
       // A maximum of 10 properties are allowed
@@ -51,7 +51,7 @@ const leftPanel = [
         dataField: 'program_officers',
       },
       {
-        label: 'Orginzation',
+        label: 'Organization',
         dataField: 'org_name',
       },
       {
