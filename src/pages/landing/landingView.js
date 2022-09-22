@@ -501,30 +501,6 @@ const styles = () => ({
     marginTop: '20px',
 
   },
-  blueButton: {
-    height: '45px',
-    background: '#0077E3',
-    color: '#FFFFFF',
-    fontFamily: 'Raleway',
-    fontSize: '12px',
-    fontWeight: '600',
-    lineHeight: '25px',
-    paddingLeft: '8px',
-    textDecoration: 'none',
-    letterSpacing: '1px',
-  },
-  blueButtonLeft: {
-    float: 'left',
-  },
-  blueButtonRight: {
-    float: 'left',
-    lineHeight: '44px',
-    marginLeft: '8px',
-    fontFamily: 'Lato',
-    fontSize: '14px',
-    color: '#fff',
-    textTransform: 'uppercase',
-  },
   yellowButton: {
     height: '45px',
     background: '#DDA211',
@@ -540,7 +516,7 @@ const styles = () => ({
   yellowButtonSupport: {
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '12px',
+    fontSize: '14px',
     fontWeight: '600',
     lineHeight: '25px',
     paddingLeft: '8px',
