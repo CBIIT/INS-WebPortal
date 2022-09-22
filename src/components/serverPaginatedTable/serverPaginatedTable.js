@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/state-in-constructor */
 import React from 'react';
@@ -397,7 +398,7 @@ class ServerPaginatedTableView extends React.Component {
         >
           <CircularProgress />
         </Backdrop>
-        {formatedUpdatedData.length === 0 ? <CircularProgress /> : (
+        {formatedUpdatedData.length === 0 ? isLoading ? <CircularProgress /> : <div style={{ textAlign: 'center', padding: '25px 0px 10px 0px', color: '#004C73' }}>No Matching Records Found</div> : (
           <CustomDataTable
             data={formatedUpdatedData}
             columns={columns}
