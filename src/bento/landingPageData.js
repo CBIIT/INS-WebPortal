@@ -18,7 +18,7 @@ import heroExploreButtonArrow from '../assets/landing/heroExploreButtonArrow.svg
 // Tile4 image optimum size 600x 436 px
 export const landingPageData = {
   callToActionTitle: 'Delivering accurate accounting of NCI studies',
-  callToActionDescription: 'A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output.',
+  callToActionDescription: 'A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output. This pilot phase of the site is temporarily limited to data generated through extramural grants from two NCI programs.',
   callToActionButtonText: 'EXPLORE INS DATA',
   callToActionLink: '/explore',
   nciCommunityTitle: 'NCI Community',
