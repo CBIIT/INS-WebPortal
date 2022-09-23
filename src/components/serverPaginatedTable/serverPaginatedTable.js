@@ -89,7 +89,7 @@ class ServerPaginatedTableView extends React.Component {
   getSrcData = () => this.props.data;
 
   rowsSelectedTrigger = (displayedData) => {
-    if (this.props.options.rowsSelectedTrigger && displayedData !== 'undefined') {
+    if (this.props.options.rowsSelectedTrigger) {
       this.props.options.rowsSelectedTrigger(
         displayedData.map((d) => d[this.props.options.dataKey]),
       );
@@ -398,7 +398,7 @@ class ServerPaginatedTableView extends React.Component {
         >
           <CircularProgress />
         </Backdrop>
-        {formatedUpdatedData === 'undefined' ? <CircularProgress /> : (
+        {isLoading || this.props.isLoading || data === 'undefined' ? <CircularProgress /> : (
           <CustomDataTable
             data={formatedUpdatedData}
             columns={columns}
