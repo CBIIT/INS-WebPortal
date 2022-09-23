@@ -398,7 +398,7 @@ class ServerPaginatedTableView extends React.Component {
         >
           <CircularProgress />
         </Backdrop>
-        {formatedUpdatedData.length === 0 ? isLoading ? <CircularProgress /> : <div style={{ textAlign: 'center', padding: '25px 0px 10px 0px', color: '#004C73' }}>No Matching Records Found</div> : (
+        {isLoading || this.props.isLoading || data === 'undefined' ? <CircularProgress /> : (
           <CustomDataTable
             data={formatedUpdatedData}
             columns={columns}
