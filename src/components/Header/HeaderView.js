@@ -20,6 +20,7 @@ const INSHeader = (props) => {
       easter={headerData.globalHeaderImage}
       alt={headerData.globalHeaderLogoAltText}
       homeLink={headerData.globalHeaderLogoLink}
+      customStyle={styles}
     />
   ) : (
     <Header

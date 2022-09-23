@@ -1,11 +1,8 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { Grid } from '@material-ui/core';
-// import backgroundImg from '../../assets/about/backgroundImg.png';
-import backgroundTop from '../../assets/about/Background-top-section.png';
 import aboutImage from '../../assets/about/About.png';
 import flowChart from '../../assets/about/INS-Workflow.svg';
-import backgroundBottom from '../../assets/about/Background-bottom-section.png';
 import './aboutBody.css';
 
 const AboutBody = () => {

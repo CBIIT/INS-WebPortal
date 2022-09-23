@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import {
   Grid,
@@ -22,7 +23,12 @@ const LandingView = ({ classes, statsData }) => (
                 {landingPageData.callToActionTitle}
               </div>
               <div className={classes.headerContent}>
-                {landingPageData.callToActionDescription}
+                A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output.
+                <br />
+                <br />
+                This
+                <strong> pilot phase </strong>
+                of the site is temporarily limited to data generated through extramural grants from two NCI programs.
               </div>
               <div className={classes.headerButtonSection}>
                 <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
