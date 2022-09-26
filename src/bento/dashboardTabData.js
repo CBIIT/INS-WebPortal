@@ -53,7 +53,7 @@ export const tabContainers = [
         link: '/project/{project_id}',
         primary: true,
         display: true,
-        headStyles: {
+        headerStyles: {
           width: '10%',
         },
       },
@@ -62,7 +62,7 @@ export const tabContainers = [
         header: 'Program',
         sort: 'asc',
         display: true,
-        headStyles: {
+        headerStyles: {
           width: '5%',
         },
       },
@@ -71,7 +71,7 @@ export const tabContainers = [
         header: 'Project Title',
         sort: 'asc',
         display: true,
-        headStyles: {
+        headerStyles: {
           width: '20%',
         },
       },
@@ -80,7 +80,7 @@ export const tabContainers = [
         header: 'Principal Investigators',
         sort: 'asc',
         display: true,
-        headStyles: {
+        headerStyles: {
           width: '10%',
         },
       },
@@ -89,7 +89,7 @@ export const tabContainers = [
         header: 'Program Officers',
         sort: 'asc',
         display: true,
-        headStyles: {
+        headerStyles: {
           width: '10%',
         },
       },
@@ -98,7 +98,7 @@ export const tabContainers = [
         header: 'Lead DOC',
         sort: 'asc',
         display: true,
-        headStyles: {
+        headerStyles: {
           width: '10%',
         },
       },
@@ -107,7 +107,7 @@ export const tabContainers = [
         header: 'Activity Code',
         sort: 'asc',
         display: true,
-        headStyles: {
+        headerStyles: {
           width: '10%',
         },
       },
@@ -125,7 +125,7 @@ export const tabContainers = [
 
           return formatter.format(money);
         },
-        headStyles: {
+        headerStyles: {
           width: '10%',
         },
       },
@@ -134,7 +134,7 @@ export const tabContainers = [
         header: 'Project End Date',
         sort: 'asc',
         display: true,
-        headStyles: {
+        headerStyles: {
           width: '10%',
         },
       },
@@ -143,7 +143,7 @@ export const tabContainers = [
         header: 'Fiscal Year',
         sort: 'asc',
         display: true,
-        headStyles: {
+        headerStyles: {
           width: '5%',
         },
       },
@@ -191,42 +191,63 @@ export const tabContainers = [
         primary: true,
         link: 'https://pubmed.ncbi.nlm.nih.gov/{publication_id}/',
         display: true,
+        headerStyles: {
+          width: '5%',
+        },
       },
       {
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '15%',
+        },
       },
       {
         dataField: 'title',
         header: 'Title',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '25%',
+        },
       },
       {
         dataField: 'authors',
         header: 'Authors',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '25%',
+        },
       },
       {
         dataField: 'citation_count',
         header: 'Citation Count',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'relative_citation_ratio',
         header: 'Relative Citation Ratio',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'nih_percentile',
         header: 'NIH Percentile',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
     ],
     id: 'publication_tab',

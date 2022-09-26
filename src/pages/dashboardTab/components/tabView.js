@@ -231,8 +231,8 @@ const TabView = ({
     return column.dataTransform !== undefined;
   });
 
-  const headStyles = customColumn.columns.map((column) => {
-    return column.headStyles;
+  const headerStyles = customColumn.columns.map((column) => {
+    return column.headerStyles;
   });
 
   return (
@@ -289,7 +289,7 @@ const TabView = ({
             defaultSortDirection={defaultSortDirection}
             tableDownloadCSV={tableDownloadCSV}
             dataTransformation={dataTransformCallbacks}
-            headStyles={headStyles}
+            headerStyles={headerStyles}
           />
         </Grid>
       </Grid>
