@@ -200,6 +200,19 @@ export const tabContainers = [
         header: 'Project IDs',
         sort: 'asc',
         display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
         headerStyles: {
           width: '15%',
         },
@@ -309,6 +322,19 @@ export const tabContainers = [
         header: 'Project IDs',
         sort: 'asc',
         display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
         headerStyles: {
           width: '15%',
         },
@@ -420,6 +446,19 @@ export const tabContainers = [
         header: 'Project IDs',
         sort: 'asc',
         display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
         headerStyles: {
           width: '15%',
         },
@@ -503,6 +542,19 @@ export const tabContainers = [
         header: 'Project IDs',
         sort: 'asc',
         display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
         headerStyles: {
           width: '30%',
         },
