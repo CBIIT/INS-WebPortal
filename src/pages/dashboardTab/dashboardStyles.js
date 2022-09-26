@@ -37,6 +37,11 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
+  widgetMessage: {
+    '& text:nth-of-type(2)': {
+      display: 'none',
+    },
+  },
   paper: {
     textAlign: 'center',
   },
