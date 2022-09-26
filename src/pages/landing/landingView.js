@@ -14,136 +14,134 @@ import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
 const LandingView = ({ classes, statsData }) => (
   <div className={classes.page}>
     <div className={classes.container}>
-      <div className={classes.hero}>
-        <Grid container spacing={16} direction="row">
-          <div className={classes.heroImage} />
-          <div className={classes.heroTextContainer}>
-            <div className={classes.heroTextWrapper}>
-              <div className={classes.headerTitle}>
-                {landingPageData.callToActionTitle}
-              </div>
-              <div className={classes.headerContent}>
-                A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output.
-                <br />
-                <br />
-                This
-                <strong> pilot phase </strong>
-                of the site is temporarily limited to data generated through extramural grants from two NCI programs.
-              </div>
-              <div className={classes.headerButtonSection}>
-                <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
-                  <Button className={classes.buttonText}>
-                    {landingPageData.callToActionButtonText}
-                    <img
-                      src={landingPageData.heroExploreButtonArrow.img}
-                      className={classes.smallImage}
-                      alt={landingPageData.heroExploreButtonArrow.alt}
-                      id="buttonArrow"
-                    />
-                  </Button>
-                </Link>
-              </div>
+      <Grid container spacing={16} direction="row">
+        <div className={classes.heroImage} />
+        <div className={classes.heroTextContainer}>
+          <div className={classes.heroTextWrapper}>
+            <div className={classes.headerTitle}>
+              {landingPageData.callToActionTitle}
+            </div>
+            <div className={classes.headerContent}>
+              A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output.
+              <br />
+              <br />
+              This
+              <strong> pilot phase </strong>
+              of the site is temporarily limited to data generated through extramural grants from two NCI programs.
+            </div>
+            <div className={classes.headerButtonSection}>
+              <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
+                <Button className={classes.buttonText}>
+                  {landingPageData.callToActionButtonText}
+                  <img
+                    src={landingPageData.heroExploreButtonArrow.img}
+                    className={classes.smallImage}
+                    alt={landingPageData.heroExploreButtonArrow.alt}
+                    id="buttonArrow"
+                  />
+                </Button>
+              </Link>
             </div>
           </div>
-          <div className={classes.heroImageContainer}>
+        </div>
+        <div className={classes.heroImageContainer}>
+          <img
+            className={classes.bigImage}
+            src={landingPageData.interactiveImg.img}
+            alt={landingPageData.interactiveImg.alt}
+            id="interactive_img"
+          />
+          <div className={classes.INSTextContainer}>
+            <div className={classes.INSTitle}>
+              INS
+            </div>
+          </div>
+          <div className={classes.NCICommunityImgContainer}>
             <img
-              className={classes.bigImage}
-              src={landingPageData.interactiveImg.img}
-              alt={landingPageData.interactiveImg.alt}
+              className={classes.iconImage}
+              src={landingPageData.NCICommunityImg.img}
+              alt={landingPageData.NCICommunityImg.alt}
               id="interactive_img"
             />
-            <div className={classes.INSTextContainer}>
-              <div className={classes.INSTitle}>
-                INS
-              </div>
-            </div>
-            <div className={classes.NCICommunityImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.NCICommunityImg.img}
-                alt={landingPageData.NCICommunityImg.alt}
-                id="interactive_img"
-              />
-            </div>
-            <div className={classes.NCICommunityLinkContainer}>
-              <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
-                <div className={classes.iconTextWrapper}>
-                  <div className={classes.iconTitle}>
-                    {landingPageData.nciCommunityTitle}
-                  </div>
-                  <div className={classes.iconContent}>
-                    {landingPageData.nciCommunityDescription}
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className={classes.AvailableOutputsImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.AvailableOutputsImg.img}
-                alt={landingPageData.AvailableOutputsImg.alt}
-                id="interactive_img"
-              />
-            </div>
-            <div className={classes.AvailableOutputsLinkContainer}>
-              <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
-                <div className={classes.iconTextWrapper}>
-                  <div className={classes.iconTitle}>
-                    {landingPageData.availableOutputsTitle}
-                  </div>
-                  <div className={classes.iconContent}>
-                    {landingPageData.availableOutputsDescription}
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className={classes.UpdatedMetricsImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.UpdatedMetricsImg.img}
-                alt={landingPageData.UpdatedMetricsImg.alt}
-                id="interactive_img"
-              />
-            </div>
-            <div className={classes.UpdatedMetricsLinkContainer}>
-              <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
-                <div className={classes.iconTextWrapper}>
-                  <div className={classes.iconTitle}>
-                    {landingPageData.updatedMetricsTitle}
-                  </div>
-                  <div className={classes.iconContent}>
-                    {landingPageData.updatedMetricsDescription}
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className={classes.arrowCommunityImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.arrowCommunityImg.img}
-                alt={landingPageData.arrowCommunityImg.alt}
-                id="interactive_img"
-              />
-            </div>
-            <div className={classes.arrowOutputsImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.arrowOutputsImg.img}
-                alt={landingPageData.arrowOutputsImg.alt}
-                id="interactive_img"
-              />
-            </div>
-            <div className={classes.arrowMetricsImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.arrowMetricsImg.img}
-                alt={landingPageData.arrowMetricsImg.alt}
-                id="interactive_img"
-              />
-            </div>
           </div>
-        </Grid>
-      </div>
+          <div className={classes.NCICommunityLinkContainer}>
+            <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
+              <div className={classes.iconTextWrapper}>
+                <div className={classes.iconTitle}>
+                  {landingPageData.nciCommunityTitle}
+                </div>
+                <div className={classes.iconContent}>
+                  {landingPageData.nciCommunityDescription}
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className={classes.AvailableOutputsImgContainer}>
+            <img
+              className={classes.iconImage}
+              src={landingPageData.AvailableOutputsImg.img}
+              alt={landingPageData.AvailableOutputsImg.alt}
+              id="interactive_img"
+            />
+          </div>
+          <div className={classes.AvailableOutputsLinkContainer}>
+            <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
+              <div className={classes.iconTextWrapper}>
+                <div className={classes.iconTitle}>
+                  {landingPageData.availableOutputsTitle}
+                </div>
+                <div className={classes.iconContent}>
+                  {landingPageData.availableOutputsDescription}
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className={classes.UpdatedMetricsImgContainer}>
+            <img
+              className={classes.iconImage}
+              src={landingPageData.UpdatedMetricsImg.img}
+              alt={landingPageData.UpdatedMetricsImg.alt}
+              id="interactive_img"
+            />
+          </div>
+          <div className={classes.UpdatedMetricsLinkContainer}>
+            <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
+              <div className={classes.iconTextWrapper}>
+                <div className={classes.iconTitle}>
+                  {landingPageData.updatedMetricsTitle}
+                </div>
+                <div className={classes.iconContent}>
+                  {landingPageData.updatedMetricsDescription}
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className={classes.arrowCommunityImgContainer}>
+            <img
+              className={classes.iconImage}
+              src={landingPageData.arrowCommunityImg.img}
+              alt={landingPageData.arrowCommunityImg.alt}
+              id="interactive_img"
+            />
+          </div>
+          <div className={classes.arrowOutputsImgContainer}>
+            <img
+              className={classes.iconImage}
+              src={landingPageData.arrowOutputsImg.img}
+              alt={landingPageData.arrowOutputsImg.alt}
+              id="interactive_img"
+            />
+          </div>
+          <div className={classes.arrowMetricsImgContainer}>
+            <img
+              className={classes.iconImage}
+              src={landingPageData.arrowMetricsImg.img}
+              alt={landingPageData.arrowMetricsImg.alt}
+              id="interactive_img"
+            />
+          </div>
+        </div>
+      </Grid>
     </div>
     <div className={classes.whiteSection} />
     <StatsView stats={landingPageData.landingPageStatsBar} statsData={statsData} />
@@ -499,7 +497,6 @@ const styles = () => ({
     width: '176px',
     backgroundColor: '#DDA211',
     marginTop: '20px',
-
   },
   blueButton: {
     height: '45px',
@@ -606,18 +603,19 @@ const styles = () => ({
     position: 'relative',
     left: '33%',
   },
-
   paddingLeft2: {
     paddingLeft: '2px',
   },
   heroTextContainer: {
     position: 'absolute',
-    width: '400px',
-    margin: 'auto auto auto 435px',
-    left: '12px',
+    width: '1200px',
+    height: '1200px',
+    margin: 'auto',
     right: 0,
+    top: '100px',
+    left: 0,
     '@media (min-width: 900px)': {
-      width: '1050px',
+      width: '906px',
     },
   },
   heroImageContainer: {
