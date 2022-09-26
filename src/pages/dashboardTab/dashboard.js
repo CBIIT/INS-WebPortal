@@ -92,6 +92,51 @@ const Dashboard = ({
                           </Grid>
                         );
                       }
+                      if (widget.type === 'donut' && widget.show && data[widget.dataName].length === 0) {
+                        const tmp = [{
+                          group: 'No Data',
+                          subjects: 1,
+                          __typename: 'SearchProjectsReturnObject',
+                        }];
+                        const grayColor = {
+                          odd: [
+                            '#D4D4D4',
+                          ],
+                          even: [
+                            '#D4D4D4',
+                          ],
+                        };
+                        return (
+                          <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
+                            <Widget
+                              title={widget.label}
+                              upperTitle
+                              bodyClass={classes.fullHeightBody}
+                              className={classes.card}
+                              color={theme.palette.lochmara.contrastText}
+                              widgetBorderDivider
+                              customBackGround
+                            >
+                              <div className={classes.widgetMessage}>
+                                <CustomActiveDonut
+                                  data={tmp}
+                                  titleText="No Data"
+                                  width={400}
+                                  height={225}
+                                  innerRadius={50}
+                                  outerRadius={75}
+                                  cx="50%"
+                                  cy="50%"
+                                  textColor={theme.palette.widgetBackground.contrastText}
+                                  colors={grayColor}
+                                  titleLocation="bottom"
+                                  titleAlignment="bottom"
+                                />
+                              </div>
+                            </Widget>
+                          </Grid>
+                        );
+                      }
                       if (widget.type === 'donut' && widget.show && data[widget.dataName].length !== 0) {
                         return (
                           <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
