@@ -53,42 +53,63 @@ export const tabContainers = [
         link: '/project/{project_id}',
         primary: true,
         display: true,
+        headStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'program',
         header: 'Program',
         sort: 'asc',
         display: true,
+        headStyles: {
+          width: '5%',
+        },
       },
       {
         dataField: 'project_title',
         header: 'Project Title',
         sort: 'asc',
         display: true,
+        headStyles: {
+          width: '20%',
+        },
       },
       {
         dataField: 'principal_investigators',
         header: 'Principal Investigators',
         sort: 'asc',
         display: true,
+        headStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'program_officers',
         header: 'Program Officers',
         sort: 'asc',
         display: true,
+        headStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'lead_doc',
         header: 'Lead DOC',
         sort: 'asc',
         display: true,
+        headStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'activity_code',
         header: 'Activity Code',
         sort: 'asc',
         display: true,
+        headStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'award_amount',
@@ -104,18 +125,27 @@ export const tabContainers = [
 
           return formatter.format(money);
         },
+        headStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'project_end_date',
         header: 'Project End Date',
         sort: 'asc',
         display: true,
+        headStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'fiscal_year',
         header: 'Fiscal Year',
         sort: 'asc',
         display: true,
+        headStyles: {
+          width: '5%',
+        },
       },
     ],
     id: 'project_tab',
