@@ -322,7 +322,7 @@ const styles = () => ({
     paddingTop: '94px',
     fontFamily: 'Inter',
     fontSize: '40px',
-    fontWeight: '1000',
+    fontWeight: '800',
     lineHeight: '34px',
     color: '#000000',
     letterSpacing: '-0px',

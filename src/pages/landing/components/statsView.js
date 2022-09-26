@@ -163,13 +163,13 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '36px 290px 36px 150px',
+    padding: '36px 275px 36px 150px',
   },
   leftText: {
     fontFamily: 'Inter',
     color: '#FFFFFF',
     fontSize: '40px',
-    fontWeight: '1000',
+    fontWeight: '800',
     textAlign: 'left',
     lineHeight: '34px',
   },
