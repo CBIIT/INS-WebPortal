@@ -390,6 +390,15 @@ class ServerPaginatedTableView extends React.Component {
       });
       formatedUpdatedData.push(tmp);
     });
+
+    columns.forEach((col, idx) => {
+      if (this.props.headerStyles[idx] !== undefined) {
+        columns[idx].options.setCellHeaderProps = () => ({
+          style: this.props.headerStyles[idx],
+        });
+      }
+    });
+
     return (
       <div>
         <Backdrop

@@ -231,6 +231,10 @@ const TabView = ({
     return column.dataTransform !== undefined;
   });
 
+  const headerStyles = customColumn.columns.map((column) => {
+    return column.headerStyles;
+  });
+
   return (
     <div>
       {/* <Grid item xs={12} className={classes.saveButtonDiv}>
@@ -285,6 +289,7 @@ const TabView = ({
             defaultSortDirection={defaultSortDirection}
             tableDownloadCSV={tableDownloadCSV}
             dataTransformation={dataTransformCallbacks}
+            headerStyles={headerStyles}
           />
         </Grid>
       </Grid>
