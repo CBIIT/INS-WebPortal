@@ -65,7 +65,7 @@ const styles = (theme) => ({
     margin: '16px auto 0px auto'
   },
   paddedTitle: {
-    margin: '32px 32px 0px 64px',
+    margin: '32px auto 0px auto',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

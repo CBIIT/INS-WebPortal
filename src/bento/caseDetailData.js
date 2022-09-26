@@ -87,7 +87,7 @@ const rightPanel = [
         dataField: 'project_start_date',
       },
       {
-        label: 'Project End Datae',
+        label: 'Project End Date',
         dataField: 'project_end_date',
       },
       {
