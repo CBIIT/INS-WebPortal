@@ -514,6 +514,13 @@ export default {
           marginLeft: '4px',
           paddingBottom: '2px',
         },
+        '& a': {
+          color: '#7747ff',
+          textDecoration: 'none',
+          '&:hover': {
+            textDecoration: 'underline',
+          },
+        },
       },
     },
     MuiExpansionPanel: {

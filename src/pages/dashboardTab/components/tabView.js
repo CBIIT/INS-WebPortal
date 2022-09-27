@@ -341,14 +341,6 @@ const TabView = ({
 };
 
 const styles = () => ({
-
-  link: {
-    color: '#7747ff',
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  },
   cartlink: {
     fontFamily: 'Lato',
     color: '#3E6886',
