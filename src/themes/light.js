@@ -308,13 +308,11 @@ export default {
     MUIDataTableSelectCell: {
       fixedHeader: {
         position: 'relative',
-
       },
       headerCell: {
         borderTop: '3px solid #42779A',
         color: tableHeaderFontColor,
         backgroundColor: tableHeader,
-
       },
       checkboxRoot: {
         color: 'inherit',
@@ -322,7 +320,6 @@ export default {
           color: '#8DCAFF',
         },
       },
-
     },
     MuiBackdrop: {
       root: {
@@ -363,7 +360,6 @@ export default {
         cursor: 'pointer',
         display: 'inline-flex',
         outline: 'none',
-
       },
     },
     MuiTableSortLabel: {
@@ -435,15 +431,12 @@ export default {
         minHeight: '44px',
       },
       titleText: {
-
         color: tableHeaderFontColor,
-        // fontSize: '25.2pt',
         fontFamily: tableFontFamily,
         letterSpacing: '0.025em',
         fontStyle: 'normal',
       },
     },
-
     MUIDataTableToolbarSelect: {
       root: {
         backgroundColor: tableHeader,
@@ -512,6 +505,14 @@ export default {
       stackedParent: {
         '&:first-child': {
           paddingLeft: '30px',
+        },
+      },
+      stackedCommon: {
+        '& span img': {
+          width: '14.5px',
+          verticalAlign: 'sub',
+          marginLeft: '4px',
+          paddingBottom: '2px',
         },
       },
     },
