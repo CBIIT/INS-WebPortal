@@ -53,42 +53,63 @@ export const tabContainers = [
         link: '/project/{project_id}',
         primary: true,
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'program',
         header: 'Program',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '5%',
+        },
       },
       {
         dataField: 'project_title',
         header: 'Project Title',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '20%',
+        },
       },
       {
         dataField: 'principal_investigators',
         header: 'Principal Investigators',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'program_officers',
         header: 'Program Officers',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'lead_doc',
         header: 'Lead DOC',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'activity_code',
         header: 'Activity Code',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'award_amount',
@@ -104,18 +125,27 @@ export const tabContainers = [
 
           return formatter.format(money);
         },
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'project_end_date',
         header: 'Project End Date',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'fiscal_year',
         header: 'Fiscal Year',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '5%',
+        },
       },
     ],
     id: 'project_tab',
@@ -161,42 +191,76 @@ export const tabContainers = [
         primary: true,
         link: 'https://pubmed.ncbi.nlm.nih.gov/{publication_id}/',
         display: true,
+        headerStyles: {
+          width: '5%',
+        },
       },
       {
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
         display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
+        headerStyles: {
+          width: '15%',
+        },
       },
       {
         dataField: 'title',
         header: 'Title',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '25%',
+        },
       },
       {
         dataField: 'authors',
         header: 'Authors',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '25%',
+        },
       },
       {
         dataField: 'citation_count',
         header: 'Citation Count',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'relative_citation_ratio',
         header: 'Relative Citation Ratio',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'nih_percentile',
         header: 'NIH Percentile',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
     ],
     id: 'publication_tab',
@@ -242,6 +306,9 @@ export const tabContainers = [
         link: '{link}',
         primary: true,
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'link',
@@ -255,42 +322,76 @@ export const tabContainers = [
         header: 'Project IDs',
         sort: 'asc',
         display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
+        headerStyles: {
+          width: '15%',
+        },
       },
       {
         dataField: 'transformed_type',
         header: 'Type',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '5%',
+        },
       },
       {
         dataField: 'title',
         header: 'Title',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '30%',
+        },
       },
       {
         dataField: 'submission_date',
         header: 'Submission Date',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'last_update_date',
         header: 'Last Update Date',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'release_date',
         header: 'Release Date',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'registration_date',
         header: 'Registration Date',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
     ],
     id: 'dataset_tab',
@@ -336,30 +437,58 @@ export const tabContainers = [
         link: 'https://clinicaltrials.gov/ct2/show/{clinical_trial_id}/',
         primary: true,
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
         display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
+        headerStyles: {
+          width: '15%',
+        },
       },
       {
         dataField: 'title',
         header: 'Title',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '55%',
+        },
       },
       {
         dataField: 'last_update_posted',
         header: 'Last Update Posted',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
       {
         dataField: 'recruitment_status',
         header: 'Recruitment Status',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '10%',
+        },
       },
     ],
     id: 'clinical_trial_tab',
@@ -404,18 +533,40 @@ export const tabContainers = [
         sort: 'asc',
         primary: true,
         display: true,
+        headerStyles: {
+          width: '40%',
+        },
       },
       {
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
         display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
+        headerStyles: {
+          width: '30%',
+        },
       },
       {
         dataField: 'fulfilled_date',
         header: 'Fulfilled Date',
         sort: 'asc',
         display: true,
+        headerStyles: {
+          width: '30%',
+        },
       },
     ],
     id: 'patent_tab',
