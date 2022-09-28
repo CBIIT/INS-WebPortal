@@ -31,7 +31,7 @@ const INSFooter = () => {
       <Footer classes={styles} data={footerUpdatedData} />
       <div>
         <div className="beVersion">
-          Site Data Update (Projects, Publications, Patents): 08/01/2022
+          Site Data Update (Projects, Publications, Patents): 09/26/2022
           <br />
           <br />
           Site Data Update (Datasets, Clinical Trials): 05/26/2022
