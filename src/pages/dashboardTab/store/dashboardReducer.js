@@ -413,7 +413,6 @@ export function clearSectionSort(groupName) {
  */
 
 export function clearAllFilters() {
-  console.log('HERE');
   store.dispatch({ type: 'RESET_ALL' });
   store.dispatch(fetchDashboardTabForClearAll());
 }
