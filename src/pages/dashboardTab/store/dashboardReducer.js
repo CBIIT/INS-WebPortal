@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/destructuring-assignment */
 import _ from 'lodash';
@@ -218,7 +219,7 @@ const transformDonutData = (data) => {
   transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
   for (let i = 0; i < transformedData.publicationCountByYearSorted.length; i += 1) {
-  // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len
     transformedData.publicationCountByYearSorted[i].group = new Date(parseInt(transformedData.publicationCountByYearSorted[i].group, 10)).getFullYear();
   }
 
@@ -412,6 +413,7 @@ export function clearSectionSort(groupName) {
  */
 
 export function clearAllFilters() {
+  console.log('HERE');
   store.dispatch({ type: 'RESET_ALL' });
   store.dispatch(fetchDashboardTabForClearAll());
 }
@@ -1258,12 +1260,68 @@ const reducers = {
     };
   },
   TOGGLE_CHECKBOX_WITH_API: (state, item) => {
+    const newAllFilters = {
+      award_amounts: [], docs: [], fiscal_years: [], programs: [],
+    };
+
+    if (item.allFilters.award_amounts.length !== 0) {
+      let k = 0;
+
+      for (let i = 0; i < item.allFilters.award_amounts.length; i += 1) {
+        for (let j = 0; j < item.data.searchProjects.filterProjectCountByAwardAmount.length; j += 1) {
+          if (item.allFilters.award_amounts[i] === item.data.searchProjects.filterProjectCountByAwardAmount[j].group) {
+            newAllFilters.award_amounts[k] = item.allFilters.award_amounts[i];
+            k += 1;
+          }
+        }
+      }
+    }
+
+    if (item.allFilters.docs.length !== 0) {
+      let k = 0;
+
+      for (let i = 0; i < item.allFilters.docs.length; i += 1) {
+        for (let j = 0; j < item.data.searchProjects.filterProjectCountByDOC.length; j += 1) {
+          if (item.allFilters.docs[i] === item.data.searchProjects.filterProjectCountByDOC[j].group) {
+            newAllFilters.docs[k] = item.allFilters.docs[i];
+            k += 1;
+          }
+        }
+      }
+    }
+
+    if (item.allFilters.fiscal_years.length !== 0) {
+      let k = 0;
+
+      for (let i = 0; i < item.allFilters.fiscal_years.length; i += 1) {
+        for (let j = 0; j < item.data.searchProjects.filterProjectCountByFiscalYear.length; j += 1) {
+          if (item.allFilters.fiscal_years[i] === item.data.searchProjects.filterProjectCountByFiscalYear[j].group) {
+            newAllFilters.fiscal_years[k] = item.allFilters.fiscal_years[i];
+            k += 1;
+          }
+        }
+      }
+    }
+
+    if (item.allFilters.programs.length !== 0) {
+      let k = 0;
+
+      for (let i = 0; i < item.allFilters.programs.length; i += 1) {
+        for (let j = 0; j < item.data.searchProjects.filterProjectCountByProgram.length; j += 1) {
+          if (item.allFilters.programs[i] === item.data.searchProjects.filterProjectCountByProgram[j].group) {
+            newAllFilters.programs[k] = item.allFilters.programs[i];
+            k += 1;
+          }
+        }
+      }
+    }
+
     let updatedCheckboxData1 = updateFilteredAPIDataIntoCheckBoxData(
       item.data.searchProjects, facetSearchData,
     );
     const rangeData = updatedCheckboxData1.filter((sideBar) => sideBar.slider === true);
     updatedCheckboxData1 = updatedCheckboxData1.filter((sideBar) => sideBar.slider !== true);
-    let checkboxData1 = setSelectedFilterValues(updatedCheckboxData1, item.allFilters);
+    let checkboxData1 = setSelectedFilterValues(updatedCheckboxData1, newAllFilters);
     updatedCheckboxData1 = updatedCheckboxData1.concat(rangeData);
     checkboxData1 = checkboxData1.concat(rangeData);
     checkboxData1.forEach((cbd, idx) => {
@@ -1271,15 +1329,16 @@ const reducers = {
     });
     fetchDataForDashboardTab(
       tabIndex[0].title,
-      item.allFilters,
+      newAllFilters,
     );
+
     return {
       ...state,
       setSideBarLoading: false,
-      allActiveFilters: item.allFilters,
+      allActiveFilters: newAllFilters,
       checkbox: {
         data: checkboxData1,
-        variables: item.allFilters,
+        variables: newAllFilters,
       },
       stats: getFilteredStat(item.data.searchProjects, statsCount),
       widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
