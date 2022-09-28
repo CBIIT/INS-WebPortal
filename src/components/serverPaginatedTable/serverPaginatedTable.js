@@ -409,7 +409,7 @@ class ServerPaginatedTableView extends React.Component {
             <CircularProgress style={{ height: '60px' }} />
           </div>
         </Backdrop>
-        {isLoading || this.props.isLoading || data === 'undefined' ? <div style={{ width: '1535px' }}><CircularProgress style={{ height: '60px' }} /></div> : (
+        {this.props.isLoading || data === 'undefined' || formatedUpdatedData === 'undefined' ? <div style={{ width: '1535px' }}><CircularProgress style={{ height: '60px' }} /></div> : (
           <CustomDataTable
             data={formatedUpdatedData}
             columns={columns}
