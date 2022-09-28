@@ -1263,56 +1263,42 @@ const reducers = {
       award_amounts: [], docs: [], fiscal_years: [], programs: [],
     };
 
-    if (item.allFilters.award_amounts.length !== 0) {
-      let k = 0;
+    let validCheckBoxOptions = [];
 
-      for (let i = 0; i < item.allFilters.award_amounts.length; i += 1) {
-        for (let j = 0; j < item.data.searchProjects.filterProjectCountByAwardAmount.length; j += 1) {
-          if (item.allFilters.award_amounts[i] === item.data.searchProjects.filterProjectCountByAwardAmount[j].group) {
-            newAllFilters.award_amounts[k] = item.allFilters.award_amounts[i];
-            k += 1;
-          }
+    if (item.allFilters.award_amounts.length !== 0) {
+      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByAwardAmount.map((opt) => opt.group);
+      item.allFilters.award_amounts.forEach((amount) => {
+        if (validCheckBoxOptions.indexOf(amount) > -1) {
+          newAllFilters.award_amounts.push(amount);
         }
-      }
+      });
     }
 
     if (item.allFilters.docs.length !== 0) {
-      let k = 0;
-
-      for (let i = 0; i < item.allFilters.docs.length; i += 1) {
-        for (let j = 0; j < item.data.searchProjects.filterProjectCountByDOC.length; j += 1) {
-          if (item.allFilters.docs[i] === item.data.searchProjects.filterProjectCountByDOC[j].group) {
-            newAllFilters.docs[k] = item.allFilters.docs[i];
-            k += 1;
-          }
+      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByDOC.map((opt) => opt.group);
+      item.allFilters.docs.forEach((doc) => {
+        if (validCheckBoxOptions.indexOf(doc) > -1) {
+          newAllFilters.docs.push(doc);
         }
-      }
+      });
     }
 
     if (item.allFilters.fiscal_years.length !== 0) {
-      let k = 0;
-
-      for (let i = 0; i < item.allFilters.fiscal_years.length; i += 1) {
-        for (let j = 0; j < item.data.searchProjects.filterProjectCountByFiscalYear.length; j += 1) {
-          if (item.allFilters.fiscal_years[i] === item.data.searchProjects.filterProjectCountByFiscalYear[j].group) {
-            newAllFilters.fiscal_years[k] = item.allFilters.fiscal_years[i];
-            k += 1;
-          }
+      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByFiscalYear.map((opt) => opt.group);
+      item.allFilters.fiscal_years.forEach((fyear) => {
+        if (validCheckBoxOptions.indexOf(fyear) > -1) {
+          newAllFilters.fiscal_years.push(fyear);
         }
-      }
+      });
     }
 
     if (item.allFilters.programs.length !== 0) {
-      let k = 0;
-
-      for (let i = 0; i < item.allFilters.programs.length; i += 1) {
-        for (let j = 0; j < item.data.searchProjects.filterProjectCountByProgram.length; j += 1) {
-          if (item.allFilters.programs[i] === item.data.searchProjects.filterProjectCountByProgram[j].group) {
-            newAllFilters.programs[k] = item.allFilters.programs[i];
-            k += 1;
-          }
+      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByProgram.map((opt) => opt.group);
+      item.allFilters.programs.forEach((program) => {
+        if (validCheckBoxOptions.indexOf(program) > -1) {
+          newAllFilters.programs.push(program);
         }
-      }
+      });
     }
 
     let updatedCheckboxData1 = updateFilteredAPIDataIntoCheckBoxData(
