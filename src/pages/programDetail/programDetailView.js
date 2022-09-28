@@ -40,7 +40,7 @@ const ProgramView = ({ classes, data, theme }) => {
       datafield: 'programs',
       groupName: 'Program',
       isChecked: true,
-      name: programData.program_acronym,
+      name: programData.program_id,
       section: 'Filter By Cases',
     }]);
   };
