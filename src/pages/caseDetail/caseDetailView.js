@@ -25,7 +25,6 @@ import {
   table6,
   externalLinkIcon,
   tooltipContent,
-  tab,
 } from '../../bento/caseDetailData';
 import Snackbar from '../../components/Snackbar';
 import { fetchDataForDashboardDataTable } from '../dashboard/dashboardState';
@@ -70,6 +69,41 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
     to: '/explore',
     isALink: true,
   }];
+
+  const tab = {
+    items: [
+      {
+        index: 0,
+        label: `PUBLICATIONS (${data.publications.length})`,
+        value: 'publications',
+      },
+      {
+        index: 1,
+        label: `GEOS (${data.geos.length})`,
+        value: 'geos',
+      },
+      {
+        index: 2,
+        label: `SRAS (${data.sras.length})`,
+        value: 'sras',
+      },
+      {
+        index: 3,
+        label: `DBGAPS (${data.dbgaps.length})`,
+        value: 'dbgaps',
+      },
+      {
+        index: 4,
+        label: `CLINICAL TRIALS (${data.clinical_trials.length})`,
+        value: 'clinical_trials',
+      },
+      {
+        index: 5,
+        label: `PATENTS (${data.patents.length})`,
+        value: 'patents',
+      },
+    ],
+  };
 
   // // those are questioning codes for ICDC only, need to remove from here.
   // const filesOfSamplesObj = filesOfSamples.reduce(
