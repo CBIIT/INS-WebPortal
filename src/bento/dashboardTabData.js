@@ -1,5 +1,8 @@
 /* eslint-disable */
 import gql from 'graphql-tag';
+import {
+  customProjectsTabDownloadCSV,
+} from './tableDownloadCSV';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -154,6 +157,8 @@ export const tabContainers = [
     tableID: 'project_tab_table',
     selectableRows: false,
     tabIndex: '0',
+    tableDownloadCSV: customProjectsTabDownloadCSV,
+    downloadFileName: 'projects_download',
     headerPagination: true,
     footerPagination: true,
   },
