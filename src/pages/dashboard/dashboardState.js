@@ -10,7 +10,7 @@ import {
 } from 'bento-components';
 import client from '../../utils/graphqlClient';
 import {
-  GET_DASHBOARD_DATA_QUERY, widgetsData, GET_DASHBOARD_TABLE_DATA_QUERY, facetSearchData,
+  GET_DASHBOARD_DATA_QUERY, widgetsData, facetSearchData,
 } from '../../bento/dashboardData';
 import { globalStatsData as statsCount } from '../../bento/globalStatsData';
 
@@ -144,40 +144,17 @@ function fetchDashboard() {
   };
 }
 
-export function fetchAllDataForDataTable() {
-  return async (dispatch) => {
-    await client
-      .query({
-        query: GET_DASHBOARD_TABLE_DATA_QUERY,
-      })
-      .then((result) => dispatch(fetchAllDataForDashboardTable(result)))
-      .catch((error) => dispatch(errorhandler(error, GET_DASHBOARD_DATA_QUERY_ERR)));
-  };
-}
-
 function shouldFetchAllDataForDashboardData(state) {
-// Incase state null when coming from arm detail and program detail
+  // Incase state null when coming from arm detail and program detail
   return state === undefined ? true : !(state.dashboard.isDataTableUptoDate);
 }
 
 export function fetchAllDataForDashboardDataTable() {
-  return (dispatch, getState) => {
-    if (shouldFetchAllDataForDashboardData(getState())) {
-      return dispatch(fetchAllDataForDataTable());
-    }
-    // Let the calling code know there's nothing to wait for.
-    return Promise.resolve();
-  };
+  return (dispatch, getState) => Promise.resolve();
 }
 
 export function AsyncFetchAllDataForDashboardDataTable() {
-  return async (dispatch, getState) => {
-    if (shouldFetchAllDataForDashboardData(getState())) {
-      await dispatch(fetchAllDataForDataTable());
-    }
-    // Let the calling code know there's nothing to wait for.
-    return Promise.resolve();
-  };
+  return async (dispatch, getState) => Promise.resolve();
 }
 
 function shouldFetchDataForDashboardData(state) {
