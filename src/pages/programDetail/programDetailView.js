@@ -1,37 +1,57 @@
+/* eslint-disable max-len */
 import React from 'react';
+import _ from 'lodash';
 import {
   Grid,
   withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import {
-  CustomDataTable,
   cn,
   manipulateLinks,
   getOptions,
   getColumns,
   CustomActiveDonut,
 } from 'bento-components';
+import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
 import globalData from '../../bento/siteWideConfig';
 import {
-  pageTitle, table, externalLinkIcon,
-  programDetailIcon, breadCrumb, aggregateCount,
-  pageSubTitle, leftPanel, rightPanel,
+  pageTitle,
+  table,
+  externalLinkIcon,
+  programDetailIcon,
+  breadCrumb,
+  aggregateCount,
+  pageSubTitle,
+  leftPanel,
+  rightPanel,
 } from '../../bento/programDetailData';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
 import {
-  singleCheckBox, setSideBarToLoading, setDashboardTableLoading,
+  singleCheckBox,
+  setSideBarToLoading,
+  setDashboardTableLoading,
+  getTableRowSelectionEvent,
 } from '../dashboardTab/store/dashboardReducer';
+import {
+  GET_PROJECTS_OVERVIEW_QUERY,
+} from '../../bento/dashboardTabData';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import Widget from '../../components/Widgets/WidgetView';
 import colors from '../../utils/colors';
+import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
+import { getCart } from '../fileCentricCart/store/cart';
 
-const ProgramView = ({ classes, data, theme }) => {
+const getOverviewQuery = (api) => (GET_PROJECTS_OVERVIEW_QUERY);
+
+const ProgramView = ({
+  classes, data, theme,
+}) => {
   const {
     programPublicationCount, programDatasetCount, programClinicalTrialCount, programPatentCount,
-  } = data;
-  const programData = data.programDetail;
+  } = data[0];
+  const programData = data[0].programDetail;
 
   const redirectTo = () => {
     setSideBarToLoading();
@@ -73,6 +93,114 @@ const ProgramView = ({ classes, data, theme }) => {
   }];
 
   const updatedAttributesData = manipulateLinks(leftPanel.attributes);
+
+  const options = getOptions(table, classes);
+
+  const selectedRowInfo = [];
+
+  const selectedRowIndex = [];
+
+  const primaryKeyIndex = 0;
+
+  const { dataKey } = table;
+
+  const cart = getCart();
+
+  const fileIDs = cart.fileIds ? cart.fileIds : [];
+
+  const dataTransformCallbacks = table.columns.filter((column, idx) => column.dataTransform !== undefined);
+
+  const headerStyles = table.columns.map((column) => column.headerStyles);
+
+  const setRowSelection = getTableRowSelectionEvent();
+
+  function disableRowSelection(d, cartData) {
+    return true;
+  }
+
+  function rowSelectionEvent(displayData, rowsSelected) {
+    const displayedDataKeies = displayData;
+    const selectedRowsKey = rowsSelected
+      ? rowsSelected.map((index) => displayedDataKeies[index])
+      : [];
+    let newSelectedRowInfo = [];
+
+    if (rowsSelected) {
+      // Remove the rowInfo from selectedRowInfo if this row currently be
+      // displayed and not be selected.
+      if (selectedRowInfo.length > 0) {
+        newSelectedRowInfo = selectedRowInfo.filter((key) => {
+          if (displayedDataKeies.includes(key)) {
+            return false;
+          }
+          return true;
+        });
+      }
+    } else {
+      newSelectedRowInfo = selectedRowInfo;
+    }
+    newSelectedRowInfo = newSelectedRowInfo.concat(selectedRowsKey);
+
+    // Get selectedRowIndex by comparing current page data with selected row's key.
+    // if rowInfo from selectedRowInfo is currently be displayed
+    const newSelectedRowIndex = displayedDataKeies.reduce(
+      (accumulator, currentValue, currentIndex) => {
+        if (newSelectedRowInfo.includes(currentValue)) {
+          accumulator.push(currentIndex);
+        }
+        return accumulator;
+      }, [],
+    );
+
+    // reduce the state chagne, when newSelectedRowIndex and newSelectedRowInfo is same as previous.
+    if (_.differenceWith(
+      newSelectedRowIndex,
+      selectedRowIndex,
+      _.isEqual,
+    ).length !== 0
+      || _.differenceWith(
+        newSelectedRowInfo,
+        selectedRowInfo,
+        _.isEqual,
+      ).length !== 0
+      || _.differenceWith(
+        selectedRowInfo,
+        newSelectedRowInfo,
+        _.isEqual,
+      ).length !== 0
+      || _.differenceWith(
+        selectedRowIndex,
+        newSelectedRowIndex,
+        _.isEqual,
+      ).length !== 0) {
+      setRowSelection({
+        selectedRowInfo: newSelectedRowInfo,
+        selectedRowIndex: newSelectedRowIndex,
+      });
+    }
+  }
+
+  function onRowsSelect(curr, allRowsSelected, rowsSelected, displayData) {
+    rowSelectionEvent(displayData.map((d) => d.data[1][primaryKeyIndex]), rowsSelected);
+  }
+
+  const defaultOptions = () => ({
+    dataKey,
+    rowsSelectedTrigger: (displayData, rowsSelected) => rowSelectionEvent(
+      displayData,
+      rowsSelected,
+    ),
+    rowsSelected: selectedRowIndex,
+    onRowSelectionChange: onRowsSelect,
+    isRowSelectable: (dataIndex) => (disableRowSelection
+      ? disableRowSelection(data[1][dataIndex], fileIDs) : true),
+  });
+
+  const finalOptions = {
+    ...options,
+    ...defaultOptions(),
+    serverTableRowCount: selectedRowInfo.length,
+  };
 
   return (
     <>
@@ -282,7 +410,7 @@ const ProgramView = ({ classes, data, theme }) => {
                       customBackGround
                     >
                       <CustomActiveDonut
-                        data={data[rightPanel.widget[0].dataName]}
+                        data={data[0][rightPanel.widget[0].dataName]}
                         titleText={rightPanel.widget[0].titleText || 'Cases'}
                         width={400}
                         height={225}
@@ -314,7 +442,7 @@ const ProgramView = ({ classes, data, theme }) => {
                       customBackGround
                     >
                       <CustomActiveDonut
-                        data={data[rightPanel.widget[1].dataName]}
+                        data={data[0][rightPanel.widget[1].dataName]}
                         titleText={rightPanel.widget[1].titleText || 'Cases'}
                         width={400}
                         height={225}
@@ -368,9 +496,18 @@ const ProgramView = ({ classes, data, theme }) => {
                 <Grid item xs={12}>
                   <Typography>
                     <CustomDataTable
-                      data={data.programDetail[table.dataField]}
-                      columns={getColumns(table, classes, data, externalLinkIcon, '/cases', redirectToArm)}
-                      options={getOptions(table, classes)}
+                      key={data[1].length}
+                      data={data[1]}
+                      columns={getColumns(table, classes, data[1], externalLinkIcon, '', () => { }, DocumentDownload, globalData.replaceEmptyValueWith)}
+                      options={finalOptions}
+                      overview={getOverviewQuery(table.api)}
+                      paginationAPIField={table.paginationAPIField}
+                      paginationAPIFieldDesc={table.paginationAPIFieldDesc}
+                      defaultSortCoulmn={table.defaultSortCoulmn || ''}
+                      defaultSortDirection={table.defaultSortDirection || 'asc'}
+                      tableDownloadCSV={table.tableDownloadCSV || false}
+                      dataTransformation={dataTransformCallbacks}
+                      headerStyles={headerStyles}
                     />
                   </Typography>
                 </Grid>
