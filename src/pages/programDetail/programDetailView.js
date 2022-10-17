@@ -43,7 +43,7 @@ import colors from '../../utils/colors';
 import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
 import { getCart } from '../fileCentricCart/store/cart';
 
-const getOverviewQuery = (api) => (GET_PROJECTS_OVERVIEW_QUERY);
+const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
 
 const ProgramView = ({
   classes, data, theme,
@@ -497,9 +497,10 @@ const ProgramView = ({
                   <Typography>
                     <CustomDataTable
                       key={data[1].length}
-                      data={data[1]}
+                      data={data[1].projectOverView}
                       columns={getColumns(table, classes, data[1], externalLinkIcon, '', () => { }, DocumentDownload, globalData.replaceEmptyValueWith)}
                       options={finalOptions}
+                      count={stat.numberOfProjects}
                       overview={getOverviewQuery(table.api)}
                       paginationAPIField={table.paginationAPIField}
                       paginationAPIFieldDesc={table.paginationAPIFieldDesc}
@@ -618,7 +619,6 @@ const styles = (theme) => ({
     fontSize: '26px',
     lineHeight: '24px',
     paddingLeft: '0px',
-
   },
   headerSubTitleCate: {
     color: '#00B0BD',
@@ -641,7 +641,6 @@ const styles = (theme) => ({
     textTransform: 'uppercase',
     letterSpacing: '0.023em',
     fontSize: '14px',
-
   },
   headerMSubTitle: {
     paddingTop: '3px',
@@ -658,7 +657,6 @@ const styles = (theme) => ({
     background: '#F6F4F4',
     textAlign: 'center',
     marginRight: '-20px',
-
   },
   headerButtonLinkSpan: {
     fontFamily: theme.custom.fontFamily,
@@ -764,7 +762,6 @@ const styles = (theme) => ({
     paddingTop: '50px',
     paddingLeft: '0px',
   },
-
   headerButtonLink: {
     textDecoration: 'none',
     lineHeight: '14px',
@@ -851,6 +848,94 @@ const styles = (theme) => ({
     width: '16px',
     verticalAlign: 'sub',
     marginLeft: '4px',
+  },
+  cartlink: {
+    fontFamily: 'Lato',
+    color: '#3E6886',
+    fontSize: '12px',
+    marginRight: '70px',
+    textDecoration: 'none',
+    borderBottom: '1px solid #3E6886',
+    paddingBottom: '3px',
+  },
+  caseTitle: {
+    color: '#194563',
+    fontSize: '25.2pt',
+    fontStyle: 'normal',
+    fontFamily: 'Raleway',
+    letterSpacing: '0.025em',
+    backgroundColor: '#f5f5f5',
+    padding: '10px 32px 8px 28px',
+  },
+  chips: {
+    position: 'absolute',
+    marginLeft: '250px',
+    marginTop: '36px',
+    zIndex: '999',
+  },
+  chipRoot: {
+    color: '#ffffff',
+    fontFamily: '"Open Sans", sans-serif',
+    letterSpacing: '0.075em',
+    marginLeft: '10px',
+    backgroundColor: '#9b9b9b',
+    fontSize: '9pt',
+  },
+  chipDeleteIcon: {
+    color: '#ffffff',
+    '&:hover': {
+      color: '#ffffff',
+    },
+  },
+  saveButtonDiv: {
+    paddingTop: '5px',
+    paddingRight: '25px',
+    textAlign: 'right',
+  },
+  saveButtonDivBottom: {
+    paddingTop: '5px',
+    paddingRight: '25px',
+    textAlign: 'right',
+    marginBottom: '30px',
+    position: 'relative',
+  },
+  caseTableBorder: {
+    borderTopColor: '#F48439',
+  },
+  fileTableBorder: {
+    borderTopColor: '#2446C6',
+  },
+  sampleTableBorder: {
+    borderTopColor: '#05C5CC',
+  },
+  messageBottom: {
+    zIndex: '500',
+    position: 'absolute',
+    marginTop: '-148px',
+    marginLeft: 'calc(100% - 220px)',
+  },
+  helpIcon: {
+    zIndex: '600',
+  },
+  helpIconButton: {
+    verticalAlign: 'top',
+    marginLeft: '-5px',
+  },
+  customTooltip: {
+    border: '#03A383 1px solid',
+  },
+  customArrow: {
+    '&::before': {
+      border: '#03A383 1px solid',
+    },
+  },
+  snackBarMessageIcon: {
+    verticalAlign: 'middle',
+  },
+  messageTop: {
+    position: 'absolute',
+    right: '20px',
+    zIndex: '300',
   },
 });
 

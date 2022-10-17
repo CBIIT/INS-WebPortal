@@ -84,6 +84,8 @@ const rightPanel = {
 // --------------- Table configuration --------------
 const table = {
   name: 'Projects',
+  title: 'Projects',
+  display: true,
   dataField: 'dataProject',
   api: 'GET_PROJECTS_OVERVIEW_QUERY',
   paginationAPIField: 'projectOverView',
@@ -118,15 +120,6 @@ const table = {
       display: true,
       headerStyles: {
         width: '10%',
-      },
-    },
-    {
-      dataField: 'program',
-      header: 'Program',
-      sort: 'asc',
-      display: true,
-      headerStyles: {
-        width: '5%',
       },
     },
     {
@@ -207,7 +200,7 @@ const table = {
       sort: 'asc',
       display: true,
       headerStyles: {
-        width: '5%',
+        width: '10%',
       },
     },
   ],
@@ -244,11 +237,7 @@ query programDetail($program_id: String!) {
     program_name
     program_description
     program_website
-    num_publications
     num_projects
-    num_geos
-    num_sras
-    num_clinical_trials
   }
 }`;
 
