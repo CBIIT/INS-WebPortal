@@ -52,7 +52,7 @@ export const customProjectsTabDownloadCSV = {
   header: ['Project ID', 'Program', 'Project Title', 'Principal Investigators', 'Program Officers', 'Lead DOC', 'Activity Code', 'Award Amount', 'Project End Date', 'Fiscal Year'],
   query: GET_PROJECTS_TAB,
   apiVariable: 'projectOverView',
-  fileName: 'tableDownload',
+  fileName: 'INS Projects',
   defaultFullTableDownload: true,
 };
 
