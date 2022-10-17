@@ -2,6 +2,10 @@
 import gql from 'graphql-tag';
 import {
   customProjectsTabDownloadCSV,
+  customPublicationsTabDownloadCSV,
+  customDatasetsTabDownloadCSV,
+  customClinicalTrialsTabDownloadCSV,
+  customPatentsTabDownloadCSV,
 } from './tableDownloadCSV';
 
 // --------------- Tooltip configuration --------------
@@ -274,6 +278,8 @@ export const tabContainers = [
     tableID: 'publication_tab_table',
     selectableRows: false,
     tabIndex: '1',
+    tableDownloadCSV: customPublicationsTabDownloadCSV,
+    downloadFileName: 'publications_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -405,6 +411,8 @@ export const tabContainers = [
     tableID: 'dataset_tab_table',
     selectableRows: false,
     tabIndex: '2',
+    tableDownloadCSV: customDatasetsTabDownloadCSV,
+    downloadFileName: 'datasets_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -502,6 +510,8 @@ export const tabContainers = [
     tableID: 'clinical_trial_tab_table',
     selectableRows: false,
     tabIndex: '3',
+    tableDownloadCSV: customClinicalTrialsTabDownloadCSV,
+    downloadFileName: 'clinical_trials_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -580,6 +590,8 @@ export const tabContainers = [
     tableID: 'patent_tab_table',
     selectableRows: false,
     tabIndex: '4',
+    tableDownloadCSV: customPatentsTabDownloadCSV,
+    downloadFileName: 'patents_download',
     headerPagination: true,
     footerPagination: true,
   },
