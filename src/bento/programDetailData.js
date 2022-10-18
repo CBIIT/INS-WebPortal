@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { customProgramsTableDownloadCSV } from './tableDownloadCSV';
 
 // --------------- Page title configuration --------------
 const pageTitle = {
@@ -210,6 +211,8 @@ const table = {
   tableID: 'project_tab_table',
   selectableRows: false,
   tabIndex: '0',
+  tableDownloadCSV: customProgramsTableDownloadCSV,
+  downloadFileName: 'programs_download',
   headerPagination: true,
   footerPagination: true,
 };

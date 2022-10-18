@@ -1,5 +1,70 @@
 import gql from 'graphql-tag';
 
+export const GET_PROGRAMS_TABLE = gql`
+query projectOverView(
+  $programs: [String],
+  $order_by: String ,
+  $sort_direction: String 
+  ){
+  projectOverView(
+    programs: $programs,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+    ) {
+    project_id,
+    application_id,
+    fiscal_year,
+    activity_code,
+    project_title,
+    project_type,
+    abstract_text,
+    keywords,
+    org_name,
+    org_city,
+    org_state,
+    org_country,
+    principal_investigators,
+    lead_doc,
+    program_officers,
+    award_amount,
+    nci_funded_amount,
+    award_notice_date,
+    project_start_date,
+    project_end_date,
+    full_foa
+  }
+}
+`;
+
+export const customProgramsTableDownloadCSV = {
+  keysToInclude: [
+    'project_id',
+    'project_title',
+    'principal_investigators',
+    'program_officers',
+    'lead_doc',
+    'activity_code',
+    'award_amount',
+    'project_end_date',
+    'fiscal_year',
+  ],
+  header: [
+    'Project ID',
+    'Project Title',
+    'Principal Investigators',
+    'Program Officers',
+    'Lead DOC',
+    'Activity Code',
+    'Award Amount',
+    'Project End Date',
+    'Fiscal Year',
+  ],
+  query: GET_PROGRAMS_TABLE,
+  apiVariable: 'projectOverView',
+  fileName: 'INS Programs',
+  defaultFullTableDownload: true,
+};
+
 export const GET_PROJECTS_TAB = gql`
 query projectOverView(
   $programs: [String],
