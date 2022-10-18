@@ -1,37 +1,57 @@
+/* eslint-disable max-len */
 import React from 'react';
+import _ from 'lodash';
 import {
   Grid,
   withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import {
-  CustomDataTable,
   cn,
   manipulateLinks,
   getOptions,
   getColumns,
   CustomActiveDonut,
 } from 'bento-components';
+import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
 import globalData from '../../bento/siteWideConfig';
 import {
-  pageTitle, table, externalLinkIcon,
-  programDetailIcon, breadCrumb, aggregateCount,
-  pageSubTitle, leftPanel, rightPanel,
+  pageTitle,
+  table,
+  externalLinkIcon,
+  programDetailIcon,
+  breadCrumb,
+  aggregateCount,
+  pageSubTitle,
+  leftPanel,
+  rightPanel,
 } from '../../bento/programDetailData';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
 import {
-  singleCheckBox, setSideBarToLoading, setDashboardTableLoading,
+  singleCheckBox,
+  setSideBarToLoading,
+  setDashboardTableLoading,
+  getTableRowSelectionEvent,
 } from '../dashboardTab/store/dashboardReducer';
+import {
+  GET_PROJECTS_OVERVIEW_QUERY,
+} from '../../bento/dashboardTabData';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import Widget from '../../components/Widgets/WidgetView';
 import colors from '../../utils/colors';
+import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
+import { getCart } from '../fileCentricCart/store/cart';
 
-const ProgramView = ({ classes, data, theme }) => {
+const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
+
+const ProgramView = ({
+  classes, data, theme,
+}) => {
   const {
     programPublicationCount, programDatasetCount, programClinicalTrialCount, programPatentCount,
-  } = data;
-  const programData = data.programDetail;
+  } = data[0];
+  const programData = data[0].programDetail;
 
   const redirectTo = () => {
     setSideBarToLoading();
@@ -73,6 +93,114 @@ const ProgramView = ({ classes, data, theme }) => {
   }];
 
   const updatedAttributesData = manipulateLinks(leftPanel.attributes);
+
+  const options = getOptions(table, classes);
+
+  const selectedRowInfo = [];
+
+  const selectedRowIndex = [];
+
+  const primaryKeyIndex = 0;
+
+  const { dataKey } = table;
+
+  const cart = getCart();
+
+  const fileIDs = cart.fileIds ? cart.fileIds : [];
+
+  const dataTransformCallbacks = table.columns.filter((column, idx) => column.dataTransform !== undefined);
+
+  const headerStyles = table.columns.map((column) => column.headerStyles);
+
+  const setRowSelection = getTableRowSelectionEvent();
+
+  function disableRowSelection(d, cartData) {
+    return true;
+  }
+
+  function rowSelectionEvent(displayData, rowsSelected) {
+    const displayedDataKeies = displayData;
+    const selectedRowsKey = rowsSelected
+      ? rowsSelected.map((index) => displayedDataKeies[index])
+      : [];
+    let newSelectedRowInfo = [];
+
+    if (rowsSelected) {
+      // Remove the rowInfo from selectedRowInfo if this row currently be
+      // displayed and not be selected.
+      if (selectedRowInfo.length > 0) {
+        newSelectedRowInfo = selectedRowInfo.filter((key) => {
+          if (displayedDataKeies.includes(key)) {
+            return false;
+          }
+          return true;
+        });
+      }
+    } else {
+      newSelectedRowInfo = selectedRowInfo;
+    }
+    newSelectedRowInfo = newSelectedRowInfo.concat(selectedRowsKey);
+
+    // Get selectedRowIndex by comparing current page data with selected row's key.
+    // if rowInfo from selectedRowInfo is currently be displayed
+    const newSelectedRowIndex = displayedDataKeies.reduce(
+      (accumulator, currentValue, currentIndex) => {
+        if (newSelectedRowInfo.includes(currentValue)) {
+          accumulator.push(currentIndex);
+        }
+        return accumulator;
+      }, [],
+    );
+
+    // reduce the state chagne, when newSelectedRowIndex and newSelectedRowInfo is same as previous.
+    if (_.differenceWith(
+      newSelectedRowIndex,
+      selectedRowIndex,
+      _.isEqual,
+    ).length !== 0
+      || _.differenceWith(
+        newSelectedRowInfo,
+        selectedRowInfo,
+        _.isEqual,
+      ).length !== 0
+      || _.differenceWith(
+        selectedRowInfo,
+        newSelectedRowInfo,
+        _.isEqual,
+      ).length !== 0
+      || _.differenceWith(
+        selectedRowIndex,
+        newSelectedRowIndex,
+        _.isEqual,
+      ).length !== 0) {
+      setRowSelection({
+        selectedRowInfo: newSelectedRowInfo,
+        selectedRowIndex: newSelectedRowIndex,
+      });
+    }
+  }
+
+  function onRowsSelect(curr, allRowsSelected, rowsSelected, displayData) {
+    rowSelectionEvent(displayData.map((d) => d.data[1][primaryKeyIndex]), rowsSelected);
+  }
+
+  const defaultOptions = () => ({
+    dataKey,
+    rowsSelectedTrigger: (displayData, rowsSelected) => rowSelectionEvent(
+      displayData,
+      rowsSelected,
+    ),
+    rowsSelected: selectedRowIndex,
+    onRowSelectionChange: onRowsSelect,
+    isRowSelectable: (dataIndex) => (disableRowSelection
+      ? disableRowSelection(data[1][dataIndex], fileIDs) : true),
+  });
+
+  const finalOptions = {
+    ...options,
+    ...defaultOptions(),
+    serverTableRowCount: selectedRowInfo.length,
+  };
 
   return (
     <>
@@ -282,7 +410,7 @@ const ProgramView = ({ classes, data, theme }) => {
                       customBackGround
                     >
                       <CustomActiveDonut
-                        data={data[rightPanel.widget[0].dataName]}
+                        data={data[0][rightPanel.widget[0].dataName]}
                         titleText={rightPanel.widget[0].titleText || 'Cases'}
                         width={400}
                         height={225}
@@ -314,7 +442,7 @@ const ProgramView = ({ classes, data, theme }) => {
                       customBackGround
                     >
                       <CustomActiveDonut
-                        data={data[rightPanel.widget[1].dataName]}
+                        data={data[0][rightPanel.widget[1].dataName]}
                         titleText={rightPanel.widget[1].titleText || 'Cases'}
                         width={400}
                         height={225}
@@ -368,9 +496,19 @@ const ProgramView = ({ classes, data, theme }) => {
                 <Grid item xs={12}>
                   <Typography>
                     <CustomDataTable
-                      data={data.programDetail[table.dataField]}
-                      columns={getColumns(table, classes, data, externalLinkIcon, '/cases', redirectToArm)}
-                      options={getOptions(table, classes)}
+                      key={data[1].length}
+                      data={data[1].projectOverView}
+                      columns={getColumns(table, classes, data[1], externalLinkIcon, '', () => { }, DocumentDownload, globalData.replaceEmptyValueWith)}
+                      options={finalOptions}
+                      count={stat.numberOfProjects}
+                      overview={getOverviewQuery(table.api)}
+                      paginationAPIField={table.paginationAPIField}
+                      paginationAPIFieldDesc={table.paginationAPIFieldDesc}
+                      defaultSortCoulmn={table.defaultSortCoulmn || ''}
+                      defaultSortDirection={table.defaultSortDirection || 'asc'}
+                      tableDownloadCSV={table.tableDownloadCSV || false}
+                      dataTransformation={dataTransformCallbacks}
+                      headerStyles={headerStyles}
                     />
                   </Typography>
                 </Grid>
@@ -481,7 +619,6 @@ const styles = (theme) => ({
     fontSize: '26px',
     lineHeight: '24px',
     paddingLeft: '0px',
-
   },
   headerSubTitleCate: {
     color: '#00B0BD',
@@ -504,7 +641,6 @@ const styles = (theme) => ({
     textTransform: 'uppercase',
     letterSpacing: '0.023em',
     fontSize: '14px',
-
   },
   headerMSubTitle: {
     paddingTop: '3px',
@@ -521,7 +657,6 @@ const styles = (theme) => ({
     background: '#F6F4F4',
     textAlign: 'center',
     marginRight: '-20px',
-
   },
   headerButtonLinkSpan: {
     fontFamily: theme.custom.fontFamily,
@@ -627,7 +762,6 @@ const styles = (theme) => ({
     paddingTop: '50px',
     paddingLeft: '0px',
   },
-
   headerButtonLink: {
     textDecoration: 'none',
     lineHeight: '14px',
@@ -714,6 +848,94 @@ const styles = (theme) => ({
     width: '16px',
     verticalAlign: 'sub',
     marginLeft: '4px',
+  },
+  cartlink: {
+    fontFamily: 'Lato',
+    color: '#3E6886',
+    fontSize: '12px',
+    marginRight: '70px',
+    textDecoration: 'none',
+    borderBottom: '1px solid #3E6886',
+    paddingBottom: '3px',
+  },
+  caseTitle: {
+    color: '#194563',
+    fontSize: '25.2pt',
+    fontStyle: 'normal',
+    fontFamily: 'Raleway',
+    letterSpacing: '0.025em',
+    backgroundColor: '#f5f5f5',
+    padding: '10px 32px 8px 28px',
+  },
+  chips: {
+    position: 'absolute',
+    marginLeft: '250px',
+    marginTop: '36px',
+    zIndex: '999',
+  },
+  chipRoot: {
+    color: '#ffffff',
+    fontFamily: '"Open Sans", sans-serif',
+    letterSpacing: '0.075em',
+    marginLeft: '10px',
+    backgroundColor: '#9b9b9b',
+    fontSize: '9pt',
+  },
+  chipDeleteIcon: {
+    color: '#ffffff',
+    '&:hover': {
+      color: '#ffffff',
+    },
+  },
+  saveButtonDiv: {
+    paddingTop: '5px',
+    paddingRight: '25px',
+    textAlign: 'right',
+  },
+  saveButtonDivBottom: {
+    paddingTop: '5px',
+    paddingRight: '25px',
+    textAlign: 'right',
+    marginBottom: '30px',
+    position: 'relative',
+  },
+  caseTableBorder: {
+    borderTopColor: '#F48439',
+  },
+  fileTableBorder: {
+    borderTopColor: '#2446C6',
+  },
+  sampleTableBorder: {
+    borderTopColor: '#05C5CC',
+  },
+  messageBottom: {
+    zIndex: '500',
+    position: 'absolute',
+    marginTop: '-148px',
+    marginLeft: 'calc(100% - 220px)',
+  },
+  helpIcon: {
+    zIndex: '600',
+  },
+  helpIconButton: {
+    verticalAlign: 'top',
+    marginLeft: '-5px',
+  },
+  customTooltip: {
+    border: '#03A383 1px solid',
+  },
+  customArrow: {
+    '&::before': {
+      border: '#03A383 1px solid',
+    },
+  },
+  snackBarMessageIcon: {
+    verticalAlign: 'middle',
+  },
+  messageTop: {
+    position: 'absolute',
+    right: '20px',
+    zIndex: '300',
   },
 });
 
