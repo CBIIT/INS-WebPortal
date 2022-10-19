@@ -507,6 +507,7 @@ const ProgramView = ({
                       defaultSortCoulmn={table.defaultSortCoulmn || ''}
                       defaultSortDirection={table.defaultSortDirection || 'asc'}
                       tableDownloadCSV={table.tableDownloadCSV || false}
+                      queryCustomVaribles={{ programs: [data[0].programDetail.program_id] }}
                       dataTransformation={dataTransformCallbacks}
                       headerStyles={headerStyles}
                     />
