@@ -105,41 +105,6 @@ export const externalLinkIcon = {
   alt: 'External link icon',
 };
 
-export const tab = {
-  items: [
-    {
-      index: 0,
-      label: 'PUBLICATIONS',
-      value: 'publications',
-    },
-    {
-      index: 1,
-      label: 'GEOS',
-      value: 'geos',
-    },
-    {
-      index: 2,
-      label: 'SRAS',
-      value: 'sras',
-    },
-    {
-      index: 3,
-      label: 'DBGAPS',
-      value: 'dbgaps',
-    },
-    {
-      index: 4,
-      label: 'CLINICAL TRIALS',
-      value: 'clinical_trials',
-    },
-    {
-      index: 5,
-      label: 'PATENTS',
-      value: 'patents',
-    },
-  ],
-};
-
 // --------------- Table 1 configuration --------------
 const table1 = {
   // Set 'display' to false to hide the table entirely

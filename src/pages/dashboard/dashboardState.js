@@ -10,7 +10,7 @@ import {
 } from 'bento-components';
 import client from '../../utils/graphqlClient';
 import {
-  GET_DASHBOARD_DATA_QUERY, widgetsData, GET_DASHBOARD_TABLE_DATA_QUERY, facetSearchData,
+  GET_DASHBOARD_DATA_QUERY, widgetsData, facetSearchData,
 } from '../../bento/dashboardData';
 import { globalStatsData as statsCount } from '../../bento/globalStatsData';
 
@@ -41,7 +41,6 @@ export const initialState = {
 };
 
 export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX';
-export const RECEIVE_DASHBOARD = 'RECEIVE_DASHBOARD';
 export const GET_DASHBOARD_DATA_QUERY_ERR = 'GET_DASHBOARD_DATA_QUERY_ERR';
 export const READY_DASHBOARD = 'READY_DASHBOARD';
 export const REQUEST_DASHBOARD = 'REQUEST_DASHBOARD';
@@ -63,16 +62,6 @@ export const singleCheckBoxAction = (payload) => ({
 function postRequestFetchDataDashboard() {
   return {
     type: REQUEST_DASHBOARD,
-  };
-}
-
-function receiveDashboard(json) {
-  return {
-    type: RECEIVE_DASHBOARD,
-    payload:
-    {
-      data: json.data,
-    },
   };
 }
 
@@ -132,52 +121,17 @@ export function getFilteredStat(input) {
 
 // This need to go to dashboard controller
 
-function fetchDashboard() {
-  return (dispatch) => {
-    dispatch(postRequestFetchDataDashboard());
-    return client
-      .query({
-        query: GET_DASHBOARD_DATA_QUERY,
-      })
-      .then((result) => dispatch(receiveDashboard(result)))
-      .catch((error) => dispatch(errorhandler(error, GET_DASHBOARD_DATA_QUERY_ERR)));
-  };
-}
-
-export function fetchAllDataForDataTable() {
-  return async (dispatch) => {
-    await client
-      .query({
-        query: GET_DASHBOARD_TABLE_DATA_QUERY,
-      })
-      .then((result) => dispatch(fetchAllDataForDashboardTable(result)))
-      .catch((error) => dispatch(errorhandler(error, GET_DASHBOARD_DATA_QUERY_ERR)));
-  };
-}
-
 function shouldFetchAllDataForDashboardData(state) {
-// Incase state null when coming from arm detail and program detail
+  // Incase state null when coming from arm detail and program detail
   return state === undefined ? true : !(state.dashboard.isDataTableUptoDate);
 }
 
 export function fetchAllDataForDashboardDataTable() {
-  return (dispatch, getState) => {
-    if (shouldFetchAllDataForDashboardData(getState())) {
-      return dispatch(fetchAllDataForDataTable());
-    }
-    // Let the calling code know there's nothing to wait for.
-    return Promise.resolve();
-  };
+  return (dispatch, getState) => Promise.resolve();
 }
 
 export function AsyncFetchAllDataForDashboardDataTable() {
-  return async (dispatch, getState) => {
-    if (shouldFetchAllDataForDashboardData(getState())) {
-      await dispatch(fetchAllDataForDataTable());
-    }
-    // Let the calling code know there's nothing to wait for.
-    return Promise.resolve();
-  };
+  return async (dispatch, getState) => Promise.resolve();
 }
 
 function shouldFetchDataForDashboardData(state) {
@@ -187,9 +141,6 @@ function shouldFetchDataForDashboardData(state) {
 
 export function toggleCheckBox(payload) {
   return async (dispatch, getState) => {
-    if (shouldFetchDataForDashboardData(getState())) {
-      await dispatch(fetchDashboard());
-    }
     if (shouldFetchAllDataForDashboardData(getState())) {
       await dispatch(AsyncFetchAllDataForDashboardDataTable());
     }
@@ -199,9 +150,6 @@ export function toggleCheckBox(payload) {
 
 export function singleCheckBox(payload) {
   return async (dispatch, getState) => {
-    if (shouldFetchDataForDashboardData(getState())) {
-      await dispatch(fetchDashboard());
-    }
     if (shouldFetchAllDataForDashboardData(getState())) {
       await dispatch(AsyncFetchAllDataForDashboardDataTable());
     }
@@ -210,17 +158,7 @@ export function singleCheckBox(payload) {
 }
 
 export function fetchDataForDashboardDataTable() {
-  return (dispatch, getState) => {
-    if (shouldFetchDataForDashboardData(getState())) {
-      if (shouldFetchAllDataForDashboardData(getState())) {
-        setTimeout(() => {
-          dispatch(fetchAllDataForDashboardDataTable());
-        }, 2000);
-      }
-      return dispatch(fetchDashboard());
-    }
-    return dispatch(readyDashboard());
-  };
+  return (dispatch, getState) => dispatch(readyDashboard());
 }
 
 // End of actions
@@ -280,34 +218,6 @@ export default function dashboardReducer(state = initialState, action) {
         },
         widgets: getWidgetsData(tableData),
       };
-    }
-    case RECEIVE_DASHBOARD: {
-      // get action data
-      const checkboxData = customCheckBox(action.payload.data, facetSearchData);
-      return action.payload.data
-        ? {
-          ...state.dashboard,
-          isFetched: true,
-          isLoading: false,
-          hasError: false,
-          error: '',
-          stats: getStatInit(action.payload.data),
-          subjectOverView: {
-            data: action.payload.data.projectOverView,
-          },
-          checkboxForAll: {
-            data: checkboxData,
-          },
-          checkbox: {
-            data: checkboxData,
-          },
-          datatable: {
-            data: action.payload.data.projectOverView,
-            filters: [],
-          },
-          widgets: getWidgetsInitData(action.payload.data),
-
-        } : { ...state };
     }
     case GET_DASHBOARD_DATA_QUERY_ERR:
       // get action data
