@@ -667,9 +667,9 @@ export const tabIndex = [
 
 export const DASHBOARD_QUERY_NEW = gql`
 query searchProjects (          
-  $programs: [String] ,
-  $docs: [String] ,
-  $fiscal_years: [String] ,
+  $programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
   $award_amounts: [String]
 ){
   searchProjects (          
@@ -838,9 +838,9 @@ query projectOverView(
   $docs: [String],
   $fiscal_years: [String],
   $award_amounts: [String],
-  $offset: Int ,
-  $first: Int ,
-  $order_by: String ,
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
   $sort_direction: String 
   ){
   projectOverView(
@@ -885,9 +885,9 @@ query publicationOverView(
   $docs: [String],
   $fiscal_years: [String],
   $award_amounts: [String],
-  $offset: Int ,
-  $first: Int ,
-  $order_by: String ,
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
   $sort_direction: String 
   ){
   publicationOverView(
@@ -922,9 +922,9 @@ export const GET_DATASETS_OVERVIEW_QUERY = gql`
     $docs: [String],
     $fiscal_years: [String],
     $award_amounts: [String],
-    $offset: Int ,
-    $first: Int ,
-    $order_by: String ,
+    $offset: Int,
+    $first: Int,
+    $order_by: String,
     $sort_direction: String 
     ){
     datasetOverView(
@@ -957,9 +957,9 @@ export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
     $docs: [String],
     $fiscal_years: [String],
     $award_amounts: [String],
-    $offset: Int ,
-    $first: Int ,
-    $order_by: String ,
+    $offset: Int,
+    $first: Int,
+    $order_by: String,
     $sort_direction: String 
     ){
     clinicalTrialOverView(
@@ -987,9 +987,9 @@ export const GET_PATENTS_OVERVIEW_QUERY = gql`
     $docs: [String],
     $fiscal_years: [String],
     $award_amounts: [String],
-    $offset: Int ,
-    $first: Int ,
-    $order_by: String ,
+    $offset: Int,
+    $first: Int,
+    $order_by: String,
     $sort_direction: String 
     ){
     patentOverView(
@@ -1070,17 +1070,17 @@ query search (
 export const GET_ALL_FILEIDS_FROM_CASESTAB_FOR_ADD_ALL_CART = gql`
 query subjectsAddAllToCart(
   $subject_ids: [String],
-  $programs: [String] ,
-  $studies: [String] ,
-  $diagnoses: [String] ,
-  $rc_scores: [String] ,
-  $tumor_sizes: [String] ,
-  $chemo_regimen: [String] ,
-  $tumor_grades: [String] ,
-  $er_status: [String] ,
-  $pr_status: [String] ,
-  $endo_therapies: [String] ,
-  $meno_status: [String] ,
+  $programs: [String],
+  $studies: [String],
+  $diagnoses: [String],
+  $rc_scores: [String],
+  $tumor_sizes: [String],
+  $chemo_regimen: [String],
+  $tumor_grades: [String],
+  $er_status: [String],
+  $pr_status: [String],
+  $endo_therapies: [String],
+  $meno_status: [String],
   $tissue_type: [String],
   $composition: [String],
   $association: [String],
@@ -1123,17 +1123,17 @@ export const GET_ALL_FILEIDS_FROM_SAMPLETAB_FOR_ADD_ALL_CART = gql`
     query samplesAddAllToCart(
       $subject_ids: [String],
       $sample_ids: [String],
-      $programs: [String] ,
-      $studies: [String] ,
-      $diagnoses: [String] ,
-      $rc_scores: [String] ,
-      $tumor_sizes: [String] ,
-      $chemo_regimen: [String] ,
-      $tumor_grades: [String] ,
-      $er_status: [String] ,
-      $pr_status: [String] ,
-      $endo_therapies: [String] ,
-      $meno_status: [String] ,
+      $programs: [String],
+      $studies: [String],
+      $diagnoses: [String],
+      $rc_scores: [String],
+      $tumor_sizes: [String],
+      $chemo_regimen: [String],
+      $tumor_grades: [String],
+      $er_status: [String],
+      $pr_status: [String],
+      $endo_therapies: [String],
+      $meno_status: [String],
       $tissue_type: [String],
       $composition: [String],
       $association: [String],
@@ -1175,17 +1175,17 @@ export const GET_ALL_FILEIDS_FROM_SAMPLETAB_FOR_ADD_ALL_CART = gql`
 export const GET_ALL_FILEIDS_FROM_FILESTAB_FOR_ADD_ALL_CART = gql`
 query fileAddAllToCart(
   $subject_ids: [String],
-  $programs: [String] ,
-  $studies: [String] ,
-  $diagnoses: [String] ,
-  $rc_scores: [String] ,
-  $tumor_sizes: [String] ,
-  $chemo_regimen: [String] ,
-  $tumor_grades: [String] ,
-  $er_status: [String] ,
-  $pr_status: [String] ,
-  $endo_therapies: [String] ,
-  $meno_status: [String] ,
+  $programs: [String],
+  $studies: [String],
+  $diagnoses: [String],
+  $rc_scores: [String],
+  $tumor_sizes: [String],
+  $chemo_regimen: [String],
+  $tumor_grades: [String],
+  $er_status: [String],
+  $pr_status: [String],
+  $endo_therapies: [String],
+  $meno_status: [String],
   $tissue_type: [String],
   $composition: [String],
   $association: [String],

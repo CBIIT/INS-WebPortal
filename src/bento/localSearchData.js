@@ -29,9 +29,9 @@ export const GET_IDS_BY_TYPE = (type) => gql`{
 
 export const GET_SEARCH_NODES_BY_FACET = gql`
 query searchProjects (          
-  $programs: [String] ,
-  $docs: [String] ,
-  $fiscal_years: [String] ,
+  $programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
   $award_amounts: [String]
 ){
   searchProjects (          
@@ -195,17 +195,17 @@ export const CASES_SAMPLE_QUERY = gql`
 query sampleOverview(
     $subject_ids: [String],
     $sample_ids: [String],
-    $programs: [String] ,
-    $studies: [String] ,
-    $diagnoses: [String] ,
-    $rc_scores: [String] ,
-    $tumor_sizes: [String] ,
-    $chemo_regimen: [String] ,
-    $tumor_grades: [String] ,
-    $er_status: [String] ,
-    $pr_status: [String] ,
-    $endo_therapies: [String] ,
-    $meno_status: [String] ,
+    $programs: [String],
+    $studies: [String],
+    $diagnoses: [String],
+    $rc_scores: [String],
+    $tumor_sizes: [String],
+    $chemo_regimen: [String],
+    $tumor_grades: [String],
+    $er_status: [String],
+    $pr_status: [String],
+    $endo_therapies: [String],
+    $meno_status: [String],
     $tissue_type: [String],
     $composition: [String],
     $association: [String],

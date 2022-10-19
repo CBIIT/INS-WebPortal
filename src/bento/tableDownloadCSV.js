@@ -3,11 +3,13 @@ import gql from 'graphql-tag';
 export const GET_PROGRAMS_TABLE = gql`
 query projectOverView(
   $programs: [String],
-  $order_by: String ,
+  $first: Int,
+  $order_by: String,
   $sort_direction: String 
   ){
   projectOverView(
     programs: $programs,
+    first: $first,
     order_by: $order_by,
     sort_direction: $sort_direction
     ) {
@@ -71,9 +73,9 @@ query projectOverView(
   $docs: [String],
   $fiscal_years: [String],
   $award_amounts: [String],
-  $offset: Int ,
-  $first: Int ,
-  $order_by: String ,
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
   $sort_direction: String 
   ){
   projectOverView(
@@ -149,9 +151,9 @@ query publicationOverView(
   $docs: [String],
   $fiscal_years: [String],
   $award_amounts: [String],
-  $offset: Int ,
-  $first: Int ,
-  $order_by: String ,
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
   $sort_direction: String 
   ){
   publicationOverView(
@@ -211,9 +213,9 @@ query datasetOverView(
   $docs: [String],
   $fiscal_years: [String],
   $award_amounts: [String],
-  $offset: Int ,
-  $first: Int ,
-  $order_by: String ,
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
   $sort_direction: String 
   ){
   datasetOverView(
@@ -275,9 +277,9 @@ query clinicalTrialOverView(
   $docs: [String],
   $fiscal_years: [String],
   $award_amounts: [String],
-  $offset: Int ,
-  $first: Int ,
-  $order_by: String ,
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
   $sort_direction: String 
   ){
   clinicalTrialOverView(
@@ -326,9 +328,9 @@ query patentOverView(
   $docs: [String],
   $fiscal_years: [String],
   $award_amounts: [String],
-  $offset: Int ,
-  $first: Int ,
-  $order_by: String ,
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
   $sort_direction: String 
   ){
   patentOverView(
