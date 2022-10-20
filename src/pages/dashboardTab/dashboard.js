@@ -34,124 +34,66 @@ const Dashboard = ({
             <div className={classes.rightContent}>
               <div className={classes.widgetsContainer}>
                 {displayActiveFiltersQuery ? <ActiveFiltersQuery /> : ''}
-                <div className={classes.widgetsCollapse}>
-                  <div className={classes.floatLeft} />
-                  <div className={classes.floatRight}>
-                    <FormControlLabel
-                      control={(
-                        <Button className={classes.customButton} onClick={handleChange}>
-                          {collapse ? 'COLLAPSE VIEW' : 'OPEN VIEW'}
-                        </Button>
-                      )}
-                    />
-                    <Switch
-                      classes={{
-                        root: classes.switchRoot,
-                        switchBase: classes.switchBase,
-                        thumb: classes.thumb,
-                        track: classes.track,
-                        checked: classes.checked,
-                      }}
-                      className={classes.customSwitch}
-                      disableRipple
-                      onChange={() => {
-                        themeChanger.toggleTheme();
-                      }}
-                    />
-                  </div>
-                </div>
-                <Collapse in={collapse} className={classes.backgroundWidgets}>
-                  <Grid container>
-                    {displaywidgets.map((widget, index) => {
-                      if (widget.type === 'sunburst' && (widget.show && data[widget.dataName] && data[widget.dataName].children && data[widget.dataName].children.length)) {
-                        return (
-                          <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
-                            <Widget
-                              title={widget.label}
-                              upperTitle
-                              bodyClass={classes.fullHeightBody}
-                              className={classes.card}
-                              color={theme.palette.lochmara.contrastText}
-                              widgetBorderDivider
-                              customBackGround
-                            >
-                              <ProgramSunburst
-                                data={data[widget.dataName]}
-                                titleText={widget.titleText || 'Cases'}
-                                width={250}
-                                height={173}
-                                innerRadius={40}
-                                outerRadius={65}
-                                cx="50%"
-                                cy="50%"
-                                textColor={theme.palette.widgetBackground.contrastText}
-                                titleLocation="bottom"
-                                titleAlignment="center"
-                              />
-                            </Widget>
-                          </Grid>
-                        );
-                      }
-                      if (widget.type === 'donut' && widget.show && data[widget.dataName].length === 0) {
-                        const tmp = [{
-                          group: 'No Data',
-                          subjects: 1,
-                          __typename: 'SearchProjectsReturnObject',
-                        }];
-                        const grayColor = {
-                          odd: [
-                            '#D4D4D4',
-                          ],
-                          even: [
-                            '#D4D4D4',
-                          ],
-                        };
-                        return (
-                          <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
-                            <Widget
-                              title={widget.label}
-                              upperTitle
-                              bodyClass={classes.fullHeightBody}
-                              className={classes.card}
-                              color={theme.palette.lochmara.contrastText}
-                              widgetBorderDivider
-                              customBackGround
-                            >
-                              <div className={classes.widgetMessage}>
-                                <CustomActiveDonut
-                                  data={tmp}
-                                  titleText="No Data"
-                                  width={400}
-                                  height={225}
-                                  innerRadius={50}
-                                  outerRadius={75}
-                                  cx="50%"
-                                  cy="50%"
-                                  textColor={theme.palette.widgetBackground.contrastText}
-                                  colors={grayColor}
-                                  titleLocation="bottom"
-                                  titleAlignment="bottom"
-                                />
-                              </div>
-                            </Widget>
-                          </Grid>
-                        );
-                      }
-                      if (widget.type === 'donut' && widget.show && data[widget.dataName].length !== 0) {
-                        return (
-                          <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
-                            <Widget
-                              title={widget.label}
-                              upperTitle
-                              bodyClass={classes.fullHeightBody}
-                              className={classes.card}
-                              color={theme.palette.lochmara.contrastText}
-                              widgetBorderDivider
-                              customBackGround
-                            >
+                <Grid container>
+                  {displaywidgets.map((widget, index) => {
+                    if (widget.type === 'sunburst' && (widget.show && data[widget.dataName] && data[widget.dataName].children && data[widget.dataName].children.length)) {
+                      return (
+                        <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
+                          <Widget
+                            title={widget.label}
+                            upperTitle
+                            bodyClass={classes.fullHeightBody}
+                            className={classes.card}
+                            color={theme.palette.lochmara.contrastText}
+                            widgetBorderDivider
+                            customBackGround
+                          >
+                            <ProgramSunburst
+                              data={data[widget.dataName]}
+                              titleText={widget.titleText || 'Cases'}
+                              width={250}
+                              height={173}
+                              innerRadius={40}
+                              outerRadius={65}
+                              cx="50%"
+                              cy="50%"
+                              textColor={theme.palette.widgetBackground.contrastText}
+                              titleLocation="bottom"
+                              titleAlignment="center"
+                            />
+                          </Widget>
+                        </Grid>
+                      );
+                    }
+                    if (widget.type === 'donut' && widget.show && data[widget.dataName].length === 0) {
+                      const tmp = [{
+                        group: 'No Data',
+                        subjects: 1,
+                        __typename: 'SearchProjectsReturnObject',
+                      }];
+                      const grayColor = {
+                        odd: [
+                          '#D4D4D4',
+                        ],
+                        even: [
+                          '#D4D4D4',
+                        ],
+                      };
+                      return (
+                        <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
+                          <Widget
+                            title={widget.label}
+                            upperTitle
+                            bodyClass={classes.fullHeightBody}
+                            className={classes.card}
+                            color={theme.palette.lochmara.contrastText}
+                            widgetBorderDivider
+                            customBackGround
+                          >
+                            <div className={classes.widgetMessage}>
                               <CustomActiveDonut
-                                data={data[widget.dataName]}
-                                titleText={widget.titleText || 'Cases'}
+                                data={tmp}
+                                titleText="No Data"
                                 width={400}
                                 height={225}
                                 innerRadius={50}
@@ -159,18 +101,48 @@ const Dashboard = ({
                                 cx="50%"
                                 cy="50%"
                                 textColor={theme.palette.widgetBackground.contrastText}
-                                colors={colors}
+                                colors={grayColor}
                                 titleLocation="bottom"
-                                titleAlignment="center"
+                                titleAlignment="bottom"
                               />
-                            </Widget>
-                          </Grid>
-                        );
-                      }
-                      return <></>;
-                    })}
-                  </Grid>
-                </Collapse>
+                            </div>
+                          </Widget>
+                        </Grid>
+                      );
+                    }
+                    if (widget.type === 'donut' && widget.show && data[widget.dataName].length !== 0) {
+                      return (
+                        <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
+                          <Widget
+                            title={widget.label}
+                            upperTitle
+                            bodyClass={classes.fullHeightBody}
+                            className={classes.card}
+                            color={theme.palette.lochmara.contrastText}
+                            widgetBorderDivider
+                            customBackGround
+                          >
+                            <CustomActiveDonut
+                              data={data[widget.dataName]}
+                              titleText={widget.titleText || 'Cases'}
+                              width={400}
+                              height={225}
+                              innerRadius={50}
+                              outerRadius={75}
+                              cx="50%"
+                              cy="50%"
+                              textColor={theme.palette.widgetBackground.contrastText}
+                              colors={colors}
+                              titleLocation="bottom"
+                              titleAlignment="center"
+                            />
+                          </Widget>
+                        </Grid>
+                      );
+                    }
+                    return <></>;
+                  })}
+                </Grid>
               </div>
               {collapse && <div className={classes.dashboardDividerTop} />}
               {collapse && <div className={classes.dashboardDivider} />}
