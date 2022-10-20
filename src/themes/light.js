@@ -428,7 +428,13 @@ export default {
     MUIDataTableToolbar: {
       root: {
         backgroundColor: tableHeader,
-        minHeight: '44px',
+        minHeight: '0',
+      },
+      actions: {
+        minHeight: '15px',
+        position: 'absolute',
+        top: '-40px',
+        left: '25px',
       },
       titleText: {
         color: tableHeaderFontColor,
