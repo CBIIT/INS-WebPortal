@@ -22,7 +22,7 @@ function searchComponent({ classes }) {
   }, [open]);
 
   function onChange(newValue = []) {
-    if (newValue !== '' && typeof newValue === 'string') {
+    if (typeof newValue === 'string') {
       const path = `/search/${newValue}`;
       history.push(path);
     }
@@ -121,7 +121,6 @@ function searchComponent({ classes }) {
 }
 
 const styles = () => ({
-
   backdrop: {
     // position: 'absolute',
     zIndex: 99999,
@@ -165,7 +164,6 @@ const styles = () => ({
       fontWeight: 500,
       border: '2px solid #000000',
       padding: '0px',
-
       '& li': {
         // list item specific styling
         borderBottom: '1px solid #3B68CB',
