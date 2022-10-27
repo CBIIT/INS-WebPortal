@@ -88,6 +88,8 @@ function searchComponent({ classes }) {
             onKeyDown={(e) => {
               if (e.key === 'Enter' && e.target.value) {
                 onChange([e.target.value]);
+              } else if (e.key === 'Enter' && !e.target.value) {
+                onChange('');
               }
             }}
             InputProps={{
