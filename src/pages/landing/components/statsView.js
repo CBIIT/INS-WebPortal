@@ -163,7 +163,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '36px 275px 36px 150px',
+    padding: '17px 275px 17px 150px',
   },
   leftText: {
     fontFamily: 'Inter',
@@ -171,7 +171,7 @@ const styles = () => ({
     fontSize: '40px',
     fontWeight: '800',
     textAlign: 'left',
-    lineHeight: '34px',
+    lineHeight: '40px',
   },
   linkText: {
     color: '#E26063',
