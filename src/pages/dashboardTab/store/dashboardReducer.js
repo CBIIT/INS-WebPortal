@@ -211,21 +211,15 @@ const transformRCRData = (data) => {
 const transformDonutData = (data) => {
   const transformedData = data;
   transformedData.publicationCountByRCRTransformed = transformRCRData(data);
-  // eslint-disable-next-line max-len
   transformedData.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
   transformedData.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
   transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
   for (let i = 0; i < transformedData.publicationCountByYearSorted.length; i += 1) {
-    // eslint-disable-next-line max-len
     transformedData.publicationCountByYearSorted[i].group = new Date(parseInt(transformedData.publicationCountByYearSorted[i].group, 10)).getFullYear();
   }
 
-  // eslint-disable-next-line max-len
   transformedData.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-  // eslint-disable-next-line max-len
   transformedData.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
   return transformedData;
 };
@@ -1339,7 +1333,6 @@ const reducers = {
       if (item.variables && item.variables[val.datafield] && item.variables[val.datafield].length) {
         const checkboxItem = newCheckboxData[idx].checkboxItems;
         checkboxItem.map((data, id) => {
-          // eslint-disable-next-line max-len
           const index = item.variables[val.datafield].findIndex((check) => check === data.name);
           if (index >= 0) {
             checkboxItem[id].isChecked = true;
