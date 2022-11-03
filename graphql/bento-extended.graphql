@@ -229,12 +229,10 @@ type ProjectDetail {
     project_start_date: String
     project_end_date: String
     full_foa: String
-    publications: [PublicationInfo]
-    geos: [GEOInfo]
-    sras: [SRAInfo]
-    dbgaps: [DBGapInfo]
-    clinical_trials: [ClinicalTrialInfo]
-    patents: [PatentInfo]
+    num_publications: Int
+    num_datasets: Int
+    num_clinical_trials: Int
+    num_patents: Int
 }
 
 type ProjectOverview {
