@@ -1049,15 +1049,13 @@ type QueryType {
     projectDetail(project_id: String): ProjectDetail @cypher(statement:  """
         MATCH (pr:project {project_id: $project_id})
         OPTIONAL MATCH (pr)<--(pub:publication)
-        OPTIONAL MATCH (pr)<--(:publication)<--(g:geo)
-        OPTIONAL MATCH (pr)<--(:publication)<--(s:sra)
-        OPTIONAL MATCH (pr)<--(:publication)<--(d:dbgap)
-        OPTIONAL MATCH (pr)<--(c:clinical_trial)
-        OPTIONAL MATCH (pr)<--(:publication)<--(c:clinical_trial)
-        OPTIONAL MATCH (pr)<--(gp:granted_patent)
-        OPTIONAL MATCH (pr)<--(pa:patent_application)
-        WITH pr, pub, g, s, d, c, COLLECT(gp {.*}) AS gps, COLLECT(pa {.*}) AS pas
-        WITH pr, pub, g, s, d, c, gps + pas AS pat
+        OPTIONAL MATCH (d)
+            WHERE (EXISTS((pr)<--(d)) OR EXISTS((pr)<--(:publication)<--(d))) AND 
+                    ((d:geo) OR (d:sra) OR (d:dbgap))
+        OPTIONAL MATCH (ct:clinical_trial)
+            WHERE EXISTS((pr)<--(ct)) OR EXISTS((pr)<--(:publication)<--(ct))
+        OPTIONAL MATCH (pr)<--(pat)
+            WHERE (pat:patent_application) OR (pat:granted_patent)
         RETURN {
             project_id: pr.project_id,
             application_id: pr.application_id,
@@ -1079,12 +1077,10 @@ type QueryType {
             project_start_date: pr.project_start_date,
             project_end_date: pr.project_end_date,
             full_foa: pr.full_foa,
-            publications: COLLECT(DISTINCT pub {.*}),
-            geos: COLLECT(DISTINCT g {.*}),
-            sras: COLLECT(DISTINCT s {.*}),
-            dbgaps: COLLECT(DISTINCT d {.*}),
-            clinical_trials: COLLECT(DISTINCT c {.*}),
-            patents: pat
+            num_publications: COUNT(DISTINCT pub),
+            num_datasets: COUNT(DISTINCT d),
+            num_clinical_trials: COUNT(DISTINCT ct),
+            num_patents: COUNT(DISTINCT pat)
         }
     """, passThrough: true)
 
