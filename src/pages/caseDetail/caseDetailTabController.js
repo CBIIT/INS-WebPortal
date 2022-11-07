@@ -30,7 +30,7 @@ function TabContainer({ children, dir }) {
   );
 }
 
-const tabController = (classes) => {
+const caseDetailTabController = (classes) => {
   useSelector((state) => (console.log('state: ', state)));
 
   const currentActiveTabTitle = useSelector((state) => (state.caseDetailTab
@@ -299,4 +299,4 @@ const styles = () => ({
     zIndex: '300',
   },
 });
-export default withStyles(styles, { withTheme: true })(tabController);
+export default withStyles(styles, { withTheme: true })(caseDetailTabController);
