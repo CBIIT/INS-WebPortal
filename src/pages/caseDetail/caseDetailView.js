@@ -30,6 +30,7 @@ import Snackbar from '../../components/Snackbar';
 import { fetchDataForDashboardDataTable } from '../dashboard/dashboardState';
 import Tab from '../../components/Tab/Tab';
 import TabPanel from '../../components/Tab/TabPanel';
+import Tabs from './caseDetailTabController';
 
 // Main case detail component
 const CaseDetail = ({ data, filesOfSamples, classes }) => {
@@ -58,10 +59,10 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
   const stat = {
     numberOfPrograms: 1,
     numberOfProjects: 1,
-    numberOfPublications: data.publications.length,
-    numberOfDatasets: data.geos.length + data.sras.length + data.dbgaps.length,
-    numberOfClinicalTrials: data.clinical_trials.length,
-    numberOfPatents: data.patents.length,
+    numberOfPublications: data.num_publications,
+    numberOfDatasets: data.num_datasets,
+    numberOfClinicalTrials: data.num_clinical_trials,
+    numberOfPatents: data.num_patents,
   };
 
   const breadCrumbJson = [{
@@ -74,33 +75,23 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
     items: [
       {
         index: 0,
-        label: `PUBLICATIONS (${data.publications.length})`,
+        label: `PUBLICATIONS (${data.num_publications})`,
         value: 'publications',
       },
       {
         index: 1,
-        label: `GEOS (${data.geos.length})`,
+        label: `DATASETS (${data.num_datasets})`,
         value: 'geos',
       },
       {
         index: 2,
-        label: `SRAS (${data.sras.length})`,
+        label: `CLINICAL TRIALS (${data.num_clinical_trials})`,
         value: 'sras',
       },
       {
         index: 3,
-        label: `DBGAPS (${data.dbgaps.length})`,
+        label: `PATENTS (${data.num_patents})`,
         value: 'dbgaps',
-      },
-      {
-        index: 4,
-        label: `CLINICAL TRIALS (${data.clinical_trials.length})`,
-        value: 'clinical_trials',
-      },
-      {
-        index: 5,
-        label: `PATENTS (${data.patents.length})`,
-        value: 'patents',
       },
     ],
   };
@@ -203,6 +194,7 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
           </Grid>
         </div>
       </div>
+      {/* <Tabs /> */}
       <div className={classes.container}>
         <div className={classes.detailContainer}>
           <Grid container>

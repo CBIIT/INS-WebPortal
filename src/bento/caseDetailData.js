@@ -546,47 +546,10 @@ const GET_CASE_DETAIL_DATA_QUERY = gql`
       project_start_date
       project_end_date
       full_foa
-      publications {
-        publication_id
-        pmc_id
-        year
-        journal
-        title
-        authors
-        publish_date
-        citation_count
-        relative_citation_ratio
-        nih_percentile
-        doi
-      }
-      geos {
-        accession
-        title
-        status
-        submission_date
-        last_update_date
-      }
-      sras {
-        accession
-        study_title
-        bioproject_accession
-        registration_date
-      }
-      dbgaps {
-        accession
-        title
-        release_date
-      }
-      clinical_trials {
-        clinical_trial_id
-        title
-        last_update_posted
-        recruitment_status
-      }
-      patents {
-        patent_id
-        fulfilled_date
-      }
+      num_publications
+      num_datasets
+      num_clinical_trials
+      num_patents
     }
   }
 `;
