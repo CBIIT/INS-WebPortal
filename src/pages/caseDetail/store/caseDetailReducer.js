@@ -77,10 +77,6 @@ const initialState = {
       dataSample: 'undefined',
       dataFile: 'undefined',
     },
-    dataCaseSelected: {
-      selectedRowInfo: [],
-      selectedRowIndex: [],
-    },
     dataSampleSelected: {
       selectedRowInfo: [],
       selectedRowIndex: [],
@@ -209,18 +205,6 @@ function createFilterVariablesRange(value, sideBarItem) {
   currentAllActiveFilters[sideBarItem.datafield] = value;
   return currentAllActiveFilters;
   // eslint-disable-next-line  no-unused-vars
-}
-
-/**
- * Returns active filter list while removing the param key.
- *
- * @param {object} data
- * @return {json}
- */
-function clearGroup(data) {
-  const currentAllActiveFilters = getState().allActiveFilters;
-  currentAllActiveFilters[data] = [];
-  return currentAllActiveFilters;
 }
 
 export function clearSectionSort(groupName) {
@@ -1051,10 +1035,6 @@ const reducers = {
         datatable: {
           filters: [],
         },
-        dataCaseSelected: {
-          selectedRowInfo: [],
-          selectedRowIndex: [],
-        },
         dataSampleSelected: {
           selectedRowInfo: [],
           selectedRowIndex: [],
@@ -1122,9 +1102,6 @@ const reducers = {
         datatable: {
           filters: [],
         },
-        dataCaseSelected: {
-          ...state.dataCaseSelected,
-        },
         dataSampleSelected: {
           ...state.dataSampleSelected,
         },
@@ -1187,12 +1164,6 @@ const reducers = {
 
     return { ...state, sortByList };
   },
-  SET_CASES_SELECTION: (state, item) => (
-    {
-      ...state,
-      dataCaseSelected: item,
-    }
-  ),
   SET_SAMPLE_SELECTION: (state, item) => (
     {
       ...state,
@@ -1225,10 +1196,6 @@ const reducers = {
   ),
   CLEAR_TABLE_SELECTION: (state) => ({
     ...state,
-    dataCaseSelected: {
-      selectedRowInfo: [],
-      selectedRowIndex: [],
-    },
     dataSampleSelected: {
       selectedRowInfo: [],
       selectedRowIndex: [],

@@ -1,15 +1,11 @@
 /* eslint-disable */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import {
   Grid,
-  IconButton,
   withStyles,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import HelpIcon from '@material-ui/icons/Help';
-import { getColumns, ToolTip } from 'bento-components';
+import { getColumns } from 'bento-components';
 import _ from 'lodash';
-import SelectAllModal from './caseDetailModal';
 import {
   GET_PUBLICATIONS_OVERVIEW_QUERY,
   GET_DATASETS_OVERVIEW_QUERY,
@@ -17,8 +13,7 @@ import {
   GET_PATENTS_OVERVIEW_QUERY,
 } from '../../bento/caseDetailData';
 import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
-import { addToCart, getCart, cartWillFull } from '../../../src/pages/fileCentricCart/store/cart';
-import AddToCartAlertDialog from '../../components/AddToCartDialog';
+import { getCart } from '../../../src/pages/fileCentricCart/store/cart';
 import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
 import globalData from '../../bento/siteWideConfig';
 
@@ -29,13 +24,8 @@ const TabView = ({
   data,
   customColumn,
   primaryKeyIndex = 0,
-  openSnack,
   disableRowSelection,
-  buttonText,
   tableID,
-  saveButtonDefaultStyle,
-  DeactiveSaveButtonDefaultStyle,
-  ActiveSaveButtonDefaultStyle,
   externalLinkIcon,
   options,
   count,
@@ -43,31 +33,17 @@ const TabView = ({
   paginationAPIField,
   paginationAPIFieldDesc,
   dataKey,
-  filteredSubjectIds,
-  filteredSampleIds,
-  filteredFileIds,
-  filteredClinicalTrialIds,
-  filteredPatentIds,
   allFilters,
   defaultSortCoulmn,
   defaultSortDirection,
-  // tableHasSelections,
   setRowSelection,
   selectedRowInfo = [],
   selectedRowIndex = [],
-  clearTableSelections,
-  fetchAllFileIDs,
-  getFilesCount,
   tableDownloadCSV,
-  tooltipMessage,
-  tooltipIcon,
-  tooltipAlt,
 }) => {
   // Get the existing files ids from  cart state
   const cart = getCart();
   const fileIDs = cart.fileIds ? cart.fileIds : [];
-  const saveButton = useRef(null);
-  const saveButton2 = useRef(null);
   const AddToCartAlertDialogRef = useRef();
 
   const [cartIsFull, setCartIsFull] = React.useState(false);
@@ -79,64 +55,6 @@ const TabView = ({
       button.current.style[key] = value;
     }
   };
-  const initSaveButtonDefaultStyle = (button) => {
-    // eslint-disable-next-line no-param-reassign
-    button.current.disabled = true;
-    buildButtonStyle(button, saveButtonDefaultStyle);
-  };
-
-  const updateActiveSaveButtonStyle = (flag, button) => {
-    if (flag) {
-      // eslint-disable-next-line no-param-reassign
-      button.current.disabled = true;
-      buildButtonStyle(button, DeactiveSaveButtonDefaultStyle);
-    } else {
-      // eslint-disable-next-line no-param-reassign
-      button.current.disabled = false;
-      buildButtonStyle(button, ActiveSaveButtonDefaultStyle);
-    }
-  };
-
-  // async function updateButtonStatus(status) {
-  //   if (!status) {
-  //     updateActiveSaveButtonStyle(true, saveButton);
-  //     updateActiveSaveButtonStyle(true, saveButton2);
-  //   } else {
-  //     updateActiveSaveButtonStyle(false, saveButton);
-  //     updateActiveSaveButtonStyle(false, saveButton2);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   initSaveButtonDefaultStyle(saveButton);
-  //   initSaveButtonDefaultStyle(saveButton2);
-  //   updateButtonStatus(selectedRowInfo.length > 0);
-  // });
-
-  async function exportFiles() {
-    const selectedIDs = await fetchAllFileIDs(getFilesCount(), selectedRowInfo);
-    // Find the newly added files by comparing
-    const selectFileIds = filteredFileIds != null
-      ? selectedIDs.filter((x) => filteredFileIds.includes(x))
-      : selectedIDs;
-    const newFileIDS = fileIDs !== null ? selectFileIds.filter(
-      (e) => !fileIDs.find((a) => e === a),
-    ).length : selectedIDs.length;
-    if (cartWillFull(newFileIDS)) {
-      // throw an alert
-      setCartIsFull(true);
-      AddToCartAlertDialogRef.current.open();
-    } else if (newFileIDS > 0) {
-      addToCart({ fileIds: selectFileIds });
-      openSnack(newFileIDS);
-      // tell the reducer to clear the selection on the table.
-      clearTableSelections();
-    } else if (newFileIDS === 0) {
-      openSnack(newFileIDS);
-      // tell the reducer to clear the selection on the table.
-      clearTableSelections();
-    }
-  }
 
   function rowSelectionEvent(displayData, rowsSelected) {
     const displayedDataKeies = displayData;
@@ -236,42 +154,6 @@ const TabView = ({
 
   return (
     <div>
-      {/* <Grid item xs={12} className={classes.saveButtonDiv}>
-        <SelectAllModal tableIDForButton={tableID} openSnack={openSnack} />
-        <AddToCartAlertDialog
-          cartWillFull={cartIsFull}
-          ref={AddToCartAlertDialogRef}
-        />
-        <button
-          type="button"
-          ref={saveButton2}
-          onClick={exportFiles}
-          className={classes.button}
-          id={`${tableID}_${buttonText}`}
-        >
-          {buttonText}
-        </button>
-        <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={tooltipMessage} arrow placement="bottom">
-          <IconButton
-            aria-label="help"
-            className={classes.helpIconButton}
-          >
-            {tooltipIcon ? (
-              <img
-                src={tooltipIcon}
-                alt={tooltipAlt}
-                className={classes.helpIcon}
-              />
-            ) : (
-              <HelpIcon
-                className={classes.helpIcon}
-                fontSize="small"
-              />
-            )}
-          </IconButton>
-        </ToolTip>
-
-      </Grid> */}
       <Grid container>
         <Grid item xs={12} id={tableID}>
           <CustomDataTable
@@ -292,49 +174,6 @@ const TabView = ({
           />
         </Grid>
       </Grid>
-      {/* <Grid item xs={12} className={classes.saveButtonDivBottom}>
-        <button
-          type="button"
-          ref={saveButton}
-          onClick={exportFiles}
-          className={classes.button}
-        >
-          {buttonText}
-        </button>
-
-        <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={tooltipMessage} arrow placement="bottom">
-          <IconButton
-            aria-label="help"
-            className={classes.helpIconButton}
-          >
-            {tooltipIcon ? (
-              <img
-                src={tooltipIcon}
-                alt={tooltipAlt}
-                className={classes.helpIcon}
-              />
-            ) : (
-              <HelpIcon
-                className={classes.helpIcon}
-                fontSize="small"
-              />
-            )}
-          </IconButton>
-        </ToolTip>
-        <div style={{ position: 'relative' }}>
-          <Link
-            rel="noreferrer"
-            to={(location) => ({ ...location, pathname: '/fileCentricCart' })}
-            color="inherit"
-            className={classes.cartlink}
-          >
-            Go to Cart
-            {' '}
-            {'>'}
-          </Link>
-        </div>
-
-      </Grid> */}
     </div>
   );
 };
