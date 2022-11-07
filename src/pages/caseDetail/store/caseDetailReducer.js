@@ -499,8 +499,8 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
       },
     })
     .then((result) => {
-      const RESULT_DATA = getState().currentActiveTab === tabIndex[3].title ? 'patentOverView' : getState().currentActiveTab === tabIndex[2].title ? 'clinicalTrialOverView' : getState().currentActiveTab === tabIndex[1].title ? 'datasetOverView' : 'publicationOverView';
-      const fileIdsFromQuery = RESULT_DATA === 'publicationOverView' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverView' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
+      const RESULT_DATA = getState().currentActiveTab === tabIndex[3].title ? 'patentOverViewByProject' : getState().currentActiveTab === tabIndex[2].title ? 'clinicalTrialOverViewByProject' : getState().currentActiveTab === tabIndex[1].title ? 'datasetOverViewByProject' : 'publicationOverViewByProject';
+      const fileIdsFromQuery = RESULT_DATA === 'publicationOverViewByProject' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverViewByProject' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
       return fileIdsFromQuery;
     });
 
@@ -977,10 +977,10 @@ const reducers = {
       currentActiveTab: item.currentTab,
       datatable: {
         ...state.datatable,
-        dataPublication: item.data.publicationOverView,
-        dataDataset: item.data.datasetOverView,
-        dataClinicalTrial: item.data.clinicalTrialOverView,
-        dataPatent: item.data.patentOverView,
+        dataPublication: item.data.publicationOverViewByProject,
+        dataDataset: item.data.datasetOverViewByProject,
+        dataClinicalTrial: item.data.clinicalTrialOverViewByProject,
+        dataPatent: item.data.patentOverViewByProject,
       },
     }
   ),

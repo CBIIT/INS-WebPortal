@@ -367,6 +367,192 @@ export const customPatentsTabDownloadCSV = {
   defaultFullTableDownload: true,
 };
 
+export const GET_CASE_DETAIL_PUBLICATIONS_TAB = gql`
+query publicationOverViewByProject(
+  $project_id: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  publicationOverViewByProject(
+    project_id: $project_id,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+  ) {
+    publication_id,
+    pmc_id,
+    year,
+    journal,
+    title,
+    authors,
+    publish_date,
+    citation_count,
+    relative_citation_ratio,
+    nih_percentile,
+    doi,
+  }
+}
+  `;
+
+export const customCaseDetailPublicationsTabDownloadCSV = {
+  keysToInclude: [
+    'publication_id',
+    'title',
+    'authors',
+    'citation_count',
+    'relative_citation_ratio',
+    'nih_percentile',
+  ],
+  header: [
+    'PubMed ID',
+    'Title',
+    'Authors',
+    'Citation Count',
+    'Relative Citation Ratio',
+    'NIH Percentile',
+  ],
+  query: GET_CASE_DETAIL_PUBLICATIONS_TAB,
+  apiVariable: 'publicationOverViewByProject',
+  fileName: 'INS Case Detail Publications',
+  defaultFullTableDownload: true,
+};
+
+export const GET_CASE_DETAIL_DATASETS_TAB = gql`
+query datasetOverViewByProject(
+  $project_id: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  datasetOverViewByProject(
+    project_id: $project_id,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+  ) {
+    accession,
+    title,
+    submission_date,
+    last_update_date,
+    release_date,
+    registration_date,
+    type,
+    link,
+    transformed_type
+  }
+}
+`;
+
+export const customCaseDetailDatasetsTabDownloadCSV = {
+  keysToInclude: [
+    'accession',
+    'link',
+    'transformed_type',
+    'title',
+    'submission_date',
+    'last_update_date',
+    'release_date',
+    'registration_date',
+  ],
+  header: [
+    'Accession',
+    'Link',
+    'Type',
+    'Title',
+    'Submission Date',
+    'Last Update Date',
+    'Release Date',
+    'Registration Date',
+  ],
+  query: GET_CASE_DETAIL_DATASETS_TAB,
+  apiVariable: 'datasetOverViewByProject',
+  fileName: 'INS Case Detail Datasets',
+  defaultFullTableDownload: true,
+};
+
+export const GET_CASE_DETAIL_CLINICAL_TRIALS_TAB = gql`
+query clinicalTrialOverViewByProject(
+  $project_id: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  clinicalTrialOverViewByProject(
+    project_id: $project_id,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+  ) {
+    clinical_trial_id,
+    title,
+    last_update_posted,
+    recruitment_status,
+  }
+}
+`;
+
+export const customCaseDetailClinicalTrialsTabDownloadCSV = {
+  keysToInclude: [
+    'clinical_trial_id',
+    'title',
+    'last_update_posted',
+    'recruitment_status',
+  ],
+  header: [
+    'Clinical Trial ID',
+    'Title',
+    'Last Update Posted',
+    'Recruitment Status',
+  ],
+  query: GET_CASE_DETAIL_CLINICAL_TRIALS_TAB,
+  apiVariable: 'clinicalTrialOverViewByProject',
+  fileName: 'INS Case Detail Clinical Trials',
+  defaultFullTableDownload: true,
+};
+
+export const GET_CASE_DETAIL_PATENTS_TAB = gql`
+query patentOverViewByProject(
+  $project_id: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  patentOverViewByProject(
+    project_id: $project_id,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+  ) {
+    patent_id,
+    fulfilled_date,
+  }
+}
+`;
+
+export const customCaseDetailPatentsTabDownloadCSV = {
+  keysToInclude: [
+    'patent_id',
+    'fulfilled_date',
+  ],
+  header: [
+    'Patent ID',
+    'Fulfilled Date',
+  ],
+  query: GET_CASE_DETAIL_PATENTS_TAB,
+  apiVariable: 'patentOverViewByProject',
+  fileName: 'INS Case Detail Patents',
+  defaultFullTableDownload: true,
+};
+
 export const MY_CART = gql`
 query filesInList($file_ids: [String], $offset: Int = 0, $first: Int = 1000, $order_by:String ="") {
     filesInList(file_ids: $file_ids, offset: $offset,first: $first, order_by: $order_by) {

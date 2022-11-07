@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 import {
-  customPublicationsTabDownloadCSV,
-  customDatasetsTabDownloadCSV,
-  customClinicalTrialsTabDownloadCSV,
-  customPatentsTabDownloadCSV,
+  customCaseDetailPublicationsTabDownloadCSV,
+  customCaseDetailDatasetsTabDownloadCSV,
+  customCaseDetailClinicalTrialsTabDownloadCSV,
+  customCaseDetailPatentsTabDownloadCSV,
 } from './tableDownloadCSV';
 
 // --------------- Tooltip configuration --------------
@@ -112,28 +112,28 @@ export const externalLinkIcon = {
 // --------------- Tabs Header Data configuration --------------
 export const tabs = [
   {
-    id: 'publication_tab',
+    id: 'publication_tab_case_detail',
     title: 'Publications',
     dataField: 'dataPublication',
-    count: 'numberOfPublications',
+    count: 'num_publications',
   },
   {
-    id: 'dataset_tab',
+    id: 'dataset_tab_case_detail',
     title: 'Datasets',
     dataField: 'dataDataset',
-    count: 'numberOfDatasets',
+    count: 'num_datasets',
   },
   {
-    id: 'clinical_trial_tab',
+    id: 'clinical_trial_tab_case_detail',
     title: 'Clinical Trials',
     dataField: 'dataClinicalTrial',
-    count: 'numberOfClinicalTrials',
+    count: 'num_clinical_trials',
   },
   {
-    id: 'patent_tab',
+    id: 'patent_tab_case_detail',
     title: 'Patents',
     dataField: 'dataPatent',
-    count: 'numberOfPatents',
+    count: 'num_patents',
   },
 ];
 
@@ -182,10 +182,10 @@ export const tabContainers = [
     name: 'Publications',
     dataField: 'dataPublication',
     api: 'GET_PUBLICATIONS_OVERVIEW_QUERY',
-    paginationAPIField: 'publicationOverView',
+    paginationAPIField: 'publicationOverViewByProject',
     defaultSortField: 'publication_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfPublications',
+    count: 'num_publications',
     buttonText: 'Add Selected Files',
     dataKey: 'publication_id',
     saveButtonDefaultStyle: {
@@ -262,14 +262,14 @@ export const tabContainers = [
         },
       },
     ],
-    id: 'publication_tab',
+    id: 'case_detail_publication_tab',
     onRowsSelect: 'type1',
     disableRowSelection: 'type1',
-    tableID: 'publication_tab_table',
+    tableID: 'case_detail_publication_tab_table',
     selectableRows: false,
-    tabIndex: '1',
-    tableDownloadCSV: customPublicationsTabDownloadCSV,
-    downloadFileName: 'publications_download',
+    tabIndex: '0',
+    tableDownloadCSV: customCaseDetailPublicationsTabDownloadCSV,
+    downloadFileName: 'case_detail_publications_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -277,10 +277,10 @@ export const tabContainers = [
     name: 'Datasets',
     dataField: 'dataDataset',
     api: 'GET_DATASETS_OVERVIEW_QUERY',
-    paginationAPIField: 'datasetOverView',
+    paginationAPIField: 'datasetOverViewByProject',
     defaultSortField: 'accession',
     defaultSortDirection: 'asc',
-    count: 'numberOfDatasets',
+    count: 'num_datasets',
     buttonText: 'Add Selected Files',
     dataKey: 'accession',
     saveButtonDefaultStyle: {
@@ -373,14 +373,14 @@ export const tabContainers = [
         },
       },
     ],
-    id: 'dataset_tab',
+    id: 'case_detail_dataset_tab',
     onRowsSelect: 'type1',
     disableRowSelection: 'type1',
-    tableID: 'dataset_tab_table',
+    tableID: 'case_detail_dataset_tab_table',
     selectableRows: false,
-    tabIndex: '2',
-    tableDownloadCSV: customDatasetsTabDownloadCSV,
-    downloadFileName: 'datasets_download',
+    tabIndex: '1',
+    tableDownloadCSV: customCaseDetailDatasetsTabDownloadCSV,
+    downloadFileName: 'case_detail_datasets_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -388,10 +388,10 @@ export const tabContainers = [
     name: 'Clinical Trials',
     dataField: 'dataClinicalTrial',
     api: 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY',
-    paginationAPIField: 'clinicalTrialOverView',
+    paginationAPIField: 'clinicalTrialOverViewByProject',
     defaultSortField: 'clinical_trial_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfClinicalTrials',
+    count: 'num_clinical_trials',
     buttonText: 'Add Selected Files',
     dataKey: 'clinical_trial_id',
     saveButtonDefaultStyle: {
@@ -450,14 +450,14 @@ export const tabContainers = [
         },
       },
     ],
-    id: 'clinical_trial_tab',
+    id: 'case_detail_clinical_trial_tab',
     onRowsSelect: 'type1',
     disableRowSelection: 'type1',
-    tableID: 'clinical_trial_tab_table',
+    tableID: 'case_detail_clinical_trial_tab_table',
     selectableRows: false,
-    tabIndex: '3',
-    tableDownloadCSV: customClinicalTrialsTabDownloadCSV,
-    downloadFileName: 'clinical_trials_download',
+    tabIndex: '2',
+    tableDownloadCSV: customCaseDetailClinicalTrialsTabDownloadCSV,
+    downloadFileName: 'case_detail_clinical_trials_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -465,10 +465,10 @@ export const tabContainers = [
     name: 'Patents',
     dataField: 'dataPatent',
     api: 'GET_PATENTS_OVERVIEW_QUERY',
-    paginationAPIField: 'patentOverView',
+    paginationAPIField: 'patentOverViewByProject',
     defaultSortField: 'patent_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfPatents',
+    count: 'num_patents',
     buttonText: 'Add Selected Files',
     dataKey: 'patent_id',
     saveButtonDefaultStyle: {
@@ -508,14 +508,14 @@ export const tabContainers = [
         },
       },
     ],
-    id: 'patent_tab',
+    id: 'case_detail_patent_tab',
     onRowsSelect: 'type1',
     disableRowSelection: 'type1',
-    tableID: 'patent_tab_table',
+    tableID: 'case_detail_patent_tab_table',
     selectableRows: false,
-    tabIndex: '4',
-    tableDownloadCSV: customPatentsTabDownloadCSV,
-    downloadFileName: 'patents_download',
+    tabIndex: '3',
+    tableDownloadCSV: customCaseDetailPatentsTabDownloadCSV,
+    downloadFileName: 'case_detail_patents_download',
     headerPagination: true,
     footerPagination: true,
   },
@@ -758,21 +758,15 @@ const GET_CASE_DETAIL_DATA_QUERY = gql`
 `;
 
 export const GET_PUBLICATIONS_OVERVIEW_QUERY = gql`
-query publicationOverView(
-  $programs: [String],
-  $docs: [String],
-  $fiscal_years: [String],
-  $award_amounts: [String],
+query publicationOverViewByProject(
+  $project_id: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
-  publicationOverView(
-    programs: $programs,
-    docs: $docs,
-    fiscal_years: $fiscal_years,
-    award_amounts: $award_amounts,
+  publicationOverViewByProject(
+    project_id: $project_id,
     first: $first,
     offset: $offset,
     order_by: $order_by,
@@ -794,21 +788,15 @@ query publicationOverView(
   `;
 
 export const GET_DATASETS_OVERVIEW_QUERY = gql`
-  query datasetOverView(
-    $programs: [String],
-    $docs: [String],
-    $fiscal_years: [String],
-    $award_amounts: [String],
+  query datasetOverViewByProject(
+    $project_id: [String],
     $offset: Int,
     $first: Int,
     $order_by: String,
     $sort_direction: String 
     ){
-    datasetOverView(
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
+    datasetOverViewByProject(
+      project_id: $project_id,
       first: $first,
       offset: $offset,
       order_by: $order_by,
@@ -828,21 +816,15 @@ export const GET_DATASETS_OVERVIEW_QUERY = gql`
   `;
 
 export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
-  query clinicalTrialOverView(
-    $programs: [String],
-    $docs: [String],
-    $fiscal_years: [String],
-    $award_amounts: [String],
+  query clinicalTrialOverViewByProject(
+    $project_id: [String],
     $offset: Int,
     $first: Int,
     $order_by: String,
     $sort_direction: String 
     ){
-    clinicalTrialOverView(
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
+    clinicalTrialOverViewByProject(
+      project_id: $project_id,
       first: $first,
       offset: $offset,
       order_by: $order_by,
@@ -857,21 +839,15 @@ export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
   `;
 
 export const GET_PATENTS_OVERVIEW_QUERY = gql`
-  query patentOverView(
-    $programs: [String],
-    $docs: [String],
-    $fiscal_years: [String],
-    $award_amounts: [String],
+  query patentOverViewByProject(
+    $project_id: [String],
     $offset: Int,
     $first: Int,
     $order_by: String,
     $sort_direction: String 
     ){
-    patentOverView(
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
+    patentOverViewByProject(
+      project_id: $project_id,
       first: $first,
       offset: $offset,
       order_by: $order_by,
