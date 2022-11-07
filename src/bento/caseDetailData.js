@@ -1,6 +1,10 @@
 import gql from 'graphql-tag';
-import { FileOnRowsSelect } from '../utils/fileTable';
-import { SampleOnRowsSelect } from '../utils/sampleFileTable';
+import {
+  customPublicationsTabDownloadCSV,
+  customDatasetsTabDownloadCSV,
+  customClinicalTrialsTabDownloadCSV,
+  customPatentsTabDownloadCSV,
+} from './tableDownloadCSV';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -105,413 +109,612 @@ export const externalLinkIcon = {
   alt: 'External link icon',
 };
 
-// --------------- Table 1 configuration --------------
-const table1 = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
-  tableTitle: 'Publications',
-  // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'publications',
-  // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'publication_id',
-  // 'asc' or 'desc'
-  defaultSortDirection: 'asc',
-  // Text to appear on Add to cart button
-  buttonText: 'Add Selected Files',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#09A175',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
+// --------------- Tabs Header Data configuration --------------
+export const tabs = [
+  {
+    id: 'publication_tab',
+    title: 'Publications',
+    dataField: 'dataPublication',
+    count: 'numberOfPublications',
   },
-  ActiveSaveButtonDefaultStyle: {
-    disabled: 'true',
-    opacity: '0.3',
-    cursor: 'auto',
+  {
+    id: 'dataset_tab',
+    title: 'Datasets',
+    dataField: 'dataDataset',
+    count: 'numberOfDatasets',
   },
-  DeactiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
+  {
+    id: 'clinical_trial_tab',
+    title: 'Clinical Trials',
+    dataField: 'dataClinicalTrial',
+    count: 'numberOfClinicalTrials',
   },
-  // Help Icon Message
-  tooltipMessage: 'Click button to add selected files associated with the selected sample(s).',
-  helpMessage: 'Here help message',
-  // showHideColumns 'true' or 'false'
-  showHideColumns: true,
-  // download csv
-  download: false,
-  // downloaded File Name
-  downloadFileName: 'Bento_case_files_download',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
-  columns: [
-    {
-      dataField: 'publication_id',
-      header: 'Publication ID',
-      sort: 'asc',
-      primary: true,
-      link: 'https://pubmed.ncbi.nlm.nih.gov/{publication_id}/',
-      display: true,
-    },
-    {
-      dataField: 'title',
-      header: 'Title',
-    },
-    {
-      dataField: 'authors',
-      header: 'Authors',
-    },
-    {
-      dataField: 'citation_count',
-      header: 'Citation Count',
-    },
-    {
-      dataField: 'relative_citation_ratio',
-      header: 'Relative Citation Ratio',
-    },
-    {
-      dataField: 'nih_percentile',
-      header: 'NIH Percentile',
-    },
-    {
-      dataField: 'doi',
-      header: 'DOI',
-    },
-  ],
-  // Util Functions
-  // Custom function on selct checkbox is selected.
-  customOnRowsSelect: SampleOnRowsSelect,
-};
+  {
+    id: 'patent_tab',
+    title: 'Patents',
+    dataField: 'dataPatent',
+    count: 'numberOfPatents',
+  },
+];
 
-// --------------- Table 2 configuration --------------
-const table2 = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
-  tableTitle: 'GEOs',
-  // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'geos',
-  // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'accession',
-  // 'asc' or 'desc'
-  defaultSortDirection: 'asc',
-  // Text to appear on Add to cart button
-  buttonText: 'Add Selected Files',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#09A175',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
+// --------------- Tabs Header Style configuration --------------
+export const tabIndex = [
+  {
+    title: 'Publications',
+    primaryColor: '#E7E5F1',
+    secondaryColor: '#C3DBD4',
+    selectedColor: '#6D679E',
   },
-  ActiveSaveButtonDefaultStyle: {
-    disabled: 'true',
-    opacity: '0.3',
-    cursor: 'auto',
+  {
+    title: 'Datasets',
+    primaryColor: '#D6F2EA',
+    secondaryColor: '#FFDFB8',
+    selectedColor: '#10A075',
   },
-  DeactiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
+  {
+    title: 'Clinical Trials',
+    primaryColor: '#D3F0F2',
+    secondaryColor: '#E4E8D5',
+    selectedColor: '#0FA8B1',
   },
-  // Help Icon Message
-  tooltipMessage: 'Click button to add selected files.',
-  helpMessage: 'Here help message',
-  // showHideColumns 'true' or 'false'
-  showHideColumns: true,
-  // download csv 'true' or 'false'
-  download: false,
-  // downloaded File Name
-  downloadFileName: 'Bento_case_samples_download',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
-  columns: [
-    {
-      dataField: 'accession',
-      header: 'Accession',
-      link: 'https://www.ncbi.nlm.nih.gov/gds/?term={accession}',
-    },
-    {
-      dataField: 'title',
-      header: 'Title',
-    },
-    {
-      dataField: 'status',
-      header: 'Status',
-    },
-    {
-      dataField: 'submission_date',
-      header: 'Submission Date',
-    },
-    {
-      dataField: 'last_update_date',
-      header: 'Last Update Date',
-    },
-  ],
-  // Util Functions
-  // Custom function on selct checkbox is selected.
-  customOnRowsSelect: FileOnRowsSelect,
-};
+  {
+    title: 'Patents',
+    primaryColor: '#CFEDF9',
+    secondaryColor: '#C9F1F1',
+    selectedColor: '#0DAFEC',
+  },
+];
 
-// --------------- Table 3 configuration --------------
-const table3 = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
-  tableTitle: 'SRAs',
-  // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'sras',
-  // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'accession',
-  // 'asc' or 'desc'
-  defaultSortDirection: 'asc',
-  // Text to appear on Add to cart button
-  buttonText: 'Add Selected Files',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#09A175',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
-  },
-  ActiveSaveButtonDefaultStyle: {
-    disabled: 'true',
-    opacity: '0.3',
-    cursor: 'auto',
-  },
-  DeactiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
-  },
-  // Help Icon dbgap
-  tooltipMessage: 'Click button to add selected files.',
-  helpMessage: 'Here help message',
-  // showHideColumns 'true' or 'false'
-  showHideColumns: true,
-  // download csv 'true' or 'false'
-  download: false,
-  // downloaded File Name
-  downloadFileName: 'Bento_case_samples_download',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
-  columns: [
-    {
-      dataField: 'accession',
-      header: 'Accession',
-      link: 'https://www.ncbi.nlm.nih.gov/sra/?term={accession}',
-    },
-    {
-      dataField: 'study_title',
-      header: 'Study Title',
-    },
-    {
-      dataField: 'bioproject_accession',
-      header: 'Bioproject Accession',
-    },
-    {
-      dataField: 'registration_date',
-      header: 'Registration Date',
-    },
-  ],
-  // Util Functions
-  // Custom function on selct checkbox is selected.
-  customOnRowsSelect: FileOnRowsSelect,
-};
+export const CASE_DETAIL_QUERY = gql`
+query projectDetail($project_id: String!) {
+  projectDetail(project_id: $project_id) {
+    num_publications
+    num_datasets
+    num_clinical_trials
+    num_patents
+  }
+}
+`;
 
-// --------------- Table 4 configuration --------------
-const table4 = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
-  tableTitle: 'DBGaps',
-  // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'dbgaps',
-  // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'accession',
-  // 'asc' or 'desc'
-  defaultSortDirection: 'asc',
-  // Text to appear on Add to cart button
-  buttonText: 'Add Selected Files',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#09A175',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
-  },
-  ActiveSaveButtonDefaultStyle: {
-    disabled: 'true',
-    opacity: '0.3',
-    cursor: 'auto',
-  },
-  DeactiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
-  },
-  // Help Icon Message
-  tooltipMessage: 'Click button to add selected files.',
-  helpMessage: 'Here help message',
-  // showHideColumns 'true' or 'false'
-  showHideColumns: true,
-  // download csv 'true' or 'false'
-  download: false,
-  // downloaded File Name
-  downloadFileName: 'Bento_case_samples_download',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
-  columns: [
-    {
-      dataField: 'accession',
-      header: 'Accession',
-      link: 'https://www.ncbi.nlm.nih.gov/gap/?term={accession}',
+// --------------- Tabs Table configuration --------------
+export const tabContainers = [
+  {
+    name: 'Publications',
+    dataField: 'dataPublication',
+    api: 'GET_PUBLICATIONS_OVERVIEW_QUERY',
+    paginationAPIField: 'publicationOverView',
+    defaultSortField: 'publication_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfPublications',
+    buttonText: 'Add Selected Files',
+    dataKey: 'publication_id',
+    saveButtonDefaultStyle: {
+      color: '#fff',
+      backgroundColor: '#DC2FDA',
+      opacity: '1',
+      border: '0px',
+      cursor: 'pointer',
     },
-    {
-      dataField: 'title',
-      header: 'Title',
+    DeactiveSaveButtonDefaultStyle: {
+      opacity: '0.3',
+      cursor: 'auto',
     },
-    {
-      dataField: 'release_date',
-      header: 'Release Date',
+    ActiveSaveButtonDefaultStyle: {
+      cursor: 'pointer',
+      opacity: 'unset',
+      border: 'unset',
     },
-  ],
-  // Util Functions
-  // Custom function on selct checkbox is selected.
-  customOnRowsSelect: FileOnRowsSelect,
-};
+    columns: [
+      {
+        dataField: 'publication_id',
+        header: 'PubMed ID',
+        sort: 'asc',
+        primary: true,
+        link: 'https://pubmed.ncbi.nlm.nih.gov/{publication_id}/',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '25%',
+        },
+      },
+      {
+        dataField: 'authors',
+        header: 'Authors',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '25%',
+        },
+      },
+      {
+        dataField: 'citation_count',
+        header: 'Citation Count',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'relative_citation_ratio',
+        header: 'Relative Citation Ratio',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'nih_percentile',
+        header: 'NIH Percentile',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+    ],
+    id: 'publication_tab',
+    onRowsSelect: 'type1',
+    disableRowSelection: 'type1',
+    tableID: 'publication_tab_table',
+    selectableRows: false,
+    tabIndex: '1',
+    tableDownloadCSV: customPublicationsTabDownloadCSV,
+    downloadFileName: 'publications_download',
+    headerPagination: true,
+    footerPagination: true,
+  },
+  {
+    name: 'Datasets',
+    dataField: 'dataDataset',
+    api: 'GET_DATASETS_OVERVIEW_QUERY',
+    paginationAPIField: 'datasetOverView',
+    defaultSortField: 'accession',
+    defaultSortDirection: 'asc',
+    count: 'numberOfDatasets',
+    buttonText: 'Add Selected Files',
+    dataKey: 'accession',
+    saveButtonDefaultStyle: {
+      color: '#fff',
+      backgroundColor: '#DC2FDA',
+      opacity: '1',
+      border: '0px',
+      cursor: 'pointer',
+    },
+    DeactiveSaveButtonDefaultStyle: {
+      opacity: '0.3',
+      cursor: 'auto',
+    },
+    ActiveSaveButtonDefaultStyle: {
+      cursor: 'pointer',
+      opacity: 'unset',
+      border: 'unset',
+    },
+    columns: [
+      {
+        dataField: 'accession',
+        header: 'Accession',
+        sort: 'asc',
+        link: '{link}',
+        primary: true,
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'link',
+        header: 'Link',
+        sort: 'asc',
+        link: '{link}',
+        display: false,
+      },
+      {
+        dataField: 'transformed_type',
+        header: 'Type',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '30%',
+        },
+      },
+      {
+        dataField: 'submission_date',
+        header: 'Submission Date',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'last_update_date',
+        header: 'Last Update Date',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'release_date',
+        header: 'Release Date',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'registration_date',
+        header: 'Registration Date',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+    ],
+    id: 'dataset_tab',
+    onRowsSelect: 'type1',
+    disableRowSelection: 'type1',
+    tableID: 'dataset_tab_table',
+    selectableRows: false,
+    tabIndex: '2',
+    tableDownloadCSV: customDatasetsTabDownloadCSV,
+    downloadFileName: 'datasets_download',
+    headerPagination: true,
+    footerPagination: true,
+  },
+  {
+    name: 'Clinical Trials',
+    dataField: 'dataClinicalTrial',
+    api: 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY',
+    paginationAPIField: 'clinicalTrialOverView',
+    defaultSortField: 'clinical_trial_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfClinicalTrials',
+    buttonText: 'Add Selected Files',
+    dataKey: 'clinical_trial_id',
+    saveButtonDefaultStyle: {
+      color: '#fff',
+      backgroundColor: '#DC2FDA',
+      opacity: '1',
+      border: '0px',
+      cursor: 'pointer',
+    },
+    DeactiveSaveButtonDefaultStyle: {
+      opacity: '0.3',
+      cursor: 'auto',
+    },
+    ActiveSaveButtonDefaultStyle: {
+      cursor: 'pointer',
+      opacity: 'unset',
+      border: 'unset',
+    },
+    columns: [
+      {
+        dataField: 'clinical_trial_id',
+        header: 'Clinical Trial ID',
+        sort: 'asc',
+        link: 'https://clinicaltrials.gov/ct2/show/{clinical_trial_id}/',
+        primary: true,
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '55%',
+        },
+      },
+      {
+        dataField: 'last_update_posted',
+        header: 'Last Update Posted',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'recruitment_status',
+        header: 'Recruitment Status',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+    ],
+    id: 'clinical_trial_tab',
+    onRowsSelect: 'type1',
+    disableRowSelection: 'type1',
+    tableID: 'clinical_trial_tab_table',
+    selectableRows: false,
+    tabIndex: '3',
+    tableDownloadCSV: customClinicalTrialsTabDownloadCSV,
+    downloadFileName: 'clinical_trials_download',
+    headerPagination: true,
+    footerPagination: true,
+  },
+  {
+    name: 'Patents',
+    dataField: 'dataPatent',
+    api: 'GET_PATENTS_OVERVIEW_QUERY',
+    paginationAPIField: 'patentOverView',
+    defaultSortField: 'patent_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfPatents',
+    buttonText: 'Add Selected Files',
+    dataKey: 'patent_id',
+    saveButtonDefaultStyle: {
+      color: '#fff',
+      backgroundColor: '#DC2FDA',
+      opacity: '1',
+      border: '0px',
+      cursor: 'pointer',
+    },
+    DeactiveSaveButtonDefaultStyle: {
+      opacity: '0.3',
+      cursor: 'auto',
+    },
+    ActiveSaveButtonDefaultStyle: {
+      cursor: 'pointer',
+      opacity: 'unset',
+      border: 'unset',
+    },
+    columns: [
+      {
+        dataField: 'patent_id',
+        header: 'Patent ID',
+        sort: 'asc',
+        primary: true,
+        display: true,
+        headerStyles: {
+          width: '40%',
+        },
+      },
+      {
+        dataField: 'fulfilled_date',
+        header: 'Fulfilled Date',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '30%',
+        },
+      },
+    ],
+    id: 'patent_tab',
+    onRowsSelect: 'type1',
+    disableRowSelection: 'type1',
+    tableID: 'patent_tab_table',
+    selectableRows: false,
+    tabIndex: '4',
+    tableDownloadCSV: customPatentsTabDownloadCSV,
+    downloadFileName: 'patents_download',
+    headerPagination: true,
+    footerPagination: true,
+  },
+];
 
-// --------------- Table 5 configuration --------------
-const table5 = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
-  tableTitle: 'Clinical Trials',
-  // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'clinical_trials',
-  // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'clinical_trial_id',
-  // 'asc' or 'desc'
-  defaultSortDirection: 'asc',
-  // Text to appear on Add to cart button
-  buttonText: 'Add Selected Files',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#09A175',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
-  },
-  ActiveSaveButtonDefaultStyle: {
-    disabled: 'true',
-    opacity: '0.3',
-    cursor: 'auto',
-  },
-  DeactiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
-  },
-  // Help Icon Message
-  tooltipMessage: 'Click button to add selected files.',
-  helpMessage: 'Here help message',
-  // showHideColumns 'true' or 'false'
-  showHideColumns: true,
-  // download csv 'true' or 'false'
-  download: false,
-  // downloaded File Name
-  downloadFileName: 'Bento_case_samples_download',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
-  columns: [
-    {
-      dataField: 'clinical_trial_id',
-      header: 'Clinical Trial',
-      link: 'https://clinicaltrials.gov/ct2/show/{clinical_trial_id}/',
-    },
-    {
-      dataField: 'title',
-      header: 'Title',
-    },
-    {
-      dataField: 'last_update_posted',
-      header: 'Last Update Posted',
-    },
-    {
-      dataField: 'recruitment_status',
-      header: 'Recruitment Status',
-    },
-  ],
-  // Util Functions
-  // Custom function on selct checkbox is selected.
-  customOnRowsSelect: FileOnRowsSelect,
-};
+export const GET_ALL_FILEIDS_CASESTAB_FOR_SELECT_ALL = gql`
+query search (          
+  $subject_ids: [String],
+){
+  fileIDsFromList (          
+      subject_ids: $subject_ids,
+  ) 
+}
+  `;
 
-// --------------- Table 6 configuration --------------
-const table6 = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
-  tableTitle: 'Patents',
-  // Field name for files data, need to be updated only when using a different GraphQL query
-  subjectDetailField: 'patents',
-  // Value must be one of the 'dataField's in fileTableColumns
-  defaultSortField: 'patent_id',
-  // 'asc' or 'desc'
-  defaultSortDirection: 'asc',
-  // Text to appear on Add to cart button
-  buttonText: 'Add Selected Files',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#09A175',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
-  },
-  ActiveSaveButtonDefaultStyle: {
-    disabled: 'true',
-    opacity: '0.3',
-    cursor: 'auto',
-  },
-  DeactiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
-  },
-  // Help Icon Message
-  tooltipMessage: 'Click button to add selected files.',
-  helpMessage: 'Here help message',
-  // showHideColumns 'true' or 'false'
-  showHideColumns: true,
-  // download csv 'true' or 'false'
-  download: false,
-  // downloaded File Name
-  downloadFileName: 'Bento_case_samples_download',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
-  columns: [
-    {
-      dataField: 'patent_id',
-      header: 'Patent ID',
-    },
-    {
-      dataField: 'fulfilled_date',
-      header: 'Fulfilled Date',
-    },
-  ],
-  // Util Functions
-  // Custom function on selct checkbox is selected.
-  customOnRowsSelect: FileOnRowsSelect,
-};
+export const GET_ALL_FILEIDS_SAMPLESTAB_FOR_SELECT_ALL = gql`
+query search (          
+  $sample_ids: [String],
+){
+  fileIDsFromList (          
+    sample_ids: $sample_ids,
+  ) 
+}
+  `;
+
+export const GET_ALL_FILEIDS_FILESTAB_FOR_SELECT_ALL = gql`
+query search (          
+  $file_names: [String] 
+){
+  fileIDsFromList (          
+      file_names: $file_names
+  ) 
+}
+  `;
+
+export const GET_FILES_NAME_QUERY = gql`
+query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 100000, $order_by:String ="file_name"){
+  fileOverview(file_ids: $file_ids, offset: $offset,first: $first, order_by: $order_by) {
+    file_name
+  }
+}
+  `;
+
+export const GET_ALL_FILEIDS_FROM_CASESTAB_FOR_ADD_ALL_CART = gql`
+query subjectsAddAllToCart(
+  $subject_ids: [String],
+  $programs: [String],
+  $studies: [String],
+  $diagnoses: [String],
+  $rc_scores: [String],
+  $tumor_sizes: [String],
+  $chemo_regimen: [String],
+  $tumor_grades: [String],
+  $er_status: [String],
+  $pr_status: [String],
+  $endo_therapies: [String],
+  $meno_status: [String],
+  $tissue_type: [String],
+  $composition: [String],
+  $association: [String],
+  $file_type: [String],
+  $age_at_index: [Float],
+  $first: Int,
+  $offset: Int= 0, 
+  $order_by: String = "file_id",
+  $sort_direction: String = "asc" 
+  ){
+  subjectOverview(
+      subject_ids: $subject_ids,
+      programs: $programs,
+      studies: $studies,
+      diagnoses: $diagnoses,
+      rc_scores: $rc_scores,
+      tumor_sizes: $tumor_sizes,
+      chemo_regimen: $chemo_regimen,
+      tumor_grades: $tumor_grades,
+      er_status: $er_status,
+      pr_status: $pr_status,
+      endo_therapies: $endo_therapies,
+      meno_status: $meno_status,
+      tissue_type: $tissue_type,
+      composition: $composition,
+      association: $association,
+      file_type: $file_type,
+      age_at_index: $age_at_index,
+      first: $first,
+      offset: $offset,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+      ) {
+      files
+  }
+}
+    `;
+
+export const GET_ALL_FILEIDS_FROM_SAMPLETAB_FOR_ADD_ALL_CART = gql`
+    query samplesAddAllToCart(
+      $subject_ids: [String],
+      $sample_ids: [String],
+      $programs: [String],
+      $studies: [String],
+      $diagnoses: [String],
+      $rc_scores: [String],
+      $tumor_sizes: [String],
+      $chemo_regimen: [String],
+      $tumor_grades: [String],
+      $er_status: [String],
+      $pr_status: [String],
+      $endo_therapies: [String],
+      $meno_status: [String],
+      $tissue_type: [String],
+      $composition: [String],
+      $association: [String],
+      $file_type: [String],
+      $age_at_index: [Float],
+      $first: Int,
+      $offset: Int= 0, 
+      $order_by: String = "file_id",
+      $sort_direction: String = "asc" ){
+      sampleOverview(
+          subject_ids: $subject_ids,
+          sample_ids: $sample_ids,
+          programs: $programs,
+          studies: $studies,
+          diagnoses: $diagnoses,
+          rc_scores: $rc_scores,
+          tumor_sizes: $tumor_sizes,
+          chemo_regimen: $chemo_regimen,
+          tumor_grades: $tumor_grades,
+          er_status: $er_status,
+          pr_status: $pr_status,
+          endo_therapies: $endo_therapies,
+          meno_status: $meno_status,
+          tissue_type: $tissue_type,
+          composition: $composition,
+          association: $association,
+          file_type: $file_type,
+          age_at_index: $age_at_index,
+          first: $first,
+          offset: $offset,
+          order_by: $order_by,
+          sort_direction: $sort_direction
+          ) {
+          files
+      }
+    }
+        `;
+
+export const GET_ALL_FILEIDS_FROM_FILESTAB_FOR_ADD_ALL_CART = gql`
+query fileAddAllToCart(
+  $subject_ids: [String],
+  $programs: [String],
+  $studies: [String],
+  $diagnoses: [String],
+  $rc_scores: [String],
+  $tumor_sizes: [String],
+  $chemo_regimen: [String],
+  $tumor_grades: [String],
+  $er_status: [String],
+  $pr_status: [String],
+  $endo_therapies: [String],
+  $meno_status: [String],
+  $tissue_type: [String],
+  $composition: [String],
+  $association: [String],
+  $file_type: [String],
+  $age_at_index: [Float],
+  $first: Int,
+  $offset: Int= 0, 
+  $order_by: String = "file_id",
+  $sort_direction: String = "asc"
+ ){
+  fileOverview(
+      subject_ids:$subject_ids,
+      programs: $programs,
+      studies: $studies,
+      diagnoses: $diagnoses,
+      rc_scores: $rc_scores,
+      tumor_sizes: $tumor_sizes,
+      chemo_regimen: $chemo_regimen,
+      tumor_grades: $tumor_grades,
+      er_status: $er_status,
+      pr_status: $pr_status,
+      endo_therapies: $endo_therapies,
+      meno_status: $meno_status,
+      tissue_type: $tissue_type,
+      composition: $composition,
+      association: $association,       
+      file_type: $file_type,
+      age_at_index: $age_at_index,
+      first: $first, 
+      offset: $offset, 
+      order_by: $order_by,
+      sort_direction: $sort_direction
+  ){
+      file_id,
+  }
+}
+            `;
 
 // --------------- GraphQL query configuration --------------
 
@@ -554,6 +757,132 @@ const GET_CASE_DETAIL_DATA_QUERY = gql`
   }
 `;
 
+export const GET_PUBLICATIONS_OVERVIEW_QUERY = gql`
+query publicationOverView(
+  $programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
+  $award_amounts: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  publicationOverView(
+    programs: $programs,
+    docs: $docs,
+    fiscal_years: $fiscal_years,
+    award_amounts: $award_amounts,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+  ) {
+    publication_id,
+    pmc_id,
+    year,
+    journal,
+    title,
+    authors,
+    publish_date,
+    citation_count,
+    relative_citation_ratio,
+    nih_percentile,
+    doi,
+  }
+}
+  `;
+
+export const GET_DATASETS_OVERVIEW_QUERY = gql`
+  query datasetOverView(
+    $programs: [String],
+    $docs: [String],
+    $fiscal_years: [String],
+    $award_amounts: [String],
+    $offset: Int,
+    $first: Int,
+    $order_by: String,
+    $sort_direction: String 
+    ){
+    datasetOverView(
+      programs: $programs,
+      docs: $docs,
+      fiscal_years: $fiscal_years,
+      award_amounts: $award_amounts,
+      first: $first,
+      offset: $offset,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+    ) {
+      accession,
+      title,
+      submission_date,
+      last_update_date,
+      release_date,
+      registration_date,
+      type,
+      link,
+      transformed_type
+    }
+}
+  `;
+
+export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
+  query clinicalTrialOverView(
+    $programs: [String],
+    $docs: [String],
+    $fiscal_years: [String],
+    $award_amounts: [String],
+    $offset: Int,
+    $first: Int,
+    $order_by: String,
+    $sort_direction: String 
+    ){
+    clinicalTrialOverView(
+      programs: $programs,
+      docs: $docs,
+      fiscal_years: $fiscal_years,
+      award_amounts: $award_amounts,
+      first: $first,
+      offset: $offset,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+    ) {
+      clinical_trial_id,
+      title,
+      last_update_posted,
+      recruitment_status,
+    }
+}
+  `;
+
+export const GET_PATENTS_OVERVIEW_QUERY = gql`
+  query patentOverView(
+    $programs: [String],
+    $docs: [String],
+    $fiscal_years: [String],
+    $award_amounts: [String],
+    $offset: Int,
+    $first: Int,
+    $order_by: String,
+    $sort_direction: String 
+    ){
+    patentOverView(
+      programs: $programs,
+      docs: $docs,
+      fiscal_years: $fiscal_years,
+      award_amounts: $award_amounts,
+      first: $first,
+      offset: $offset,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+    ) {
+      patent_id,
+      fulfilled_date,
+    }
+}
+  `;
+
 export {
   projectHeader,
   dataRoot,
@@ -561,11 +890,5 @@ export {
   filesOfSamples,
   leftPanel,
   rightPanel,
-  table1,
-  table2,
-  table3,
-  table4,
-  table5,
-  table6,
   GET_CASE_DETAIL_DATA_QUERY,
 };

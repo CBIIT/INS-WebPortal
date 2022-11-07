@@ -13,15 +13,14 @@ import TabThemeProvider from './caseDetailTabThemeConfig';
 import TabLabel from './caseDetailTabLabel';
 import {
   tabs, tooltipContent, tabContainers, tabIndex, externalLinkIcon,
-} from '../../bento/dashboardTabData';
+} from '../../bento/caseDetailData';
 import {
-  fetchDataForDashboardTab,
+  fetchDataForCaseDetailTab,
   getTableRowSelectionEvent,
   tableHasSelections,
   clearTableSelections,
   fetchAllFileIDs,
-  getFilesCount,
-} from '../dashboardTab/store/dashboardReducer';
+} from './store/caseDetailReducer';
 
 function TabContainer({ children, dir }) {
   return (
@@ -32,46 +31,43 @@ function TabContainer({ children, dir }) {
 }
 
 const tabController = (classes) => {
-  const currentActiveTabTitle = useSelector((state) => (state.dashboardTab
-    && state.dashboardTab.currentActiveTab
-    ? state.dashboardTab.currentActiveTab
+  const currentActiveTabTitle = useSelector((state) => (state.caseDetailTab
+    && state.caseDetailTab.currentActiveTab
+    ? state.caseDetailTab.currentActiveTab
     : tabIndex[0].title));
-  const tabVlaue = tabIndex.map((el) => el.title).indexOf(currentActiveTabTitle) || 0;
-  // tab settings
-  const [currentTab, setCurrentTab] = React.useState(tabVlaue);
 
-  const tableRowSelectionData = [
-    useSelector((state) => (state.dashboardTab.dataCaseSelected)),
-    useSelector((state) => (state.dashboardTab.dataSampleSelected)),
-    useSelector((state) => (state.dashboardTab.dataFileSelected))];
+  const tabValue = tabIndex.map((el) => el.title).indexOf(currentActiveTabTitle) || 0;
 
-  // data from store
-  const dashboard = useSelector((state) => (state.dashboardTab
-    && state.dashboardTab.datatable
-    ? state.dashboardTab.datatable : {}));
+  const [currentTab, setCurrentTab] = React.useState(tabValue);
 
-  // get stats data from store
-  const dashboardStats = useSelector((state) => (state.dashboardTab
-    && state.dashboardTab.stats ? state.dashboardTab.stats : {}));
+  const caseDetail = useSelector((state) => (state.caseDetailTab
+    && state.caseDetailTab.datatable
+    ? state.caseDetailTab.datatable : {}));
 
-  const allFilters = useSelector((state) => (state.dashboardTab
-    && state.dashboardTab.allActiveFilters ? state.dashboardTab.allActiveFilters : {}));
-  const autoCompleteSelection = useSelector((state) => (state.dashboardTab
-    && state.dashboardTab.autoCompleteSelection
-    ? state.dashboardTab.autoCompleteSelection.subject_ids : {}));
-  const bulkUpload = useSelector((state) => (state.dashboardTab
-    && state.dashboardTab.bulkUpload ? state.dashboardTab.bulkUpload.subject_ids : {}));
+  const caseDetailStats = useSelector((state) => (state.caseDetailTab
+    && state.caseDetailTab.stats ? state.caseDetailTab.stats : {}));
+
+  const allFilters = useSelector((state) => (state.caseDetailTab
+    && state.caseDetailTab.allActiveFilters ? state.caseDetailTab.allActiveFilters : {}));
+
+  const autoCompleteSelection = useSelector((state) => (state.caseDetailTab
+    && state.caseDetailTab.autoCompleteSelection
+    ? state.caseDetailTab.autoCompleteSelection.subject_ids : {}));
+
+  const bulkUpload = useSelector((state) => (state.caseDetailTab
+    && state.caseDetailTab.bulkUpload ? state.caseDetailTab.bulkUpload.subject_ids : {}));
+
   const subjectIds = autoCompleteSelection.concat(bulkUpload);
   useEffect(() => {
     setCurrentTab(0);
-  }, [dashboardStats]);
+  }, [caseDetailStats]);
 
-  const { isCaseSelected } = useSelector((state) => state.dashboardTab);
+  const { isCaseSelected } = useSelector((state) => state.caseDetailTab);
 
   const handleTabChange = (event, value) => {
     setCurrentTab(value);
     if (!isCaseSelected) {
-      fetchDataForDashboardTab(tabIndex[value].title);
+      fetchDataForCaseDetailTab(tabIndex[value].title);
     }
   };
 
@@ -193,7 +189,7 @@ const tabController = (classes) => {
       key={index}
       id={tab.id}
       label={
-        getTabLalbel(tab.title, dashboardStats[tab.count] ? dashboardStats[tab.count] : 0)
+        getTabLalbel(tab.title, caseDetailStats[tab.count] ? caseDetailStats[tab.count] : 0)
       }
     />
   ));
@@ -203,7 +199,7 @@ const tabController = (classes) => {
     <TabContainer id={container.id}>
       <TabView
         options={getOptions(container, classes)}
-        data={dashboard[container.dataField] ? dashboard[container.dataField] : 'undefined'}
+        data={caseDetail[container.dataField] ? caseDetail[container.dataField] : 'undefined'}
         customColumn={container}
         customOnRowsSelect={onRowsSelectFunction[container.onRowsSelect]}
         openSnack={openSnack}
@@ -217,7 +213,7 @@ const tabController = (classes) => {
         // eslint-disable-next-line jsx-a11y/tabindex-no-positive
         tabIndex={container.tabIndex}
         externalLinkIcon={externalLinkIcon}
-        count={dashboardStats[container.count] ? dashboardStats[container.count] : 0}
+        count={caseDetailStats[container.count] ? caseDetailStats[container.count] : 0}
         api={container.api}
         paginationAPIField={container.paginationAPIField}
         paginationAPIFieldDesc={container.paginationAPIFieldDesc}
@@ -227,12 +223,9 @@ const tabController = (classes) => {
         allFilters={{ ...allFilters, ...{ subject_ids: subjectIds } }}
         tableHasSelections={tableHasSelections}
         setRowSelection={getTableRowSelectionEvent()}
-        // selectedRowInfo={tableRowSelectionData[container.tabIndex].selectedRowInfo}
-        // selectedRowIndex={tableRowSelectionData[container.tabIndex].selectedRowIndex}
         clearTableSelections={clearTableSelections}
         fetchAllFileIDs={fetchAllFileIDs}
         tableDownloadCSV={container.tableDownloadCSV || false}
-        getFilesCount={getFilesCount}
         tooltipMessage={tooltipContent[currentTab]}
         tooltipIcon={tooltipContent.icon}
         tooltipAlt={tooltipContent.alt}

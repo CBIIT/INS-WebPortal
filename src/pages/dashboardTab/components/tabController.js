@@ -36,9 +36,10 @@ const tabController = (classes) => {
     && state.dashboardTab.currentActiveTab
     ? state.dashboardTab.currentActiveTab
     : tabIndex[0].title));
-  const tabVlaue = tabIndex.map((el) => el.title).indexOf(currentActiveTabTitle) || 0;
+
+  const tabValue = tabIndex.map((el) => el.title).indexOf(currentActiveTabTitle) || 0;
   // tab settings
-  const [currentTab, setCurrentTab] = React.useState(tabVlaue);
+  const [currentTab, setCurrentTab] = React.useState(tabValue);
 
   const tableRowSelectionData = [
     useSelector((state) => (state.dashboardTab.dataCaseSelected)),
