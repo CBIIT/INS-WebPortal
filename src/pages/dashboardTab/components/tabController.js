@@ -32,8 +32,6 @@ function TabContainer({ children, dir }) {
 }
 
 const tabController = (classes) => {
-  useSelector((state) => (console.log('state: ', state.dashboardTab)));
-
   const currentActiveTabTitle = useSelector((state) => (state.dashboardTab
     && state.dashboardTab.currentActiveTab
     ? state.dashboardTab.currentActiveTab
