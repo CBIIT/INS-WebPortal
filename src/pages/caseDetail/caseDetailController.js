@@ -1,4 +1,6 @@
-import React from 'react';
+/* eslint-disable max-len */
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { useQuery } from '@apollo/client';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CaseDetailView from './caseDetailView';
@@ -6,6 +8,7 @@ import { Typography } from '../../components/Wrappers/Wrappers';
 import {
   GET_CASE_DETAIL_DATA_QUERY, dataRoot, caseIDField, filesOfSamples,
 } from '../../bento/caseDetailData';
+import { fetchDataForCaseDetailDataTable } from './caseDetailState';
 
 const CaseDetailContainer = ({ match }) => {
   const { loading, error, data } = useQuery(GET_CASE_DETAIL_DATA_QUERY, {
@@ -23,5 +26,54 @@ const CaseDetailContainer = ({ match }) => {
 
   return <CaseDetailView data={data[dataRoot]} filesOfSamples={data[filesOfSamples]} />;
 };
+class CaseDetailController extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchDataForCaseDetailDataTable());
+  }
 
-export default CaseDetailContainer;
+  render() {
+    const {
+      isLoading, hasError, error, isFetched, isSidebarOpened,
+    } = this.props;
+
+    if (hasError) {
+      return (
+        <Typography variant="headline" color="error" size="sm">
+          {error && `An error has occurred in loading dashboard component: ${error}`}
+        </Typography>
+      );
+    }
+    if (isLoading) {
+      return <CircularProgress />;
+    }
+
+    if (isFetched) {
+      return (
+        CaseDetailContainer
+      );
+    }
+    return (
+      <Typography variant="headline" size="sm">
+        {error && `An error has occurred in loading stats component: ${error}`}
+      </Typography>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  const {
+    isLoading, isFetched, hasError, error,
+  } = state.dashboard;
+
+  const { isSidebarOpened } = state.layout;
+  return {
+    isLoading,
+    hasError,
+    error,
+    isFetched,
+    isSidebarOpened,
+  };
+}
+
+export default connect(mapStateToProps)(CaseDetailController);
