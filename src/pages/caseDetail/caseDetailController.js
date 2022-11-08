@@ -10,22 +10,23 @@ import {
 } from '../../bento/caseDetailData';
 import { fetchDataForCaseDetailDataTable } from './caseDetailState';
 
-const CaseDetailContainer = ({ match }) => {
-  const { loading, error, data } = useQuery(GET_CASE_DETAIL_DATA_QUERY, {
-    variables: { [caseIDField]: match.params.id },
-  });
+// const CaseDetailContainer = ({ match }) => {
+//   const { loading, error, data } = useQuery(GET_CASE_DETAIL_DATA_QUERY, {
+//     variables: { [caseIDField]: match.params.id },
+//   });
 
-  if (loading) return <CircularProgress />;
-  if (error || !data || data[dataRoot][caseIDField] !== match.params.id) {
-    return (
-      <Typography variant="h5" color="error" size="sm">
-        {error ? `An error has occurred in loading stats component: ${error}` : 'Recieved wrong data'}
-      </Typography>
-    );
-  }
+//   if (loading) return <CircularProgress />;
+//   if (error || !data || data[dataRoot][caseIDField] !== match.params.id) {
+//     return (
+//       <Typography variant="h5" color="error" size="sm">
+//         {error ? `An error has occurred in loading stats component: ${error}` : 'Recieved wrong data'}
+//       </Typography>
+//     );
+//   }
 
-  return <CaseDetailView data={data[dataRoot]} filesOfSamples={data[filesOfSamples]} />;
-};
+//   return <CaseDetailView data={data[dataRoot]} filesOfSamples={data[filesOfSamples]} />;
+// };
+
 class CaseDetailController extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
@@ -34,25 +35,41 @@ class CaseDetailController extends Component {
 
   render() {
     const {
-      isLoading, hasError, error, isFetched, isSidebarOpened,
+      isLoading, hasError, error, isFetched, match,
     } = this.props;
+
+    const { loading, dataError, data } = useQuery(GET_CASE_DETAIL_DATA_QUERY, {
+      variables: { [caseIDField]: match.params.id },
+    });
+
+    if (loading) return <CircularProgress />;
+
+    if (dataError || !data || data[dataRoot][caseIDField] !== match.params.id) {
+      return (
+        <Typography variant="h5" color="error" size="sm">
+          {dataError ? `An error has occurred in loading stats component: ${dataError}` : 'Recieved wrong data'}
+        </Typography>
+      );
+    }
 
     if (hasError) {
       return (
         <Typography variant="headline" color="error" size="sm">
-          {error && `An error has occurred in loading dashboard component: ${error}`}
+          {error && `An error has occurred in loading case detail component: ${error}`}
         </Typography>
       );
     }
+
     if (isLoading) {
       return <CircularProgress />;
     }
 
     if (isFetched) {
       return (
-        CaseDetailContainer
+        <CaseDetailView data={data[dataRoot]} filesOfSamples={data[filesOfSamples]} />
       );
     }
+
     return (
       <Typography variant="headline" size="sm">
         {error && `An error has occurred in loading stats component: ${error}`}
@@ -64,7 +81,7 @@ class CaseDetailController extends Component {
 function mapStateToProps(state) {
   const {
     isLoading, isFetched, hasError, error,
-  } = state.dashboard;
+  } = state.caseDetail;
 
   const { isSidebarOpened } = state.layout;
   return {
