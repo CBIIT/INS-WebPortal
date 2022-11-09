@@ -17,6 +17,40 @@ const AboutBody = () => {
           About INS
         </div>
         <div className="aboutPageSection">
+          <Grid container className="aboutPageDisclaimer">
+            <Grid item xs={12}>
+              <div className="aboutPageDisclaimerContent">
+                <h2 className="disclaimerHeader">
+                  GATHERING DATA OUTPUTS: AN ONGOING CHALLENGE
+                </h2>
+                <p>
+                  The National Cancer Institute (NCI) is excited to release the Index of NCI Studies (INS) to tackle the challenge of assembling project information from various publicly available resources into one place. Building connections between NCI programs, projects, and outputs is a complex task usually addressed through manual curation by specialists in portfolio analysis. As we work to automate the process and share this resource with the public, we want to remain transparent about known limitations within the data gathered and displayed by the INS.
+                </p>
+                <ul className="aboutPageDisclaimerItems">
+                  <li>
+                    <b>Funding Methods:</b>
+                    &nbsp;This initial phase of the INS only gathers outputs from projects funded by extramural grants. Other funding sources such as intramural grants and contracts will be addressed in the future.
+                  </li>
+                  <li>
+                    <b>Initial Program Scope:</b>
+                    &nbsp;This initial phase of the INS only gathers outputs from projects funded under two programs: the Cancer MoonshotSM and the Childhood Cancer Data Initiative (CCDI). Though grouping projects under “programs” is useful for organizational purposes, the program-project link is not always clearly defined or publicly available. A list of projects associated with the Cancer Moonshot was obtained from the U.S. Department of Health and Human Services (HHS) Tracking Accountability in Government Grants System, while a list of projects associated with CCDI was provided by the NCI’s Office of Data Sharing. These lists were then input into our automated data gathering process outlined below. The Moonshot program is not currently subdivided into Moonshot initiatives within the INS.
+                  </li>
+                  <li>
+                    <b>Data organization:</b>
+                    &nbsp;The current method of organizing projects and grants within the INS is being reexamined and will be improved. Projects are currently organized within the INS by the full grant number (e.g., “1U24CA224319-01”), which means that a single core project ID (e.g., “CA224319”) may be listed several times with multiple funding years or methods. However, because researchers usually cite core project IDs (rather than full grant numbers) in their published outputs, the INS groups data outputs by core project ID. This leads to some known false positive results where outputs associated with a core project ID are associated with a full grant number when they should not be. This also causes issues where project values such as Program Officer or Division/Office/Center may be inaccurate or fluid.
+                  </li>
+                  <li>
+                    <b>Data sourcing:</b>
+                    &nbsp;The INS relies on several public resources to connect and enrich our data, which comes with the challenge of interoperability and inherent risk of propagating source errors. Details on projects (using full grant numbers) are obtained from the NIH RePORTER resource. Publications, Clinical Trials, and Patents are obtained by automated searching of core project IDs against public resources: PubMed, ClinicalTrials.gov, and US Patent and Trademark Office, respectively. Publication information is further enriched with metrics obtained from NIH iCite. Dataset information is obtained by indirectly linking datasets to core project IDs through the publications citing them. The initial phase of the INS is only gathering datasets from three genomic repositories: database of Genotypes and Phenotypes (dbGaP), Gene Expression Omnibus (GEO), and Sequence Read Archive (SRA).
+                  </li>
+                  <li>
+                    <b>Supplemental grants:</b>
+                    &nbsp;Supplemental grants (specifically, P30 supplements) and their outputs are not included in the initial phase of the INS. Supplements pose a particular challenge to the INS, as researchers rarely cite supplements in published outputs. This cause false positive association issues similar to those mentioned above, as it is very difficult to differentiate outputs associated with a supplement from those associated with a core/parent grant, even with expert manual curation. Often, researchers themselves may not be able to differentiate outputs of supplemental grants separately from those of core/parent grants. We intend to include a curated subset of supplements and outputs where possible in future releases.
+                  </li>
+                </ul>
+              </div>
+            </Grid>
+          </Grid>
           <Grid container className="aboutPageSectionTop">
             <Grid item xs={8}>
               <div className="aboutPageSectionContent">
@@ -28,7 +62,7 @@ const AboutBody = () => {
                 </p>
               </div>
               <div className="aboutPageSectionContent">
-                <h2 className="aboutContentHeader">
+                <h2 className="aboutContentHeader aboutContentHeaderMarginTop">
                   DATA GATHERING PROCESS
                 </h2>
                 <p>
@@ -49,11 +83,9 @@ const AboutBody = () => {
                   <li>
                     The Index of NCI Studies (INS) gathers and displays information about research artifacts (publications, data, clinical trials, and patents) generated by NCI-supported grants in a single site to facilitate research portfolio analysis.
                   </li>
-                  <br />
                   <li>
                     The pilot phase focuses on extramural grants from the Cancer Moonshot program and the Childhood Cancer Data Initiative (CCDI).
                   </li>
-                  <br />
                   <li>
                     The INS site provides detailed information for each program and project, as well as the research outputs generated by each project, which can be filtered according to the user’s specific interests.
                   </li>

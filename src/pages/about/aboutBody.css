@@ -12,13 +12,37 @@
   margin-top: -50px;
 }
 
+.aboutPageDisclaimerItems li:not(:first-child) {
+  margin-top: 10px;
+}
+
 .aboutPageSection {
   width: 1200px;
   margin: auto;
 }
 
+.aboutPageDisclaimer {
+  padding: 40px 44px 0px 44px;
+}
+
+.aboutPageDisclaimerContent {
+  font-size: 16px;
+  font-family: Nunito Sans;
+  font-weight: 300;
+  letter-spacing: 0px;
+  line-height: 23px;
+  color: #010101;
+}
+
+.disclaimerHeader {
+  color: #20506A;
+  font-weight: 400;
+  font-family: Inter;
+  font-size: 26px;
+}
+
 .aboutPageSectionTop {
-  padding: 40px 200px 60px 100px;
+  padding: 40px 44px 60px 44px;
 }
 
 .aboutPageSectionContent {
@@ -31,10 +55,20 @@
   font-weight: 400;
   font-family: Inter;
   font-size: 26px;
+  margin: 0;
+}
+
+.aboutContentHeaderMarginTop {
+  margin-top: 50px;
 }
 
 .aboutPageSectionContent p {
   font-size: 16px;
+  font-family: Nunito Sans;
+  font-weight: 300;
+  letter-spacing: 0px;
+  line-height: 23px;
+  color: #010101;
 }
 
 .aboutPageSectionImage {
@@ -65,9 +99,16 @@
 
 .keyTakeawaysSection ul {
   font-size: 16px;
+  font-family: "Nunito Sans";
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 23px;
   color: #116187;
   padding: 0 30px 15px 40px;
-  font-weight: 500;
+}
+
+.keyTakeawaysSection ul li{
+  margin-top: 10px;
 }
 
 .aboutPageSectionMiddle {
@@ -77,14 +118,14 @@
 .flowChartContentHeader {
   font-size: 26px;
   color: #AEABAB;
-  padding-left: 100px;
+  padding-left: 44px;
   padding-top: 40px;
   font-weight: 400;
 }
 
 .flowChartImage {
   margin-right: 50px;
-  margin-left: 100px;
+  margin-left: 50px;
 }
 
 .aboutContentSubHeader {
@@ -101,7 +142,7 @@
 }
 
 .aboutPageSectionBottom {
-  padding: 40px 200px 10px 100px;
+  padding: 40px 44px 10px 44px;
 }
 
 .link {
