@@ -41,20 +41,9 @@ const TabView = ({
   selectedRowIndex = [],
   tableDownloadCSV,
 }) => {
-  // Get the existing files ids from  cart state
   const cart = getCart();
   const fileIDs = cart.fileIds ? cart.fileIds : [];
-  const AddToCartAlertDialogRef = useRef();
-
   const [cartIsFull, setCartIsFull] = React.useState(false);
-  const buildButtonStyle = (button, styleObject) => {
-    const styleKV = Object.entries(styleObject);
-    // eslint-disable-next-line  no-restricted-syntax, no-unused-vars
-    for (const [key, value] of styleKV) {
-      // eslint-disable-next-line no-param-reassign
-      button.current.style[key] = value;
-    }
-  };
 
   function rowSelectionEvent(displayData, rowsSelected) {
     const displayedDataKeies = displayData;
@@ -79,8 +68,6 @@ const TabView = ({
     }
     newSelectedRowInfo = newSelectedRowInfo.concat(selectedRowsKey);
 
-    // Get selectedRowIndex by comparing current page data with selected row's key.
-    // if rowInfo from selectedRowInfo is currently be displayed
     const newSelectedRowIndex = displayedDataKeies.reduce(
       (accumulator, currentValue, currentIndex) => {
         if (newSelectedRowInfo.includes(currentValue)) {
@@ -90,7 +77,6 @@ const TabView = ({
       }, [],
     );
 
-    // reduce the state chagne, when newSelectedRowIndex and newSelectedRowInfo is same as previous.
     if (_.differenceWith(
       newSelectedRowIndex,
       selectedRowIndex,
@@ -118,14 +104,10 @@ const TabView = ({
     }
   }
 
-  /*
-    Presist user selection
-  */
   function onRowsSelect(curr, allRowsSelected, rowsSelected, displayData) {
     rowSelectionEvent(displayData.map((d) => d.data[primaryKeyIndex]), rowsSelected);
   }
 
-  // overwrite default options
   const defaultOptions = () => ({
     dataKey,
     rowsSelectedTrigger: (displayData, rowsSelected) => rowSelectionEvent(

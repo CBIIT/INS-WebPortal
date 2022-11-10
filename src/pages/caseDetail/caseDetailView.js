@@ -20,7 +20,7 @@ import { fetchDataForDashboardDataTable } from '../dashboard/dashboardState';
 import Tabs from './caseDetailTabController';
 
 // Main case detail component
-const CaseDetail = ({ data, filesOfSamples, classes }) => {
+const CaseDetail = ({ data, classes }) => {
   const [snackbarState, setsnackbarState] = React.useState({
     open: false,
     value: 0,
@@ -69,7 +69,6 @@ const CaseDetail = ({ data, filesOfSamples, classes }) => {
                 src={icon}
                 alt="Bento case detail header logo"
               />
-
             </div>
             <div className={classes.headerTitle}>
               <div className={classes.headerMainTitle}>

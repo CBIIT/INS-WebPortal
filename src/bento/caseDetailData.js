@@ -720,8 +720,6 @@ query fileAddAllToCart(
 
 // query name, also used as root of returned data
 const dataRoot = 'projectDetail';
-// query name, also used as key for files to Samples Mapping.
-const filesOfSamples = 'samplesForSubjectId';
 // Primary ID field used to query a case
 const caseIDField = 'project_id';
 
@@ -863,7 +861,6 @@ export {
   projectHeader,
   dataRoot,
   caseIDField,
-  filesOfSamples,
   leftPanel,
   rightPanel,
   GET_CASE_DETAIL_DATA_QUERY,

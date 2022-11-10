@@ -111,10 +111,6 @@ function customizer(objValue, srcValue) {
   }
 }
 
-const facetSearchData = {
-  project_id: [caseIDField],
-};
-
 /**
  * Generate a default varibles for filter query.
  *
@@ -123,9 +119,9 @@ const facetSearchData = {
  */
 
 function allFilters() {
-  const emptyFilters = facetSearchData.reduce((acc, facet) => (
-    { ...acc, [facet.datafield]: [] }
-  ), {});
+  const emptyFilters = {
+    project_id: [caseIDField],
+  };
   return emptyFilters;
 }
 
@@ -923,10 +919,22 @@ const reducers = {
     };
   },
   LOCAL_SEARCH: (state, item) => {
-    const isEmpty = item.subjectResponse.data
-      && item.subjectResponse.data.subjectOverview
-      && item.subjectResponse.data.subjectOverview.length < 1;
-    const checkboxData = customCheckBox(item.result.data, facetSearchData, isEmpty);
+    const checkboxData = [
+      {
+        groupName: 'Project',
+        checkboxItems: [
+          {
+            name: caseIDField,
+            isChecked: true,
+            subjects: 1,
+          },
+        ],
+        datafield: 'project_id',
+        section: 'Projects',
+        show: false,
+      },
+    ];
+
     const newCheckboxData = [...checkboxData];
     checkboxData.map((val, idx) => {
       if (item.variables && item.variables[val.datafield] && item.variables[val.datafield].length) {
@@ -1009,7 +1017,22 @@ const reducers = {
   RECEIVE_CASE_DETAIL_TAB: (state, rawItem) => {
     const item = rawItem;
 
-    const checkboxData = customCheckBox(item.data, facetSearchData);
+    const checkboxData = [
+      {
+        groupName: 'Project',
+        checkboxItems: [
+          {
+            name: caseIDField,
+            isChecked: true,
+            subjects: 1,
+          },
+        ],
+        datafield: 'project_id',
+        section: 'Projects',
+        show: false,
+      },
+    ];
+
     fetchDataForCaseDetailTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
@@ -1066,7 +1089,22 @@ const reducers = {
   CLEAR_ALL: (state, rawItem) => {
     const item = rawItem;
 
-    const checkboxData = customCheckBox(item.data, facetSearchData);
+    const checkboxData = [
+      {
+        groupName: 'Project',
+        checkboxItems: [
+          {
+            name: caseIDField,
+            isChecked: true,
+            subjects: 1,
+          },
+        ],
+        datafield: 'project_id',
+        section: 'Projects',
+        show: false,
+      },
+    ];
+
     fetchDataForCaseDetailTab(tabIndex[0].title, allFilters());
     return item.data
       ? {
