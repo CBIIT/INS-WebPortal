@@ -33,12 +33,17 @@ const LandingView = ({ classes, statsData }) => (
                 {landingPageData.callToActionTitle}
               </div>
               <div className={classes.headerContent}>
-                A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output.
-                <br />
-                <br />
-                This
-                <strong> pilot phase </strong>
-                of the site is temporarily limited to data generated through extramural grants from two NCI programs.
+                As we work to improve this
+                <b>initial phase</b>
+                of the Index of NCI Studies (INS), please be aware that we currently gather outputs only from
+                <b>extramural grants</b>
+                to the
+                <b>Cancer Moonshot</b>
+                or
+                <b>Childhood Cancer Data Initiative</b>
+                (CCDI) programs. In addition, there may be some false positive connections between projects and outputs as we improve our automated collection and association processes. Read more on how we are tackling these challenges on the
+                <Link to="/about" className={classes.headerAboutLink}>About page</Link>
+                .
               </div>
               <div className={classes.headerButtonSection}>
                 <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
@@ -373,6 +378,15 @@ const styles = () => ({
     lineHeight: '20px',
     marginTop: '40px',
     marginBottom: '26px',
+
+    '& b': {
+      margin: '0px 5px',
+    },
+  },
+  headerAboutLink: {
+    fontWeight: '800',
+    color: 'inherit',
+    padding: '5px',
   },
   headerLink: {
     textDecoration: 'none',

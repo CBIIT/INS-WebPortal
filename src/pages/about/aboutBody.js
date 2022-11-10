@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import aboutImage from '../../assets/about/About.png';
 import flowChart from '../../assets/about/INS-Workflow.svg';
@@ -21,31 +22,58 @@ const AboutBody = () => {
             <Grid item xs={12}>
               <div className="aboutPageDisclaimerContent">
                 <h2 className="disclaimerHeader">
-                  GATHERING DATA OUTPUTS: AN ONGOING CHALLENGE
+                  GATHERING RESEARCH OUTPUTS: AN ONGOING CHALLENGE
                 </h2>
                 <p>
-                  The National Cancer Institute (NCI) is excited to release the Index of NCI Studies (INS) to tackle the challenge of assembling project information from various publicly available resources into one place. Building connections between NCI programs, projects, and outputs is a complex task usually addressed through manual curation by specialists in portfolio analysis. As we work to automate the process and share this resource with the public, we want to remain transparent about known limitations within the data gathered and displayed by the INS.
+                  The National Cancer Institute (NCI) is excited to release the first phase of the Index of NCI Studies (INS) to tackle the challenge of assembling project information from various publicly available resources into one place. Building connections between NCI programs, projects, and outputs is a complex task usually addressed through manual curation by specialists performing portfolio analysis. As we work to automate the process and share this resource with the public, we want to remain transparent about known limitations within the data gathered and displayed by the INS. Releasing updates to INS in phases allows us to iteratively improve the site.
                 </p>
                 <ul className="aboutPageDisclaimerItems">
                   <li>
                     <b>Funding Methods:</b>
-                    &nbsp;This initial phase of the INS only gathers outputs from projects funded by extramural grants. Other funding sources such as intramural grants and contracts will be addressed in the future.
+                    &nbsp;This initial phase of the INS only gathers outputs from projects funded by
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.cancer.gov/research/nci-role/extramural">extramural grants</a>
+                    . Other funding sources such as intramural grants and contracts will be addressed in the future.
                   </li>
                   <li>
                     <b>Initial Program Scope:</b>
-                    &nbsp;This initial phase of the INS only gathers outputs from projects funded under two programs: the Cancer MoonshotSM and the Childhood Cancer Data Initiative (CCDI). Though grouping projects under “programs” is useful for organizational purposes, the program-project link is not always clearly defined or publicly available. A list of projects associated with the Cancer Moonshot was obtained from the U.S. Department of Health and Human Services (HHS) Tracking Accountability in Government Grants System, while a list of projects associated with CCDI was provided by the NCI’s Office of Data Sharing. These lists were then input into our automated data gathering process outlined below. The Moonshot program is not currently subdivided into Moonshot initiatives within the INS.
+                    &nbsp;This initial phase of the INS only gathers outputs from projects funded under two programs: the
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.cancer.gov/research/key-initiatives/moonshot-cancer-initiative">
+                      Cancer Moonshot
+                      <sup>SM</sup>
+                    </a>
+                    and the
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.cancer.gov/research/areas/childhood/childhood-cancer-data-initiative">Childhood Cancer Data Initiative</a>
+                    (CCDI). Though grouping projects under “programs” is useful for organizational purposes, the program-project link is not always clearly defined or publicly available. A list of projects associated with the Cancer Moonshot was obtained from the U.S. Department of Health and Human Services (HHS)
+                    <a target="_blank" rel="noopener noreferrer" href="https://taggs.hhs.gov/">Tracking Accountability in Government Grants System</a>
+                    , while a list of projects associated with CCDI was provided by the NCI’s Office of Data Sharing. These lists were then input into our automated data gathering process outlined below.
                   </li>
                   <li>
                     <b>Data organization:</b>
-                    &nbsp;The current method of organizing projects and grants within the INS is being reexamined and will be improved. Projects are currently organized within the INS by the full grant number (e.g., “1U24CA224319-01”), which means that a single core project ID (e.g., “CA224319”) may be listed several times with multiple funding years or methods. However, because researchers usually cite core project IDs (rather than full grant numbers) in their published outputs, the INS groups data outputs by core project ID. This leads to some known false positive results where outputs associated with a core project ID are associated with a full grant number when they should not be. This also causes issues where project values such as Program Officer or Division/Office/Center may be inaccurate or fluid.
+                    &nbsp;Projects are currently organized within the INS by the full grant number (e.g., “1U24CA224319-01”), which means that a single core project ID (e.g., “CA224319”) may be listed several times with multiple funding years or methods. However, because researchers usually cite core project IDs (rather than full grant numbers) in their published outputs, the INS groups data outputs by core project ID. This leads to some known false positive results where outputs associated with a core project ID are associated with a full grant number when they should not be. This discrepancy is being evaluated for improvement in a future release.
                   </li>
                   <li>
                     <b>Data sourcing:</b>
-                    &nbsp;The INS relies on several public resources to connect and enrich our data, which comes with the challenge of interoperability and inherent risk of propagating source errors. Details on projects (using full grant numbers) are obtained from the NIH RePORTER resource. Publications, Clinical Trials, and Patents are obtained by automated searching of core project IDs against public resources: PubMed, ClinicalTrials.gov, and US Patent and Trademark Office, respectively. Publication information is further enriched with metrics obtained from NIH iCite. Dataset information is obtained by indirectly linking datasets to core project IDs through the publications citing them. The initial phase of the INS is only gathering datasets from three genomic repositories: database of Genotypes and Phenotypes (dbGaP), Gene Expression Omnibus (GEO), and Sequence Read Archive (SRA).
+                    &nbsp;The INS relies on several public resources to connect and enrich our data, which comes with the challenge of interoperability and inherent risk of propagating source errors. Details on projects (using full grant numbers) are obtained from the
+                    <a target="_blank" rel="noopener noreferrer" href="https://reporter.nih.gov/">NIH RePORTER</a>
+                    resource. Publications, Clinical Trials, and Patents are obtained by automated searching of core project IDs against public resources:
+                    <a target="_blank" rel="noopener noreferrer" href="https://pubmed.ncbi.nlm.nih.gov/">PubMed</a>
+                    ,
+                    <a target="_blank" rel="noopener noreferrer" href="https://clinicaltrials.gov/">ClinicalTrials.gov</a>
+                    , and
+                    <a target="_blank" rel="noopener noreferrer" href="https://ppubs.uspto.gov/pubwebapp/">US Patent and Trademark Office</a>
+                    , respectively. Publication information is further enriched with metrics obtained from
+                    <a target="_blank" rel="noopener noreferrer" href="https://icite.od.nih.gov/">NIH iCite</a>
+                    . Dataset information is obtained by indirectly linking datasets to core project IDs through the publications citing them. The initial phase of the INS is only gathering datasets from three genomic repositories:
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">database of Genotypes and Phenotypes (dbGaP)</a>
+                    ,
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/geo/">Gene Expression Omnibus (GEO)</a>
+                    , and
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/sra/">Sequence Read Archive (SRA)</a>
+                    .
                   </li>
                   <li>
                     <b>Supplemental grants:</b>
-                    &nbsp;Supplemental grants (specifically, P30 supplements) and their outputs are not included in the initial phase of the INS. Supplements pose a particular challenge to the INS, as researchers rarely cite supplements in published outputs. This cause false positive association issues similar to those mentioned above, as it is very difficult to differentiate outputs associated with a supplement from those associated with a core/parent grant, even with expert manual curation. Often, researchers themselves may not be able to differentiate outputs of supplemental grants separately from those of core/parent grants. We intend to include a curated subset of supplements and outputs where possible in future releases.
+                    &nbsp;Supplemental grants (specifically, P30 supplements) and their outputs are not included in the initial phase of the INS. Supplements pose a particular challenge to the INS, as researchers rarely cite supplements in published outputs. It is very difficult to differentiate outputs associated with a supplement from those associated with a core/parent grant, even with expert manual curation. Often, researchers themselves may not be able to differentiate outputs of supplemental grants separately from those of core/parent grants. We aim to avoid false positive associations between research outputs and funding sources that could result from inclusion of supplemental funding, but do intend to include a curated subset of supplements and outputs where possible in future releases.
                   </li>
                 </ul>
               </div>

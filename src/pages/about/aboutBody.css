@@ -12,8 +12,26 @@
   margin-top: -50px;
 }
 
+.aboutPageDisclaimerItems {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
 .aboutPageDisclaimerItems li:not(:first-child) {
   margin-top: 10px;
+}
+
+.aboutPageDisclaimerItems a {
+  margin: 0px 5px;
+  color: #7747ff;
+  text-decoration: none;
+}
+
+.aboutPageDisclaimerItems a[target="_blank"] {
+  background: url('../../assets/about/externalLinkIcon.svg') right center no-repeat;
+  background-size: 14.5px;
+  display: inline-table;
+  padding-right: 20px;
 }
 
 .aboutPageSection {
