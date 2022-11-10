@@ -933,7 +933,7 @@ const reducers = {
           },
         ],
         datafield: 'project_id',
-        section: 'Projects',
+        section: 'Project',
         show: false,
       },
     ];
@@ -1033,7 +1033,7 @@ const reducers = {
           },
         ],
         datafield: 'project_id',
-        section: 'Projects',
+        section: 'Project',
         show: false,
       },
     ];
@@ -1106,7 +1106,7 @@ const reducers = {
           },
         ],
         datafield: 'project_id',
-        section: 'Projects',
+        section: 'Project',
         show: false,
       },
     ];
