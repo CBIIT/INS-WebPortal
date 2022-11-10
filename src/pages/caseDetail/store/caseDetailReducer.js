@@ -27,7 +27,7 @@ import {
   GET_DATASETS_OVERVIEW_QUERY,
   GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
   GET_PATENTS_OVERVIEW_QUERY,
-  caseIDField,
+  // caseIDField,
 } from '../../../bento/caseDetailData';
 import {
   GET_IDS_BY_TYPE,
@@ -36,6 +36,8 @@ import {
   GET_SEARCH_NODES_BY_FACET,
   ageAtIndex,
 } from '../../../bento/localSearchData';
+
+const caseIDField = '1P01CA210944-01';
 
 const storeKey = 'caseDetailTab';
 
@@ -93,6 +95,7 @@ const initialState = {
       selectedRowInfo: [],
       selectedRowIndex: [],
     },
+    data: {},
   },
 };
 
@@ -120,7 +123,7 @@ function customizer(objValue, srcValue) {
 
 function allFilters() {
   const emptyFilters = {
-    project_id: [caseIDField],
+    project_id: caseIDField,
   };
   return emptyFilters;
 }
@@ -225,12 +228,12 @@ export async function clearAllFiltersExceptBulkUpload() {
 const convertResultInPrevType = (result) => {
   const payload = result;
   payload.data = {
-    ...result.data,
+    ...result.data.projectDetail,
     nodeCountsFromLists: {
-      numberOfPublications: result.data.numberOfPublications,
-      numberOfDatasets: result.data.numberOfDatasets,
-      numberOfClinicalTrials: result.data.numberOfClinicalTrials,
-      numberOfPatents: result.data.numberOfPatents,
+      numberOfPublications: result.data.projectDetail.num_publications,
+      numberOfDatasets: result.data.projectDetail.num_datasets,
+      numberOfClinicalTrials: result.data.projectDetail.num_clinical_trials,
+      numberOfPatents: result.data.projectDetail.num_patents,
     },
   };
 
@@ -960,6 +963,7 @@ const reducers = {
         data: newCheckboxData,
         variables: item.variables,
       },
+      data: item.result.data,
     };
   },
   UPDATE_CURRRENT_TAB_DATA: (state, item) => (
@@ -1012,6 +1016,7 @@ const reducers = {
         filters: dataTableFilters,
       },
       filters: dataTableFilters,
+      data: tableData,
     };
   },
   RECEIVE_CASE_DETAIL_TAB: (state, rawItem) => {
@@ -1084,6 +1089,7 @@ const reducers = {
           sample_ids: [],
           file_ids: [],
         },
+        data: item.data.projectDetail,
       } : { ...state };
   },
   CLEAR_ALL: (state, rawItem) => {
@@ -1155,6 +1161,7 @@ const reducers = {
         sortByList: {
           ...state.sortByList,
         },
+        data: item.data.projectDetail,
       } : { ...state };
   },
   SORT_SINGLE_GROUP_CHECKBOX: (state, item) => {

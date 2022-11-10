@@ -1,13 +1,9 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { useQuery } from '@apollo/client';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CaseDetailView from './caseDetailView';
 import { Typography } from '../../components/Wrappers/Wrappers';
-import {
-  GET_CASE_DETAIL_DATA_QUERY, dataRoot, caseIDField,
-} from '../../bento/caseDetailData';
 import { fetchDataForCaseDetailTabDataTable } from './store/caseDetailReducer';
 
 class CaseDetailController extends Component {
@@ -17,22 +13,10 @@ class CaseDetailController extends Component {
 
   render() {
     const {
-      isLoading, hasError, error, isFetched, data,
+      isLoading, hasError, error, isFetched, data, match,
     } = this.props;
 
-    // const { loading, dataError, data } = useQuery(GET_CASE_DETAIL_DATA_QUERY, {
-    //   variables: { [caseIDField]: match.params.id },
-    // });
-
-    // if (loading) return <CircularProgress />;
-
-    // if (dataError || !data || data[dataRoot][caseIDField] !== match.params.id) {
-    //   return (
-    //     <Typography variant="h5" color="error" size="sm">
-    //       {dataError ? `An error has occurred in loading stats component: ${dataError}` : 'Recieved wrong data'}
-    //     </Typography>
-    //   );
-    // }
+    console.log('caseIDField: ', match.params.id);
 
     if (hasError) {
       return (
@@ -48,7 +32,7 @@ class CaseDetailController extends Component {
 
     if (isFetched) {
       return (
-        <CaseDetailView data={data[dataRoot]} />
+        <CaseDetailView data={data} />
       );
     }
 
@@ -62,7 +46,7 @@ class CaseDetailController extends Component {
 
 function mapStateToProps(state) {
   const {
-    isLoading, isFetched, hasError, error,
+    isLoading, isFetched, hasError, error, data,
   } = state.caseDetailTab;
 
   const { isSidebarOpened } = state.layout;
@@ -70,26 +54,10 @@ function mapStateToProps(state) {
     isLoading,
     hasError,
     error,
+    data,
     isFetched,
     isSidebarOpened,
   };
 }
 
 export default connect(mapStateToProps)(CaseDetailController);
-
-// const CaseDetailContainer = ({ match }) => {
-//   const { loading, error, data } = useQuery(GET_CASE_DETAIL_DATA_QUERY, {
-//     variables: { [caseIDField]: match.params.id },
-//   });
-
-//   if (loading) return <CircularProgress />;
-//   if (error || !data || data[dataRoot][caseIDField] !== match.params.id) {
-//     return (
-//       <Typography variant="h5" color="error" size="sm">
-//         {error ? `An error has occurred in loading stats component: ${error}` : 'Recieved wrong data'}
-//       </Typography>
-//     );
-//   }
-
-//   return <CaseDetailView data={data[dataRoot]} />;
-// };

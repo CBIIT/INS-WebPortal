@@ -12,6 +12,7 @@ export const initialState = {
       filters: [],
       data: [],
     },
+    data: {},
   },
 };
 

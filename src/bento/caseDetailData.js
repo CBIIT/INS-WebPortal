@@ -165,17 +165,6 @@ export const tabIndex = [
   },
 ];
 
-export const CASE_DETAIL_QUERY = gql`
-query projectDetail($project_id: String!) {
-  projectDetail(project_id: $project_id) {
-    num_publications
-    num_datasets
-    num_clinical_trials
-    num_patents
-  }
-}
-`;
-
 // --------------- Tabs Table configuration --------------
 export const tabContainers = [
   {
@@ -718,13 +707,8 @@ query fileAddAllToCart(
 
 // --------------- GraphQL query configuration --------------
 
-// query name, also used as root of returned data
-const dataRoot = 'projectDetail';
-// Primary ID field used to query a case
-const caseIDField = 'project_id';
-
 // GraphQL query to retrieve detailed info for a case
-const GET_CASE_DETAIL_DATA_QUERY = gql`
+const CASE_DETAIL_QUERY = gql`
   query projectDetail($project_id: String!) {
     projectDetail(project_id: $project_id) {
       project_id
@@ -859,9 +843,7 @@ export const GET_PATENTS_OVERVIEW_QUERY = gql`
 
 export {
   projectHeader,
-  dataRoot,
-  caseIDField,
   leftPanel,
   rightPanel,
-  GET_CASE_DETAIL_DATA_QUERY,
+  CASE_DETAIL_QUERY,
 };
