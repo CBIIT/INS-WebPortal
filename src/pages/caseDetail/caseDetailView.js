@@ -126,7 +126,9 @@ const CaseDetail = ({ data, classes }) => {
           </Grid>
         </div>
       </div>
-      <Tabs />
+      <div className={classes.detailTabContainer}>
+        <Tabs />
+      </div>
       <div className={classes.blankSpace} />
     </>
   );
@@ -202,6 +204,10 @@ const styles = (theme) => ({
     color: '#000000',
     size: '12px',
     lineHeight: '23px',
+  },
+  detailTabContainer: {
+    maxWidth: theme.custom.maxContentWidth,
+    margin: 'auto',
   },
   detailPanel: {
     paddingTop: '0 !important',
