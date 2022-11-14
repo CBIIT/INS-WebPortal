@@ -37,7 +37,13 @@ import {
   ageAtIndex,
 } from '../../../bento/localSearchData';
 
-const caseIDField = '1P01CA210944-01';
+let caseIDField;
+
+const temp = window.location.href.match(/([^/]+$)/g);
+if (temp) {
+  // eslint-disable-next-line prefer-destructuring
+  caseIDField = temp[0];
+}
 
 const storeKey = 'caseDetailTab';
 
@@ -733,46 +739,6 @@ export function sortAll() {
   store.dispatch({
     type: 'SORT_ALL_GROUP_CHECKBOX_CASE_DETAIL',
   });
-}
-
-function getCheckbox(data, mapping) {
-  const checkboxData = data[mapping].map((item) => {
-    return { name: item.group, isChecked: false, subjects: item.subjects };
-  });
-  return checkboxData;
-}
-
-/**
- *  updateFilteredAPIDataIntoCheckBoxData works for first time init Checkbox,
-that function transforms the data which returns from API into a another format
-so it contains more information and easy for front-end to show it correctly.
- *  * @param {object} currentGroupCount
- *  * @param {object} willUpdateGroupCount
- * * @param {object} currentCheckboxSelection
- * @return {json}
- */
-
-function customCheckBox(data, facetSearchData1, isEmpty) {
-  const caseCountField = 'subjects';
-  return (
-    facetSearchData1.map((mapping) => ({
-      groupName: mapping.label,
-      checkboxItems: mapping.slider === true
-        ? data[mapping.api]
-        : (isEmpty ? getCheckbox(data, mapping.apiForFiltering) : transformAPIDataIntoCheckBoxData(
-          data[mapping.api],
-          mapping.field,
-          caseCountField,
-          mapping.customNumberSort,
-        )),
-      datafield: mapping.datafield,
-      show: mapping.show,
-      slider: mapping.slider,
-      quantifier: mapping.slider,
-      section: mapping.section,
-      tooltips: mapping.tooltips,
-    }))
-  );
 }
 
 export function updateFilteredAPIDataIntoCheckBoxData(data, facetSearchDataFromConfig) {

@@ -95,6 +95,11 @@ const caseDetailTabController = (classes) => {
 
   function getTabLalbel(title, count) {
     const tabObj = tabIndex[currentTab];
+
+    if (!tabObj || !tabObj.title) {
+      window.location.reload();
+    }
+
     // NOTE: refactor white color to theme's white color.
     const primaryColor = (tabObj.title === title) ? tabIndex[currentTab].selectedColor : undefined;
     const secondaryColor = (tabObj.title === title) ? tabObj.secondaryColor : undefined;

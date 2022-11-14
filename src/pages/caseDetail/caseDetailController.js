@@ -16,8 +16,6 @@ class CaseDetailController extends Component {
       isLoading, hasError, error, isFetched, data, match,
     } = this.props;
 
-    console.log('caseIDField: ', match.params.id);
-
     if (hasError) {
       return (
         <Typography variant="headline" color="error" size="sm">
