@@ -45,7 +45,7 @@ const caseDetailTabController = (classes) => {
     ? state.caseDetailTab.datatable : {}));
 
   const caseDetailStats = useSelector((state) => (state.caseDetailTab
-    && state.caseDetailTab.stats ? state.caseDetailTab.stats : {}));
+    && state.caseDetailTab.data ? state.caseDetailTab.data : {}));
 
   const allFilters = useSelector((state) => (state.caseDetailTab
     && state.caseDetailTab.allActiveFilters ? state.caseDetailTab.allActiveFilters : {}));
