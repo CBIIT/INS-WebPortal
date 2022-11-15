@@ -33,8 +33,28 @@ export function convertToCSV(jsonse, keysToInclude, header) {
     keysToInclude.map((keyName) => {
       if (line !== '') line += ',';
       let columnResult = entry[keyName];
-      if (typeof columnResult === 'string') columnResult.replace(/"/g, '""');
-      if (typeof columnResult === 'string' && columnResult.search(/("|,|\n)/g) >= 0) columnResult = `"${columnResult}"`;
+      if (typeof columnResult === 'string') {
+        const intialColumnResult = columnResult.replace(/"/g, '""');
+        columnResult = intialColumnResult;
+        if (columnResult.search(/("|,|\n)/g) >= 0) {
+          columnResult = `"${columnResult}"`;
+        }
+      }
+
+      if (typeof columnResult === 'object') {
+        let finalColumnResult = '';
+
+        for (let i = 0; i < columnResult.length; i += 1) {
+          if (i === 0) {
+            finalColumnResult += `"${columnResult[0]}`;
+          } else {
+            finalColumnResult += `, ${columnResult[i]}`;
+          }
+        }
+
+        columnResult = `${finalColumnResult}"`;
+      }
+
       line += columnResult !== null ? columnResult : ' ';
       return line;
     });
