@@ -41,7 +41,7 @@ const LandingView = ({ classes, statsData }) => (
                 <b>Cancer Moonshot</b>
                 or
                 <b>Childhood Cancer Data Initiative</b>
-                (CCDI) programs. In addition, there may be some false positive connections between projects and outputs as we improve our automated collection and association processes. Read more on how we are tackling these challenges on the
+                (CCDI) programs. In addition, there may be some false positive connections between grants and outputs as we improve our automated collection and association processes. Read more on how we are tackling these challenges on the
                 <Link to="/about" className={classes.headerAboutLink}>About page</Link>
                 .
               </div>
@@ -386,7 +386,7 @@ const styles = () => ({
   headerAboutLink: {
     fontWeight: '800',
     color: 'inherit',
-    padding: '5px',
+    padding: '5px 0px 5px 5px',
   },
   headerLink: {
     textDecoration: 'none',
