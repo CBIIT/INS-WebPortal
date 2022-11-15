@@ -39,10 +39,10 @@ import {
 
 let caseIDField;
 
-const temp = window.location.href.match(/([^/]+$)/g);
-if (temp) {
+const projectIdString = window.location.href.match(/([^/]+$)/g);
+if (projectIdString) {
   // eslint-disable-next-line prefer-destructuring
-  caseIDField = temp[0];
+  caseIDField = projectIdString[0];
 }
 
 const storeKey = 'caseDetailTab';
