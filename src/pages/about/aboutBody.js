@@ -22,7 +22,7 @@ const AboutBody = () => {
             <Grid item xs={12}>
               <div className="aboutPageDisclaimerContent">
                 <h2 className="disclaimerHeader">
-                  GATHERING RESEARCH OUTPUTS: AN CONTINUOUS CHALLENGE
+                  GATHERING RESEARCH OUTPUTS: A CONTINUOUS CHALLENGE
                 </h2>
                 <p>
                   The National Cancer Institute (NCI) is excited to release initial phase of the Index of NCI Studies (INS) to tackle the challenge of assembling grants information from various publicly available resources into one place. Building connections between NCI programs, grants, and outputs is a complex task usually addressed through manual curation by portfolio analysis experts. As we work to automate the process and share this resource with the public, we would like to inform you the known limitations within the data gathering process and information displayed by the INS. We are working on improving data gathering process and will periodically release updates which allows us to iteratively improve the INS site.
