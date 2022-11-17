@@ -48,10 +48,6 @@ const AboutBody = () => {
                     , while a list of projects associated with CCDI was provided by the NCI’s Office of Data Sharing. These lists were used as input into our automated data gathering process outlined below.
                   </li>
                   <li>
-                    <b>Data Organization:</b>
-                    &nbsp;The Moonshot program is not currently subdivided into Moonshot initiatives within the INS. Projects are currently organized within the INS by the full grant number (e.g., “1U24CA224319-01”), which means that a single core project ID (e.g., “UC24CA224319”) may be listed several times with multiple funding years. However, because researchers usually cite core project IDs (rather than full grant numbers) in their published outputs, the INS groups data outputs by core project ID. This leads to some known false positive results where outputs associated with a core project ID are associated with a full grant number when they should not be. For instance, a full grant number for a particular year could show a false association with a publication published before the grant was awarded because of a true association between that publication and an earlier grant with the same core project ID. This discrepancy is being evaluated for improvement in a future release.
-                  </li>
-                  <li>
                     <b>Data Sourcing:</b>
                     &nbsp;The INS relies on several public resources to connect and enrich our data, which comes with the challenge of interoperability and inherent risk of propagating source errors. Details on projects (using full grant numbers) are obtained from the
                     <a target="_blank" rel="noopener noreferrer" href="https://reporter.nih.gov/">NIH RePORTER</a>
@@ -70,6 +66,10 @@ const AboutBody = () => {
                     , and
                     <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/sra/">Sequence Read Archive (SRA)</a>
                     .
+                  </li>
+                  <li>
+                    <b>Data Organization:</b>
+                    &nbsp;The Moonshot program is not currently subdivided into Moonshot initiatives within the INS. Projects are currently organized within the INS by the full grant number (e.g., “1U24CA224319-01”), which means that a single core project ID (e.g., “UC24CA224319”) may be listed several times with multiple funding years. However, because researchers usually cite core project IDs (rather than full grant numbers) in their published outputs, the INS groups data outputs by core project ID. This leads to some known false positive results where outputs associated with a core project ID are associated with a full grant number when they should not be. For instance, a full grant number for a particular year could show a false association with a publication published before the grant was awarded because of a true association between that publication and an earlier grant with the same core project ID. This discrepancy is being evaluated for improvement in a future release.
                   </li>
                   <li>
                     <b>Supplemental Grants:</b>
