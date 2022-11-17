@@ -1049,15 +1049,12 @@ type QueryType {
     projectDetail(project_id: String): ProjectDetail @cypher(statement:  """
         MATCH (pr:project {project_id: $project_id})
         OPTIONAL MATCH (pr)<--(pub:publication)
-        OPTIONAL MATCH (pr)<--(:publication)<--(g:geo)
-        OPTIONAL MATCH (pr)<--(:publication)<--(s:sra)
-        OPTIONAL MATCH (pr)<--(:publication)<--(d:dbgap)
+        OPTIONAL MATCH (pr)<--(:publication)<--(dt)
+            WHERE (dt:geo) OR (dt:sra) OR (dt:dbgap)
         OPTIONAL MATCH (pr)<--(c:clinical_trial)
         OPTIONAL MATCH (pr)<--(:publication)<--(c:clinical_trial)
-        OPTIONAL MATCH (pr)<--(gp:granted_patent)
-        OPTIONAL MATCH (pr)<--(pa:patent_application)
-        WITH pr, pub, g, s, d, c, COLLECT(gp {.*}) AS gps, COLLECT(pa {.*}) AS pas
-        WITH pr, pub, g, s, d, c, gps + pas AS pat
+        OPTIONAL MATCH (pr)<--(pat)
+            WHERE (pat:granted_patent) OR (pat:patent_application)
         RETURN {
             project_id: pr.project_id,
             application_id: pr.application_id,
@@ -1080,11 +1077,11 @@ type QueryType {
             project_end_date: pr.project_end_date,
             full_foa: pr.full_foa,
             publications: COLLECT(DISTINCT pub {.*}),
-            geos: COLLECT(DISTINCT g {.*}),
-            sras: COLLECT(DISTINCT s {.*}),
-            dbgaps: COLLECT(DISTINCT d {.*}),
+            sras: COLLECT(DISTINCT CASE LABELS(dt)[0] WHEN 'sra' THEN dt {.*} END),
+            geos: COLLECT(DISTINCT CASE LABELS(dt)[0] WHEN 'geo' THEN dt {.*} END),
+            dbgaps: COLLECT(DISTINCT CASE LABELS(dt)[0] WHEN 'dbgap' THEN dt {.*} END),
             clinical_trials: COLLECT(DISTINCT c {.*}),
-            patents: pat
+            patents: COLLECT(DISTINCT pat {.*})
         }
     """, passThrough: true)
 
