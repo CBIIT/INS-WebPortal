@@ -1049,12 +1049,12 @@ type QueryType {
     projectDetail(project_id: String): ProjectDetail @cypher(statement:  """
         MATCH (pr:project {project_id: $project_id})
         OPTIONAL MATCH (pr)<--(pub:publication)
-        OPTIONAL MATCH (pr)<--(:publication)<--(dt)
+        OPTIONAL MATCH (pub)<--(dt)
             WHERE (dt:geo) OR (dt:sra) OR (dt:dbgap)
-        OPTIONAL MATCH (pr)<--(c:clinical_trial)
-        OPTIONAL MATCH (pr)<--(:publication)<--(c:clinical_trial)
+        OPTIONAL MATCH (pr)<-[*1..2]-(c:clinical_trial)
         OPTIONAL MATCH (pr)<--(pat)
             WHERE (pat:granted_patent) OR (pat:patent_application)
+        WITH DISTINCt pr, pub, dt, c, pat
         RETURN {
             project_id: pr.project_id,
             application_id: pr.application_id,
