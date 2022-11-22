@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { customProgramsTableDownloadCSV } from './tableDownloadCSV';
 
 // --------------- Page title configuration --------------
 const pageTitle = {
@@ -83,58 +84,137 @@ const rightPanel = {
 
 // --------------- Table configuration --------------
 const table = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
+  name: 'Projects',
   title: 'Projects',
-  // Field name for table data, need to be updated only when using a different GraphQL query
-  dataField: 'projects',
-  // Value must be one of the 'field' in columns
+  display: true,
+  dataField: 'dataProject',
+  api: 'GET_PROJECTS_OVERVIEW_QUERY',
+  paginationAPIField: 'projectOverView',
   defaultSortField: 'project_id',
-  // 'asc' or 'desc'
   defaultSortDirection: 'asc',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
+  count: 'numberOfProjects',
+  buttonText: 'Add Selected Files',
+  dataKey: 'project_id',
+  saveButtonDefaultStyle: {
+    color: '#fff',
+    backgroundColor: '#DC2FDA',
+    opacity: '1',
+    border: '0px',
+    cursor: 'pointer',
+  },
+  ActiveSaveButtonDefaultStyle: {
+    cursor: 'pointer',
+    opacity: 'unset',
+    border: 'unset',
+  },
+  DeactiveSaveButtonDefaultStyle: {
+    opacity: '0.3',
+    cursor: 'auto',
+  },
   columns: [
     {
       dataField: 'project_id',
-      header: 'Project',
+      header: 'Project ID',
+      sort: 'asc',
       link: '/project/{project_id}',
+      primary: true,
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
       dataField: 'project_title',
       header: 'Project Title',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '20%',
+      },
     },
     {
       dataField: 'principal_investigators',
       header: 'Principal Investigators',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
       dataField: 'program_officers',
       header: 'Program Officers',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
       dataField: 'lead_doc',
       header: 'Lead DOC',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
       dataField: 'activity_code',
       header: 'Activity Code',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
       dataField: 'award_amount',
       header: 'Award Amount',
+      sort: 'asc',
+      display: true,
+      dataTransform: (money) => {
+        const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          maximumFractionDigits: 0,
+        });
+
+        return formatter.format(money);
+      },
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
       dataField: 'project_end_date',
       header: 'Project End Date',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
       dataField: 'fiscal_year',
       header: 'Fiscal Year',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
   ],
+  id: 'project_tab',
+  onRowsSelect: 'type1',
+  disableRowSelection: 'type1',
+  tableID: 'project_tab_table',
+  selectableRows: false,
+  tabIndex: '0',
+  tableDownloadCSV: customProgramsTableDownloadCSV,
+  downloadFileName: 'programs_download',
+  headerPagination: true,
+  footerPagination: true,
 };
 
 // --------------- GraphQL query - Retrieve program details --------------
@@ -160,27 +240,7 @@ query programDetail($program_id: String!) {
     program_name
     program_description
     program_website
-    num_publications
     num_projects
-    num_geos
-    num_sras
-    num_clinical_trials
-    projects { 
-      project_id
-      application_id
-      fiscal_year
-      project_title
-      project_type
-      principal_investigators
-      lead_doc
-      program_officers
-      award_amount
-      nci_funded_amount
-      award_notice_date
-      project_start_date
-      project_end_date
-      activity_code
-    }
   }
 }`;
 

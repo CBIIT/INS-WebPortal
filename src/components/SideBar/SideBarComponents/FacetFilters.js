@@ -16,7 +16,7 @@ import {
   ListItem,
 } from '@material-ui/core';
 
-// import createMuiTheme from '@material-ui/styles';
+// import createTheme from '@material-ui/styles';
 import _ from 'lodash';
 import {
   ArrowDropDown as ArrowDropDownIcon, Close as CloseIcon,
