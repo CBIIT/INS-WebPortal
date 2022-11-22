@@ -1047,13 +1047,12 @@ type QueryType {
     projectDetail(project_id: String): ProjectDetail @cypher(statement:  """
         MATCH (pr:project {project_id: $project_id})
         OPTIONAL MATCH (pr)<--(pub:publication)
-        OPTIONAL MATCH (d)
-            WHERE (EXISTS((pr)<--(d)) OR EXISTS((pr)<--(:publication)<--(d))) AND 
-                    ((d:geo) OR (d:sra) OR (d:dbgap))
-        OPTIONAL MATCH (ct:clinical_trial)
-            WHERE EXISTS((pr)<--(ct)) OR EXISTS((pr)<--(:publication)<--(ct))
+        OPTIONAL MATCH (pub)<--(dt)
+            WHERE (dt:geo) OR (dt:sra) OR (dt:dbgap)
+        OPTIONAL MATCH (pr)<-[*1..2]-(c:clinical_trial)
         OPTIONAL MATCH (pr)<--(pat)
-            WHERE (pat:patent_application) OR (pat:granted_patent)
+            WHERE (pat:granted_patent) OR (pat:patent_application)
+        WITH DISTINCt pr, pub, dt, c, pat
         RETURN {
             project_id: pr.project_id,
             application_id: pr.application_id,
@@ -1076,8 +1075,8 @@ type QueryType {
             project_end_date: pr.project_end_date,
             full_foa: pr.full_foa,
             num_publications: COUNT(DISTINCT pub),
-            num_datasets: COUNT(DISTINCT d),
-            num_clinical_trials: COUNT(DISTINCT ct),
+            num_datasets: COUNT(DISTINCT dt),
+            num_clinical_trials: COUNT(DISTINCT c),
             num_patents: COUNT(DISTINCT pat)
         }
     """, passThrough: true)
