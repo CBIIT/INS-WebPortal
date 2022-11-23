@@ -5,21 +5,15 @@ import {
 } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
-import Snackbar from '@material-ui/core/Snackbar';
 import { getOptions } from 'bento-components';
 import TabView from './caseDetailTabView';
-import SuccessOutlinedIcon from '../../utils/SuccessOutlined';
 import TabThemeProvider from './caseDetailTabThemeConfig';
 import TabLabel from './caseDetailTabLabel';
 import {
-  tabs, tooltipContent, tabContainers, tabIndex, externalLinkIcon,
+  dataRoot, tabs, tooltipContent, tabContainers, tabIndex, externalLinkIcon,
 } from '../../bento/caseDetailData';
 import {
   fetchDataForCaseDetailTab,
-  getTableRowSelectionEvent,
-  tableHasSelections,
-  clearTableSelections,
-  fetchAllFileIDs,
 } from './store/caseDetailReducer';
 
 function TabContainer({ children, dir }) {
@@ -30,7 +24,7 @@ function TabContainer({ children, dir }) {
   );
 }
 
-const caseDetailTabController = (classes) => {
+const caseDetailTabController = ({ projectID, classes }) => {
   const currentActiveTabTitle = useSelector((state) => (state.caseDetailTab
     && state.caseDetailTab.currentActiveTab
     ? state.caseDetailTab.currentActiveTab
@@ -50,39 +44,14 @@ const caseDetailTabController = (classes) => {
   const allFilters = useSelector((state) => (state.caseDetailTab
     && state.caseDetailTab.allActiveFilters ? state.caseDetailTab.allActiveFilters : {}));
 
-  const autoCompleteSelection = useSelector((state) => (state.caseDetailTab
-    && state.caseDetailTab.autoCompleteSelection
-    ? state.caseDetailTab.autoCompleteSelection.subject_ids : {}));
-
-  const bulkUpload = useSelector((state) => (state.caseDetailTab
-    && state.caseDetailTab.bulkUpload ? state.caseDetailTab.bulkUpload.subject_ids : {}));
-
-  const subjectIds = autoCompleteSelection.concat(bulkUpload);
   useEffect(() => {
-    setCurrentTab(0);
-  }, [caseDetailStats]);
-
-  const { isCaseSelected } = useSelector((state) => state.caseDetailTab);
+    fetchDataForCaseDetailTab(tabIndex[0].title, [projectID]);
+  }, []);
 
   const handleTabChange = (event, value) => {
     setCurrentTab(value);
-    if (!isCaseSelected) {
-      fetchDataForCaseDetailTab(tabIndex[value].title);
-    }
+    fetchDataForCaseDetailTab(tabIndex[value].title, [projectID]);
   };
-
-  const [snackbarState, setsnackbarState] = React.useState({
-    open: false,
-    value: 0,
-  });
-  function openSnack(value1) {
-    setsnackbarState({ open: true, value: value1 });
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  function closeSnack() {
-    setsnackbarState({ open: false });
-  }
 
   function getBorderStyle() {
     const style = '3px solid #42779a';
@@ -114,87 +83,14 @@ const caseDetailTabController = (classes) => {
     );
   }
 
-  /* on row select event
-    @param  data  data for initial the table  sample -> [files]
-    @param  allRowsSelected : selected rows
-    @output [f.uuid]
-  */
-  function Type1OnRowsSelect(data, allRowsSelected) {
-    // use reduce to combine all the files' id into single array
-    return allRowsSelected.reduce((accumulator, currentValue) => {
-      if (data[currentValue.dataIndex]) {
-        const { files } = data[currentValue.dataIndex];
-        // check if file exists
-        if (files && files.length > 0) {
-          return accumulator.concat(files.map((f) => f.file_id));
-        }
-      }
-      return accumulator;
-    }, []);
-  }
-
-  /* on row select event
-    @param  data  data for initial the table  sample -> [files]
-    @param  allRowsSelected : selected rows
-    @output [f.uuid]
-  */
-  function Type2OnRowsSelect(data, allRowsSelected) {
-    return allRowsSelected.map((row) => data[row.dataIndex].file_id);
-  }
-
-  /* on row select event
-    @param  data  data for initial the table  sample -> [files]
-    @param  allRowsSelected : selected rows
-    @output [f.uuid]
-  */
-  function Type3OnRowsSelect(data, allRowsSelected) {
-    // use reduce to combine all the files' id into single array
-    return allRowsSelected.reduce((accumulator, currentValue) => {
-      const { files } = data[currentValue.dataIndex];
-      // check if file
-      if (files && files.length > 0) {
-        return accumulator.concat(files);
-      }
-      return accumulator;
-    }, []);
-  }
-
-  // onRowsSelectFunction contains all the onRowsSelection functions
-  // user can pick one for use.
-  const onRowsSelectFunction = {
-    type1: Type1OnRowsSelect,
-    type2: Type2OnRowsSelect,
-    type3: Type3OnRowsSelect,
-  };
-
-  // This function for future use
-  /*  To check if this row is selectable or not.
-    I want the system to visually communicate ("flag") which of
-    the samples being displayed have already had all of their files added to the cart.
-    @param  data  row of data from sample tab
-    @param  cartData, list of fileIDs
-    @output  boolean true-> selectable
-*/
-  // eslint-disable-next-line no-unused-vars
-  function disableRowSelection(data, cartData) {
-    return true;
-  }
-
-  // disableRowSelectionFunction contains all the disableRowSelection functions
-  // user can pick one for use.
-  const disableRowSelectionFunction = {
-    type1: disableRowSelection,
-    type2: disableRowSelection,
-    type3: disableRowSelection,
-  };
-
   // Tab Header Generator
   const TABs = tabs.map((tab, index) => (
     <Tab
       key={index}
       id={tab.id}
       label={
-        getTabLalbel(tab.title, caseDetailStats[tab.count] ? caseDetailStats[tab.count] : 0)
+        getTabLalbel(tab.title, caseDetailStats[dataRoot][tab.count]
+          ? caseDetailStats[dataRoot][tab.count] : 0)
       }
     />
   ));
@@ -206,10 +102,6 @@ const caseDetailTabController = (classes) => {
         options={getOptions(container, classes)}
         data={caseDetail[container.dataField] ? caseDetail[container.dataField] : 'undefined'}
         customColumn={container}
-        customOnRowsSelect={onRowsSelectFunction[container.onRowsSelect]}
-        openSnack={openSnack}
-        closeSnack={closeSnack}
-        disableRowSelection={disableRowSelectionFunction[container.disableRowSelection]}
         buttonText={container.buttonText}
         tableID={container.tableID}
         saveButtonDefaultStyle={container.saveButtonDefaultStyle}
@@ -218,18 +110,15 @@ const caseDetailTabController = (classes) => {
         // eslint-disable-next-line jsx-a11y/tabindex-no-positive
         tabIndex={container.tabIndex}
         externalLinkIcon={externalLinkIcon}
-        count={caseDetailStats[container.count] ? caseDetailStats[container.count] : 0}
+        count={caseDetailStats[dataRoot][container.count]
+          ? caseDetailStats[dataRoot][container.count] : 0}
         api={container.api}
         paginationAPIField={container.paginationAPIField}
         paginationAPIFieldDesc={container.paginationAPIFieldDesc}
         defaultSortCoulmn={container.defaultSortField || ''}
         defaultSortDirection={container.defaultSortDirection || 'asc'}
         dataKey={container.dataKey}
-        allFilters={{ ...allFilters, ...{ subject_ids: subjectIds } }}
-        tableHasSelections={tableHasSelections}
-        setRowSelection={getTableRowSelectionEvent()}
-        clearTableSelections={clearTableSelections}
-        fetchAllFileIDs={fetchAllFileIDs}
+        allFilters={{ ...allFilters, ...{ subject_ids: [] } }}
         tableDownloadCSV={container.tableDownloadCSV || false}
         tooltipMessage={tooltipContent[currentTab]}
         tooltipIcon={tooltipContent.icon}
@@ -240,26 +129,6 @@ const caseDetailTabController = (classes) => {
 
   return (
     <>
-      <Snackbar
-        className={classes.snackBar}
-        open={snackbarState.open}
-        onClose={closeSnack}
-        autoHideDuration={3000}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        message={(
-          <div className={classes.snackBarMessage}>
-            <span className={classes.snackBarMessageIcon}>
-              <SuccessOutlinedIcon />
-              {' '}
-            </span>
-            <span className={classes.snackBarText}>
-              {snackbarState.value}
-              {' '}
-              File(s) successfully added to your cart
-            </span>
-          </div>
-        )}
-      />
       <TabThemeProvider tableBorder={getBorderStyle()} tablecolor={getTableColor()}>
         <Tabs
           classes

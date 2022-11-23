@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   Grid,
   withStyles,
@@ -13,7 +13,6 @@ import {
   GET_PATENTS_OVERVIEW_QUERY,
 } from '../../bento/caseDetailData';
 import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
-import { getCart } from '../../../src/pages/fileCentricCart/store/cart';
 import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
 import globalData from '../../bento/siteWideConfig';
 
@@ -24,7 +23,6 @@ const TabView = ({
   data,
   customColumn,
   primaryKeyIndex = 0,
-  disableRowSelection,
   tableID,
   externalLinkIcon,
   options,
@@ -36,94 +34,16 @@ const TabView = ({
   allFilters,
   defaultSortCoulmn,
   defaultSortDirection,
-  setRowSelection,
-  selectedRowInfo = [],
-  selectedRowIndex = [],
   tableDownloadCSV,
 }) => {
-  const cart = getCart();
-  const fileIDs = cart.fileIds ? cart.fileIds : [];
-  const [cartIsFull, setCartIsFull] = React.useState(false);
-
-  function rowSelectionEvent(displayData, rowsSelected) {
-    const displayedDataKeies = displayData;
-    const selectedRowsKey = rowsSelected
-      ? rowsSelected.map((index) => displayedDataKeies[index])
-      : [];
-    let newSelectedRowInfo = [];
-
-    if (rowsSelected) {
-      // Remove the rowInfo from selectedRowInfo if this row currently be
-      // displayed and not be selected.
-      if (selectedRowInfo.length > 0) {
-        newSelectedRowInfo = selectedRowInfo.filter((key) => {
-          if (displayedDataKeies.includes(key)) {
-            return false;
-          }
-          return true;
-        });
-      }
-    } else {
-      newSelectedRowInfo = selectedRowInfo;
-    }
-    newSelectedRowInfo = newSelectedRowInfo.concat(selectedRowsKey);
-
-    const newSelectedRowIndex = displayedDataKeies.reduce(
-      (accumulator, currentValue, currentIndex) => {
-        if (newSelectedRowInfo.includes(currentValue)) {
-          accumulator.push(currentIndex);
-        }
-        return accumulator;
-      }, [],
-    );
-
-    if (_.differenceWith(
-      newSelectedRowIndex,
-      selectedRowIndex,
-      _.isEqual,
-    ).length !== 0
-      || _.differenceWith(
-        newSelectedRowInfo,
-        selectedRowInfo,
-        _.isEqual,
-      ).length !== 0
-      || _.differenceWith(
-        selectedRowInfo,
-        newSelectedRowInfo,
-        _.isEqual,
-      ).length !== 0
-      || _.differenceWith(
-        selectedRowIndex,
-        newSelectedRowIndex,
-        _.isEqual,
-      ).length !== 0) {
-      setRowSelection({
-        selectedRowInfo: newSelectedRowInfo,
-        selectedRowIndex: newSelectedRowIndex,
-      });
-    }
-  }
-
-  function onRowsSelect(curr, allRowsSelected, rowsSelected, displayData) {
-    rowSelectionEvent(displayData.map((d) => d.data[primaryKeyIndex]), rowsSelected);
-  }
-
   const defaultOptions = () => ({
     dataKey,
-    rowsSelectedTrigger: (displayData, rowsSelected) => rowSelectionEvent(
-      displayData,
-      rowsSelected,
-    ),
-    rowsSelected: selectedRowIndex,
-    onRowSelectionChange: onRowsSelect,
-    isRowSelectable: (dataIndex) => (disableRowSelection
-      ? disableRowSelection(data[dataIndex], fileIDs) : true),
+    isRowSelectable: false,
   });
 
   const finalOptions = {
     ...options,
     ...defaultOptions(),
-    serverTableRowCount: selectedRowInfo.length,
   };
 
   const dataTransformCallbacks = customColumn.columns.filter((column, idx) => {
@@ -161,15 +81,6 @@ const TabView = ({
 };
 
 const styles = () => ({
-  cartlink: {
-    fontFamily: 'Lato',
-    color: '#3E6886',
-    fontSize: '12px',
-    marginRight: '70px',
-    textDecoration: 'none',
-    borderBottom: '1px solid #3E6886',
-    paddingBottom: '3px',
-  },
   caseTitle: {
     color: '#194563',
     fontSize: '25.2pt',

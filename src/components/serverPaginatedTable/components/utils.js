@@ -41,7 +41,7 @@ export function convertToCSV(jsonse, keysToInclude, header) {
         }
       }
 
-      if (typeof columnResult === 'object') {
+      if (columnResult !== null && typeof columnResult === 'object') {
         let finalColumnResult = '';
 
         for (let i = 0; i < columnResult.length; i += 1) {

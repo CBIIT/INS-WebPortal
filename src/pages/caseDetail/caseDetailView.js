@@ -15,27 +15,10 @@ import {
   leftPanel,
   rightPanel,
 } from '../../bento/caseDetailData';
-import Snackbar from '../../components/Snackbar';
-import { fetchDataForDashboardDataTable } from '../dashboard/dashboardState';
 import Tabs from './caseDetailTabController';
 
 // Main case detail component
 const CaseDetail = ({ data, classes }) => {
-  const [snackbarState, setsnackbarState] = React.useState({
-    open: false,
-    value: 0,
-    action: 'added',
-  });
-  function closeSnack() {
-    setsnackbarState({ open: false });
-  }
-  const dispatch = useDispatch();
-
-  // make sure dashboard data has been loaded first for stats bar to work
-  React.useEffect(() => {
-    dispatch(fetchDataForDashboardDataTable());
-  }, []);
-
   const stat = {
     numberOfPrograms: 1,
     numberOfProjects: 1,
@@ -53,12 +36,6 @@ const CaseDetail = ({ data, classes }) => {
 
   return (
     <>
-      <Snackbar
-        snackbarState={snackbarState}
-        closeSnack={closeSnack}
-        autoHideDuration={3000}
-        classes={classes}
-      />
       <StatsView data={stat} />
       <div className={classes.container}>
         <div className={classes.innerContainer}>
@@ -127,7 +104,7 @@ const CaseDetail = ({ data, classes }) => {
         </div>
       </div>
       <div className={classes.detailTabContainer}>
-        <Tabs />
+        <Tabs projectID={data.project_id} />
       </div>
       <div className={classes.blankSpace} />
     </>

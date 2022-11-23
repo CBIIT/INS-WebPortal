@@ -1,61 +1,45 @@
-/* eslint-disable max-len */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CaseDetailView from './caseDetailView';
 import { Typography } from '../../components/Wrappers/Wrappers';
-import { fetchDataForCaseDetailTabDataTable } from './store/caseDetailReducer';
+import {
+  dataRoot, caseIDField,
+} from '../../bento/caseDetailData';
+import {
+  fetchCaseDetailTab,
+} from './store/caseDetailReducer';
 
-class CaseDetailController extends Component {
-  componentDidMount() {
-    fetchDataForCaseDetailTabDataTable();
-  }
+const CaseDetailContainer = ({ match }) => {
+  const loading = useSelector((state) => (state.caseDetailTab
+    && state.caseDetailTab.isLoading
+    ? state.caseDetailTab.isLoading
+    : false));
 
-  render() {
-    const {
-      isLoading, hasError, error, isFetched, data, match,
-    } = this.props;
+  const error = useSelector((state) => (state.caseDetailTab
+    && state.caseDetailTab.error
+    ? state.caseDetailTab.error
+    : ''));
 
-    if (hasError) {
-      return (
-        <Typography variant="headline" color="error" size="sm">
-          {error && `An error has occurred in loading case detail component: ${error}`}
-        </Typography>
-      );
-    }
+  const data = useSelector((state) => (state.caseDetailTab
+    && state.caseDetailTab.data
+    ? state.caseDetailTab.data
+    : undefined));
 
-    if (isLoading) {
-      return <CircularProgress />;
-    }
+  useEffect(() => {
+    fetchCaseDetailTab(match.params.id);
+  }, []);
 
-    if (isFetched) {
-      return (
-        <CaseDetailView data={data} />
-      );
-    }
-
+  if (loading) return <CircularProgress />;
+  if (error || !data || data[dataRoot][caseIDField] !== match.params.id) {
     return (
-      <Typography variant="headline" size="sm">
-        {error && `An error has occurred in loading stats component: ${error}`}
+      <Typography variant="h5" color="error" size="sm">
+        {error ? `An error has occurred in loading stats component: ${error}` : 'Recieved wrong data'}
       </Typography>
     );
   }
-}
 
-function mapStateToProps(state) {
-  const {
-    isLoading, isFetched, hasError, error, data,
-  } = state.caseDetailTab;
+  return <CaseDetailView data={data[dataRoot]} />;
+};
 
-  const { isSidebarOpened } = state.layout;
-  return {
-    isLoading,
-    hasError,
-    error,
-    data,
-    isFetched,
-    isSidebarOpened,
-  };
-}
-
-export default connect(mapStateToProps)(CaseDetailController);
+export default CaseDetailContainer;
