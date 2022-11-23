@@ -245,7 +245,6 @@ query datasetOverView(
 export const customDatasetsTabDownloadCSV = {
   keysToInclude: [
     'accession',
-    'link',
     'queried_project_ids',
     'transformed_type',
     'title',
@@ -256,7 +255,6 @@ export const customDatasetsTabDownloadCSV = {
   ],
   header: [
     'Accession',
-    'Link',
     'Project IDs',
     'Type',
     'Title',
@@ -451,7 +449,6 @@ query datasetOverViewByProject(
 export const customCaseDetailDatasetsTabDownloadCSV = {
   keysToInclude: [
     'accession',
-    'link',
     'transformed_type',
     'title',
     'submission_date',
@@ -461,7 +458,6 @@ export const customCaseDetailDatasetsTabDownloadCSV = {
   ],
   header: [
     'Accession',
-    'Link',
     'Type',
     'Title',
     'Submission Date',
