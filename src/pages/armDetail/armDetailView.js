@@ -154,6 +154,7 @@ const ArmDetail = ({ data, classes }) => {
                       colors={colors}
                       titleLocation="bottom"
                       titleAlignment="center"
+                      paddingSpace={1}
                     />
                   </Widget>
                 </div>
