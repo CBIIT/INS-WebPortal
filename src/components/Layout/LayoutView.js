@@ -35,14 +35,12 @@ const Layout = ({ classes, isSidebarOpened }) => (
       <>
         <Header />
         <NavBar />
-        {/* Reminder: Ajay need to replace the ICDC with env variable and
-          change build npm to read env variable */}
         <div
           className={classes.content}
         >
           <Route component={ScrollToTop} />
           <Switch>
-            <Route exact path="/ICDC/" component={Home} />
+            <Route exact path="/INS/" component={Home} />
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
             <Route path="/explore" component={Dashboard} />
