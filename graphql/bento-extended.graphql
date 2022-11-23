@@ -229,12 +229,10 @@ type ProjectDetail {
     project_start_date: String
     project_end_date: String
     full_foa: String
-    publications: [PublicationInfo]
-    geos: [GEOInfo]
-    sras: [SRAInfo]
-    dbgaps: [DBGapInfo]
-    clinical_trials: [ClinicalTrialInfo]
-    patents: [PatentInfo]
+    num_publications: Int
+    num_datasets: Int
+    num_clinical_trials: Int
+    num_patents: Int
 }
 
 type ProjectOverview {
@@ -1042,22 +1040,19 @@ type QueryType {
             num_geos: 1,
             num_sras: 1,
             num_clinical_trials: 1,
-            projects: collect(DISTINCT pr {.*, activity_code: SUBSTRING(pr.project_id, 1,3)})
+            projects: []
         }
     """, passThrough: true)
 
     projectDetail(project_id: String): ProjectDetail @cypher(statement:  """
         MATCH (pr:project {project_id: $project_id})
         OPTIONAL MATCH (pr)<--(pub:publication)
-        OPTIONAL MATCH (pr)<--(:publication)<--(g:geo)
-        OPTIONAL MATCH (pr)<--(:publication)<--(s:sra)
-        OPTIONAL MATCH (pr)<--(:publication)<--(d:dbgap)
-        OPTIONAL MATCH (pr)<--(c:clinical_trial)
-        OPTIONAL MATCH (pr)<--(:publication)<--(c:clinical_trial)
-        OPTIONAL MATCH (pr)<--(gp:granted_patent)
-        OPTIONAL MATCH (pr)<--(pa:patent_application)
-        WITH pr, pub, g, s, d, c, COLLECT(gp {.*}) AS gps, COLLECT(pa {.*}) AS pas
-        WITH pr, pub, g, s, d, c, gps + pas AS pat
+        OPTIONAL MATCH (pub)<--(dt)
+            WHERE (dt:geo) OR (dt:sra) OR (dt:dbgap)
+        OPTIONAL MATCH (pr)<-[*1..2]-(c:clinical_trial)
+        OPTIONAL MATCH (pr)<--(pat)
+            WHERE (pat:granted_patent) OR (pat:patent_application)
+        WITH DISTINCt pr, pub, dt, c, pat
         RETURN {
             project_id: pr.project_id,
             application_id: pr.application_id,
@@ -1079,12 +1074,10 @@ type QueryType {
             project_start_date: pr.project_start_date,
             project_end_date: pr.project_end_date,
             full_foa: pr.full_foa,
-            publications: COLLECT(DISTINCT pub {.*}),
-            geos: COLLECT(DISTINCT g {.*}),
-            sras: COLLECT(DISTINCT s {.*}),
-            dbgaps: COLLECT(DISTINCT d {.*}),
-            clinical_trials: COLLECT(DISTINCT c {.*}),
-            patents: pat
+            num_publications: COUNT(DISTINCT pub),
+            num_datasets: COUNT(DISTINCT dt),
+            num_clinical_trials: COUNT(DISTINCT c),
+            num_patents: COUNT(DISTINCT pat)
         }
     """, passThrough: true)
 
