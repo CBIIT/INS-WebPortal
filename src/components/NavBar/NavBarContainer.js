@@ -1,7 +1,7 @@
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import NavBarView from './NavBarView';
+import NavBar from './CustomizedNavBar';
 import { toggleSidebar } from '../Layout/LayoutState';
 
 export default compose(
@@ -23,4 +23,4 @@ export default compose(
       );
     },
   }),
-)(NavBarView);
+)(NavBar);
