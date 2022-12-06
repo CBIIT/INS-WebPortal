@@ -14,6 +14,7 @@ const styles = {
 const INSFooter = () => {
   const [footerUpdatedData, setFooterUpdatedData] = useState(FooterData);
 
+  /*
   useEffect(() => {
     const getSystems = async () => {
       const response = await fetch(
@@ -25,6 +26,7 @@ const INSFooter = () => {
     };
     getSystems();
   }, [FooterData]);
+  */
 
   return (
     <>
