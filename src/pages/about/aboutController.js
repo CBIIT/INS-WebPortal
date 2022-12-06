@@ -10,6 +10,7 @@ const ABOUT_CONTENT_URL = env.REACT_APP_ABOUT_CONTENT_URL;
 const About = ({ match }) => {
   const [data, setData] = useState([]);
 
+  /*
   useEffect(() => {
     const fetchData = async () => {
       let resultData = [];
@@ -28,6 +29,7 @@ const About = ({ match }) => {
     };
     fetchData();
   }, [match.path]);
+  */
 
   return (
     <AboutView data={data} />
