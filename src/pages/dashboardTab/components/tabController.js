@@ -98,7 +98,7 @@ const tabController = (classes) => {
     return `${tabIndex[currentTab].primaryColor}`;
   }
 
-  function getTabLalbel(title, count) {
+  function getTabLabel(title, count) {
     const tabObj = tabIndex[currentTab];
     // NOTE: refactor white color to theme's white color.
     const primaryColor = (tabObj.title === title) ? tabIndex[currentTab].selectedColor : undefined;
@@ -194,7 +194,7 @@ const tabController = (classes) => {
       key={index}
       id={tab.id}
       label={
-        getTabLalbel(tab.title, dashboardStats[tab.count] ? dashboardStats[tab.count] : 0)
+        getTabLabel(tab.title, dashboardStats[tab.count] ? dashboardStats[tab.count] : 0)
       }
     />
   ));

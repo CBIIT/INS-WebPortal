@@ -11,7 +11,7 @@ const TabItems = ({
   currentTab,
   orientation,
 }) => {
-  function getTabLalbel(title, image, index) {
+  function getTabLabel(title, image, index) {
     return (
       <TabLabel
         title={title}
@@ -26,7 +26,7 @@ const TabItems = ({
     <Tab
       index={tab.index}
       label={
-        getTabLalbel(tab.label, tab.icon, tab.index)
+        getTabLabel(tab.label, tab.icon, tab.index)
       }
       key={index}
       disableRipple
