@@ -2,10 +2,6 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/destructuring-assignment */
 import _ from 'lodash';
-import {
-  customSort,
-  transformAPIDataIntoCheckBoxData,
-} from 'bento-components';
 import store from '../../../store';
 import client from '../../../utils/graphqlClient';
 
@@ -17,7 +13,6 @@ import {
   GET_DATASETS_OVERVIEW_QUERY,
   GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
   GET_PATENTS_OVERVIEW_QUERY,
-  // caseIDField,
 } from '../../../bento/caseDetailData';
 
 const storeKey = 'caseDetailTab';
@@ -226,7 +221,6 @@ const reducers = {
   RECEIVE_CASE_DETAIL_TAB: (state, rawItem) => {
     const item = rawItem;
     const filter = { project_id: item.data.projectDetail.project_id };
-    // fetchDataForCaseDetailTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
     return item.data
       ? {
         ...state.caseDetail,

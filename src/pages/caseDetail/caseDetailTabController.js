@@ -97,11 +97,7 @@ const caseDetailTabController = ({ projectID, classes }) => {
         options={getOptions(container, classes)}
         data={caseDetail[container.dataField] ? caseDetail[container.dataField] : 'undefined'}
         customColumn={container}
-        buttonText={container.buttonText}
         tableID={container.tableID}
-        saveButtonDefaultStyle={container.saveButtonDefaultStyle}
-        ActiveSaveButtonDefaultStyle={container.ActiveSaveButtonDefaultStyle}
-        DeactiveSaveButtonDefaultStyle={container.DeactiveSaveButtonDefaultStyle}
         // eslint-disable-next-line jsx-a11y/tabindex-no-positive
         tabIndex={container.tabIndex}
         externalLinkIcon={externalLinkIcon}

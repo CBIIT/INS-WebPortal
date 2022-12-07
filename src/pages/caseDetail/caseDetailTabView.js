@@ -22,7 +22,6 @@ const TabView = ({
   classes,
   data,
   customColumn,
-  primaryKeyIndex = 0,
   tableID,
   externalLinkIcon,
   options,

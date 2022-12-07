@@ -27,14 +27,6 @@ function readyCaseDetail() {
   };
 }
 
-export function fetchAllDataForCaseDetailDataTable() {
-  return (dispatch, getState) => Promise.resolve();
-}
-
-export function AsyncFetchAllDataForCaseDetailDataTable() {
-  return async (dispatch, getState) => Promise.resolve();
-}
-
 export function fetchDataForCaseDetailDataTable() {
   return (dispatch, getState) => dispatch(readyCaseDetail());
 }
