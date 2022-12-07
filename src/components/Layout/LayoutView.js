@@ -40,7 +40,7 @@ const Layout = ({ classes, isSidebarOpened }) => (
         >
           <Route component={ScrollToTop} />
           <Switch>
-            <Route exact path="/INS/" component={Home} />
+            <Route exact path="/INS" component={Home} />
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
             <Route path="/explore" component={Dashboard} />
