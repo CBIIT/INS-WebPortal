@@ -175,7 +175,6 @@ query publicationOverView(
     publish_date,
     citation_count,
     relative_citation_ratio,
-    nih_percentile,
     doi,
     queried_project_ids
   }
@@ -190,7 +189,7 @@ export const customPublicationsTabDownloadCSV = {
     'authors',
     'citation_count',
     'relative_citation_ratio',
-    'nih_percentile',
+    'publish_date',
   ],
   header: [
     'PubMed ID',
@@ -199,7 +198,7 @@ export const customPublicationsTabDownloadCSV = {
     'Authors',
     'Citation Count',
     'Relative Citation Ratio',
-    'NIH Percentile',
+    'Publish Date',
   ],
   query: GET_PUBLICATIONS_TAB,
   apiVariable: 'publicationOverView',
@@ -389,7 +388,6 @@ query publicationOverViewByProject(
     publish_date,
     citation_count,
     relative_citation_ratio,
-    nih_percentile,
     doi,
   }
 }
@@ -402,7 +400,7 @@ export const customCaseDetailPublicationsTabDownloadCSV = {
     'authors',
     'citation_count',
     'relative_citation_ratio',
-    'nih_percentile',
+    'publish_date',
   ],
   header: [
     'PubMed ID',
@@ -410,7 +408,7 @@ export const customCaseDetailPublicationsTabDownloadCSV = {
     'Authors',
     'Citation Count',
     'Relative Citation Ratio',
-    'NIH Percentile',
+    'Publish Date',
   ],
   query: GET_CASE_DETAIL_PUBLICATIONS_TAB,
   apiVariable: 'publicationOverViewByProject',
