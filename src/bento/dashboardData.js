@@ -39,6 +39,7 @@ export const facetSearchData = [{
     DCTD: 'Division of Cancer Treatment and Diagnosis',
     OD: 'Office of the Director',
     SBIR: 'Small Business Innovation Research',
+    OCC: 'Office of Cancer Centers',
   },
 },
 {

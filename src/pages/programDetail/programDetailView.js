@@ -390,6 +390,7 @@ const ProgramView = ({
                         colors={colors}
                         titleLocation="bottom"
                         titleAlignment="center"
+                        paddingSpace={1}
                       />
                     </Widget>
                   </Grid>
@@ -422,6 +423,7 @@ const ProgramView = ({
                         colors={colors}
                         titleLocation="bottom"
                         titleAlignment="center"
+                        paddingSpace={1}
                       />
                     </Widget>
                   </Grid>
@@ -454,6 +456,7 @@ const ProgramView = ({
                         colors={colors}
                         titleLocation="bottom"
                         titleAlignment="center"
+                        paddingSpace={1}
                       />
                     </Widget>
                   </Grid>

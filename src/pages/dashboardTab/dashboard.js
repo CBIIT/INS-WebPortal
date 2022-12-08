@@ -1,9 +1,8 @@
 import React from 'react';
 import {
-  Grid, withStyles, Button, Switch, Collapse, FormControlLabel,
+  Grid, withStyles,
 } from '@material-ui/core';
 import { ProgramSunburst, CustomActiveDonut } from 'bento-components';
-import { useTheme } from '../../components/ThemeContext';
 import Widget from '../../components/Widgets/WidgetView';
 import Stats from '../../components/Stats/DashboardStatsController';
 import SideBar from '../../components/SideBar/SideBarView';
@@ -19,8 +18,6 @@ const Dashboard = ({
   classes, data, theme,
 }) => {
   const [collapse, setCollapse] = React.useState(true);
-  const themeChanger = useTheme();
-  const handleChange = () => setCollapse((prev) => !prev);
 
   return (
     <>
@@ -104,6 +101,7 @@ const Dashboard = ({
                                 colors={grayColor}
                                 titleLocation="bottom"
                                 titleAlignment="bottom"
+                                paddingSpace={1}
                               />
                             </div>
                           </Widget>
@@ -135,6 +133,7 @@ const Dashboard = ({
                               colors={colors}
                               titleLocation="bottom"
                               titleAlignment="center"
+                              paddingSpace={1}
                             />
                           </Widget>
                         </Grid>
