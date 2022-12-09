@@ -243,7 +243,7 @@ export const tabContainers = [
       },
       {
         dataField: 'publish_date',
-        header: 'Publish Date',
+        header: 'Publication Date',
         sort: 'asc',
         display: true,
         headerStyles: {
