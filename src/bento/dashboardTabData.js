@@ -263,8 +263,8 @@ export const tabContainers = [
         },
       },
       {
-        dataField: 'nih_percentile',
-        header: 'NIH Percentile',
+        dataField: 'publish_date',
+        header: 'Publish Date',
         sort: 'asc',
         display: true,
         headerStyles: {
@@ -909,7 +909,6 @@ query publicationOverView(
     publish_date,
     citation_count,
     relative_citation_ratio,
-    nih_percentile,
     doi,
     queried_project_ids
   }

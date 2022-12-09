@@ -4,7 +4,6 @@ import {
   withStyles,
 } from '@material-ui/core';
 import _ from 'lodash';
-import { useDispatch } from 'react-redux';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
 import icon from '../../assets/icons/Cases.Icon.svg';

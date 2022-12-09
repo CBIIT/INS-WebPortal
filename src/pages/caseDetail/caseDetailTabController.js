@@ -62,7 +62,7 @@ const caseDetailTabController = ({ projectID, classes }) => {
     return `${tabIndex[currentTab].primaryColor}`;
   }
 
-  function getTabLalbel(title, count) {
+  function getTabLabel(title, count) {
     const tabObj = tabIndex[currentTab];
 
     if (!tabObj || !tabObj.title) {
@@ -89,7 +89,7 @@ const caseDetailTabController = ({ projectID, classes }) => {
       key={index}
       id={tab.id}
       label={
-        getTabLalbel(tab.title, caseDetailStats[dataRoot][tab.count]
+        getTabLabel(tab.title, caseDetailStats[dataRoot][tab.count]
           ? caseDetailStats[dataRoot][tab.count] : 0)
       }
     />
@@ -102,11 +102,7 @@ const caseDetailTabController = ({ projectID, classes }) => {
         options={getOptions(container, classes)}
         data={caseDetail[container.dataField] ? caseDetail[container.dataField] : 'undefined'}
         customColumn={container}
-        buttonText={container.buttonText}
         tableID={container.tableID}
-        saveButtonDefaultStyle={container.saveButtonDefaultStyle}
-        ActiveSaveButtonDefaultStyle={container.ActiveSaveButtonDefaultStyle}
-        DeactiveSaveButtonDefaultStyle={container.DeactiveSaveButtonDefaultStyle}
         // eslint-disable-next-line jsx-a11y/tabindex-no-positive
         tabIndex={container.tabIndex}
         externalLinkIcon={externalLinkIcon}
