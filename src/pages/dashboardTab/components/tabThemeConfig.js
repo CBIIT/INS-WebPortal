@@ -21,8 +21,9 @@ export default ({
     overridesObj.MUIDataTableToolbar = {
       root: {
         minHeight: '15px',
-        position: 'absolute',
-        top: '5px',
+        top: '-40px',
+        right: '375px',
+        marginBottom: '-35px',
       },
     };
     overridesObj.MuiTablePagination.toolbar.paddingTop = '11px';
