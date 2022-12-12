@@ -143,7 +143,8 @@ const NavBar = () => {
             <MenuDropDown className="dropdown-block">
               <ul className="dropdown-list">
                 <li><NavLink to="/about" style={path === '/about' ? subMenuActiveStyle : null}>About INS</NavLink></li>
-                <li><a href="/INS_Release_Note.pdf" target="_blank" rel="noreferrer">Release Note</a></li>
+                <li><a href="/INS_glossary.pdf" target="_blank" rel="noreferrer">Glossary</a></li>
+                <li><a href="/Release_v1.1.0.pdf" target="_blank" rel="noreferrer">Release Note</a></li>
               </ul>
             </MenuDropDown>
           </LiSection>
