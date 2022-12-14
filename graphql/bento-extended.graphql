@@ -446,15 +446,6 @@ type QueryType {
         return  COUNT(DISTINCT d.accession)
     """, passThrough: true)
 
-    numberOfDatasets(project_ids: [String] = []): Int @cypher(statement: """
-        MATCH (pr:project)
-            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
-        OPTIONAL MATCH (pr)<--(:publication)<--(dt)
-        WITH dt
-            WHERE (dt:geo OR dt:sra OR dt:dbgap)
-        RETURN COUNT(DISTINCT dt.accession)
-    """, passThrough: true)
-
     numberOfClinicalTrialsByProjects(project_ids: [String] = []): Int @cypher(statement: """
         MATCH (pr:project)
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
