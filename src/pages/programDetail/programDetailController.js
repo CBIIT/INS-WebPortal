@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { useQuery } from '@apollo/client';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ProgramView from './programDetailView';
-import { Typography } from '../../components/Wrappers/Wrappers';
+import Error from '../error/Error';
 import { GET_PROGRAM_DETAIL_DATA_QUERY } from '../../bento/programDetailData';
 import {
   GET_PROJECTS_OVERVIEW_QUERY,
@@ -56,11 +56,9 @@ const ProgramDetailContainer = ({ match }) => {
   }
 
   if (programDetailsLoading || projectOverviewLoading) return <CircularProgress />;
-  if (programDetailsError || projectOverviewError || !programDetailsData || !projectOverviewData || programDetailsData.programDetail.program_id !== match.params.id) {
+  if (programDetailsError || projectOverviewError || !programDetailsData || !projectOverviewData || !programDetailsData.programDetail || programDetailsData.programDetail.program_id !== match.params.id) {
     return (
-      <Typography variant="headline" color="error" size="sm">
-        {programDetailsError ? `An error has occurred in loading stats component: ${programDetailsError}` : projectOverviewError ? `An error has occurred in loading stats component: ${projectOverviewError}` : 'Recieved wrong data'}
-      </Typography>
+      <Error />
     );
   }
   return <ProgramView data={[transformedData, projectOverviewData]} />;
