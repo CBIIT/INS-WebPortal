@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { customProgramsTableDownloadCSV } from './tableDownloadCSV';
+import programIcon from '../assets/icons/Icon-Programs.png';
 
 // --------------- Page title configuration --------------
 const pageTitle = {
@@ -28,7 +29,7 @@ const aggregateCount = {
 // Ideal size for programDetailIcon is 107x107 px
 // Ideal size for externalLinkIcon is 16x16 px
 const programDetailIcon = {
-  src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/programIcon.svg',
+  src: programIcon,
   alt: 'Bento program logo',
 };
 
