@@ -914,10 +914,10 @@ function createSingleFilterVariables(payload) {
  * @return {json}
  */
 
-function sortByCheckboxByIsChecked(checkboxData) {
-  checkboxData.sort((a, b) => b.isChecked - a.isChecked);
-  return checkboxData;
-}
+// function sortByCheckboxByIsChecked(checkboxData) {
+//   checkboxData.sort((a, b) => b.isChecked - a.isChecked);
+//   return checkboxData;
+// }
 
 /**
  * Sort checkboxes by Alphabet
@@ -928,7 +928,8 @@ function sortByCheckboxByIsChecked(checkboxData) {
 
 function sortByCheckboxItemsByAlphabet(checkboxData) {
   const sortCheckbox = customSort(checkboxData);
-  return sortByCheckboxByIsChecked(sortCheckbox);
+  // return sortByCheckboxByIsChecked(sortCheckbox);
+  return sortCheckbox;
 }
 
 /**
@@ -940,7 +941,8 @@ function sortByCheckboxItemsByAlphabet(checkboxData) {
 
 function sortByCheckboxItemsByCount(checkboxData) {
   checkboxData.sort((a, b) => b.subjects - a.subjects);
-  return sortByCheckboxByIsChecked(checkboxData);
+  // return sortByCheckboxByIsChecked(checkboxData);
+  return checkboxData;
 }
 
 /**
@@ -1571,6 +1573,7 @@ const reducers = {
         ? sortByCheckboxItemsByCount(group.checkboxItems)
         : sortByCheckboxItemsByAlphabet(group.checkboxItems);
       const updatedGroupData = group;
+      console.log('updatedGroupData: ', updatedGroupData);
       updatedGroupData.checkboxItems = checkboxItems;
       return updatedGroupData;
     });
