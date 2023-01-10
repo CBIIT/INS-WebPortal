@@ -263,24 +263,24 @@ class ServerPaginatedTableView extends React.Component {
       });
     }
     let fetchResult = [];
-    if (this.props.data && this.props.data.length > this.state.rowsPerPage) {
-      const newData = [...this.props.data];
-      const sortedData = this.getSortData(newData, sortColumn, sortDirection);
-      fetchResult = sortedData.splice(offsetReal, this.state.rowsPerPage);
-    } else {
-      fetchResult = await client
-        .query({
-          query: this.props.overview,
-          variables: {
-            offset: offsetReal,
-            first: this.props.count < rowsRequired ? this.props.count : rowsRequired,
-            order_by: sortColumn,
-            sort_direction: sortDirection,
-            ...this.props.queryCustomVaribles,
-          },
-        })
-        .then((result) => (result.data[this.props.paginationAPIField]));
-    }
+    // if (this.props.data && this.props.data.length > this.state.rowsPerPage) {
+    //   const newData = [...this.props.data];
+    //   const sortedData = this.getSortData(newData, sortColumn, sortDirection);
+    //   fetchResult = sortedData.splice(offsetReal, this.state.rowsPerPage);
+    // } else {
+    fetchResult = await client
+      .query({
+        query: this.props.overview,
+        variables: {
+          offset: offsetReal,
+          first: this.props.count < rowsRequired ? this.props.count : rowsRequired,
+          order_by: sortColumn,
+          sort_direction: sortDirection,
+          ...this.props.queryCustomVaribles,
+        },
+      })
+      .then((result) => (result.data[this.props.paginationAPIField]));
+    // }
     if (this.props.updateSortOrder) {
       localStorage.setItem('dataLength', String(fetchResult.length));
       localStorage.setItem('data', JSON.stringify(fetchResult));
@@ -374,12 +374,13 @@ class ServerPaginatedTableView extends React.Component {
       }
       options1.page = newPage;
     }
-    let updatedData = data === 'undefined' ? [] : [...data];
-    if (data.length > rowsPerPage) {
-      const newData = [...data];
-      const sortedData = this.getSortData(newData, sortOrder.name, sortOrder.direction);
-      updatedData = sortedData.splice(0, rowsPerPage);
-    }
+    const updatedData = data === 'undefined' ? [] : [...data];
+    // let updatedData = data === 'undefined' ? [] : [...data];
+    // if (data.length > rowsPerPage) {
+    //   const newData = [...data];
+    //   const sortedData = this.getSortData(newData, sortOrder.name, sortOrder.direction);
+    //   updatedData = sortedData.splice(0, rowsPerPage);
+    // }
     const formatedUpdatedData = [];
     updatedData.forEach((dt) => {
       const tmp = { ...dt };
