@@ -17,9 +17,6 @@ import DataDictonary from '../../pages/dataDictionary/dataDictonaryController';
 import Programs from '../../pages/programs/programsController';
 import ProgramDetail from '../../pages/programDetail/programDetailController';
 import GraphqlClient from '../GraphqlClient/GraphqlView';
-import fileCentricCart from '../../pages/fileCentricCart/cartController';
-import JBrowse from '../JBrowse/JBrowseView';
-import JBrowseDetail from '../../pages/jbrowseDetail/jbrowseDetailController';
 import GlobalSearch from '../../pages/search/searchView';
 import GlobalSearchController from '../../pages/search/searchViewController';
 
@@ -35,28 +32,23 @@ const Layout = ({ classes, isSidebarOpened }) => (
       <>
         <Header />
         <NavBar />
-        {/* Reminder: Ajay need to replace the ICDC with env variable and
-          change build npm to read env variable */}
         <div
           className={classes.content}
         >
           <Route component={ScrollToTop} />
           <Switch>
-            <Route exact path="/ICDC/" component={Home} />
+            <Route exact path="/INS" component={Home} />
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
             <Route path="/explore" component={Dashboard} />
             <Route path="/programs" component={Programs} />
             <Route path="/model" component={modelPage} />
             <Route path="/table" component={table} />
-            <Route path="/fileCentricCart" component={fileCentricCart} />
             <Route path="/program/:id" component={ProgramDetail} />
             <Route path="/project/:id" component={CaseDetail} />
             <Route path="/arm/:id" component={ArmDetail} />
-            <Route path="/JBrowse" component={JBrowse} />
             <Route exact path="/search" component={GlobalSearch} />
             <Route path="/search/:id" component={GlobalSearchController} />
-            <Route path="/fileViewer/:id" component={JBrowseDetail} />
             {aboutPageRoutes.map(
               (aboutPageRoute, index) => (
                 <Route

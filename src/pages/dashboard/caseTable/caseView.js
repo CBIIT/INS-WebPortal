@@ -206,7 +206,6 @@ const Cases = ({ classes, data }) => {
         <div className={classes.chips}>
           {bubbles}
         </div>
-
         <Grid container>
           <Grid item xs={12} className={classes.caseTitle}>
             {dashboardTable.tableTitle}
@@ -218,7 +217,6 @@ const Cases = ({ classes, data }) => {
               options={options()}
             />
           </Grid>
-
         </Grid>
         <Grid item xs={12} className={classes.saveButtonDiv}>
           <button

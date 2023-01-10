@@ -36,9 +36,10 @@ const tabController = (classes) => {
     && state.dashboardTab.currentActiveTab
     ? state.dashboardTab.currentActiveTab
     : tabIndex[0].title));
-  const tabVlaue = tabIndex.map((el) => el.title).indexOf(currentActiveTabTitle) || 0;
+
+  const tabValue = tabIndex.map((el) => el.title).indexOf(currentActiveTabTitle) || 0;
   // tab settings
-  const [currentTab, setCurrentTab] = React.useState(tabVlaue);
+  const [currentTab, setCurrentTab] = React.useState(tabValue);
 
   const tableRowSelectionData = [
     useSelector((state) => (state.dashboardTab.dataCaseSelected)),
@@ -97,7 +98,7 @@ const tabController = (classes) => {
     return `${tabIndex[currentTab].primaryColor}`;
   }
 
-  function getTabLalbel(title, count) {
+  function getTabLabel(title, count) {
     const tabObj = tabIndex[currentTab];
     // NOTE: refactor white color to theme's white color.
     const primaryColor = (tabObj.title === title) ? tabIndex[currentTab].selectedColor : undefined;
@@ -193,7 +194,7 @@ const tabController = (classes) => {
       key={index}
       id={tab.id}
       label={
-        getTabLalbel(tab.title, dashboardStats[tab.count] ? dashboardStats[tab.count] : 0)
+        getTabLabel(tab.title, dashboardStats[tab.count] ? dashboardStats[tab.count] : 0)
       }
     />
   ));

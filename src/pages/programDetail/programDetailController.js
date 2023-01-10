@@ -1,42 +1,50 @@
+/* eslint-disable max-len */
 import React from 'react';
 import _ from 'lodash';
 import { useQuery } from '@apollo/client';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ProgramView from './programDetailView';
-import { Typography } from '../../components/Wrappers/Wrappers';
+import Error from '../error/Error';
 import { GET_PROGRAM_DETAIL_DATA_QUERY } from '../../bento/programDetailData';
+import {
+  GET_PROJECTS_OVERVIEW_QUERY,
+} from '../../bento/dashboardTabData';
 
 const ProgramDetailContainer = ({ match }) => {
-  const { loading, error, data } = useQuery(GET_PROGRAM_DETAIL_DATA_QUERY, {
+  const { loading: programDetailsLoading, error: programDetailsError, data: programDetailsData } = useQuery(GET_PROGRAM_DETAIL_DATA_QUERY, {
     variables: { program_id: match.params.id },
   });
 
-  const transformedData = _.cloneDeep(data);
+  const { loading: projectOverviewLoading, error: projectOverviewError, data: projectOverviewData } = useQuery(GET_PROJECTS_OVERVIEW_QUERY, {
+    variables: { programs: [match.params.id], order_by: 'project_id', sort_direction: 'asc' },
+  });
 
-  if (data) {
+  const transformedData = _.cloneDeep(programDetailsData);
+
+  if (programDetailsData) {
     // eslint-disable-next-line max-len
-    transformedData.projectCountInProgramByDOCData = [...data.projectCountInProgramByDOC].sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+    transformedData.projectCountInProgramByDOCData = [...programDetailsData.projectCountInProgramByDOC].sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
     let projectCountInProgramByFundedAmountData = [
       {
         group: '<$250k',
-        subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_1,
+        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_1,
       },
       {
         group: '$250k to $499k',
-        subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_2,
+        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_2,
       },
       {
         group: '$500k to $749k',
-        subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_3,
+        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_3,
       },
       {
         group: '$750k to $999k',
-        subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_4,
+        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_4,
       },
       {
         group: '>=$1M',
-        subjects: data.projectCountInProgramByFundedAmount[0].funded_amount_5,
+        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_5,
       },
     ];
 
@@ -45,31 +53,15 @@ const ProgramDetailContainer = ({ match }) => {
 
     // eslint-disable-next-line max-len
     transformedData.projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData;
-
-    if (data.programDetail && data.programDetail.projects.length !== 0) {
-      for (let i = 0; i < data.programDetail.projects.length; i += 1) {
-        const formatter = new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD',
-          maximumFractionDigits: 0,
-        });
-        // eslint-disable-next-line max-len
-        transformedData.programDetail.projects[i].award_amount = formatter.format(data.programDetail.projects[i].award_amount);
-        // eslint-disable-next-line max-len
-        transformedData.programDetail.projects[i].nci_funded_amount = formatter.format(data.programDetail.projects[i].nci_funded_amount);
-      }
-    }
   }
 
-  if (loading) return <CircularProgress />;
-  if (error || !data || data.programDetail.program_id !== match.params.id) {
+  if (programDetailsLoading || projectOverviewLoading) return <CircularProgress />;
+  if (programDetailsError || projectOverviewError || !programDetailsData || !projectOverviewData || !programDetailsData.programDetail || programDetailsData.programDetail.program_id !== match.params.id) {
     return (
-      <Typography variant="headline" color="error" size="sm">
-        {error ? `An error has occurred in loading stats component: ${error}` : 'Recieved wrong data'}
-      </Typography>
+      <Error />
     );
   }
-  return <ProgramView data={transformedData} />;
+  return <ProgramView data={[transformedData, projectOverviewData]} />;
 };
 
 export default ProgramDetailContainer;

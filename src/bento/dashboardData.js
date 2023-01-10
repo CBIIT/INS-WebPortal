@@ -39,6 +39,7 @@ export const facetSearchData = [{
     DCTD: 'Division of Cancer Treatment and Diagnosis',
     OD: 'Office of the Director',
     SBIR: 'Small Business Innovation Research',
+    OCC: 'Office of Cancer Centers',
   },
 },
 {
@@ -287,50 +288,4 @@ export const GET_DASHBOARD_DATA_QUERY = gql`{
   numberOfSRAs
   numberOfDBGaps
   numberOfClinicalTrials
-  fileCountByProgram{
-    group
-    subjects
-  }
-  fileCountByContentFormat{
-    group
-    subjects
-  }
-  fileOverView(first: 100) {
-    submitted_file_id
-    ccdi_arm
-    submission_date
-    submission_ts
-    source_ip
-    file_count_validate
-    filename_list_validate
-    study_registered
-    primary_datatype
-    have_subject_ids
-    have_pii
-    contain_biospecimen_ids
-    files{
-      file_set_id
-    }
-  }
-  }`;
-
-// --------------- Dashboard Query configuration --------------
-export const GET_DASHBOARD_TABLE_DATA_QUERY = gql`{
-  fileOverView(first: 1000000) {
-    submitted_file_id
-    ccdi_arm
-    submission_date
-    submission_ts
-    source_ip
-    file_count_validate
-    filename_list_validate
-    study_registered
-    primary_datatype
-    have_subject_ids
-    have_pii
-    contain_biospecimen_ids
-    files{
-      file_set_id
-    }
-  }
   }`;

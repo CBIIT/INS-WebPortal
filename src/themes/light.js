@@ -29,7 +29,7 @@ export default {
   custom: {
     maxContentWidth: '1440px',
     maxContent: 'white',
-    bodyBackGround: '#E5F0FA',
+    bodyBackGround: '#F3F3F3',
     cardBackGround: '#f0f6f8',
     fontFamilySans: '"Open Sans", sans-serif',
     footorBackground: '#325068',
@@ -236,7 +236,7 @@ export default {
       footerText: 'white',
     },
     background: {
-      default: '#E5F0FA',
+      default: '#F3F3F3',
       light: '#F3F5FF',
     },
     clearQueryResultColor: {
@@ -428,7 +428,13 @@ export default {
     MUIDataTableToolbar: {
       root: {
         backgroundColor: tableHeader,
-        minHeight: '44px',
+        minHeight: '0',
+      },
+      actions: {
+        minHeight: '15px',
+        position: 'absolute',
+        top: '-40px',
+        right: '400px',
       },
       titleText: {
         color: tableHeaderFontColor,

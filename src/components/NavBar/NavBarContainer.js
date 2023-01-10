@@ -1,9 +1,8 @@
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import NavBarView from './NavBarView';
+import NavBar from './CustomizedNavBar';
 import { toggleSidebar } from '../Layout/LayoutState';
-import { initCart } from '../../pages/fileCentricCart/store/cart';
 
 export default compose(
   withRouter,
@@ -16,7 +15,6 @@ export default compose(
   ),
   lifecycle({
     componentDidMount() {
-      initCart();
     },
     shouldComponentUpdate({ location: nextLocation }) {
       const pathName = this.props.location.pathname;
@@ -25,4 +23,4 @@ export default compose(
       );
     },
   }),
-)(NavBarView);
+)(NavBar);
