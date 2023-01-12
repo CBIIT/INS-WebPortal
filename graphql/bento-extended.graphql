@@ -115,7 +115,7 @@ type FundAmountRangeCount {
   funded_amount_5: Int
 }
 
-type ProgramInfo {
+type DEPRECATEDProgramInfo {
     program_id: String
     program_name: String
     program_description: String
@@ -206,6 +206,33 @@ type ProgramDetail {
     num_sras: Int
     num_clinical_trials: Int
     projects: [ProjectInfo]
+}
+
+type DEPRECATEDProjectDetail {
+    project_id: String
+    application_id: String
+    fiscal_year: String
+    project_title: String
+    project_type: String
+    abstract_text: String
+    keywords: String
+    org_name: String
+    org_city: String
+    org_state: String
+    org_country: String
+    principal_investigators: String
+    lead_doc: String
+    program_officers: String
+    award_amount: String
+    nci_funded_amount: String
+    award_notice_date: String
+    project_start_date: String
+    project_end_date: String
+    full_foa: String
+    num_publications: Int
+    num_datasets: Int
+    num_clinical_trials: Int
+    num_patents: Int
 }
 
 type ProjectOverview {
@@ -305,7 +332,16 @@ schema {
 type QueryType {
     schemaVersion: String @cypher(statement: "RETURN '1.1.0'")
 
-    programInfo: [ProgramInfo] @cypher(statement: """
+    "Simple counts"
+    DEPRECATEDnumberOfPrograms: Int @cypher(statement: "MATCH (n:program) return count(n)")
+    DEPRECATEDnumberOfProjects: Int @cypher(statement: "MATCH (n:project) return count(n)")
+    DEPRECATEDnumberOfPublications: Int @cypher(statement: "MATCH (n:publication) return count(n)")
+    DEPRECATEDnumberOfGEOs: Int @cypher(statement: "MATCH (n:geo) return count(n)")
+    DEPRECATEDnumberOfSRAs: Int @cypher(statement: "MATCH (n:sra) return count(n)")
+    DEPRECATEDnumberOfDBGaps: Int @cypher(statement: "MATCH (n:dbgap) return count(n)")
+    DEPRECATEDnumberOfClinicalTrials: Int @cypher(statement: "MATCH (n:clinical_trial) return count(n)")
+
+    DEPRECATEDprogramInfo: [DEPRECATEDProgramInfo] @cypher(statement: """
         MATCH (p:program)
         OPTIONAL MATCH (p)<--(pr:project)
         OPTIONAL MATCH (pr)<--(pub:publication)
@@ -316,6 +352,13 @@ type QueryType {
             num_projects: COUNT(DISTINCT pr),
             num_publications: COUNT(DISTINCT pub)
         }
+    """, passThrough: true)
+
+    DEPRECATEDprogramPublicationCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (pr)<--(pub:publication)
+        RETURN count(DISTINCT pub)
     """, passThrough: true)
 
     programGEOCount(program_id: String): Int @cypher(statement: """
@@ -337,6 +380,28 @@ type QueryType {
         OPTIONAL MATCH (p)<--(pr:project)
         OPTIONAL MATCH (pr)<--(d:dbgap)
         RETURN count(DISTINCT d)
+    """, passThrough: true)
+
+    DEPRECATEDprogramDatasetCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(:project)<--(:publication)<--(ds)
+        WHERE ds:geo OR ds:sra OR ds:dbgap
+        RETURN COUNT(DISTINCT ds)
+    """, passThrough: true)
+
+    DEPRECATEDprogramClinicalTrialCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(pr:project)
+        OPTIONAL MATCH (ct:clinical_trial)
+            WHERE (pr)<--(:publication)<--(ct) OR (pr)<--(ct)
+        RETURN COUNT(DISTINCT ct)
+    """, passThrough: true)
+
+    DEPRECATEDprogramPatentCount(program_id: String): Int @cypher(statement: """
+        MATCH (p:program {program_id: $program_id})
+        OPTIONAL MATCH (p)<--(:project)<--(pat)
+        WHERE pat:granted_patent OR pat:patent_application
+        RETURN COUNT(DISTINCT pat)
     """, passThrough: true)
 
     "Group counts"
@@ -444,6 +509,24 @@ type QueryType {
         WITH d, pr
             WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
         return  COUNT(DISTINCT d.accession)
+    """, passThrough: true)
+
+    DEPRECATEDnumberOfDatasets(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        OPTIONAL MATCH (pr)<--(:publication)<--(dt)
+        WITH dt
+            WHERE (dt:geo OR dt:sra OR dt:dbgap)
+        RETURN COUNT(DISTINCT dt.accession)
+    """, passThrough: true)
+
+    DEPRECATEDnumberOfPatents(project_ids: [String] = []): Int @cypher(statement: """
+        MATCH (pr:project)
+            WHERE (size($project_ids) = 0 OR pr.project_id IN $project_ids)
+        OPTIONAL MATCH (pr)<--(p)
+        WITH p
+            WHERE (p:patent_application OR p:granted_patent)
+        return  COUNT(DISTINCT p.patent_id)
     """, passThrough: true)
 
     numberOfClinicalTrialsByProjects(project_ids: [String] = []): Int @cypher(statement: """
@@ -958,6 +1041,43 @@ type QueryType {
             num_sras: 1,
             num_clinical_trials: 1,
             projects: []
+        }
+    """, passThrough: true)
+
+    DEPRECATEDprojectDetail(project_id: String): DEPRECATEDProjectDetail @cypher(statement:  """
+        MATCH (pr:project {project_id: $project_id})
+        OPTIONAL MATCH (pr)<--(pub:publication)
+        OPTIONAL MATCH (pub)<--(dt)
+            WHERE (dt:geo) OR (dt:sra) OR (dt:dbgap)
+        OPTIONAL MATCH (pr)<-[*1..2]-(c:clinical_trial)
+        OPTIONAL MATCH (pr)<--(pat)
+            WHERE (pat:granted_patent) OR (pat:patent_application)
+        WITH DISTINCt pr, pub, dt, c, pat
+        RETURN {
+            project_id: pr.project_id,
+            application_id: pr.application_id,
+            fiscal_year: pr.fiscal_year,
+            project_title: pr.project_title,
+            project_type: pr.project_type,
+            abstract_text: pr.abstract_text,
+            keywords: pr.keywords,
+            org_name: pr.org_name,
+            org_city: pr.org_city,
+            org_state: pr.org_state,
+            org_country: pr.org_country,
+            principal_investigators: pr.principal_investigators,
+            lead_doc: pr.lead_doc,
+            program_officers: pr.program_officers,
+            award_amount: pr.award_amount,
+            nci_funded_amount: pr.nci_funded_amount,
+            award_notice_date: pr.award_notice_date,
+            project_start_date: pr.project_start_date,
+            project_end_date: pr.project_end_date,
+            full_foa: pr.full_foa,
+            num_publications: COUNT(DISTINCT pub),
+            num_datasets: COUNT(DISTINCT dt),
+            num_clinical_trials: COUNT(DISTINCT c),
+            num_patents: COUNT(DISTINCT pat)
         }
     """, passThrough: true)
 
