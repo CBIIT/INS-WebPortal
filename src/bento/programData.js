@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { customProgramsTableDownloadCSV } from './tableDownloadCSV';
 import programIcon from '../assets/icons/Icon-Programs.png';
 
 // --------------- Icons configuration --------------
@@ -6,7 +7,7 @@ import programIcon from '../assets/icons/Icon-Programs.png';
 // Ideal size for externalLinkIcon is 16x16 px
 const programListingIcon = {
   src: programIcon,
-  alt: 'Bento program logo',
+  alt: 'INS program logo',
 };
 
 const externalLinkIcon = {
@@ -16,44 +17,93 @@ const externalLinkIcon = {
 
 // --------------- Table configuration --------------
 const table = {
-  // Set 'display' to false to hide the table entirely
-  display: true,
-  // Table title
+  name: 'Programs',
   title: 'Programs',
-  // Field name for table data, need to be updated only when using a different GraphQL query
+  display: true,
   dataField: 'programInfo',
-  // Value must be one of the 'field' in columns
+  api: 'GET_PROGRAMS_DATA_QUERY',
+  paginationAPIField: 'programInfo',
   defaultSortField: 'program_id',
-  // 'asc' or 'desc'
   defaultSortDirection: 'asc',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
+  count: 'numberOfPrograms',
+  buttonText: 'Add Selected Files',
+  dataKey: 'program_id',
+  saveButtonDefaultStyle: {
+    color: '#fff',
+    backgroundColor: '#DC2FDA',
+    opacity: '1',
+    border: '0px',
+    cursor: 'pointer',
+  },
+  ActiveSaveButtonDefaultStyle: {
+    cursor: 'pointer',
+    opacity: 'unset',
+    border: 'unset',
+  },
+  DeactiveSaveButtonDefaultStyle: {
+    opacity: '0.3',
+    cursor: 'auto',
+  },
   columns: [
     {
       dataField: 'program_id',
       header: 'Program',
+      sort: 'asc',
       link: '/program/{program_id}',
+      primary: true,
       display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
       dataField: 'program_name',
       header: 'Name',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '20%',
+      },
     },
     {
       dataField: 'program_website',
       header: 'Program Website',
       link: '{program_website}',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '50%',
+      },
     },
     {
       dataField: 'num_projects',
       header: 'Number of Projects',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
       dataField: 'num_publications',
       header: 'Number of Publications',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
   ],
+  id: 'program_table',
+  onRowsSelect: 'type1',
+  disableRowSelection: 'type1',
+  tableID: 'program_table',
+  selectableRows: false,
+  tabIndex: '0',
+  tableDownloadCSV: customProgramsTableDownloadCSV,
+  downloadFileName: 'programs_list_download',
+  headerPagination: true,
+  footerPagination: true,
 };
 
 // --------------- GraphQL query - Retrieve program info --------------
@@ -61,6 +111,7 @@ const GET_PROGRAMS_DATA_QUERY = gql`{
   programInfo {
     program_id
     program_name
+    program_description
     program_website
     num_projects
     num_publications

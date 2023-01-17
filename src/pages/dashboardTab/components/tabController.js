@@ -221,7 +221,6 @@ const tabController = (classes) => {
         count={dashboardStats[container.count] ? dashboardStats[container.count] : 0}
         api={container.api}
         paginationAPIField={container.paginationAPIField}
-        paginationAPIFieldDesc={container.paginationAPIFieldDesc}
         defaultSortCoulmn={container.defaultSortField || ''}
         defaultSortDirection={container.defaultSortDirection || 'asc'}
         dataKey={container.dataKey}

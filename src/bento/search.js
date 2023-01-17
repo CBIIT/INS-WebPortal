@@ -6,7 +6,7 @@ import programIcon from '../assets/icons/Icon-Programs.png';
 // Ideal size for externalLinkIcon is 16x16 px
 export const programListingIcon = {
   src: programIcon,
-  alt: 'Bento program logo',
+  alt: 'INS program logo',
 };
 
 // export const SEARCH = gql`

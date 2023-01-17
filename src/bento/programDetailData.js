@@ -30,7 +30,7 @@ const aggregateCount = {
 // Ideal size for externalLinkIcon is 16x16 px
 const programDetailIcon = {
   src: programIcon,
-  alt: 'Bento program logo',
+  alt: 'INS program logo',
 };
 
 const externalLinkIcon = {

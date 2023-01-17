@@ -42,7 +42,6 @@ const TabView = ({
   count,
   api,
   paginationAPIField,
-  paginationAPIFieldDesc,
   dataKey,
   filteredSubjectIds,
   filteredSampleIds,
@@ -283,7 +282,6 @@ const TabView = ({
             count={count}
             overview={getOverviewQuery(api)}
             paginationAPIField={paginationAPIField}
-            paginationAPIFieldDesc={paginationAPIFieldDesc}
             queryCustomVaribles={allFilters}
             defaultSortCoulmn={defaultSortCoulmn}
             defaultSortDirection={defaultSortDirection}
