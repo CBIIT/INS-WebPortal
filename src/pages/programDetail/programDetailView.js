@@ -540,7 +540,6 @@ const styles = (theme) => ({
       fontWeight: '300',
       letterSpacing: '0.017em',
     },
-
     '& > span > span': {
       fontWeight: 'bold',
       letterSpacing: '0.025em',

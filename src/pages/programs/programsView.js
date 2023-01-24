@@ -6,10 +6,10 @@ import {
   withStyles,
 } from '@material-ui/core';
 import {
-  CustomDataTable,
   getOptions,
   getColumns,
 } from 'bento-components';
+import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
 import globalData from '../../bento/siteWideConfig';
 import {
   table,
@@ -22,9 +22,9 @@ import { Typography } from '../../components/Wrappers/Wrappers';
 import { getTableRowSelectionEvent } from '../dashboardTab/store/dashboardReducer';
 import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
 
-const Programs = ({ classes, data }) => {
-  const getOverviewQuery = () => (GET_PROGRAMS_DATA_QUERY);
+const getOverviewQuery = () => (GET_PROGRAMS_DATA_QUERY);
 
+const Programs = ({ classes, data }) => {
   const numberOfProjects = 2;
 
   const options = getOptions(table, classes);
@@ -238,7 +238,6 @@ const styles = (theme) => ({
     lineHeight: '25px',
     marginLeft: '-3px',
   },
-
   headerTitle: {
     maxWidth: '1440px',
     margin: 'auto',

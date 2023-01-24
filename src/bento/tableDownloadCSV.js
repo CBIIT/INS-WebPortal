@@ -1,15 +1,16 @@
 import gql from 'graphql-tag';
 
-export const GET_PROGRAMS_LIST_TABLE = gql`
-query programInfo {
-  program_id
-  program_name
-  program_description
-  program_website
-  num_projects
-  num_publications
+export const GET_PROGRAMS_LIST_TABLE = gql`{
+  programInfo {
+    program_id
+    program_name
+    program_description
+    program_website
+    num_projects
+    num_publications
+ }
 }
-`;
+ `;
 
 export const customProgramsListTableDownloadCSV = {
   keysToInclude: [

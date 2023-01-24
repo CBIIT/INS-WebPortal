@@ -383,11 +383,13 @@ class ServerPaginatedTableView extends React.Component {
     const formatedUpdatedData = [];
     updatedData.forEach((dt) => {
       const tmp = { ...dt };
-      this.props.dataTransformation.forEach((column) => {
-        const cb = column.dataTransform;
-        const attribute = column.dataField;
-        tmp[attribute] = cb(tmp[attribute]);
-      });
+      if (this.props.dataTransformation) {
+        this.props.dataTransformation.forEach((column) => {
+          const cb = column.dataTransform;
+          const attribute = column.dataField;
+          tmp[attribute] = cb(tmp[attribute]);
+        });
+      }
       formatedUpdatedData.push(tmp);
     });
 
