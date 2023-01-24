@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { customProgramsTableDownloadCSV } from './tableDownloadCSV';
+import { customProgramsListTableDownloadCSV } from './tableDownloadCSV';
 import programIcon from '../assets/icons/Icon-Programs.png';
 
 // --------------- Icons configuration --------------
@@ -100,7 +100,7 @@ const table = {
   tableID: 'program_table',
   selectableRows: false,
   tabIndex: '0',
-  tableDownloadCSV: customProgramsTableDownloadCSV,
+  tableDownloadCSV: customProgramsListTableDownloadCSV,
   downloadFileName: 'programs_list_download',
   headerPagination: true,
   footerPagination: true,
