@@ -25,6 +25,8 @@ import DocumentDownload from '../../components/DocumentDownload/DocumentDownload
 const Programs = ({ classes, data }) => {
   const getOverviewQuery = () => (GET_PROGRAMS_DATA_QUERY);
 
+  const numberOfProjects = 2;
+
   const options = getOptions(table, classes);
 
   const selectedRowInfo = [];
@@ -161,7 +163,7 @@ const Programs = ({ classes, data }) => {
                           data={data[table.dataField]}
                           columns={getColumns(table, classes, data, externalLinkIcon, '', () => { }, DocumentDownload, globalData.replaceEmptyValueWith)}
                           options={finalOptions}
-                          count={2}
+                          count={numberOfProjects}
                           overview={getOverviewQuery(table.api)}
                           paginationAPIField={table.paginationAPIField}
                           defaultSortCoulmn={table.defaultSortCoulmn || ''}

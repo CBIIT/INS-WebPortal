@@ -99,7 +99,6 @@ const table = {
   disableRowSelection: 'type1',
   tableID: 'program_table',
   selectableRows: false,
-  tabIndex: '0',
   tableDownloadCSV: customProgramsListTableDownloadCSV,
   downloadFileName: 'programs_list_download',
   headerPagination: true,
