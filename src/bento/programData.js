@@ -106,17 +106,26 @@ const table = {
 };
 
 // --------------- GraphQL query - Retrieve program info --------------
-const GET_PROGRAMS_DATA_QUERY = gql`{
-  programInfo {
-    program_id
-    program_name
-    program_description
-    program_website
-    num_projects
-    num_publications
- }
+const GET_PROGRAMS_DATA_QUERY = gql`
+query programInfo(
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+    programInfo(
+    first: $first,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+    )  {
+  program_id
+  program_name
+  program_description
+  program_website
+  num_projects
+  num_publications
 }
- `;
+}
+`;
 
 export {
   programListingIcon,
