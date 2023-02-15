@@ -1,11 +1,12 @@
 import gql from 'graphql-tag';
+import programIcon from '../assets/icons/Icon-Programs.png';
 
 // --------------- Icons configuration --------------
 // Ideal size for programListingIcon is 100x100 px
 // Ideal size for externalLinkIcon is 16x16 px
 export const programListingIcon = {
-  src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/programIcon.svg',
-  alt: 'Bento program logo',
+  src: programIcon,
+  alt: 'INS program logo',
 };
 
 // export const SEARCH = gql`

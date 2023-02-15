@@ -43,7 +43,7 @@ const CaseDetail = ({ data, classes }) => {
               <img
                 className={classes.caseIcon}
                 src={icon}
-                alt="Bento case detail header logo"
+                alt="INS case detail header logo"
               />
             </div>
             <div className={classes.headerTitle}>

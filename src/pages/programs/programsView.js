@@ -1,30 +1,132 @@
+/* eslint-disable max-len */
 import React from 'react';
+import _ from 'lodash';
 import {
   Grid,
   withStyles,
 } from '@material-ui/core';
-import { CustomDataTable, getOptions, getColumns } from 'bento-components';
+import {
+  getOptions,
+  getColumns,
+} from 'bento-components';
+import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
 import globalData from '../../bento/siteWideConfig';
 import {
-  table, programListingIcon, externalLinkIcon,
+  table,
+  programListingIcon,
+  externalLinkIcon,
+  GET_PROGRAMS_DATA_QUERY,
 } from '../../bento/programData';
 import Stats from '../../components/Stats/AllStatsController';
 import { Typography } from '../../components/Wrappers/Wrappers';
-import {
-  singleCheckBox, setSideBarToLoading, setDashboardTableLoading,
-} from '../dashboardTab/store/dashboardReducer';
+import { getTableRowSelectionEvent } from '../dashboardTab/store/dashboardReducer';
+import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
+
+const getOverviewQuery = () => (GET_PROGRAMS_DATA_QUERY);
 
 const Programs = ({ classes, data }) => {
-  const redirectTo = (program) => {
-    setSideBarToLoading();
-    setDashboardTableLoading();
-    singleCheckBox([{
-      datafield: 'programs',
-      groupName: 'Program',
-      isChecked: true,
-      name: program.rowData[0],
-      section: 'Filter By Cases',
-    }]);
+  const numberOfProjects = 2;
+
+  const options = getOptions(table, classes);
+
+  const selectedRowInfo = [];
+
+  const selectedRowIndex = [];
+
+  const primaryKeyIndex = 0;
+
+  const { dataKey } = table;
+
+  const headerStyles = table.columns.map((column) => column.headerStyles);
+
+  const setRowSelection = getTableRowSelectionEvent();
+
+  function disableRowSelection(d, cartData) {
+    return true;
+  }
+
+  function rowSelectionEvent(displayData, rowsSelected) {
+    const displayedDataKeies = displayData;
+    const selectedRowsKey = rowsSelected
+      ? rowsSelected.map((index) => displayedDataKeies[index])
+      : [];
+    let newSelectedRowInfo = [];
+
+    if (rowsSelected) {
+      // Remove the rowInfo from selectedRowInfo if this row currently be
+      // displayed and not be selected.
+      if (selectedRowInfo.length > 0) {
+        newSelectedRowInfo = selectedRowInfo.filter((key) => {
+          if (displayedDataKeies.includes(key)) {
+            return false;
+          }
+          return true;
+        });
+      }
+    } else {
+      newSelectedRowInfo = selectedRowInfo;
+    }
+    newSelectedRowInfo = newSelectedRowInfo.concat(selectedRowsKey);
+
+    // Get selectedRowIndex by comparing current page data with selected row's key.
+    // if rowInfo from selectedRowInfo is currently be displayed
+    const newSelectedRowIndex = displayedDataKeies.reduce(
+      (accumulator, currentValue, currentIndex) => {
+        if (newSelectedRowInfo.includes(currentValue)) {
+          accumulator.push(currentIndex);
+        }
+        return accumulator;
+      }, [],
+    );
+
+    // reduce the state chagne, when newSelectedRowIndex and newSelectedRowInfo is same as previous.
+    if (_.differenceWith(
+      newSelectedRowIndex,
+      selectedRowIndex,
+      _.isEqual,
+    ).length !== 0
+      || _.differenceWith(
+        newSelectedRowInfo,
+        selectedRowInfo,
+        _.isEqual,
+      ).length !== 0
+      || _.differenceWith(
+        selectedRowInfo,
+        newSelectedRowInfo,
+        _.isEqual,
+      ).length !== 0
+      || _.differenceWith(
+        selectedRowIndex,
+        newSelectedRowIndex,
+        _.isEqual,
+      ).length !== 0) {
+      setRowSelection({
+        selectedRowInfo: newSelectedRowInfo,
+        selectedRowIndex: newSelectedRowIndex,
+      });
+    }
+  }
+
+  function onRowsSelect(curr, allRowsSelected, rowsSelected, displayData) {
+    rowSelectionEvent(displayData.map((d) => d.data[primaryKeyIndex]), rowsSelected);
+  }
+
+  const defaultOptions = () => ({
+    dataKey,
+    rowsSelectedTrigger: (displayData, rowsSelected) => rowSelectionEvent(
+      displayData,
+      rowsSelected,
+    ),
+    rowsSelected: selectedRowIndex,
+    onRowSelectionChange: onRowsSelect,
+    isRowSelectable: (dataIndex) => (disableRowSelection
+      ? disableRowSelection(data[dataIndex]) : true),
+  });
+
+  const finalOptions = {
+    ...options,
+    ...defaultOptions(),
+    serverTableRowCount: selectedRowInfo.length,
   };
 
   return (
@@ -38,7 +140,6 @@ const Programs = ({ classes, data }) => {
                 src={programListingIcon.src}
                 alt={programListingIcon.alt}
               />
-
             </div>
             <div className={classes.headerTitle}>
               <div className={classes.headerMainTitle}>
@@ -50,29 +151,43 @@ const Programs = ({ classes, data }) => {
               </div>
             </div>
           </div>
-
-          { table.display ? (
-            <div id="table_programs" className={classes.tableDiv}>
-              <Grid container>
+          {table.display ? (
+            <div id="table_program_list" className={classes.tableContainer}>
+              <div className={classes.tableDiv}>
                 <Grid item xs={12}>
-                  <CustomDataTable
-                    data={data[table.dataField]}
-                    columns={getColumns(table, classes, data, externalLinkIcon, '/explore', redirectTo, '', globalData.replaceEmptyValueWith)}
-                    options={getOptions(table, classes)}
-                  />
+                  <Grid container spacing={8}>
+                    <Grid item xs={12}>
+                      <Typography>
+                        <CustomDataTable
+                          key={data[table.dataField].length}
+                          data={data[table.dataField]}
+                          columns={getColumns(table, classes, data, externalLinkIcon, '', () => { }, DocumentDownload, globalData.replaceEmptyValueWith)}
+                          options={finalOptions}
+                          count={numberOfProjects}
+                          overview={getOverviewQuery(table.api)}
+                          paginationAPIField={table.paginationAPIField}
+                          defaultSortCoulmn={table.defaultSortCoulmn || ''}
+                          defaultSortDirection={table.defaultSortDirection || 'asc'}
+                          tableDownloadCSV={table.tableDownloadCSV || false}
+                          headerStyles={headerStyles}
+                        />
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Typography />
+                    </Grid>
+                  </Grid>
                 </Grid>
-              </Grid>
+              </div>
             </div>
           ) : ''}
         </div>
-
       </div>
     </>
   );
 };
 
 const styles = (theme) => ({
-
   link: {
     textDecoration: 'none',
     fontWeight: 'bold',
@@ -103,7 +218,7 @@ const styles = (theme) => ({
     fontSize: '9pt',
     letterSpacing: '0.025em',
     color: '#000',
-    background: '#eee',
+    background: '#fff',
   },
   header: {
     background: '#eee',
@@ -123,7 +238,6 @@ const styles = (theme) => ({
     lineHeight: '25px',
     marginLeft: '-3px',
   },
-
   headerTitle: {
     maxWidth: '1440px',
     margin: 'auto',

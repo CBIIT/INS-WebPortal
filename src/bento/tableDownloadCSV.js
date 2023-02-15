@@ -1,5 +1,47 @@
 import gql from 'graphql-tag';
 
+export const GET_PROGRAMS_LIST_TABLE = gql`
+  query programInfo(
+    $first: Int,
+    $order_by: String,
+    $sort_direction: String 
+    ){
+      programInfo(
+      first: $first,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+      )  {
+    program_id
+    program_name
+    program_description
+    program_website
+    num_projects
+    num_publications
+ }
+}
+ `;
+
+export const customProgramsListTableDownloadCSV = {
+  keysToInclude: [
+    'program_id',
+    'program_name',
+    'program_website',
+    'num_projects',
+    'num_publications',
+  ],
+  header: [
+    'Program',
+    'Name',
+    'Program Website',
+    'Number of Projects',
+    'Number of Publications',
+  ],
+  query: GET_PROGRAMS_LIST_TABLE,
+  apiVariable: 'programInfo',
+  fileName: 'INS Programs List',
+  defaultFullTableDownload: true,
+};
+
 export const GET_PROGRAMS_TABLE = gql`
 query projectOverView(
   $programs: [String],
