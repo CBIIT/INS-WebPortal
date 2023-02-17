@@ -33,7 +33,7 @@ const INSFooter = () => {
       <Footer classes={styles} data={footerUpdatedData} />
       <div>
         <div className="beVersion">
-          Software Version: v1.1.0
+          Software Version: v1.2.0
           <br />
           <br />
           Site Data Update (Projects, Publications, Patents): 09/26/2022
