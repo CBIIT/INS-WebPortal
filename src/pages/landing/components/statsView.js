@@ -122,7 +122,7 @@ const styles = () => ({
     direction: 'ltr',
     display: 'block',
     height: '255px',
-    marginTop: '20px',
+    paddingTop: '20px',
     marginRight: '10px',
   },
   statsText: {
