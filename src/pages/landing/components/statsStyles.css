@@ -1,0 +1,14 @@
+.statsSlide {
+  padding-top: 0.01px;
+  animation: 2s linear slide;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(110vh);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}

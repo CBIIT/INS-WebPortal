@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import baseImg from '../../../assets/landing/Base.png';
+import './statsStyles.css';
 
 const linkPage = '/explore';
 
@@ -47,15 +48,17 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
         >
           {
             stats.map((stat, index) => (
-              <div className={classes.statsGroup}>
-                <div className={classes.statsText}>
-                  <div className={classes.statCount} id={`count_${index + 1}`}>
-                    {statsData[stat.statAPI]}
+              <div className="statsSlide">
+                <div className={classes.statsGroup}>
+                  <div className={classes.statsText}>
+                    <div className={classes.statCount} id={`count_${index + 1}`}>
+                      {statsData[stat.statAPI]}
+                    </div>
+                    <div className={classes.statTitle} id={`title_${index + 1}`}>
+                      {stat.statTitle}
+                    </div>
+                    <div className={classnames({ [classes.statBarPrograms]: stat.statTitle === 'Programs', [classes.statBarProjects]: stat.statTitle === 'Projects', [classes.statBarPublications]: stat.statTitle === 'Publications', [classes.statBarDatasets]: stat.statTitle === 'Datasets', [classes.statBarClinicalTrials]: stat.statTitle === 'Clinical Trials', [classes.statBarPatents]: stat.statTitle === 'Patents' })} id={`bar_${index + 1}`} />
                   </div>
-                  <div className={classes.statTitle} id={`title_${index + 1}`}>
-                    {stat.statTitle}
-                  </div>
-                  <div className={classnames({ [classes.statBarPrograms]: stat.statTitle === 'Programs', [classes.statBarProjects]: stat.statTitle === 'Projects', [classes.statBarPublications]: stat.statTitle === 'Publications', [classes.statBarDatasets]: stat.statTitle === 'Datasets', [classes.statBarClinicalTrials]: stat.statTitle === 'Clinical Trials', [classes.statBarPatents]: stat.statTitle === 'Patents' })} id={`bar_${index + 1}`} />
                 </div>
               </div>
             ))
