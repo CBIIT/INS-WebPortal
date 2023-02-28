@@ -91,7 +91,12 @@
     "webpack": "4.28.3",
     "webpack-dev-server": "^3.11.0",
     "webpack-manifest-plugin": "2.0.4",
-    "workbox-webpack-plugin": "3.6.3"
+    "workbox-webpack-plugin": "3.6.3",
+    "react-to-print": "^2.8.0",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.find": "^4.6.0",
+    "devextreme-react": "^21.1.6",
+    "react-jss": "^10.1.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
