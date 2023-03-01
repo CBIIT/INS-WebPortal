@@ -29,14 +29,16 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
       [classes.statsSectionCenter]: stats.length === 6,
     })}
     >
-      <div className={classes.leftGroup}>
-        <div className={classes.leftText}>
-          INS compiles programs, projects, and outputs funded by the NCI.
-          <br />
-          <br />
-          Explore the data
-          <Link to={linkPage} className={classes.linkText}> here</Link>
-          .
+      <div className={classes.leftBox}>
+        <div className={classes.leftGroup}>
+          <div className={classes.leftText}>
+            INS compiles programs, projects, and outputs funded by the NCI.
+            <br />
+            <br />
+            Explore the data
+            <Link to={linkPage} className={classes.linkText}> here</Link>
+            .
+          </div>
         </div>
       </div>
       <div className="statsBox">
@@ -243,6 +245,10 @@ const styles = () => ({
     float: 'right',
     marginTop: '-15px',
     marginRight: '-15px',
+  },
+  leftBox: {
+    width: '1915px',
+    marginRight: '80px',
   },
 });
 
