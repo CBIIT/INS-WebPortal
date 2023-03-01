@@ -170,7 +170,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '17px 330px 17px 150px',
+    padding: '17px 190px 17px 150px',
   },
   leftText: {
     fontFamily: 'Inter',
