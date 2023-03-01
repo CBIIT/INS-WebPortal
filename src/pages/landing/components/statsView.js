@@ -48,15 +48,17 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
         >
           {
             stats.map((stat, index) => (
-              <div className="statsSlide">
-                <div className={classes.statsGroup}>
-                  <div className={classes.statsText}>
-                    <div className={classes.statCount} id={`count_${index + 1}`}>
-                      {statsData[stat.statAPI]}
-                    </div>
+              <div className={classes.statsGroup}>
+                <div className={classes.statsText}>
+                  <div className="statsFadeIn">
                     <div className={classes.statTitle} id={`title_${index + 1}`}>
                       {stat.statTitle}
                     </div>
+                    <div className={classes.statCount} id={`count_${index + 1}`}>
+                      {statsData[stat.statAPI]}
+                    </div>
+                  </div>
+                  <div className="statsSlide">
                     <div className={classnames({ [classes.statBarPrograms]: stat.statTitle === 'Programs', [classes.statBarProjects]: stat.statTitle === 'Projects', [classes.statBarPublications]: stat.statTitle === 'Publications', [classes.statBarDatasets]: stat.statTitle === 'Datasets', [classes.statBarClinicalTrials]: stat.statTitle === 'Clinical Trials', [classes.statBarPatents]: stat.statTitle === 'Patents' })} id={`bar_${index + 1}`} />
                   </div>
                 </div>
@@ -166,7 +168,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '17px 275px 17px 150px',
+    padding: '17px 330px 17px 150px',
   },
   leftText: {
     fontFamily: 'Inter',

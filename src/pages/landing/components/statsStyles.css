@@ -4,11 +4,29 @@
 }
 
 @keyframes slide {
-  from {
-    transform: translateX(110vh);
+  0% {
+    transform: translateX(120vw);
   }
 
-  to {
+  100% {
     transform: translateX(0);
+  }
+}
+
+.statsFadeIn {
+  animation: 3s fadeIn;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  66% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
