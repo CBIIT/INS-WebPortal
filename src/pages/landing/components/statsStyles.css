@@ -1,5 +1,10 @@
+.statsBox {
+  overflow: hidden;
+  width: 840px;
+  margin-bottom: -8px;
+}
+
 .statsSlide {
-  padding-top: 0.01px;
   animation: 2s linear slide;
 }
 
@@ -22,7 +27,7 @@
     opacity: 0;
   }
 
-  66% {
+  67% {
     opacity: 0;
   }
 
