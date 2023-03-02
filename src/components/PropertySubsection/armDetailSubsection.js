@@ -1,6 +1,6 @@
 import { Grid, withStyles } from '@material-ui/core';
 import React from 'react';
-import { Anchor, prepareLinks } from 'bento-components';
+import { Anchor, prepareLinks } from '../../bento-components';
 
 const PropertyItem = ({
   label, value, link, labelLink, classes, index,

@@ -1,8 +1,8 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import { ToolTip } from 'bento-components';
-import DownloadIcon from '@material-ui/icons/CloudDownload';
 import { withStyles } from '@material-ui/core/styles';
+import DownloadIcon from '@material-ui/icons/CloudDownload';
+import { ToolTip } from '../../../bento-components';
 import client from '../../../utils/graphqlClient';
 import { downloadJson } from './utils';
 

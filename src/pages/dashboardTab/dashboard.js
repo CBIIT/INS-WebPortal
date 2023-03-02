@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Grid, withStyles,
 } from '@material-ui/core';
-import { ProgramSunburst, CustomActiveDonut } from 'bento-components';
+import { ProgramSunburst, CustomActiveDonut } from '../../bento-components';
 import Widget from '../../components/Widgets/WidgetView';
 import Stats from '../../components/Stats/DashboardStatsController';
 import SideBar from '../../components/SideBar/SideBarView';
