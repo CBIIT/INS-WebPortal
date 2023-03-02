@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import baseImg from '../../../assets/landing/Base.png';
+import './statsStyles.css';
 
 const linkPage = '/explore';
 
@@ -28,40 +29,48 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
       [classes.statsSectionCenter]: stats.length === 6,
     })}
     >
-      <div className={classes.leftGroup}>
-        <div className={classes.leftText}>
-          INS compiles programs, projects, and outputs funded by the NCI.
-          <br />
-          <br />
-          Explore the data
-          <Link to={linkPage} className={classes.linkText}> here</Link>
-          .
+      <div className={classes.leftBox}>
+        <div className={classes.leftGroup}>
+          <div className={classes.leftText}>
+            INS compiles programs, projects, and outputs funded by the NCI.
+            <br />
+            <br />
+            Explore the data
+            <Link to={linkPage} className={classes.linkText}> here</Link>
+            .
+          </div>
         </div>
       </div>
-      {stats.length > 0 && (
-        <div
-          className={classnames({
-            [classes.boxCut]: stats.length < 6,
-            [classes.box]: stats.length === 6,
-          })}
-        >
-          {
-            stats.map((stat, index) => (
-              <div className={classes.statsGroup}>
-                <div className={classes.statsText}>
-                  <div className={classes.statCount} id={`count_${index + 1}`}>
-                    {statsData[stat.statAPI]}
+      <div className="statsBox">
+        {stats.length > 0 && (
+          <div
+            className={classnames({
+              [classes.boxCut]: stats.length < 6,
+              [classes.box]: stats.length === 6,
+            })}
+          >
+            {
+              stats.map((stat, index) => (
+                <div className={classes.statsGroup}>
+                  <div className={classes.statsText}>
+                    <div className="statsFadeIn">
+                      <div className={classes.statTitle} id={`title_${index + 1}`}>
+                        {stat.statTitle}
+                      </div>
+                      <div className={classes.statCount} id={`count_${index + 1}`}>
+                        {statsData[stat.statAPI]}
+                      </div>
+                    </div>
+                    <div className="statsSlide">
+                      <div className={classnames({ [classes.statBarPrograms]: stat.statTitle === 'Programs', [classes.statBarProjects]: stat.statTitle === 'Projects', [classes.statBarPublications]: stat.statTitle === 'Publications', [classes.statBarDatasets]: stat.statTitle === 'Datasets', [classes.statBarClinicalTrials]: stat.statTitle === 'Clinical Trials', [classes.statBarPatents]: stat.statTitle === 'Patents' })} id={`bar_${index + 1}`} />
+                    </div>
                   </div>
-                  <div className={classes.statTitle} id={`title_${index + 1}`}>
-                    {stat.statTitle}
-                  </div>
-                  <div className={classnames({ [classes.statBarPrograms]: stat.statTitle === 'Programs', [classes.statBarProjects]: stat.statTitle === 'Projects', [classes.statBarPublications]: stat.statTitle === 'Publications', [classes.statBarDatasets]: stat.statTitle === 'Datasets', [classes.statBarClinicalTrials]: stat.statTitle === 'Clinical Trials', [classes.statBarPatents]: stat.statTitle === 'Patents' })} id={`bar_${index + 1}`} />
                 </div>
-              </div>
-            ))
-          }
-        </div>
-      )}
+              ))
+            }
+          </div>
+        )}
+      </div>
     </div>
   </>
 );
@@ -119,7 +128,7 @@ const styles = () => ({
     direction: 'ltr',
     display: 'block',
     height: '255px',
-    marginTop: '20px',
+    paddingTop: '20px',
     marginRight: '10px',
   },
   statsText: {
@@ -163,7 +172,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '17px 275px 17px 150px',
+    padding: '17px 190px 17px 150px',
   },
   leftText: {
     fontFamily: 'Inter',
@@ -236,6 +245,10 @@ const styles = () => ({
     float: 'right',
     marginTop: '-15px',
     marginRight: '-15px',
+  },
+  leftBox: {
+    width: '1915px',
+    marginRight: '80px',
   },
 });
 
