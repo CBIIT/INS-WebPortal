@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Grid, withStyles, Button, Switch, Collapse, FormControlLabel,
 } from '@material-ui/core';
-import { ProgramSunburst, CustomActiveDonut } from 'bento-components';
+import { ProgramSunburst, CustomActiveDonut } from '../../bento-components';
 import { useTheme } from '../../components/ThemeContext';
 import Widget from '../../components/Widgets/WidgetView';
 import Stats from '../../components/Stats/DashboardStatsController';

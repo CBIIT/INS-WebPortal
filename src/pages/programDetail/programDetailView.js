@@ -12,7 +12,7 @@ import {
   getOptions,
   getColumns,
   CustomActiveDonut,
-} from 'bento-components';
+} from '../../bento-components';
 import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
 import globalData from '../../bento/siteWideConfig';
 import {

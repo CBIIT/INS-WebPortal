@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
-import { getOptions } from 'bento-components';
+import { getOptions } from '../../bento-components';
 import TabView from './caseDetailTabView';
 import TabThemeProvider from './caseDetailTabThemeConfig';
 import TabLabel from './caseDetailTabLabel';

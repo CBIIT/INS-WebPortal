@@ -4,7 +4,7 @@ import {
   Grid,
   withStyles,
 } from '@material-ui/core';
-import { getColumns } from 'bento-components';
+import { getColumns } from '../../bento-components';
 import _ from 'lodash';
 import {
   GET_PUBLICATIONS_OVERVIEW_QUERY,

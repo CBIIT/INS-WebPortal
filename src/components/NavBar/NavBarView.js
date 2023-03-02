@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavBar } from 'bento-components';
+import { NavBar } from '../../bento-components';
 import {
   navBarData, navBarCartData, navBarstyling,
 } from '../../bento/navigationBarData';

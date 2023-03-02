@@ -5,7 +5,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { getOptions, getColumns, CustomActiveDonut } from 'bento-components';
+import { getOptions, getColumns, CustomActiveDonut } from '../../bento-components';
 import GridWithFooter from '../../components/GridWithFooter/GridView';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';

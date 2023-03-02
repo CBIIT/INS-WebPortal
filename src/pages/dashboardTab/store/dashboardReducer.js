@@ -13,7 +13,7 @@ import {
   getDonutDataFromDashboardData,
   transformInitialDataForSunburst,
   transformAPIDataIntoCheckBoxData,
-} from 'bento-components';
+} from '../../../bento-components';
 import store from '../../../store';
 import client from '../../../utils/graphqlClient';
 import { SEARCH_PAGE_RESULTS, SEARCH } from '../../../bento/search';

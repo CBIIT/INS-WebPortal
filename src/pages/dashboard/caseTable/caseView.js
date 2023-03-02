@@ -6,8 +6,8 @@ import {
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CustomDataTable, manipultateLinks } from 'bento-components';
 import Snackbar from '@material-ui/core/Snackbar';
+import { CustomDataTable, manipultateLinks } from '../../../bento-components';
 import { dashboardTable, externalLinkIcon } from '../../../bento/dashboardData';
 import SuccessOutlinedIcon from '../../../utils/SuccessOutlined';
 import { cartSelectionMessages } from '../../../bento/cartWorkflowData';

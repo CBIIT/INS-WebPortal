@@ -1,6 +1,6 @@
 import { Grid, withStyles } from '@material-ui/core';
 import React from 'react';
-import { prepareLinks } from 'bento-components';
+import { prepareLinks } from '../../../../bento-components';
 import PropertyItem from '../propertyItem';
 
 const ValueCard = ({ data, classes, index }) => {
