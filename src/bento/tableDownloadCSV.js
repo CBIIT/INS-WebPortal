@@ -131,6 +131,7 @@ query projectOverView(
     sort_direction: $sort_direction
     ) {
     project_id,
+    queried_project_id,
     application_id,
     fiscal_year,
     activity_code,
@@ -159,6 +160,7 @@ query projectOverView(
 export const customProjectsTabDownloadCSV = {
   keysToInclude: [
     'project_id',
+    'queried_project_id',
     'program',
     'project_title',
     'principal_investigators',
@@ -171,6 +173,7 @@ export const customProjectsTabDownloadCSV = {
   ],
   header: [
     'Project ID',
+    'Grant ID',
     'Program',
     'Project Title',
     'Principal Investigators',
@@ -183,7 +186,7 @@ export const customProjectsTabDownloadCSV = {
   ],
   query: GET_PROJECTS_TAB,
   apiVariable: 'projectOverView',
-  fileName: 'INS Projects',
+  fileName: 'INS Grants',
   defaultFullTableDownload: true,
 };
 
