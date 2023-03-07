@@ -28,6 +28,11 @@ export const globalStatsData = [
     statAPI: 'numberOfProjects',
   },
   {
+    statTitle: 'Grants',
+    type: 'field',
+    statAPI: 'numberOfCoreProjects',
+  },
+  {
     statTitle: 'Publications',
     type: 'field',
     statAPI: 'numberOfPublications',
