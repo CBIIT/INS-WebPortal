@@ -33,7 +33,7 @@ export const tabContainers = [
     paginationAPIField: 'projectOverView',
     defaultSortField: 'project_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfCoreProjects',
+    count: 'numberOfProjects',
     buttonText: 'Add Selected Files',
     dataKey: 'project_id',
     saveButtonDefaultStyle: {
@@ -61,7 +61,7 @@ export const tabContainers = [
         primary: true,
         display: true,
         headerStyles: {
-          width: '5%',
+          width: '10%',
         },
       },
       {
@@ -70,7 +70,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '5%',
+          width: '10%',
         },
       },
       {
@@ -116,7 +116,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '10%',
+          width: '5%',
         },
       },
       {
@@ -125,7 +125,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '10%',
+          width: '5%',
         },
       },
       {
@@ -613,7 +613,7 @@ export const tabs = [
     id: 'project_tab',
     title: 'Grants',
     dataField: 'dataProject',
-    count: 'numberOfCoreProjects',
+    count: 'numberOfProjects',
   },
   {
     id: 'publication_tab',
