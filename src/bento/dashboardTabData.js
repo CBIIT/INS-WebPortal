@@ -61,7 +61,7 @@ export const tabContainers = [
         primary: true,
         display: true,
         headerStyles: {
-          width: '5%',
+          width: '10%',
         },
       },
       {
@@ -70,7 +70,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '5%',
+          width: '10%',
         },
       },
       {
@@ -116,7 +116,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '10%',
+          width: '5%',
         },
       },
       {
@@ -125,7 +125,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '10%',
+          width: '5%',
         },
       },
       {
