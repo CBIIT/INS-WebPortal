@@ -105,7 +105,7 @@ export const customProgramsTableDownloadCSV = {
   ],
   query: GET_PROGRAMS_TABLE,
   apiVariable: 'projectOverView',
-  fileName: 'INS Programs',
+  fileName: 'INS Program Details',
   defaultFullTableDownload: true,
 };
 
@@ -457,7 +457,7 @@ export const customCaseDetailPublicationsTabDownloadCSV = {
   ],
   query: GET_CASE_DETAIL_PUBLICATIONS_TAB,
   apiVariable: 'publicationOverViewByProject',
-  fileName: 'INS Case Detail Publications',
+  fileName: 'INS Project Details Publications',
   defaultFullTableDownload: true,
 };
 
@@ -510,7 +510,7 @@ export const customCaseDetailDatasetsTabDownloadCSV = {
   ],
   query: GET_CASE_DETAIL_DATASETS_TAB,
   apiVariable: 'datasetOverViewByProject',
-  fileName: 'INS Case Detail Datasets',
+  fileName: 'INS Project Details Datasets',
   defaultFullTableDownload: true,
 };
 
@@ -552,7 +552,7 @@ export const customCaseDetailClinicalTrialsTabDownloadCSV = {
   ],
   query: GET_CASE_DETAIL_CLINICAL_TRIALS_TAB,
   apiVariable: 'clinicalTrialOverViewByProject',
-  fileName: 'INS Case Detail Clinical Trials',
+  fileName: 'INS Project Details Clinical Trials',
   defaultFullTableDownload: true,
 };
 
@@ -588,7 +588,7 @@ export const customCaseDetailPatentsTabDownloadCSV = {
   ],
   query: GET_CASE_DETAIL_PATENTS_TAB,
   apiVariable: 'patentOverViewByProject',
-  fileName: 'INS Case Detail Patents',
+  fileName: 'INS Project Details Patents',
   defaultFullTableDownload: true,
 };
 
