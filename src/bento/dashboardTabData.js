@@ -31,11 +31,11 @@ export const tabContainers = [
     dataField: 'dataProject',
     api: 'GET_PROJECTS_OVERVIEW_QUERY',
     paginationAPIField: 'projectOverView',
-    defaultSortField: 'project_id',
+    defaultSortField: 'queried_project_id',
     defaultSortDirection: 'asc',
     count: 'numberOfProjects',
     buttonText: 'Add Selected Files',
-    dataKey: 'project_id',
+    dataKey: 'queried_project_id',
     saveButtonDefaultStyle: {
       color: '#fff',
       backgroundColor: '#DC2FDA',
