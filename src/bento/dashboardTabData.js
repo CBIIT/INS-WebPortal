@@ -33,7 +33,7 @@ export const tabContainers = [
     paginationAPIField: 'projectOverView',
     defaultSortField: 'project_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfCoreProjects',
+    count: 'numberOfProjects',
     buttonText: 'Add Selected Files',
     dataKey: 'project_id',
     saveButtonDefaultStyle: {
@@ -613,7 +613,7 @@ export const tabs = [
     id: 'project_tab',
     title: 'Grants',
     dataField: 'dataProject',
-    count: 'numberOfCoreProjects',
+    count: 'numberOfProjects',
   },
   {
     id: 'publication_tab',
