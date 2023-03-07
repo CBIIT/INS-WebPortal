@@ -159,8 +159,8 @@ query projectOverView(
 
 export const customProjectsTabDownloadCSV = {
   keysToInclude: [
-    'project_id',
     'queried_project_id',
+    'project_id',
     'program',
     'project_title',
     'principal_investigators',
