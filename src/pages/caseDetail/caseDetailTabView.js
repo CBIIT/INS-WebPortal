@@ -4,7 +4,7 @@ import {
   Grid,
   withStyles,
 } from '@material-ui/core';
-import { getColumns } from 'bento-components';
+import { getColumns } from '../../bento-components';
 import _ from 'lodash';
 import {
   GET_PUBLICATIONS_OVERVIEW_QUERY,
@@ -28,7 +28,6 @@ const TabView = ({
   count,
   api,
   paginationAPIField,
-  paginationAPIFieldDesc,
   dataKey,
   allFilters,
   defaultSortCoulmn,
@@ -65,7 +64,6 @@ const TabView = ({
             count={count}
             overview={getOverviewQuery(api)}
             paginationAPIField={paginationAPIField}
-            paginationAPIFieldDesc={paginationAPIFieldDesc}
             queryCustomVaribles={allFilters}
             defaultSortCoulmn={defaultSortCoulmn}
             defaultSortDirection={defaultSortDirection}

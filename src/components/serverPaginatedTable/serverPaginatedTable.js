@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import cloneDeep from 'lodash/cloneDeep';
 import { CircularProgress, Backdrop, withStyles } from '@material-ui/core';
-import { CustomDataTable } from 'bento-components';
+import { CustomDataTable } from '../../bento-components';
 import client from '../../utils/graphqlClient';
 import CSVDownloadToolbar from './components/CSVDownloadCustomToolbar';
 
@@ -384,11 +384,13 @@ class ServerPaginatedTableView extends React.Component {
     const formatedUpdatedData = [];
     updatedData.forEach((dt) => {
       const tmp = { ...dt };
-      this.props.dataTransformation.forEach((column) => {
-        const cb = column.dataTransform;
-        const attribute = column.dataField;
-        tmp[attribute] = cb(tmp[attribute]);
-      });
+      if (this.props.dataTransformation) {
+        this.props.dataTransformation.forEach((column) => {
+          const cb = column.dataTransform;
+          const attribute = column.dataField;
+          tmp[attribute] = cb(tmp[attribute]);
+        });
+      }
       formatedUpdatedData.push(tmp);
     });
 

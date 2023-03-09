@@ -7,7 +7,7 @@ import {
   getCheckBoxData,
   customCheckBox,
   transformInitialDataForSunburst,
-} from 'bento-components';
+} from '../../bento-components';
 import client from '../../utils/graphqlClient';
 import {
   GET_DASHBOARD_DATA_QUERY, widgetsData, facetSearchData,

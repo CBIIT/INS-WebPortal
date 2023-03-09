@@ -12,7 +12,7 @@ import {
   getOptions,
   getColumns,
   CustomActiveDonut,
-} from 'bento-components';
+} from '../../bento-components';
 import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
 import globalData from '../../bento/siteWideConfig';
 import {
@@ -41,7 +41,6 @@ import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import Widget from '../../components/Widgets/WidgetView';
 import colors from '../../utils/colors';
 import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
-import { getCart } from '../fileCentricCart/store/cart';
 
 const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
 
@@ -61,18 +60,6 @@ const ProgramView = ({
       groupName: 'Program',
       isChecked: true,
       name: programData.program_id,
-      section: 'Filter By Cases',
-    }]);
-  };
-
-  const redirectToArm = (programArm) => {
-    setSideBarToLoading();
-    setDashboardTableLoading();
-    singleCheckBox([{
-      datafield: 'studies',
-      groupName: 'Arm',
-      isChecked: true,
-      name: `${programArm.rowData[0]}: ${programArm.rowData[1]}`,
       section: 'Filter By Cases',
     }]);
   };
@@ -103,10 +90,6 @@ const ProgramView = ({
   const primaryKeyIndex = 0;
 
   const { dataKey } = table;
-
-  const cart = getCart();
-
-  const fileIDs = cart.fileIds ? cart.fileIds : [];
 
   const dataTransformCallbacks = table.columns.filter((column, idx) => column.dataTransform !== undefined);
 
@@ -193,7 +176,7 @@ const ProgramView = ({
     rowsSelected: selectedRowIndex,
     onRowSelectionChange: onRowsSelect,
     isRowSelectable: (dataIndex) => (disableRowSelection
-      ? disableRowSelection(data[1][dataIndex], fileIDs) : true),
+      ? disableRowSelection(data[1][dataIndex]) : true),
   });
 
   const finalOptions = {
@@ -363,38 +346,6 @@ const ProgramView = ({
               xs={12}
             >
               <Grid container spacing={16} direction="row" className={classes.detailContainerRight}>
-                {/* { rightPanel.widget[0].display ? (
-                  <Grid
-                    item
-                    xs={12}
-                    className={classes.marginTopN37}
-                  >
-                    <Widget
-                      title={rightPanel.widget[0].label}
-                      upperTitle
-                      bodyClass={classes.fullHeightBody}
-                      className={classes.card}
-                      color={theme.palette.dodgeBlue.main}
-                      titleClass={classes.widgetTitle}
-                      noPaddedTitle
-                    >
-                      <CustomActiveDonut
-                        data={programData[rightPanel.widget[0].dataField] || []}
-                        width={400}
-                        height={225}
-                        innerRadius={50}
-                        outerRadius={75}
-                        cx="50%"
-                        cy="50%"
-                        fontSize="12px"
-                        colors={colors}
-                        titleLocation="bottom"
-                        titleAlignment="center"
-                        paddingSpace={1}
-                      />
-                    </Widget>
-                  </Grid>
-                ) : ''} */}
                 {rightPanel.widget[0].display ? (
                   <Grid
                     item
@@ -461,28 +412,6 @@ const ProgramView = ({
                     </Widget>
                   </Grid>
                 ) : ''}
-                {/* { rightPanel.files[0].display ? (
-                  <Grid item xs={12}>
-                    <div className={classes.fileContainer}>
-                      <span
-                        className={classes.detailContainerHeader}
-                      >
-                        {rightPanel.files[0].label}
-                      </span>
-                      <div className={classes.fileContent}>
-                        <div className={classes.fileIcon}>
-                          <img
-                            src={rightPanel.files[0].fileIconSrc}
-                            alt={rightPanel.files[0].fileIconAlt}
-                          />
-                        </div>
-                        <div className={classes.fileCount} id="program_detail_file_count">
-                          {programData[rightPanel.files[0].dataField]}
-                        </div>
-                      </div>
-                    </div>
-                  </Grid>
-                ) : ''} */}
               </Grid>
             </Grid>
           </Grid>
@@ -506,7 +435,6 @@ const ProgramView = ({
                       count={stat.numberOfProjects}
                       overview={getOverviewQuery(table.api)}
                       paginationAPIField={table.paginationAPIField}
-                      paginationAPIFieldDesc={table.paginationAPIFieldDesc}
                       defaultSortCoulmn={table.defaultSortCoulmn || ''}
                       defaultSortDirection={table.defaultSortDirection || 'asc'}
                       tableDownloadCSV={table.tableDownloadCSV || false}
@@ -612,7 +540,6 @@ const styles = (theme) => ({
       fontWeight: '300',
       letterSpacing: '0.017em',
     },
-
     '& > span > span': {
       fontWeight: 'bold',
       letterSpacing: '0.025em',

@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
-import { getOptions } from 'bento-components';
+import { getOptions } from '../../bento-components';
 import TabView from './caseDetailTabView';
 import TabThemeProvider from './caseDetailTabThemeConfig';
 import TabLabel from './caseDetailTabLabel';
@@ -110,7 +110,6 @@ const caseDetailTabController = ({ projectID, classes }) => {
           ? caseDetailStats[dataRoot][container.count] : 0}
         api={container.api}
         paginationAPIField={container.paginationAPIField}
-        paginationAPIFieldDesc={container.paginationAPIFieldDesc}
         defaultSortCoulmn={container.defaultSortField || ''}
         defaultSortDirection={container.defaultSortDirection || 'asc'}
         dataKey={container.dataKey}

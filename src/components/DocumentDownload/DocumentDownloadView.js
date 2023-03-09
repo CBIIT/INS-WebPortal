@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   withStyles,
 } from '@material-ui/core';
-import { ToolTip } from 'bento-components';
-import { Link } from 'react-router-dom';
+import { ToolTip } from '../../bento-components';
 import env from '../../utils/env';
 import CustomIcon from '../CustomIcon/CustomIconView';
 import { jBrowseOptions } from '../../bento/jbrowseDetailData';

@@ -68,6 +68,7 @@ export const tabContainers = [
         dataField: 'program',
         header: 'Program',
         sort: 'asc',
+        link: '/program/{program}',
         display: true,
         headerStyles: {
           width: '5%',

@@ -6,7 +6,7 @@ import {
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Snackbar from '@material-ui/core/Snackbar';
-import { getOptions } from 'bento-components';
+import { getOptions } from '../../../bento-components';
 import TabView from './tabView';
 import SuccessOutlinedIcon from '../../../utils/SuccessOutlined';
 import TabThemeProvider from './tabThemeConfig';
@@ -221,7 +221,6 @@ const tabController = (classes) => {
         count={dashboardStats[container.count] ? dashboardStats[container.count] : 0}
         api={container.api}
         paginationAPIField={container.paginationAPIField}
-        paginationAPIFieldDesc={container.paginationAPIFieldDesc}
         defaultSortCoulmn={container.defaultSortField || ''}
         defaultSortDirection={container.defaultSortDirection || 'asc'}
         dataKey={container.dataKey}
