@@ -5,12 +5,16 @@
 }
 
 .statsSlide {
-  animation: 2s linear slide;
+  animation: 2.5s linear slide;
 }
 
 @keyframes slide {
   0% {
     transform: translateX(120vw);
+  }
+
+  20% {
+    transform: translateX(30vw);
   }
 
   100% {
@@ -27,7 +31,7 @@
     opacity: 0;
   }
 
-  67% {
+  83% {
     opacity: 0;
   }
 
