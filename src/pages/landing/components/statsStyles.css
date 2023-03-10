@@ -5,16 +5,12 @@
 }
 
 .statsSlide {
-  animation: 2.5s linear slide;
+  animation: 1.5s linear slide;
 }
 
 @keyframes slide {
   0% {
-    transform: translateX(120vw);
-  }
-
-  20% {
-    transform: translateX(30vw);
+    transform: translateX(10vw);
   }
 
   100% {
@@ -23,7 +19,7 @@
 }
 
 .statsFadeIn {
-  animation: 3s fadeIn;
+  animation: 2s fadeIn;
 }
 
 @keyframes fadeIn {
