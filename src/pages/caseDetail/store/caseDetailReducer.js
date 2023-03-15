@@ -195,7 +195,7 @@ const reducers = {
   SET_CASE_DETAIL_TABLE_LOADING: (state) => ({ ...state, isCaseDetailTableLoading: true }),
   RECEIVE_CASE_DETAIL_TAB: (state, rawItem) => {
     const item = rawItem;
-    const filter = { project_id: item.data.projectDetail.queried_project_id };
+    const filter = { project_id: item.data.projectDetail.queried_project_id, queried_project_id: item.data.projectDetail.queried_project_id, queried_project_ids: item.data.projectDetail.queried_project_id };
     return item.data
       ? {
         ...state.caseDetail,

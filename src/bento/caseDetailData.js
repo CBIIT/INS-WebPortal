@@ -190,7 +190,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '10%',
+          width: '15%',
         },
       },
       {
@@ -200,7 +200,7 @@ export const tabContainers = [
         link: '/program/{program}',
         display: true,
         headerStyles: {
-          width: '10%',
+          width: '5%',
         },
       },
       {
@@ -209,7 +209,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '40%',
+          width: '30%',
         },
       },
       {
@@ -218,7 +218,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '10%',
+          width: '15%',
         },
       },
       {
@@ -227,7 +227,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '10%',
+          width: '15%',
         },
       },
       {

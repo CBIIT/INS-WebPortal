@@ -456,36 +456,41 @@ query projectOverViewByProject(
 
 export const customCaseDetailProjectsTabDownloadCSV = {
   keysToInclude: [
-    'publication_id',
-    'title',
-    'authors',
-    'citation_count',
-    'relative_citation_ratio',
-    'publish_date',
+    'project_id',
+    'program',
+    'project_title',
+    'principal_investigators',
+    'program_officers',
+    'lead_doc',
+    'award_amount',
+    'fiscal_year',
   ],
   header: [
-    'PubMed ID',
-    'Title',
-    'Authors',
-    'Citation Count',
-    'Relative Citation Ratio',
-    'Publication Date',
+    'Grant ID',
+    'Program',
+    'Project Title',
+    'Principal Investigators',
+    'Program Officers',
+    'Lead DOC',
+    'Award Amount',
+    'Fiscal Year',
   ],
   query: GET_CASE_DETAIL_PROJECTS_TAB,
   apiVariable: 'projectOverViewByProject',
   fileName: 'INS Project Details Grants',
   defaultFullTableDownload: true,
 };
+
 export const GET_CASE_DETAIL_PUBLICATIONS_TAB = gql`
 query publicationOverViewByProject(
-  $project_id: [String],
+  $queried_project_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
   publicationOverViewByProject(
-    project_id: $project_id,
+    queried_project_ids: $queried_project_ids,
     first: $first,
     offset: $offset,
     order_by: $order_by,
@@ -530,14 +535,14 @@ export const customCaseDetailPublicationsTabDownloadCSV = {
 
 export const GET_CASE_DETAIL_DATASETS_TAB = gql`
 query datasetOverViewByProject(
-  $project_id: [String],
+  $queried_project_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
   datasetOverViewByProject(
-    project_id: $project_id,
+    queried_project_ids: $queried_project_ids,
     first: $first,
     offset: $offset,
     order_by: $order_by,
@@ -583,14 +588,14 @@ export const customCaseDetailDatasetsTabDownloadCSV = {
 
 export const GET_CASE_DETAIL_CLINICAL_TRIALS_TAB = gql`
 query clinicalTrialOverViewByProject(
-  $project_id: [String],
+  $queried_project_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
   clinicalTrialOverViewByProject(
-    project_id: $project_id,
+    queried_project_ids: $queried_project_ids,
     first: $first,
     offset: $offset,
     order_by: $order_by,
@@ -625,14 +630,14 @@ export const customCaseDetailClinicalTrialsTabDownloadCSV = {
 
 export const GET_CASE_DETAIL_PATENTS_TAB = gql`
 query patentOverViewByProject(
-  $project_id: [String],
+  $queried_project_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
   patentOverViewByProject(
-    project_id: $project_id,
+    queried_project_ids: $queried_project_ids,
     first: $first,
     offset: $offset,
     order_by: $order_by,
