@@ -20,7 +20,7 @@ const breadCrumb = {
 // --------------- Aggregated count configuration --------------
 const aggregateCount = {
   labelText: 'Projects',
-  dataField: 'num_projects',
+  dataField: 'num_core_projects',
   link: '/explore',
   display: true,
 };
@@ -85,17 +85,17 @@ const rightPanel = {
 
 // --------------- Table configuration --------------
 const table = {
-  name: 'Projects',
-  title: 'Projects',
+  name: 'Grants',
+  title: 'Grants',
   display: true,
   dataField: 'dataProject',
   api: 'GET_PROJECTS_OVERVIEW_QUERY',
   paginationAPIField: 'projectOverView',
-  defaultSortField: 'project_id',
+  defaultSortField: 'queried_project_id',
   defaultSortDirection: 'asc',
   count: 'numberOfProjects',
   buttonText: 'Add Selected Files',
-  dataKey: 'project_id',
+  dataKey: 'queried_project_id',
   saveButtonDefaultStyle: {
     color: '#fff',
     backgroundColor: '#DC2FDA',
@@ -114,11 +114,20 @@ const table = {
   },
   columns: [
     {
-      dataField: 'project_id',
+      dataField: 'queried_project_id',
       header: 'Project ID',
       sort: 'asc',
-      link: '/project/{project_id}',
+      link: '/project/{queried_project_id}',
       primary: true,
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
+    },
+    {
+      dataField: 'project_id',
+      header: 'Grant ID',
+      sort: 'asc',
       display: true,
       headerStyles: {
         width: '10%',
@@ -157,7 +166,7 @@ const table = {
       sort: 'asc',
       display: true,
       headerStyles: {
-        width: '10%',
+        width: '5%',
       },
     },
     {
@@ -166,7 +175,7 @@ const table = {
       sort: 'asc',
       display: true,
       headerStyles: {
-        width: '10%',
+        width: '5%',
       },
     },
     {
@@ -241,6 +250,7 @@ query programDetail($program_id: String!) {
     program_description
     program_website
     num_projects
+    num_core_projects
   }
 }`;
 

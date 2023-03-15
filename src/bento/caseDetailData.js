@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import {
+  customCaseDetailProjectsTabDownloadCSV,
   customCaseDetailPublicationsTabDownloadCSV,
   customCaseDetailDatasetsTabDownloadCSV,
   customCaseDetailClinicalTrialsTabDownloadCSV,
@@ -15,7 +16,7 @@ export const tooltipContent = {
 // -------------- Case ID area configurations --------------
 const projectHeader = {
   label: 'Project ID',
-  dataField: 'project_id',
+  dataField: 'queried_project_id',
 };
 
 // --------------- Data panel configuration --------------
@@ -32,35 +33,12 @@ const leftPanel = [
         dataField: 'project_title',
       },
       {
-        label: 'Fiscal Year',
-        dataField: 'fiscal_year',
-      },
-      {
-        label: 'Description',
-        dataField: 'abstract_text',
-      },
-    ],
-  },
-  {
-    sectionHeader: 'PI and Organization',
-    // sectionDesc: 'Demographic Related Info',
-    properties: [
-      // A maximum of 10 properties are allowed
-      {
-        label: 'Principal Investigators',
-        dataField: 'principal_investigators',
-      },
-      {
-        label: 'Program Officers',
-        dataField: 'program_officers',
-      },
-      {
         label: 'Organization',
         dataField: 'org_name',
       },
       {
-        label: 'Lead DOC',
-        dataField: 'lead_doc',
+        label: 'Description',
+        dataField: 'abstract_text',
       },
     ],
   },
@@ -75,16 +53,12 @@ const rightPanel = [
     properties: [
       // A maximum of 10 properties are allowed
       {
-        label: 'Award Amount',
+        label: 'Award Amount Total',
         dataField: 'award_amount',
       },
       {
-        label: 'NCI Award Amount',
+        label: 'NCI Award Amount Total',
         dataField: 'nci_funded_amount',
-      },
-      {
-        label: 'Award Notice Date',
-        dataField: 'award_notice_date',
       },
       {
         label: 'Project Start Date',
@@ -97,6 +71,10 @@ const rightPanel = [
       {
         label: 'FOA',
         dataField: 'full_foa',
+      },
+      {
+        label: 'Program',
+        dataField: 'program',
       },
     ],
   },
@@ -111,6 +89,12 @@ export const externalLinkIcon = {
 
 // --------------- Tabs Header Data configuration --------------
 export const tabs = [
+  {
+    id: 'grant_tab_case_detail',
+    title: 'Grants',
+    dataField: 'dataProject',
+    count: 'num_projects',
+  },
   {
     id: 'publication_tab_case_detail',
     title: 'Publications',
@@ -140,6 +124,12 @@ export const tabs = [
 // --------------- Tabs Header Style configuration --------------
 export const tabIndex = [
   {
+    title: 'Grants',
+    primaryColor: '#F7D7F7',
+    secondaryColor: '#86D6F0',
+    selectedColor: '#C92EC7',
+  },
+  {
     title: 'Publications',
     primaryColor: '#E7E5F1',
     secondaryColor: '#C3DBD4',
@@ -167,6 +157,127 @@ export const tabIndex = [
 
 // --------------- Tabs Table configuration --------------
 export const tabContainers = [
+  {
+    name: 'Grants',
+    dataField: 'dataProjects',
+    api: 'GET_PROJECTS_OVERVIEW_QUERY',
+    paginationAPIField: 'projectOverViewByProject',
+    defaultSortField: 'project_id',
+    defaultSortDirection: 'asc',
+    count: 'num_projects',
+    buttonText: 'Add Selected Files',
+    dataKey: 'project_id',
+    saveButtonDefaultStyle: {
+      color: '#fff',
+      backgroundColor: '#DC2FDA',
+      opacity: '1',
+      border: '0px',
+      cursor: 'pointer',
+    },
+    DeactiveSaveButtonDefaultStyle: {
+      opacity: '0.3',
+      cursor: 'auto',
+    },
+    ActiveSaveButtonDefaultStyle: {
+      cursor: 'pointer',
+      opacity: 'unset',
+      border: 'unset',
+    },
+    columns: [
+      {
+        dataField: 'project_id',
+        header: 'Grant ID',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'program',
+        header: 'Program',
+        sort: 'asc',
+        link: '/program/{program}',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'project_title',
+        header: 'Project Title',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '40%',
+        },
+      },
+      {
+        dataField: 'principal_investigators',
+        header: 'Principal Investigators',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'program_officers',
+        header: 'Program Officers',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'lead_doc',
+        header: 'Lead DOC',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+      },
+      {
+        dataField: 'award_amount',
+        header: 'Award Amount',
+        sort: 'asc',
+        display: true,
+        dataTransform: (money) => {
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0,
+          });
+
+          return formatter.format(money);
+        },
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'fiscal_year',
+        header: 'Fiscal Year',
+        sort: 'asc',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+      },
+    ],
+    id: 'case_detail_project_tab',
+    onRowsSelect: 'type1',
+    disableRowSelection: 'type1',
+    tableID: 'case_detail_project_tab_table',
+    selectableRows: false,
+    tabIndex: '0',
+    tableDownloadCSV: customCaseDetailProjectsTabDownloadCSV,
+    downloadFileName: 'case_detail_projects_download',
+    headerPagination: true,
+    footerPagination: true,
+  },
   {
     name: 'Publications',
     dataField: 'dataPublication',
@@ -256,7 +367,7 @@ export const tabContainers = [
     disableRowSelection: 'type1',
     tableID: 'case_detail_publication_tab_table',
     selectableRows: false,
-    tabIndex: '0',
+    tabIndex: '1',
     tableDownloadCSV: customCaseDetailPublicationsTabDownloadCSV,
     downloadFileName: 'case_detail_publications_download',
     headerPagination: true,
@@ -367,7 +478,7 @@ export const tabContainers = [
     disableRowSelection: 'type1',
     tableID: 'case_detail_dataset_tab_table',
     selectableRows: false,
-    tabIndex: '1',
+    tabIndex: '2',
     tableDownloadCSV: customCaseDetailDatasetsTabDownloadCSV,
     downloadFileName: 'case_detail_datasets_download',
     headerPagination: true,
@@ -444,7 +555,7 @@ export const tabContainers = [
     disableRowSelection: 'type1',
     tableID: 'case_detail_clinical_trial_tab_table',
     selectableRows: false,
-    tabIndex: '2',
+    tabIndex: '3',
     tableDownloadCSV: customCaseDetailClinicalTrialsTabDownloadCSV,
     downloadFileName: 'case_detail_clinical_trials_download',
     headerPagination: true,
@@ -502,7 +613,7 @@ export const tabContainers = [
     disableRowSelection: 'type1',
     tableID: 'case_detail_patent_tab_table',
     selectableRows: false,
-    tabIndex: '3',
+    tabIndex: '4',
     tableDownloadCSV: customCaseDetailPatentsTabDownloadCSV,
     downloadFileName: 'case_detail_patents_download',
     headerPagination: true,
@@ -513,7 +624,7 @@ export const tabContainers = [
 // query name, also used as root of returned data
 const dataRoot = 'projectDetail';
 // Primary ID field used to query a case
-const caseIDField = 'project_id';
+const caseIDField = 'queried_project_id';
 
 // --------------- GraphQL query configuration --------------
 
@@ -521,6 +632,7 @@ const caseIDField = 'project_id';
 const CASE_DETAIL_QUERY = gql`
   query projectDetail($project_id: String!) {
     projectDetail(project_id: $project_id) {
+      queried_project_id
       project_id
       application_id
       fiscal_year
@@ -545,20 +657,64 @@ const CASE_DETAIL_QUERY = gql`
       num_datasets
       num_clinical_trials
       num_patents
+      num_projects
+      program
     }
   }
 `;
 
+export const GET_PROJECTS_OVERVIEW_QUERY = gql`
+query projectOverViewByProject(
+  $queried_project_id: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  projectOverViewByProject(
+    queried_project_id: $queried_project_id,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+  ) {
+    project_id,
+    queried_project_id,
+    application_id,
+    fiscal_year,
+    activity_code,
+    project_title,
+    project_type,
+    abstract_text,
+    keywords,
+    org_name,
+    org_city,
+    org_state,
+    org_country,
+    principal_investigators,
+    lead_doc,
+    program_officers,
+    award_amount,
+    nci_funded_amount,
+    award_notice_date,
+    project_start_date,
+    project_end_date,
+    full_foa,
+    program
+  }
+}
+  `;
+
 export const GET_PUBLICATIONS_OVERVIEW_QUERY = gql`
 query publicationOverViewByProject(
-  $project_id: [String],
+  $queried_project_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
   publicationOverViewByProject(
-    project_id: $project_id,
+    queried_project_ids: $queried_project_ids,
     first: $first,
     offset: $offset,
     order_by: $order_by,
@@ -580,14 +736,14 @@ query publicationOverViewByProject(
 
 export const GET_DATASETS_OVERVIEW_QUERY = gql`
   query datasetOverViewByProject(
-    $project_id: [String],
+    $queried_project_ids: [String],
     $offset: Int,
     $first: Int,
     $order_by: String,
     $sort_direction: String 
     ){
     datasetOverViewByProject(
-      project_id: $project_id,
+      queried_project_ids: $queried_project_ids,
       first: $first,
       offset: $offset,
       order_by: $order_by,
@@ -608,14 +764,14 @@ export const GET_DATASETS_OVERVIEW_QUERY = gql`
 
 export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
   query clinicalTrialOverViewByProject(
-    $project_id: [String],
+    $queried_project_ids: [String],
     $offset: Int,
     $first: Int,
     $order_by: String,
     $sort_direction: String 
     ){
     clinicalTrialOverViewByProject(
-      project_id: $project_id,
+      queried_project_ids: $queried_project_ids,
       first: $first,
       offset: $offset,
       order_by: $order_by,
@@ -631,14 +787,14 @@ export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
 
 export const GET_PATENTS_OVERVIEW_QUERY = gql`
   query patentOverViewByProject(
-    $project_id: [String],
+    $queried_project_ids: [String],
     $offset: Int,
     $first: Int,
     $order_by: String,
     $sort_direction: String 
     ){
     patentOverViewByProject(
-      project_id: $project_id,
+      queried_project_ids: $queried_project_ids,
       first: $first,
       offset: $offset,
       order_by: $order_by,

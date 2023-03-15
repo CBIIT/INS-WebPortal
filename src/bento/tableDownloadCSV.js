@@ -55,6 +55,7 @@ query projectOverView(
     order_by: $order_by,
     sort_direction: $sort_direction
     ) {
+    queried_project_id,
     project_id,
     application_id,
     fiscal_year,
@@ -82,6 +83,7 @@ query projectOverView(
 
 export const customProgramsTableDownloadCSV = {
   keysToInclude: [
+    'queried_project_id',
     'project_id',
     'project_title',
     'principal_investigators',
@@ -94,6 +96,7 @@ export const customProgramsTableDownloadCSV = {
   ],
   header: [
     'Project ID',
+    'Grant ID',
     'Project Title',
     'Principal Investigators',
     'Program Officers',
@@ -409,6 +412,70 @@ export const customPatentsTabDownloadCSV = {
   defaultFullTableDownload: true,
 };
 
+export const GET_CASE_DETAIL_PROJECTS_TAB = gql`
+query projectOverViewByProject(
+  $queried_project_id: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  projectOverViewByProject(
+    queried_project_id: $queried_project_id,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+  ) {
+    project_id,
+    queried_project_id,
+    application_id,
+    fiscal_year,
+    activity_code,
+    project_title,
+    project_type,
+    abstract_text,
+    keywords,
+    org_name,
+    org_city,
+    org_state,
+    org_country,
+    principal_investigators,
+    lead_doc,
+    program_officers,
+    award_amount,
+    nci_funded_amount,
+    award_notice_date,
+    project_start_date,
+    project_end_date,
+    full_foa,
+    program
+  }
+}
+  `;
+
+export const customCaseDetailProjectsTabDownloadCSV = {
+  keysToInclude: [
+    'publication_id',
+    'title',
+    'authors',
+    'citation_count',
+    'relative_citation_ratio',
+    'publish_date',
+  ],
+  header: [
+    'PubMed ID',
+    'Title',
+    'Authors',
+    'Citation Count',
+    'Relative Citation Ratio',
+    'Publication Date',
+  ],
+  query: GET_CASE_DETAIL_PROJECTS_TAB,
+  apiVariable: 'projectOverViewByProject',
+  fileName: 'INS Project Details Grants',
+  defaultFullTableDownload: true,
+};
 export const GET_CASE_DETAIL_PUBLICATIONS_TAB = gql`
 query publicationOverViewByProject(
   $project_id: [String],

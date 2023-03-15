@@ -7,6 +7,7 @@ import {
 import { getColumns } from '../../bento-components';
 import _ from 'lodash';
 import {
+  GET_PROJECTS_OVERVIEW_QUERY,
   GET_PUBLICATIONS_OVERVIEW_QUERY,
   GET_DATASETS_OVERVIEW_QUERY,
   GET_CLINICAL_TRIALS_OVERVIEW_QUERY,

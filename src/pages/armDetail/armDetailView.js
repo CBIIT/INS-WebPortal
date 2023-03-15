@@ -57,6 +57,7 @@ const ArmDetail = ({ data, classes }) => {
   const stat = {
     numberOfPrograms: 1,
     numberOfProjects: 1,
+    numberOfCoreProjects: data.numberOfCoreProjects,
     numberOfPublications: data.programPublicationCount,
     numberOfDatasets: data.programDatasetCount,
     numberOfClinicalTrials: data.programClinicalTrialCount,

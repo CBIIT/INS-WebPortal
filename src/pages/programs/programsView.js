@@ -25,7 +25,7 @@ import DocumentDownload from '../../components/DocumentDownload/DocumentDownload
 const getOverviewQuery = () => (GET_PROGRAMS_DATA_QUERY);
 
 const Programs = ({ classes, data }) => {
-  const numberOfProjects = 2;
+  const numberOfPrograms = data.programInfo.length;
 
   const options = getOptions(table, classes);
 
@@ -163,10 +163,10 @@ const Programs = ({ classes, data }) => {
                           data={data[table.dataField]}
                           columns={getColumns(table, classes, data, externalLinkIcon, '', () => { }, DocumentDownload, globalData.replaceEmptyValueWith)}
                           options={finalOptions}
-                          count={numberOfProjects}
+                          count={numberOfPrograms}
                           overview={getOverviewQuery(table.api)}
                           paginationAPIField={table.paginationAPIField}
-                          defaultSortCoulmn={table.defaultSortCoulmn || ''}
+                          defaultSortCoulmn={table.defaultSortField || ''}
                           defaultSortDirection={table.defaultSortDirection || 'asc'}
                           tableDownloadCSV={table.tableDownloadCSV || false}
                           headerStyles={headerStyles}
