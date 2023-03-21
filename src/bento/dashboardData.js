@@ -283,6 +283,7 @@ export const showCheckboxCount = 5;
 export const GET_DASHBOARD_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfProjects
+  numberOfCoreProjects
   numberOfPublications
   numberOfGEOs
   numberOfSRAs
