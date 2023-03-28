@@ -54,20 +54,20 @@ export const tabContainers = [
     },
     columns: [
       {
-        dataField: 'queried_project_id',
-        header: 'Project ID',
+        dataField: 'project_id',
+        header: 'Grant ID',
         sort: 'asc',
-        link: '/project/{queried_project_id}',
-        primary: true,
         display: true,
         headerStyles: {
           width: '10%',
         },
       },
       {
-        dataField: 'project_id',
-        header: 'Grant ID',
+        dataField: 'queried_project_id',
+        header: 'Project ID',
         sort: 'asc',
+        link: '/project/{queried_project_id}',
+        primary: true,
         display: true,
         headerStyles: {
           width: '10%',
