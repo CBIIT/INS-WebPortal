@@ -1574,7 +1574,6 @@ const reducers = {
         ? sortByCheckboxItemsByCount(group.checkboxItems)
         : sortByCheckboxItemsByAlphabet(group.checkboxItems);
       const updatedGroupData = group;
-      console.log('updatedGroupData: ', updatedGroupData);
       updatedGroupData.checkboxItems = checkboxItems;
       return updatedGroupData;
     });
