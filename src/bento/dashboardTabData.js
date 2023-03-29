@@ -218,6 +218,7 @@ export const tabContainers = [
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
+        link: '/project/{queried_project_ids}',
         display: true,
         dataTransform: (ids) => {
           let transformedIds = '';
