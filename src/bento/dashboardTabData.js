@@ -31,11 +31,11 @@ export const tabContainers = [
     dataField: 'dataProject',
     api: 'GET_PROJECTS_OVERVIEW_QUERY',
     paginationAPIField: 'projectOverView',
-    defaultSortField: 'queried_project_id',
+    defaultSortField: 'project_id',
     defaultSortDirection: 'asc',
     count: 'numberOfProjects',
     buttonText: 'Add Selected Files',
-    dataKey: 'queried_project_id',
+    dataKey: 'project_id',
     saveButtonDefaultStyle: {
       color: '#fff',
       backgroundColor: '#DC2FDA',
@@ -54,10 +54,9 @@ export const tabContainers = [
     },
     columns: [
       {
-        dataField: 'queried_project_id',
-        header: 'Project ID',
+        dataField: 'project_id',
+        header: 'Grant ID',
         sort: 'asc',
-        link: '/project/{queried_project_id}',
         primary: true,
         display: true,
         headerStyles: {
@@ -65,9 +64,10 @@ export const tabContainers = [
         },
       },
       {
-        dataField: 'project_id',
-        header: 'Grant ID',
+        dataField: 'queried_project_id',
+        header: 'Project ID',
         sort: 'asc',
+        link: '/project/{queried_project_id}',
         display: true,
         headerStyles: {
           width: '10%',
@@ -218,6 +218,7 @@ export const tabContainers = [
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
+        link: '/project/{queried_project_ids}',
         display: true,
         dataTransform: (ids) => {
           let transformedIds = '';
@@ -342,6 +343,7 @@ export const tabContainers = [
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
+        link: '/project/{queried_project_ids}',
         display: true,
         dataTransform: (ids) => {
           let transformedIds = '';
@@ -468,6 +470,7 @@ export const tabContainers = [
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
+        link: '/project/{queried_project_ids}',
         display: true,
         dataTransform: (ids) => {
           let transformedIds = '';
@@ -566,6 +569,7 @@ export const tabContainers = [
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
+        link: '/project/{queried_project_ids}',
         display: true,
         dataTransform: (ids) => {
           let transformedIds = '';
