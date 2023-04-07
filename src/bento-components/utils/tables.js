@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
@@ -25,15 +26,33 @@ export function getColumns(
       filter: typeof (column.filter) !== 'undefined' ? column.filter : false,
       customBodyRender: (value, tableMeta) => (
         <div className={classes[`tableCell${index + 1}`]}>
-          { value
+          {value
             ? (column.internalLink ? (
               <HashRouter>
-                <Link
-                  className={classes.link}
-                  to={`${column.actualLink}${tableMeta.rowData[column.actualLinkId] ? tableMeta.rowData[column.actualLinkId] : ''}`}
-                >
-                  {value}
-                </Link>
+                {value.indexOf(',') === -1 ? (
+                  <Link
+                    className={classes.link}
+                    to={`${column.actualLink}${tableMeta.rowData[column.actualLinkId] ? tableMeta.rowData[column.actualLinkId] : ''}`}
+                  >
+                    {value}
+                  </Link>
+                )
+                  : (
+                    tableMeta.rowData[column.actualLinkId].split(', ').map((link, i) => (
+                      <Link
+                        className={classes.link}
+                        to={`${column.actualLink}${link}`}
+                      >
+                        {link}
+                        {i !== tableMeta.rowData[column.actualLinkId].split(', ').length - 1 ? (
+                          ', '
+                        )
+                          : (
+                            ''
+                          )}
+                      </Link>
+                    ))
+                  )}
               </HashRouter>
             )
               : column.externalLink ? (
