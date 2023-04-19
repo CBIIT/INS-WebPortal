@@ -20,7 +20,7 @@ const breadCrumb = {
 // --------------- Aggregated count configuration --------------
 const aggregateCount = {
   labelText: 'Projects',
-  dataField: 'num_projects',
+  dataField: 'num_core_projects',
   link: '/explore',
   display: true,
 };
@@ -85,8 +85,8 @@ const rightPanel = {
 
 // --------------- Table configuration --------------
 const table = {
-  name: 'Projects',
-  title: 'Projects',
+  name: 'Grants',
+  title: 'Grants',
   display: true,
   dataField: 'dataProject',
   api: 'GET_PROJECTS_OVERVIEW_QUERY',
@@ -115,10 +115,19 @@ const table = {
   columns: [
     {
       dataField: 'project_id',
+      header: 'Grant ID',
+      sort: 'asc',
+      primary: true,
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
+    },
+    {
+      dataField: 'queried_project_id',
       header: 'Project ID',
       sort: 'asc',
-      link: '/project/{project_id}',
-      primary: true,
+      link: '/project/{queried_project_id}',
       display: true,
       headerStyles: {
         width: '10%',
@@ -157,7 +166,7 @@ const table = {
       sort: 'asc',
       display: true,
       headerStyles: {
-        width: '10%',
+        width: '5%',
       },
     },
     {
@@ -166,7 +175,7 @@ const table = {
       sort: 'asc',
       display: true,
       headerStyles: {
-        width: '10%',
+        width: '5%',
       },
     },
     {
@@ -241,6 +250,7 @@ query programDetail($program_id: String!) {
     program_description
     program_website
     num_projects
+    num_core_projects
   }
 }`;
 

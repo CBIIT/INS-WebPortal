@@ -66,6 +66,7 @@ const ProgramView = ({
 
   const stat = {
     numberOfPrograms: 1,
+    numberOfCoreProjects: programData.num_core_projects !== undefined ? programData.num_core_projects : 'undefined',
     numberOfProjects: programData.num_projects !== undefined ? programData.num_projects : 'undefined',
     numberOfPublications: programPublicationCount !== undefined ? programPublicationCount : 'undefined',
     numberOfDatasets: programDatasetCount !== undefined ? programDatasetCount : 'undefined',
@@ -435,7 +436,7 @@ const ProgramView = ({
                       count={stat.numberOfProjects}
                       overview={getOverviewQuery(table.api)}
                       paginationAPIField={table.paginationAPIField}
-                      defaultSortCoulmn={table.defaultSortCoulmn || ''}
+                      defaultSortCoulmn={table.defaultSortField || ''}
                       defaultSortDirection={table.defaultSortDirection || 'asc'}
                       tableDownloadCSV={table.tableDownloadCSV || false}
                       queryCustomVaribles={{ programs: [data[0].programDetail.program_id] }}

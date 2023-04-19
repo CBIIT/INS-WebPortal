@@ -422,6 +422,7 @@ const convertResultInPrevType = (result) => {
     nodeCountsFromLists: {
       numberOfPrograms: result.data.searchProjects.numberOfPrograms,
       numberOfProjects: result.data.searchProjects.numberOfProjects,
+      numberOfCoreProjects: result.data.searchProjects.numberOfCoreProjects,
       numberOfPublications: result.data.searchProjects.numberOfPublications,
       numberOfDatasets: result.data.searchProjects.numberOfDatasets,
       numberOfClinicalTrials: result.data.searchProjects.numberOfClinicalTrials,
@@ -598,7 +599,7 @@ export function addAutoComplete({ newValue, type, isFilteredData = false }) {
 
 const querySwitch = (payload, tabContainer) => {
   switch (payload) {
-    case ('Projects'):
+    case ('Grants'):
       return { QUERY: GET_PROJECTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     case ('Publications'):
       return { QUERY: GET_PUBLICATIONS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
@@ -1573,7 +1574,6 @@ const reducers = {
         ? sortByCheckboxItemsByCount(group.checkboxItems)
         : sortByCheckboxItemsByAlphabet(group.checkboxItems);
       const updatedGroupData = group;
-      console.log('updatedGroupData: ', updatedGroupData);
       updatedGroupData.checkboxItems = checkboxItems;
       return updatedGroupData;
     });

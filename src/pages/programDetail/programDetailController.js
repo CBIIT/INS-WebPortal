@@ -16,7 +16,7 @@ const ProgramDetailContainer = ({ match }) => {
   });
 
   const { loading: projectOverviewLoading, error: projectOverviewError, data: projectOverviewData } = useQuery(GET_PROJECTS_OVERVIEW_QUERY, {
-    variables: { programs: [match.params.id], order_by: 'project_id', sort_direction: 'asc' },
+    variables: { programs: [match.params.id], order_by: 'queried_project_id', sort_direction: 'asc' },
   });
 
   const transformedData = _.cloneDeep(programDetailsData);
@@ -27,23 +27,23 @@ const ProgramDetailContainer = ({ match }) => {
 
     let projectCountInProgramByFundedAmountData = [
       {
-        group: '<$250k',
+        group: '<$1M',
         subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_1,
       },
       {
-        group: '$250k to $499k',
+        group: '$1M to $2M',
         subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_2,
       },
       {
-        group: '$500k to $749k',
+        group: '$2M to $4M',
         subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_3,
       },
       {
-        group: '$750k to $999k',
+        group: '$4M to $10M',
         subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_4,
       },
       {
-        group: '>=$1M',
+        group: '>=$10M',
         subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_5,
       },
     ];

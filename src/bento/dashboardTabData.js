@@ -27,7 +27,7 @@ export const externalLinkIcon = {
 // --------------- Tabs Table configuration --------------
 export const tabContainers = [
   {
-    name: 'Projects',
+    name: 'Grants',
     dataField: 'dataProject',
     api: 'GET_PROJECTS_OVERVIEW_QUERY',
     paginationAPIField: 'projectOverView',
@@ -55,10 +55,19 @@ export const tabContainers = [
     columns: [
       {
         dataField: 'project_id',
+        header: 'Grant ID',
+        sort: 'asc',
+        primary: true,
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+      },
+      {
+        dataField: 'queried_project_id',
         header: 'Project ID',
         sort: 'asc',
-        link: '/project/{project_id}',
-        primary: true,
+        link: '/project/{queried_project_id}',
         display: true,
         headerStyles: {
           width: '10%',
@@ -107,7 +116,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '10%',
+          width: '5%',
         },
       },
       {
@@ -116,7 +125,7 @@ export const tabContainers = [
         sort: 'asc',
         display: true,
         headerStyles: {
-          width: '10%',
+          width: '5%',
         },
       },
       {
@@ -209,6 +218,7 @@ export const tabContainers = [
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
+        link: '/project/{queried_project_ids}',
         display: true,
         dataTransform: (ids) => {
           let transformedIds = '';
@@ -333,6 +343,7 @@ export const tabContainers = [
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
+        link: '/project/{queried_project_ids}',
         display: true,
         dataTransform: (ids) => {
           let transformedIds = '';
@@ -459,6 +470,7 @@ export const tabContainers = [
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
+        link: '/project/{queried_project_ids}',
         display: true,
         dataTransform: (ids) => {
           let transformedIds = '';
@@ -557,6 +569,7 @@ export const tabContainers = [
         dataField: 'queried_project_ids',
         header: 'Project IDs',
         sort: 'asc',
+        link: '/project/{queried_project_ids}',
         display: true,
         dataTransform: (ids) => {
           let transformedIds = '';
@@ -602,7 +615,7 @@ export const tabContainers = [
 export const tabs = [
   {
     id: 'project_tab',
-    title: 'Projects',
+    title: 'Grants',
     dataField: 'dataProject',
     count: 'numberOfProjects',
   },
@@ -635,7 +648,7 @@ export const tabs = [
 // --------------- Tabs Header Style configuration --------------
 export const tabIndex = [
   {
-    title: 'Projects',
+    title: 'Grants',
     primaryColor: '#F7D7F7',
     secondaryColor: '#86D6F0',
     selectedColor: '#C92EC7',
@@ -681,6 +694,7 @@ query searchProjects (
   ) {
     numberOfPrograms
     numberOfProjects
+    numberOfCoreProjects
     numberOfPublications
     numberOfDatasets
     numberOfClinicalTrials
@@ -780,6 +794,7 @@ searchProjects(programs: $programs,
   award_amounts: $award_amounts) {
         numberOfPrograms
         numberOfProjects
+        numberOfCoreProjects
         numberOfPublications
         numberOfDatasets
         numberOfClinicalTrials
@@ -855,6 +870,7 @@ query projectOverView(
     sort_direction: $sort_direction
     ) {
     project_id,
+    queried_project_id,
     application_id,
     fiscal_year,
     activity_code,

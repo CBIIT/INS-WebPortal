@@ -53,6 +53,7 @@ query globalSearch($input: String, $first: Int, $offset: Int){
     ) {
         projects {
           type
+          queried_project_id
           project_id
           application_id
           project_title
