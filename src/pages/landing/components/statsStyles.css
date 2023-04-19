@@ -1,6 +1,6 @@
 .statsBox {
   overflow: hidden;
-  width: 1275px;
+  width: 1440px;
   margin-bottom: -8px;
 }
 
@@ -10,7 +10,7 @@
 
 @keyframes slide {
   0% {
-    transform: translateX(10vw);
+    transform: translateX(20vw);
   }
 
   100% {
