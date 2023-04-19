@@ -10,23 +10,11 @@ import './statsStyles.css';
 
 const linkPage = '/explore';
 
-// const dataTransform = (data) => {
-//   let transformedCount = '';
-
-//   if (data >= 1000) {
-//     transformedCount = `${data.toString().slice(0, -3)}K`;
-//   } else {
-//     transformedCount = data.toString();
-//   }
-
-//   return transformedCount;
-// };
-
 const LandingStatsView = ({ classes, stats, statsData }) => (
   <>
     <div className={classnames({
-      [classes.statsSection]: stats.length < 6,
-      [classes.statsSectionCenter]: stats.length === 6,
+      [classes.statsSection]: stats.length < 7,
+      [classes.statsSectionCenter]: stats.length === 7,
     })}
     >
       <div className={classes.leftBox}>
@@ -45,8 +33,8 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
         {stats.length > 0 && (
           <div
             className={classnames({
-              [classes.boxCut]: stats.length < 6,
-              [classes.box]: stats.length === 6,
+              [classes.boxCut]: stats.length < 7,
+              [classes.box]: stats.length === 7,
             })}
           >
             {
@@ -62,7 +50,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
                       </div>
                     </div>
                     <div className="statsSlide">
-                      <div className={classnames({ [classes.statBarPrograms]: stat.statTitle === 'Programs', [classes.statBarProjects]: stat.statTitle === 'Projects', [classes.statBarPublications]: stat.statTitle === 'Publications', [classes.statBarDatasets]: stat.statTitle === 'Datasets', [classes.statBarClinicalTrials]: stat.statTitle === 'Clinical Trials', [classes.statBarPatents]: stat.statTitle === 'Patents' })} id={`bar_${index + 1}`} />
+                      <div className={classnames({ [classes.statBarPrograms]: stat.statTitle === 'Programs', [classes.statBarProjects]: stat.statTitle === 'Projects', [classes.statBarGrants]: stat.statTitle === 'Grants', [classes.statBarPublications]: stat.statTitle === 'Publications', [classes.statBarDatasets]: stat.statTitle === 'Datasets', [classes.statBarClinicalTrials]: stat.statTitle === 'Clinical Trials', [classes.statBarPatents]: stat.statTitle === 'Patents' })} id={`bar_${index + 1}`} />
                     </div>
                   </div>
                 </div>
@@ -87,11 +75,11 @@ const styles = () => ({
     justifyContent: 'flex-end',
   },
   statsSectionCenter: {
-    background: '#3E3C3F',
+    background: '#403e41',
     backgroundImage: `url(${baseImg})`,
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: '675px 10px',
-    maxWidth: '1200px',
+    backgroundPosition: '-55px -52px',
+    maxWidth: '1060px',
     textAlign: 'right',
     position: 'absolute',
     overflow: 'auto',
@@ -172,7 +160,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '17px 190px 17px 150px',
+    padding: '17px 80px 17px 70px',
   },
   leftText: {
     fontFamily: 'Inter',
@@ -190,7 +178,7 @@ const styles = () => ({
     borderRadius: '50px 0px 0px 50px',
     backgroundImage: 'linear-gradient(to right, #c56e6e, #923b3c)',
     padding: '10px',
-    width: '1px',
+    width: `calc(${Math.log10(2) * 75}px)`,
     height: '40px',
     float: 'right',
     marginTop: '-15px',
@@ -200,7 +188,17 @@ const styles = () => ({
     borderRadius: '50px 0px 0px 50px',
     backgroundImage: 'linear-gradient(to right, #be73d6, #8b40a3)',
     padding: '10px',
-    width: '140px',
+    width: `calc(${Math.log10(321) * 75}px)`,
+    height: '40px',
+    float: 'right',
+    marginTop: '-15px',
+    marginRight: '-15px',
+  },
+  statBarGrants: {
+    borderRadius: '50px 0px 0px 50px',
+    backgroundImage: 'linear-gradient(to right, #6b7ea1, #384c6e)',
+    padding: '10px',
+    width: `calc(${Math.log10(782) * 75}px)`,
     height: '40px',
     float: 'right',
     marginTop: '-15px',
@@ -208,9 +206,9 @@ const styles = () => ({
   },
   statBarPublications: {
     borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #6b7ea1, #384c6e)',
+    backgroundImage: 'linear-gradient(to right, #aabbff, #7788cc)',
     padding: '10px',
-    width: '190px',
+    width: `calc(${Math.log10(4393) * 75}px)`,
     height: '40px',
     float: 'right',
     marginTop: '-15px',
@@ -218,9 +216,9 @@ const styles = () => ({
   },
   statBarDatasets: {
     borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #aabbff, #7788cc)',
+    backgroundImage: 'linear-gradient(to right, #fcb333, #c98000)',
     padding: '10px',
-    width: '140px',
+    width: `calc(${Math.log10(1369) * 75}px)`,
     height: '40px',
     float: 'right',
     marginTop: '-15px',
@@ -228,9 +226,9 @@ const styles = () => ({
   },
   statBarClinicalTrials: {
     borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #fcb333, #c98000)',
+    backgroundImage: 'linear-gradient(to right, #32a8be, #00758b)',
     padding: '10px',
-    width: '85px',
+    width: `calc(${Math.log10(256) * 75}px)`,
     height: '40px',
     float: 'right',
     marginTop: '-15px',
@@ -240,7 +238,7 @@ const styles = () => ({
     borderRadius: '50px 0px 0px 50px',
     backgroundImage: 'linear-gradient(to right, #95929a, #625f67)',
     padding: '10px',
-    width: '35px',
+    width: `calc(${Math.log10(127) * 75}px)`,
     height: '40px',
     float: 'right',
     marginTop: '-15px',
