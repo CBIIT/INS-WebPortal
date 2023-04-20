@@ -10,70 +10,137 @@ import './statsStyles.css';
 
 const linkPage = '/explore';
 
-// const dataTransform = (data) => {
-//   let transformedCount = '';
+const LandingStatsView = ({ classes, stats, statsData }) => {
+  const statBarPrograms = {
+    borderRadius: '50px 0px 0px 50px',
+    backgroundImage: 'linear-gradient(to right, #c56e6e, #923b3c)',
+    padding: '10px',
+    width: `calc(${Math.log10(statsData.numberOfPrograms) * 75}px)`,
+    height: '40px',
+    float: 'right',
+    marginTop: '-15px',
+    marginRight: '-15px',
+  };
 
-//   if (data >= 1000) {
-//     transformedCount = `${data.toString().slice(0, -3)}K`;
-//   } else {
-//     transformedCount = data.toString();
-//   }
+  const statBarProjects = {
+    borderRadius: '50px 0px 0px 50px',
+    backgroundImage: 'linear-gradient(to right, #be73d6, #8b40a3)',
+    padding: '10px',
+    width: `calc(${Math.log10(statsData.numberOfCoreProjects) * 75}px)`,
+    height: '40px',
+    float: 'right',
+    marginTop: '-15px',
+    marginRight: '-15px',
+  };
 
-//   return transformedCount;
-// };
+  const statBarGrants = {
+    borderRadius: '50px 0px 0px 50px',
+    backgroundImage: 'linear-gradient(to right, #6b7ea1, #384c6e)',
+    padding: '10px',
+    width: `calc(${Math.log10(statsData.numberOfProjects) * 75}px)`,
+    height: '40px',
+    float: 'right',
+    marginTop: '-15px',
+    marginRight: '-15px',
+  };
 
-const LandingStatsView = ({ classes, stats, statsData }) => (
-  <>
-    <div className={classnames({
-      [classes.statsSection]: stats.length < 6,
-      [classes.statsSectionCenter]: stats.length === 6,
-    })}
-    >
-      <div className={classes.leftBox}>
-        <div className={classes.leftGroup}>
-          <div className={classes.leftText}>
-            INS compiles programs, projects, and outputs funded by the NCI.
-            <br />
-            <br />
-            Explore the data
-            <Link to={linkPage} className={classes.linkText}> here</Link>
-            .
+  const statBarPublications = {
+    borderRadius: '50px 0px 0px 50px',
+    backgroundImage: 'linear-gradient(to right, #aabbff, #7788cc)',
+    padding: '10px',
+    width: `calc(${Math.log10(statsData.numberOfPublications) * 75}px)`,
+    height: '40px',
+    float: 'right',
+    marginTop: '-15px',
+    marginRight: '-15px',
+  };
+
+  const statBarDatasets = {
+    borderRadius: '50px 0px 0px 50px',
+    backgroundImage: 'linear-gradient(to right, #fcb333, #c98000)',
+    padding: '10px',
+    width: `calc(${Math.log10(statsData.numberOfDatasets) * 75}px)`,
+    height: '40px',
+    float: 'right',
+    marginTop: '-15px',
+    marginRight: '-15px',
+  };
+
+  const statBarClinicalTrials = {
+    borderRadius: '50px 0px 0px 50px',
+    backgroundImage: 'linear-gradient(to right, #32a8be, #00758b)',
+    padding: '10px',
+    width: `calc(${Math.log10(statsData.numberOfClinicalTrials) * 75}px)`,
+    height: '40px',
+    float: 'right',
+    marginTop: '-15px',
+    marginRight: '-15px',
+  };
+
+  const statBarPatents = {
+    borderRadius: '50px 0px 0px 50px',
+    backgroundImage: 'linear-gradient(to right, #95929a, #625f67)',
+    padding: '10px',
+    width: `calc(${Math.log10(statsData.numberOfPatents) * 75}px)`,
+    height: '40px',
+    float: 'right',
+    marginTop: '-15px',
+    marginRight: '-15px',
+  };
+
+  return (
+    <>
+      <div className={classnames({
+        [classes.statsSection]: stats.length < 7,
+        [classes.statsSectionCenter]: stats.length === 7,
+      })}
+      >
+        <div className={classes.leftBox}>
+          <div className={classes.leftGroup}>
+            <div className={classes.leftText}>
+              INS compiles programs, projects, and outputs funded by the NCI.
+              <br />
+              <br />
+              Explore the data
+              <Link to={linkPage} className={classes.linkText}> here</Link>
+              .
+            </div>
           </div>
         </div>
-      </div>
-      <div className="statsBox">
-        {stats.length > 0 && (
-          <div
-            className={classnames({
-              [classes.boxCut]: stats.length < 6,
-              [classes.box]: stats.length === 6,
-            })}
-          >
-            {
-              stats.map((stat, index) => (
-                <div className={classes.statsGroup}>
-                  <div className={classes.statsText}>
-                    <div className="statsFadeIn">
-                      <div className={classes.statTitle} id={`title_${index + 1}`}>
-                        {stat.statTitle}
+        <div className="statsBox">
+          {stats.length > 0 && (
+            <div
+              className={classnames({
+                [classes.boxCut]: stats.length < 7,
+                [classes.box]: stats.length === 7,
+              })}
+            >
+              {
+                stats.map((stat, index) => (
+                  <div className={classes.statsGroup}>
+                    <div className={classes.statsText}>
+                      <div className="statsFadeIn">
+                        <div className={classes.statTitle} id={`title_${index + 1}`}>
+                          {stat.statTitle}
+                        </div>
+                        <div className={stat.statTitle === 'Programs' ? classes.statCountShort : classes.statCount} id={`count_${index + 1}`}>
+                          {statsData[stat.statAPI]}
+                        </div>
                       </div>
-                      <div className={classes.statCount} id={`count_${index + 1}`}>
-                        {statsData[stat.statAPI]}
+                      <div className="statsSlide">
+                        <div style={stat.statTitle === 'Programs' ? statBarPrograms : stat.statTitle === 'Projects' ? statBarProjects : stat.statTitle === 'Grants' ? statBarGrants : stat.statTitle === 'Publications' ? statBarPublications : stat.statTitle === 'Datasets' ? statBarDatasets : stat.statTitle === 'Clinical Trials' ? statBarClinicalTrials : statBarPatents} id={`bar_${index + 1}`} />
                       </div>
-                    </div>
-                    <div className="statsSlide">
-                      <div className={classnames({ [classes.statBarPrograms]: stat.statTitle === 'Programs', [classes.statBarProjects]: stat.statTitle === 'Projects', [classes.statBarPublications]: stat.statTitle === 'Publications', [classes.statBarDatasets]: stat.statTitle === 'Datasets', [classes.statBarClinicalTrials]: stat.statTitle === 'Clinical Trials', [classes.statBarPatents]: stat.statTitle === 'Patents' })} id={`bar_${index + 1}`} />
                     </div>
                   </div>
-                </div>
-              ))
-            }
-          </div>
-        )}
+                ))
+              }
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
 const styles = () => ({
   statsSection: {
@@ -87,11 +154,11 @@ const styles = () => ({
     justifyContent: 'flex-end',
   },
   statsSectionCenter: {
-    background: '#3E3C3F',
+    background: '#403e41',
     backgroundImage: `url(${baseImg})`,
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: '675px 10px',
-    maxWidth: '1200px',
+    backgroundPosition: '-55px -52px',
+    maxWidth: '1060px',
     textAlign: 'right',
     position: 'absolute',
     overflow: 'auto',
@@ -148,6 +215,17 @@ const styles = () => ({
     textTransform: 'uppercase',
     paddingRight: '10px',
   },
+  statCountShort: {
+    display: 'inline-block',
+    color: '#FFFFFF',
+    textAlign: 'right',
+    float: 'right',
+    fontFamily: 'Oswald',
+    fontSize: '24px',
+    fontWeight: 600,
+    marginRight: '5px',
+    marginLeft: '30px',
+  },
   statCount: {
     display: 'inline-block',
     color: '#FFFFFF',
@@ -172,7 +250,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '17px 190px 17px 150px',
+    padding: '17px 50px 17px 70px',
   },
   leftText: {
     fontFamily: 'Inter',
@@ -185,66 +263,6 @@ const styles = () => ({
   linkText: {
     color: '#E26063',
     textDecoration: 'none',
-  },
-  statBarPrograms: {
-    borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #c56e6e, #923b3c)',
-    padding: '10px',
-    width: '1px',
-    height: '40px',
-    float: 'right',
-    marginTop: '-15px',
-    marginRight: '-15px',
-  },
-  statBarProjects: {
-    borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #be73d6, #8b40a3)',
-    padding: '10px',
-    width: '140px',
-    height: '40px',
-    float: 'right',
-    marginTop: '-15px',
-    marginRight: '-15px',
-  },
-  statBarPublications: {
-    borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #6b7ea1, #384c6e)',
-    padding: '10px',
-    width: '190px',
-    height: '40px',
-    float: 'right',
-    marginTop: '-15px',
-    marginRight: '-15px',
-  },
-  statBarDatasets: {
-    borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #aabbff, #7788cc)',
-    padding: '10px',
-    width: '140px',
-    height: '40px',
-    float: 'right',
-    marginTop: '-15px',
-    marginRight: '-15px',
-  },
-  statBarClinicalTrials: {
-    borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #fcb333, #c98000)',
-    padding: '10px',
-    width: '85px',
-    height: '40px',
-    float: 'right',
-    marginTop: '-15px',
-    marginRight: '-15px',
-  },
-  statBarPatents: {
-    borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #95929a, #625f67)',
-    padding: '10px',
-    width: '35px',
-    height: '40px',
-    float: 'right',
-    marginTop: '-15px',
-    marginRight: '-15px',
   },
   leftBox: {
     width: '1915px',

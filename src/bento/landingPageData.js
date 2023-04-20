@@ -73,6 +73,10 @@ export const landingPageData = {
     },
     {
       statTitle: 'Projects',
+      statAPI: 'numberOfCoreProjects',
+    },
+    {
+      statTitle: 'Grants',
       statAPI: 'numberOfProjects',
     },
     {
@@ -128,6 +132,7 @@ export const landingPageData = {
 // --------------- GraphQL query - Retrieve Landing page data --------------
 export const GET_LANDING_PAGE_DATA_QUERY = gql`{
   numberOfPrograms
+  numberOfCoreProjects
   numberOfProjects
   numberOfPublications
   numberOfDatasets
