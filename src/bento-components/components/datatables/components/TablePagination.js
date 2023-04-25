@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MuiTableRow from '@material-ui/core/TableRow';
 import MuiTableFooter from '@material-ui/core/TableFooter';
@@ -47,6 +47,64 @@ class TablePagination extends React.Component {
   handlePageChange = (_, page) => {
     this.props.changePage(page);
   };
+
+  // TablePaginationActions(props) {
+  //   const handleFirstPageButtonClick = (event) => {
+  //     onPageChange(event, 0)
+  //   }
+
+  //   const handleBackButtonClick = (event) => {
+  //     onPageChange(event, page - 1)
+  //   }
+
+  //   const handleNextButtonClick = (event) => {
+  //     onPageChange(event, page + 1)
+  //   }
+
+  //   const handleLastPageButtonClick = (event) => {
+  //     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1))
+  //   }
+
+  //   return (
+  //     <div className={classes.root}>
+  //       <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0} aria-label='first page' size='large'>
+  //         {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+  //       </IconButton>
+  //       <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label='previous page' size='large'>
+  //         {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+  //       </IconButton>
+  //       <IconButton
+  //         onClick={handleNextButtonClick}
+  //         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+  //         aria-label='next page'
+  //         size='large'
+  //       >
+  //         {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+  //       </IconButton>
+  //       <IconButton
+  //         onClick={handleLastPageButtonClick}
+  //         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+  //         aria-label='last page'
+  //         size='large'
+  //       >
+  //         {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+  //       </IconButton>
+  //     </div>
+  //   )
+  // }
+
+  // handleChangePage = useCallback(
+  //   (event, newPage) => {
+  //     if (newPage === pageIndex + 1) {
+  //       nextPage()
+  //     } else if (newPage === pageIndex - 1) {
+  //       previousPage()
+  //     } else {
+  //       gotoPage(newPage)
+  //     }
+  //   },
+  //   [gotoPage, nextPage, pageIndex, previousPage]
+  // )
 
   render() {
     const {
@@ -101,6 +159,9 @@ class TablePagination extends React.Component {
             rowsPerPageOptions={options.rowsPerPageOptions}
             onChangePage={this.handlePageChange}
             onChangeRowsPerPage={this.handleRowChange}
+            // component='div'
+            // onChangePage={handleChangePage}
+            // ActionsComponent={TablePaginationActions}
           />
         </MuiTableRow>
       </MuiTableFooter>
