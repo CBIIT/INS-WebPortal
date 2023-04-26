@@ -22,7 +22,7 @@ export default ({
       root: {
         minHeight: '15px',
         top: '-40px',
-        right: '375px',
+        right: '400px',
         marginBottom: '-35px',
       },
     };
