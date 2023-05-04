@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Footer } from 'bento-components';
+import { Footer } from '../../bento-components';
 import FooterData from '../../bento/globalFooterData';
 import env from '../../utils/env';
 import './footer.css';
@@ -33,13 +33,13 @@ const INSFooter = () => {
       <Footer classes={styles} data={footerUpdatedData} />
       <div>
         <div className="beVersion">
-          Software Version: v1.1.0
+          Software Version: v1.2.0
           <br />
           <br />
-          Site Data Update (Projects, Publications, Patents): 09/26/2022
+          Site Data Update (Projects, Grants, Publications, Datasets, Clinical Trials): 04/04/2023
           <br />
           <br />
-          Site Data Update (Datasets, Clinical Trials): 05/26/2022
+          Site Data Update (Patents): 03/02/2023
         </div>
       </div>
     </>

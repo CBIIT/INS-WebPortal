@@ -35,5 +35,6 @@ module.exports = {
     "no-sequences":"off",
     "no-console":"off",
     "no-unused-vars":"off",
+    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
   },
 };

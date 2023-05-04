@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header } from 'bento-components';
 import { withRouter } from 'react-router-dom';
+import { Header } from '../../bento-components';
 import headerData from '../../bento/globalHeaderData';
 import SearchAUtoFill from '../Search/searchAutoFillComponent';
 

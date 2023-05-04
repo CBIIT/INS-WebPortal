@@ -1,5 +1,47 @@
 import gql from 'graphql-tag';
 
+export const GET_PROGRAMS_LIST_TABLE = gql`
+  query programInfo(
+    $first: Int,
+    $order_by: String,
+    $sort_direction: String 
+    ){
+      programInfo(
+      first: $first,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+      )  {
+    program_id
+    program_name
+    program_description
+    program_website
+    num_projects
+    num_publications
+ }
+}
+ `;
+
+export const customProgramsListTableDownloadCSV = {
+  keysToInclude: [
+    'program_id',
+    'program_name',
+    'program_website',
+    'num_projects',
+    'num_publications',
+  ],
+  header: [
+    'Program',
+    'Name',
+    'Program Website',
+    'Number of Projects',
+    'Number of Publications',
+  ],
+  query: GET_PROGRAMS_LIST_TABLE,
+  apiVariable: 'programInfo',
+  fileName: 'INS Programs List',
+  defaultFullTableDownload: true,
+};
+
 export const GET_PROGRAMS_TABLE = gql`
 query projectOverView(
   $programs: [String],
@@ -13,6 +55,7 @@ query projectOverView(
     order_by: $order_by,
     sort_direction: $sort_direction
     ) {
+    queried_project_id,
     project_id,
     application_id,
     fiscal_year,
@@ -40,6 +83,7 @@ query projectOverView(
 
 export const customProgramsTableDownloadCSV = {
   keysToInclude: [
+    'queried_project_id',
     'project_id',
     'project_title',
     'principal_investigators',
@@ -52,6 +96,7 @@ export const customProgramsTableDownloadCSV = {
   ],
   header: [
     'Project ID',
+    'Grant ID',
     'Project Title',
     'Principal Investigators',
     'Program Officers',
@@ -63,7 +108,7 @@ export const customProgramsTableDownloadCSV = {
   ],
   query: GET_PROGRAMS_TABLE,
   apiVariable: 'projectOverView',
-  fileName: 'INS Programs',
+  fileName: 'INS Program Details',
   defaultFullTableDownload: true,
 };
 
@@ -89,6 +134,7 @@ query projectOverView(
     sort_direction: $sort_direction
     ) {
     project_id,
+    queried_project_id,
     application_id,
     fiscal_year,
     activity_code,
@@ -116,6 +162,7 @@ query projectOverView(
 
 export const customProjectsTabDownloadCSV = {
   keysToInclude: [
+    'queried_project_id',
     'project_id',
     'program',
     'project_title',
@@ -129,6 +176,7 @@ export const customProjectsTabDownloadCSV = {
   ],
   header: [
     'Project ID',
+    'Grant ID',
     'Program',
     'Project Title',
     'Principal Investigators',
@@ -141,7 +189,7 @@ export const customProjectsTabDownloadCSV = {
   ],
   query: GET_PROJECTS_TAB,
   apiVariable: 'projectOverView',
-  fileName: 'INS Projects',
+  fileName: 'INS Grants',
   defaultFullTableDownload: true,
 };
 
@@ -364,16 +412,85 @@ export const customPatentsTabDownloadCSV = {
   defaultFullTableDownload: true,
 };
 
+export const GET_CASE_DETAIL_PROJECTS_TAB = gql`
+query projectOverViewByProject(
+  $queried_project_id: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  projectOverViewByProject(
+    queried_project_id: $queried_project_id,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+  ) {
+    project_id,
+    queried_project_id,
+    application_id,
+    fiscal_year,
+    activity_code,
+    project_title,
+    project_type,
+    abstract_text,
+    keywords,
+    org_name,
+    org_city,
+    org_state,
+    org_country,
+    principal_investigators,
+    lead_doc,
+    program_officers,
+    award_amount,
+    nci_funded_amount,
+    award_notice_date,
+    project_start_date,
+    project_end_date,
+    full_foa,
+    program
+  }
+}
+  `;
+
+export const customCaseDetailProjectsTabDownloadCSV = {
+  keysToInclude: [
+    'project_id',
+    'program',
+    'project_title',
+    'principal_investigators',
+    'program_officers',
+    'lead_doc',
+    'award_amount',
+    'fiscal_year',
+  ],
+  header: [
+    'Grant ID',
+    'Program',
+    'Project Title',
+    'Principal Investigators',
+    'Program Officers',
+    'Lead DOC',
+    'Award Amount',
+    'Fiscal Year',
+  ],
+  query: GET_CASE_DETAIL_PROJECTS_TAB,
+  apiVariable: 'projectOverViewByProject',
+  fileName: 'INS Project Details Grants',
+  defaultFullTableDownload: true,
+};
+
 export const GET_CASE_DETAIL_PUBLICATIONS_TAB = gql`
 query publicationOverViewByProject(
-  $project_id: [String],
+  $queried_project_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
   publicationOverViewByProject(
-    project_id: $project_id,
+    queried_project_ids: $queried_project_ids,
     first: $first,
     offset: $offset,
     order_by: $order_by,
@@ -412,20 +529,20 @@ export const customCaseDetailPublicationsTabDownloadCSV = {
   ],
   query: GET_CASE_DETAIL_PUBLICATIONS_TAB,
   apiVariable: 'publicationOverViewByProject',
-  fileName: 'INS Case Detail Publications',
+  fileName: 'INS Project Details Publications',
   defaultFullTableDownload: true,
 };
 
 export const GET_CASE_DETAIL_DATASETS_TAB = gql`
 query datasetOverViewByProject(
-  $project_id: [String],
+  $queried_project_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
   datasetOverViewByProject(
-    project_id: $project_id,
+    queried_project_ids: $queried_project_ids,
     first: $first,
     offset: $offset,
     order_by: $order_by,
@@ -465,20 +582,20 @@ export const customCaseDetailDatasetsTabDownloadCSV = {
   ],
   query: GET_CASE_DETAIL_DATASETS_TAB,
   apiVariable: 'datasetOverViewByProject',
-  fileName: 'INS Case Detail Datasets',
+  fileName: 'INS Project Details Datasets',
   defaultFullTableDownload: true,
 };
 
 export const GET_CASE_DETAIL_CLINICAL_TRIALS_TAB = gql`
 query clinicalTrialOverViewByProject(
-  $project_id: [String],
+  $queried_project_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
   clinicalTrialOverViewByProject(
-    project_id: $project_id,
+    queried_project_ids: $queried_project_ids,
     first: $first,
     offset: $offset,
     order_by: $order_by,
@@ -507,20 +624,20 @@ export const customCaseDetailClinicalTrialsTabDownloadCSV = {
   ],
   query: GET_CASE_DETAIL_CLINICAL_TRIALS_TAB,
   apiVariable: 'clinicalTrialOverViewByProject',
-  fileName: 'INS Case Detail Clinical Trials',
+  fileName: 'INS Project Details Clinical Trials',
   defaultFullTableDownload: true,
 };
 
 export const GET_CASE_DETAIL_PATENTS_TAB = gql`
 query patentOverViewByProject(
-  $project_id: [String],
+  $queried_project_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
   patentOverViewByProject(
-    project_id: $project_id,
+    queried_project_ids: $queried_project_ids,
     first: $first,
     offset: $offset,
     order_by: $order_by,
@@ -543,7 +660,7 @@ export const customCaseDetailPatentsTabDownloadCSV = {
   ],
   query: GET_CASE_DETAIL_PATENTS_TAB,
   apiVariable: 'patentOverViewByProject',
-  fileName: 'INS Case Detail Patents',
+  fileName: 'INS Project Details Patents',
   defaultFullTableDownload: true,
 };
 

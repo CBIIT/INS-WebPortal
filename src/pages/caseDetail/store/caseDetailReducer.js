@@ -9,6 +9,7 @@ import {
   tabContainers,
   tabIndex,
   CASE_DETAIL_QUERY,
+  GET_PROJECTS_OVERVIEW_QUERY,
   GET_PUBLICATIONS_OVERVIEW_QUERY,
   GET_DATASETS_OVERVIEW_QUERY,
   GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
@@ -68,6 +69,8 @@ export function fetchCaseDetailTab(projectID) {
 
 const querySwitch = (payload, tabContainer) => {
   switch (payload) {
+    case ('Grants'):
+      return { QUERY: GET_PROJECTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     case ('Publications'):
       return { QUERY: GET_PUBLICATIONS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     case ('Datasets'):
@@ -108,7 +111,12 @@ export function fetchDataForCaseDetailTab(
   projectID,
 ) {
   const { QUERY, sortfield, sortDirection } = getQueryAndDefaultSort(payload);
-  const activeFilters = { project_id: projectID };
+  let activeFilters = { queried_project_ids: projectID };
+
+  if (payload === 'Grants') {
+    activeFilters = { queried_project_id: projectID };
+  }
+
   return client
     .query({
       query: QUERY,
@@ -175,6 +183,7 @@ const reducers = {
       currentActiveTab: item.currentTab,
       datatable: {
         ...state.datatable,
+        dataProjects: item.data.projectOverViewByProject,
         dataPublication: item.data.publicationOverViewByProject,
         dataDataset: item.data.datasetOverViewByProject,
         dataClinicalTrial: item.data.clinicalTrialOverViewByProject,
@@ -186,7 +195,7 @@ const reducers = {
   SET_CASE_DETAIL_TABLE_LOADING: (state) => ({ ...state, isCaseDetailTableLoading: true }),
   RECEIVE_CASE_DETAIL_TAB: (state, rawItem) => {
     const item = rawItem;
-    const filter = { project_id: item.data.projectDetail.project_id };
+    const filter = { project_id: item.data.projectDetail.queried_project_id, queried_project_id: item.data.projectDetail.queried_project_id, queried_project_ids: item.data.projectDetail.queried_project_id };
     return item.data
       ? {
         ...state.caseDetail,

@@ -5,7 +5,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { getOptions, getColumns, CustomActiveDonut } from 'bento-components';
+import { getOptions, getColumns, CustomActiveDonut } from '../../bento-components';
 import GridWithFooter from '../../components/GridWithFooter/GridView';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
@@ -57,6 +57,7 @@ const ArmDetail = ({ data, classes }) => {
   const stat = {
     numberOfPrograms: 1,
     numberOfProjects: 1,
+    numberOfCoreProjects: data.numberOfCoreProjects,
     numberOfPublications: data.programPublicationCount,
     numberOfDatasets: data.programDatasetCount,
     numberOfClinicalTrials: data.programClinicalTrialCount,
@@ -79,7 +80,7 @@ const ArmDetail = ({ data, classes }) => {
               <img
                 className={classes.caseIcon}
                 src={icon}
-                alt="Bento arm detail header logo"
+                alt="INS arm detail header logo"
               />
 
             </div>
@@ -159,7 +160,7 @@ const ArmDetail = ({ data, classes }) => {
                   </Widget>
                 </div>
                 {/* File count */}
-                <NumberOfThings classes={classes} number={data.num_files} icon={fileCountIcon} title="NUMBER OF FILES" alt="Bento file count icon" />
+                <NumberOfThings classes={classes} number={data.num_files} icon={fileCountIcon} title="NUMBER OF FILES" alt="INS file count icon" />
               </div>
             </Grid>
             {/* Right panel end */}

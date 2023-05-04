@@ -7,9 +7,75 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import cloneDeep from 'lodash/cloneDeep';
 import { CircularProgress, Backdrop, withStyles } from '@material-ui/core';
-import { CustomDataTable } from 'bento-components';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import LastPageIcon from '@material-ui/icons/LastPage';
+import { CustomDataTable } from '../../bento-components';
 import client from '../../utils/graphqlClient';
 import CSVDownloadToolbar from './components/CSVDownloadCustomToolbar';
+
+const useStyles1 = makeStyles((theme) => ({
+  root: {
+    flexShrink: 0,
+    marginLeft: theme.spacing(2.5),
+  },
+}));
+
+function TablePaginationActions(props) {
+  const classes = useStyles1();
+  const theme = useTheme();
+  const {
+    count, page, rowsPerPage, onPageChange,
+  } = props;
+
+  const handleFirstPageButtonClick = (event) => {
+    onPageChange(event, 0);
+  };
+
+  const handleBackButtonClick = (event) => {
+    onPageChange(event, page - 1);
+  };
+
+  const handleNextButtonClick = (event) => {
+    onPageChange(event, page + 1);
+  };
+
+  const handleLastPageButtonClick = (event) => {
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+  };
+
+  return (
+    <div className={classes.root}>
+      <IconButton
+        onClick={handleFirstPageButtonClick}
+        disabled={page === 0}
+        aria-label="first page"
+      >
+        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+      </IconButton>
+      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
+        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+      </IconButton>
+      <IconButton
+        onClick={handleNextButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="next page"
+      >
+        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+      </IconButton>
+      <IconButton
+        onClick={handleLastPageButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="last page"
+      >
+        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+      </IconButton>
+    </div>
+  );
+}
 
 class ServerPaginatedTableView extends React.Component {
   state = {
@@ -263,24 +329,24 @@ class ServerPaginatedTableView extends React.Component {
       });
     }
     let fetchResult = [];
-    if (this.props.data && this.props.data.length > this.state.rowsPerPage) {
-      const newData = [...this.props.data];
-      const sortedData = this.getSortData(newData, sortColumn, sortDirection);
-      fetchResult = sortedData.splice(offsetReal, this.state.rowsPerPage);
-    } else {
-      fetchResult = await client
-        .query({
-          query: this.props.overview,
-          variables: {
-            offset: offsetReal,
-            first: this.props.count < rowsRequired ? this.props.count : rowsRequired,
-            order_by: sortColumn,
-            sort_direction: sortDirection,
-            ...this.props.queryCustomVaribles,
-          },
-        })
-        .then((result) => (result.data[this.props.paginationAPIField]));
-    }
+    // if (this.props.data && this.props.data.length > this.state.rowsPerPage) {
+    //   const newData = [...this.props.data];
+    //   const sortedData = this.getSortData(newData, sortColumn, sortDirection);
+    //   fetchResult = sortedData.splice(offsetReal, this.state.rowsPerPage);
+    // } else {
+    fetchResult = await client
+      .query({
+        query: this.props.overview,
+        variables: {
+          offset: offsetReal,
+          first: this.props.count < rowsRequired ? this.props.count : rowsRequired,
+          order_by: sortColumn,
+          sort_direction: sortDirection,
+          ...this.props.queryCustomVaribles,
+        },
+      })
+      .then((result) => (result.data[this.props.paginationAPIField]));
+    // }
     if (this.props.updateSortOrder) {
       localStorage.setItem('dataLength', String(fetchResult.length));
       localStorage.setItem('data', JSON.stringify(fetchResult));
@@ -337,6 +403,7 @@ class ServerPaginatedTableView extends React.Component {
               onChangeRowsPerPage={(event) => { this.setState({ rowsPerPage: event.target.value }); changePage(page); changeRowsPerPage(event.target.value); }}
               // eslint-disable-next-line no-shadow
               onChangePage={(_, page) => changePage(page)}
+              ActionsComponent={TablePaginationActions}
             />
           </TableRow>
         </TableFooter>
@@ -374,20 +441,23 @@ class ServerPaginatedTableView extends React.Component {
       }
       options1.page = newPage;
     }
-    let updatedData = data === 'undefined' ? [] : [...data];
-    if (data.length > rowsPerPage) {
-      const newData = [...data];
-      const sortedData = this.getSortData(newData, sortOrder.name, sortOrder.direction);
-      updatedData = sortedData.splice(0, rowsPerPage);
-    }
+    const updatedData = data === 'undefined' ? [] : [...data];
+    // let updatedData = data === 'undefined' ? [] : [...data];
+    // if (data.length > rowsPerPage) {
+    //   const newData = [...data];
+    //   const sortedData = this.getSortData(newData, sortOrder.name, sortOrder.direction);
+    //   updatedData = sortedData.splice(0, rowsPerPage);
+    // }
     const formatedUpdatedData = [];
     updatedData.forEach((dt) => {
       const tmp = { ...dt };
-      this.props.dataTransformation.forEach((column) => {
-        const cb = column.dataTransform;
-        const attribute = column.dataField;
-        tmp[attribute] = cb(tmp[attribute]);
-      });
+      if (this.props.dataTransformation) {
+        this.props.dataTransformation.forEach((column) => {
+          const cb = column.dataTransform;
+          const attribute = column.dataField;
+          tmp[attribute] = cb(tmp[attribute]);
+        });
+      }
       formatedUpdatedData.push(tmp);
     });
 

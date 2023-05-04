@@ -1,19 +1,20 @@
 import { Grid, withStyles } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { prepareLinks } from 'bento-components';
+import { prepareLinks } from '../../../../bento-components';
 import PropertyItem from '../propertyItem';
 
 const ProjectCard = ({ data, classes, index }) => {
   const properties = [
     {
       label: 'Project ID',
-      dataField: 'project_id',
-      link: '/project/{project_id}',
+      dataField: 'queried_project_id',
+      link: '/project/{queried_project_id}',
     },
     {
       label: 'Program',
       dataField: 'program',
+      link: '/program/{program}',
     },
     {
       label: 'Project Title',
@@ -31,22 +32,6 @@ const ProjectCard = ({ data, classes, index }) => {
       label: 'Lead DOC',
       dataField: 'lead_doc',
     },
-    // {
-    //   label: 'Activity Code',
-    //   dataField: 'activity_code',
-    // },
-    // {
-    //   label: 'Award Amount',
-    //   dataField: 'award_amount',
-    // },
-    // {
-    //   label: 'Project End Date',
-    //   dataField: 'project_end_date',
-    // },
-    // {
-    //   label: 'Fiscal Year',
-    //   dataField: 'fiscal_year',
-    // },
   ];
 
   const propertiesWithLinks = prepareLinks(properties, data);
@@ -59,12 +44,9 @@ const ProjectCard = ({ data, classes, index }) => {
         </Grid>
         <Grid item xs={11} className={classes.propertyContainer}>
           <div>
-            <span className={classes.detailContainerHeader}>PROJECT</span>
-            <span>
-              <Link to={`/project/${data.project_id}`} className={classes.cardTitle}>
-                {data.project_id}
-              </Link>
-
+            <span className={classes.detailContainerHeader}>GRANT</span>
+            <span className={classes.cardTitle}>
+              {data.project_id}
             </span>
           </div>
           {propertiesWithLinks.map((prop) => (
@@ -72,8 +54,6 @@ const ProjectCard = ({ data, classes, index }) => {
               label={prop.label}
               value={data[prop.dataField]}
               link={prop.link}
-              // labelLink={prop.labelLink}
-              // classes={classes}
               index
             />
           ))}

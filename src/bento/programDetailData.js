@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { customProgramsTableDownloadCSV } from './tableDownloadCSV';
+import programIcon from '../assets/icons/Icon-Programs.png';
 
 // --------------- Page title configuration --------------
 const pageTitle = {
@@ -19,7 +20,7 @@ const breadCrumb = {
 // --------------- Aggregated count configuration --------------
 const aggregateCount = {
   labelText: 'Projects',
-  dataField: 'num_projects',
+  dataField: 'num_core_projects',
   link: '/explore',
   display: true,
 };
@@ -28,8 +29,8 @@ const aggregateCount = {
 // Ideal size for programDetailIcon is 107x107 px
 // Ideal size for externalLinkIcon is 16x16 px
 const programDetailIcon = {
-  src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/programIcon.svg',
-  alt: 'Bento program logo',
+  src: programIcon,
+  alt: 'INS program logo',
 };
 
 const externalLinkIcon = {
@@ -84,8 +85,8 @@ const rightPanel = {
 
 // --------------- Table configuration --------------
 const table = {
-  name: 'Projects',
-  title: 'Projects',
+  name: 'Grants',
+  title: 'Grants',
   display: true,
   dataField: 'dataProject',
   api: 'GET_PROJECTS_OVERVIEW_QUERY',
@@ -114,10 +115,19 @@ const table = {
   columns: [
     {
       dataField: 'project_id',
+      header: 'Grant ID',
+      sort: 'asc',
+      primary: true,
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
+    },
+    {
+      dataField: 'queried_project_id',
       header: 'Project ID',
       sort: 'asc',
-      link: '/project/{project_id}',
-      primary: true,
+      link: '/project/{queried_project_id}',
       display: true,
       headerStyles: {
         width: '10%',
@@ -156,7 +166,7 @@ const table = {
       sort: 'asc',
       display: true,
       headerStyles: {
-        width: '10%',
+        width: '5%',
       },
     },
     {
@@ -165,7 +175,7 @@ const table = {
       sort: 'asc',
       display: true,
       headerStyles: {
-        width: '10%',
+        width: '5%',
       },
     },
     {
@@ -210,7 +220,6 @@ const table = {
   disableRowSelection: 'type1',
   tableID: 'project_tab_table',
   selectableRows: false,
-  tabIndex: '0',
   tableDownloadCSV: customProgramsTableDownloadCSV,
   downloadFileName: 'programs_download',
   headerPagination: true,
@@ -241,6 +250,7 @@ query programDetail($program_id: String!) {
     program_description
     program_website
     num_projects
+    num_core_projects
   }
 }`;
 

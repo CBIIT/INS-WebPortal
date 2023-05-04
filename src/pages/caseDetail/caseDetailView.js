@@ -20,7 +20,8 @@ import Tabs from './caseDetailTabController';
 const CaseDetail = ({ data, classes }) => {
   const stat = {
     numberOfPrograms: 1,
-    numberOfProjects: 1,
+    numberOfCoreProjects: 1,
+    numberOfProjects: data.num_projects,
     numberOfPublications: data.num_publications,
     numberOfDatasets: data.num_datasets,
     numberOfClinicalTrials: data.num_clinical_trials,
@@ -43,7 +44,7 @@ const CaseDetail = ({ data, classes }) => {
               <img
                 className={classes.caseIcon}
                 src={icon}
-                alt="Bento case detail header logo"
+                alt="INS case detail header logo"
               />
             </div>
             <div className={classes.headerTitle}>
@@ -103,7 +104,7 @@ const CaseDetail = ({ data, classes }) => {
         </div>
       </div>
       <div className={classes.detailTabContainer}>
-        <Tabs projectID={data.project_id} />
+        <Tabs projectID={data.queried_project_id} />
       </div>
       <div className={classes.blankSpace} />
     </>

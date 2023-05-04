@@ -8,7 +8,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import HelpIcon from '@material-ui/icons/Help';
-import { ToolTip } from 'bento-components';
+import { ToolTip } from '../../../../bento-components';
 import {
   uploadBulkModalSearch, getAllSubjectIds,
 } from '../../../../pages/dashboardTab/store/dashboardReducer';

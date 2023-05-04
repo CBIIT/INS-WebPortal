@@ -13,7 +13,7 @@ import {
   getDonutDataFromDashboardData,
   transformInitialDataForSunburst,
   transformAPIDataIntoCheckBoxData,
-} from 'bento-components';
+} from '../../../bento-components';
 import store from '../../../store';
 import client from '../../../utils/graphqlClient';
 import { SEARCH_PAGE_RESULTS, SEARCH } from '../../../bento/search';
@@ -422,6 +422,7 @@ const convertResultInPrevType = (result) => {
     nodeCountsFromLists: {
       numberOfPrograms: result.data.searchProjects.numberOfPrograms,
       numberOfProjects: result.data.searchProjects.numberOfProjects,
+      numberOfCoreProjects: result.data.searchProjects.numberOfCoreProjects,
       numberOfPublications: result.data.searchProjects.numberOfPublications,
       numberOfDatasets: result.data.searchProjects.numberOfDatasets,
       numberOfClinicalTrials: result.data.searchProjects.numberOfClinicalTrials,
@@ -598,7 +599,7 @@ export function addAutoComplete({ newValue, type, isFilteredData = false }) {
 
 const querySwitch = (payload, tabContainer) => {
   switch (payload) {
-    case ('Projects'):
+    case ('Grants'):
       return { QUERY: GET_PROJECTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     case ('Publications'):
       return { QUERY: GET_PUBLICATIONS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
@@ -914,10 +915,10 @@ function createSingleFilterVariables(payload) {
  * @return {json}
  */
 
-function sortByCheckboxByIsChecked(checkboxData) {
-  checkboxData.sort((a, b) => b.isChecked - a.isChecked);
-  return checkboxData;
-}
+// function sortByCheckboxByIsChecked(checkboxData) {
+//   checkboxData.sort((a, b) => b.isChecked - a.isChecked);
+//   return checkboxData;
+// }
 
 /**
  * Sort checkboxes by Alphabet
@@ -928,7 +929,8 @@ function sortByCheckboxByIsChecked(checkboxData) {
 
 function sortByCheckboxItemsByAlphabet(checkboxData) {
   const sortCheckbox = customSort(checkboxData);
-  return sortByCheckboxByIsChecked(sortCheckbox);
+  // return sortByCheckboxByIsChecked(sortCheckbox);
+  return sortCheckbox;
 }
 
 /**
@@ -940,7 +942,8 @@ function sortByCheckboxItemsByAlphabet(checkboxData) {
 
 function sortByCheckboxItemsByCount(checkboxData) {
   checkboxData.sort((a, b) => b.subjects - a.subjects);
-  return sortByCheckboxByIsChecked(checkboxData);
+  // return sortByCheckboxByIsChecked(checkboxData);
+  return checkboxData;
 }
 
 /**
