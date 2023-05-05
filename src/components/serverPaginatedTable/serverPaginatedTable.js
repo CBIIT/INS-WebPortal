@@ -16,6 +16,7 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 import { CustomDataTable } from '../../bento-components';
 import client from '../../utils/graphqlClient';
 import CSVDownloadToolbar from './components/CSVDownloadCustomToolbar';
+import CSVDownloadToolbarDisabled from './components/CSVDownloadCustomToolbarDisabled';
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -370,14 +371,21 @@ class ServerPaginatedTableView extends React.Component {
           noMatch: 'No Matching Records Found',
         },
       },
-      customToolbar: this.props.tableDownloadCSV.defaultFullTableDownload ? () => (
+      customToolbar: this.props.tableDownloadCSV.defaultFullTableDownload && this.props.data.length !== 0 ? () => (
         this.props.tableDownloadCSV && (
           <CSVDownloadToolbar
             tableDownloadCSV={this.props.tableDownloadCSV}
             queryCustomVaribles={this.props.queryCustomVaribles}
           />
         )
-      ) : '',
+      ) : () => (
+        this.props.tableDownloadCSV && (
+          <CSVDownloadToolbarDisabled
+            tableDownloadCSV={this.props.tableDownloadCSV}
+            queryCustomVaribles={this.props.queryCustomVaribles}
+          />
+        )
+      ),
       sortOrder,
       onRowSelectionChange: (
         curr,
