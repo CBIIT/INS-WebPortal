@@ -4,7 +4,10 @@ import aboutImg from '../assets/landing/about.png';
 import programImg from '../assets/landing/program.png';
 import supportImg from '../assets/landing/support.png';
 import exploreImg from '../assets/landing/explore.png';
-import infographicBubble from '../assets/landing/infographicBubble.png';
+import redBubble from '../assets/landing/red_button.png';
+import yellowBubble from '../assets/landing/yellow_button.png';
+import purpleBubble from '../assets/landing/purple-button.png';
+import trek from '../assets/landing/trek.png';
 import NCICommunity from '../assets/landing/NCICommunity.svg';
 import AvailableOutputs from '../assets/landing/AvailableOutputs.svg';
 import UpdatedMetrics from '../assets/landing/UpdatedMetrics.svg';
@@ -36,7 +39,19 @@ export const landingPageData = {
   },
   interactiveImg: {
     alt: 'EXPLORE INS DATA',
-    img: infographicBubble,
+    img: trek,
+  },
+  NCICommunityBubble: {
+    alt: 'EXPLORE INS DATA',
+    img: redBubble,
+  },
+  AvailableOutputsBubble: {
+    alt: 'EXPLORE INS DATA',
+    img: yellowBubble,
+  },
+  UpdatedMetricsBubble: {
+    alt: 'EXPLORE INS DATA',
+    img: purpleBubble,
   },
   NCICommunityImg: {
     alt: 'EXPLORE INS DATA',

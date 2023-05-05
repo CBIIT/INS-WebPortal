@@ -67,10 +67,24 @@ const LandingView = ({ classes, statsData }) => (
               alt={landingPageData.interactiveImg.alt}
               id="interactive_img"
             />
+            {/* <img
+              className={classes.bigImage}
+              src={landingPageData.interactiveImg.img}
+              alt={landingPageData.interactiveImg.alt}
+              id="interactive_img"
+            /> */}
             <div className={classes.INSTextContainer}>
               <div className={classes.INSTitle}>
                 INS
               </div>
+            </div>
+            <div className={classes.NCICommunityBubbleContainer}>
+              <img
+                className={classes.bubbleImage}
+                src={landingPageData.NCICommunityBubble.img}
+                alt={landingPageData.NCICommunityBubble.alt}
+                id="interactive_img"
+              />
             </div>
             <div className={classes.NCICommunityImgContainer}>
               <img
@@ -80,7 +94,7 @@ const LandingView = ({ classes, statsData }) => (
                 id="interactive_img"
               />
             </div>
-            <div className={classes.NCICommunityLinkContainer}>
+            {/* <div className={classes.NCICommunityLinkContainer}>
               <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
                 <div className={classes.iconTextWrapper}>
                   <div className={classes.iconTitle}>
@@ -91,6 +105,14 @@ const LandingView = ({ classes, statsData }) => (
                   </div>
                 </div>
               </Link>
+            </div> */}
+            <div className={classes.AvailableOutputsBubbleContainer}>
+              <img
+                className={classes.bubbleImage}
+                src={landingPageData.AvailableOutputsBubble.img}
+                alt={landingPageData.AvailableOutputsBubble.alt}
+                id="interactive_img"
+              />
             </div>
             <div className={classes.AvailableOutputsImgContainer}>
               <img
@@ -100,7 +122,7 @@ const LandingView = ({ classes, statsData }) => (
                 id="interactive_img"
               />
             </div>
-            <div className={classes.AvailableOutputsLinkContainer}>
+            {/* <div className={classes.AvailableOutputsLinkContainer}>
               <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
                 <div className={classes.iconTextWrapper}>
                   <div className={classes.iconTitle}>
@@ -111,6 +133,14 @@ const LandingView = ({ classes, statsData }) => (
                   </div>
                 </div>
               </Link>
+            </div> */}
+            <div className={classes.UpdatedMetricsBubbleContainer}>
+              <img
+                className={classes.bubbleImage}
+                src={landingPageData.UpdatedMetricsBubble.img}
+                alt={landingPageData.UpdatedMetricsBubble.alt}
+                id="interactive_img"
+              />
             </div>
             <div className={classes.UpdatedMetricsImgContainer}>
               <img
@@ -120,7 +150,7 @@ const LandingView = ({ classes, statsData }) => (
                 id="interactive_img"
               />
             </div>
-            <div className={classes.UpdatedMetricsLinkContainer}>
+            {/* <div className={classes.UpdatedMetricsLinkContainer}>
               <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
                 <div className={classes.iconTextWrapper}>
                   <div className={classes.iconTitle}>
@@ -131,8 +161,8 @@ const LandingView = ({ classes, statsData }) => (
                   </div>
                 </div>
               </Link>
-            </div>
-            <div className={classes.arrowCommunityImgContainer}>
+            </div> */}
+            {/* <div className={classes.arrowCommunityImgContainer}>
               <img
                 className={classes.iconImage}
                 src={landingPageData.arrowCommunityImg.img}
@@ -155,7 +185,7 @@ const LandingView = ({ classes, statsData }) => (
                 alt={landingPageData.arrowMetricsImg.alt}
                 id="interactive_img"
               />
-            </div>
+            </div> */}
           </div>
         </Grid>
       </div>
@@ -432,6 +462,10 @@ const styles = () => ({
     width: '300px',
     backgroundColor: 'white',
   },
+  bubbleImage: {
+    width: '170px',
+    height: '170px',
+  },
   iconImage: {
     width: '45px',
     height: '45px',
@@ -655,15 +689,33 @@ const styles = () => ({
       width: '906px',
     },
   },
+  NCICommunityBubbleContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '-265px',
+    top: '240px',
+    right: 0,
+  },
   NCICommunityImgContainer: {
     position: 'absolute',
     width: '10px',
     height: '10px',
     margin: 'auto',
-    left: '-325px',
-    top: '405px',
+    left: '-195px',
+    top: '280px',
     right: 0,
   },
+  // NCICommunityImgContainer: {
+  //   position: 'absolute',
+  //   width: '10px',
+  //   height: '10px',
+  //   margin: 'auto',
+  //   left: '-325px',
+  //   top: '405px',
+  //   right: 0,
+  // },
   NCICommunityLinkContainer: {
     position: 'absolute',
     width: '10px',
@@ -673,15 +725,33 @@ const styles = () => ({
     top: '225px',
     right: 0,
   },
+  AvailableOutputsBubbleContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '110px',
+    top: '380px',
+    right: 0,
+  },
   AvailableOutputsImgContainer: {
     position: 'absolute',
     width: '10px',
     height: '10px',
     margin: 'auto',
-    left: '40px',
-    top: '290px',
+    left: '190px',
+    top: '415px',
     right: 0,
   },
+  // AvailableOutputsImgContainer: {
+  //   position: 'absolute',
+  //   width: '10px',
+  //   height: '10px',
+  //   margin: 'auto',
+  //   left: '40px',
+  //   top: '290px',
+  //   right: 0,
+  // },
   AvailableOutputsLinkContainer: {
     position: 'absolute',
     width: '10px',
@@ -691,15 +761,33 @@ const styles = () => ({
     top: '205px',
     right: 0,
   },
+  UpdatedMetricsBubbleContainer: {
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    margin: 'auto',
+    left: '-290px',
+    top: '470px',
+    right: 0,
+  },
   UpdatedMetricsImgContainer: {
     position: 'absolute',
     width: '10px',
     height: '10px',
     margin: 'auto',
-    left: '65px',
-    top: '510px',
+    left: '-210px',
+    top: '505px',
     right: 0,
   },
+  // UpdatedMetricsImgContainer: {
+  //   position: 'absolute',
+  //   width: '10px',
+  //   height: '10px',
+  //   margin: 'auto',
+  //   left: '65px',
+  //   top: '510px',
+  //   right: 0,
+  // },
   UpdatedMetricsLinkContainer: {
     position: 'absolute',
     width: '10px',
