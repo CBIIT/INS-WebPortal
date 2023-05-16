@@ -83,8 +83,8 @@ query projectOverView(
 
 export const customProgramsTableDownloadCSV = {
   keysToInclude: [
-    'queried_project_id',
     'project_id',
+    'queried_project_id',
     'project_title',
     'principal_investigators',
     'program_officers',
@@ -95,8 +95,8 @@ export const customProgramsTableDownloadCSV = {
     'fiscal_year',
   ],
   header: [
-    'Project ID',
     'Grant ID',
+    'Project ID',
     'Project Title',
     'Principal Investigators',
     'Program Officers',
@@ -162,8 +162,8 @@ query projectOverView(
 
 export const customProjectsTabDownloadCSV = {
   keysToInclude: [
-    'queried_project_id',
     'project_id',
+    'queried_project_id',
     'program',
     'project_title',
     'principal_investigators',
@@ -175,8 +175,8 @@ export const customProjectsTabDownloadCSV = {
     'fiscal_year',
   ],
   header: [
-    'Project ID',
     'Grant ID',
+    'Project ID',
     'Program',
     'Project Title',
     'Principal Investigators',
