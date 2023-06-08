@@ -10,6 +10,7 @@ import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
+import './landingStyles.css';
 
 const LandingView = ({ classes, statsData }) => {
   const [showHover, setHoverState] = React.useState(false);
@@ -84,7 +85,7 @@ const LandingView = ({ classes, statsData }) => {
                   INS
                 </div>
               </div>
-              <div className={showHover ? classes.NCICommunityBubbleContainerHover : classes.NCICommunityBubbleContainer}>
+              <div className={showHover ? 'NCICommunityBubbleContainerHover' : 'NCICommunityBubbleContainer'}>
                 <img
                   className={classes.bubbleImage}
                   src={landingPageData.NCICommunityBubble.img}
@@ -92,7 +93,7 @@ const LandingView = ({ classes, statsData }) => {
                   id="interactive_img"
                 />
               </div>
-              <div className={showHover ? classes.NCICommunityImgContainerHover : classes.NCICommunityImgContainer}>
+              <div className={showHover ? 'NCICommunityImgContainerHover' : 'NCICommunityImgContainer'}>
                 <img
                   className={classes.iconImage}
                   src={landingPageData.NCICommunityImg.img}
@@ -100,8 +101,8 @@ const LandingView = ({ classes, statsData }) => {
                   id="interactive_img"
                 />
               </div>
-              {showHover && (
-                <div className={classes.NCICommunityLinkContainer}>
+              {showHover ? (
+                <div className="NCICommunityLinkContainerHover">
                   <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
                     <div className={classes.iconTextWrapper}>
                       <div className={classes.iconTitle}>
@@ -113,8 +114,22 @@ const LandingView = ({ classes, statsData }) => {
                     </div>
                   </Link>
                 </div>
-              )}
-              <div className={showHover ? classes.AvailableOutputsBubbleContainerHover : classes.AvailableOutputsBubbleContainer}>
+              )
+                : (
+                  <div className="NCICommunityLinkContainer">
+                    <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
+                      <div className={classes.iconTextWrapper}>
+                        <div className={classes.iconTitle}>
+                          {landingPageData.nciCommunityTitle}
+                        </div>
+                        <div className={classes.iconContent}>
+                          {landingPageData.nciCommunityDescription}
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                )}
+              <div className={showHover ? 'AvailableOutputsBubbleContainerHover' : 'AvailableOutputsBubbleContainer'}>
                 <img
                   className={classes.bubbleImage}
                   src={landingPageData.AvailableOutputsBubble.img}
@@ -122,7 +137,7 @@ const LandingView = ({ classes, statsData }) => {
                   id="interactive_img"
                 />
               </div>
-              <div className={showHover ? classes.AvailableOutputsImgContainerHover : classes.AvailableOutputsImgContainer}>
+              <div className={showHover ? 'AvailableOutputsImgContainerHover' : 'AvailableOutputsImgContainer'}>
                 <img
                   className={classes.iconImage}
                   src={landingPageData.AvailableOutputsImg.img}
@@ -130,8 +145,8 @@ const LandingView = ({ classes, statsData }) => {
                   id="interactive_img"
                 />
               </div>
-              {showHover && (
-                <div className={classes.AvailableOutputsLinkContainer}>
+              {showHover ? (
+                <div className="AvailableOutputsLinkContainerHover">
                   <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
                     <div className={classes.iconTextWrapper}>
                       <div className={classes.iconTitle}>
@@ -143,8 +158,22 @@ const LandingView = ({ classes, statsData }) => {
                     </div>
                   </Link>
                 </div>
-              )}
-              <div className={showHover ? classes.UpdatedMetricsBubbleContainerHover : classes.UpdatedMetricsBubbleContainer}>
+              )
+                : (
+                  <div className="AvailableOutputsLinkContainer">
+                    <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
+                      <div className={classes.iconTextWrapper}>
+                        <div className={classes.iconTitle}>
+                          {landingPageData.availableOutputsTitle}
+                        </div>
+                        <div className={classes.iconContent}>
+                          {landingPageData.availableOutputsDescription}
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                )}
+              <div className={showHover ? 'UpdatedMetricsBubbleContainerHover' : 'UpdatedMetricsBubbleContainer'}>
                 <img
                   className={classes.bubbleImage}
                   src={landingPageData.UpdatedMetricsBubble.img}
@@ -152,7 +181,7 @@ const LandingView = ({ classes, statsData }) => {
                   id="interactive_img"
                 />
               </div>
-              <div className={showHover ? classes.UpdatedMetricsImgContainerHover : classes.UpdatedMetricsImgContainer}>
+              <div className={showHover ? 'UpdatedMetricsImgContainerHover' : 'UpdatedMetricsImgContainer'}>
                 <img
                   className={classes.iconImage}
                   src={landingPageData.UpdatedMetricsImg.img}
@@ -160,9 +189,9 @@ const LandingView = ({ classes, statsData }) => {
                   id="interactive_img"
                 />
               </div>
-              {showHover && (
+              {showHover ? (
                 <>
-                  <div className={classes.UpdatedMetricsLinkContainer}>
+                  <div className="UpdatedMetricsLinkContainerHover">
                     <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
                       <div className={classes.iconTextWrapper}>
                         <div className={classes.iconTitle}>
@@ -174,7 +203,7 @@ const LandingView = ({ classes, statsData }) => {
                       </div>
                     </Link>
                   </div>
-                  <div className={classes.arrowCommunityImgContainer}>
+                  <div className="arrowCommunityImgContainerHover">
                     <img
                       className={classes.iconImage}
                       src={landingPageData.arrowCommunityImg.img}
@@ -182,7 +211,7 @@ const LandingView = ({ classes, statsData }) => {
                       id="interactive_img"
                     />
                   </div>
-                  <div className={classes.arrowOutputsImgContainer}>
+                  <div className="arrowOutputsImgContainerHover">
                     <img
                       className={classes.iconImage}
                       src={landingPageData.arrowOutputsImg.img}
@@ -190,7 +219,7 @@ const LandingView = ({ classes, statsData }) => {
                       id="interactive_img"
                     />
                   </div>
-                  <div className={classes.arrowMetricsImgContainer}>
+                  <div className="arrowMetricsImgContainerHover">
                     <img
                       className={classes.iconImage}
                       src={landingPageData.arrowMetricsImg.img}
@@ -199,7 +228,47 @@ const LandingView = ({ classes, statsData }) => {
                     />
                   </div>
                 </>
-              )}
+              )
+                : (
+                  <>
+                    <div className="UpdatedMetricsLinkContainer">
+                      <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
+                        <div className={classes.iconTextWrapper}>
+                          <div className={classes.iconTitle}>
+                            {landingPageData.updatedMetricsTitle}
+                          </div>
+                          <div className={classes.iconContent}>
+                            {landingPageData.updatedMetricsDescription}
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                    <div className="arrowCommunityImgContainer">
+                      <img
+                        className={classes.iconImage}
+                        src={landingPageData.arrowCommunityImg.img}
+                        alt={landingPageData.arrowCommunityImg.alt}
+                        id="interactive_img"
+                      />
+                    </div>
+                    <div className="arrowOutputsImgContainer">
+                      <img
+                        className={classes.iconImage}
+                        src={landingPageData.arrowOutputsImg.img}
+                        alt={landingPageData.arrowOutputsImg.alt}
+                        id="interactive_img"
+                      />
+                    </div>
+                    <div className="arrowMetricsImgContainer">
+                      <img
+                        className={classes.iconImage}
+                        src={landingPageData.arrowMetricsImg.img}
+                        alt={landingPageData.arrowMetricsImg.alt}
+                        id="interactive_img"
+                      />
+                    </div>
+                  </>
+                )}
             </div>
           </Grid>
         </div>
@@ -714,172 +783,10 @@ const styles = () => ({
     top: '243px',
     left: '277px',
     zIndex: '1',
-    opacity: '0.05',
+    opacity: '0',
     '&:hover': {
       backgroundColor: 'red',
     },
-  },
-  NCICommunityBubbleContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-265px',
-    top: '240px',
-    right: 0,
-  },
-  NCICommunityBubbleContainerHover: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-395px',
-    top: '365px',
-    right: 0,
-  },
-  NCICommunityImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-195px',
-    top: '280px',
-    right: 0,
-  },
-  NCICommunityImgContainerHover: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-325px',
-    top: '405px',
-    right: 0,
-  },
-  NCICommunityLinkContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-600px',
-    top: '225px',
-    right: 0,
-  },
-  AvailableOutputsBubbleContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '110px',
-    top: '380px',
-    right: 0,
-  },
-  AvailableOutputsBubbleContainerHover: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-40px',
-    top: '255px',
-    right: 0,
-  },
-  AvailableOutputsImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '190px',
-    top: '415px',
-    right: 0,
-  },
-  AvailableOutputsImgContainerHover: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '40px',
-    top: '290px',
-    right: 0,
-  },
-  AvailableOutputsLinkContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '215px',
-    top: '205px',
-    right: 0,
-  },
-  UpdatedMetricsBubbleContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-290px',
-    top: '470px',
-    right: 0,
-  },
-  UpdatedMetricsBubbleContainerHover: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-15px',
-    top: '475px',
-    right: 0,
-  },
-  UpdatedMetricsImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-210px',
-    top: '505px',
-    right: 0,
-  },
-  UpdatedMetricsImgContainerHover: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '65px',
-    top: '510px',
-    right: 0,
-  },
-  UpdatedMetricsLinkContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '355px',
-    top: '515px',
-    right: 0,
-  },
-  arrowCommunityImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-280px',
-    top: '230px',
-    right: 0,
-  },
-  arrowOutputsImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '120px',
-    top: '210px',
-    right: 0,
-  },
-  arrowMetricsImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '265px',
-    top: '500px',
-    right: 0,
   },
   heroTextWrapper: {
     width: '420px',
