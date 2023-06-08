@@ -6,7 +6,7 @@
   left: -160px;
   top: 355px;
   right: 0;
-  animation: RedBubbleRotate 0.5s linear forwards;
+  animation: RedBubbleRotate 0.45s linear forwards;
 }
 
 .NCICommunityBubbleContainerHover {
@@ -17,7 +17,7 @@
   left: -160px;
   top: 355px;
   right: 0;
-  animation: RedBubbleRotateHover 0.5s linear forwards;
+  animation: RedBubbleRotateHover 0.45s linear forwards;
 }
 
 .NCICommunityImgContainer {
@@ -28,7 +28,7 @@
   left: -85px;
   top: 395px;
   right: 0;
-  animation: RedBubbleRotate 0.5s linear forwards;
+  animation: RedBubbleRotate 0.45s linear forwards;
 }
 
 .NCICommunityImgContainerHover {
@@ -39,7 +39,7 @@
   left: -85px;
   top: 395px;
   right: 0;
-  animation: RedBubbleRotateHover 0.5s linear forwards;
+  animation: RedBubbleRotateHover 0.45s linear forwards;
 }
 
 @keyframes RedBubbleRotate {
@@ -70,7 +70,7 @@
   left: -160px;
   top: 355px;
   right: 0;
-  animation: YellowBubbleRotate 0.5s linear forwards;
+  animation: YellowBubbleRotate 0.45s linear forwards;
 }
 
 .AvailableOutputsBubbleContainerHover {
@@ -81,7 +81,7 @@
   left: -160px;
   top: 355px;
   right: 0;
-  animation: YellowBubbleRotateHover 0.5s linear forwards;
+  animation: YellowBubbleRotateHover 0.45s linear forwards;
 }
 
 .AvailableOutputsImgContainer {
@@ -92,7 +92,7 @@
   left: -85px;
   top: 395px;
   right: 0;
-  animation: YellowBubbleRotate 0.5s linear forwards;
+  animation: YellowBubbleRotate 0.45s linear forwards;
 }
 
 .AvailableOutputsImgContainerHover {
@@ -103,7 +103,7 @@
   left: -85px;
   top: 395px;
   right: 0;
-  animation: YellowBubbleRotateHover 0.5s linear forwards;
+  animation: YellowBubbleRotateHover 0.45s linear forwards;
 }
 
 @keyframes YellowBubbleRotate {
@@ -134,7 +134,7 @@
   left: -160px;
   top: 355px;
   right: 0;
-  animation: PurpleBubbleRotate 0.5s linear forwards;
+  animation: PurpleBubbleRotate 0.45s linear forwards;
 }
 
 .UpdatedMetricsBubbleContainerHover {
@@ -145,7 +145,7 @@
   left: -160px;
   top: 355px;
   right: 0;
-  animation: PurpleBubbleRotateHover 0.5s linear forwards;
+  animation: PurpleBubbleRotateHover 0.45s linear forwards;
 }
 
 .UpdatedMetricsImgContainer {
@@ -156,7 +156,7 @@
   left: -85px;
   top: 395px;
   right: 0;
-  animation: PurpleBubbleRotate 0.5s linear forwards;
+  animation: PurpleBubbleRotate 0.45s linear forwards;
 }
 
 .UpdatedMetricsImgContainerHover {
@@ -167,7 +167,7 @@
   left: -85px;
   top: 395px;
   right: 0;
-  animation: PurpleBubbleRotateHover 0.5s linear forwards;
+  animation: PurpleBubbleRotateHover 0.45s linear forwards;
 }
 
 @keyframes PurpleBubbleRotate {
@@ -198,8 +198,9 @@
   left: -600px;
   top: 225px;
   right: 0;
+  cursor: default;
   opacity: 1;
-  animation: FadeOut 0.5s linear forwards;
+  animation: FadeOut 0.45s linear forwards;
 }
 
 .NCICommunityLinkContainerHover {
@@ -211,7 +212,7 @@
   top: 225px;
   right: 0;
   opacity: 1;
-  animation: FadeIn 0.5s linear;
+  animation: FadeIn 0.45s linear;
 }
 
 .AvailableOutputsLinkContainer {
@@ -222,8 +223,9 @@
   left: 215px;
   top: 205px;
   right: 0;
+  cursor: default;
   opacity: 1;
-  animation: FadeOut 0.5s linear forwards;
+  animation: FadeOut 0.45s linear forwards;
 }
 
 .AvailableOutputsLinkContainerHover {
@@ -235,7 +237,7 @@
   top: 205px;
   right: 0;
   opacity: 1;
-  animation: FadeIn 0.5s linear;
+  animation: FadeIn 0.45s linear;
 }
 
 .UpdatedMetricsLinkContainer {
@@ -246,8 +248,9 @@
   left: 355px;
   top: 515px;
   right: 0;
+  cursor: default;
   opacity: 1;
-  animation: FadeOut 0.5s linear forwards;
+  animation: FadeOut 0.45s linear forwards;
 }
 
 .UpdatedMetricsLinkContainerHover {
@@ -259,7 +262,7 @@
   top: 515px;
   right: 0;
   opacity: 1;
-  animation: FadeIn 0.5s linear;
+  animation: FadeIn 0.45s linear;
 }
 
 .arrowCommunityImgContainer {
@@ -271,7 +274,7 @@
   top: 230px;
   right: 0;
   opacity: 1;
-  animation: FadeOut 0.5s linear forwards;
+  animation: FadeOut 0.45s linear forwards;
 }
 
 .arrowCommunityImgContainerHover {
@@ -283,7 +286,7 @@
   top: 230px;
   right: 0;
   opacity: 1;
-  animation: FadeIn 0.5s linear;
+  animation: FadeIn 0.45s linear;
 }
 
 .arrowOutputsImgContainer {
@@ -295,7 +298,7 @@
   top: 210px;
   right: 0;
   opacity: 1;
-  animation: FadeOut 0.5s linear forwards;
+  animation: FadeOut 0.45s linear forwards;
 }
 
 .arrowOutputsImgContainerHover {
@@ -307,7 +310,7 @@
   top: 210px;
   right: 0;
   opacity: 1;
-  animation: FadeIn 0.5s linear;
+  animation: FadeIn 0.45s linear;
 }
 
 .arrowMetricsImgContainer {
@@ -319,7 +322,7 @@
   top: 500px;
   right: 0;
   opacity: 1;
-  animation: FadeOut 0.5s linear forwards;
+  animation: FadeOut 0.45s linear forwards;
 }
 
 .arrowMetricsImgContainerHover {
@@ -331,7 +334,7 @@
   top: 500px;
   right: 0;
   opacity: 1;
-  animation: FadeIn 0.5s linear;
+  animation: FadeIn 0.45s linear;
 }
 
 @keyframes FadeIn {

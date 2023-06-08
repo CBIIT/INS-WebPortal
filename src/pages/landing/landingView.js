@@ -117,7 +117,7 @@ const LandingView = ({ classes, statsData }) => {
               )
                 : (
                   <div className="NCICommunityLinkContainer">
-                    <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
+                    <div className={classes.headerLink}>
                       <div className={classes.iconTextWrapper}>
                         <div className={classes.iconTitle}>
                           {landingPageData.nciCommunityTitle}
@@ -126,7 +126,7 @@ const LandingView = ({ classes, statsData }) => {
                           {landingPageData.nciCommunityDescription}
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   </div>
                 )}
               <div className={showHover ? 'AvailableOutputsBubbleContainerHover' : 'AvailableOutputsBubbleContainer'}>
@@ -161,7 +161,7 @@ const LandingView = ({ classes, statsData }) => {
               )
                 : (
                   <div className="AvailableOutputsLinkContainer">
-                    <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
+                    <div className={classes.headerLink}>
                       <div className={classes.iconTextWrapper}>
                         <div className={classes.iconTitle}>
                           {landingPageData.availableOutputsTitle}
@@ -170,7 +170,7 @@ const LandingView = ({ classes, statsData }) => {
                           {landingPageData.availableOutputsDescription}
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   </div>
                 )}
               <div className={showHover ? 'UpdatedMetricsBubbleContainerHover' : 'UpdatedMetricsBubbleContainer'}>
@@ -232,7 +232,7 @@ const LandingView = ({ classes, statsData }) => {
                 : (
                   <>
                     <div className="UpdatedMetricsLinkContainer">
-                      <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
+                      <div className={classes.headerLink}>
                         <div className={classes.iconTextWrapper}>
                           <div className={classes.iconTitle}>
                             {landingPageData.updatedMetricsTitle}
@@ -241,7 +241,7 @@ const LandingView = ({ classes, statsData }) => {
                             {landingPageData.updatedMetricsDescription}
                           </div>
                         </div>
-                      </Link>
+                      </div>
                     </div>
                     <div className="arrowCommunityImgContainer">
                       <img
