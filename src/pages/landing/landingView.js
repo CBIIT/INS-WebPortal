@@ -567,7 +567,7 @@ const styles = () => ({
   bigImage: {
     width: '842px',
     height: '843px',
-    marginTop: '-350px',
+    marginTop: '-375px',
   },
   aboutContent: {
     background: '#bdc4cd',
@@ -776,12 +776,12 @@ const styles = () => ({
     },
   },
   hoverInteraction: {
-    width: '350px',
-    height: '350px',
+    width: '425px',
+    height: '375px',
     backgroundColor: 'blue',
     position: 'relative',
-    top: '243px',
-    left: '277px',
+    top: '230px',
+    left: '227px',
     zIndex: '1',
     opacity: '0',
     '&:hover': {
