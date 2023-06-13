@@ -408,7 +408,7 @@ class ServerPaginatedTableView extends React.Component {
               page={page}
               rowsPerPage={rowsPerPage}
               // eslint-disable-next-line max-len
-              onChangeRowsPerPage={(event) => { this.setState({ rowsPerPage: event.target.value }); changePage(page); changeRowsPerPage(event.target.value); }}
+              onChangeRowsPerPage={(event) => { this.setState({ rowsPerPage: event.target.value }); changePage(page); changeRowsPerPage(event.target.value); changePage(0); }}
               // eslint-disable-next-line no-shadow
               onChangePage={(_, page) => changePage(page)}
               ActionsComponent={TablePaginationActions}

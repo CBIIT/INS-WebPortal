@@ -1,0 +1,358 @@
+.NCICommunityBubbleContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -160px;
+  top: 355px;
+  right: 0;
+  animation: RedBubbleRotate 0.45s linear forwards;
+}
+
+.NCICommunityBubbleContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -160px;
+  top: 355px;
+  right: 0;
+  animation: RedBubbleRotateHover 0.45s linear forwards;
+}
+
+.NCICommunityImgContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -85px;
+  top: 395px;
+  right: 0;
+  animation: RedBubbleRotate 0.45s linear forwards;
+}
+
+.NCICommunityImgContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -85px;
+  top: 395px;
+  right: 0;
+  animation: RedBubbleRotateHover 0.45s linear forwards;
+}
+
+@keyframes RedBubbleRotate {
+  0% {
+    transform: rotate(80deg) translateY(125px) rotate(-80deg);
+  }
+
+  100% {
+    transform: rotate(155deg) translateY(125px) rotate(-155deg);
+  }
+}
+
+@keyframes RedBubbleRotateHover {
+  100% {
+    transform: rotate(80deg) translateY(125px) rotate(-80deg);
+  }
+
+  0% {
+    transform: rotate(155deg) translateY(125px) rotate(-155deg);
+  }
+}
+
+.AvailableOutputsBubbleContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -160px;
+  top: 355px;
+  right: 0;
+  animation: YellowBubbleRotate 0.45s linear forwards;
+}
+
+.AvailableOutputsBubbleContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -160px;
+  top: 355px;
+  right: 0;
+  animation: YellowBubbleRotateHover 0.45s linear forwards;
+}
+
+.AvailableOutputsImgContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -85px;
+  top: 395px;
+  right: 0;
+  animation: YellowBubbleRotate 0.45s linear forwards;
+}
+
+.AvailableOutputsImgContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -85px;
+  top: 395px;
+  right: 0;
+  animation: YellowBubbleRotateHover 0.45s linear forwards;
+}
+
+@keyframes YellowBubbleRotate {
+  0% {
+    transform: rotate(205deg) translateY(125px) rotate(-205deg);
+  }
+
+  100% {
+    transform: rotate(280deg) translateY(125px) rotate(-280deg);
+  }
+}
+
+@keyframes YellowBubbleRotateHover {
+  100% {
+    transform: rotate(205deg) translateY(125px) rotate(-205deg);
+  }
+
+  0% {
+    transform: rotate(280deg) translateY(125px) rotate(-280deg);
+  }
+}
+
+.UpdatedMetricsBubbleContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -160px;
+  top: 355px;
+  right: 0;
+  animation: PurpleBubbleRotate 0.45s linear forwards;
+}
+
+.UpdatedMetricsBubbleContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -160px;
+  top: 355px;
+  right: 0;
+  animation: PurpleBubbleRotateHover 0.45s linear forwards;
+}
+
+.UpdatedMetricsImgContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -85px;
+  top: 395px;
+  right: 0;
+  animation: PurpleBubbleRotate 0.45s linear forwards;
+}
+
+.UpdatedMetricsImgContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -85px;
+  top: 395px;
+  right: 0;
+  animation: PurpleBubbleRotateHover 0.45s linear forwards;
+}
+
+@keyframes PurpleBubbleRotate {
+  0% {
+    transform: rotate(330deg) translateY(125px) rotate(-330deg);
+  }
+
+  100% {
+    transform: rotate(390deg) translateY(125px) rotate(-390deg);
+  }
+}
+
+@keyframes PurpleBubbleRotateHover {
+  100% {
+    transform: rotate(330deg) translateY(125px) rotate(-330deg);
+  }
+
+  0% {
+    transform: rotate(390deg) translateY(125px) rotate(-390deg);
+  }
+}
+
+.NCICommunityLinkContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -600px;
+  top: 225px;
+  right: 0;
+  cursor: default;
+  opacity: 1;
+  animation: FadeOut 0.45s linear forwards;
+}
+
+.NCICommunityLinkContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -600px;
+  top: 225px;
+  right: 0;
+  opacity: 1;
+  animation: FadeIn 0.45s linear;
+}
+
+.AvailableOutputsLinkContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: 215px;
+  top: 205px;
+  right: 0;
+  cursor: default;
+  opacity: 1;
+  animation: FadeOut 0.45s linear forwards;
+}
+
+.AvailableOutputsLinkContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: 215px;
+  top: 205px;
+  right: 0;
+  opacity: 1;
+  animation: FadeIn 0.45s linear;
+}
+
+.UpdatedMetricsLinkContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: 355px;
+  top: 515px;
+  right: 0;
+  cursor: default;
+  opacity: 1;
+  animation: FadeOut 0.45s linear forwards;
+}
+
+.UpdatedMetricsLinkContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: 355px;
+  top: 515px;
+  right: 0;
+  opacity: 1;
+  animation: FadeIn 0.45s linear;
+}
+
+.arrowCommunityImgContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -280px;
+  top: 230px;
+  right: 0;
+  opacity: 1;
+  animation: FadeOut 0.45s linear forwards;
+}
+
+.arrowCommunityImgContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: -280px;
+  top: 230px;
+  right: 0;
+  opacity: 1;
+  animation: FadeIn 0.45s linear;
+}
+
+.arrowOutputsImgContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: 120px;
+  top: 210px;
+  right: 0;
+  opacity: 1;
+  animation: FadeOut 0.45s linear forwards;
+}
+
+.arrowOutputsImgContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: 120px;
+  top: 210px;
+  right: 0;
+  opacity: 1;
+  animation: FadeIn 0.45s linear;
+}
+
+.arrowMetricsImgContainer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: 265px;
+  top: 500px;
+  right: 0;
+  opacity: 1;
+  animation: FadeOut 0.45s linear forwards;
+}
+
+.arrowMetricsImgContainerHover {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  left: 265px;
+  top: 500px;
+  right: 0;
+  opacity: 1;
+  animation: FadeIn 0.45s linear;
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 1
+  }
+}
+
+@keyframes FadeOut {
+  100% {
+    opacity: 0
+  }
+
+  0% {
+    opacity: 1
+  }
+}

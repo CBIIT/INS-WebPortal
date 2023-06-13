@@ -434,7 +434,7 @@ export default {
         minHeight: '15px',
         position: 'absolute',
         top: '-40px',
-        right: '400px',
+        right: '450px',
       },
       titleText: {
         color: tableHeaderFontColor,
