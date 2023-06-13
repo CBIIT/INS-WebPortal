@@ -10,293 +10,408 @@ import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
+import './landingStyles.css';
 
-const LandingView = ({ classes, statsData }) => (
-  <>
-    <div className={classes.disclaimer}>
-      <p>
-        This initial release of INS contains only a small subset of outputs.
-      </p>
-      <p>
-        Please read our
-        <Link to="/about" className={classes.aboutLink}>About page</Link>
-        to learn about known data limitations.
-      </p>
-    </div>
-    <div className={classes.page}>
-      <div className={classes.container}>
-        <Grid container spacing={16} direction="row">
-          <div className={classes.heroImage} />
-          <div className={classes.heroTextContainer}>
-            <div className={classes.heroTextWrapper}>
-              <div className={classes.headerTitle}>
-                {landingPageData.callToActionTitle}
-              </div>
-              <div className={classes.headerContent}>
-                As we work to improve this
-                <b>initial phase</b>
-                of the Index of NCI Studies (INS), please be aware that we currently gather outputs only from
-                <b>extramural grants</b>
-                to the
-                <b>Cancer Moonshot</b>
-                or
-                <b>Childhood Cancer Data Initiative</b>
-                (CCDI) programs. In addition, there may be some false positive connections between grants and outputs as we improve our automated collection and association processes. Read more on how we are tackling these challenges on the
-                <Link to="/about" className={classes.headerAboutLink}>About page</Link>
-                .
-              </div>
-              <div className={classes.headerButtonSection}>
-                <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
-                  <Button className={classes.buttonText}>
-                    {landingPageData.callToActionButtonText}
-                    <img
-                      src={landingPageData.heroExploreButtonArrow.img}
-                      className={classes.smallImage}
-                      alt={landingPageData.heroExploreButtonArrow.alt}
-                      id="buttonArrow"
-                    />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className={classes.heroImageContainer}>
-            <img
-              className={classes.bigImage}
-              src={landingPageData.interactiveImg.img}
-              alt={landingPageData.interactiveImg.alt}
-              id="interactive_img"
-            />
-            <div className={classes.INSTextContainer}>
-              <div className={classes.INSTitle}>
-                INS
-              </div>
-            </div>
-            <div className={classes.NCICommunityImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.NCICommunityImg.img}
-                alt={landingPageData.NCICommunityImg.alt}
-                id="interactive_img"
-              />
-            </div>
-            <div className={classes.NCICommunityLinkContainer}>
-              <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
-                <div className={classes.iconTextWrapper}>
-                  <div className={classes.iconTitle}>
-                    {landingPageData.nciCommunityTitle}
-                  </div>
-                  <div className={classes.iconContent}>
-                    {landingPageData.nciCommunityDescription}
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className={classes.AvailableOutputsImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.AvailableOutputsImg.img}
-                alt={landingPageData.AvailableOutputsImg.alt}
-                id="interactive_img"
-              />
-            </div>
-            <div className={classes.AvailableOutputsLinkContainer}>
-              <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
-                <div className={classes.iconTextWrapper}>
-                  <div className={classes.iconTitle}>
-                    {landingPageData.availableOutputsTitle}
-                  </div>
-                  <div className={classes.iconContent}>
-                    {landingPageData.availableOutputsDescription}
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className={classes.UpdatedMetricsImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.UpdatedMetricsImg.img}
-                alt={landingPageData.UpdatedMetricsImg.alt}
-                id="interactive_img"
-              />
-            </div>
-            <div className={classes.UpdatedMetricsLinkContainer}>
-              <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
-                <div className={classes.iconTextWrapper}>
-                  <div className={classes.iconTitle}>
-                    {landingPageData.updatedMetricsTitle}
-                  </div>
-                  <div className={classes.iconContent}>
-                    {landingPageData.updatedMetricsDescription}
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className={classes.arrowCommunityImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.arrowCommunityImg.img}
-                alt={landingPageData.arrowCommunityImg.alt}
-                id="interactive_img"
-              />
-            </div>
-            <div className={classes.arrowOutputsImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.arrowOutputsImg.img}
-                alt={landingPageData.arrowOutputsImg.alt}
-                id="interactive_img"
-              />
-            </div>
-            <div className={classes.arrowMetricsImgContainer}>
-              <img
-                className={classes.iconImage}
-                src={landingPageData.arrowMetricsImg.img}
-                alt={landingPageData.arrowMetricsImg.alt}
-                id="interactive_img"
-              />
-            </div>
-          </div>
-        </Grid>
+const LandingView = ({ classes, statsData }) => {
+  const [showHover, setHoverState] = React.useState(false);
+
+  function activateHover() {
+    setHoverState(true);
+  }
+
+  function deactivateHover() {
+    setHoverState(false);
+  }
+
+  return (
+    <>
+      <div className={classes.disclaimer}>
+        <p>
+          This initial release of INS contains only a small subset of outputs.
+        </p>
+        <p>
+          Please read our
+          <Link to="/about" className={classes.aboutLink}>About page</Link>
+          to learn about known data limitations.
+        </p>
       </div>
-      <div className={classes.whiteSection} />
-      <StatsView stats={landingPageData.landingPageStatsBar} statsData={statsData} />
-      <div className={classes.container}>
-        <div className={classes.texture}>
-          <Grid container spacing={16} direction="row" className={classes.landingContainer}>
-            <div className={classes.contentLeft}>
-              <div className={classes.about}>
-                <div className={classes.aboutImageSection}>
-                  <img
-                    src={landingPageData.tile1.img}
-                    className={classes.aboutImage}
-                    alt={landingPageData.tile1.alt}
-                    id="tile1_image"
-                  />
+      <div className={classes.page}>
+        <div className={classes.container}>
+          <Grid container spacing={16} direction="row">
+            <div className={classes.heroImage} />
+            <div className={classes.heroTextContainer}>
+              <div className={classes.heroTextWrapper}>
+                <div className={classes.headerTitle}>
+                  {landingPageData.callToActionTitle}
                 </div>
-                <div className={classes.DCWords} id="tile1_title">
-                  {landingPageData.tile1.titleText}
+                <div className={classes.headerContent}>
+                  As we work to improve this
+                  <b>initial phase</b>
+                  of the Index of NCI Studies (INS), please be aware that we currently gather outputs only from
+                  <b>extramural grants</b>
+                  to the
+                  <b>Cancer Moonshot</b>
+                  or
+                  <b>Childhood Cancer Data Initiative</b>
+                  (CCDI) programs. In addition, there may be some false positive connections between grants and outputs as we improve our automated collection and association processes. Read more on how we are tackling these challenges on the
+                  <Link to="/about" className={classes.headerAboutLink}>About page</Link>
+                  .
                 </div>
-                <div className={classes.aboutContent} id="tile1_description">
-                  {landingPageData.tile1.descriptionText}
+                <div className={classes.headerButtonSection}>
+                  <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
+                    <Button className={classes.buttonText}>
+                      {landingPageData.callToActionButtonText}
+                      <img
+                        src={landingPageData.heroExploreButtonArrow.img}
+                        className={classes.smallImage}
+                        alt={landingPageData.heroExploreButtonArrow.alt}
+                        id="buttonArrow"
+                      />
+                    </Button>
+                  </Link>
                 </div>
-                <div className={classes.aboutButtonSection}>
-                  <div className={classes.aboutButtonLeft}>
-                    <img src={iconAbout} className={classes.iconAbout} alt="CTDC about icon" />
+              </div>
+            </div>
+            <div className={classes.heroImageContainer}>
+              <div onMouseEnter={activateHover} onMouseLeave={deactivateHover} className={classes.hoverInteraction} />
+              <img
+                className={classes.bigImage}
+                src={landingPageData.interactiveImg.img}
+                alt={landingPageData.interactiveImg.alt}
+                id="interactive_img"
+              />
+              <div className={classes.INSTextContainer}>
+                <div className={classes.INSTitle}>
+                  INS
+                </div>
+              </div>
+              <div className={showHover ? 'NCICommunityBubbleContainerHover' : 'NCICommunityBubbleContainer'}>
+                <img
+                  className={classes.bubbleImage}
+                  src={landingPageData.NCICommunityBubble.img}
+                  alt={landingPageData.NCICommunityBubble.alt}
+                  id="interactive_img"
+                />
+              </div>
+              <div className={showHover ? 'NCICommunityImgContainerHover' : 'NCICommunityImgContainer'}>
+                <img
+                  className={classes.iconImage}
+                  src={landingPageData.NCICommunityImg.img}
+                  alt={landingPageData.NCICommunityImg.alt}
+                  id="interactive_img"
+                />
+              </div>
+              {showHover ? (
+                <div className="NCICommunityLinkContainerHover">
+                  <Link to={landingPageData.nciCommunityLink} className={classes.headerLink}>
+                    <div className={classes.iconTextWrapper}>
+                      <div className={classes.iconTitle}>
+                        {landingPageData.nciCommunityTitle}
+                      </div>
+                      <div className={classes.iconContent}>
+                        {landingPageData.nciCommunityDescription}
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              )
+                : (
+                  <div className="NCICommunityLinkContainer">
+                    <div className={classes.headerLink}>
+                      <div className={classes.iconTextWrapper}>
+                        <div className={classes.iconTitle}>
+                          {landingPageData.nciCommunityTitle}
+                        </div>
+                        <div className={classes.iconContent}>
+                          {landingPageData.nciCommunityDescription}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className={classes.aboutButtonRight} id="tile1_button">
-                    <Link
-                      to={landingPageData.tile1.callToActionLink}
-                      className={classes.aboutButton}
-                    >
-                      {landingPageData.tile1.callToActionText}
+                )}
+              <div className={showHover ? 'AvailableOutputsBubbleContainerHover' : 'AvailableOutputsBubbleContainer'}>
+                <img
+                  className={classes.bubbleImage}
+                  src={landingPageData.AvailableOutputsBubble.img}
+                  alt={landingPageData.AvailableOutputsBubble.alt}
+                  id="interactive_img"
+                />
+              </div>
+              <div className={showHover ? 'AvailableOutputsImgContainerHover' : 'AvailableOutputsImgContainer'}>
+                <img
+                  className={classes.iconImage}
+                  src={landingPageData.AvailableOutputsImg.img}
+                  alt={landingPageData.AvailableOutputsImg.alt}
+                  id="interactive_img"
+                />
+              </div>
+              {showHover ? (
+                <div className="AvailableOutputsLinkContainerHover">
+                  <Link to={landingPageData.availableOutputsLink} className={classes.headerLink}>
+                    <div className={classes.iconTextWrapper}>
+                      <div className={classes.iconTitle}>
+                        {landingPageData.availableOutputsTitle}
+                      </div>
+                      <div className={classes.iconContent}>
+                        {landingPageData.availableOutputsDescription}
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              )
+                : (
+                  <div className="AvailableOutputsLinkContainer">
+                    <div className={classes.headerLink}>
+                      <div className={classes.iconTextWrapper}>
+                        <div className={classes.iconTitle}>
+                          {landingPageData.availableOutputsTitle}
+                        </div>
+                        <div className={classes.iconContent}>
+                          {landingPageData.availableOutputsDescription}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              <div className={showHover ? 'UpdatedMetricsBubbleContainerHover' : 'UpdatedMetricsBubbleContainer'}>
+                <img
+                  className={classes.bubbleImage}
+                  src={landingPageData.UpdatedMetricsBubble.img}
+                  alt={landingPageData.UpdatedMetricsBubble.alt}
+                  id="interactive_img"
+                />
+              </div>
+              <div className={showHover ? 'UpdatedMetricsImgContainerHover' : 'UpdatedMetricsImgContainer'}>
+                <img
+                  className={classes.iconImage}
+                  src={landingPageData.UpdatedMetricsImg.img}
+                  alt={landingPageData.UpdatedMetricsImg.alt}
+                  id="interactive_img"
+                />
+              </div>
+              {showHover ? (
+                <>
+                  <div className="UpdatedMetricsLinkContainerHover">
+                    <Link to={landingPageData.updatedMetricsLink} className={classes.headerLink}>
+                      <div className={classes.iconTextWrapper}>
+                        <div className={classes.iconTitle}>
+                          {landingPageData.updatedMetricsTitle}
+                        </div>
+                        <div className={classes.iconContent}>
+                          {landingPageData.updatedMetricsDescription}
+                        </div>
+                      </div>
                     </Link>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className={classes.contentRight}>
-              <div className={classes.contentRightTop}>
-                <div className={classes.program}>
-                  <div className={classes.programImg}>
+                  <div className="arrowCommunityImgContainerHover">
                     <img
-                      className={classes.image}
-                      src={landingPageData.tile2.img}
-                      alt={landingPageData.tile2.alt}
-                      id="tile2_image"
+                      className={classes.iconImage}
+                      src={landingPageData.arrowCommunityImg.img}
+                      alt={landingPageData.arrowCommunityImg.alt}
+                      id="interactive_img"
                     />
                   </div>
-                  <div className={classes.content}>
-                    <div className={classes.contentHeader} id="tile2_title">
-                      {landingPageData.tile2.titleText}
-                    </div>
-                    <div className={classes.contentContainer} id="tile2_description">
-                      {landingPageData.tile2.descriptionText}
-                    </div>
-                  </div>
-                  <div className={classes.yellowButton}>
-                    <div className={classes.yellowButtonLeft}>
-                      <img className={classes.icon} src={icon} alt="CTDC about " />
-                      {' '}
-                    </div>
-                    <div className={classes.yellowButtonRight} id="tile2_button">
-                      <Link
-                        to={landingPageData.tile2.callToActionLink}
-                        className={classes.yellowButton}
-                      >
-                        {landingPageData.tile2.callToActionText}
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className={classes.studies}>
-                  <div className={classes.programImg}>
+                  <div className="arrowOutputsImgContainerHover">
                     <img
-                      className={classes.image}
-                      src={landingPageData.tile3.img}
-                      alt={landingPageData.tile3.src}
-                      id="tile3_image"
+                      className={classes.iconImage}
+                      src={landingPageData.arrowOutputsImg.img}
+                      alt={landingPageData.arrowOutputsImg.alt}
+                      id="interactive_img"
                     />
                   </div>
-                  <div className={classes.content}>
-                    <div className={classes.contentHeader} id="tile3_title">
-                      {landingPageData.tile3.titleText}
-                    </div>
-                    <div className={classes.contentContainer} id="tile3_description">
-                      {landingPageData.tile3.descriptionText}
-                    </div>
+                  <div className="arrowMetricsImgContainerHover">
+                    <img
+                      className={classes.iconImage}
+                      src={landingPageData.arrowMetricsImg.img}
+                      alt={landingPageData.arrowMetricsImg.alt}
+                      id="interactive_img"
+                    />
                   </div>
-                  <div className={classes.yellowButton}>
-                    <div className={classes.yellowButtonLeft}>
-                      <img className={classes.icon} src={icon} alt="CTDC about " />
-                      {' '}
+                </>
+              )
+                : (
+                  <>
+                    <div className="UpdatedMetricsLinkContainer">
+                      <div className={classes.headerLink}>
+                        <div className={classes.iconTextWrapper}>
+                          <div className={classes.iconTitle}>
+                            {landingPageData.updatedMetricsTitle}
+                          </div>
+                          <div className={classes.iconContent}>
+                            {landingPageData.updatedMetricsDescription}
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className={classes.yellowButtonRight} id="tile3_button">
-                      <Button
-                        to="#"
-                        className={classes.yellowButtonSupport}
-                        onClick={(e) => {
-                          window.location.href = 'mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback';
-                          e.preventDefault();
-                        }}
-                      >
-                        {landingPageData.tile3.callToActionText}
-                      </Button>
+                    <div className="arrowCommunityImgContainer">
+                      <img
+                        className={classes.iconImage}
+                        src={landingPageData.arrowCommunityImg.img}
+                        alt={landingPageData.arrowCommunityImg.alt}
+                        id="interactive_img"
+                      />
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div className={classes.contentRightBottom}>
-                <div className={classes.cases} id="tile4_image">
-                  <div className={classes.mountainMeadowContentHeader} id="tile4_title">
-                    {landingPageData.tile4.titleText}
-                  </div>
-                  <div className={classes.mountainMeadowContent} id="tile4_description">
-                    {landingPageData.tile4.descriptionText}
-                  </div>
-                  <div className={classes.mountainMeadowButtonSection}>
-                    <div className={classes.yellowButtonLeft}>
-                      <img className={classes.mountainMeadowIcon} src={icon} alt="CTDC about " />
-                      {' '}
+                    <div className="arrowOutputsImgContainer">
+                      <img
+                        className={classes.iconImage}
+                        src={landingPageData.arrowOutputsImg.img}
+                        alt={landingPageData.arrowOutputsImg.alt}
+                        id="interactive_img"
+                      />
                     </div>
-                    <div className={classes.yellowButtonRight} id="tile4_button">
-                      <Link
-                        to={landingPageData.tile4.callToActionLink}
-                        className={classes.mountainMeadowButton}
-                      >
-                        {landingPageData.tile4.callToActionText}
-                      </Link>
+                    <div className="arrowMetricsImgContainer">
+                      <img
+                        className={classes.iconImage}
+                        src={landingPageData.arrowMetricsImg.img}
+                        alt={landingPageData.arrowMetricsImg.alt}
+                        id="interactive_img"
+                      />
                     </div>
-                  </div>
-                </div>
-              </div>
+                  </>
+                )}
             </div>
           </Grid>
         </div>
+        <div className={classes.whiteSection} />
+        <StatsView stats={landingPageData.landingPageStatsBar} statsData={statsData} />
+        <div className={classes.container}>
+          <div className={classes.texture}>
+            <Grid container spacing={16} direction="row" className={classes.landingContainer}>
+              <div className={classes.contentLeft}>
+                <div className={classes.about}>
+                  <div className={classes.aboutImageSection}>
+                    <img
+                      src={landingPageData.tile1.img}
+                      className={classes.aboutImage}
+                      alt={landingPageData.tile1.alt}
+                      id="tile1_image"
+                    />
+                  </div>
+                  <div className={classes.DCWords} id="tile1_title">
+                    {landingPageData.tile1.titleText}
+                  </div>
+                  <div className={classes.aboutContent} id="tile1_description">
+                    {landingPageData.tile1.descriptionText}
+                  </div>
+                  <div className={classes.aboutButtonSection}>
+                    <div className={classes.aboutButtonLeft}>
+                      <img src={iconAbout} className={classes.iconAbout} alt="CTDC about icon" />
+                    </div>
+                    <div className={classes.aboutButtonRight} id="tile1_button">
+                      <Link
+                        to={landingPageData.tile1.callToActionLink}
+                        className={classes.aboutButton}
+                      >
+                        {landingPageData.tile1.callToActionText}
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={classes.contentRight}>
+                <div className={classes.contentRightTop}>
+                  <div className={classes.program}>
+                    <div className={classes.programImg}>
+                      <img
+                        className={classes.image}
+                        src={landingPageData.tile2.img}
+                        alt={landingPageData.tile2.alt}
+                        id="tile2_image"
+                      />
+                    </div>
+                    <div className={classes.content}>
+                      <div className={classes.contentHeader} id="tile2_title">
+                        {landingPageData.tile2.titleText}
+                      </div>
+                      <div className={classes.contentContainer} id="tile2_description">
+                        {landingPageData.tile2.descriptionText}
+                      </div>
+                    </div>
+                    <div className={classes.yellowButton}>
+                      <div className={classes.yellowButtonLeft}>
+                        <img className={classes.icon} src={icon} alt="CTDC about " />
+                        {' '}
+                      </div>
+                      <div className={classes.yellowButtonRight} id="tile2_button">
+                        <Link
+                          to={landingPageData.tile2.callToActionLink}
+                          className={classes.yellowButton}
+                        >
+                          {landingPageData.tile2.callToActionText}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={classes.studies}>
+                    <div className={classes.programImg}>
+                      <img
+                        className={classes.image}
+                        src={landingPageData.tile3.img}
+                        alt={landingPageData.tile3.src}
+                        id="tile3_image"
+                      />
+                    </div>
+                    <div className={classes.content}>
+                      <div className={classes.contentHeader} id="tile3_title">
+                        {landingPageData.tile3.titleText}
+                      </div>
+                      <div className={classes.contentContainer} id="tile3_description">
+                        {landingPageData.tile3.descriptionText}
+                      </div>
+                    </div>
+                    <div className={classes.yellowButton}>
+                      <div className={classes.yellowButtonLeft}>
+                        <img className={classes.icon} src={icon} alt="CTDC about " />
+                        {' '}
+                      </div>
+                      <div className={classes.yellowButtonRight} id="tile3_button">
+                        <Button
+                          to="#"
+                          className={classes.yellowButtonSupport}
+                          onClick={(e) => {
+                            window.location.href = 'mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback';
+                            e.preventDefault();
+                          }}
+                        >
+                          {landingPageData.tile3.callToActionText}
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className={classes.contentRightBottom}>
+                  <div className={classes.cases} id="tile4_image">
+                    <div className={classes.mountainMeadowContentHeader} id="tile4_title">
+                      {landingPageData.tile4.titleText}
+                    </div>
+                    <div className={classes.mountainMeadowContent} id="tile4_description">
+                      {landingPageData.tile4.descriptionText}
+                    </div>
+                    <div className={classes.mountainMeadowButtonSection}>
+                      <div className={classes.yellowButtonLeft}>
+                        <img className={classes.mountainMeadowIcon} src={icon} alt="CTDC about " />
+                        {' '}
+                      </div>
+                      <div className={classes.yellowButtonRight} id="tile4_button">
+                        <Link
+                          to={landingPageData.tile4.callToActionLink}
+                          className={classes.mountainMeadowButton}
+                        >
+                          {landingPageData.tile4.callToActionText}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Grid>
+          </div>
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
+
 const styles = () => ({
   disclaimer: {
     position: 'fixed',
@@ -432,6 +547,10 @@ const styles = () => ({
     width: '300px',
     backgroundColor: 'white',
   },
+  bubbleImage: {
+    width: '170px',
+    height: '170px',
+  },
   iconImage: {
     width: '45px',
     height: '45px',
@@ -448,6 +567,7 @@ const styles = () => ({
   bigImage: {
     width: '842px',
     height: '843px',
+    marginTop: '-375px',
   },
   aboutContent: {
     background: '#bdc4cd',
@@ -655,86 +775,18 @@ const styles = () => ({
       width: '906px',
     },
   },
-  NCICommunityImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-325px',
-    top: '405px',
-    right: 0,
-  },
-  NCICommunityLinkContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-600px',
-    top: '225px',
-    right: 0,
-  },
-  AvailableOutputsImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '40px',
-    top: '290px',
-    right: 0,
-  },
-  AvailableOutputsLinkContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '215px',
-    top: '205px',
-    right: 0,
-  },
-  UpdatedMetricsImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '65px',
-    top: '510px',
-    right: 0,
-  },
-  UpdatedMetricsLinkContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '355px',
-    top: '515px',
-    right: 0,
-  },
-  arrowCommunityImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '-280px',
+  hoverInteraction: {
+    width: '425px',
+    height: '375px',
+    backgroundColor: 'blue',
+    position: 'relative',
     top: '230px',
-    right: 0,
-  },
-  arrowOutputsImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '120px',
-    top: '210px',
-    right: 0,
-  },
-  arrowMetricsImgContainer: {
-    position: 'absolute',
-    width: '10px',
-    height: '10px',
-    margin: 'auto',
-    left: '265px',
-    top: '500px',
-    right: 0,
+    left: '227px',
+    zIndex: '1',
+    opacity: '0',
+    '&:hover': {
+      backgroundColor: 'red',
+    },
   },
   heroTextWrapper: {
     width: '420px',
