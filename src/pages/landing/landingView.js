@@ -72,7 +72,7 @@ const LandingView = ({ classes, statsData }) => {
                 </div>
               </div>
             </div>
-            <div className={classes.heroImageContainer}>
+            <div className="heroImageContainer">
               <div onMouseEnter={activateHover} onMouseLeave={deactivateHover} className={classes.hoverInteraction} />
               <img
                 className={classes.bigImage}
@@ -759,18 +759,6 @@ const styles = () => ({
     right: 0,
     top: '147px',
     left: 0,
-    '@media (min-width: 900px)': {
-      width: '906px',
-    },
-  },
-  heroImageContainer: {
-    position: 'absolute',
-    width: '1200px',
-    height: '1200px',
-    margin: 'auto',
-    left: '700px',
-    top: '27px',
-    right: 0,
     '@media (min-width: 900px)': {
       width: '906px',
     },
