@@ -12,15 +12,30 @@ import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
 import './landingStyles.css';
 
+let animationReadyAgain = true;
+
 const LandingView = ({ classes, statsData }) => {
   const [showHover, setHoverState] = React.useState(false);
 
   function activateHover() {
-    setHoverState(true);
+    if (animationReadyAgain) {
+      animationReadyAgain = false;
+      setTimeout(() => {
+        animationReadyAgain = true;
+      }, 450);
+      setHoverState(true);
+    }
   }
 
   function deactivateHover() {
-    setHoverState(false);
+    if (animationReadyAgain) {
+      setHoverState(false);
+    } else {
+      setTimeout(() => {
+        animationReadyAgain = true;
+        setHoverState(false);
+      }, 900);
+    }
   }
 
   return (
