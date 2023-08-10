@@ -12,29 +12,29 @@ import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
 import './landingStyles.css';
 
-let animationReadyAgain = true;
+let forwardAnimationReady = true;
+let backwardAnimationReady = false;
 
 const LandingView = ({ classes, statsData }) => {
   const [showHover, setHoverState] = React.useState(false);
 
   function activateHover() {
-    if (animationReadyAgain) {
-      animationReadyAgain = false;
+    if (forwardAnimationReady) {
+      forwardAnimationReady = false;
       setTimeout(() => {
-        animationReadyAgain = true;
-      }, 450);
+        backwardAnimationReady = true;
+      }, 500);
       setHoverState(true);
     }
   }
 
   function deactivateHover() {
-    if (animationReadyAgain) {
-      setHoverState(false);
-    } else {
+    if (backwardAnimationReady) {
+      backwardAnimationReady = false;
       setTimeout(() => {
-        animationReadyAgain = true;
-        setHoverState(false);
-      }, 900);
+        forwardAnimationReady = true;
+      }, 500);
+      setHoverState(false);
     }
   }
 
