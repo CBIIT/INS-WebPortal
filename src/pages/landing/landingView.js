@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Grid,
   withStyles,
@@ -16,6 +16,10 @@ let forwardAnimationReady = true;
 let backwardAnimationReady = false;
 
 const LandingView = ({ classes, statsData }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
   const [showHover, setHoverState] = React.useState(false);
 
   function activateHover() {
