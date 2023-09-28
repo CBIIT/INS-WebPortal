@@ -3,9 +3,9 @@ import {
   Button, withStyles,
 } from '@material-ui/core';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
-import CenterIcon from '../assets/about/Model-Buttons-Center.svg';
-import ZoomInIcon from '../assets/about/Model-Buttons-ZoomIn.svg';
-import ZoomOutIcon from '../assets/about/Model-Buttons-ZoomOut.svg';
+import CenterIcon from './assets/Model-Buttons-Center.svg';
+import ZoomInIcon from './assets/Model-Buttons-ZoomIn.svg';
+import ZoomOutIcon from './assets/Model-Buttons-ZoomOut.svg';
 
 const limitToBounds = false;
 const panningEnabled = true;

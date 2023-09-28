@@ -1,10 +1,9 @@
 import React from 'react';
 import { Grid, Link, withStyles } from '@material-ui/core';
 import XoomInOut from './xoomInOutView';
-import externalIcon from '../assets/about/About-ExternalLink.svg';
-import tableExternalIcon from '../assets/about/About-Table-ExternalLink.svg';
+import tableExternalIcon from './assets/About-Table-ExternalLink.svg';
 
-const AboutBody = ({ classes, data }) => {
+const AboutBody = ({ classes, data, externalIconImage }) => {
   function boldText(text) {
     const boldedText = text.split('$$').map((splitedText) => {
       if (splitedText != null && (/\*(.*)\*/.test(splitedText))) {
@@ -19,11 +18,11 @@ const AboutBody = ({ classes, data }) => {
       <div className={classes.container}>
         <Grid container spacing={16} direction="row" className={classes.aboutSection}>
           {data.imageLocation === 'left'
-          && (
-          <Grid item lg={3} md={3} sm={12} xs={12} className={classes.imageSection}>
-            {data.image}
-          </Grid>
-          )}
+            && (
+              <Grid item lg={3} md={3} sm={12} xs={12} className={classes.imageSection}>
+                {data.image}
+              </Grid>
+            )}
           <Grid item lg={9} md={9} sm={12} xs={12} className={classes.contentSection}>
             <span className={classes.text}>
               {data.content ? data.content.map((contentObj) => (
@@ -35,7 +34,7 @@ const AboutBody = ({ classes, data }) => {
                       <ol>
                         { contentObj.listWithNumbers.map((listObj) => (
                           listObj.listWithAlpahbets ? (
-                          // Alphetised sub ordered list
+                            // Alphetised sub ordered list
                             <ol type="a">
                               {/* bolding text if necessary */}
                               { listObj.listWithAlpahbets.map((listObj1) => <li>{listObj1.includes('$$') ? boldText(listObj1) : listObj1}</li>)}
@@ -66,13 +65,14 @@ const AboutBody = ({ classes, data }) => {
                           const target = linkAttrs.find((link) => link.includes('target:'));
                           const url = linkAttrs.find((link) => link.includes('url:'));
                           const type = linkAttrs.find((link) => link.includes('type:')); // 0 : no img
+                          const href = splitedParagraph.match(/\((.*)\)/).pop();
 
                           const link = (
                             <Link
                               title={title}
                               target={target ? target.replace('target:', '') : '_blank'}
                               rel="noreferrer"
-                              href={url ? url.replace('url:', '') : splitedParagraph.match(/\((.*)\)/).pop()}
+                              href={url ? url.replace('url:', '') : (href && href.includes('@') ? `mailto:${href}` : href)}
                               color="inherit"
                               className={classes.link}
                             >
@@ -85,7 +85,8 @@ const AboutBody = ({ classes, data }) => {
                               {link}
                               {type ? '' : (
                                 <img
-                                  src={externalIcon}
+                                  src={externalIconImage}
+                                  // externalIconImage: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/common/images/logos/svgs/externalLinkIcon.svg',
                                   alt="outbounnd web site icon"
                                   className={classes.linkIcon}
                                 />
@@ -230,15 +231,15 @@ const AboutBody = ({ classes, data }) => {
             </span>
           </Grid>
           {data.imageLocation === 'right'
-          && (
-          <Grid item lg={3} md={3} sm={12} xs={12} className={classes.imageSection}>
-            {data.image}
-          </Grid>
-          )}
+            && (
+              <Grid item lg={3} md={3} sm={12} xs={12} className={classes.imageSection}>
+                {data.image}
+              </Grid>
+            )}
         </Grid>
       </div>
       {data.secondaryZoomImageTitle
-      && <div className={classes.secondayTitle}>{data.secondaryZoomImageTitle}</div>}
+        && <div className={classes.secondayTitle}>{data.secondaryZoomImageTitle}</div>}
       {data.secondaryImage && <XoomInOut>{data.secondaryImageData}</XoomInOut>}
     </>
   );
@@ -274,14 +275,14 @@ const styles = () => ({
     fontSize: '16px',
     lineHeight: (props) => (props.data.lineHeight ? props.data.lineHeight : '30px'),
   },
-  title: {
-    color: '#0B3556',
+  title: (props) => ({
+    color: props.titleColor,
     fontWeight: 'bold',
-  },
-  email: {
-    color: '#0296C9',
+  }),
+  email: (props) => ({
+    color: props.linkColor,
     fontWeight: 'bold',
-  },
+  }),
   contentSection: {
     padding: (props) => (props.data.imageLocation === 'right'
       ? '8px 25px 8px 0px !important' : '8px 0px 8px 25px !important'),
@@ -301,12 +302,12 @@ const styles = () => ({
     verticalAlign: 'sub',
     margin: '0px 0px 0px 2px',
   },
-  link: {
-    color: '#0296C9',
+  link: (props) => ({
+    color: props.linkColor,
     '&:hover': {
-      color: '#0296C9',
+      color: props.linkColor,
     },
-  },
+  }),
   tableDiv: {
     marginTop: '0px',
   },
@@ -364,6 +365,9 @@ AboutBody.defaultProps = {
     fontFamily: 'Nunito',
     lineHeight: '30px',
   },
+  linkColor: '#0296C9',
+  titleColor: '#0B3556',
+  externalIconImage: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/common/images/logos/svgs/externalLinkIcon.svg',
 };
 
 export default withStyles(styles)(AboutBody);

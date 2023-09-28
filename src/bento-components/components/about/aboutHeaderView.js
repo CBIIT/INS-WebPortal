@@ -14,9 +14,9 @@ const styles = () => ({
   header: {
     padding: '45px',
   },
-  container: {
-    background: '#e7eef5',
-  },
+  container: (props) => ({
+    background: props.background,
+  }),
   whitePadding: {
     height: '6px',
     background: 'white',
@@ -24,14 +24,19 @@ const styles = () => ({
   titleBody: {
     textAlign: 'center',
   },
-  titleText: {
+  titleText: (props) => ({
     height: '65px',
     width: '252px',
-    color: '#0077E3',
+    color: props.titleColor,
     fontFamily: 'Lato',
     fontSize: '35px',
     fontWeight: 'bold',
-  },
+  }),
 });
+
+AboutHeader.defaultProps = {
+  titleColor: '#0077E3',
+  background: '#e7eef5',
+};
 
 export default withStyles(styles)(AboutHeader);
