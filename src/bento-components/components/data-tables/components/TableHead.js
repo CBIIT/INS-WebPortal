@@ -102,7 +102,8 @@ class TableHead extends React.Component {
             isRowSelectable
           />}
           {columns.map(
-            (column, index) => column.display === 'true'
+            (column, index) => {
+              return column.display === 'true'
               && (column.customHeadRender ? (
                 column.customHeadRender({ index, ...column }, this.handleToggleColumn, sortOrder)
               ) : (
@@ -119,13 +120,16 @@ class TableHead extends React.Component {
                   toggleSort={this.handleToggleColumn}
                   hint={column.hint}
                   print={column.print}
+                  firstIcon={column.firstIcon}
+                  lastIcon={column.lastIcon}
                   options={options}
                   column={column}
                   components={components}
                 >
                   {column.label}
                 </TableHeadCell>
-              )),
+              ))
+            },
           )}
           {options.selectCellPostion === 'right' && <TableSelectCell
             ref={(el) => setCellRef(0, findDOMNode(el))}

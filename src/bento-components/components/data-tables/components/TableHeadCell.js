@@ -10,10 +10,17 @@ import MuiTooltip from '@material-ui/core/Tooltip';
 const defaultHeadCellStyles = (theme) => ({
   root: {},
   fixedHeader: {
-    position: 'sticky',
+    // position: 'sticky',
     top: '0px',
     zIndex: 100,
     backgroundColor: theme.palette.background.paper,
+  },
+  firstIcon: {
+    borderLeft: '1px solid #CFCFCC',
+    paddingLeft: '1.5em',
+  },
+  lastIcon: {
+    borderRight: '1px solid #CFCFCC'
   },
   tooltip: {
     cursor: 'pointer',
@@ -94,6 +101,8 @@ class TableHeadCell extends React.Component {
       sort,
       hint,
       print,
+      firstIcon,
+      lastIcon,
       column,
       cellHeaderProps = {},
       components = {},
@@ -112,6 +121,8 @@ class TableHeadCell extends React.Component {
 
     const cellClass = classNames({
       [classes.root]: true,
+      [classes.firstIcon]: firstIcon,
+      [classes.lastIcon]: lastIcon,
       [classes.fixedHeader]: options.fixedHeader,
       'datatables-noprint': !print,
       [className]: className,
@@ -147,7 +158,7 @@ class TableHeadCell extends React.Component {
                     [classes.sortActive]: sortActive,
                   })}
                 >
-                  {children}
+                {children}
                 </div>
                 <div className={classes.sortAction}>
                   <TableSortLabel {...sortLabelProps} />

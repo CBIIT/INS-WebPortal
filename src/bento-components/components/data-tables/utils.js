@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+import { isArray } from "lodash";
+
 function buildMap(rows) {
   return rows.reduce((accum, { dataIndex }) => {
     accum[dataIndex] = true;
@@ -59,34 +61,61 @@ function sortCompare(order) {
 
 function buildCSV(columns, data, options) {
   const replaceDoubleQuoteInString = (columnData) => (typeof columnData === 'string' ? columnData.replace(/\"/g, '""') : columnData);
+  const replacePoundSignSeparator = (columnData) => (columnData && columnData.toString().includes('#') ? columnData.replaceAll('#', ',') : columnData);
 
-  const buildHead = (columns) => (
-    `${columns
-      .reduce(
-        (soFar, column) => (column.download
-          ? `${soFar
-          }"${
-            escapeDangerousCSVCharacters(replaceDoubleQuoteInString(column.label || column.name))
-          }"${
-            options.downloadOptions.separator}`
-          : soFar),
-        '',
-      )
-      .slice(0, -1)}\r\n`
-  );
+  const buildHead = (columns) => {
+    return (
+      `${columns
+        .reduce(
+          (soFar, column) => {
+            const arg = column.icon ? column.iconLabel : column.label || column.name;
+            return (column.download
+              ? `${soFar
+              }"${
+                escapeDangerousCSVCharacters(replaceDoubleQuoteInString(arg))
+              }"${
+                options.downloadOptions.separator}`
+              : soFar)
+          },
+          '',
+        )
+        .slice(0, -1)}\r\n`
+    );
+  };
+  
   const CSVHead = buildHead(columns);
 
   const buildBody = (data) => {
     if (!data.length) return '';
     return data
       .reduce(
-        (soFar, row) => `${soFar
-        }"${
-          row.data
-            .filter((_, index) => columns[index].download)
-            .map((columnData) => escapeDangerousCSVCharacters(replaceDoubleQuoteInString(columnData)))
-            .join(`"${options.downloadOptions.separator}"`)
-        }"\r\n`,
+        (soFar, row) => {
+          return (
+            `${soFar
+            }"${
+              row.data
+                .filter((_, index) => columns[index].download)
+                .map((el, index) => {
+                  if (columns[index].icon){
+                    if (el === 0) {
+                      el = columns[index].csvNullValue
+                    }
+                    if (isArray(el) && el.length === 0) {
+                      el = columns[index].csvNullValue
+                    }
+                    if (isArray(el)) {
+                      el = el.map((el) => el.url).join(', ');
+                    }
+                  }
+                  return el;
+                })
+                .map((columnData) => {
+                  return escapeDangerousCSVCharacters(replaceDoubleQuoteInString(replacePoundSignSeparator(columnData)));
+                })
+                .join(`"${options.downloadOptions.separator}"`)
+            }"\r\n`
+          )
+        },
         '',
       )
       .trim();
@@ -121,6 +150,31 @@ function downloadCSV(csv, filename) {
   }
 }
 
+export function createFileName(fileName) {
+  const date = new Date();
+  const yyyy = date.getFullYear();
+  let dd = date.getDate();
+  let mm = (date.getMonth() + 1);
+
+  if (dd < 10) { dd = `0${dd}`; }
+
+  if (mm < 10) { mm = `0${mm}`; }
+
+  const todaysDate = `${yyyy}-${mm}-${dd}`;
+
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+
+  if (hours < 10) { hours = `0${hours}`; }
+
+  if (minutes < 10) { minutes = `0${minutes}`; }
+
+  if (seconds < 10) { seconds = `0${seconds}`; }
+
+  return `${fileName} ${todaysDate} ${hours}-${minutes}-${seconds}${'.csv'}`;
+}
+
 function createCSVDownload(columns, data, options, downloadCSV) {
   const csv = buildCSV(columns, data, options);
 
@@ -128,7 +182,7 @@ function createCSVDownload(columns, data, options, downloadCSV) {
     return;
   }
 
-  downloadCSV(csv, options.downloadOptions.filename);
+  downloadCSV(csv, createFileName(options.downloadOptions.filename));
 }
 
 export {

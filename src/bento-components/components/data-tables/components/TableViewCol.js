@@ -58,6 +58,16 @@ class TableViewCol extends React.Component {
     this.props.onColumnUpdate(index);
   };
 
+  generateLabel = (label, iconLabel) => {
+    if (typeof label === 'object') {
+      return <div style={{display: 'flex', gap: '0.5em'}}>
+        {label}
+        <div>{iconLabel}</div>
+      </div>
+    }
+    return `${label}`
+  };
+
   render() {
     const { classes, columns, options } = this.props;
     const textLabels = options.textLabels.viewColumns;
@@ -89,7 +99,7 @@ class TableViewCol extends React.Component {
                       value={column.name}
                     />
                   )}
-                  label={column.label}
+                  label={this.generateLabel(column.label, column.iconViewColumnsLabel)}
                 />
             )
           ))}

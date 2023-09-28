@@ -5,7 +5,19 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(
   (theme) => ({
-    root: {},
+    root: {
+      // width: '55.8em',
+    },
+    icon: {
+      // borderLeft: '1px solid #CFCFCC',
+      // borderRight: '1px solid #CFCFCC'
+    },
+    firstIcon: {
+      borderLeft: '1px solid #CFCFCC',
+    },
+    lastIcon: {
+      borderRight: '1px solid #CFCFCC'
+    },
     cellHide: {
       display: 'none',
     },
@@ -76,10 +88,9 @@ const useStyles = makeStyles(
 function TableBodyCell(props) {
   const classes = useStyles();
   const {
-    children, colIndex, columnHeader, options, dataIndex, rowIndex, className, print, ...otherProps
+    children, colIndex, columnHeader, options, dataIndex, rowIndex, className, print, firstIcon, lastIcon, ...otherProps
   } = props;
   const { onCellClick } = options;
-
   const handleClick = useCallback(
     (event) => {
       onCellClick(children, {
@@ -159,6 +170,9 @@ function TableBodyCell(props) {
       className={classNames(
         {
           [classes.root]: true,
+          [classes.icon]: options.icon,
+          [classes.firstIcon]: firstIcon,
+          [classes.lastIcon]: lastIcon,
           [classes.stackedParent]:
             options.responsive === 'vertical'
             || options.responsive === 'stacked'

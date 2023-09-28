@@ -17,14 +17,28 @@ import TableSearch from './TableSearch';
 import TableViewCol from './TableViewCol';
 import TableFilter from './TableFilter';
 import Popover from './Popover';
+import { generateDataAvailabilityTooltipText } from '@bento-core/util';
 
 export const defaultToolbarStyles = (theme) => ({
   root: {
+    backgroundColor: 'white !important',
     '@media print': {
       display: 'none',
     },
   },
-  fullWidthRoot: {},
+  tableToolbar: {
+    backgroundColor: 'white !important',
+    paddingTop: '1em',
+  },
+  dalTooltip: {
+    padding: '0px 12px !important'
+  },
+  dalPopper: {
+    left: '-278px !important',
+  },
+  fullWidthRoot: {
+    backgroundColor: 'white !important',
+  },
   left: {
     flex: '1 1 auto',
   },
@@ -284,6 +298,7 @@ class TableToolbar extends React.Component {
         className={options.responsive !== RESPONSIVE_FULL_WIDTH_NAME ? classes.root : classes.fullWidthRoot}
         role="toolbar"
         aria-label="Table Toolbar"
+        classes={{ root: classes.tableToolbar }}
       >
         <div className={options.responsive !== RESPONSIVE_FULL_WIDTH_NAME ? classes.left : classes.fullWidthLeft}>
           {showSearch === true ? (
@@ -326,6 +341,27 @@ class TableToolbar extends React.Component {
               </IconButton>
             </Tooltip>
           )}
+          {
+            options.legendTooltip && (
+              <span style={{ marginRight: options.origin === 'Studies' ? '20em' : '24em', fontSize: '16px', fontWeight: '600', color: '#000' }}>
+                Data Availability
+                <Tooltip
+                  title={generateDataAvailabilityTooltipText()}
+                  interactive
+                  classes={{
+                    tooltip: classes.dalTooltip,
+                    popper: classes.dalPopper,
+                    tooltipPlacementBottom: classes.dalTooltipBottom
+                  }}
+                  placement="top"
+                >
+                  <IconButton aria-label="help">
+                    <img style={{ width: '0.7em', marginBottom: '0.6em' }} src="https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/images/svgs/Tooltip.SpeechBubble.svg" alt="tooltip" />
+                  </IconButton>
+                </Tooltip>
+              </span>
+            )
+          }
           {options.download && (
             <Tooltip title={downloadCsv}>
               <IconButton
