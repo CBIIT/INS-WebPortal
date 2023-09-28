@@ -52,6 +52,6 @@ export {
 export { getColumns, getDefaultCustomFooter, getOptions } from './utils/tables';
 export { manipulateLinks, dateTimeStamp, formatBytes } from './utils/helpers';
 export { default as NavBar } from './components/nav-bar';
-export { default as StatsBar } from './components/statsBar';
+export { default as StatsBar } from './components/stats-bar';
 export { default as ToolTip } from './components/toolTips';
 export { default as TextBar } from './components/textBar';
