@@ -1,9 +1,11 @@
 import React from 'react';
-import injectSheet from 'react-jss';
-import RouteLinks from '../helpers/routeLinks';
-import nihLogo from '../assets/header/CTDC_Logo.svg';
+import {
+  withStyles,
+} from '@material-ui/core';
+import { RouteLinks } from '@bento-core/util';
+import nihLogo from './CTDC_Logo.svg';
 
-const styles = {
+const styles = () => ({
   grow: {
     flexGrow: 3,
   },
@@ -53,7 +55,7 @@ const styles = {
     };
     return Object.assign(defaultProps, props.customStyle.nihLogoImg);
   },
-};
+});
 
 const Header = ({ classes, ...props }) => {
   const {
@@ -86,5 +88,4 @@ Header.defaultProps = {
   SearchComponent: () => <></>,
 };
 
-const StyledHeader = injectSheet(styles)(Header);
-export default StyledHeader;
+export default withStyles(styles)(Header);

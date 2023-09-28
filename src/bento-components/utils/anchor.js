@@ -1,5 +1,5 @@
 import React from 'react';
-import RouteLinks from '../components/helpers/routeLinks';
+import RouteLinks from './RouteLinks';
 
 /**
  prepareLinks function find all "link" and "labelLink" properties,
@@ -36,5 +36,4 @@ export const Anchor = ({ link, text, classes }) => (
     : (
       <RouteLinks to={link} className={classes.link}>{text}</RouteLinks>
     )
-
 );

@@ -410,7 +410,7 @@ export function transformInitialDataForSunburst(data, level1 = 'program', level2
     color: level1Colors[parseInt(index, 10)],
     caseSize: level1Child.caseSize,
     children: level1Child[level1Children].map((level2Child, index2) => ({
-      title: `${level1Child.program} : ${level2Child[level2]}`,
+      title: `${level1Child[level1]} : ${level2Child[level2]}`,
       color: level2Colors[parseInt(index2, 10)],
       caseSize: level2Child.caseSize,
       size: level2Child.caseSize,
