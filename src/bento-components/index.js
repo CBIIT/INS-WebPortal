@@ -18,8 +18,8 @@ export { default as TableSelectCell } from './components/data-tables/components/
 export { default as TableToolbar } from './components/data-tables/components/TableToolbar';
 export { default as TableToolbarSelect } from './components/data-tables/components/TableToolbarSelect';
 export { default as TableViewCol } from './components/data-tables/components/TableViewCol';
-export { default as ProgramSunburst } from './components/PieCharts/ProgramSunburst/ProgramSunburstView';
-export { default as CustomActiveDonut } from './components/PieCharts/CustomActiveDonut/CustomActiveDonutView';
+export { default as ProgramSunburst } from './components/widgets/ProgramSunburst/ProgramSunburstView';
+export { default as CustomActiveDonut } from './components/widgets/CustomActiveDonut/CustomActiveDonutView';
 export { default as AboutHeader } from './components/about/aboutHeaderView';
 export { default as AboutBody } from './components/about/aboutBodyView';
 export { default as XoomInOut } from './components/about/xoomInOutView';
