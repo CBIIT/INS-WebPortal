@@ -18,7 +18,7 @@ import TableSearch from './TableSearch';
 import TableViewCol from './TableViewCol';
 import TableFilter from './TableFilter';
 import Popover from './Popover';
-import { generateDataAvailabilityTooltipText } from '@bento-core/util';
+import { generateDataAvailabilityTooltipText } from '../../utils';
 
 export const defaultToolbarStyles = (theme) => ({
   root: {

@@ -2,8 +2,8 @@ import React from 'react';
 import {
   withStyles,
 } from '@material-ui/core';
-import { RouteLinks } from '@bento-core/util';
-import nihLogo from './CTDC_Logo.svg';
+import { RouteLinks } from '../utils';
+import nihLogo from './NCI_INS_Logo.svg';
 
 const styles = () => ({
   grow: {

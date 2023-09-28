@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import ReactMarkdown from 'react-markdown';
-import { RouteLinks, cn } from '@bento-core/util';
+import { RouteLinks, cn } from '../utils';
 
 const footerTextStyle = {
   color: 'white',
