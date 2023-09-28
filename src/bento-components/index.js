@@ -1,5 +1,5 @@
-export { default as Header } from './components/headers';
-export { default as Footer } from './components/footer';
+export { default as Header } from './components/headers/Header';
+export { default as Footer } from './components/footer/Footer';
 export { default as CustomDataTable } from './components/data-tables/MUIDataTable';
 export { default as Popover } from './components/data-tables/components/Popover';
 export { default as TableBodyCell } from './components/data-tables/components/TableBodyCell';
@@ -18,15 +18,15 @@ export { default as TableSelectCell } from './components/data-tables/components/
 export { default as TableToolbar } from './components/data-tables/components/TableToolbar';
 export { default as TableToolbarSelect } from './components/data-tables/components/TableToolbarSelect';
 export { default as TableViewCol } from './components/data-tables/components/TableViewCol';
-export { default as ProgramSunburst } from './components/widgets/ProgramSunburst/ProgramSunburstView';
-export { default as CustomActiveDonut } from './components/widgets/CustomActiveDonut/CustomActiveDonutView';
+export { default as ProgramSunburst } from './components/widgets/SunburstChart/SunburstChartGenerator';
+export { default as CustomActiveDonut } from './components/widgets/DonutChart/DonutChartGenerator';
 export { default as AboutHeader } from './components/about/aboutHeaderView';
 export { default as AboutBody } from './components/about/aboutBodyView';
 export { default as XoomInOut } from './components/about/xoomInOutView';
 export { debounceSearchRender, DebounceTableSearch } from './components/data-tables/plug-ins/DebounceSearchRender';
-export { prepareLinks, Anchor } from './utils/anchor';
-export { default as cn } from './utils/classNameConcat';
-export { default as createSvgIcon } from './utils/createSvgIcon';
+export { prepareLinks, Anchor } from './components/utils/Anchor';
+export { default as cn } from './components/utils/classNameConcat';
+export { default as createSvgIcon } from './components/utils/createSvgIcon';
 export {
   COLORS_LEVEL_1,
   COLORS_LEVEL_2,
@@ -48,9 +48,9 @@ export {
   setSelectedFilterValues,
   customSort,
   sortPreference,
-} from './utils/dashboardUtilFunctions';
-export { getColumns, getDefaultCustomFooter, getOptions } from './utils/tables';
-export { manipulateLinks, dateTimeStamp, formatBytes } from './utils/helpers';
+} from './components/utils/dashboardUtilFunctions';
+export { getColumns, getDefaultCustomFooter, getOptions } from './components/utils/tables';
+export { manipulateLinks, dateTimeStamp, formatBytes } from './components/utils/helpers';
 export { default as NavBar } from './components/nav-bar';
 export { default as StatsBar } from './components/stats-bar';
 export { default as ToolTip } from './components/tool-tip';
