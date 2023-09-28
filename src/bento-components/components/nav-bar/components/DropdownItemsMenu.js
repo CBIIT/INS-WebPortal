@@ -3,7 +3,7 @@ import { HashRouter, NavLink } from 'react-router-dom';
 import {
   withStyles, Paper,
 } from '@material-ui/core';
-import cn from '../../../utils/classNameConcat';
+import clsx from 'clsx';
 
 const CustomDropdownMenu = ({
   classes, handleClick, dropDownElements,
@@ -16,7 +16,7 @@ const CustomDropdownMenu = ({
           <NavLink
             className={
               dropDownElementsItem.sublink
-                ? cn(classes.sublink, classes.link)
+                ? clsx(classes.sublink, classes.link)
                 : classes.link
             }
             activeStyle={dropDownElementsItem.linkActiveStyle
@@ -38,6 +38,8 @@ const CustomDropdownMenu = ({
               className={
               classes.link
             }
+            // TODO: find out use of activeStyle, If not used please remove.
+            // eslint-disable-next-line react/no-unknown-property
               activeStyle={{ color: '#27DBFF' }}
             >
               {link.title}

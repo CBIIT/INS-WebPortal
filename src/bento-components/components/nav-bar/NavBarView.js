@@ -3,9 +3,9 @@ import React from 'react';
 import { HashRouter, NavLink } from 'react-router-dom';
 import {
   AppBar,
-  Button,
   Toolbar,
   Tooltip as MuiTooltip,
+  Box,
   withStyles,
 } from '@material-ui/core';
 import classnames from 'classnames';
@@ -14,8 +14,9 @@ import DropdownMenu from './components/DropdownMenu';
 const drawerWidth = 240;
 
 const NavBar = ({
-  classes, isSidebarOpened, navBarData, navBarCartData, navBarstyling,
-  numberOfCases, components = {}, externalLinksFlag, externalLinks, LoginComponent,
+  classes, isSidebarOpened, navBarData,
+  navBarCartData, navBarstyling, numberOfCases, components = {},
+  externalLinksFlag, externalLinks, LoginComponent,
 }) => {
   // Similar to componentDidMount and componentDidUpdate:
   // Empty second argument of react useEffect will avoid the infinte loop that
@@ -24,6 +25,31 @@ const NavBar = ({
   function handleButtonClickEvent(eventName) {
     setClickedEl(eventName);
   }
+
+  const getCartLabel = (labelType) => {
+    switch (labelType) {
+      case 'labelUnderCount':
+        return (
+          <div className={classes.cartCounter2Wrapper}>
+            <div className={classes.cartCounter2}>
+              {numberOfCases}
+            </div>
+            <div className={classes.cartLabel}>
+              Files
+            </div>
+          </div>
+        );
+      default:
+        return (
+          <span className={classes.badge}>
+            <span className={classes.cartCounter}>
+              {numberOfCases}
+            </span>
+          </span>
+
+        );
+    }
+  };
 
   const Tooltip = components.Tooltip || MuiTooltip;
 
@@ -40,12 +66,13 @@ const NavBar = ({
 
         {/* End Sidebar button */}
         <div id="navbar" className={classes.buttonContainer}>
-          {navBarData.slice(0, 7).map((navButton) => (
+          {navBarData.slice(0, 7).map((navButton, index) => (
             navButton.type === 'dropdown'
               ? (
                 <DropdownMenu
                   handleButtonClickEvent={handleButtonClickEvent}
                   clickedEl={clickedEl}
+                  index={index}
                   linkText={navButton.labelText}
                   dropDownElements={navButton.dropDownLinks.slice(0, 9)}
                   navBarstyling={navBarstyling}
@@ -54,7 +81,7 @@ const NavBar = ({
                 />
               )
               : (
-                <Button id="button_navbar_navButton" disableRipple weight="medium" className={classes.logotype} classes={{ root: classes.buttonRoot }}>
+                <Box id={`button_navbar_navButton_${index}`} className={classes.logotype} classes={{ root: classes.buttonRoot }}>
                   <HashRouter>
                     <NavLink
                       className={classes.labelText}
@@ -65,38 +92,40 @@ const NavBar = ({
                       {navButton.labelText}
                     </NavLink>
                   </HashRouter>
-                </Button>
+                </Box>
               )
           ))}
         </div>
         {/* Start of Theme Switching Icon and logic */}
         <div className={classes.myCasesPosition}>
           <LoginComponent />
-          <Button id="button_navbar_mycases" disableRipple weight="medium" className={classes.logotype} classes={{ root: classes.buttonRootNoRightPadding }}>
-            <HashRouter>
-              <NavLink
-                className={classes.cartLabelText}
-                to={navBarCartData.cartLink}
-              >
-                {navBarCartData.cartLabel}
-                {/* <Badge badgeContent={numberOfCases} max={99999}> */}
-                <Tooltip title="Files" placement="bottom-end">
-                  <span className={classes.badge}>
-                    <img
-                      className={classes.cartIcon}
-                      src={navBarCartData.cartIcon}
-                      alt={navBarCartData.cartIconAlt}
-                    />
-                    <span className={classes.cartCounter}>
-                      {numberOfCases}
-                    </span>
-                  </span>
-                </Tooltip>
+          {
+            navBarCartData && (
+              <Box id="button_navbar_mycases" className={classes.logotype} classes={{ root: classes.buttonRootNoRightPadding }}>
+                <HashRouter>
+                  <NavLink
+                    className={classes.cartLabelText}
+                    to={navBarCartData.cartLink}
+                  >
+                    {navBarCartData.cartLabel}
+                    {/* <Badge badgeContent={numberOfCases} max={99999}> */}
+                    <Tooltip title="Files" placement="bottom-end">
+                      <span className={classes.badge}>
+                        <img
+                          className={classes.cartIcon}
+                          src={navBarCartData.cartIcon}
+                          alt={navBarCartData.cartIconAlt}
+                        />
+                        {getCartLabel(navBarCartData.cartLabelType)}
+                      </span>
+                    </Tooltip>
 
-                {/* </Badge> */}
-              </NavLink>
-            </HashRouter>
-          </Button>
+                    {/* </Badge> */}
+                  </NavLink>
+                </HashRouter>
+              </Box>
+            )
+          }
         </div>
 
       </Toolbar>
@@ -128,10 +157,10 @@ const styles = () => ({
     marginTop: props.navBarstyling.global.marginTop ? props.navBarstyling.global.marginTop : '100px',
     width: '100vw',
   }),
-  cartIcon: {
-    height: '22px',
+  cartIcon: (props) => ({
+    height: props.navBarstyling.cart && props.navBarstyling.cart.iconSize ? props.navBarstyling.cart.iconSize : '22px',
     margin: '0px 0px 0px 6px',
-  },
+  }),
   labelText: (props) => ({
     textDecoration: 'none',
     color: props.navBarstyling.global.fontColor ? props.navBarstyling.global.fontColor : '#FFFFFF',
@@ -142,6 +171,7 @@ const styles = () => ({
     textDecoration: 'none',
     color: props.navBarstyling.global.fontColor ? props.navBarstyling.global.fontColor : '#FFFFFF',
     fontFamily: props.navBarstyling.global.fontFamily ? props.navBarstyling.global.fontFamily : 'Nunito',
+    textTransform: props.navBarstyling.global.textTransform ? props.navBarstyling.global.textTransform : 'UPPERCASE',
     fontSize: '13px',
   }),
   activeLabel: (props) => ({
@@ -164,9 +194,33 @@ const styles = () => ({
   }),
   buttonRoot: (props) => ({
     padding: props.navBarstyling.global.padding ? props.navBarstyling.global.padding : '9px 20px 0px 20px',
+    border: '0',
+    cursor: 'pointer',
+    margin: '0',
+    display: 'inline-flex',
+    position: 'relative',
+    alignItems: 'center',
+    verticalAlign: 'middle',
+    justifyContent: 'center',
+    textDecoration: 'none',
+    backgroundColor: 'transparent',
+    textTransform: 'uppercase',
+    lineHeight: '1.75',
   }),
   buttonRootNoRightPadding: (props) => ({
-    padding: props.navBarstyling.global.padding ? props.navBarstyling.global.padding : '9px 20px 0px 20px',
+    padding: props.navBarstyling.cart.padding || props.navBarstyling.global.padding || '9px 20px 0px 20px',
+    border: '0',
+    cursor: 'pointer',
+    margin: '0',
+    display: 'inline-flex',
+    position: 'relative',
+    alignItems: 'center',
+    verticalAlign: 'middle',
+    justifyContent: 'center',
+    textDecoration: 'none',
+    backgroundColor: 'transparent',
+    textTransform: 'uppercase',
+    lineHeight: '1.75',
   }),
   badge: {
     display: 'inline-flex',
@@ -181,6 +235,29 @@ const styles = () => ({
     letterSpacing: '0.8px',
     transform: 'scale(1) translate(0%, -50%)',
   },
+  cartCounter2Wrapper: {
+    marginTop: '-6px',
+    marginLeft: '6px',
+  },
+  cartCounter2: {
+    height: '16px',
+    minWidth: '16px',
+    fontFamily: 'Lato',
+    fontWeight: '600',
+    letterSpacing: '0.8px',
+    textAlign: 'start',
+    fontSize: '12px',
+  },
+  cartLabel: (props) => ({
+    height: '16px',
+    minWidth: '16px',
+    color: props.navBarstyling.cartLabel && props.navBarstyling.cartLabel.color ? props.navBarstyling.cartLabel.color : '#24E4BE',
+    fontFamily: 'Raleway',
+    fontWeight: '600',
+    letterSpacing: '0.8px',
+    textAlign: 'start',
+    fontSize: '12px',
+  }),
   iconButtonRoot: {
     paddingTop: '9px',
     paddingLeft: '0px',

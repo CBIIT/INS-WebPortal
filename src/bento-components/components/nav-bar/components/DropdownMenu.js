@@ -7,7 +7,7 @@ import DropdownItemsMenu from './DropdownItemsMenu';
 
 const DropdownMenu = ({
   classes, handleButtonClickEvent, linkText, clickedEl, dropDownElements,
-  navBarstyling, externalLinksFlag, externalLinks,
+  navBarstyling, externalLinksFlag, externalLinks, index,
 }) => {
   const [displayDropDownMenu, setDisplayDropDownMenu] = React.useState(false);
 
@@ -21,7 +21,7 @@ const DropdownMenu = ({
 
   function dropdownMenuClickEvent() {
     setDisplayDropDownMenu(false);
-    handleButtonClickEvent('aboutMenu');
+    handleButtonClickEvent(index);
   }
 
   return (
@@ -33,13 +33,12 @@ const DropdownMenu = ({
       <Button
         id="button_navbar_about"
         weight="medium"
-        aria-controls="simple-menu"
         aria-haspopup="true"
         onFocus={handleClick}
         className={classes.logotype}
         classes={{ root: classes.buttonRoot }}
       >
-        <span className={clickedEl === 'aboutMenu' ? classes.buttonRootClicked : ''} id={`navbar_dropdown_${linkText}`}>
+        <span className={index === clickedEl ? classes.buttonRootClicked : ''} id={`navbar_dropdown_${linkText}`}>
           { linkText }
         </span>
         {navBarstyling.dropDownIcon.displayIcon === true ? <ExpandMoreRoundedIcon className={classes.dropDownicon} /> : ''}
