@@ -49,7 +49,8 @@ const StatsBar = ({
 
 const styles = () => ({
   statsSection: (props) => ({
-    top: props.statsStyling.global.top ? props.statsStyling.global.top : '139px',
+    // top: props.statsStyling.global.top ? props.statsStyling.global.top : '139px',
+    top: props.statsStyling.global.top ? props.statsStyling.global.top : '306px',
     width: '100%',
     zIndex: 999,
     position: 'fixed',
