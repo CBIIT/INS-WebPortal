@@ -4,8 +4,7 @@
   height: 1200px;
   margin: auto;
   left: 700px;
-  /* top: 27px; */
-  top: 194px;
+  top: 27px;
   right: 0;
   @media (max-width: 1600px) {
     margin-left: calc(50vw - 900px);

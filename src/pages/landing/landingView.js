@@ -434,8 +434,7 @@ const LandingView = ({ classes, statsData }) => {
 const styles = () => ({
   disclaimer: {
     position: 'fixed',
-    // top: '139px',
-    top: '306px',
+    top: '139px',
     left: '0px',
     height: '47px',
     backgroundColor: '#b31d3d',
@@ -459,8 +458,7 @@ const styles = () => ({
     padding: '5px',
   },
   page: {
-    // marginTop: '-47px',
-    marginTop: '120px',
+    marginTop: '-47px',
   },
   heroImage: {
     width: '100%',
@@ -778,8 +776,7 @@ const styles = () => ({
     height: '1200px',
     margin: 'auto',
     right: 0,
-    // top: '147px',
-    top: '314px',
+    top: '147px',
     left: 0,
     '@media (min-width: 900px)': {
       width: '906px',

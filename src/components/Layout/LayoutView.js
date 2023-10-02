@@ -19,7 +19,6 @@ import ProgramDetail from '../../pages/programDetail/programDetailController';
 import GraphqlClient from '../GraphqlClient/GraphqlView';
 import GlobalSearch from '../../pages/search/searchView';
 import GlobalSearchController from '../../pages/search/searchViewController';
-import GovtBanner from './GovtBannerView';
 
 const ScrollToTop = () => {
   window.scrollTo(0, 0);
@@ -31,7 +30,6 @@ const Layout = ({ classes, isSidebarOpened }) => (
     <CssBaseline />
     <HashRouter>
       <>
-        <GovtBanner />
         <Header />
         <NavBar />
         <div
@@ -82,8 +80,7 @@ const styles = (theme) => ({
     // width: `calc(100vw - 240px)`,   // Ajay need to add this on addung side bar
     width: 'calc(100%)', // Remove this on adding sidebar
     background: theme.custom.bodyBackGround,
-    // marginTop: '185px',
-    marginTop: '352px',
+    marginTop: '185px',
   },
   '@global': {
     '*::-webkit-scrollbar': {
