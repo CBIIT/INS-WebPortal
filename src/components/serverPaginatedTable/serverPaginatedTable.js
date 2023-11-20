@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/state-in-constructor */
 import React from 'react';
@@ -7,76 +6,9 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import cloneDeep from 'lodash/cloneDeep';
 import { CircularProgress, Backdrop, withStyles } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
-import { CustomDataTable } from '../../bento-components';
+import { CustomDataTable } from '@bento-core/data-table';
 import client from '../../utils/graphqlClient';
 import CSVDownloadToolbar from './components/CSVDownloadCustomToolbar';
-import CSVDownloadToolbarDisabled from './components/CSVDownloadCustomToolbarDisabled';
-
-const useStyles1 = makeStyles((theme) => ({
-  root: {
-    flexShrink: 0,
-    marginLeft: theme.spacing(2.5),
-  },
-}));
-
-function TablePaginationActions(props) {
-  const classes = useStyles1();
-  const theme = useTheme();
-  const {
-    count, page, rowsPerPage, onPageChange,
-  } = props;
-
-  const handleFirstPageButtonClick = (event) => {
-    onPageChange(event, 0);
-  };
-
-  const handleBackButtonClick = (event) => {
-    onPageChange(event, page - 1);
-  };
-
-  const handleNextButtonClick = (event) => {
-    onPageChange(event, page + 1);
-  };
-
-  const handleLastPageButtonClick = (event) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
-
-  return (
-    <div className={classes.root}>
-      <IconButton
-        onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
-        aria-label="first page"
-      >
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
-      </IconButton>
-      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-      </IconButton>
-      <IconButton
-        onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-      </IconButton>
-      <IconButton
-        onClick={handleLastPageButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
-      </IconButton>
-    </div>
-  );
-}
 
 class ServerPaginatedTableView extends React.Component {
   state = {
@@ -289,8 +221,8 @@ class ServerPaginatedTableView extends React.Component {
   };
 
   getSortData = (arr, sortColumn, sortDirection) => arr.sort((a, b) => {
-    const keyA = parseInt(a[sortColumn].toString().replace(/^\D+/g, ''), 10);
-    const keyB = parseInt(b[sortColumn].toString().replace(/^\D+/g, ''), 10);
+    const keyA = parseInt(a[sortColumn].replace(/^\D+/g, ''), 10);
+    const keyB = parseInt(b[sortColumn].replace(/^\D+/g, ''), 10);
     if (sortDirection === 'asc') {
       if (keyA < keyB) return -1;
       if (keyA > keyB) return 1;
@@ -330,24 +262,24 @@ class ServerPaginatedTableView extends React.Component {
       });
     }
     let fetchResult = [];
-    // if (this.props.data && this.props.data.length > this.state.rowsPerPage) {
-    //   const newData = [...this.props.data];
-    //   const sortedData = this.getSortData(newData, sortColumn, sortDirection);
-    //   fetchResult = sortedData.splice(offsetReal, this.state.rowsPerPage);
-    // } else {
-    fetchResult = await client
-      .query({
-        query: this.props.overview,
-        variables: {
-          offset: offsetReal,
-          first: this.props.count < rowsRequired ? this.props.count : rowsRequired,
-          order_by: sortColumn,
-          sort_direction: sortDirection,
-          ...this.props.queryCustomVaribles,
-        },
-      })
-      .then((result) => (result.data[this.props.paginationAPIField]));
-    // }
+    if (this.props.data && this.props.data.length > this.state.rowsPerPage) {
+      const newData = [...this.props.data];
+      const sortedData = this.getSortData(newData, sortColumn, sortDirection);
+      fetchResult = sortedData.splice(offsetReal, this.state.rowsPerPage);
+    } else {
+      fetchResult = await client
+        .query({
+          query: this.props.overview,
+          variables: {
+            offset: offsetReal,
+            first: this.props.count < rowsRequired ? this.props.count : rowsRequired,
+            order_by: sortColumn,
+            sort_direction: sortDirection,
+            ...this.props.queryCustomVaribles,
+          },
+        })
+        .then((result) => (result.data[this.props.paginationAPIField]));
+    }
     if (this.props.updateSortOrder) {
       localStorage.setItem('dataLength', String(fetchResult.length));
       localStorage.setItem('data', JSON.stringify(fetchResult));
@@ -371,21 +303,14 @@ class ServerPaginatedTableView extends React.Component {
           noMatch: 'No Matching Records Found',
         },
       },
-      customToolbar: this.props.tableDownloadCSV.defaultFullTableDownload && this.props.data.length !== 0 ? () => (
+      customToolbar: this.props.tableDownloadCSV.defaultFullTableDownload ? () => (
         this.props.tableDownloadCSV && (
           <CSVDownloadToolbar
             tableDownloadCSV={this.props.tableDownloadCSV}
             queryCustomVaribles={this.props.queryCustomVaribles}
           />
         )
-      ) : () => (
-        this.props.tableDownloadCSV && (
-          <CSVDownloadToolbarDisabled
-            tableDownloadCSV={this.props.tableDownloadCSV}
-            queryCustomVaribles={this.props.queryCustomVaribles}
-          />
-        )
-      ),
+      ) : '',
       sortOrder,
       onRowSelectionChange: (
         curr,
@@ -408,10 +333,9 @@ class ServerPaginatedTableView extends React.Component {
               page={page}
               rowsPerPage={rowsPerPage}
               // eslint-disable-next-line max-len
-              onChangeRowsPerPage={(event) => { this.setState({ rowsPerPage: event.target.value }); changePage(page); changeRowsPerPage(event.target.value); changePage(0); }}
+              onChangeRowsPerPage={(event) => { this.setState({ rowsPerPage: event.target.value }); changePage(page); changeRowsPerPage(event.target.value); }}
               // eslint-disable-next-line no-shadow
               onChangePage={(_, page) => changePage(page)}
-              ActionsComponent={TablePaginationActions}
             />
           </TableRow>
         </TableFooter>
@@ -449,47 +373,23 @@ class ServerPaginatedTableView extends React.Component {
       }
       options1.page = newPage;
     }
-    const updatedData = data === 'undefined' ? [] : [...data];
-    // let updatedData = data === 'undefined' ? [] : [...data];
-    // if (data.length > rowsPerPage) {
-    //   const newData = [...data];
-    //   const sortedData = this.getSortData(newData, sortOrder.name, sortOrder.direction);
-    //   updatedData = sortedData.splice(0, rowsPerPage);
-    // }
-    const formatedUpdatedData = [];
-    updatedData.forEach((dt) => {
-      const tmp = { ...dt };
-      if (this.props.dataTransformation) {
-        this.props.dataTransformation.forEach((column) => {
-          const cb = column.dataTransform;
-          const attribute = column.dataField;
-          tmp[attribute] = cb(tmp[attribute]);
-        });
-      }
-      formatedUpdatedData.push(tmp);
-    });
-
-    columns.forEach((col, idx) => {
-      if (this.props.headerStyles[idx] !== undefined) {
-        columns[idx].options.setCellHeaderProps = () => ({
-          style: this.props.headerStyles[idx],
-        });
-      }
-    });
-
+    let updatedData = data;
+    if (data.length > rowsPerPage) {
+      const newData = [...data];
+      const sortedData = this.getSortData(newData, sortOrder.name, sortOrder.direction);
+      updatedData = sortedData.splice(0, rowsPerPage);
+    }
     return (
       <div>
         <Backdrop
           open={(isLoading || this.props.isLoading) && data !== 'undefined'}
           className={this.props.classes.backdrop}
         >
-          <div style={{ width: '1535px' }}>
-            <CircularProgress style={{ height: '60px' }} />
-          </div>
+          <CircularProgress />
         </Backdrop>
-        {this.props.isLoading || data === 'undefined' || formatedUpdatedData === 'undefined' ? <div style={{ width: '1535px' }}><CircularProgress style={{ height: '60px' }} /></div> : (
+        {updatedData === 'undefined' ? <CircularProgress /> : (
           <CustomDataTable
-            data={formatedUpdatedData}
+            data={updatedData}
             columns={columns}
             className={className}
             options={({ ...this.props.options, ...options1 })}

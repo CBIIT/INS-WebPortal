@@ -2,10 +2,11 @@ import env from '../utils/env';
 // footerLogoImage ideal image size 310x80 px
 
 export default {
-  footerLogoImage: 'https://raw.githubusercontent.com/cbiit/datacommons-assets/main/bento/images/icons/png/footerlogo.png',
-  footerLogoAltText: 'Footer Logo',
-  footerLogoHyperlink: 'https://www.cancer.gov/',
-  footerStaticText: 'NIH … Turning Discovery Into Health®',
+  // footerLogoImage: 'https://raw.githubusercontent.com/cbiit/datacommons-assets/main/bento/images/icons/png/footerlogo.png',
+  // footerLogoAltText: 'Footer Logo',
+  footerLogoText: 'National Cancer Institute',
+  footerLogoSubText: 'at the National Institutes of Health',
+  footerLogoHyperlink: 'https://cancer.gov/',
   version: env.REACT_APP_FE_VERSION,
   BEversion: env.REACT_APP_BE_VERSION,
   // A maximum of 3 Subsections (link_sections) are allowed
@@ -14,25 +15,53 @@ export default {
   // Ideal size for icon is 20x20 px
   link_sections: [
     {
-      title: 'More Information',
+      title: 'Contact Information',
       items: [
         {
-          text: 'About INS',
-          link: '/about',
-        },
-        {
-          text: 'Contact INS',
-          link: 'nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback',
+          text: 'Bento Help Desk',
+          link: 'bento-help@nih.gov',
         },
       ],
     },
+
     {
-      title: 'NIH Policies',
+      title: 'More Information',
       items: [
         {
-          text: 'Policies',
-          link: 'https://www.cancer.gov/policies',
+          text: 'Bento Home',
+          link: 'https://bento-tools.org/',
         },
+        {
+          text: 'Bento Documentation',
+          link: 'https://cbiit.github.io/bento-docs/master/index.html',
+        },
+      ],
+    },
+
+    {
+      title: 'System Info',
+      systemInfoInLinkSection: true,
+      items: [
+        {
+          text: 'Release Notes',
+          link: 'https://github.com/CBIIT/bento-frontend/releases',
+        },
+        {
+          text: `FE Version: ${env.REACT_APP_FE_VERSION || '0.0.0'}`,
+        },
+        {
+          text: 'BE Version: 0.0.0',
+        },
+        {
+          text: 'System Info Page',
+          link: '/sysinfo',
+        },
+      ],
+    },
+
+    {
+      title: 'Policies',
+      items: [
         {
           text: 'Disclaimer',
           link: 'https://www.cancer.gov/policies/disclaimer',

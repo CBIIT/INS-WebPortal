@@ -23,13 +23,12 @@ const tableHeaderBorder = '#42779A 3px solid';
 const tableHeaderFontColor = '#13344A';
 const tableFontFamily = "'Lato Regular','Raleway', sans-serif";
 const white = '#FFFFFF';
-const red = '#CE0001';
 
 export default {
   custom: {
     maxContentWidth: '1440px',
     maxContent: 'white',
-    bodyBackGround: '#F3F3F3',
+    bodyBackGround: '#E5F0FA',
     cardBackGround: '#f0f6f8',
     fontFamilySans: '"Open Sans", sans-serif',
     footorBackground: '#325068',
@@ -217,16 +216,6 @@ export default {
         .darken(darkenRate)
         .toHexString(),
     },
-    red: {
-      main: red,
-      light: tinycolor(red)
-        .lighten(lightenRate)
-        .toHexString(),
-      dark: tinycolor(red)
-        .darken(darkenRate)
-        .toHexString(),
-      contrastText: '#FFFFFF',
-    },
     text: {
       withbackground: 'white',
       primary: '#4A4A4A',
@@ -236,7 +225,7 @@ export default {
       footerText: 'white',
     },
     background: {
-      default: '#F3F3F3',
+      default: '#E5F0FA',
       light: '#F3F5FF',
     },
     clearQueryResultColor: {
@@ -509,21 +498,6 @@ export default {
       stackedParent: {
         '&:first-child': {
           paddingLeft: '30px',
-        },
-      },
-      stackedCommon: {
-        '& span img': {
-          width: '14.5px',
-          verticalAlign: 'sub',
-          marginLeft: '4px',
-          paddingBottom: '2px',
-        },
-        '& a': {
-          color: '#7747ff',
-          textDecoration: 'none',
-          '&:hover': {
-            textDecoration: 'underline',
-          },
         },
       },
     },

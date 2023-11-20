@@ -1,6 +1,6 @@
 export const navBarstyling = {
   global: {
-    backgroundColor: '#3E3C3F',
+    backgroundColor: '#142D64',
     height: '39px',
     padding: '9px 20px 0px 20px',
   },
@@ -11,7 +11,7 @@ export const navBarstyling = {
   },
   dropdownMenu: {
     paper: {
-      background: '#FFFFFF',
+      background: '#309EC4',
       width: '200px',
       padding: '5px 18px 18px 18px',
       marginLeft: '15px',
@@ -22,9 +22,9 @@ export const navBarstyling = {
     link: {
       overflowWrap: 'normal',
       textDecoration: 'none',
-      color: '#a09ea0',
+      color: 'black',
       fontSize: '14px',
-      fontWeight: '100',
+      fontWeight: '600',
       lineSpacing: '1px',
       lineHeight: '18px',
       fontFamily: 'Raleway, sans-serif',
@@ -32,10 +32,13 @@ export const navBarstyling = {
       marginTop: '10px',
       '&:hover': {
         cursor: 'pointer',
-        color: 'black',
-        fontWeight: '1000',
+        color: 'white',
       },
     },
+  },
+  cart: {
+    iconSize: '30px',
+    padding: '6px 20px 0px 5px',
   },
 };
 
@@ -59,34 +62,28 @@ export const navBarData = [
   },
   {
     labelText: 'about',
-    type: 'link',
-    link: '/about',
+    type: 'dropdown',
+    dropDownLinks: [
+      {
+        labelText: 'Bento',
+        link: '/bento',
+      },
+      {
+        labelText: 'Resources',
+        link: '/resources',
+      },
+      {
+        labelText: 'Graphql',
+        link: '/graphql',
+      },
+    ],
   },
-  // {
-  //   labelText: 'about',
-  //   type: 'dropdown',
-  //   dropDownLinks: [
-  //     {
-  //       labelText: 'About INS',
-  //       link: '/about',
-  //       linkActiveStyle: 'black',
-  //     },
-  //     {
-  //       labelText: 'User Guide (PDF)',
-  //       link: '/pdf',
-  //       linkActiveStyle: 'black',
-  //     },
-  //   ],
-  // },
 ];
 
 export const navBarCartData = {
   cartLabel: '',
-  cartLink: '',
-  cartIcon: '',
-  cartIconAlt: '',
-  // cartLabel: 'MY Files',
-  // cartLink: '/fileCentricCart',
-  // cartIcon: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Icon-Cart-Navbar.svg',
-  // cartIconAlt: 'cart_logo',
+  cartLink: '/fileCentricCart',
+  cartIcon: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Icon-Cart-Navbar.svg',
+  cartIconAlt: 'cart_logo',
+  cartLabelType: 'labelUnderCount',
 };

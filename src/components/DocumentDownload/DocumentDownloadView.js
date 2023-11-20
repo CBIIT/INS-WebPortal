@@ -1,14 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   withStyles,
 } from '@material-ui/core';
-import { ToolTip } from '../../bento-components';
+import ToolTip from '@bento-core/tool-tip';
+import { Link, useHistory } from 'react-router-dom';
 import env from '../../utils/env';
 import CustomIcon from '../CustomIcon/CustomIconView';
 import { jBrowseOptions } from '../../bento/jbrowseDetailData';
-import globalData from '../../bento/siteWideConfig';
+import { useAuth } from '@bento-core/authentication';
+import { enableAuthentication } from '../../bento/siteWideConfig';
 import SessionTimeOutModal from '../sessionTimeOutModal';
 
 const FILE_SERVICE_API = env.REACT_APP_FILE_SERVICE_API;
@@ -47,6 +48,7 @@ const fetchFileToDownload = (fileURL = '', signOut, setShowModal) => {
     });
 };
 
+// NOTE: This component is getting more complex, will need to refactor at some point.
 const DocumentDownload = ({
   classes,
   fileSize = 0,
@@ -62,28 +64,54 @@ const DocumentDownload = ({
   iconUnauthenticated = '',
   fileLocation = '',
   caseId = '',
+  requiredACLs = [],
 }) => {
-  const isSignedIn = useSelector((state) => state.login.isSignedIn);
+  const {
+    signInWithGoogle,
+    signOut,
+  } = useAuth();
+  const history = useHistory();
+
+  const { isSignedIn, acl: currentUserACL = [], role } = useSelector((state) => state.login);
   const [showModal, setShowModal] = React.useState(false);
+
+  const approvedACLs = currentUserACL.reduce(
+    (results, acl) => {
+      if (acl.accessStatus.toLowerCase() === 'approved') results.push(acl.armID);
+      return results;
+    },
+    [],
+  );
 
   const closeModal = () => {
     setShowModal(false);
   };
 
-  const signIn = () => {
-  };
+  const hasAccess = () => {
+    if (role === 'admin') return true;
 
-  const signOut = () => {
+    return requiredACLs.reduce(
+      (status, rACL) => approvedACLs.includes(rACL) || status, false,
+    );
   };
 
   return (
     <>
       <div>
-        { (globalData.enableAuthentication && !isSignedIn) ? (
+        { (enableAuthentication && !isSignedIn) ? (
           <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={toolTipTextUnauthenticated} arrow placement="bottom">
             <div
               style={{ textAlign: 'center' }}
-              onClick={() => signIn()}
+              onClick={() => history.push('/login?redirect=/explore')}
+            >
+              <CustomIcon imgSrc={iconUnauthenticated} />
+            </div>
+          </ToolTip>
+        ) : (enableAuthentication && isSignedIn && !hasAccess()) ? (
+          <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={toolTipTextUnauthenticated} arrow placement="bottom">
+            <div
+              style={{ textAlign: 'center' }}
+              onClick={() => history.push('/request')}
             >
               <CustomIcon imgSrc={iconUnauthenticated} />
             </div>
@@ -98,22 +126,27 @@ const DocumentDownload = ({
           </ToolTip>
         ) : fileSize < maxFileSize ? (
           <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={toolTipTextFileDownload} arrow placement="bottom">
-            <div onClick={() => fetchFileToDownload(fileLocation, signOut, setShowModal)}>
+            <div
+              style={{ textAlign: 'center' }}
+              onClick={() => fetchFileToDownload(fileLocation, signOut, setShowModal)}
+            >
               <CustomIcon imgSrc={iconFileDownload} />
             </div>
           </ToolTip>
         ) : (
           <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={toolTipTextFilePreview} arrow placement="bottom">
-            <span>
+            <div
+              style={{ textAlign: 'center' }}
+            >
               <CustomIcon imgSrc={iconFilePreview} />
-            </span>
+            </div>
           </ToolTip>
         )}
         <SessionTimeOutModal
           open={showModal}
           closeModal={closeModal}
           handleClose={closeModal}
-          submit={signIn}
+          submit={signInWithGoogle}
           message="Please login to access files!"
         />
       </div>
