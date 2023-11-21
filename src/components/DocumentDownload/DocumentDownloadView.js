@@ -5,10 +5,10 @@ import {
 } from '@material-ui/core';
 import ToolTip from '@bento-core/tool-tip';
 import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '@bento-core/authentication';
 import env from '../../utils/env';
 import CustomIcon from '../CustomIcon/CustomIconView';
 import { jBrowseOptions } from '../../bento/jbrowseDetailData';
-import { useAuth } from '@bento-core/authentication';
 import { enableAuthentication } from '../../bento/siteWideConfig';
 import SessionTimeOutModal from '../sessionTimeOutModal';
 

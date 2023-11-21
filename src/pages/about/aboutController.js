@@ -17,14 +17,14 @@ const About = ({ match }) => {
         const supportObj = resultData.find(({ page }) => page === match.path);
         setData(supportObj);
       } catch (error) {
-        return setData({error})
+        return setData({ error });
       }
     };
     fetchData();
   }, [match.path]);
 
-  if(data.error){
-    return <div>Error in Loading aboutPagesContent.yaml.</div>
+  if (data.error) {
+    return <div>Error in Loading aboutPagesContent.yaml.</div>;
   }
 
   return (
