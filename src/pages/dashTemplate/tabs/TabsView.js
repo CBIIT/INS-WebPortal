@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Tabs as BentoTabs } from '@bento-core/tab';
 import TabPanel from './TabPanel';
 import { tabContainers } from '../../../bento/dashboardTabData';
-import { Tabs as BentoTabs }  from '@bento-core/tab';
-import { customTheme } from './DefaultTabTheme';
+import customTheme from './DefaultTabTheme';
 
 const Tabs = (props) => {
   const [currentTab, setCurrentTab] = useState(0);
