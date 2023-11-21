@@ -7,9 +7,9 @@ import {
   Switch,
   withStyles,
 } from '@material-ui/core';
+import { WidgetGenerator } from '@bento-core/widgets';
 import { useTheme } from '../../../components/ThemeContext';
 import styles from './WidgetStyle';
-import { WidgetGenerator } from '@bento-core/widgets';
 import { widgetConfig } from '../../../bento/dashTemplate';
 import colors from '../../../utils/colors';
 import { Typography } from '../../../components/Wrappers/Wrappers';
