@@ -20,9 +20,9 @@ import {
   resetAllData, chunkSplit,
   SearchView, SearchBoxGenerator, UploadModalGenerator,
 } from '@bento-core/local-find';
+import { FacetFilter, ClearAllFiltersBtn } from '@bento-core/facet-filter';
 import store from '../../../store';
 import styles from './BentoFacetFilterStyle';
-import { FacetFilter, ClearAllFiltersBtn } from '@bento-core/facet-filter';
 import { facetsConfig, facetSectionVariables, resetIcon } from '../../../bento/dashTemplate';
 import FacetFilterThemeProvider from './FilterThemeConfig';
 import {
@@ -72,6 +72,7 @@ const { UploadModal } = UploadModalGenerator({
       try {
         // Split the search terms into chunks of 500
         const caseChunks = chunkSplit(inputArray, 500);
+        // eslint-disable-next-line max-len
         const matched = (await Promise.allSettled(caseChunks.map((chunk) => getAllSubjectIds(chunk))))
           .filter((result) => result.status === 'fulfilled')
           .map((result) => result.value || [])
