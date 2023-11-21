@@ -13,7 +13,7 @@ import styles from './WidgetStyle';
 import { widgetConfig } from '../../../bento/dashTemplate';
 import colors from '../../../utils/colors';
 import { Typography } from '../../../components/Wrappers/Wrappers';
-import { formatWidgetData } from './WidgetUtils';
+import formatWidgetData from './WidgetUtils';
 
 const WidgetView = ({
   classes,
