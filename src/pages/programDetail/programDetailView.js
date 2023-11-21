@@ -7,12 +7,13 @@ import { Link } from 'react-router-dom';
 import {
   getOptions,
   getColumns,
-  manipulateLinks
+  manipulateLinks,
 } from '@bento-core/util';
 import {
-  CustomDataTable
+  CustomDataTable,
 } from '@bento-core/data-table';
 import clsx from 'clsx';
+import { WidgetGenerator } from '@bento-core/widgets';
 import globalData from '../../bento/siteWideConfig';
 import {
   pageTitle, table, externalLinkIcon,
@@ -23,7 +24,6 @@ import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import colors from '../../utils/colors';
-import { WidgetGenerator } from '@bento-core/widgets';
 import { onClearAllAndSelectFacetValue } from '../dashTemplate/sideBar/BentoFilterUtils';
 
 const ProgramView = ({ classes, data, theme }) => {
@@ -101,7 +101,7 @@ const ProgramView = ({ classes, data, theme }) => {
                 <Link
                   className={classes.headerButtonLink}
                   to={(location) => ({ ...location, pathname: `${aggregateCount.link}` })}
-                  onClick={()=>onClearAllAndSelectFacetValue('programs', programData.program_acronym)}
+                  onClick={() => onClearAllAndSelectFacetValue('programs', programData.program_acronym)}
                 >
                   {' '}
                   <span className={classes.headerButtonLinkText}>{aggregateCount.labelText}</span>
