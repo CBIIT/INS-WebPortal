@@ -16,6 +16,7 @@ const About = ({ match }) => {
         resultData = yaml.safeLoad(result.data);
         const supportObj = resultData.find(({ page }) => page === match.path);
         setData(supportObj);
+        return setData({ supportObj });
       } catch (error) {
         return setData({ error });
       }
