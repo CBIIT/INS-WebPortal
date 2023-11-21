@@ -4,6 +4,8 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { WidgetGenerator } from '@bento-core/widgets';
+import { TableContextProvider } from '@bento-core/paginated-table';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
 import icon from '../../assets/icons/Arms.Icon.svg';
@@ -17,19 +19,16 @@ import PropertySubsection from '../../components/PropertySubsection/armDetailSub
 import NumberOfThings from '../../components/NumberOfThings';
 import Snackbar from '../../components/Snackbar';
 import colors from '../../utils/colors';
-import { WidgetGenerator } from '@bento-core/widgets';
-import { TableContextProvider } from '@bento-core/paginated-table';
 import FilesTableView from './FilesView/FilesTableView';
 import { onClearAllAndSelectFacetValue } from '../dashTemplate/sideBar/BentoFilterUtils';
 
 // Main case detail component
 const ArmDetail = ({ data, classes }) => {
-
   const [snackbarState, setsnackbarState] = React.useState({
     open: false,
     value: 0,
   });
-  
+
   function closeSnack() {
     setsnackbarState({ open: false });
   }
@@ -78,7 +77,7 @@ const ArmDetail = ({ data, classes }) => {
             <div className={classes.headerTitle}>
               <div className={classes.headerMainTitle} id="arm_detail_title">
                 {`${header.label} :`}
-                { data[header.dataField]
+                {data[header.dataField]
                   ? (
                     <span className={classes.headerMainTitleTwo}>
                       {' '}
@@ -92,7 +91,7 @@ const ArmDetail = ({ data, classes }) => {
                   )}
               </div>
             </div>
-            { /* Case Count */ }
+            { /* Case Count */}
             <div className={classes.headerButton}>
               <div className={classes.headerButtonLinkArea}>
                 <span className={classes.headerButtonLinkText}>Number of cases:</span>
@@ -100,9 +99,9 @@ const ArmDetail = ({ data, classes }) => {
                   className={classes.headerButtonLink}
                   to={(location) => ({
                     ...location,
-                    pathname: `/explore`
+                    pathname: '/explore',
                   })}
-                  onClick={()=>onClearAllAndSelectFacetValue('studies', data.study_info)}
+                  onClick={() => onClearAllAndSelectFacetValue('studies', data.study_info)}
                 >
                   <span className={classes.headerButtonLinkNumber} id="arm_detail_header_file_count">
                     {data.num_subjects}
@@ -117,7 +116,7 @@ const ArmDetail = ({ data, classes }) => {
             <Grid item lg={7} sm={6} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
               <div className={classes.innerPanel}>
                 <Grid container spacing={2}>
-                  { subsections.slice(0, 6).map((section, index) => (
+                  {subsections.slice(0, 6).map((section, index) => (
                     <PropertySubsection key={index} section={section} data={data} />
                   ))}
                 </Grid>
