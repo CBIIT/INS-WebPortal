@@ -24,7 +24,7 @@ export const tblContainer = {
       transform: 'rotateX(180deg)',
       boxShadow: 'none',
       borderRadius: '0',
-    }
+    },
   },
   MuiTable: {
     root: {
@@ -51,10 +51,10 @@ export const tblBody = {
     },
     body: {
       color: '#004C73',
-    }
+    },
   },
 };
-  
+
 export const tblPgn = {
   MuiTablePagination: {
     root: {
@@ -74,13 +74,13 @@ export const tblPgn = {
   MuiTypography: {
     body2: {
       fontSize: '10px',
-    }
-  }
+    },
+  },
 };
-  
+
 export const themeConfig = {
   tblHeader,
   tblContainer,
   tblBody,
-  tblPgn
+  tblPgn,
 };

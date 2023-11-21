@@ -26,7 +26,7 @@ export const tooltipContent = {
   },
 };
 
-//BENTO-2455 Configuration set for Bento 4.0.
+// BENTO-2455 Configuration set for Bento 4.0.
 export const myFilesPageData = {
   manifestFileName: 'BENTO File Manifest',
   tooltipIcon: 'https://raw.githubusercontent.com/google/material-design-icons/master/src/action/help/materialicons/24px.svg',
@@ -58,36 +58,35 @@ export const myFilesPageData = {
       ],
     },
     {
-    container: 'buttons',
-    size: 'xl',
-    clsName: 'container_header',
-    items: [
-      {
-        title: 'DOWNLOAD MANIFEST',
-        clsName: 'download_manifest',
-        type: types.BUTTON,
-        role: btnTypes.DOWNLOAD_MANIFEST,
-        btnType: btnTypes.DOWNLOAD_MANIFEST,
-        tooltipCofig: tooltipContent,
-      }],
-  },
-  {
-    container: 'paginatedTable',
-    paginatedTable: true,
-  },
-  {
-    container: 'buttons',
-    size: 'xl',
-    clsName: 'container_footer',
-    items: [
-      {
-        clsName: 'manifest_comments',
-        type: types.TEXT_INPUT,
-        placeholder: 'Please add a description for the CSV file you are about to download.',
-      }],
-  }]
+      container: 'buttons',
+      size: 'xl',
+      clsName: 'container_header',
+      items: [
+        {
+          title: 'DOWNLOAD MANIFEST',
+          clsName: 'download_manifest',
+          type: types.BUTTON,
+          role: btnTypes.DOWNLOAD_MANIFEST,
+          btnType: btnTypes.DOWNLOAD_MANIFEST,
+          tooltipCofig: tooltipContent,
+        }],
+    },
+    {
+      container: 'paginatedTable',
+      paginatedTable: true,
+    },
+    {
+      container: 'buttons',
+      size: 'xl',
+      clsName: 'container_footer',
+      items: [
+        {
+          clsName: 'manifest_comments',
+          type: types.TEXT_INPUT,
+          placeholder: 'Please add a description for the CSV file you are about to download.',
+        }],
+    }],
 };
-
 
 export const manifestData = {
   keysToInclude: ['study_code', 'subject_id', 'file_name', 'file_id', 'md5sum'],
@@ -196,4 +195,3 @@ export const table = {
     noMatch: 'No Matching Records Found',
   },
 };
-
