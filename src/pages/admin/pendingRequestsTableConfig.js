@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import{
+import {
   CustomDataTable,
-} from'@bento-core/data-table';
+} from '@bento-core/data-table';
 import {
   getDateInFormat,
   getColumns,
   getOptions,
   getDefaultCustomFooter,
-} from '@bento-core/util'
+} from '@bento-core/util';
 
 /**
  * Default configuration for Local Find Upload Modal
