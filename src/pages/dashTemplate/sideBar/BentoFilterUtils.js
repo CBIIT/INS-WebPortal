@@ -1,4 +1,3 @@
-
 import { clearAllAndSelectFacet } from '@bento-core/facet-filter';
 import {
   GET_IDS_BY_TYPE, GET_SUBJECT_IDS,
@@ -6,15 +5,15 @@ import {
 import store from '../../../store';
 import client from '../../../utils/graphqlClient';
 
-export const getFacetValues = (facet, facetValue) => ({[facet]: { [facetValue]: true }});
+export const getFacetValues = (facet, facetValue) => ({ [facet]: { [facetValue]: true } });
 
 /**
 * set filter item from Arm/Program details page (NUMBER OF CASES: button)
 */
 export const onClearAllAndSelectFacetValue = (facet, facetValue) => {
-  const filterValue = getFacetValues(facet, facetValue );
+  const filterValue = getFacetValues(facet, facetValue);
   store.dispatch(clearAllAndSelectFacet(filterValue));
-}
+};
 
 /**
  * Get list of all available ids for a search field

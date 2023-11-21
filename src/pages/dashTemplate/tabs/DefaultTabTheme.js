@@ -1,4 +1,4 @@
-export const customTheme = {
+const customTheme = {
   MuiTabs: {
     root: {
       borderBottom: '10px solid #40789c',
@@ -55,3 +55,5 @@ export const customTheme = {
     },
   },
 };
+
+export { customTheme as default };
