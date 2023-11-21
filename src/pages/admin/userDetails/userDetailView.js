@@ -7,11 +7,12 @@ import {
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import AlertMessage from '../../../bento-core/AlertMessage';
 import {
   RevokeAccessTableGenerator,
   UserDetailsGenerator,
 } from '@bento-core/admin';
+import AlertMessage from '../../../bento-core/AlertMessage';
+
 import REVOKE_ACCESS_TABLE_CONFIG from './revokeAccessTableConfig';
 import USER_DETAILS_CONFIG from './userDetailsViewConfig';
 import Stats from '../../../components/Stats/AllStatsController';
