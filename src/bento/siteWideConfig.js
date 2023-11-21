@@ -1,5 +1,4 @@
-import env from '../utils/env';
-import { getEnvBoolean } from '../utils/env';
+import env, { getEnvBoolean } from '../utils/env';
 
 export default {
   // Suggested for replaceEmptyValueWith: 'N/A' or '-' or ''
@@ -7,8 +6,6 @@ export default {
   // List for options for authentication empty array defaults to google
   authProviders: ['google', 'nih', 'loginGov'], // authEndPoint: []//
 };
-
-
 
 export const loginPath = '/login';
 export const requestAccessPath = '/request';

@@ -13,8 +13,8 @@ import {
 } from '@bento-core/admin';
 import AlertMessage from '../../../bento-core/AlertMessage';
 
-import REVOKE_ACCESS_TABLE_CONFIG from './revokeAccessTableConfig';
-import USER_DETAILS_CONFIG from './userDetailsViewConfig';
+import { REVOKE_ACCESS_TABLE_CONFIG } from './revokeAccessTableConfig';
+import { USER_DETAILS_CONFIG } from './userDetailsViewConfig';
 import Stats from '../../../components/Stats/AllStatsController';
 import { columnInfo, options } from '../../../bento/userDetailViewData';
 import {
