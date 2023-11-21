@@ -13,10 +13,10 @@ import {
 } from '@bento-core/util';
 import {
   ManageAccessTableGenerator,
-  PendingRequestsTableGenerator
+  PendingRequestsTableGenerator,
 } from '@bento-core/admin';
-import MANAGE_ACCESS_TABLE_CONFIG from './manageAccessTableConfig';
-import PENDING_REQUESTS_TABLE_CONFIG from './pendingRequestsTableConfig';
+import { MANAGE_ACCESS_TABLE_CONFIG } from './manageAccessTableConfig';
+import { PENDING_REQUESTS_TABLE_CONFIG } from './pendingRequestsTableConfig';
 import Stats from '../../components/Stats/AllStatsController';
 import {
   GET_LIST_REQUESTS,
