@@ -17,15 +17,15 @@ const removeEmptySubjectsFromDonutData = (data) => data.filter((item) => item.su
  * @param {object} custodianConfig
  * @return {object} formatted data
  */
-export function formatWidgetData(data, custodianConfig) {
+function formatWidgetData(data, custodianConfig) {
   const formatted = custodianConfig.reduce((acc, widget) => {
     const {
-      type, dataName, datatable_level1_field, datatable_level2_field,
-      datatable_level1_colors, datatable_level2_colors,
+      type, dataName, datatableLevel1Field, datatableLevel2Field,
+      datatableLevel1Colors, datatableLevel2Colors,
     } = widget;
 
     const dataset = type === 'sunburst'
-      ? transformInitialDataForSunburst(data[dataName], datatable_level1_field, datatable_level2_field, 'children', datatable_level1_colors, datatable_level2_colors)
+      ? transformInitialDataForSunburst(data[dataName], datatableLevel1Field, datatableLevel2Field, 'children', datatableLevel1Colors, datatableLevel2Colors)
       : removeEmptySubjectsFromDonutData(data[dataName]);
 
     return { ...acc, [dataName]: dataset };
@@ -33,3 +33,5 @@ export function formatWidgetData(data, custodianConfig) {
 
   return formatted;
 }
+
+export { formatWidgetData as default };
