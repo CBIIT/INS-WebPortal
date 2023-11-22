@@ -21,7 +21,7 @@ const QueryBarView = ({ data, statusReducer, localFind }) => {
 
   const sectionOrder = facetsConfig.map((v) => v.datafield);
   const mappedFilterState = Object.keys(statusReducer || {}).map((facet) => {
-    const config = facetsConfig.find((config) => config.datafield === facet);
+    const config = facetsConfig.find((configg) => configg.datafield === facet);
 
     return {
       ...config,
