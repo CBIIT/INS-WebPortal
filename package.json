@@ -11,6 +11,7 @@
     "@bento-core/admin": "1.0.0",
     "@bento-core/authentication": "1.0.0",
     "@bento-core/cart": "1.0.0",
+    "@bento-core/data-access-request": "1.0.0",
     "@bento-core/data-table": "^1.0.0",
     "@bento-core/facet-filter": "1.0.0",
     "@bento-core/footer": "1.0.0",
