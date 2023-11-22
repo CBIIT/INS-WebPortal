@@ -3,11 +3,11 @@ import ReduxThunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { sideBarReducerGenerator } from '@bento-core/facet-filter';
-import layout from '../components/Layout/LayoutState';
-import stats from '../components/Stats/StatsState';
 import { cartReducerGenerator } from '@bento-core/cart';
 import { LocalFindReducerGenerator } from '@bento-core/local-find';
 import { LoginReducerGenerator } from '@bento-core/authentication';
+import layout from '../components/Layout/LayoutState';
+import stats from '../components/Stats/StatsState';
 import { getFromLocalStorage } from '../utils/localStorage';
 
 const { localFind } = LocalFindReducerGenerator();

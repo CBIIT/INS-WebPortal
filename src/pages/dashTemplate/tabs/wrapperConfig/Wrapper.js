@@ -76,7 +76,6 @@ export const wrapperConfig = [{
 },
 ];
 
-
 /**
 * 1. addFileQuery - query to addAll files or add selected files on cart
 * 2. responseKeys - provided respose key for addFileQuery

@@ -5,12 +5,13 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import {
-  CustomDataTable
+  CustomDataTable,
 } from '@bento-core/data-table';
 import { getColumns } from '@bento-core/util';
-import env from '../../utils/env';
 import bentoCorePackageJson from '@bento-core/all/package.json';
 import materialUICorePackageJson from '@material-ui/core/package.json';
+import env from '../../utils/env';
+
 // import jbrowsePackageJson from '@jbrowse/core/package.json';
 import packageJson from '../../../package.json';
 import { coreRequirements, microServiceRequirements, dependencyRequirements } from '../../bento/sysinfoData';
@@ -58,11 +59,11 @@ function SysInfoView() {
   const [state, setState] = useState({});
   const backendApiUrl = new URL(env.REACT_APP_BACKEND_API);
   const backendOrigin = `${backendApiUrl.protocol}//${backendApiUrl.hostname}${
-        // Just in case port doesn't exist
-        backendApiUrl.port
-          ? `:${backendApiUrl.port}/`
-          : '/'
-      }`;
+    // Just in case port doesn't exist
+    backendApiUrl.port
+      ? `:${backendApiUrl.port}/`
+      : '/'
+  }`;
 
   useEffect(() => {
     const getSystems = async () => {
