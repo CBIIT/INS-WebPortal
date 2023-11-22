@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { PUBLIC_ACCESS } from '../../bento/siteWideConfig';
 import { accessLevelTypes } from '@bento-core/authentication';
+import { PUBLIC_ACCESS } from '../../bento/siteWideConfig';
 import SearchView from './searchView';
 
 const SearchViewController = ({ match }) => {

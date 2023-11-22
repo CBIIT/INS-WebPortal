@@ -1,7 +1,14 @@
 import gql from 'graphql-tag';
 import { accessLevelTypes, userRoles, membershipStatus } from '@bento-core/authentication';
 import { deleteFromLocalStorage } from '../../utils/localStorage';
-import {enableAuthentication, loginPath, requestAccessPath, adminPortalPath, userProfilePath, PUBLIC_ACCESS } from '../../bento/siteWideConfig';
+import {
+  enableAuthentication,
+  loginPath,
+  requestAccessPath,
+  adminPortalPath,
+  userProfilePath,
+  PUBLIC_ACCESS,
+} from '../../bento/siteWideConfig';
 
 const GET_USER_DETAILS = gql`
 query getMyUser {
