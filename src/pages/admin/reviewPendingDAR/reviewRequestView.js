@@ -5,11 +5,10 @@ import {
 import { getColumns } from '@bento-core/util';
 import clsx from 'clsx';
 import { useMutation } from '@apollo/client';
-import { ReviewRequestsTableGenerator } from '@bento-core/admin';
-import { UserDetailsGenerator } from '@bento-core/admin';
-import REVIEW_REQUESTS_TABLE_CONFIG from './reviewRequestsTableConfig';
-import USER_DETAILS_CONFIG from '../userDetails/userDetailsViewConfig';
+import { ReviewRequestsTableGenerator, UserDetailsGenerator } from '@bento-core/admin';
 import { Redirect } from 'react-router-dom';
+import { REVIEW_REQUESTS_TABLE_CONFIG } from './reviewRequestsTableConfig';
+import { USER_DETAILS_CONFIG } from '../userDetails/userDetailsViewConfig';
 import Stats from '../../../components/Stats/AllStatsController';
 import CustomizedDialogs from './components/Dialog';
 import {

@@ -6,21 +6,20 @@ import { loginProvidersData } from '../../bento/loginData';
 import AlertMessage from '../../bento-core/AlertMessage';
 import Stats from '../../components/Stats/AllStatsController';
 
-
 function loginController(props) {
   const { classes } = props;
-  const componentProp = { 
+  const componentProp = {
     enabledAuthProviders,
     authenticationProviders: loginProvidersData,
     AlertMessage,
-    };
-    
+  };
+
   const { Login } = LoginGenerator();
-  
+
   return (
     <div className={classes.Container}>
       <Stats />
-       <Login {...componentProp} />
+      <Login {...componentProp} />
     </div>
   );
 }

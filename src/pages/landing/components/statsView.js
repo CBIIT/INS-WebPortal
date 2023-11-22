@@ -6,36 +6,38 @@ import {
 
 const LandingStatsView = ({ classes, stats, statsData }) => (
   <>
-    <div className={classnames({
-      [classes.statsSection]: stats.length < 5,
-      [classes.statsSectionCenter]: stats.length === 5,
-    })}
-    tabIndex={0}
+    <div
+      className={classnames({
+        [classes.statsSection]: stats.length < 5,
+        [classes.statsSectionCenter]: stats.length === 5,
+      })}
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+      tabIndex={0}
     >
-      { stats.length > 0 && (
-      <div
-        className={classnames({
-          [classes.boxCut]: stats.length < 5,
-          [classes.box]: stats.length === 5,
-        })}
-      >
+      {stats.length > 0 && (
+        <div
+          className={classnames({
+            [classes.boxCut]: stats.length < 5,
+            [classes.box]: stats.length === 5,
+          })}
+        >
 
-        {
-        stats.map((stat, index) => (
-          <div className={classes.statsGroup}>
-            <div className={classes.statsText}>
-              <div className={classes.statTitle} id={`title_${index + 1}`}>
-                {stat.statTitle}
+          {
+            stats.map((stat, index) => (
+              <div className={classes.statsGroup}>
+                <div className={classes.statsText}>
+                  <div className={classes.statTitle} id={`title_${index + 1}`}>
+                    {stat.statTitle}
+                  </div>
+                  <div className={classes.statCount} id={`count_${index + 1}`}>
+                    {statsData[stat.statAPI]}
+                  </div>
+                </div>
               </div>
-              <div className={classes.statCount} id={`count_${index + 1}`}>
-                {statsData[stat.statAPI]}
-              </div>
-            </div>
-          </div>
-        ))
-        }
-      </div>
-      ) }
+            ))
+          }
+        </div>
+      )}
     </div>
   </>
 );
