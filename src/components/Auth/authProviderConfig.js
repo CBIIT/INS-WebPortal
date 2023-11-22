@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import gql from 'graphql-tag';
+import { redirect } from '@bento-core/authentication';
 import GET_USER_DETAILS from '../../bento/authProviderData';
 import env from '../../utils/env';
-import { redirect } from '@bento-core/authentication';
 import { storeInLocalStorage, deleteFromLocalStorage } from '../../utils/localStorage';
 
 /**
@@ -26,7 +26,7 @@ export const AUTHPROVIDER_CONFIG = {
      * @param {object} history object of history.
      * @param {object} redirectPath reason for the change event
      */
-    redirect: redirect,
+    redirect,
 
     /**
      * A function that is called when value is needed to store in Local Storage.
@@ -34,7 +34,7 @@ export const AUTHPROVIDER_CONFIG = {
      * @param {String} key key of object in Local Storage.
      * @param {Object} value Object or String that needes to be store in Local Storage.
      */
-    storeInLocalStorage: storeInLocalStorage,
+    storeInLocalStorage,
 
     /**
      * A function that is called when value is needed to remove from Local Storage.
@@ -42,7 +42,7 @@ export const AUTHPROVIDER_CONFIG = {
      * @param {String} key key of object in Local Storage.
      * @param {Object} value Object or String that needes to be store in Local Storage.
      */
-    deleteFromLocalStorage: deleteFromLocalStorage,
+    deleteFromLocalStorage,
   },
 };
 

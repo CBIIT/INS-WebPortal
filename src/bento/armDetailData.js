@@ -58,7 +58,6 @@ export const externalLinkIcon = {
   alt: 'External link icon',
 };
 
-
 // --------------- GraphQL query configuration --------------
 
 // query name, also used as root of returned data

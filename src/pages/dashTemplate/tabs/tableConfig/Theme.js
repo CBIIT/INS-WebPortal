@@ -48,7 +48,7 @@ const tblBody = {
       },
     },
   },
-}
+};
 
 export const extendedView = {
   tblTopPgn: {
@@ -69,7 +69,7 @@ export const tblPgn = {
       borderBottom: '3px solid #e7e5e5',
       '&:last-child': {
         paddingRight: '50px',
-      }
+      },
     },
     toolbar: {
       minHeight: '45px',
@@ -85,7 +85,7 @@ export const tblContainer = {
       transform: 'rotateX(180deg)',
       boxShadow: 'none',
       borderRadius: '0',
-    }
+    },
   },
   MuiTable: {
     root: {
