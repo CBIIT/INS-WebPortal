@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavBar } from '@bento-core/nav-bar';
+import { accessLevelTypes } from '@bento-core/authentication';
 import {
   navBarData, navBarCartData, navBarstyling,
 } from '../../bento/navigationBarData';
 import Login from '../Auth/loginComponent';
 import { enableAuthentication, PUBLIC_ACCESS } from '../../bento/siteWideConfig';
-import { accessLevelTypes } from '@bento-core/authentication';
 
 const BentoNavBar = ({ cartFieldIds = [] }) => {
   const isSignedIn = useSelector((state) => state.login.isSignedIn);

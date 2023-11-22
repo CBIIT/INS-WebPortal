@@ -36,7 +36,6 @@ const CaseDetail = ({
     setsnackbarState({ open: false });
   }
 
-
   const stat = {
     numberOfPrograms: 1,
     numberOfStudies: 1,
@@ -63,7 +62,7 @@ const CaseDetail = ({
 
   const samplesData = data.samples.map((s) => {
     const files = filesOfSamplesObj[s.sample_id];
-    //reverted back to prevent undefined (s) value
+    // reverted back to prevent undefined (s) value
     const sample = { ...s };
     sample.files = files;
     if (datFieldsFromRoot.length > 0) {

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
-  CustomDataTable
+  CustomDataTable,
 } from '@bento-core/data-table';
 import { getOptions, getDefaultCustomFooter } from '@bento-core/util';
 /**

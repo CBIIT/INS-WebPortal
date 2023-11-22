@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles, CssBaseline } from '@material-ui/core';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import { AuthenticationMiddlewareGenerator } from '@bento-core/authentication';
 import aboutPageRoutes from '../../bento/aboutPagesRoutes';
 import Header from '../Header/HeaderView';
 import NavBar from '../NavBar/NavBarContainer';
@@ -27,10 +28,9 @@ import ProfileController from '../../pages/profile/profileController';
 import editUserController from '../../pages/admin/userDetails/editUserController';
 import viewUserController from '../../pages/admin/userDetails/viewUserController';
 import OverlayWindow from '../OverlayWindow/OverlayWindow';
-import AUTH_MIDDLEWARE_CONFIG from '../Auth/authMiddlewareConfig';
+import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
 import CarView from '../../pages/cart/cartController';
 import AuthSessionTimeoutController from '../SessionTimeout/SessionTimeoutController';
-import { AuthenticationMiddlewareGenerator } from '@bento-core/authentication';
 
 import Notifactions from '../Notifications/NotifactionView';
 import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
@@ -42,87 +42,91 @@ const ScrollToTop = () => {
 
 const Layout = ({ classes, isSidebarOpened }) => {
   // Access control imports
-  const { LoginRoute, MixedRoute, PrivateRoute, AdminRoute} = AuthenticationMiddlewareGenerator(AUTH_MIDDLEWARE_CONFIG);
+  // eslint-disable-next-line max-len
+  const {
+    LoginRoute, MixedRoute, PrivateRoute, AdminRoute,
+  } = AuthenticationMiddlewareGenerator(AUTH_MIDDLEWARE_CONFIG);
 
   return (
-  <>
-    <CssBaseline />
-    <HashRouter>
-      <>
-        <Notifactions />
-        <AuthSessionTimeoutController />
-        <Header />
-        <OverlayWindow />
-        <NavBar />
-        {/* Reminder: Ajay need to replace the ICDC with env variable and
+    <>
+      <CssBaseline />
+      <HashRouter>
+        <>
+          <Notifactions />
+          <AuthSessionTimeoutController />
+          <Header />
+          <OverlayWindow />
+          <NavBar />
+          {/* Reminder: Ajay need to replace the ICDC with env variable and
           change build npm to read env variable */}
-        <div
-          className={classes.content}
-        >
-          <Route component={ScrollToTop} />
-          <Switch>
-            <MixedRoute exact path="/" component={Home} />
-            <MixedRoute exact path="/home" component={Home} />
+          <div
+            className={classes.content}
+          >
+            <Route component={ScrollToTop} />
+            <Switch>
+              <MixedRoute exact path="/" component={Home} />
+              <MixedRoute exact path="/home" component={Home} />
 
-            {/* START: Private Routes */}
-            {/* SECTION: Non-Member & Member only Path */}
-            <PrivateRoute path="/request" requiuredSignIn access={['member', 'non-member']} component={RequestAccess} />
-            <PrivateRoute path="/profile" requiuredSignIn access={['member', 'non-member', 'admin']} component={ProfileController} />
-            {/* END SECTION */}
+              {/* START: Private Routes */}
+              {/* SECTION: Non-Member & Member only Path */}
+              <PrivateRoute path="/request" requiuredSignIn access={['member', 'non-member']} component={RequestAccess} />
+              <PrivateRoute path="/profile" requiuredSignIn access={['member', 'non-member', 'admin']} component={ProfileController} />
+              {/* END SECTION */}
 
-            {/* SECTION: Member & Admin only Path */}
-            <PrivateRoute path="/programs" access={['admin', 'member']} component={Programs} />
-            <PrivateRoute path="/fileCentricCart" access={['admin', 'member']} component={CarView} />
-            <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
-            <PrivateRoute path="/case/:id" access={['admin', 'member']} component={CaseDetail} />
-            <PrivateRoute path="/arm/:id" access={['admin', 'member']} component={ArmDetail} />
-            <PrivateRoute path="/fileViewer/:id" requiuredSignIn access={['admin', 'member']} component={JBrowseDetail} />
-            {/* bento 4.0 template */}
-            <PrivateRoute path="/explore" access={['admin', 'member']} component={DashTemplate} />
-            {/* END SECTION */}
+              {/* SECTION: Member & Admin only Path */}
+              <PrivateRoute path="/programs" access={['admin', 'member']} component={Programs} />
+              <PrivateRoute path="/fileCentricCart" access={['admin', 'member']} component={CarView} />
+              <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
+              <PrivateRoute path="/case/:id" access={['admin', 'member']} component={CaseDetail} />
+              <PrivateRoute path="/arm/:id" access={['admin', 'member']} component={ArmDetail} />
+              <PrivateRoute path="/fileViewer/:id" requiuredSignIn access={['admin', 'member']} component={JBrowseDetail} />
+              {/* bento 4.0 template */}
+              <PrivateRoute path="/explore" access={['admin', 'member']} component={DashTemplate} />
+              {/* END SECTION */}
 
-            {/* SECTION: Admin only Path */}
-            <AdminRoute path="/admin/edit/:id" requiuredSignIn access={['admin']} component={editUserController} />
-            <AdminRoute path="/admin/view/:id" requiuredSignIn access={['admin']} component={viewUserController} />
-            <AdminRoute path="/admin/review/:id" requiuredSignIn access={['admin']} component={reviewRequestController} />
-            <AdminRoute path="/admin" access={['admin']} requiuredSignIn component={adminController} />
-            {/* END SECTION */}
+              {/* SECTION: Admin only Path */}
+              <AdminRoute path="/admin/edit/:id" requiuredSignIn access={['admin']} component={editUserController} />
+              <AdminRoute path="/admin/view/:id" requiuredSignIn access={['admin']} component={viewUserController} />
+              <AdminRoute path="/admin/review/:id" requiuredSignIn access={['admin']} component={reviewRequestController} />
+              <AdminRoute path="/admin" access={['admin']} requiuredSignIn component={adminController} />
+              {/* END SECTION */}
 
-            {/* NOTE: Please check these below paths. if no longer needed please remove it */}
-            {/* <PrivateRoute path="/JBrowse"
+              {/* NOTE: Please check these below paths. if no longer needed please remove it */}
+              {/* <PrivateRoute path="/JBrowse"
             access={['admin', 'member']} component={JBrowse} /> */}
-            <PrivateRoute path="/table" component={table} />
-            {/* END NOTE */}
+              <PrivateRoute path="/table" component={table} />
+              {/* END NOTE */}
 
-            {/* Psuedo Private routes where minor
+              {/* Psuedo Private routes where minor
             functionality can be accessed my unauthorized users */}
-            <Route exact path="/search" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
-            <Route path="/search/:id" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
+              <Route exact path="/search" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
+              <Route path="/search/:id" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
 
-            {/* END: Private Routes */}
+              {/* END: Private Routes */}
 
-            {aboutPageRoutes.map(
-              (aboutPageRoute, index) => (
-                <Route
-                  key={index}
-                  path={aboutPageRoute}
-                  component={About}
-                />
-              ),
-            )}
-            <Route path="/data-dictionary" component={DataDictonary} />
-            <Route path="/graphql" component={GraphqlClient} />
-            <LoginRoute path="/login" component={Login} />
-            <Route path="/sysinfo" component={SysInfoView} />
-            <Route component={Error} />
+              {aboutPageRoutes.map(
+                (aboutPageRoute, index) => (
+                  <Route
+                    key={index}
+                    path={aboutPageRoute}
+                    component={About}
+                  />
+                ),
+              )}
+              <Route path="/data-dictionary" component={DataDictonary} />
+              <Route path="/graphql" component={GraphqlClient} />
+              <LoginRoute path="/login" component={Login} />
+              <Route path="/sysinfo" component={SysInfoView} />
+              <Route component={Error} />
 
-          </Switch>
-          <Footer data={{ isSidebarOpened }} />
-        </div>
-      </>
-    </HashRouter>
-  </>
-)};
+            </Switch>
+            <Footer data={{ isSidebarOpened }} />
+          </div>
+        </>
+      </HashRouter>
+    </>
+  );
+};
 
 const styles = (theme) => ({
   root: {
