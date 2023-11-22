@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { redirect } from '@bento-core/authentication';
-import { useAuth } from '@bento-core/authentication';
+import { redirect, useAuth } from '@bento-core/authentication';
 
 function useQuery() {
   const { search } = useLocation();
