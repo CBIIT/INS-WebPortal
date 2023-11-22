@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { clearAllFilters, clearFacetSection, clearSliderSection, toggleCheckBox } from '@bento-core/facet-filter';
+import {
+  clearAllFilters, clearFacetSection, clearSliderSection, toggleCheckBox,
+} from '@bento-core/facet-filter';
 import { resetAllData, resetUploadData, updateAutocompleteData } from '@bento-core/local-find';
 import { QueryBarGenerator } from '@bento-core/query-bar';
 import { facetsConfig } from '../../../bento/dashTemplate';
@@ -25,8 +27,9 @@ const QueryBarView = ({ data, statusReducer, localFind }) => {
       ...config,
       items: statusReducer[facet],
       data: data[config.apiForFiltering],
-    }
+    };
   });
+  // eslint-disable-next-line max-len
   mappedFilterState.sort((a, b) => sectionOrder.indexOf(a.datafield) - sectionOrder.indexOf(b.datafield));
 
   const { QueryBar } = QueryBarGenerator({
@@ -61,7 +64,7 @@ const QueryBarView = ({ data, statusReducer, localFind }) => {
         dispatch(toggleCheckBox({
           datafield: section.datafield,
           isChecked: false,
-          name: checkbox
+          name: checkbox,
         }));
       },
     },

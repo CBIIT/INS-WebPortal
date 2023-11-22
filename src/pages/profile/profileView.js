@@ -1,17 +1,18 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { ProfileView as BentoProfileView } from '@bento-core/profile';
-import { changeUserBasicInfo, editTool } from '../../bento/profileData';
-import style from './styles';
-import { themeConfig } from './tblThemeConfig';
-import Stats from '../../components/Stats/AllStatsController';
 import {
+  changeUserBasicInfo,
+  editTool,
   adminIcon,
   inactiveUserIcon,
   userIcon,
   ignoredArms,
   profileArmsTable,
 } from '../../bento/profileData';
+import style from './styles';
+import { themeConfig } from './tblThemeConfig';
+import Stats from '../../components/Stats/AllStatsController';
 import { NODE_LEVEL_ACCESS, NODE_LABEL } from '../../bento/siteWideConfig';
 
 const imageMap = {
