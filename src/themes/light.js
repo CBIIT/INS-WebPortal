@@ -23,12 +23,13 @@ const tableHeaderBorder = '#42779A 3px solid';
 const tableHeaderFontColor = '#13344A';
 const tableFontFamily = "'Lato Regular','Raleway', sans-serif";
 const white = '#FFFFFF';
+const red = '#CE0001';
 
 export default {
   custom: {
     maxContentWidth: '1440px',
     maxContent: 'white',
-    bodyBackGround: '#E5F0FA',
+    bodyBackGround: '#F3F3F3',
     cardBackGround: '#f0f6f8',
     fontFamilySans: '"Open Sans", sans-serif',
     footorBackground: '#325068',
@@ -216,16 +217,26 @@ export default {
         .darken(darkenRate)
         .toHexString(),
     },
+    red: {
+      main: red,
+      light: tinycolor(red)
+        .lighten(lightenRate)
+        .toHexString(),
+      dark: tinycolor(red)
+        .darken(darkenRate)
+        .toHexString(),
+      contrastText: '#FFFFFF',
+    },
     text: {
       withbackground: 'white',
       primary: '#4A4A4A',
       secondary: '#6E6E6E',
       hint: '#B9B9B9',
-      link: '#0083c6',
+      link: '#1669aa',
       footerText: 'white',
     },
     background: {
-      default: '#E5F0FA',
+      default: '#F3F3F3',
       light: '#F3F5FF',
     },
     clearQueryResultColor: {
@@ -297,13 +308,11 @@ export default {
     MUIDataTableSelectCell: {
       fixedHeader: {
         position: 'relative',
-
       },
       headerCell: {
         borderTop: '3px solid #42779A',
         color: tableHeaderFontColor,
         backgroundColor: tableHeader,
-
       },
       checkboxRoot: {
         color: 'inherit',
@@ -311,7 +320,6 @@ export default {
           color: '#8DCAFF',
         },
       },
-
     },
     MuiBackdrop: {
       root: {
@@ -352,7 +360,6 @@ export default {
         cursor: 'pointer',
         display: 'inline-flex',
         outline: 'none',
-
       },
     },
     MuiTableSortLabel: {
@@ -421,18 +428,21 @@ export default {
     MUIDataTableToolbar: {
       root: {
         backgroundColor: tableHeader,
-        minHeight: '44px',
+        minHeight: '0',
+      },
+      actions: {
+        minHeight: '15px',
+        position: 'absolute',
+        top: '-40px',
+        right: '450px',
       },
       titleText: {
-
         color: tableHeaderFontColor,
-        // fontSize: '25.2pt',
         fontFamily: tableFontFamily,
         letterSpacing: '0.025em',
         fontStyle: 'normal',
       },
     },
-
     MUIDataTableToolbarSelect: {
       root: {
         backgroundColor: tableHeader,
@@ -501,6 +511,21 @@ export default {
       stackedParent: {
         '&:first-child': {
           paddingLeft: '30px',
+        },
+      },
+      stackedCommon: {
+        '& span img': {
+          width: '14.5px',
+          verticalAlign: 'sub',
+          marginLeft: '4px',
+          paddingBottom: '2px',
+        },
+        '& a': {
+          color: '#7747ff',
+          textDecoration: 'none',
+          '&:hover': {
+            textDecoration: 'underline',
+          },
         },
       },
     },
