@@ -18,7 +18,7 @@ const INSFooter = () => {
       <Footer classes={styles} data={footerUpdatedData} />
       <div>
         <div className="beVersion">
-          Software Version: v1.3.0
+          Software Version: v2.0.0
           <br />
           <br />
           Site Data Update (Projects, Grants, Publications, Datasets, Clinical Trials): 04/04/2023
