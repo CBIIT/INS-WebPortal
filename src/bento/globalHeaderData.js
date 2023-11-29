@@ -1,10 +1,9 @@
-import Easter from '../assets/header/headerGraphic.png';
+import Logo from '../assets/header/NCI_INS_Logo.svg';
 
 // globalHeaderLogo image 468x100
 // globalHeaderImage: image 2200x100
 export default {
-  globalHeaderLogo: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/CTDC_Logo.svg',
+  globalHeaderLogo: Logo,
   globalHeaderLogoLink: '/',
-  globalHeaderLogoAltText: 'Bento Logo',
-  globalHeaderImage: Easter,
+  globalHeaderLogoAltText: 'INS Logo',
 };
