@@ -1,4 +1,4 @@
 export default [
-  '/bento',
+  '/about',
   '/resources',
 ];
