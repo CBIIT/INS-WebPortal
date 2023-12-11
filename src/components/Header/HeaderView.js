@@ -5,10 +5,22 @@ import { withRouter } from 'react-router-dom';
 import { SearchBarGenerator } from '@bento-core/global-search';
 import { accessLevelTypes } from '@bento-core/authentication';
 import headerData from '../../bento/globalHeaderData';
-import { queryAutocompleteAPI, SEARCH_DATAFIELDS, SEARCH_KEYS } from '../../bento/search';
+import {
+  queryAutocompleteAPI,
+  SEARCH_DATAFIELDS,
+  SEARCH_KEYS,
+} from '../../bento/search';
 import { PUBLIC_ACCESS } from '../../bento/siteWideConfig';
 
-const ICDCHeader = (props) => {
+const styles = {
+  nihLogoImg: {
+    minHeight: '100px',
+    cursor: 'pointer',
+    marginLeft: '15px',
+  },
+};
+
+const INSHeader = (props) => {
   const { location } = props;
 
   const isSignedIn = useSelector((state) => state && state.login.isSignedIn);
@@ -32,9 +44,10 @@ const ICDCHeader = (props) => {
       logo={headerData.globalHeaderLogo}
       alt={headerData.globalHeaderLogoAltText}
       homeLink={headerData.globalHeaderLogoLink}
+      customStyle={styles}
       SearchComponent={!location.pathname.match('/search') ? SearchBar : undefined}
     />
   );
 };
 
-export default withRouter(ICDCHeader);
+export default withRouter(INSHeader);
