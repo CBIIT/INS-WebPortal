@@ -2,98 +2,66 @@ import gql from 'graphql-tag';
 
 export const statsStyling = {
   global: {
-    horizontalStyle: false,
-    statTitleFirst: false,
-    height: '56px',
-    background: '#8DCAFF',
-  },
-  statsGroup: {
-    margin: '6px 9.25px',
-    padding: '0.1% 6% 2% 6%',
-    borderRight: '1px solid #0B3556',
-    '&:first-child': {
-      padding: '0.1% 6% 2% 6%',
-    },
-    '&:last-child': {
-      padding: '0.1% 6% 2% 6%',
-    },
-  },
-  statsIcon: {
-    width: '40px',
-    height: '45px',
-    margin: '2px 0px 0px -45px',
-    position: 'relative',
-  },
-  statCount: {
-    color: '#0467BD',
-    fontFamily: 'Oswald',
-    fontSize: '20px',
-    lineHeight: '17px',
-    letterSpacing: '0.02em',
-    margin: '4px 0 2px 13px',
+    horizontalStyle: true,
+    statTitleFirst: true,
+    height: '47px',
+    background: '#B531AD',
   },
   statTitle: {
-    color: '#062D4F',
-    fontFamily: 'Nunito',
-    fontSize: '12px',
-    fontWeight: '700',
-    lineHeight: '16px',
-    textTransform: 'uppercase',
-    margin: '0 0 0 13px',
+    color: '#D0D0D0',
+  },
+  statCount: {
+    color: '#FFFFFF',
   },
 };
 
-/**
- * @property {statAPI} numberOfPrograms Used to index a stat value
- */
 export const globalStatsData = [
   // A maximum of 6 stats are allowed
   {
     statTitle: 'Programs',
     type: 'field',
     statAPI: 'numberOfPrograms',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Programs.svg',
-    statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
-    statTitle: 'Arms',
+    statTitle: 'Projects',
     type: 'field',
-    statAPI: 'numberOfStudies',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Arms.svg',
+    statAPI: 'numberOfCoreProjects',
   },
   {
-    statTitle: 'Cases',
+    statTitle: 'Grants',
     type: 'field',
-    statAPI: 'numberOfSubjects',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Cases_.svg',
+    statAPI: 'numberOfProjects',
   },
   {
-    statTitle: 'Samples',
+    statTitle: 'Publications',
     type: 'field',
-    statAPI: 'numberOfSamples',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Samples.svg',
+    statAPI: 'numberOfPublications',
   },
   {
-    statTitle: 'Assays',
+    statTitle: 'Datasets',
     type: 'field',
-    statAPI: 'numberOfLabProcedures',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Assays.svg',
+    statAPI: 'numberOfDatasets',
   },
   {
-    statTitle: 'Files',
+    statTitle: 'Clinical Trials',
     type: 'field',
-    statAPI: 'numberOfFiles',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Files.svg',
+    statAPI: 'numberOfClinicalTrials',
+  },
+  {
+    statTitle: 'Patents',
+    type: 'field',
+    statAPI: 'numberOfPatents',
   },
 ];
 
 // --------------- GraphQL query - Retrieve stats details --------------
 export const GET_GLOBAL_STATS_DATA_QUERY = gql`{
   numberOfPrograms
-  numberOfStudies
-  numberOfSubjects
-  numberOfSamples
-  numberOfLabProcedures
-  numberOfFiles
-  }
+  numberOfProjects
+  numberOfCoreProjects
+  numberOfPublications
+  numberOfDatasets
+  numberOfClinicalTrials
+  numberOfPatents
+}
   `;
