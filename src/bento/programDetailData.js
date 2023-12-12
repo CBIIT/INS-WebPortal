@@ -1,13 +1,15 @@
 import gql from 'graphql-tag';
+import { customProgramsTableDownloadCSV } from './tableDownloadCSV';
+import programIcon from '../assets/icons/Icon-Programs.png';
 
 // --------------- Page title configuration --------------
 const pageTitle = {
   label: 'Program :',
-  dataField: 'program_acronym',
+  dataField: 'program_id',
 };
 
 const pageSubTitle = {
-  dataField: 'program_id',
+  dataField: 'program_name',
 };
 
 const breadCrumb = {
@@ -17,8 +19,8 @@ const breadCrumb = {
 
 // --------------- Aggregated count configuration --------------
 const aggregateCount = {
-  labelText: 'Cases',
-  dataField: 'num_subjects',
+  labelText: 'Projects',
+  dataField: 'num_core_projects',
   link: '/explore',
   display: true,
 };
@@ -27,8 +29,8 @@ const aggregateCount = {
 // Ideal size for programDetailIcon is 107x107 px
 // Ideal size for externalLinkIcon is 16x16 px
 const programDetailIcon = {
-  src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/programIcon.svg',
-  alt: 'Bento program logo',
+  src: programIcon,
+  alt: 'INS program logo',
 };
 
 const externalLinkIcon = {
@@ -41,7 +43,7 @@ const externalLinkIcon = {
 const leftPanel = {
   attributes: [
     {
-      dataField: 'program_acronym',
+      dataField: 'program_id',
       label: 'Program',
     },
     {
@@ -49,19 +51,11 @@ const leftPanel = {
       label: 'Program Name',
     },
     {
-      dataField: 'program_id',
-      label: 'Program Id',
-    },
-    {
-      dataField: 'program_full_description',
+      dataField: 'program_description',
       label: 'Program Description',
     },
     {
-      dataField: 'institution_name',
-      label: 'Institution',
-    },
-    {
-      dataField: 'program_external_url',
+      dataField: 'program_website',
       label: 'External Link to Program',
       externalLinkToLabel: true,
     },
@@ -73,17 +67,17 @@ const leftPanel = {
 const rightPanel = {
   widget: [
     {
-      dataField: 'diagnoses',
-      label: 'Diagnosis',
+      label: 'Projects by NCI DOCs',
+      dataName: 'projectCountInProgramByDOCData',
+      datatable_field: 'docs',
+      titleText: 'Projects',
       display: true,
     },
-  ],
-  files: [
     {
-      dataField: 'num_files',
-      label: 'Number of files',
-      fileIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/programNumberofFilesIcon.svg',
-      fileIconAlt: 'Number of files icon',
+      label: 'Projects by Award Amount',
+      dataName: 'projectCountInProgramByFundedAmountData',
+      datatable_field: 'funded_amount',
+      titleText: 'Projects',
       display: true,
     },
   ],
@@ -91,71 +85,172 @@ const rightPanel = {
 
 // --------------- Table configuration --------------
 const table = {
-  // Set 'display' to false to hide the table entirely
+  name: 'Grants',
+  title: 'Grants',
   display: true,
-  // Table title
-  title: 'ARMS',
-  // Field name for table data, need to be updated only when using a different GraphQL query
-  dataField: 'studies',
-  // Value must be one of the 'field' in columns
-  defaultSortField: 'study_acronym',
-  // 'asc' or 'desc'
+  dataField: 'dataProject',
+  api: 'GET_PROJECTS_OVERVIEW_QUERY',
+  paginationAPIField: 'projectOverView',
+  defaultSortField: 'project_id',
   defaultSortDirection: 'asc',
-  // Set 'selectableRows' to true to show the row selection
-  selectableRows: false,
-  // A maximum of 10 columns are allowed
+  count: 'numberOfProjects',
+  buttonText: 'Add Selected Files',
+  dataKey: 'project_id',
+  saveButtonDefaultStyle: {
+    color: '#fff',
+    backgroundColor: '#DC2FDA',
+    opacity: '1',
+    border: '0px',
+    cursor: 'pointer',
+  },
+  ActiveSaveButtonDefaultStyle: {
+    cursor: 'pointer',
+    opacity: 'unset',
+    border: 'unset',
+  },
+  DeactiveSaveButtonDefaultStyle: {
+    opacity: '0.3',
+    cursor: 'auto',
+  },
   columns: [
     {
-      dataField: 'study_acronym',
-      header: 'Arm',
-      link: '/arm/{study_acronym}',
+      dataField: 'project_id',
+      header: 'Grant ID',
+      sort: 'asc',
+      primary: true,
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
-      dataField: 'study_name',
-      header: 'Arm Name',
+      dataField: 'queried_project_id',
+      header: 'Project ID',
+      sort: 'asc',
+      link: '/project/{queried_project_id}',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
-      dataField: 'study_full_description',
-      header: 'Arm Description',
+      dataField: 'project_title',
+      header: 'Project Title',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '20%',
+      },
     },
     {
-      dataField: 'study_type',
-      header: 'Arm Type',
+      dataField: 'principal_investigators',
+      header: 'Principal Investigators',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
     {
-      dataField: 'num_subjects',
-      header: 'Associated Cases',
+      dataField: 'program_officers',
+      header: 'Program Officers',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
+    },
+    {
+      dataField: 'lead_doc',
+      header: 'Lead DOC',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '5%',
+      },
+    },
+    {
+      dataField: 'activity_code',
+      header: 'Activity Code',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '5%',
+      },
+    },
+    {
+      dataField: 'award_amount',
+      header: 'Award Amount',
+      sort: 'asc',
+      display: true,
+      dataTransform: (money) => {
+        const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          maximumFractionDigits: 0,
+        });
+
+        return formatter.format(money);
+      },
+      headerStyles: {
+        width: '10%',
+      },
+    },
+    {
+      dataField: 'project_end_date',
+      header: 'Project End Date',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
+    },
+    {
+      dataField: 'fiscal_year',
+      header: 'Fiscal Year',
+      sort: 'asc',
+      display: true,
+      headerStyles: {
+        width: '10%',
+      },
     },
   ],
+  id: 'project_tab',
+  onRowsSelect: 'type1',
+  disableRowSelection: 'type1',
+  tableID: 'project_tab_table',
+  selectableRows: false,
+  tableDownloadCSV: customProgramsTableDownloadCSV,
+  downloadFileName: 'programs_download',
+  headerPagination: true,
+  footerPagination: true,
 };
 
 // --------------- GraphQL query - Retrieve program details --------------
 const GET_PROGRAM_DETAIL_DATA_QUERY = gql`
 query programDetail($program_id: String!) {
+  projectCountInProgramByDOC(program_id: $program_id) {
+    group
+    subjects
+  }
+  projectCountInProgramByFundedAmount(program_id: $program_id) {
+    funded_amount_1
+    funded_amount_2
+    funded_amount_3
+    funded_amount_4
+    funded_amount_5
+  }
+  programPublicationCount(program_id: $program_id)
+  programDatasetCount(program_id: $program_id)
+  programClinicalTrialCount(program_id: $program_id)
+  programPatentCount(program_id: $program_id)
   programDetail(program_id: $program_id) {
-    program_acronym
     program_id
     program_name
-    program_full_description
-    institution_name
-    program_external_url
-    num_subjects
-    num_files
-    num_samples
-    num_lab_procedures
-    disease_subtypes
-    diagnoses {
-      group
-      subjects
-    }
-    studies { 
-      study_name
-      study_type
-      study_acronym
-      study_info
-      study_full_description
-      num_subjects
-    }
+    program_description
+    program_website
+    num_projects
+    num_core_projects
   }
 }`;
 

@@ -28,243 +28,103 @@ export const GET_IDS_BY_TYPE = (type) => gql`{
 `;
 
 export const GET_SEARCH_NODES_BY_FACET = gql`
-query search (          
-  $subject_ids: [String],
-  $programs: [String] ,
-  $studies: [String] ,
-  $diagnoses: [String] ,
-  $rc_scores: [String] ,
-  $tumor_sizes: [String] ,
-  $chemo_regimen: [String] ,
-  $tumor_grades: [String] ,
-  $er_status: [String] ,
-  $pr_status: [String] ,
-  $endo_therapies: [String] ,
-  $meno_status: [String] ,
-  $tissue_type: [String],
-  $composition: [String],
-  $association: [String],
-  $file_type: [String],
-  $age_at_index: [Float]
+query searchProjects (          
+  $programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
+  $award_amounts: [String]
 ){
-  searchSubjects (          
-      subject_ids: $subject_ids,
+  searchProjects (          
       programs: $programs,
-      studies: $studies,
-      diagnoses: $diagnoses,
-      rc_scores: $rc_scores,
-      tumor_sizes: $tumor_sizes,
-      chemo_regimen: $chemo_regimen,
-      tumor_grades: $tumor_grades,
-      er_status: $er_status,
-      pr_status: $pr_status,
-      endo_therapies: $endo_therapies,
-      meno_status: $meno_status,
-      tissue_type: $tissue_type,
-      composition: $composition,
-      association: $association,       
-      file_type: $file_type,
-      age_at_index: $age_at_index
+      docs: $docs,
+      fiscal_years: $fiscal_years,
+      award_amounts: $award_amounts,
   ) {
-      numberOfPrograms
-      numberOfStudies
-      numberOfSubjects
-      numberOfSamples
-      numberOfLabProcedures
-      numberOfFiles
-      armsByPrograms {
-          program
-          caseSize
-          children {
-              arm
-              caseSize
-              size
-          }
-      }
-  subjectCountByProgram {
-          group
-          subjects
-      }
-      subjectCountByStudy {
-          group
-          subjects
-      }
-      subjectCountByDiagnoses {
-          group
-          subjects
-      }
-      subjectCountByRecurrenceScore {
-          group
-          subjects
-      }
-      subjectCountByTumorSize {
-          group
-          subjects
-      }
-      subjectCountByChemotherapyRegimen {
-          group
-          subjects
-      }
-      subjectCountByEndocrineTherapy {
-          group
-          subjects
-      }
-      subjectCountByTumorGrade{
-          group
-          subjects
-      }
-      subjectCountByErStatus{
-          group
-          subjects
-      }
-      subjectCountByPrStatus{
-          group
-          subjects
-      }
-      subjectCountByMenopauseStatus{
-          group
-          subjects
-      }
-      subjectCountByFileType {
-          group
-          subjects
-      }
-      subjectCountByFileAssociation {
-          group
-          subjects
-      }
-      subjectCountByTissueComposition {
-          group
-          subjects
-      }
-      subjectCountByTissueType {
-          group
-          subjects
-      }
-      filterSubjectCountByProgram {
-          group
-          subjects
-      }
-      filterSubjectCountByStudy{
-          group
-          subjects
-      }
-      filterSubjectCountByDiagnoses{
-          group
-          subjects
-      }
-      filterSubjectCountByRecurrenceScore{
-          group
-          subjects
-      }
-      filterSubjectCountByTumorSize{
-          group
-          subjects
-      }
-      filterSubjectCountByTumorGrade{
-          group
-          subjects
-      }
-      filterSubjectCountByErStatus{
-          group
-          subjects
-      }
-      filterSubjectCountByPrStatus{
-          group
-          subjects
-      }
-      filterSubjectCountByChemotherapyRegimen{
-          group
-          subjects
-      }
-      filterSubjectCountByEndocrineTherapy{
-          group
-          subjects
-      }
-      filterSubjectCountByMenopauseStatus{
-          group
-          subjects
-      }
-      filterSubjectCountByTissueType{
-          group
-          subjects
-      }
-      filterSubjectCountByTissueComposition{
-          group
-          subjects
-      }
-      filterSubjectCountByFileAssociation{
-          group
-          subjects
-      }
-      filterSubjectCountByFileType{
-          group
-          subjects
-      }
-      filterSubjectCountByAge{
-          lowerBound
-          upperBound
-          subjects
-      }
+    numberOfPrograms
+    numberOfProjects
+    numberOfPublications
+    numberOfDatasets
+    numberOfClinicalTrials
+    numberOfPatents
+    projectCountByProgram{
+      group
+      subjects
+    }
+    projectCountByDOC{
+      group
+      subjects
+    }
+    projectCountByFiscalYear{
+      group
+      subjects
+    }
+    projectCountByAwardAmount{
+      group
+      subjects
+    }
+    publicationCountByYear{
+      group
+      subjects
+    }
+    publicationCountByRCR{
+      group
+      subjects
+    }
+    publicationCountByCitation
+    {
+      group
+      subjects
+    }
+    filterProjectCountByProgram{
+      group
+      subjects
+    }
+    filterProjectCountByDOC{
+      group
+      subjects
+    }
+    filterProjectCountByFiscalYear{
+      group
+      subjects
+    }
+    filterProjectCountByAwardAmount{
+      group
+      subjects
+    }
   }
-}
-`;
+}`;
 
 export const GET_SEARCH_NODECOUNTS = gql`
-  query nodeCounts($subject_ids: [String]=[], $sample_ids: [String] = [], $file_ids: [String]=[], $file_names: [String]=[]){
-    nodeCountsFromLists(subject_ids: $subject_ids, sample_ids: $sample_ids, file_ids: $file_ids, file_names: $file_names) {
+  query nodeCounts($programs: [String]=[], $docs: [String] = [], $fiscal_years: [String]=[], $award_amounts: [String]=[]){
+    nodeCountsFromLists(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+      projectIds
+      publicationIds
+      accessions
+      clinicalTrialIds
+      patentIds
       numberOfPrograms
-      numberOfStudies
-      numberOfSubjects
-      numberOfLabProcedures
-      numberOfSamples
-      numberOfFiles
+      numberOfProjects
+      numberOfPublications
+      numberOfDatasets
+      numberOfClinicalTrials
+      numberOfPatents
   }
-
-
-
-subjectCountByDiagnosesFromLists(subject_ids: $subject_ids, sample_ids: $sample_ids, file_ids: $file_ids, file_names: $file_names){
-  group
-  subjects
-}
-subjectCountByRecurrenceScoreFromLists(subject_ids: $subject_ids, sample_ids: $sample_ids, file_ids: $file_ids, file_names: $file_names){
-  group
-  subjects
-}
-subjectCountByTumorSizeFromLists(subject_ids: $subject_ids, sample_ids: $sample_ids, file_ids: $file_ids, file_names: $file_names) {
-  group
-  subjects
-}
-subjectCountByChemotherapyRegimenFromLists(subject_ids: $subject_ids, sample_ids: $sample_ids, file_ids: $file_ids, file_names: $file_names) {
-  group
-  subjects
-}
-subjectCountByEndocrineTherapyFromLists(subject_ids: $subject_ids, sample_ids: $sample_ids, file_ids: $file_ids, file_names: $file_names){
-  group
-  subjects
-}
-
-subjectCountByFileTypeFromLists(subject_ids: $subject_ids, sample_ids: $sample_ids, file_ids: $file_ids, file_names: $file_names) {
-  group
-  subjects
-}
-
-armsByProgramsFromLists(subject_ids: $subject_ids, sample_ids: $sample_ids, file_ids: $file_ids, file_names: $file_names){
-  program
-  caseSize
-  children{
-      arm
-      caseSize
-      size
+  filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+    group
+    subjects
   }
-}  
-
-findIdsFromLists(subject_ids: $subject_ids, sample_ids: $sample_ids, file_ids: $file_ids, file_names: $file_names){
-  subjectIds
-  sampleIds
-  fileIds
-  fileNames
-}
+  filterProjectCountByDOC(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+    group
+    subjects
+  }
+  filterProjectCountByFiscalYear(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+    group
+    subjects
+  }
+  filterProjectCountByAwardAmount(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+    group
+    subjects
+  }
 }
   `;
 
@@ -335,17 +195,17 @@ export const CASES_SAMPLE_QUERY = gql`
 query sampleOverview(
     $subject_ids: [String],
     $sample_ids: [String],
-    $programs: [String] ,
-    $studies: [String] ,
-    $diagnoses: [String] ,
-    $rc_scores: [String] ,
-    $tumor_sizes: [String] ,
-    $chemo_regimen: [String] ,
-    $tumor_grades: [String] ,
-    $er_status: [String] ,
-    $pr_status: [String] ,
-    $endo_therapies: [String] ,
-    $meno_status: [String] ,
+    $programs: [String],
+    $studies: [String],
+    $diagnoses: [String],
+    $rc_scores: [String],
+    $tumor_sizes: [String],
+    $chemo_regimen: [String],
+    $tumor_grades: [String],
+    $er_status: [String],
+    $pr_status: [String],
+    $endo_therapies: [String],
+    $meno_status: [String],
     $tissue_type: [String],
     $composition: [String],
     $association: [String],
@@ -464,51 +324,56 @@ query subjectOverview(
 }
 `;
 
-// type: 'sunburst' | 'donut'
-// title: string
-// dataName: string
-// datatable_level1_field: string
-// datatable_level2_field: string
-// datatable_field: string
-// sliceTitle: string (optional)
 export const widgetsSearchData = [
   {
     type: 'sunburst',
-    title: 'Programs and Arms',
-    dataName: 'armsByPrograms',
+    label: 'Programs and Arms',
+    dataName: 'armsByProgramsFromLists',
     mapWithDashboardWidget: 'armsByPrograms',
     datatable_level1_field: 'program',
-    datatable_level2_field: 'arm',
+    datatable_level2_field: 'study_acronym',
+    titleText: 'Cases',
+    show: true,
   },
   {
     type: 'donut',
-    title: 'Diagnosis',
+    label: 'Diagnosis',
     dataName: 'subjectCountByDiagnosesFromLists',
     mapWithDashboardWidget: 'subjectCountByDiagnoses',
+    titleText: 'Cases',
+    show: true,
   },
   {
     type: 'donut',
-    title: 'Recurrence Score',
+    label: 'Recurrence Score',
     dataName: 'subjectCountByRecurrenceScoreFromLists',
     mapWithDashboardWidget: 'subjectCountByRecurrenceScore',
+    titleText: 'Cases',
+    show: true,
   },
   {
     type: 'donut',
-    title: 'Tumor Size',
+    label: 'Tumor Size',
     dataName: 'subjectCountByTumorSizeFromLists',
     mapWithDashboardWidget: 'subjectCountByTumorSize',
+    titleText: 'Cases',
+    show: true,
   },
   {
     type: 'donut',
-    title: 'Chemotherapy',
+    label: 'Chemotherapy',
     dataName: 'subjectCountByChemotherapyRegimenFromLists',
     mapWithDashboardWidget: 'subjectCountByChemotherapyRegimen',
+    titleText: 'Cases',
+    show: true,
   },
   {
     type: 'donut',
-    title: 'Endocrine Therapy',
+    label: 'Endocrine Therapy',
     dataName: 'subjectCountByEndocrineTherapyFromLists',
     mapWithDashboardWidget: 'subjectCountByEndocrineTherapy',
+    titleText: 'Cases',
+    show: true,
   },
 ];
 
