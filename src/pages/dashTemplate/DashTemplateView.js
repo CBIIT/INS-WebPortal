@@ -14,7 +14,7 @@ const DashTemplate = ({
 }) => (
   <div className={classes.dashboardContainer}>
     <StatsView data={dashData} />
-    <div>
+    {/* <div>
       <div className={classes.content}>
         <div className={classes.sideBar}>
           <BentoFacetFilter
@@ -35,7 +35,7 @@ const DashTemplate = ({
           </div>
         </div>
       </div>
-    </div>
+    </div> */}
   </div>
 );
 
