@@ -3,84 +3,39 @@ import {
   Grid,
   withStyles,
 } from '@material-ui/core';
-import { TableContextProvider } from '@bento-core/paginated-table';
+import _ from 'lodash';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
 import icon from '../../assets/icons/Cases.Icon.svg';
 import Subsection from '../../components/PropertySubsection/caseDetailSubsection';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import {
-  caseHeader,
+  projectHeader,
   leftPanel,
   rightPanel,
-  sampleTable,
-  filesTable,
 } from '../../bento/caseDetailData';
-import Snackbar from '../../components/Snackbar';
-import SampleTableView from './SampleView/SampleTableView';
-import FilesTableView from './FilesView/FilesTableView';
+import Tabs from './caseDetailTabController';
 
 // Main case detail component
-const CaseDetail = ({
-  data,
-  filesOfSamples,
-  classes,
-  subjectId,
-}) => {
-  const [snackbarState, setsnackbarState] = React.useState({
-    open: false,
-    value: 0,
-    action: 'added',
-  });
-  function closeSnack() {
-    setsnackbarState({ open: false });
-  }
-
+const CaseDetail = ({ data, classes }) => {
   const stat = {
     numberOfPrograms: 1,
-    numberOfStudies: 1,
-    numberOfSubjects: 1,
-    numberOfSamples: data.num_samples,
-    numberOfLabProcedures: data.num_lab_procedures,
-    numberOfFiles: data.files.length,
+    numberOfCoreProjects: 1,
+    numberOfProjects: data.num_projects,
+    numberOfPublications: data.num_publications,
+    numberOfDatasets: data.num_datasets,
+    numberOfClinicalTrials: data.num_clinical_trials,
+    numberOfPatents: data.num_patents,
   };
 
   const breadCrumbJson = [{
-    name: 'ALL CASES /',
+    name: 'ALL PROJECTS /',
     to: '/explore',
     isALink: true,
   }];
 
-  // those are questioning codes for ICDC only, need to remove from here.
-  const filesOfSamplesObj = filesOfSamples.reduce(
-    (obj, item) => ({ ...obj, [item.sample_id]: item.files }), {},
-  );
-
-  // NOTE: Needs improvement.
-  const datFieldsFromRoot = [];
-  sampleTable.columns.forEach((e) => (e.dataFromRoot ? datFieldsFromRoot.push(e.dataField) : null));
-
-  const samplesData = data.samples.map((s) => {
-    const files = filesOfSamplesObj[s.sample_id];
-    // reverted back to prevent undefined (s) value
-    const sample = { ...s };
-    sample.files = files;
-    if (datFieldsFromRoot.length > 0) {
-      datFieldsFromRoot.forEach((e) => {
-        sample[e] = data[e];
-      });
-    }
-    return sample;
-  });
-
   return (
     <>
-      <Snackbar
-        snackbarState={snackbarState}
-        closeSnack={closeSnack}
-        autoHideDuration={3000}
-        classes={classes}
-      />
       <StatsView data={stat} />
       <div className={classes.container}>
         <div className={classes.innerContainer}>
@@ -89,23 +44,22 @@ const CaseDetail = ({
               <img
                 className={classes.caseIcon}
                 src={icon}
-                alt="Bento case detail header logo"
+                alt="INS case detail header logo"
               />
-
             </div>
             <div className={classes.headerTitle}>
               <div className={classes.headerMainTitle}>
-                {`${caseHeader.label} :`}
-                { data[caseHeader.dataField]
+                {`${projectHeader.label} :`}
+                {data[projectHeader.dataField]
                   ? (
                     <span className={classes.headerMainTitleTwo}>
                       {' '}
-                      {data[caseHeader.dataField]}
+                      {data[projectHeader.dataField]}
                     </span>
                   )
                   : (
                     <Typography variant="h5" color="error" size="sm">
-                      {`"${caseHeader.dataField}" is not a valid property name`}
+                      {`"${projectHeader.dataField}" is not a valid property name`}
                     </Typography>
                   )}
               </div>
@@ -115,7 +69,6 @@ const CaseDetail = ({
               </div>
             </div>
           </div>
-
           <Grid container spacing={1} className={classes.detailContainer}>
             {/* Left panel */}
             <Grid item sm={6} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
@@ -150,27 +103,8 @@ const CaseDetail = ({
           </Grid>
         </div>
       </div>
-
-      <div id="case_detail_table_associated_samples" className={classes.tableContainer}>
-        <div className={classes.tableDiv}>
-          <TableContextProvider>
-            <SampleTableView
-              subjectId={subjectId}
-              data={samplesData}
-            />
-          </TableContextProvider>
-        </div>
-      </div>
-
-      <div id="case_detail_table_associated_files" className={classes.tableContainer}>
-        <div className={classes.tableDiv}>
-          <TableContextProvider>
-            <FilesTableView
-              subjectId={subjectId}
-              data={data[filesTable.subjectDetailField]}
-            />
-          </TableContextProvider>
-        </div>
+      <div className={classes.detailTabContainer}>
+        <Tabs projectID={data.queried_project_id} />
       </div>
       <div className={classes.blankSpace} />
     </>
@@ -247,6 +181,10 @@ const styles = (theme) => ({
     color: '#000000',
     size: '12px',
     lineHeight: '23px',
+  },
+  detailTabContainer: {
+    maxWidth: theme.custom.maxContentWidth,
+    margin: 'auto',
   },
   detailPanel: {
     paddingTop: '0 !important',

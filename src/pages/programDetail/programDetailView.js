@@ -15,8 +15,8 @@ import {
 import {
   CustomDataTable,
 } from '@bento-core/data-table';
-// import clsx from 'clsx';
-// import { WidgetGenerator } from '@bento-core/widgets';
+import { WidgetGenerator } from '@bento-core/widgets';
+// import Widget from '../../components/Widgets/WidgetView';
 import globalData from '../../bento/siteWideConfig';
 import {
   pageTitle,
@@ -33,10 +33,7 @@ import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import colors from '../../utils/colors';
-// import { onClearAllAndSelectFacetValue } from '../dashTemplate/sideBar/BentoFilterUtils';
 
-// CustomActiveDonut,
-// import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
 import {
   singleCheckBox,
   setSideBarToLoading,
@@ -46,7 +43,6 @@ import {
 import {
   GET_PROJECTS_OVERVIEW_QUERY,
 } from '../../bento/dashboardTabData';
-// import Widget from '../../components/Widgets/WidgetView';
 import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
 
 const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
@@ -360,7 +356,7 @@ const ProgramView = ({
                     xs={12}
                     className={classes.marginTopN37}
                   >
-                    <Widget
+                    <WidgetGenerator
                       title={rightPanel.widget[0].label}
                       upperTitle
                       bodyClass={classes.fullHeightBody}
@@ -369,7 +365,7 @@ const ProgramView = ({
                       widgetBorderDivider
                       customBackGround
                     >
-                      <CustomActiveDonut
+                      {/* <CustomActiveDonut
                         data={data[0][rightPanel.widget[0].dataName]}
                         titleText={rightPanel.widget[0].titleText || 'Cases'}
                         width={400}
@@ -383,8 +379,8 @@ const ProgramView = ({
                         titleLocation="bottom"
                         titleAlignment="center"
                         paddingSpace={1}
-                      />
-                    </Widget>
+                      /> */}
+                    </WidgetGenerator>
                   </Grid>
                 ) : ''}
                 {rightPanel.widget[0].display ? (
@@ -393,7 +389,7 @@ const ProgramView = ({
                     xs={12}
                     className={classes.marginTopN37}
                   >
-                    <Widget
+                    <WidgetGenerator
                       title={rightPanel.widget[1].label}
                       upperTitle
                       bodyClass={classes.fullHeightBody}
@@ -402,7 +398,7 @@ const ProgramView = ({
                       widgetBorderDivider
                       customBackGround
                     >
-                      <CustomActiveDonut
+                      {/* <CustomActiveDonut
                         data={data[0][rightPanel.widget[1].dataName]}
                         titleText={rightPanel.widget[1].titleText || 'Cases'}
                         width={400}
@@ -416,8 +412,8 @@ const ProgramView = ({
                         titleLocation="bottom"
                         titleAlignment="center"
                         paddingSpace={1}
-                      />
-                    </Widget>
+                      /> */}
+                    </WidgetGenerator>
                   </Grid>
                 ) : ''}
               </Grid>
