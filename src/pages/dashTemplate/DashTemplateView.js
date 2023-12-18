@@ -28,10 +28,10 @@ const DashTemplate = ({
             <WidgetView
               data={dashData}
             />
-            {/* <TabsView
+            <TabsView
               dashboardStats={dashData}
               activeFilters={activeFilters}
-            /> */}
+            />
           </div>
         </div>
       </div>
