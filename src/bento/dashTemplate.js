@@ -119,32 +119,32 @@ export const SUNBURST_COLORS_LEVEL_2 = [
 export const widgetConfig = [
   {
     type: 'donut',
-    title: 'Diagnosis',
-    dataName: 'subjectCountByDiagnoses',
+    title: 'Projects by Fiscal Year',
+    dataName: 'projectCountByFiscalYearSorted',
   },
   {
     type: 'donut',
-    title: 'Diagnosis',
-    dataName: 'subjectCountByDiagnoses',
+    label: 'Projects by NCI DOC',
+    dataName: 'projectCountByDOCSorted',
   },
   {
     type: 'donut',
-    title: 'Recurrence Score',
-    dataName: 'subjectCountByRecurrenceScore',
+    label: 'Projects by Award Amount',
+    dataName: 'projectCountByAwardAmountSorted',
   },
   {
     type: 'donut',
-    title: 'Tumor Size',
-    dataName: 'subjectCountByTumorSize',
+    label: 'Publications by Year',
+    dataName: 'publicationCountByYearSorted',
   },
   {
     type: 'donut',
-    title: 'Chemotherapy',
-    dataName: 'subjectCountByChemotherapyRegimen',
+    label: 'Publications by RCR Range',
+    dataName: 'publicationCountByRCRTransformed',
   },
   {
     type: 'donut',
-    title: 'Endocrine Therapy',
-    dataName: 'subjectCountByEndocrineTherapy',
+    label: 'Publications by Citations',
+    dataName: 'publicationCountByCitationSorted',
   },
 ];

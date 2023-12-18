@@ -25,10 +25,10 @@ const DashTemplate = ({
         <div className={classes.rightContent}>
           <div className={classes.widgetsContainer}>
             <QueryBarView data={dashData} />
-            {/* <WidgetView
+            <WidgetView
               data={dashData}
             />
-            <TabsView
+            {/* <TabsView
               dashboardStats={dashData}
               activeFilters={activeFilters}
             /> */}

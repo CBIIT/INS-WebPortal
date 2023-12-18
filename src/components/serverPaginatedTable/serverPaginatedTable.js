@@ -121,7 +121,7 @@ class ServerPaginatedTableView extends React.Component {
   // mock async function
   xhrRequest = (url, page, sortOrder = {}) => new Promise((resolve) => {
     // mock page data
-    let fullData = this.getSrcData() !== {} ? this.getSrcData() : [{}];
+    let fullData = this.getSrcData();
     // mock record count from server - normally this would be a number attached to the return data
     const total = 60;
     const sortField = sortOrder.name;
