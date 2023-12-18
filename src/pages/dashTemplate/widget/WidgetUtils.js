@@ -8,17 +8,7 @@ import {
  * @param {object} data
  * @returns {object} filtered data
  */
-const removeEmptySubjectsFromDonutData = (data) => {
-  if (data) {
-    data.filter((item) => {
-      if (item.subjects !== 0) {
-        return item;
-      }
-      return null;
-    });
-  }
-  return data;
-};
+const removeEmptySubjectsFromDonutData = (data) => data.filter((item) => item.subjects !== 0);
 
 /**
  * Returns the widgets data formatted as key:dataset pairs
