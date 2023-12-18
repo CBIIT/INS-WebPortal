@@ -43,10 +43,10 @@ const theme = {
     },
     MuiListItem: {
       root: {
-        '&.casesCheckedEven': {
+        '&.projectsCheckedEven': {
           backgroundColor: '#e8f7dc',
         },
-        '&.casesCheckedOdd': {
+        '&.projectsCheckedOdd': {
           backgroundColor: '#f5FDEE',
         },
         '&.samplesCheckedEven': {
@@ -65,7 +65,7 @@ const theme = {
     },
     MuiSvgIcon: {
       root: {
-        '&.casesCheckedIcon': {
+        '&.projectsCheckedIcon': {
           color: '#10a075',
         },
         '&.samplesCheckedIcon': {
@@ -78,7 +78,7 @@ const theme = {
     },
     MuiTypography: {
       root: {
-        '&.casesSubjects': {
+        '&.projectsSubjects': {
           color: '#10a075',
           fontSize: '12px',
           fontFamily: 'Nunito',

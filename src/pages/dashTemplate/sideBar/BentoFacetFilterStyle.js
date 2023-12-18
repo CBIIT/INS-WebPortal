@@ -36,7 +36,7 @@ export default () => ({
   cases: {
     height: '5px',
   },
-  Cases: {
+  Projects: {
     height: '5px',
     margin: '0px',
     backgroundColor: '#0d8461',
@@ -102,7 +102,7 @@ export default () => ({
     fontSize: '14px',
     marginRight: '0px',
   },
-  activeFacetCases: {
+  activeFacetProjects: {
     color: '#10a075',
   },
   activeFacetSamples: {
