@@ -1,11 +1,4 @@
-import {
-  btnTypes,
-  types,
-} from '@bento-core/paginated-table';
-import {
-  tooltipContent,
-} from '../../../../bento/dashboardTabData';
-import { alertMessage } from '../../../../bento/fileCentricCartWorkflowData';
+import { btnTypes } from '@bento-core/paginated-table';
 
 export const layoutConfig = [{
   container: 'buttons',
@@ -19,12 +12,10 @@ export const layoutConfig = [{
 * Configuration display component based on index
 * CAUTION: provide position of table component
 */
-export const wrapperConfig = [
-  {
-    container: 'paginatedTable',
-    paginatedTable: true,
-  },
-];
+export const wrapperConfig = [{
+  container: 'paginatedTable',
+  paginatedTable: true,
+}];
 
 /**
 * 1. addFileQuery - query to addAll files or add selected files on cart
