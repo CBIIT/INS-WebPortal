@@ -7,6 +7,7 @@ import {
   customClinicalTrialsTabDownloadCSV,
   customPatentsTabDownloadCSV,
 } from './tableDownloadCSV';
+import { cellTypes } from '@bento-core/table';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -23,593 +24,6 @@ export const externalLinkIcon = {
   src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/externalLinkIcon.svg',
   alt: 'External link icon',
 };
-
-// --------------- Tabs Table configuration --------------
-export const tabContainers = [
-  {
-    name: 'Grants',
-    dataField: 'dataProject',
-    api: 'GET_PROJECTS_OVERVIEW_QUERY',
-    paginationAPIField: 'projectOverView',
-    defaultSortField: 'project_id',
-    defaultSortDirection: 'asc',
-    count: 'numberOfProjects',
-    buttonText: 'Add Selected Files',
-    dataKey: 'project_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    columns: [
-      {
-        dataField: 'project_id',
-        header: 'Grant ID',
-        sort: 'asc',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'queried_project_id',
-        header: 'Project ID',
-        sort: 'asc',
-        link: '/project/{queried_project_id}',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'program',
-        header: 'Program',
-        sort: 'asc',
-        link: '/program/{program}',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'project_title',
-        header: 'Project Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '20%',
-        },
-      },
-      {
-        dataField: 'principal_investigators',
-        header: 'Principal Investigators',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'program_officers',
-        header: 'Program Officers',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'lead_doc',
-        header: 'Lead DOC',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'activity_code',
-        header: 'Activity Code',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'award_amount',
-        header: 'Award Amount',
-        sort: 'asc',
-        display: true,
-        dataTransform: (money) => {
-          const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            maximumFractionDigits: 0,
-          });
-
-          return formatter.format(money);
-        },
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'project_end_date',
-        header: 'Project End Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'fiscal_year',
-        header: 'Fiscal Year',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-    ],
-    id: 'project_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'project_tab_table',
-    selectableRows: false,
-    tabIndex: '0',
-    tableDownloadCSV: customProjectsTabDownloadCSV,
-    downloadFileName: 'projects_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Publications',
-    dataField: 'dataPublication',
-    api: 'GET_PUBLICATIONS_OVERVIEW_QUERY',
-    paginationAPIField: 'publicationOverView',
-    defaultSortField: 'publication_id',
-    defaultSortDirection: 'asc',
-    count: 'numberOfPublications',
-    buttonText: 'Add Selected Files',
-    dataKey: 'publication_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'publication_id',
-        header: 'PubMed ID',
-        sort: 'asc',
-        primary: true,
-        link: 'https://pubmed.ncbi.nlm.nih.gov/{publication_id}/',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        sort: 'asc',
-        link: '/project/{queried_project_ids}',
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '15%',
-        },
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '25%',
-        },
-      },
-      {
-        dataField: 'authors',
-        header: 'Authors',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '25%',
-        },
-      },
-      {
-        dataField: 'citation_count',
-        header: 'Citation Count',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'relative_citation_ratio',
-        header: 'Relative Citation Ratio',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'publish_date',
-        header: 'Publication Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-    ],
-    id: 'publication_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'publication_tab_table',
-    selectableRows: false,
-    tabIndex: '1',
-    tableDownloadCSV: customPublicationsTabDownloadCSV,
-    downloadFileName: 'publications_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Datasets',
-    dataField: 'dataDataset',
-    api: 'GET_DATASETS_OVERVIEW_QUERY',
-    paginationAPIField: 'datasetOverView',
-    defaultSortField: 'accession',
-    defaultSortDirection: 'asc',
-    count: 'numberOfDatasets',
-    buttonText: 'Add Selected Files',
-    dataKey: 'accession',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'accession',
-        header: 'Accession',
-        sort: 'asc',
-        link: '{link}',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'link',
-        header: 'Link',
-        sort: 'asc',
-        link: '{link}',
-        display: false,
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        sort: 'asc',
-        link: '/project/{queried_project_ids}',
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '15%',
-        },
-      },
-      {
-        dataField: 'transformed_type',
-        header: 'Type',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-      },
-      {
-        dataField: 'submission_date',
-        header: 'Submission Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'last_update_date',
-        header: 'Last Update Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'release_date',
-        header: 'Release Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'registration_date',
-        header: 'Registration Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-    ],
-    id: 'dataset_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'dataset_tab_table',
-    selectableRows: false,
-    tabIndex: '2',
-    tableDownloadCSV: customDatasetsTabDownloadCSV,
-    downloadFileName: 'datasets_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Clinical Trials',
-    dataField: 'dataClinicalTrial',
-    api: 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY',
-    paginationAPIField: 'clinicalTrialOverView',
-    defaultSortField: 'clinical_trial_id',
-    defaultSortDirection: 'asc',
-    count: 'numberOfClinicalTrials',
-    buttonText: 'Add Selected Files',
-    dataKey: 'clinical_trial_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'clinical_trial_id',
-        header: 'Clinical Trial ID',
-        sort: 'asc',
-        link: 'https://clinicaltrials.gov/ct2/show/{clinical_trial_id}/',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        sort: 'asc',
-        link: '/project/{queried_project_ids}',
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '15%',
-        },
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '55%',
-        },
-      },
-      {
-        dataField: 'last_update_posted',
-        header: 'Last Update Posted',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'recruitment_status',
-        header: 'Recruitment Status',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-    ],
-    id: 'clinical_trial_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'clinical_trial_tab_table',
-    selectableRows: false,
-    tabIndex: '3',
-    tableDownloadCSV: customClinicalTrialsTabDownloadCSV,
-    downloadFileName: 'clinical_trials_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Patents',
-    dataField: 'dataPatent',
-    api: 'GET_PATENTS_OVERVIEW_QUERY',
-    paginationAPIField: 'patentOverView',
-    defaultSortField: 'patent_id',
-    defaultSortDirection: 'asc',
-    count: 'numberOfPatents',
-    buttonText: 'Add Selected Files',
-    dataKey: 'patent_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'patent_id',
-        header: 'Patent ID',
-        sort: 'asc',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '40%',
-        },
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        sort: 'asc',
-        link: '/project/{queried_project_ids}',
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '30%',
-        },
-      },
-      {
-        dataField: 'fulfilled_date',
-        header: 'Fulfilled Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-      },
-    ],
-    id: 'patent_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'patent_tab_table',
-    selectableRows: false,
-    tabIndex: '4',
-    tableDownloadCSV: customPatentsTabDownloadCSV,
-    downloadFileName: 'patents_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-];
 
 // --------------- Tabs Header Data configuration --------------
 export const tabs = [
@@ -1239,3 +653,576 @@ export const GET_FILE_IDS_FROM_FILE_NAME = gql`
           file_id
       }
   }`;
+
+// --------------- Tabs Table configuration --------------
+export const tabContainers = [
+  {
+    name: 'Grants',
+    dataField: 'dataProject',
+    api: GET_PROJECTS_OVERVIEW_QUERY,
+    paginationAPIField: 'projectOverView',
+    defaultSortField: 'project_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfProjects',
+    buttonText: 'Add Selected Files',
+    dataKey: 'project_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'project_id',
+        header: 'Grant ID',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'queried_project_id',
+        header: 'Project ID',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['queried_project_id'],
+        },
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program',
+        header: 'Program',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/program',
+          pathParams: ['program'],
+        },
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'project_title',
+        header: 'Project Title',
+        display: true,
+        headerStyles: {
+          width: '20%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'principal_investigators',
+        header: 'Principal Investigators',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program_officers',
+        header: 'Program Officers',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'lead_doc',
+        header: 'Lead DOC',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'activity_code',
+        header: 'Activity Code',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'award_amount',
+        header: 'Award Amount',
+        display: true,
+        dataTransform: (money) => {
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0,
+          });
+
+          return formatter.format(money);
+        },
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'project_end_date',
+        header: 'Project End Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'fiscal_year',
+        header: 'Fiscal Year',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'project_tab',
+    tableMsg: {
+      noMatch: 'No Matching Records Found',
+    },
+    tableID: 'project_tab_table',
+    tabIndex: '0',
+    tableDownloadCSV: customProjectsTabDownloadCSV,
+    downloadFileName: 'projects_download',
+  },
+  {
+    name: 'Publications',
+    dataField: 'dataPublication',
+    api: GET_PUBLICATIONS_OVERVIEW_QUERY,
+    paginationAPIField: 'publicationOverView',
+    defaultSortField: 'publication_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfPublications',
+    buttonText: 'Add Selected Files',
+    dataKey: 'publication_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'publication_id',
+        header: 'PubMed ID',
+        cellType: cellTypes.EXTERNAL_LINK,
+        linkAttr: {
+          rootPath: 'https://pubmed.ncbi.nlm.nih.gov',
+          pathParams: ['publication_id'],
+        },
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['queried_project_ids'],
+        },
+        display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
+        headerStyles: {
+          width: '15%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        display: true,
+        headerStyles: {
+          width: '25%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'authors',
+        header: 'Authors',
+        display: true,
+        headerStyles: {
+          width: '25%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'citation_count',
+        header: 'Citation Count',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'relative_citation_ratio',
+        header: 'Relative Citation Ratio',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'publish_date',
+        header: 'Publication Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'publication_tab',
+    tableID: 'publication_tab_table',
+    tabIndex: '1',
+    tableDownloadCSV: customPublicationsTabDownloadCSV,
+    downloadFileName: 'publications_download',
+  },
+  {
+    name: 'Datasets',
+    dataField: 'dataDataset',
+    api: GET_DATASETS_OVERVIEW_QUERY,
+    paginationAPIField: 'datasetOverView',
+    defaultSortField: 'accession',
+    defaultSortDirection: 'asc',
+    count: 'numberOfDatasets',
+    buttonText: 'Add Selected Files',
+    dataKey: 'accession',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'accession',
+        header: 'Accession',
+        cellType: cellTypes.EXTERNAL_LINK,
+        linkAttr: {
+          rootPath: '',
+          pathParams: ['link'],
+        },
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'link',
+        header: 'Link',
+        cellType: cellTypes.EXTERNAL_LINK,
+        linkAttr: {
+          rootPath: '',
+          pathParams: ['link'],
+        },
+        display: false,
+      },
+      {
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['queried_project_is'],
+        },
+        display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
+        headerStyles: {
+          width: '15%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'transformed_type',
+        header: 'Type',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        display: true,
+        headerStyles: {
+          width: '30%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'submission_date',
+        header: 'Submission Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'last_update_date',
+        header: 'Last Update Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'release_date',
+        header: 'Release Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'registration_date',
+        header: 'Registration Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'dataset_tab',
+    tableID: 'dataset_tab_table',
+    tabIndex: '2',
+    tableDownloadCSV: customDatasetsTabDownloadCSV,
+    downloadFileName: 'datasets_download',
+  },
+  {
+    name: 'Clinical Trials',
+    dataField: 'dataClinicalTrial',
+    api: GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
+    paginationAPIField: 'clinicalTrialOverView',
+    defaultSortField: 'clinical_trial_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfClinicalTrials',
+    buttonText: 'Add Selected Files',
+    dataKey: 'clinical_trial_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'clinical_trial_id',
+        header: 'Clinical Trial ID',
+        cellType: cellTypes.EXTERNAL_LINK,
+        linkAttr: {
+          rootPath: 'https://clinicaltrials.gov/ct2/show',
+          pathParams: ['clinical_trial_id'],
+        },
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['queried_project_ids'],
+        },
+        display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
+        headerStyles: {
+          width: '15%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        display: true,
+        headerStyles: {
+          width: '55%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'last_update_posted',
+        header: 'Last Update Posted',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'recruitment_status',
+        header: 'Recruitment Status',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'clinical_trial_tab',
+    tableID: 'clinical_trial_tab_table',
+    tabIndex: '3',
+    tableDownloadCSV: customClinicalTrialsTabDownloadCSV,
+    downloadFileName: 'clinical_trials_download',
+  },
+  {
+    name: 'Patents',
+    dataField: 'dataPatent',
+    api: GET_PATENTS_OVERVIEW_QUERY,
+    paginationAPIField: 'patentOverView',
+    defaultSortField: 'patent_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfPatents',
+    buttonText: 'Add Selected Files',
+    dataKey: 'patent_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'patent_id',
+        header: 'Patent ID',
+        display: true,
+        headerStyles: {
+          width: '40%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['queried_project_ids'],
+        },
+        display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
+        headerStyles: {
+          width: '30%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'fulfilled_date',
+        header: 'Fulfilled Date',
+        display: true,
+        headerStyles: {
+          width: '30%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'patent_tab',
+    tableID: 'patent_tab_table',
+    tabIndex: '4',
+    tableDownloadCSV: customPatentsTabDownloadCSV,
+    downloadFileName: 'patents_download',
+  },
+];

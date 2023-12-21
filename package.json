@@ -26,7 +26,7 @@
     "@bento-core/session-timeout": "1.0.0",
     "@bento-core/stats-bar": "1.0.0",
     "@bento-core/tab": "1.0.0",
-    "@bento-core/table": "1.0.1-ins.0",
+    "@bento-core/table": "1.0.1-ins.1",
     "@bento-core/tool-tip": "1.0.0",
     "@bento-core/util": "1.0.1-ins.0",
     "@bento-core/widgets": "1.0.0",
