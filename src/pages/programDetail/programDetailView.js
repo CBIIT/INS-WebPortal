@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import _ from 'lodash';
 import {
@@ -32,7 +31,7 @@ import {
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
-import colors from '../../utils/colors';
+// import colors from '../../utils/colors';
 
 import {
   singleCheckBox,
@@ -95,13 +94,14 @@ const ProgramView = ({
 
   const { dataKey } = table;
 
-  const dataTransformCallbacks = table.columns.filter((column, idx) => column.dataTransform !== undefined);
+  // eslint-disable-next-line max-len
+  const dataTransformCallbacks = table.columns.filter((column) => column.dataTransform !== undefined);
 
   const headerStyles = table.columns.map((column) => column.headerStyles);
 
   const setRowSelection = getTableRowSelectionEvent();
 
-  function disableRowSelection(d, cartData) {
+  function disableRowSelection() {
     return true;
   }
 
@@ -167,7 +167,7 @@ const ProgramView = ({
     }
   }
 
-  function onRowsSelect(curr, allRowsSelected, rowsSelected, displayData) {
+  function onRowsSelect(rowsSelected, displayData) {
     rowSelectionEvent(displayData.map((d) => d.data[1][primaryKeyIndex]), rowsSelected);
   }
 
@@ -356,7 +356,7 @@ const ProgramView = ({
                     xs={12}
                     className={classes.marginTopN37}
                   >
-                    <WidgetGenerator
+                    {/* <WidgetGenerator
                       title={rightPanel.widget[0].label}
                       upperTitle
                       bodyClass={classes.fullHeightBody}
@@ -365,7 +365,7 @@ const ProgramView = ({
                       widgetBorderDivider
                       customBackGround
                     >
-                      {/* <CustomActiveDonut
+                      <CustomActiveDonut
                         data={data[0][rightPanel.widget[0].dataName]}
                         titleText={rightPanel.widget[0].titleText || 'Cases'}
                         width={400}
@@ -379,8 +379,8 @@ const ProgramView = ({
                         titleLocation="bottom"
                         titleAlignment="center"
                         paddingSpace={1}
-                      /> */}
-                    </WidgetGenerator>
+                      />
+                    </WidgetGenerator> */}
                   </Grid>
                 ) : ''}
                 {rightPanel.widget[0].display ? (
@@ -389,7 +389,7 @@ const ProgramView = ({
                     xs={12}
                     className={classes.marginTopN37}
                   >
-                    <WidgetGenerator
+                    {/* <WidgetGenerator
                       title={rightPanel.widget[1].label}
                       upperTitle
                       bodyClass={classes.fullHeightBody}
@@ -398,7 +398,7 @@ const ProgramView = ({
                       widgetBorderDivider
                       customBackGround
                     >
-                      {/* <CustomActiveDonut
+                      <CustomActiveDonut
                         data={data[0][rightPanel.widget[1].dataName]}
                         titleText={rightPanel.widget[1].titleText || 'Cases'}
                         width={400}
@@ -412,8 +412,8 @@ const ProgramView = ({
                         titleLocation="bottom"
                         titleAlignment="center"
                         paddingSpace={1}
-                      /> */}
-                    </WidgetGenerator>
+                      />
+                    </WidgetGenerator> */}
                   </Grid>
                 ) : ''}
               </Grid>
