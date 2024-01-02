@@ -658,7 +658,7 @@ const styles = (theme) => ({
     overflowY: 'auto',
     overflowX: 'hidden',
     height: '700px',
-    width: '105%',
+    width: '300%',
     borderLeft: '1px solid #81A6BA',
     borderRight: '1px solid #81A6BA',
     marginLeft: '-26px',
