@@ -14,8 +14,13 @@ import {
 import {
   CustomDataTable,
 } from '@bento-core/data-table';
-import { WidgetGenerator } from '@bento-core/widgets';
-// import Widget from '../../components/Widgets/WidgetView';
+import {
+  // TableContextProvider,
+  TableView,
+  // Wrapper,
+} from '@bento-core/paginated-table';
+import WidgetViewNciDoc from './widget/WidgetViewNciDoc';
+import WidgetViewAwardAmount from './widget/WidgetViewAwardAmount';
 import globalData from '../../bento/siteWideConfig';
 import {
   pageTitle,
@@ -26,7 +31,6 @@ import {
   aggregateCount,
   pageSubTitle,
   leftPanel,
-  rightPanel,
 } from '../../bento/programDetailData';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
@@ -189,6 +193,24 @@ const ProgramView = ({
     serverTableRowCount: selectedRowInfo.length,
   };
 
+  // const initTblState = (initailState) => ({
+  //   ...initailState,
+  //   title: config.name,
+  //   query: config.api,
+  //   paginationAPIField: config.paginationAPIField,
+  //   dataKey: config.dataKey,
+  //   columns: configColumn(config.columns),
+  //   count: dashboardStats[config.count],
+  //   selectedRows: [],
+  //   enableRowSelection: config.enableRowSelection,
+  //   tableMsg: config.tableMsg,
+  //   sortBy: config.defaultSortField,
+  //   sortOrder: config.defaultSortDirection,
+  //   extendedViewConfig: config.extendedViewConfig,
+  //   rowsPerPage: 10,
+  //   page: 0,
+  // });
+
   return (
     <>
       <StatsView data={stat} />
@@ -350,72 +372,24 @@ const ProgramView = ({
               xs={12}
             >
               <Grid container spacing={16} direction="row" className={classes.detailContainerRight}>
-                {rightPanel.widget[0].display ? (
-                  <Grid
-                    item
-                    xs={12}
-                    className={classes.marginTopN37}
-                  >
-                    {/* <WidgetGenerator
-                      title={rightPanel.widget[0].label}
-                      upperTitle
-                      bodyClass={classes.fullHeightBody}
-                      className={classes.card}
-                      color={theme.palette.lochmara.contrastText}
-                      widgetBorderDivider
-                      customBackGround
-                    >
-                      <CustomActiveDonut
-                        data={data[0][rightPanel.widget[0].dataName]}
-                        titleText={rightPanel.widget[0].titleText || 'Cases'}
-                        width={400}
-                        height={225}
-                        innerRadius={50}
-                        outerRadius={75}
-                        cx="50%"
-                        cy="50%"
-                        textColor={theme.palette.widgetBackground.contrastText}
-                        colors={colors}
-                        titleLocation="bottom"
-                        titleAlignment="center"
-                        paddingSpace={1}
-                      />
-                    </WidgetGenerator> */}
-                  </Grid>
-                ) : ''}
-                {rightPanel.widget[0].display ? (
-                  <Grid
-                    item
-                    xs={12}
-                    className={classes.marginTopN37}
-                  >
-                    {/* <WidgetGenerator
-                      title={rightPanel.widget[1].label}
-                      upperTitle
-                      bodyClass={classes.fullHeightBody}
-                      className={classes.card}
-                      color={theme.palette.lochmara.contrastText}
-                      widgetBorderDivider
-                      customBackGround
-                    >
-                      <CustomActiveDonut
-                        data={data[0][rightPanel.widget[1].dataName]}
-                        titleText={rightPanel.widget[1].titleText || 'Cases'}
-                        width={400}
-                        height={225}
-                        innerRadius={50}
-                        outerRadius={75}
-                        cx="50%"
-                        cy="50%"
-                        textColor={theme.palette.widgetBackground.contrastText}
-                        colors={colors}
-                        titleLocation="bottom"
-                        titleAlignment="center"
-                        paddingSpace={1}
-                      />
-                    </WidgetGenerator> */}
-                  </Grid>
-                ) : ''}
+                <Grid
+                  item
+                  xs={12}
+                  className={classes.marginTopN37}
+                >
+                  <WidgetViewNciDoc
+                    data={data[0]}
+                  />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  className={classes.marginTopN37}
+                >
+                  <WidgetViewAwardAmount
+                    data={data[0]}
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -446,6 +420,13 @@ const ProgramView = ({
                       dataTransformation={dataTransformCallbacks}
                       headerStyles={headerStyles}
                     />
+                    {/* <TableView
+                      initState={initTblState}
+                      themeConfig={themeConfig}
+                      queryVariables={activeFilters}
+                      totalRowCount={dashboardStats[config.count]}
+                      activeTab={activeTab}
+                    /> */}
                   </Typography>
                 </Grid>
                 <Grid item xs={8}>

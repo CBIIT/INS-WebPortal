@@ -62,27 +62,6 @@ const leftPanel = {
   ],
 };
 
-// --------------- Right Pannel configuration --------------
-// Ideal size for fileIconSrc is 66x53 px
-const rightPanel = {
-  widget: [
-    {
-      label: 'Projects by NCI DOCs',
-      dataName: 'projectCountInProgramByDOCData',
-      datatable_field: 'docs',
-      titleText: 'Projects',
-      display: true,
-    },
-    {
-      label: 'Projects by Award Amount',
-      dataName: 'projectCountInProgramByFundedAmountData',
-      datatable_field: 'funded_amount',
-      titleText: 'Projects',
-      display: true,
-    },
-  ],
-};
-
 // --------------- Table configuration --------------
 const table = {
   name: 'Grants',
@@ -260,7 +239,6 @@ export {
   aggregateCount,
   programDetailIcon,
   leftPanel,
-  rightPanel,
   externalLinkIcon,
   breadCrumb,
   GET_PROGRAM_DETAIL_DATA_QUERY,
