@@ -96,7 +96,7 @@ const ProgramView = ({
     tableMsg: table.tableMsg,
     sortBy: table.defaultSortField,
     sortOrder: table.defaultSortDirection,
-    extendedViewConfig: table.extendedViewConfig,
+    extendedViewConfig: { pagination: true, manageViewColumns: false },
     rowsPerPage: 10,
     page: 0,
   });
