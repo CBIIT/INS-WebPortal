@@ -29,6 +29,7 @@ import {
   aggregateCount,
   pageSubTitle,
   leftPanel,
+  GET_PROJECTS_OVERVIEW_QUERY,
 } from '../../bento/programDetailData';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
@@ -39,19 +40,16 @@ import {
   setSideBarToLoading,
   setDashboardTableLoading,
 } from './dashboardReducer';
-import {
-  GET_PROJECTS_OVERVIEW_QUERY,
-} from '../../bento/dashboardTabData';
-
-const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
 
 const ProgramView = ({
   classes, data,
 }) => {
   const {
     programPublicationCount, programDatasetCount, programClinicalTrialCount, programPatentCount,
-  } = data[0];
-  const programData = data[0].programDetail;
+  } = data;
+  const programData = data.programDetail;
+
+  const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
 
   const redirectTo = () => {
     setSideBarToLoading();
@@ -269,7 +267,7 @@ const ProgramView = ({
                   className={classes.marginTopN37}
                 >
                   <WidgetViewNciDoc
-                    data={data[0]}
+                    data={data}
                   />
                 </Grid>
                 <Grid
@@ -278,7 +276,7 @@ const ProgramView = ({
                   className={classes.marginTopN37}
                 >
                   <WidgetViewAwardAmount
-                    data={data[0]}
+                    data={data}
                   />
                 </Grid>
               </Grid>

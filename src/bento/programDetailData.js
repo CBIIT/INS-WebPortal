@@ -243,14 +243,12 @@ const table = {
     },
   ],
   id: 'project_tab',
-  onRowsSelect: 'type1',
-  disableRowSelection: 'type1',
   tableID: 'project_tab_table',
-  selectableRows: false,
   tableDownloadCSV: customProgramsTableDownloadCSV,
   downloadFileName: 'programs_download',
-  headerPagination: true,
-  footerPagination: true,
+  tableMsg: {
+    noMatch: 'No Matching Records Found',
+  },
 };
 
 // --------------- GraphQL query - Retrieve program details --------------
