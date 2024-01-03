@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import _ from 'lodash';
 import {
@@ -15,10 +16,14 @@ import {
   CustomDataTable,
 } from '@bento-core/data-table';
 import {
-  // TableContextProvider,
+  TableContextProvider,
   TableView,
-  // Wrapper,
+  Wrapper,
 } from '@bento-core/paginated-table';
+import { themeConfig } from './tableConfig/Theme';
+import { configColumn } from './tableConfig/Column';
+import { configWrapper, wrapperConfig } from './wrapperConfig/Wrapper';
+import { customTheme } from './wrapperConfig/Theme';
 import WidgetViewNciDoc from './widget/WidgetViewNciDoc';
 import WidgetViewAwardAmount from './widget/WidgetViewAwardAmount';
 import globalData from '../../bento/siteWideConfig';
@@ -193,23 +198,23 @@ const ProgramView = ({
     serverTableRowCount: selectedRowInfo.length,
   };
 
-  // const initTblState = (initailState) => ({
-  //   ...initailState,
-  //   title: config.name,
-  //   query: config.api,
-  //   paginationAPIField: config.paginationAPIField,
-  //   dataKey: config.dataKey,
-  //   columns: configColumn(config.columns),
-  //   count: dashboardStats[config.count],
-  //   selectedRows: [],
-  //   enableRowSelection: config.enableRowSelection,
-  //   tableMsg: config.tableMsg,
-  //   sortBy: config.defaultSortField,
-  //   sortOrder: config.defaultSortDirection,
-  //   extendedViewConfig: config.extendedViewConfig,
-  //   rowsPerPage: 10,
-  //   page: 0,
-  // });
+  const initTblState = (initailState) => ({
+    ...initailState,
+    title: table.title,
+    query: getOverviewQuery(table.api),
+    paginationAPIField: table.paginationAPIField,
+    dataKey: table.dataKey,
+    columns: configColumn(table.columns),
+    count: stat.numberOfProjects,
+    selectedRows: [],
+    enableRowSelection: table.enableRowSelection,
+    tableMsg: table.tableMsg,
+    sortBy: table.defaultSortField,
+    sortOrder: table.defaultSortDirection,
+    extendedViewConfig: table.extendedViewConfig,
+    rowsPerPage: 10,
+    page: 0,
+  });
 
   return (
     <>
@@ -405,7 +410,7 @@ const ProgramView = ({
               <Grid container spacing={8}>
                 <Grid item xs={12}>
                   <Typography>
-                    <CustomDataTable
+                    {/* <CustomDataTable
                       key={data[1].length}
                       data={data[1].projectOverView}
                       columns={getColumns(table, classes, data[1], externalLinkIcon, '', () => { }, DocumentDownload, globalData.replaceEmptyValueWith)}
@@ -419,14 +424,25 @@ const ProgramView = ({
                       queryCustomVaribles={{ programs: [data[0].programDetail.program_id] }}
                       dataTransformation={dataTransformCallbacks}
                       headerStyles={headerStyles}
-                    />
-                    {/* <TableView
-                      initState={initTblState}
-                      themeConfig={themeConfig}
-                      queryVariables={activeFilters}
-                      totalRowCount={dashboardStats[config.count]}
-                      activeTab={activeTab}
                     /> */}
+                    <TableContextProvider>
+                      <Wrapper
+                        wrapConfig={configWrapper(table, wrapperConfig)}
+                        customTheme={customTheme}
+                        classes={classes}
+                        section={table.name}
+                      >
+                        <Grid container>
+                          <Grid item xs={12} id={table.tableID}>
+                            <TableView
+                              initState={initTblState}
+                              themeConfig={themeConfig}
+                              totalRowCount={stat.numberOfProjects}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Wrapper>
+                    </TableContextProvider>
                   </Typography>
                 </Grid>
                 <Grid item xs={8}>
@@ -442,6 +458,111 @@ const ProgramView = ({
 };
 
 const styles = (theme) => ({
+  link: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+  cartlink: {
+    fontFamily: 'Lato',
+    color: '#3E6886',
+    fontSize: '12px',
+    marginRight: '70px',
+    textDecoration: 'none',
+    borderBottom: '1px solid #3E6886',
+    paddingBottom: '3px',
+  },
+  caseTitle: {
+    color: '#194563',
+    fontSize: '25.2pt',
+    fontStyle: 'normal',
+    fontFamily: 'Raleway',
+    letterSpacing: '0.025em',
+    backgroundColor: '#f5f5f5',
+    padding: '10px 32px 8px 28px',
+  },
+  chips: {
+    position: 'absolute',
+    marginLeft: '250px',
+    marginTop: '36px',
+    zIndex: '999',
+  },
+  chipRoot: {
+    color: '#ffffff',
+    fontFamily: '"Open Sans", sans-serif',
+    letterSpacing: '0.075em',
+    marginLeft: '10px',
+    backgroundColor: '#9b9b9b',
+    fontSize: '9pt',
+  },
+  chipDeleteIcon: {
+    color: '#ffffff',
+    '&:hover': {
+      color: '#ffffff',
+    },
+  },
+  root: {
+    fontFamily: '"Open Sans", sans-serif',
+    fontSize: '9pt',
+    letterSpacing: '0.025em',
+    color: '#000',
+  },
+  saveButtonDiv: {
+    paddingTop: '5px',
+    paddingRight: '25px',
+    textAlign: 'right',
+  },
+  saveButtonDivBottom: {
+    paddingTop: '5px',
+    paddingRight: '25px',
+    textAlign: 'right',
+    marginBottom: '30px',
+    position: 'relative',
+  },
+  button: {
+    borderRadius: '10px',
+    width: '156px',
+    lineHeight: '37px',
+    fontSize: '12px',
+    textTransform: 'uppercase',
+    fontFamily: 'Lato',
+    color: '#fff',
+    backgroundColor: '#10A075',
+    marginTop: '6px',
+    marginBottom: '10px',
+    marginRight: '5px',
+  },
+  caseTableBorder: {
+    borderTopColor: '#F48439',
+  },
+  fileTableBorder: {
+    borderTopColor: '#2446C6',
+  },
+  sampleTableBorder: {
+    borderTopColor: '#05C5CC',
+  },
+  messageBottom: {
+    zIndex: '500',
+    position: 'absolute',
+    marginTop: '-148px',
+    marginLeft: 'calc(100% - 220px)',
+  },
+  helpIcon: {
+    zIndex: '600',
+  },
+  helpIconButton: {
+    verticalAlign: 'top',
+    marginLeft: '-5px',
+  },
+  customTooltip: {
+    border: '#03A383 1px solid',
+  },
+  customArrow: {
+    '&::before': {
+      border: '#03A383 1px solid',
+    },
+  },
   firstColumn: {
     maxWidth: '45%',
   },
@@ -462,14 +583,6 @@ const styles = (theme) => ({
   borderLeft: {
     borderLeft: '#81A6BA 1px solid',
     paddingLeft: '25px !important',
-  },
-  link: {
-    textDecoration: 'none',
-    fontWeight: 'bold',
-    color: '#7747FF',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
   },
   paddingLeft8: {
     paddingLeft: '8px',
@@ -498,13 +611,6 @@ const styles = (theme) => ({
   },
   fakeToolbar: {
     ...theme.mixins.toolbar,
-  },
-  root: {
-    fontFamily: theme.custom.fontFamily,
-    fontSize: '9px',
-    letterSpacing: '0.025em',
-    color: '#000',
-    background: '#f3f3f3',
   },
   header: {
     paddingLeft: '21px',
@@ -688,21 +794,6 @@ const styles = (theme) => ({
       textDecoration: 'underline',
     },
   },
-  button: {
-    borderRadius: '22px',
-    padding: '0 22px',
-    width: '150px',
-    height: '35px',
-    lineHeight: '14px',
-    fontSize: '10px',
-    color: '#ffffff',
-    textTransform: 'uppercase',
-    backgroundColor: '#ff8a00',
-    fontFamily: theme.custom.fontFamily,
-    '&:hover': {
-      backgroundColor: '#ff8a00',
-    },
-  },
   detailContainerItems: {
     paddingTop: '7px',
     paddingLeft: '7px',
@@ -764,86 +855,6 @@ const styles = (theme) => ({
     width: '16px',
     verticalAlign: 'sub',
     marginLeft: '4px',
-  },
-  cartlink: {
-    fontFamily: 'Lato',
-    color: '#3E6886',
-    fontSize: '12px',
-    marginRight: '70px',
-    textDecoration: 'none',
-    borderBottom: '1px solid #3E6886',
-    paddingBottom: '3px',
-  },
-  caseTitle: {
-    color: '#194563',
-    fontSize: '25.2pt',
-    fontStyle: 'normal',
-    fontFamily: 'Raleway',
-    letterSpacing: '0.025em',
-    backgroundColor: '#f5f5f5',
-    padding: '10px 32px 8px 28px',
-  },
-  chips: {
-    position: 'absolute',
-    marginLeft: '250px',
-    marginTop: '36px',
-    zIndex: '999',
-  },
-  chipRoot: {
-    color: '#ffffff',
-    fontFamily: '"Open Sans", sans-serif',
-    letterSpacing: '0.075em',
-    marginLeft: '10px',
-    backgroundColor: '#9b9b9b',
-    fontSize: '9pt',
-  },
-  chipDeleteIcon: {
-    color: '#ffffff',
-    '&:hover': {
-      color: '#ffffff',
-    },
-  },
-  saveButtonDiv: {
-    paddingTop: '5px',
-    paddingRight: '25px',
-    textAlign: 'right',
-  },
-  saveButtonDivBottom: {
-    paddingTop: '5px',
-    paddingRight: '25px',
-    textAlign: 'right',
-    marginBottom: '30px',
-    position: 'relative',
-  },
-  caseTableBorder: {
-    borderTopColor: '#F48439',
-  },
-  fileTableBorder: {
-    borderTopColor: '#2446C6',
-  },
-  sampleTableBorder: {
-    borderTopColor: '#05C5CC',
-  },
-  messageBottom: {
-    zIndex: '500',
-    position: 'absolute',
-    marginTop: '-148px',
-    marginLeft: 'calc(100% - 220px)',
-  },
-  helpIcon: {
-    zIndex: '600',
-  },
-  helpIconButton: {
-    verticalAlign: 'top',
-    marginLeft: '-5px',
-  },
-  customTooltip: {
-    border: '#03A383 1px solid',
-  },
-  customArrow: {
-    '&::before': {
-      border: '#03A383 1px solid',
-    },
   },
   snackBarMessageIcon: {
     verticalAlign: 'middle',
