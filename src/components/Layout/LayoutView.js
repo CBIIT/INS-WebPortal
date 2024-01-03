@@ -77,7 +77,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <PrivateRoute path="/programs" access={['admin', 'member']} component={Programs} />
               <PrivateRoute path="/fileCentricCart" access={['admin', 'member']} component={CarView} />
               <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
-              <PrivateRoute path="/case/:id" access={['admin', 'member']} component={CaseDetail} />
+              <PrivateRoute path="/project/:id" access={['admin', 'member']} component={CaseDetail} />
               <PrivateRoute path="/arm/:id" access={['admin', 'member']} component={ArmDetail} />
               <PrivateRoute path="/fileViewer/:id" requiuredSignIn access={['admin', 'member']} component={JBrowseDetail} />
               {/* bento 4.0 template */}
