@@ -85,7 +85,7 @@ const ProgramView = ({
 
   const initTblState = (initailState) => ({
     ...initailState,
-    title: table.title,
+    title: table.name,
     query: getOverviewQuery(table.api),
     paginationAPIField: table.paginationAPIField,
     dataKey: table.dataKey,
@@ -96,7 +96,7 @@ const ProgramView = ({
     tableMsg: table.tableMsg,
     sortBy: table.defaultSortField,
     sortOrder: table.defaultSortDirection,
-    extendedViewConfig: { pagination: true, manageViewColumns: false },
+    extendedViewConfig: table.extendedViewConfig,
     rowsPerPage: 10,
     page: 0,
   });
@@ -286,44 +286,42 @@ const ProgramView = ({
           </Grid>
         </div>
       </div>
-      {table.display ? (
-        <div id="table_program_detail" className={classes.tableContainer}>
-          <div className={classes.tableDiv}>
-            <div className={classes.tableTitle}>
-              <span className={classes.tableHeader}>{table.title}</span>
-            </div>
-            <Grid item xs={12}>
-              <Grid container spacing={8}>
-                <Grid item xs={12}>
-                  <Typography>
-                    <TableContextProvider>
-                      <Wrapper
-                        wrapConfig={configWrapper(table, wrapperConfig)}
-                        customTheme={customTheme}
-                        classes={classes}
-                        section={table.name}
-                      >
-                        <Grid container>
-                          <Grid item xs={12} id={table.tableID}>
-                            <TableView
-                              initState={initTblState}
-                              themeConfig={themeConfig}
-                              totalRowCount={stat.numberOfProjects}
-                            />
-                          </Grid>
+      <div id="table_program_detail" className={classes.tableContainer}>
+        <div className={classes.tableDiv}>
+          <div className={classes.tableTitle}>
+            <span className={classes.tableHeader}>{table.title}</span>
+          </div>
+          <Grid item xs={12}>
+            <Grid container spacing={8}>
+              <Grid item xs={12}>
+                <Typography>
+                  <TableContextProvider>
+                    <Wrapper
+                      wrapConfig={configWrapper(table, wrapperConfig)}
+                      customTheme={customTheme}
+                      classes={classes}
+                      section={table.name}
+                    >
+                      <Grid container>
+                        <Grid item xs={12} id={table.tableID}>
+                          <TableView
+                            initState={initTblState}
+                            themeConfig={themeConfig}
+                            totalRowCount={stat.numberOfProjects}
+                          />
                         </Grid>
-                      </Wrapper>
-                    </TableContextProvider>
-                  </Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <Typography />
-                </Grid>
+                      </Grid>
+                    </Wrapper>
+                  </TableContextProvider>
+                </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography />
               </Grid>
             </Grid>
-          </div>
+          </Grid>
         </div>
-      ) : ''}
+      </div>
     </>
   );
 };
