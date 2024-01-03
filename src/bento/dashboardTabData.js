@@ -1,5 +1,6 @@
 /* eslint-disable */
 import gql from 'graphql-tag';
+import { cellTypes } from '@bento-core/table';
 import {
   customProjectsTabDownloadCSV,
   customPublicationsTabDownloadCSV,
@@ -7,7 +8,6 @@ import {
   customClinicalTrialsTabDownloadCSV,
   customPatentsTabDownloadCSV,
 } from './tableDownloadCSV';
-import { cellTypes } from '@bento-core/table';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {

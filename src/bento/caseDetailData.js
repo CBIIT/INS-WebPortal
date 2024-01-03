@@ -1,4 +1,6 @@
+/* eslint-disable */
 import gql from 'graphql-tag';
+import { cellTypes } from '@bento-core/table';
 import {
   customCaseDetailProjectsTabDownloadCSV,
   customCaseDetailPublicationsTabDownloadCSV,
@@ -152,472 +154,6 @@ export const tabIndex = [
     primaryColor: '#CFEDF9',
     secondaryColor: '#C9F1F1',
     selectedColor: '#0DAFEC',
-  },
-];
-
-// --------------- Tabs Table configuration --------------
-export const tabContainers = [
-  {
-    name: 'Grants',
-    dataField: 'dataProjects',
-    api: 'GET_PROJECTS_OVERVIEW_QUERY',
-    paginationAPIField: 'projectOverViewByProject',
-    defaultSortField: 'project_id',
-    defaultSortDirection: 'asc',
-    count: 'num_projects',
-    buttonText: 'Add Selected Files',
-    dataKey: 'project_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'project_id',
-        header: 'Grant ID',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '15%',
-        },
-      },
-      {
-        dataField: 'program',
-        header: 'Program',
-        sort: 'asc',
-        link: '/program/{program}',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'project_title',
-        header: 'Project Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-      },
-      {
-        dataField: 'principal_investigators',
-        header: 'Principal Investigators',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '15%',
-        },
-      },
-      {
-        dataField: 'program_officers',
-        header: 'Program Officers',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '15%',
-        },
-      },
-      {
-        dataField: 'lead_doc',
-        header: 'Lead DOC',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'award_amount',
-        header: 'Award Amount',
-        sort: 'asc',
-        display: true,
-        dataTransform: (money) => {
-          const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            maximumFractionDigits: 0,
-          });
-
-          return formatter.format(money);
-        },
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'fiscal_year',
-        header: 'Fiscal Year',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-    ],
-    id: 'case_detail_project_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'case_detail_project_tab_table',
-    selectableRows: false,
-    tabIndex: '0',
-    tableDownloadCSV: customCaseDetailProjectsTabDownloadCSV,
-    downloadFileName: 'case_detail_projects_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Publications',
-    dataField: 'dataPublication',
-    api: 'GET_PUBLICATIONS_OVERVIEW_QUERY',
-    paginationAPIField: 'publicationOverViewByProject',
-    defaultSortField: 'publication_id',
-    defaultSortDirection: 'asc',
-    count: 'num_publications',
-    buttonText: 'Add Selected Files',
-    dataKey: 'publication_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'publication_id',
-        header: 'PubMed ID',
-        sort: 'asc',
-        primary: true,
-        link: 'https://pubmed.ncbi.nlm.nih.gov/{publication_id}/',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '25%',
-        },
-      },
-      {
-        dataField: 'authors',
-        header: 'Authors',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '25%',
-        },
-      },
-      {
-        dataField: 'citation_count',
-        header: 'Citation Count',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'relative_citation_ratio',
-        header: 'Relative Citation Ratio',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'publish_date',
-        header: 'Publication Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-    ],
-    id: 'case_detail_publication_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'case_detail_publication_tab_table',
-    selectableRows: false,
-    tabIndex: '1',
-    tableDownloadCSV: customCaseDetailPublicationsTabDownloadCSV,
-    downloadFileName: 'case_detail_publications_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Datasets',
-    dataField: 'dataDataset',
-    api: 'GET_DATASETS_OVERVIEW_QUERY',
-    paginationAPIField: 'datasetOverViewByProject',
-    defaultSortField: 'accession',
-    defaultSortDirection: 'asc',
-    count: 'num_datasets',
-    buttonText: 'Add Selected Files',
-    dataKey: 'accession',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'accession',
-        header: 'Accession',
-        sort: 'asc',
-        link: '{link}',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'link',
-        header: 'Link',
-        sort: 'asc',
-        link: '{link}',
-        display: false,
-      },
-      {
-        dataField: 'transformed_type',
-        header: 'Type',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-      },
-      {
-        dataField: 'submission_date',
-        header: 'Submission Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'last_update_date',
-        header: 'Last Update Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'release_date',
-        header: 'Release Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'registration_date',
-        header: 'Registration Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-    ],
-    id: 'case_detail_dataset_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'case_detail_dataset_tab_table',
-    selectableRows: false,
-    tabIndex: '2',
-    tableDownloadCSV: customCaseDetailDatasetsTabDownloadCSV,
-    downloadFileName: 'case_detail_datasets_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Clinical Trials',
-    dataField: 'dataClinicalTrial',
-    api: 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY',
-    paginationAPIField: 'clinicalTrialOverViewByProject',
-    defaultSortField: 'clinical_trial_id',
-    defaultSortDirection: 'asc',
-    count: 'num_clinical_trials',
-    buttonText: 'Add Selected Files',
-    dataKey: 'clinical_trial_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'clinical_trial_id',
-        header: 'Clinical Trial ID',
-        sort: 'asc',
-        link: 'https://clinicaltrials.gov/ct2/show/{clinical_trial_id}/',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '55%',
-        },
-      },
-      {
-        dataField: 'last_update_posted',
-        header: 'Last Update Posted',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'recruitment_status',
-        header: 'Recruitment Status',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-    ],
-    id: 'case_detail_clinical_trial_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'case_detail_clinical_trial_tab_table',
-    selectableRows: false,
-    tabIndex: '3',
-    tableDownloadCSV: customCaseDetailClinicalTrialsTabDownloadCSV,
-    downloadFileName: 'case_detail_clinical_trials_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Patents',
-    dataField: 'dataPatent',
-    api: 'GET_PATENTS_OVERVIEW_QUERY',
-    paginationAPIField: 'patentOverViewByProject',
-    defaultSortField: 'patent_id',
-    defaultSortDirection: 'asc',
-    count: 'num_patents',
-    buttonText: 'Add Selected Files',
-    dataKey: 'patent_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'patent_id',
-        header: 'Patent ID',
-        sort: 'asc',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '40%',
-        },
-      },
-      {
-        dataField: 'fulfilled_date',
-        header: 'Fulfilled Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-      },
-    ],
-    id: 'case_detail_patent_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'case_detail_patent_tab_table',
-    selectableRows: false,
-    tabIndex: '4',
-    tableDownloadCSV: customCaseDetailPatentsTabDownloadCSV,
-    downloadFileName: 'case_detail_patents_download',
-    headerPagination: true,
-    footerPagination: true,
   },
 ];
 
@@ -814,3 +350,428 @@ export {
   rightPanel,
   CASE_DETAIL_QUERY,
 };
+
+export const tabContainers = [
+  {
+    name: 'Grants',
+    dataField: 'dataProjects',
+    api: GET_PROJECTS_OVERVIEW_QUERY,
+    paginationAPIField: 'projectOverViewByProject',
+    defaultSortField: 'project_id',
+    defaultSortDirection: 'asc',
+    count: 'num_projects',
+    buttonText: 'Add Selected Files',
+    dataKey: 'project_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'project_id',
+        header: 'Grant ID',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program',
+        header: 'Program',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/program',
+          pathParams: ['program'],
+        },
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'project_title',
+        header: 'Project Title',
+        display: true,
+        headerStyles: {
+          width: '20%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'principal_investigators',
+        header: 'Principal Investigators',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program_officers',
+        header: 'Program Officers',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'lead_doc',
+        header: 'Lead DOC',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'award_amount',
+        header: 'Award Amount',
+        display: true,
+        dataTransform: (money) => {
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0,
+          });
+
+          return formatter.format(money);
+        },
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'fiscal_year',
+        header: 'Fiscal Year',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'case_detail_project_tab',
+    tableMsg: {
+      noMatch: 'No Matching Records Found',
+    },
+    tableID: 'case_detail_project_tab_table',
+    tabIndex: '0',
+    tableDownloadCSV: customCaseDetailProjectsTabDownloadCSV,
+    downloadFileName: 'case_detail_projects_download',
+  },
+  {
+    name: 'Publications',
+    dataField: 'dataPublication',
+    api: GET_PUBLICATIONS_OVERVIEW_QUERY,
+    paginationAPIField: 'publicationOverViewByProject',
+    defaultSortField: 'publication_id',
+    defaultSortDirection: 'asc',
+    count: 'num_publications',
+    buttonText: 'Add Selected Files',
+    dataKey: 'publication_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'publication_id',
+        header: 'PubMed ID',
+        cellType: cellTypes.EXTERNAL_LINK,
+        linkAttr: {
+          rootPath: 'https://pubmed.ncbi.nlm.nih.gov',
+          pathParams: ['publication_id'],
+        },
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        display: true,
+        headerStyles: {
+          width: '25%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'authors',
+        header: 'Authors',
+        display: true,
+        headerStyles: {
+          width: '25%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'citation_count',
+        header: 'Citation Count',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'relative_citation_ratio',
+        header: 'Relative Citation Ratio',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'publish_date',
+        header: 'Publication Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'case_detail_publication_tab',
+    tableID: 'case_detail_publication_tab_table',
+    tabIndex: '1',
+    tableDownloadCSV: customCaseDetailPublicationsTabDownloadCSV,
+    downloadFileName: 'case_detail_publications_download',
+  },
+  {
+    name: 'Datasets',
+    dataField: 'dataDataset',
+    api: GET_DATASETS_OVERVIEW_QUERY,
+    paginationAPIField: 'datasetOverViewByProject',
+    defaultSortField: 'accession',
+    defaultSortDirection: 'asc',
+    count: 'num_datasets',
+    buttonText: 'Add Selected Files',
+    dataKey: 'accession',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'accession',
+        header: 'Accession',
+        cellType: cellTypes.EXTERNAL_LINK,
+        linkAttr: {
+          rootPath: '',
+          pathParams: ['link'],
+        },
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'link',
+        header: 'Link',
+        cellType: cellTypes.EXTERNAL_LINK,
+        linkAttr: {
+          rootPath: '',
+          pathParams: ['link'],
+        },
+        display: false,
+      },
+      {
+        dataField: 'transformed_type',
+        header: 'Type',
+        display: true,
+        headerStyles: {
+          width: '5%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        display: true,
+        headerStyles: {
+          width: '30%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'submission_date',
+        header: 'Submission Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'last_update_date',
+        header: 'Last Update Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'release_date',
+        header: 'Release Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'registration_date',
+        header: 'Registration Date',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'case_detail_dataset_tab',
+    tableID: 'case_detail_dataset_tab_table',
+    tabIndex: '2',
+    tableDownloadCSV: customCaseDetailDatasetsTabDownloadCSV,
+    downloadFileName: 'case_detail_datasets_download',
+  },
+  {
+    name: 'Clinical Trials',
+    dataField: 'dataClinicalTrial',
+    api: GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
+    paginationAPIField: 'clinicalTrialOverViewByProject',
+    defaultSortField: 'clinical_trial_id',
+    defaultSortDirection: 'asc',
+    count: 'num_clinical_trials',
+    buttonText: 'Add Selected Files',
+    dataKey: 'clinical_trial_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'clinical_trial_id',
+        header: 'Clinical Trial ID',
+        cellType: cellTypes.EXTERNAL_LINK,
+        linkAttr: {
+          rootPath: 'https://clinicaltrials.gov/ct2/show',
+          pathParams: ['clinical_trial_id'],
+        },
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        display: true,
+        headerStyles: {
+          width: '55%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'last_update_posted',
+        header: 'Last Update Posted',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'recruitment_status',
+        header: 'Recruitment Status',
+        display: true,
+        headerStyles: {
+          width: '10%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'case_detail_clinical_trial_tab',
+    tableID: 'case_detail_clinical_trial_tab_table',
+    tabIndex: '3',
+    tableDownloadCSV: customCaseDetailClinicalTrialsTabDownloadCSV,
+    downloadFileName: 'case_detail_clinical_trials_download',
+  },
+  {
+    name: 'Patents',
+    dataField: 'dataPatent',
+    api: GET_PATENTS_OVERVIEW_QUERY,
+    paginationAPIField: 'patentOverViewByProject',
+    defaultSortField: 'patent_id',
+    defaultSortDirection: 'asc',
+    count: 'num_patents',
+    buttonText: 'Add Selected Files',
+    dataKey: 'patent_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'patent_id',
+        header: 'Patent ID',
+        display: true,
+        headerStyles: {
+          width: '40%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'fulfilled_date',
+        header: 'Fulfilled Date',
+        display: true,
+        headerStyles: {
+          width: '30%',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'case_detail_patent_tab',
+    tableID: 'case_detail_patent_tab_table',
+    tabIndex: '4',
+    tableDownloadCSV: customCaseDetailPatentsTabDownloadCSV,
+    downloadFileName: 'case_detail_patents_download',
+  },
+];

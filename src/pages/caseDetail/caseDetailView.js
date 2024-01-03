@@ -14,7 +14,7 @@ import {
   leftPanel,
   rightPanel,
 } from '../../bento/caseDetailData';
-import Tabs from './caseDetailTabController';
+import TabsView from './tabs/TabsView';
 
 // Main case detail component
 const CaseDetail = ({ data, classes }) => {
@@ -104,7 +104,10 @@ const CaseDetail = ({ data, classes }) => {
         </div>
       </div>
       <div className={classes.detailTabContainer}>
-        <Tabs projectID={data.queried_project_id} />
+        <TabsView
+          projectStats={data}
+          activeFilters={{ queried_project_id: [data.queried_project_id] }}
+        />
       </div>
       <div className={classes.blankSpace} />
     </>
