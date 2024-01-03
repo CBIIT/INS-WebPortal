@@ -287,7 +287,7 @@ const ProgramView = ({
       <div id="table_program_detail" className={classes.tableContainer}>
         <div className={classes.tableDiv}>
           <div className={classes.tableTitle}>
-            <span className={classes.tableHeader}>{table.title}</span>
+            <span className={classes.tableHeader}>{table.name}</span>
           </div>
           <Grid item xs={12}>
             <Grid container spacing={8}>

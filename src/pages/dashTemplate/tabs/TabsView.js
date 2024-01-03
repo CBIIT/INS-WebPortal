@@ -6,7 +6,7 @@ import customTheme from './DefaultTabTheme';
 
 const Tabs = (props) => {
   const [currentTab, setCurrentTab] = useState(0);
-  const handleTabChange = (value) => {
+  const handleTabChange = (event, value) => {
     setCurrentTab(value);
   };
 
