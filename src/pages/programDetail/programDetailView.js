@@ -305,6 +305,7 @@ const ProgramView = ({
                           <TableView
                             initState={initTblState}
                             themeConfig={themeConfig}
+                            queryVariables={{ programs: [programData.program_id] }}
                             totalRowCount={stat.numberOfProjects}
                           />
                         </Grid>
