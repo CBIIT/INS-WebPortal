@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import _ from 'lodash';
 import {
@@ -7,14 +6,9 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import {
-  getOptions,
-  getColumns,
   manipulateLinks,
   cn,
 } from '@bento-core/util';
-import {
-  CustomDataTable,
-} from '@bento-core/data-table';
 import {
   TableContextProvider,
   TableView,
@@ -26,7 +20,6 @@ import { configWrapper, wrapperConfig } from './wrapperConfig/Wrapper';
 import { customTheme } from './wrapperConfig/Theme';
 import WidgetViewNciDoc from './widget/WidgetViewNciDoc';
 import WidgetViewAwardAmount from './widget/WidgetViewAwardAmount';
-import globalData from '../../bento/siteWideConfig';
 import {
   pageTitle,
   table,
@@ -40,23 +33,20 @@ import {
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
-// import colors from '../../utils/colors';
 
 import {
   singleCheckBox,
   setSideBarToLoading,
   setDashboardTableLoading,
-  getTableRowSelectionEvent,
 } from './dashboardReducer';
 import {
   GET_PROJECTS_OVERVIEW_QUERY,
 } from '../../bento/dashboardTabData';
-import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
 
 const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
 
 const ProgramView = ({
-  classes, data, theme,
+  classes, data,
 }) => {
   const {
     programPublicationCount, programDatasetCount, programClinicalTrialCount, programPatentCount,
@@ -92,111 +82,6 @@ const ProgramView = ({
   }];
 
   const updatedAttributesData = manipulateLinks(leftPanel.attributes);
-
-  const options = getOptions(table, classes);
-
-  const selectedRowInfo = [];
-
-  const selectedRowIndex = [];
-
-  const primaryKeyIndex = 0;
-
-  const { dataKey } = table;
-
-  // eslint-disable-next-line max-len
-  const dataTransformCallbacks = table.columns.filter((column) => column.dataTransform !== undefined);
-
-  const headerStyles = table.columns.map((column) => column.headerStyles);
-
-  const setRowSelection = getTableRowSelectionEvent();
-
-  function disableRowSelection() {
-    return true;
-  }
-
-  function rowSelectionEvent(displayData, rowsSelected) {
-    const displayedDataKeies = displayData;
-    const selectedRowsKey = rowsSelected
-      ? rowsSelected.map((index) => displayedDataKeies[index])
-      : [];
-    let newSelectedRowInfo = [];
-
-    if (rowsSelected) {
-      // Remove the rowInfo from selectedRowInfo if this row currently be
-      // displayed and not be selected.
-      if (selectedRowInfo.length > 0) {
-        newSelectedRowInfo = selectedRowInfo.filter((key) => {
-          if (displayedDataKeies.includes(key)) {
-            return false;
-          }
-          return true;
-        });
-      }
-    } else {
-      newSelectedRowInfo = selectedRowInfo;
-    }
-    newSelectedRowInfo = newSelectedRowInfo.concat(selectedRowsKey);
-
-    // Get selectedRowIndex by comparing current page data with selected row's key.
-    // if rowInfo from selectedRowInfo is currently be displayed
-    const newSelectedRowIndex = displayedDataKeies.reduce(
-      (accumulator, currentValue, currentIndex) => {
-        if (newSelectedRowInfo.includes(currentValue)) {
-          accumulator.push(currentIndex);
-        }
-        return accumulator;
-      }, [],
-    );
-
-    // reduce the state chagne, when newSelectedRowIndex and newSelectedRowInfo is same as previous.
-    if (_.differenceWith(
-      newSelectedRowIndex,
-      selectedRowIndex,
-      _.isEqual,
-    ).length !== 0
-      || _.differenceWith(
-        newSelectedRowInfo,
-        selectedRowInfo,
-        _.isEqual,
-      ).length !== 0
-      || _.differenceWith(
-        selectedRowInfo,
-        newSelectedRowInfo,
-        _.isEqual,
-      ).length !== 0
-      || _.differenceWith(
-        selectedRowIndex,
-        newSelectedRowIndex,
-        _.isEqual,
-      ).length !== 0) {
-      setRowSelection({
-        selectedRowInfo: newSelectedRowInfo,
-        selectedRowIndex: newSelectedRowIndex,
-      });
-    }
-  }
-
-  function onRowsSelect(rowsSelected, displayData) {
-    rowSelectionEvent(displayData.map((d) => d.data[1][primaryKeyIndex]), rowsSelected);
-  }
-
-  const defaultOptions = () => ({
-    dataKey,
-    rowsSelectedTrigger: (displayData, rowsSelected) => rowSelectionEvent(
-      displayData,
-      rowsSelected,
-    ),
-    rowsSelected: selectedRowIndex,
-    onRowSelectionChange: onRowsSelect,
-    isRowSelectable: (dataIndex) => (disableRowSelection
-      ? disableRowSelection(data[1][dataIndex]) : true),
-  });
-
-  const finalOptions = {
-    ...options,
-    ...defaultOptions(),
-    serverTableRowCount: selectedRowInfo.length,
-  };
 
   const initTblState = (initailState) => ({
     ...initailState,
@@ -277,8 +162,9 @@ const ProgramView = ({
                         attribute.internalLink
                           ? (
                             <div>
-                              {/* eslint-disable-next-line max-len */}
-                              <span className={classes.detailContainerHeader}>{attribute.label}</span>
+                              <span className={classes.detailContainerHeader}>
+                                {attribute.label}
+                              </span>
                               <div>
                                 <span className={classes.content}>
                                   {' '}
@@ -410,21 +296,6 @@ const ProgramView = ({
               <Grid container spacing={8}>
                 <Grid item xs={12}>
                   <Typography>
-                    {/* <CustomDataTable
-                      key={data[1].length}
-                      data={data[1].projectOverView}
-                      columns={getColumns(table, classes, data[1], externalLinkIcon, '', () => { }, DocumentDownload, globalData.replaceEmptyValueWith)}
-                      options={finalOptions}
-                      count={stat.numberOfProjects}
-                      overview={getOverviewQuery(table.api)}
-                      paginationAPIField={table.paginationAPIField}
-                      defaultSortCoulmn={table.defaultSortField || ''}
-                      defaultSortDirection={table.defaultSortDirection || 'asc'}
-                      tableDownloadCSV={table.tableDownloadCSV || false}
-                      queryCustomVaribles={{ programs: [data[0].programDetail.program_id] }}
-                      dataTransformation={dataTransformCallbacks}
-                      headerStyles={headerStyles}
-                    /> */}
                     <TableContextProvider>
                       <Wrapper
                         wrapConfig={configWrapper(table, wrapperConfig)}
