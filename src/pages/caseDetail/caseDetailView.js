@@ -106,7 +106,8 @@ const CaseDetail = ({ data, classes }) => {
       <div className={classes.detailTabContainer}>
         <TabsView
           projectStats={data}
-          activeFilters={{ queried_project_id: [data.queried_project_id] }}
+          // eslint-disable-next-line max-len
+          activeFilters={{ queried_project_id: [data.queried_project_id], queried_project_ids: [data.queried_project_id] }}
         />
       </div>
       <div className={classes.blankSpace} />
