@@ -236,7 +236,7 @@ function searchView(props) {
         wrapper: classes.tabColor,
       },
       count: searchCounts.project_count || 0,
-      value: `${!authCheck() ? 'inactive-' : ''}5`,
+      value: '2',
     },
     {
       name: 'About',
@@ -246,7 +246,7 @@ function searchView(props) {
         wrapper: classes.tabColor,
       },
       count: searchCounts.about_count || 0,
-      value: '8',
+      value: '3',
     }],
   });
 
