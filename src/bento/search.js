@@ -102,27 +102,6 @@ query globalSearch($input: String, $first: Int, $offset: Int){
 }
 `;
 
-export const SEARCH_PAGE_RESULT_MODEL = gql`
-    query globalSearch($input: String, $first: Int, $offset: Int){
-        globalSearch(
-            input: $input
-            first: $first
-            offset: $offset
-        ) {
-            model {
-                type
-                node_name
-                property_name
-                property_description
-                property_required
-                property_type
-                value
-                highlight
-            }
-        }
-    }
-`;
-
 /**
  * Maps a datafield to the correct search query
  *
@@ -135,8 +114,6 @@ export function getResultQueryByField(field, isPublic) {
       return SEARCH_PAGE_RESULT_PROJECT;
     case 'projects':
       return SEARCH_PAGE_RESULT_PROJECT;
-    case 'model':
-      return SEARCH_PAGE_RESULT_MODEL;
     case 'about_page':
       return SEARCH_PAGE_RESULT_ABOUT;
     default:
