@@ -3,29 +3,23 @@ import { Link } from 'react-router-dom';
 import {
   Grid, Paper, Typography, withStyles,
 } from '@material-ui/core';
-import LeftBg from '../../assets/error/leftBg.png';
-import rightBg from '../../assets/error/rightBg.png';
+import bg from '../../assets/error/background.png';
+import heroBg from '../../assets/error/404_bubbles.png';
 
 const Error = ({ classes }) => (
   <div className={classes.container}>
     <Grid container className={classes.container2}>
-      <Grid item xs={3} className={classes.leftBg}> </Grid>
-      <Grid item xs={6}>
-        <Paper classes={{ root: classes.paperRoot }}>
-          <div className={classes.errorCodeText}>404</div>
-          <Typography className={classes.boldText}>PAGE NOT FOUND</Typography>
-          <div className={classes.errorTextRow}>
-            <Typography className={classes.errorText}>
-              The page you are looking for does not exist or another error has occured.
-              Go back or head&nbsp;
-              <Link className={classes.link} to="/">home</Link>
-              {' '}
-              to choose another direction.
-            </Typography>
-          </div>
-        </Paper>
+      <Grid item xs={12} className={classes.heroImage} />
+      <Grid item xs={12} className={classes.errorTextRow}>
+        Sorry, page not found
       </Grid>
-      <Grid item xs={3} className={classes.rightBg} />
+      <Grid item xs={12} className={classes.errorText}>
+        The page you are looking for does not exist or another error has occurred.
+      </Grid>
+      <Grid item xs={12} className={classes.errorAction}>
+        <Link className={classes.link} to="/">BACK HOME</Link>
+        <div className={classes.polygen} />
+      </Grid>
     </Grid>
   </div>
 );
@@ -37,72 +31,77 @@ const styles = (theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    background: '#e7edf4',
     top: 0,
     left: 0,
     borderTop: '4px solid #417d96',
+    backgroundRepeat: 'round',
+    background: `url(${bg})`,
   },
-  errorCodeText: {
-    letterSpacing: 4,
-    color: '#FFFFFF',
-    fontFamily: 'Oswald',
-    fontSize: 140,
-    fontWeight: 500,
-    textAlign: 'center',
-    textShadow: '5px 3px rgba(0,0,0,0.11)',
-  },
-  divider: {
-    height: '1px',
-    width: '800px',
-  },
-  paperRoot: {
-    boxShadow: 'none',
-    background: '#e7edf4',
+  heroImage: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: theme.spacing.unit * 12,
-    paddingBottom: theme.spacing.unit * 16,
-    paddingLeft: theme.spacing.unit * 6,
-    paddingRight: theme.spacing.unit * 6,
-  },
-  boldText: {
-    color: '#204C5B',
-    fontFamily: 'Raleway',
-    fontSize: 19,
-    fontWeight: 600,
-    textAlign: 'center',
+    height: '180px',
+    background: `url(${heroBg})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'bottom center',
+    marginLeft: '25px',
   },
   errorTextRow: {
     display: 'flex',
     flexDirection: 'column',
-    marginTop: 50,
     alignItems: 'center',
+    height: '40px',
+    color: '#000000',
+    fontFamily: 'Inter',
+    fontSize: '40px',
+    fontWeight: '800',
+    lineHeight: '34px',
+    marginTop: '18px',
   },
   errorText: {
-    color: '#417D96',
-    fontFamily: 'Lato',
+    fontFamily: 'Nunito',
+    fontWeight: '600',
     fontSize: 17,
-    fontWeight: 'bold',
     textAlign: 'center',
+    height: '20px',
+    color: '#000000',
+    letterSpacing: '0',
+    lineHeight: '20px',
+    marginTop: '20px',
   },
   link: {
-    color: '#39C0F0',
-    textDecoration: 'underline',
+    padding: '9px 49px 9px 29px',
+    textDecoration: 'none',
+    border: '1px solid #A4A0AB',
+    backgroundColor: '#A4A0AB',
+    color: '#ffffff',
+    fontFamily: 'Lato',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    lineHeight: '26.41px',
   },
-  leftBg: {
-    backgroundRepeat: 'no-repeat',
-    background: `url(${LeftBg})`,
-    backgroundPosition: 'right',
+  errorAction: {
+    marginTop: '25px',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    height: '50px',
   },
-  rightBg: {
-    backgroundRepeat: 'no-repeat',
-    background: `url(${rightBg})`,
-    backgroundPosition: 'left',
-
+  polygen: {
+    backgroundColor: '#ffffff',
+    clipPath: 'polygon(50% 0, 100% 100%, 0 100%)',
+    width: '11px',
+    height: '11px',
+    transform: 'rotate(90deg)',
+    position: 'absolute',
+    top: '18px',
+    right: 'calc(50% - 65px)',
   },
   container2: {
     maxWidth: '1200px',
+    padding: '109px 0',
   },
 });
 
