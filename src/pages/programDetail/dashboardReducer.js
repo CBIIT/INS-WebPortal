@@ -33,9 +33,6 @@ import {
   DASHBOARD_QUERY_NEW,
   GET_PROJECTS_OVERVIEW_QUERY,
   GET_PUBLICATIONS_OVERVIEW_QUERY,
-  GET_DATASETS_OVERVIEW_QUERY,
-  GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
-  GET_PATENTS_OVERVIEW_QUERY,
 } from '../../bento/dashboardTabData';
 import {
   GET_IDS_BY_TYPE,
@@ -405,9 +402,6 @@ const convertResultInPrevType = (result) => {
       numberOfProjects: result.data.searchProjects.numberOfProjects,
       numberOfCoreProjects: result.data.searchProjects.numberOfCoreProjects,
       numberOfPublications: result.data.searchProjects.numberOfPublications,
-      numberOfDatasets: result.data.searchProjects.numberOfDatasets,
-      numberOfClinicalTrials: result.data.searchProjects.numberOfClinicalTrials,
-      numberOfPatents: result.data.searchProjects.numberOfPatents,
     },
   };
 
@@ -581,14 +575,8 @@ const querySwitch = (payload, tabContainer) => {
   switch (payload) {
     case ('Grants'):
       return { QUERY: GET_PROJECTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
-    case ('Publications'):
-      return { QUERY: GET_PUBLICATIONS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
-    case ('Datasets'):
-      return { QUERY: GET_DATASETS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
-    case ('Clinical Trials'):
-      return { QUERY: GET_CLINICAL_TRIALS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
     default:
-      return { QUERY: GET_PATENTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
+      return { QUERY: GET_PUBLICATIONS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
   }
 };
 

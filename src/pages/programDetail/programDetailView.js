@@ -68,9 +68,6 @@ const ProgramView = ({
     numberOfCoreProjects: programData.num_core_projects !== undefined ? programData.num_core_projects : 'undefined',
     numberOfProjects: programData.num_projects !== undefined ? programData.num_projects : 'undefined',
     numberOfPublications: programPublicationCount !== undefined ? programPublicationCount : 'undefined',
-    numberOfDatasets: programDatasetCount !== undefined ? programDatasetCount : 'undefined',
-    numberOfClinicalTrials: programClinicalTrialCount !== undefined ? programClinicalTrialCount : 'undefined',
-    numberOfPatents: programPatentCount !== undefined ? programPatentCount : 'undefined',
   };
 
   const breadCrumbJson = [{

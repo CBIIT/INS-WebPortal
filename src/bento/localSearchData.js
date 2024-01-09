@@ -43,9 +43,6 @@ query searchProjects (
     numberOfPrograms
     numberOfProjects
     numberOfPublications
-    numberOfDatasets
-    numberOfClinicalTrials
-    numberOfPatents
     projectCountByProgram{
       group
       subjects
@@ -105,9 +102,6 @@ export const GET_SEARCH_NODECOUNTS = gql`
       numberOfPrograms
       numberOfProjects
       numberOfPublications
-      numberOfDatasets
-      numberOfClinicalTrials
-      numberOfPatents
   }
   filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
     group

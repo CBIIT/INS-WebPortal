@@ -4,9 +4,6 @@ import { cellTypes } from '@bento-core/table';
 import {
   customCaseDetailProjectsTabDownloadCSV,
   customCaseDetailPublicationsTabDownloadCSV,
-  customCaseDetailDatasetsTabDownloadCSV,
-  customCaseDetailClinicalTrialsTabDownloadCSV,
-  customCaseDetailPatentsTabDownloadCSV,
 } from './tableDownloadCSV';
 
 // --------------- Tooltip configuration --------------
@@ -103,24 +100,6 @@ export const tabs = [
     dataField: 'dataPublication',
     count: 'num_publications',
   },
-  {
-    id: 'dataset_tab_case_detail',
-    title: 'Datasets',
-    dataField: 'dataDataset',
-    count: 'num_datasets',
-  },
-  {
-    id: 'clinical_trial_tab_case_detail',
-    title: 'Clinical Trials',
-    dataField: 'dataClinicalTrial',
-    count: 'num_clinical_trials',
-  },
-  {
-    id: 'patent_tab_case_detail',
-    title: 'Patents',
-    dataField: 'dataPatent',
-    count: 'num_patents',
-  },
 ];
 
 // --------------- Tabs Header Style configuration --------------
@@ -136,24 +115,6 @@ export const tabIndex = [
     primaryColor: '#E7E5F1',
     secondaryColor: '#C3DBD4',
     selectedColor: '#6D679E',
-  },
-  {
-    title: 'Datasets',
-    primaryColor: '#D6F2EA',
-    secondaryColor: '#FFDFB8',
-    selectedColor: '#10A075',
-  },
-  {
-    title: 'Clinical Trials',
-    primaryColor: '#D3F0F2',
-    secondaryColor: '#E4E8D5',
-    selectedColor: '#0FA8B1',
-  },
-  {
-    title: 'Patents',
-    primaryColor: '#CFEDF9',
-    secondaryColor: '#C9F1F1',
-    selectedColor: '#0DAFEC',
   },
 ];
 
@@ -190,9 +151,6 @@ const CASE_DETAIL_QUERY = gql`
       project_end_date
       full_foa
       num_publications
-      num_datasets
-      num_clinical_trials
-      num_patents
       num_projects
       program
     }
@@ -267,78 +225,6 @@ query publicationOverViewByProject(
     relative_citation_ratio,
     doi,
   }
-}
-  `;
-
-export const GET_DATASETS_OVERVIEW_QUERY = gql`
-  query datasetOverViewByProject(
-    $queried_project_ids: [String],
-    $offset: Int,
-    $first: Int,
-    $order_by: String,
-    $sort_direction: String 
-    ){
-    datasetOverViewByProject(
-      queried_project_ids: $queried_project_ids,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-    ) {
-      accession,
-      title,
-      submission_date,
-      last_update_date,
-      release_date,
-      registration_date,
-      type,
-      link,
-      transformed_type
-    }
-}
-  `;
-
-export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
-  query clinicalTrialOverViewByProject(
-    $queried_project_ids: [String],
-    $offset: Int,
-    $first: Int,
-    $order_by: String,
-    $sort_direction: String 
-    ){
-    clinicalTrialOverViewByProject(
-      queried_project_ids: $queried_project_ids,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-    ) {
-      clinical_trial_id,
-      title,
-      last_update_posted,
-      recruitment_status,
-    }
-}
-  `;
-
-export const GET_PATENTS_OVERVIEW_QUERY = gql`
-  query patentOverViewByProject(
-    $queried_project_ids: [String],
-    $offset: Int,
-    $first: Int,
-    $order_by: String,
-    $sort_direction: String 
-    ){
-    patentOverViewByProject(
-      queried_project_ids: $queried_project_ids,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-    ) {
-      patent_id,
-      fulfilled_date,
-    }
 }
   `;
 
@@ -557,221 +443,5 @@ export const tabContainers = [
     tabIndex: '1',
     tableDownloadCSV: customCaseDetailPublicationsTabDownloadCSV,
     downloadFileName: 'case_detail_publications_download',
-  },
-  {
-    name: 'Datasets',
-    dataField: 'dataDataset',
-    api: GET_DATASETS_OVERVIEW_QUERY,
-    paginationAPIField: 'datasetOverViewByProject',
-    defaultSortField: 'accession',
-    defaultSortDirection: 'asc',
-    count: 'num_datasets',
-    buttonText: 'Add Selected Files',
-    dataKey: 'accession',
-    extendedViewConfig: {
-      pagination: true,
-      manageViewColumns: false,
-    },
-    columns: [
-      {
-        dataField: 'accession',
-        header: 'Accession',
-        cellType: cellTypes.EXTERNAL_LINK,
-        linkAttr: {
-          rootPath: '',
-          pathParams: ['link'],
-        },
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'link',
-        header: 'Link',
-        cellType: cellTypes.EXTERNAL_LINK,
-        linkAttr: {
-          rootPath: '',
-          pathParams: ['link'],
-        },
-        display: false,
-      },
-      {
-        dataField: 'transformed_type',
-        header: 'Type',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'submission_date',
-        header: 'Submission Date',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'last_update_date',
-        header: 'Last Update Date',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'release_date',
-        header: 'Release Date',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'registration_date',
-        header: 'Registration Date',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-    ],
-    id: 'case_detail_dataset_tab',
-    tableID: 'case_detail_dataset_tab_table',
-    tabIndex: '2',
-    tableDownloadCSV: customCaseDetailDatasetsTabDownloadCSV,
-    downloadFileName: 'case_detail_datasets_download',
-  },
-  {
-    name: 'Clinical Trials',
-    dataField: 'dataClinicalTrial',
-    api: GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
-    paginationAPIField: 'clinicalTrialOverViewByProject',
-    defaultSortField: 'clinical_trial_id',
-    defaultSortDirection: 'asc',
-    count: 'num_clinical_trials',
-    buttonText: 'Add Selected Files',
-    dataKey: 'clinical_trial_id',
-    extendedViewConfig: {
-      pagination: true,
-      manageViewColumns: false,
-    },
-    columns: [
-      {
-        dataField: 'clinical_trial_id',
-        header: 'Clinical Trial ID',
-        cellType: cellTypes.EXTERNAL_LINK,
-        linkAttr: {
-          rootPath: 'https://clinicaltrials.gov/ct2/show',
-          pathParams: ['clinical_trial_id'],
-        },
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        display: true,
-        headerStyles: {
-          width: '55%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'last_update_posted',
-        header: 'Last Update Posted',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'recruitment_status',
-        header: 'Recruitment Status',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-    ],
-    id: 'case_detail_clinical_trial_tab',
-    tableID: 'case_detail_clinical_trial_tab_table',
-    tabIndex: '3',
-    tableDownloadCSV: customCaseDetailClinicalTrialsTabDownloadCSV,
-    downloadFileName: 'case_detail_clinical_trials_download',
-  },
-  {
-    name: 'Patents',
-    dataField: 'dataPatent',
-    api: GET_PATENTS_OVERVIEW_QUERY,
-    paginationAPIField: 'patentOverViewByProject',
-    defaultSortField: 'patent_id',
-    defaultSortDirection: 'asc',
-    count: 'num_patents',
-    buttonText: 'Add Selected Files',
-    dataKey: 'patent_id',
-    extendedViewConfig: {
-      pagination: true,
-      manageViewColumns: false,
-    },
-    columns: [
-      {
-        dataField: 'patent_id',
-        header: 'Patent ID',
-        display: true,
-        headerStyles: {
-          width: '40%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'fulfilled_date',
-        header: 'Fulfilled Date',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-    ],
-    id: 'case_detail_patent_tab',
-    tableID: 'case_detail_patent_tab_table',
-    tabIndex: '4',
-    tableDownloadCSV: customCaseDetailPatentsTabDownloadCSV,
-    downloadFileName: 'case_detail_patents_download',
   },
 ];

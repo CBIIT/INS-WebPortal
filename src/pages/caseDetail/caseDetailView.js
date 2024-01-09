@@ -23,9 +23,6 @@ const CaseDetail = ({ data, classes }) => {
     numberOfCoreProjects: 1,
     numberOfProjects: data.num_projects,
     numberOfPublications: data.num_publications,
-    numberOfDatasets: data.num_datasets,
-    numberOfClinicalTrials: data.num_clinical_trials,
-    numberOfPatents: data.num_patents,
   };
 
   const breadCrumbJson = [{

@@ -4,9 +4,6 @@ import { cellTypes } from '@bento-core/table';
 import {
   customProjectsTabDownloadCSV,
   customPublicationsTabDownloadCSV,
-  customDatasetsTabDownloadCSV,
-  customClinicalTrialsTabDownloadCSV,
-  customPatentsTabDownloadCSV,
 } from './tableDownloadCSV';
 
 // --------------- Tooltip configuration --------------
@@ -39,24 +36,6 @@ export const tabs = [
     dataField: 'dataPublication',
     count: 'numberOfPublications',
   },
-  {
-    id: 'dataset_tab',
-    title: 'Datasets',
-    dataField: 'dataDataset',
-    count: 'numberOfDatasets',
-  },
-  {
-    id: 'clinical_trial_tab',
-    title: 'Clinical Trials',
-    dataField: 'dataClinicalTrial',
-    count: 'numberOfClinicalTrials',
-  },
-  {
-    id: 'patent_tab',
-    title: 'Patents',
-    dataField: 'dataPatent',
-    count: 'numberOfPatents',
-  },
 ];
 
 // --------------- Tabs Header Style configuration --------------
@@ -72,24 +51,6 @@ export const tabIndex = [
     primaryColor: '#E7E5F1',
     secondaryColor: '#C3DBD4',
     selectedColor: '#6D679E',
-  },
-  {
-    title: 'Datasets',
-    primaryColor: '#D6F2EA',
-    secondaryColor: '#FFDFB8',
-    selectedColor: '#10A075',
-  },
-  {
-    title: 'Clinical Trials',
-    primaryColor: '#D3F0F2',
-    secondaryColor: '#E4E8D5',
-    selectedColor: '#0FA8B1',
-  },
-  {
-    title: 'Patents',
-    primaryColor: '#CFEDF9',
-    secondaryColor: '#C9F1F1',
-    selectedColor: '#0DAFEC',
   },
 ];
 
@@ -110,9 +71,6 @@ query searchProjects (
     numberOfProjects
     numberOfCoreProjects
     numberOfPublications
-    numberOfDatasets
-    numberOfClinicalTrials
-    numberOfPatents
     projectCountByProgram{
       group
       subjects
@@ -192,9 +150,6 @@ export const FILTER_GROUP_QUERY = gql`
       subjects
     }
     numberOfPublications(project_ids: $subject_ids)
-    numberOfDatasets(project_ids: $subject_ids)
-    numberOfClinicalTrials(project_ids: $subject_ids)
-    numberOfPatents(project_ids: $subject_ids)
   }`;
 
 export const FILTER_QUERY = gql`
@@ -210,9 +165,6 @@ searchProjects(programs: $programs,
         numberOfProjects
         numberOfCoreProjects
         numberOfPublications
-        numberOfDatasets
-        numberOfClinicalTrials
-        numberOfPatents
 }
 projectCountByProgram{
   group
@@ -343,99 +295,6 @@ query publicationOverView(
     doi,
     queried_project_ids
   }
-}
-  `;
-
-export const GET_DATASETS_OVERVIEW_QUERY = gql`
-  query datasetOverView(
-    $programs: [String],
-    $docs: [String],
-    $fiscal_years: [String],
-    $award_amounts: [String],
-    $offset: Int,
-    $first: Int,
-    $order_by: String,
-    $sort_direction: String 
-    ){
-    datasetOverView(
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-    ) {
-      accession,
-      title,
-      submission_date,
-      last_update_date,
-      release_date,
-      registration_date,
-      queried_project_ids,
-      type,
-      link,
-      transformed_type
-    }
-}
-  `;
-
-export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
-  query clinicalTrialOverView(
-    $programs: [String],
-    $docs: [String],
-    $fiscal_years: [String],
-    $award_amounts: [String],
-    $offset: Int,
-    $first: Int,
-    $order_by: String,
-    $sort_direction: String 
-    ){
-    clinicalTrialOverView(
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-    ) {
-      clinical_trial_id,
-      title,
-      last_update_posted,
-      recruitment_status,
-      queried_project_ids
-    }
-}
-  `;
-
-export const GET_PATENTS_OVERVIEW_QUERY = gql`
-  query patentOverView(
-    $programs: [String],
-    $docs: [String],
-    $fiscal_years: [String],
-    $award_amounts: [String],
-    $offset: Int,
-    $first: Int,
-    $order_by: String,
-    $sort_direction: String 
-    ){
-    patentOverView(
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-    ) {
-      patent_id,
-      fulfilled_date,
-      queried_project_ids
-    }
 }
   `;
 
@@ -924,305 +783,5 @@ export const tabContainers = [
     tabIndex: '1',
     tableDownloadCSV: customPublicationsTabDownloadCSV,
     downloadFileName: 'publications_download',
-  },
-  {
-    name: 'Datasets',
-    dataField: 'dataDataset',
-    api: GET_DATASETS_OVERVIEW_QUERY,
-    paginationAPIField: 'datasetOverView',
-    defaultSortField: 'accession',
-    defaultSortDirection: 'asc',
-    count: 'numberOfDatasets',
-    buttonText: 'Add Selected Files',
-    dataKey: 'accession',
-    extendedViewConfig: {
-      pagination: true,
-      manageViewColumns: false,
-    },
-    columns: [
-      {
-        dataField: 'accession',
-        header: 'Accession',
-        cellType: cellTypes.EXTERNAL_LINK,
-        linkAttr: {
-          rootPath: '',
-          pathParams: ['link'],
-        },
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'link',
-        header: 'Link',
-        cellType: cellTypes.EXTERNAL_LINK,
-        linkAttr: {
-          rootPath: '',
-          pathParams: ['link'],
-        },
-        display: false,
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        cellType: cellTypes.LINK,
-        linkAttr: {
-          rootPath: '/project',
-          pathParams: ['queried_project_is'],
-        },
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '15%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'transformed_type',
-        header: 'Type',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'submission_date',
-        header: 'Submission Date',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'last_update_date',
-        header: 'Last Update Date',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'release_date',
-        header: 'Release Date',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'registration_date',
-        header: 'Registration Date',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-    ],
-    id: 'dataset_tab',
-    tableID: 'dataset_tab_table',
-    tabIndex: '2',
-    tableDownloadCSV: customDatasetsTabDownloadCSV,
-    downloadFileName: 'datasets_download',
-  },
-  {
-    name: 'Clinical Trials',
-    dataField: 'dataClinicalTrial',
-    api: GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
-    paginationAPIField: 'clinicalTrialOverView',
-    defaultSortField: 'clinical_trial_id',
-    defaultSortDirection: 'asc',
-    count: 'numberOfClinicalTrials',
-    buttonText: 'Add Selected Files',
-    dataKey: 'clinical_trial_id',
-    extendedViewConfig: {
-      pagination: true,
-      manageViewColumns: false,
-    },
-    columns: [
-      {
-        dataField: 'clinical_trial_id',
-        header: 'Clinical Trial ID',
-        cellType: cellTypes.EXTERNAL_LINK,
-        linkAttr: {
-          rootPath: 'https://clinicaltrials.gov/ct2/show',
-          pathParams: ['clinical_trial_id'],
-        },
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        cellType: cellTypes.LINK,
-        linkAttr: {
-          rootPath: '/project',
-          pathParams: ['queried_project_ids'],
-        },
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '15%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        display: true,
-        headerStyles: {
-          width: '55%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'last_update_posted',
-        header: 'Last Update Posted',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'recruitment_status',
-        header: 'Recruitment Status',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-    ],
-    id: 'clinical_trial_tab',
-    tableID: 'clinical_trial_tab_table',
-    tabIndex: '3',
-    tableDownloadCSV: customClinicalTrialsTabDownloadCSV,
-    downloadFileName: 'clinical_trials_download',
-  },
-  {
-    name: 'Patents',
-    dataField: 'dataPatent',
-    api: GET_PATENTS_OVERVIEW_QUERY,
-    paginationAPIField: 'patentOverView',
-    defaultSortField: 'patent_id',
-    defaultSortDirection: 'asc',
-    count: 'numberOfPatents',
-    buttonText: 'Add Selected Files',
-    dataKey: 'patent_id',
-    extendedViewConfig: {
-      pagination: true,
-      manageViewColumns: false,
-    },
-    columns: [
-      {
-        dataField: 'patent_id',
-        header: 'Patent ID',
-        display: true,
-        headerStyles: {
-          width: '40%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        cellType: cellTypes.LINK,
-        linkAttr: {
-          rootPath: '/project',
-          pathParams: ['queried_project_ids'],
-        },
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '30%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'fulfilled_date',
-        header: 'Fulfilled Date',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-    ],
-    id: 'patent_tab',
-    tableID: 'patent_tab_table',
-    tabIndex: '4',
-    tableDownloadCSV: customPatentsTabDownloadCSV,
-    downloadFileName: 'patents_download',
   },
 ];
