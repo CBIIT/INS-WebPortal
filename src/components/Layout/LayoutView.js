@@ -27,7 +27,6 @@ import SysInfoView from '../../pages/sysInfo/view';
 import ProfileController from '../../pages/profile/profileController';
 import editUserController from '../../pages/admin/userDetails/editUserController';
 import viewUserController from '../../pages/admin/userDetails/viewUserController';
-import OverlayWindow from '../OverlayWindow/OverlayWindow';
 import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
 import CarView from '../../pages/cart/cartController';
 import AuthSessionTimeoutController from '../SessionTimeout/SessionTimeoutController';
@@ -55,7 +54,6 @@ const Layout = ({ classes, isSidebarOpened }) => {
           <Notifactions />
           <AuthSessionTimeoutController />
           <Header />
-          <OverlayWindow />
           <NavBar />
           {/* Reminder: Ajay need to replace the ICDC with env variable and
           change build npm to read env variable */}
