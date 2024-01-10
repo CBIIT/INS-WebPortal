@@ -229,7 +229,7 @@ function searchView(props) {
       value: '1',
     },
     {
-      name: 'Projects',
+      name: 'Grants',
       field: 'projects',
       classes: {
         root: classes.buttonRoot,
