@@ -14,23 +14,23 @@ export const programListingIcon = {
 /** used by the Global Search header autocomplete */
 export const SEARCH_KEYS = {
   public: [],
-  private: ['projects'],
+  private: ['project_titles'],
 };
 
 export const SEARCH_DATAFIELDS = {
   public: [],
-  private: ['project_id'],
+  private: ['title'],
 };
 
 /** used by the Global Search page results */
 export const SEARCH_PAGE_KEYS = {
-  private: [...SEARCH_KEYS.private, 'model'],
+  private: [...SEARCH_KEYS.private],
   public: [],
 };
 
 export const SEARCH_PAGE_DATAFIELDS = {
   public: [],
-  private: [...SEARCH_DATAFIELDS.private, 'node_name'],
+  private: [...SEARCH_DATAFIELDS.private],
 };
 
 export const SEARCH = gql`

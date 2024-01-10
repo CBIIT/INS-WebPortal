@@ -35,6 +35,7 @@ const INSHeader = (props) => {
       query: async (search) => queryAutocompleteAPI(search, !authenticated),
       searchKeys: authenticated ? SEARCH_KEYS.private : SEARCH_KEYS.public,
       searchFields: authenticated ? SEARCH_DATAFIELDS.private : SEARCH_DATAFIELDS.public,
+      minimumInputLength: 0,
     },
   };
   const { SearchBar } = SearchBarGenerator(SearchBarConfig);
