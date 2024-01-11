@@ -24,15 +24,15 @@ const customTheme = {
       fontFamily: 'Lato',
       '&.Mui-selected': {
         fontWeight: 'bolder',
-        '&.cases': {
+        '&.grants': {
           background: '#d6f2ea',
           color: '#10a075',
         },
-        '&.samples': {
+        '&.publications': {
           background: '#cfedf9',
           color: '#0dafec',
         },
-        '&.files': {
+        '&.projects': {
           background: '#f7d7f7',
           color: '#c92ec7',
         },
@@ -40,15 +40,15 @@ const customTheme = {
           color: 'red',
         },
       },
-      '& span.cases_count': {
+      '& span.grants_count': {
         marginLeft: '5px',
         fontSize: '17px',
       },
-      '& span.samples_count': {
+      '& span.publications_count': {
         marginLeft: '5px',
         fontSize: '17px',
       },
-      '& span.files_count': {
+      '& span.projects_count': {
         marginLeft: '5px',
         fontSize: '17px',
       },
