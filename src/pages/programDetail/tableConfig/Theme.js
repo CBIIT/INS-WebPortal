@@ -86,6 +86,7 @@ export const tblContainer = {
       borderSpacing: '0',
       borderCollapse: 'collapse',
       borderTop: '3px solid #42779a',
+      borderBottom: '3px solid #42779a',
     },
   },
 };
