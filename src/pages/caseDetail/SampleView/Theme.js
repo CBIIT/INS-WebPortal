@@ -17,9 +17,6 @@ export const tblHeader = {
 
 export const tblPgn = {
   MuiTablePagination: {
-    root: {
-      paddingRight: '50px',
-    },
     toolbar: {
       minHeight: '45px',
     },

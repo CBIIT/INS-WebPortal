@@ -38,9 +38,6 @@ export const tblContainer = {
 
 export const displayPgn = {
   MuiTablePagination: {
-    root: {
-      paddingRight: '50px',
-    },
     toolbar: {
       minHeight: '45px',
     },
