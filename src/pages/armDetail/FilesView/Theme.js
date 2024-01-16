@@ -40,8 +40,6 @@ export const displayPgn = {
   MuiTablePagination: {
     root: {
       paddingRight: '50px',
-      borderTop: '5px solid #e7e5e5',
-      borderBottom: '3px solid #e7e5e5',
     },
     toolbar: {
       minHeight: '45px',
