@@ -288,29 +288,31 @@ const ProgramView = ({
           </div>
           <Grid item xs={12}>
             <Grid container spacing={8}>
-              <Grid item xs={12}>
-                <Typography>
-                  <TableContextProvider>
-                    <Wrapper
-                      wrapConfig={configWrapper(table, wrapperConfig)}
-                      customTheme={customTheme}
-                      classes={classes}
-                      section={table.name}
-                    >
-                      <Grid container>
-                        <Grid item xs={12} id={table.tableID}>
-                          <TableView
-                            initState={initTblState}
-                            themeConfig={themeConfig}
-                            queryVariables={{ programs: [programData.program_id] }}
-                            totalRowCount={stat.numberOfProjects}
-                          />
+              <div className={classes.tableContent}>
+                <Grid item xs={12}>
+                  <Typography>
+                    <TableContextProvider>
+                      <Wrapper
+                        wrapConfig={configWrapper(table, wrapperConfig)}
+                        customTheme={customTheme}
+                        classes={classes}
+                        section={table.name}
+                      >
+                        <Grid container>
+                          <Grid item xs={12} id={table.tableID}>
+                            <TableView
+                              initState={initTblState}
+                              themeConfig={themeConfig}
+                              queryVariables={{ programs: [programData.program_id] }}
+                              totalRowCount={stat.numberOfProjects}
+                            />
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </Wrapper>
-                  </TableContextProvider>
-                </Typography>
-              </Grid>
+                      </Wrapper>
+                    </TableContextProvider>
+                  </Typography>
+                </Grid>
+              </div>
               <Grid item xs={8}>
                 <Typography />
               </Grid>
@@ -681,6 +683,12 @@ const styles = (theme) => ({
     letterSpacing: '0.025em',
     color: '#0296c9',
     paddingBottom: '20px',
+  },
+  tableContent: {
+    backgroundColor: '#ffffff',
+    marginTop: '32px',
+    borderBottom: '3px solid #e7e5e5',
+    borderTop: '6px solid #e7e5e5',
   },
   fileContainer: {
     paddingTop: '4px',

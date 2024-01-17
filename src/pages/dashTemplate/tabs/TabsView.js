@@ -22,6 +22,10 @@ const Tabs = (props) => {
     clsName: `${tab.name}`.toLowerCase().replace(' ', '_'),
   }));
 
+  const tabAreaStyle = {
+    borderBottom: '3px solid #e7e5e5',
+  };
+
   return (
     <>
       <BentoTabs
@@ -34,12 +38,14 @@ const Tabs = (props) => {
         tabContainers.map((tab, index) => (
           <>
             <div hidden={currentTab !== index}>
-              <TabPanel
-                {...props}
-                tab={tab}
-                config={tab}
-                activeTab={index === currentTab}
-              />
+              <div className="tabArea" style={tabAreaStyle}>
+                <TabPanel
+                  {...props}
+                  tab={tab}
+                  config={tab}
+                  activeTab={index === currentTab}
+                />
+              </div>
             </div>
           </>
         ))
