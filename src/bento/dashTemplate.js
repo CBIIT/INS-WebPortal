@@ -121,30 +121,36 @@ export const widgetConfig = [
     type: 'donut',
     title: 'Projects by Fiscal Year',
     dataName: 'projectCountByFiscalYearSorted',
+    sliceTitle: 'Projects',
   },
   {
     type: 'donut',
     title: 'Projects by NCI DOC',
     dataName: 'projectCountByDOCSorted',
+    sliceTitle: 'Projects',
   },
   {
     type: 'donut',
     title: 'Projects by Award Amount',
     dataName: 'projectCountByAwardAmountSorted',
+    sliceTitle: 'Projects',
   },
   {
     type: 'donut',
     title: 'Publications by Year',
     dataName: 'publicationCountByYearSorted',
+    sliceTitle: 'Publications',
   },
   {
     type: 'donut',
     title: 'Publications by RCR Range',
     dataName: 'publicationCountByRCRTransformed',
+    sliceTitle: 'Publications',
   },
   {
     type: 'donut',
     title: 'Publications by Citations',
     dataName: 'publicationCountByCitationSorted',
+    sliceTitle: 'Publications',
   },
 ];

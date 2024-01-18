@@ -19,6 +19,7 @@ const WidgetViewAwardAmount = ({
       type: 'donut',
       title: 'Projects by Award Amount',
       dataName: 'projectCountInProgramByFundedAmountData',
+      sliceTitle: 'Projects',
     },
   ];
 
