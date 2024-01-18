@@ -28,6 +28,15 @@ const DashTemplate = ({
             <WidgetView
               data={dashData}
             />
+            <hr style={{
+              marginTop: '48px',
+              marginBottom: 0,
+              color: '#E2E7EC',
+              backgroundColor: '#E2E7EC',
+              height: '16px',
+              borderWidth: 0,
+            }}
+            />
             <TabsView
               dashboardStats={dashData}
               activeFilters={activeFilters}
