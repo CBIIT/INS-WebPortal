@@ -11,6 +11,10 @@ export const resetIcon = {
   size: '12 px',
 };
 
+export const sectionLabel = {
+  Projects: 'Filter by Projects',
+};
+
 // --------------- Dashboard Sidebar Sections styling --------------
 export const facetSectionVariables = {
   Projects: {
