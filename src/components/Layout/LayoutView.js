@@ -13,9 +13,7 @@ import About from '../../pages/about/aboutController';
 import ProgramDetail from '../../pages/programDetail/programDetailController';
 import GlobalSearchController from '../../pages/search/searchViewController';
 import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
-import AuthSessionTimeoutController from '../SessionTimeout/SessionTimeoutController';
 
-import Notifactions from '../Notifications/NotifactionView';
 import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
 
 const ScrollToTop = () => {
@@ -33,8 +31,6 @@ const Layout = ({ classes, isSidebarOpened }) => {
       <CssBaseline />
       <HashRouter>
         <>
-          <Notifactions />
-          <AuthSessionTimeoutController />
           <Header />
           <NavBar />
           <div
