@@ -137,10 +137,10 @@ export const landingPageData = {
   tile4: {
     alt: 'explore',
     img: exploreImg,
-    titleText: 'INS DATA OUTLETS',
-    descriptionText: 'INS starts its data gathering process with an NCI-funded program of interest such as the Cancer Moonshot program or the Childhood Cancer Data Initiative (CCDI).',
+    titleText: 'INS DATA GATHERING',
+    descriptionText: 'The INS data gathering pipeline uses both expert curation and automated processes to connect programs and studies to research outputs.',
     callToActionText: 'Learn more',
-    callToActionLink: '/explore', // This links to the cases dashboard.
+    callToActionLink: '/about', // This links to the cases dashboard.
   },
 };
 
