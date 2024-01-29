@@ -46,12 +46,12 @@ const LandingView = ({ classes, statsData }) => {
     <>
       <div className={classes.disclaimer}>
         <p>
-          This initial release of INS contains only a small subset of outputs.
+          The INS is in early development. Many NCI studies and their outputs are not yet represented here.
         </p>
         <p>
           Please read our
           <Link to="/about" className={classes.aboutLink}>About page</Link>
-          to learn about known data limitations.
+          to learn more.
         </p>
       </div>
       <div className={classes.page}>
