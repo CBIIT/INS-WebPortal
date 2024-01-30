@@ -68,7 +68,7 @@ const rightPanel = [
         dataField: 'project_end_date',
       },
       {
-        label: 'FOA',
+        label: 'NOFO',
         dataField: 'full_foa',
       },
       {
