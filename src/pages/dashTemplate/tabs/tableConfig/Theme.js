@@ -37,14 +37,113 @@ const tblBody = {
     },
     body: {
       color: '#13344A',
-      '&.file_name': {
-        maxWidth: '300px',
+      '&.project_id': {
+        width: '10%',
         '& p': {
           lineBreak: 'anywhere',
         },
       },
-      '&.acl': {
-        textAlign: 'center',
+      '&.queried_project_id': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.program': {
+        width: '5%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.project_title': {
+        width: '20%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.principal_investigators': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.program_officers': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.lead_doc': {
+        width: '5%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.activity_code': {
+        width: '5%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.award_amount': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.project_end_date': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.fiscal_year': {
+        width: '5%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.publication_id': {
+        width: '5%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.queried_project_ids': {
+        width: '15%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.title': {
+        width: '25%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.authors': {
+        width: '25%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.citation_count': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.relative_citation_ratio': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.publish_date': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
       },
     },
   },

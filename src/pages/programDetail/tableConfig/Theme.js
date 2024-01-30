@@ -37,14 +37,65 @@ const tblBody = {
     },
     body: {
       color: '#13344A',
-      '&.file_name': {
-        maxWidth: '300px',
+      '&.project_id': {
+        width: '10%',
         '& p': {
           lineBreak: 'anywhere',
         },
       },
-      '&.acl': {
-        textAlign: 'center',
+      '&.queried_project_id': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.project_title': {
+        width: '20%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.principal_investigators': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.program_officers': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.lead_doc': {
+        width: '5%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.activity_code': {
+        width: '5%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.award_amount': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.project_end_date': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
+      '&.fiscal_year': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
       },
     },
   },

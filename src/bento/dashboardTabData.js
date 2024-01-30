@@ -534,9 +534,6 @@ export const tabContainers = [
         dataField: 'project_id',
         header: 'Grant ID',
         display: true,
-        headerStyles: {
-          width: '10%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -549,9 +546,6 @@ export const tabContainers = [
           pathParams: ['queried_project_id'],
         },
         display: true,
-        headerStyles: {
-          width: '10%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -564,9 +558,6 @@ export const tabContainers = [
           pathParams: ['program'],
         },
         display: true,
-        headerStyles: {
-          width: '5%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -574,9 +565,6 @@ export const tabContainers = [
         dataField: 'project_title',
         header: 'Project Title',
         display: true,
-        headerStyles: {
-          width: '20%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -584,9 +572,6 @@ export const tabContainers = [
         dataField: 'principal_investigators',
         header: 'Principal Investigators',
         display: true,
-        headerStyles: {
-          width: '10%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -594,9 +579,6 @@ export const tabContainers = [
         dataField: 'program_officers',
         header: 'Program Officers',
         display: true,
-        headerStyles: {
-          width: '10%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -604,9 +586,6 @@ export const tabContainers = [
         dataField: 'lead_doc',
         header: 'Lead DOC',
         display: true,
-        headerStyles: {
-          width: '5%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -614,9 +593,6 @@ export const tabContainers = [
         dataField: 'activity_code',
         header: 'Activity Code',
         display: true,
-        headerStyles: {
-          width: '5%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -633,9 +609,6 @@ export const tabContainers = [
 
           return formatter.format(money);
         },
-        headerStyles: {
-          width: '10%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -643,9 +616,6 @@ export const tabContainers = [
         dataField: 'project_end_date',
         header: 'Project End Date',
         display: true,
-        headerStyles: {
-          width: '10%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -653,9 +623,6 @@ export const tabContainers = [
         dataField: 'fiscal_year',
         header: 'Fiscal Year',
         display: true,
-        headerStyles: {
-          width: '5%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -693,9 +660,6 @@ export const tabContainers = [
           pathParams: ['publication_id'],
         },
         display: true,
-        headerStyles: {
-          width: '5%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -721,9 +685,6 @@ export const tabContainers = [
 
           return transformedIds;
         },
-        headerStyles: {
-          width: '15%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -731,9 +692,6 @@ export const tabContainers = [
         dataField: 'title',
         header: 'Title',
         display: true,
-        headerStyles: {
-          width: '25%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -741,9 +699,6 @@ export const tabContainers = [
         dataField: 'authors',
         header: 'Authors',
         display: true,
-        headerStyles: {
-          width: '25%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -751,9 +706,6 @@ export const tabContainers = [
         dataField: 'citation_count',
         header: 'Citation Count',
         display: true,
-        headerStyles: {
-          width: '10%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -761,9 +713,6 @@ export const tabContainers = [
         dataField: 'relative_citation_ratio',
         header: 'Relative Citation Ratio',
         display: true,
-        headerStyles: {
-          width: '10%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
@@ -771,14 +720,14 @@ export const tabContainers = [
         dataField: 'publish_date',
         header: 'Publication Date',
         display: true,
-        headerStyles: {
-          width: '10%',
-        },
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
     ],
     id: 'publication_tab',
+    tableMsg: {
+      noMatch: 'No Matching Records Found',
+    },
     tableID: 'publication_tab_table',
     tabIndex: '1',
     tableDownloadCSV: customPublicationsTabDownloadCSV,

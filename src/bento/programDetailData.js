@@ -131,9 +131,6 @@ const table = {
       dataField: 'project_id',
       header: 'Grant ID',
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
@@ -146,9 +143,6 @@ const table = {
         pathParams: ['queried_project_id'],
       },
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
@@ -156,9 +150,6 @@ const table = {
       dataField: 'project_title',
       header: 'Project Title',
       display: true,
-      headerStyles: {
-        width: '20%',
-      },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
@@ -166,9 +157,6 @@ const table = {
       dataField: 'principal_investigators',
       header: 'Principal Investigators',
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
@@ -176,9 +164,6 @@ const table = {
       dataField: 'program_officers',
       header: 'Program Officers',
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
@@ -186,9 +171,6 @@ const table = {
       dataField: 'lead_doc',
       header: 'Lead DOC',
       display: true,
-      headerStyles: {
-        width: '5%',
-      },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
@@ -196,9 +178,6 @@ const table = {
       dataField: 'activity_code',
       header: 'Activity Code',
       display: true,
-      headerStyles: {
-        width: '5%',
-      },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
@@ -215,9 +194,6 @@ const table = {
 
         return formatter.format(money);
       },
-      headerStyles: {
-        width: '10%',
-      },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
@@ -225,9 +201,6 @@ const table = {
       dataField: 'project_end_date',
       header: 'Project End Date',
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
@@ -235,9 +208,6 @@ const table = {
       dataField: 'fiscal_year',
       header: 'Fiscal Year',
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
