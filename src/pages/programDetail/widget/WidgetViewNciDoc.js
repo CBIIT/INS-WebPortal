@@ -17,7 +17,7 @@ const WidgetViewNciDoc = ({
   const widgetConfig = [
     {
       type: 'donut',
-      title: 'Projects by NCI DOC',
+      title: 'Projects by NCI DOCs',
       dataName: 'projectCountInProgramByDOCData',
       sliceTitle: 'Projects',
     },
