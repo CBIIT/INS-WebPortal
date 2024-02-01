@@ -8,7 +8,8 @@ const Nav = styled.div`
     position: fixed;
     width: 100%;
     height: 40px;
-    margin-top: 100px;
+    /* margin-top: 100px; */
+    margin-top: 267px;
     background-color: rgb(62, 60, 63);
     z-index: 1100;
 `;
