@@ -1,8 +1,7 @@
 // Component to display a property
 import { Grid, withStyles } from '@material-ui/core';
 import React from 'react';
-import _ from 'lodash';
-import { Anchor, prepareLinks } from '../../bento-components';
+import { Anchor, prepareLinks } from '@bento-core/util';
 
 const PropertyItem = ({
   label, value, link, labelLink, classes, index,
@@ -11,11 +10,11 @@ const PropertyItem = ({
   return (
     <Grid item container>
       <Grid item xs={6}>
-        <span className={classes.title} id={`case_detail_left_section_title_${index + 1}`}>
+        <span className={classes.title} id={`case_detail_left_section_title_${label}`}>
           {labelLink ? <Anchor link={labelLink} text={label} classes={classes} /> : label}
         </span>
       </Grid>
-      <Grid item xs={6} className={classes.content} id={`case_detail_left_section_description_${index + 1}`}>
+      <Grid item xs={6} className={classes.content} id={`case_detail_left_section_description_${label}_${value}`}>
         {value || value === 0 ? (
           link ? <Anchor link={link} text={value} classes={classes} /> : value
         ) : defaultValue}
@@ -26,25 +25,7 @@ const PropertyItem = ({
 
 // Component to display a subsection
 const Subsection = ({ config, data, classes }) => {
-  const formattedData = _.cloneDeep(data);
-
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0,
-  });
-
-  if (data) {
-    if (data.award_amount) {
-      formattedData.award_amount = formatter.format(data.award_amount);
-    }
-
-    if (data.nci_funded_amount) {
-      formattedData.nci_funded_amount = formatter.format(data.nci_funded_amount);
-    }
-  }
-
-  const properties = prepareLinks(config.properties, formattedData);
+  const properties = prepareLinks(config.properties, data);
   return (
     <Grid item container className={classes.subsection}>
       <Grid item container direction="column" className={classes.subsectionBody} xs={9}>
@@ -64,7 +45,7 @@ const Subsection = ({ config, data, classes }) => {
           <PropertyItem
             key={index}
             label={prop.label}
-            value={formattedData[prop.dataField]}
+            value={data[prop.dataField]}
             classes={classes}
             link={prop.link}
             labelLink={prop.labelLink}

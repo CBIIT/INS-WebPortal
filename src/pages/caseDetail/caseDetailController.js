@@ -8,7 +8,7 @@ import {
 } from '../../bento/caseDetailData';
 import {
   fetchCaseDetailTab,
-} from './store/caseDetailReducer';
+} from './caseDetailReducer';
 
 const CaseDetailContainer = ({ match }) => {
   const loading = useSelector((state) => (state.caseDetailTab

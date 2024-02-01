@@ -14,7 +14,7 @@ import {
   leftPanel,
   rightPanel,
 } from '../../bento/caseDetailData';
-import Tabs from './caseDetailTabController';
+import TabsView from './tabs/TabsView';
 
 // Main case detail component
 const CaseDetail = ({ data, classes }) => {
@@ -23,9 +23,6 @@ const CaseDetail = ({ data, classes }) => {
     numberOfCoreProjects: 1,
     numberOfProjects: data.num_projects,
     numberOfPublications: data.num_publications,
-    numberOfDatasets: data.num_datasets,
-    numberOfClinicalTrials: data.num_clinical_trials,
-    numberOfPatents: data.num_patents,
   };
 
   const breadCrumbJson = [{
@@ -104,7 +101,11 @@ const CaseDetail = ({ data, classes }) => {
         </div>
       </div>
       <div className={classes.detailTabContainer}>
-        <Tabs projectID={data.queried_project_id} />
+        <TabsView
+          projectStats={data}
+          // eslint-disable-next-line max-len
+          activeFilters={{ queried_project_id: [data.queried_project_id], queried_project_ids: [data.queried_project_id] }}
+        />
       </div>
       <div className={classes.blankSpace} />
     </>

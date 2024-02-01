@@ -2,9 +2,9 @@ import env from '../utils/env';
 // footerLogoImage ideal image size 310x80 px
 
 export default {
-  footerLogoImage: 'https://raw.githubusercontent.com/cbiit/datacommons-assets/main/bento/images/icons/png/footerlogo.png',
-  footerLogoAltText: 'Footer Logo',
-  footerLogoHyperlink: 'https://www.cancer.gov/',
+  footerLogoText: 'National Cancer Institute',
+  footerLogoSubText: 'at the National Institutes of Health',
+  footerLogoHyperlink: 'https://cancer.gov/',
   footerStaticText: 'NIH … Turning Discovery Into Health®',
   version: env.REACT_APP_FE_VERSION,
   BEversion: env.REACT_APP_BE_VERSION,

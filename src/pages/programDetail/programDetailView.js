@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import _ from 'lodash';
 import {
@@ -7,14 +6,20 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import {
-  cn,
   manipulateLinks,
-  getOptions,
-  getColumns,
-  CustomActiveDonut,
-} from '../../bento-components';
-import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
-import globalData from '../../bento/siteWideConfig';
+  cn,
+} from '@bento-core/util';
+import {
+  TableContextProvider,
+  TableView,
+  Wrapper,
+} from '@bento-core/paginated-table';
+import { themeConfig } from './tableConfig/Theme';
+import { configColumn } from './tableConfig/Column';
+import { configWrapper, wrapperConfig } from './wrapperConfig/Wrapper';
+import { customTheme } from './wrapperConfig/Theme';
+import WidgetViewNciDoc from './widget/WidgetViewNciDoc';
+import WidgetViewAwardAmount from './widget/WidgetViewAwardAmount';
 import {
   pageTitle,
   table,
@@ -24,33 +29,27 @@ import {
   aggregateCount,
   pageSubTitle,
   leftPanel,
-  rightPanel,
+  GET_PROJECTS_OVERVIEW_QUERY,
 } from '../../bento/programDetailData';
 import StatsView from '../../components/Stats/StatsView';
 import { Typography } from '../../components/Wrappers/Wrappers';
+import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
+
 import {
   singleCheckBox,
   setSideBarToLoading,
   setDashboardTableLoading,
-  getTableRowSelectionEvent,
-} from '../dashboardTab/store/dashboardReducer';
-import {
-  GET_PROJECTS_OVERVIEW_QUERY,
-} from '../../bento/dashboardTabData';
-import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
-import Widget from '../../components/Widgets/WidgetView';
-import colors from '../../utils/colors';
-import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
-
-const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
+} from './dashboardReducer';
 
 const ProgramView = ({
-  classes, data, theme,
+  classes, data,
 }) => {
   const {
     programPublicationCount, programDatasetCount, programClinicalTrialCount, programPatentCount,
-  } = data[0];
-  const programData = data[0].programDetail;
+  } = data;
+  const programData = data.programDetail;
+
+  const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
 
   const redirectTo = () => {
     setSideBarToLoading();
@@ -69,9 +68,6 @@ const ProgramView = ({
     numberOfCoreProjects: programData.num_core_projects !== undefined ? programData.num_core_projects : 'undefined',
     numberOfProjects: programData.num_projects !== undefined ? programData.num_projects : 'undefined',
     numberOfPublications: programPublicationCount !== undefined ? programPublicationCount : 'undefined',
-    numberOfDatasets: programDatasetCount !== undefined ? programDatasetCount : 'undefined',
-    numberOfClinicalTrials: programClinicalTrialCount !== undefined ? programClinicalTrialCount : 'undefined',
-    numberOfPatents: programPatentCount !== undefined ? programPatentCount : 'undefined',
   };
 
   const breadCrumbJson = [{
@@ -82,109 +78,23 @@ const ProgramView = ({
 
   const updatedAttributesData = manipulateLinks(leftPanel.attributes);
 
-  const options = getOptions(table, classes);
-
-  const selectedRowInfo = [];
-
-  const selectedRowIndex = [];
-
-  const primaryKeyIndex = 0;
-
-  const { dataKey } = table;
-
-  const dataTransformCallbacks = table.columns.filter((column, idx) => column.dataTransform !== undefined);
-
-  const headerStyles = table.columns.map((column) => column.headerStyles);
-
-  const setRowSelection = getTableRowSelectionEvent();
-
-  function disableRowSelection(d, cartData) {
-    return true;
-  }
-
-  function rowSelectionEvent(displayData, rowsSelected) {
-    const displayedDataKeies = displayData;
-    const selectedRowsKey = rowsSelected
-      ? rowsSelected.map((index) => displayedDataKeies[index])
-      : [];
-    let newSelectedRowInfo = [];
-
-    if (rowsSelected) {
-      // Remove the rowInfo from selectedRowInfo if this row currently be
-      // displayed and not be selected.
-      if (selectedRowInfo.length > 0) {
-        newSelectedRowInfo = selectedRowInfo.filter((key) => {
-          if (displayedDataKeies.includes(key)) {
-            return false;
-          }
-          return true;
-        });
-      }
-    } else {
-      newSelectedRowInfo = selectedRowInfo;
-    }
-    newSelectedRowInfo = newSelectedRowInfo.concat(selectedRowsKey);
-
-    // Get selectedRowIndex by comparing current page data with selected row's key.
-    // if rowInfo from selectedRowInfo is currently be displayed
-    const newSelectedRowIndex = displayedDataKeies.reduce(
-      (accumulator, currentValue, currentIndex) => {
-        if (newSelectedRowInfo.includes(currentValue)) {
-          accumulator.push(currentIndex);
-        }
-        return accumulator;
-      }, [],
-    );
-
-    // reduce the state chagne, when newSelectedRowIndex and newSelectedRowInfo is same as previous.
-    if (_.differenceWith(
-      newSelectedRowIndex,
-      selectedRowIndex,
-      _.isEqual,
-    ).length !== 0
-      || _.differenceWith(
-        newSelectedRowInfo,
-        selectedRowInfo,
-        _.isEqual,
-      ).length !== 0
-      || _.differenceWith(
-        selectedRowInfo,
-        newSelectedRowInfo,
-        _.isEqual,
-      ).length !== 0
-      || _.differenceWith(
-        selectedRowIndex,
-        newSelectedRowIndex,
-        _.isEqual,
-      ).length !== 0) {
-      setRowSelection({
-        selectedRowInfo: newSelectedRowInfo,
-        selectedRowIndex: newSelectedRowIndex,
-      });
-    }
-  }
-
-  function onRowsSelect(curr, allRowsSelected, rowsSelected, displayData) {
-    rowSelectionEvent(displayData.map((d) => d.data[1][primaryKeyIndex]), rowsSelected);
-  }
-
-  const defaultOptions = () => ({
-    dataKey,
-    rowsSelectedTrigger: (displayData, rowsSelected) => rowSelectionEvent(
-      displayData,
-      rowsSelected,
-    ),
-    rowsSelected: selectedRowIndex,
-    onRowSelectionChange: onRowsSelect,
-    isRowSelectable: (dataIndex) => (disableRowSelection
-      ? disableRowSelection(data[1][dataIndex]) : true),
+  const initTblState = (initailState) => ({
+    ...initailState,
+    title: table.name,
+    query: getOverviewQuery(table.api),
+    paginationAPIField: table.paginationAPIField,
+    dataKey: table.dataKey,
+    columns: configColumn(table.columns),
+    count: stat.numberOfProjects,
+    selectedRows: [],
+    enableRowSelection: table.enableRowSelection,
+    tableMsg: table.tableMsg,
+    sortBy: table.defaultSortField,
+    sortOrder: table.defaultSortDirection,
+    extendedViewConfig: table.extendedViewConfig,
+    rowsPerPage: 10,
+    page: 0,
   });
-
-  const finalOptions = {
-    ...options,
-    ...defaultOptions(),
-    serverTableRowCount: selectedRowInfo.length,
-  };
 
   return (
     <>
@@ -247,8 +157,9 @@ const ProgramView = ({
                         attribute.internalLink
                           ? (
                             <div>
-                              {/* eslint-disable-next-line max-len */}
-                              <span className={classes.detailContainerHeader}>{attribute.label}</span>
+                              <span className={classes.detailContainerHeader}>
+                                {attribute.label}
+                              </span>
                               <div>
                                 <span className={classes.content}>
                                   {' '}
@@ -347,117 +258,178 @@ const ProgramView = ({
               xs={12}
             >
               <Grid container spacing={16} direction="row" className={classes.detailContainerRight}>
-                {rightPanel.widget[0].display ? (
-                  <Grid
-                    item
-                    xs={12}
-                    className={classes.marginTopN37}
-                  >
-                    <Widget
-                      title={rightPanel.widget[0].label}
-                      upperTitle
-                      bodyClass={classes.fullHeightBody}
-                      className={classes.card}
-                      color={theme.palette.lochmara.contrastText}
-                      widgetBorderDivider
-                      customBackGround
-                    >
-                      <CustomActiveDonut
-                        data={data[0][rightPanel.widget[0].dataName]}
-                        titleText={rightPanel.widget[0].titleText || 'Cases'}
-                        width={400}
-                        height={225}
-                        innerRadius={50}
-                        outerRadius={75}
-                        cx="50%"
-                        cy="50%"
-                        textColor={theme.palette.widgetBackground.contrastText}
-                        colors={colors}
-                        titleLocation="bottom"
-                        titleAlignment="center"
-                        paddingSpace={1}
-                      />
-                    </Widget>
-                  </Grid>
-                ) : ''}
-                {rightPanel.widget[0].display ? (
-                  <Grid
-                    item
-                    xs={12}
-                    className={classes.marginTopN37}
-                  >
-                    <Widget
-                      title={rightPanel.widget[1].label}
-                      upperTitle
-                      bodyClass={classes.fullHeightBody}
-                      className={classes.card}
-                      color={theme.palette.lochmara.contrastText}
-                      widgetBorderDivider
-                      customBackGround
-                    >
-                      <CustomActiveDonut
-                        data={data[0][rightPanel.widget[1].dataName]}
-                        titleText={rightPanel.widget[1].titleText || 'Cases'}
-                        width={400}
-                        height={225}
-                        innerRadius={50}
-                        outerRadius={75}
-                        cx="50%"
-                        cy="50%"
-                        textColor={theme.palette.widgetBackground.contrastText}
-                        colors={colors}
-                        titleLocation="bottom"
-                        titleAlignment="center"
-                        paddingSpace={1}
-                      />
-                    </Widget>
-                  </Grid>
-                ) : ''}
+                <Grid
+                  item
+                  xs={12}
+                  className={classes.marginTopN37}
+                >
+                  <WidgetViewNciDoc
+                    data={data}
+                  />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  className={classes.marginTopN37}
+                >
+                  <WidgetViewAwardAmount
+                    data={data}
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
         </div>
       </div>
-      {table.display ? (
-        <div id="table_program_detail" className={classes.tableContainer}>
-          <div className={classes.tableDiv}>
-            <div className={classes.tableTitle}>
-              <span className={classes.tableHeader}>{table.title}</span>
-            </div>
-            <Grid item xs={12}>
-              <Grid container spacing={8}>
+      <div id="table_program_detail" className={classes.tableContainer}>
+        <div className={classes.tableDiv}>
+          <div className={classes.tableTitle}>
+            <span className={classes.tableHeader}>{table.name}</span>
+          </div>
+          <Grid item xs={12}>
+            <Grid container spacing={8}>
+              <div className={classes.tableContent}>
                 <Grid item xs={12}>
                   <Typography>
-                    <CustomDataTable
-                      key={data[1].length}
-                      data={data[1].projectOverView}
-                      columns={getColumns(table, classes, data[1], externalLinkIcon, '', () => { }, DocumentDownload, globalData.replaceEmptyValueWith)}
-                      options={finalOptions}
-                      count={stat.numberOfProjects}
-                      overview={getOverviewQuery(table.api)}
-                      paginationAPIField={table.paginationAPIField}
-                      defaultSortCoulmn={table.defaultSortField || ''}
-                      defaultSortDirection={table.defaultSortDirection || 'asc'}
-                      tableDownloadCSV={table.tableDownloadCSV || false}
-                      queryCustomVaribles={{ programs: [data[0].programDetail.program_id] }}
-                      dataTransformation={dataTransformCallbacks}
-                      headerStyles={headerStyles}
-                    />
+                    <TableContextProvider>
+                      <Wrapper
+                        wrapConfig={configWrapper(table, wrapperConfig)}
+                        customTheme={customTheme}
+                        classes={classes}
+                        section={table.name}
+                      >
+                        <Grid container>
+                          <Grid item xs={12} id={table.tableID}>
+                            <TableView
+                              initState={initTblState}
+                              themeConfig={themeConfig}
+                              queryVariables={{ programs: [programData.program_id] }}
+                              totalRowCount={stat.numberOfProjects}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Wrapper>
+                    </TableContextProvider>
                   </Typography>
                 </Grid>
-                <Grid item xs={8}>
-                  <Typography />
-                </Grid>
+              </div>
+              <Grid item xs={8}>
+                <Typography />
               </Grid>
             </Grid>
-          </div>
+          </Grid>
         </div>
-      ) : ''}
+      </div>
     </>
   );
 };
 
 const styles = (theme) => ({
+  link: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+  cartlink: {
+    fontFamily: 'Lato',
+    color: '#3E6886',
+    fontSize: '12px',
+    marginRight: '70px',
+    textDecoration: 'none',
+    borderBottom: '1px solid #3E6886',
+    paddingBottom: '3px',
+  },
+  caseTitle: {
+    color: '#194563',
+    fontSize: '25.2pt',
+    fontStyle: 'normal',
+    fontFamily: 'Raleway',
+    letterSpacing: '0.025em',
+    backgroundColor: '#f5f5f5',
+    padding: '10px 32px 8px 28px',
+  },
+  chips: {
+    position: 'absolute',
+    marginLeft: '250px',
+    marginTop: '36px',
+    zIndex: '999',
+  },
+  chipRoot: {
+    color: '#ffffff',
+    fontFamily: '"Open Sans", sans-serif',
+    letterSpacing: '0.075em',
+    marginLeft: '10px',
+    backgroundColor: '#9b9b9b',
+    fontSize: '9pt',
+  },
+  chipDeleteIcon: {
+    color: '#ffffff',
+    '&:hover': {
+      color: '#ffffff',
+    },
+  },
+  root: {
+    fontFamily: '"Open Sans", sans-serif',
+    fontSize: '9pt',
+    letterSpacing: '0.025em',
+    color: '#000',
+  },
+  saveButtonDiv: {
+    paddingTop: '5px',
+    paddingRight: '25px',
+    textAlign: 'right',
+  },
+  saveButtonDivBottom: {
+    paddingTop: '5px',
+    paddingRight: '25px',
+    textAlign: 'right',
+    marginBottom: '30px',
+    position: 'relative',
+  },
+  button: {
+    borderRadius: '10px',
+    width: '156px',
+    lineHeight: '37px',
+    fontSize: '12px',
+    textTransform: 'uppercase',
+    fontFamily: 'Lato',
+    color: '#fff',
+    backgroundColor: '#10A075',
+    marginTop: '6px',
+    marginBottom: '10px',
+    marginRight: '5px',
+  },
+  caseTableBorder: {
+    borderTopColor: '#F48439',
+  },
+  fileTableBorder: {
+    borderTopColor: '#2446C6',
+  },
+  sampleTableBorder: {
+    borderTopColor: '#05C5CC',
+  },
+  messageBottom: {
+    zIndex: '500',
+    position: 'absolute',
+    marginTop: '-148px',
+    marginLeft: 'calc(100% - 220px)',
+  },
+  helpIcon: {
+    zIndex: '600',
+  },
+  helpIconButton: {
+    verticalAlign: 'top',
+    marginLeft: '-5px',
+  },
+  customTooltip: {
+    border: '#03A383 1px solid',
+  },
+  customArrow: {
+    '&::before': {
+      border: '#03A383 1px solid',
+    },
+  },
   firstColumn: {
     maxWidth: '45%',
   },
@@ -478,14 +450,6 @@ const styles = (theme) => ({
   borderLeft: {
     borderLeft: '#81A6BA 1px solid',
     paddingLeft: '25px !important',
-  },
-  link: {
-    textDecoration: 'none',
-    fontWeight: 'bold',
-    color: '#7747FF',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
   },
   paddingLeft8: {
     paddingLeft: '8px',
@@ -514,13 +478,6 @@ const styles = (theme) => ({
   },
   fakeToolbar: {
     ...theme.mixins.toolbar,
-  },
-  root: {
-    fontFamily: theme.custom.fontFamily,
-    fontSize: '9px',
-    letterSpacing: '0.025em',
-    color: '#000',
-    background: '#f3f3f3',
   },
   header: {
     paddingLeft: '21px',
@@ -674,7 +631,7 @@ const styles = (theme) => ({
     overflowY: 'auto',
     overflowX: 'hidden',
     height: '700px',
-    width: '105%',
+    width: '300%',
     borderLeft: '1px solid #81A6BA',
     borderRight: '1px solid #81A6BA',
     marginLeft: '-26px',
@@ -704,21 +661,6 @@ const styles = (theme) => ({
       textDecoration: 'underline',
     },
   },
-  button: {
-    borderRadius: '22px',
-    padding: '0 22px',
-    width: '150px',
-    height: '35px',
-    lineHeight: '14px',
-    fontSize: '10px',
-    color: '#ffffff',
-    textTransform: 'uppercase',
-    backgroundColor: '#ff8a00',
-    fontFamily: theme.custom.fontFamily,
-    '&:hover': {
-      backgroundColor: '#ff8a00',
-    },
-  },
   detailContainerItems: {
     paddingTop: '7px',
     paddingLeft: '7px',
@@ -741,6 +683,12 @@ const styles = (theme) => ({
     letterSpacing: '0.025em',
     color: '#0296c9',
     paddingBottom: '20px',
+  },
+  tableContent: {
+    backgroundColor: '#ffffff',
+    marginTop: '32px',
+    borderBottom: '3px solid #e7e5e5',
+    borderTop: '6px solid #e7e5e5',
   },
   fileContainer: {
     paddingTop: '4px',
@@ -780,86 +728,6 @@ const styles = (theme) => ({
     width: '16px',
     verticalAlign: 'sub',
     marginLeft: '4px',
-  },
-  cartlink: {
-    fontFamily: 'Lato',
-    color: '#3E6886',
-    fontSize: '12px',
-    marginRight: '70px',
-    textDecoration: 'none',
-    borderBottom: '1px solid #3E6886',
-    paddingBottom: '3px',
-  },
-  caseTitle: {
-    color: '#194563',
-    fontSize: '25.2pt',
-    fontStyle: 'normal',
-    fontFamily: 'Raleway',
-    letterSpacing: '0.025em',
-    backgroundColor: '#f5f5f5',
-    padding: '10px 32px 8px 28px',
-  },
-  chips: {
-    position: 'absolute',
-    marginLeft: '250px',
-    marginTop: '36px',
-    zIndex: '999',
-  },
-  chipRoot: {
-    color: '#ffffff',
-    fontFamily: '"Open Sans", sans-serif',
-    letterSpacing: '0.075em',
-    marginLeft: '10px',
-    backgroundColor: '#9b9b9b',
-    fontSize: '9pt',
-  },
-  chipDeleteIcon: {
-    color: '#ffffff',
-    '&:hover': {
-      color: '#ffffff',
-    },
-  },
-  saveButtonDiv: {
-    paddingTop: '5px',
-    paddingRight: '25px',
-    textAlign: 'right',
-  },
-  saveButtonDivBottom: {
-    paddingTop: '5px',
-    paddingRight: '25px',
-    textAlign: 'right',
-    marginBottom: '30px',
-    position: 'relative',
-  },
-  caseTableBorder: {
-    borderTopColor: '#F48439',
-  },
-  fileTableBorder: {
-    borderTopColor: '#2446C6',
-  },
-  sampleTableBorder: {
-    borderTopColor: '#05C5CC',
-  },
-  messageBottom: {
-    zIndex: '500',
-    position: 'absolute',
-    marginTop: '-148px',
-    marginLeft: 'calc(100% - 220px)',
-  },
-  helpIcon: {
-    zIndex: '600',
-  },
-  helpIconButton: {
-    verticalAlign: 'top',
-    marginLeft: '-5px',
-  },
-  customTooltip: {
-    border: '#03A383 1px solid',
-  },
-  customArrow: {
-    '&::before': {
-      border: '#03A383 1px solid',
-    },
   },
   snackBarMessageIcon: {
     verticalAlign: 'middle',

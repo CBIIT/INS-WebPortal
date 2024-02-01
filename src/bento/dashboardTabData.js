@@ -1,11 +1,9 @@
 /* eslint-disable */
 import gql from 'graphql-tag';
+import { cellTypes } from '@bento-core/table';
 import {
   customProjectsTabDownloadCSV,
   customPublicationsTabDownloadCSV,
-  customDatasetsTabDownloadCSV,
-  customClinicalTrialsTabDownloadCSV,
-  customPatentsTabDownloadCSV,
 } from './tableDownloadCSV';
 
 // --------------- Tooltip configuration --------------
@@ -24,593 +22,6 @@ export const externalLinkIcon = {
   alt: 'External link icon',
 };
 
-// --------------- Tabs Table configuration --------------
-export const tabContainers = [
-  {
-    name: 'Grants',
-    dataField: 'dataProject',
-    api: 'GET_PROJECTS_OVERVIEW_QUERY',
-    paginationAPIField: 'projectOverView',
-    defaultSortField: 'project_id',
-    defaultSortDirection: 'asc',
-    count: 'numberOfProjects',
-    buttonText: 'Add Selected Files',
-    dataKey: 'project_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    columns: [
-      {
-        dataField: 'project_id',
-        header: 'Grant ID',
-        sort: 'asc',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'queried_project_id',
-        header: 'Project ID',
-        sort: 'asc',
-        link: '/project/{queried_project_id}',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'program',
-        header: 'Program',
-        sort: 'asc',
-        link: '/program/{program}',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'project_title',
-        header: 'Project Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '20%',
-        },
-      },
-      {
-        dataField: 'principal_investigators',
-        header: 'Principal Investigators',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'program_officers',
-        header: 'Program Officers',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'lead_doc',
-        header: 'Lead DOC',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'activity_code',
-        header: 'Activity Code',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'award_amount',
-        header: 'Award Amount',
-        sort: 'asc',
-        display: true,
-        dataTransform: (money) => {
-          const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            maximumFractionDigits: 0,
-          });
-
-          return formatter.format(money);
-        },
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'project_end_date',
-        header: 'Project End Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'fiscal_year',
-        header: 'Fiscal Year',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-    ],
-    id: 'project_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'project_tab_table',
-    selectableRows: false,
-    tabIndex: '0',
-    tableDownloadCSV: customProjectsTabDownloadCSV,
-    downloadFileName: 'projects_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Publications',
-    dataField: 'dataPublication',
-    api: 'GET_PUBLICATIONS_OVERVIEW_QUERY',
-    paginationAPIField: 'publicationOverView',
-    defaultSortField: 'publication_id',
-    defaultSortDirection: 'asc',
-    count: 'numberOfPublications',
-    buttonText: 'Add Selected Files',
-    dataKey: 'publication_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'publication_id',
-        header: 'PubMed ID',
-        sort: 'asc',
-        primary: true,
-        link: 'https://pubmed.ncbi.nlm.nih.gov/{publication_id}/',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        sort: 'asc',
-        link: '/project/{queried_project_ids}',
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '15%',
-        },
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '25%',
-        },
-      },
-      {
-        dataField: 'authors',
-        header: 'Authors',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '25%',
-        },
-      },
-      {
-        dataField: 'citation_count',
-        header: 'Citation Count',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'relative_citation_ratio',
-        header: 'Relative Citation Ratio',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'publish_date',
-        header: 'Publication Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-    ],
-    id: 'publication_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'publication_tab_table',
-    selectableRows: false,
-    tabIndex: '1',
-    tableDownloadCSV: customPublicationsTabDownloadCSV,
-    downloadFileName: 'publications_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Datasets',
-    dataField: 'dataDataset',
-    api: 'GET_DATASETS_OVERVIEW_QUERY',
-    paginationAPIField: 'datasetOverView',
-    defaultSortField: 'accession',
-    defaultSortDirection: 'asc',
-    count: 'numberOfDatasets',
-    buttonText: 'Add Selected Files',
-    dataKey: 'accession',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'accession',
-        header: 'Accession',
-        sort: 'asc',
-        link: '{link}',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'link',
-        header: 'Link',
-        sort: 'asc',
-        link: '{link}',
-        display: false,
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        sort: 'asc',
-        link: '/project/{queried_project_ids}',
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '15%',
-        },
-      },
-      {
-        dataField: 'transformed_type',
-        header: 'Type',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '5%',
-        },
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-      },
-      {
-        dataField: 'submission_date',
-        header: 'Submission Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'last_update_date',
-        header: 'Last Update Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'release_date',
-        header: 'Release Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'registration_date',
-        header: 'Registration Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-    ],
-    id: 'dataset_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'dataset_tab_table',
-    selectableRows: false,
-    tabIndex: '2',
-    tableDownloadCSV: customDatasetsTabDownloadCSV,
-    downloadFileName: 'datasets_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Clinical Trials',
-    dataField: 'dataClinicalTrial',
-    api: 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY',
-    paginationAPIField: 'clinicalTrialOverView',
-    defaultSortField: 'clinical_trial_id',
-    defaultSortDirection: 'asc',
-    count: 'numberOfClinicalTrials',
-    buttonText: 'Add Selected Files',
-    dataKey: 'clinical_trial_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'clinical_trial_id',
-        header: 'Clinical Trial ID',
-        sort: 'asc',
-        link: 'https://clinicaltrials.gov/ct2/show/{clinical_trial_id}/',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        sort: 'asc',
-        link: '/project/{queried_project_ids}',
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '15%',
-        },
-      },
-      {
-        dataField: 'title',
-        header: 'Title',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '55%',
-        },
-      },
-      {
-        dataField: 'last_update_posted',
-        header: 'Last Update Posted',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-      {
-        dataField: 'recruitment_status',
-        header: 'Recruitment Status',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '10%',
-        },
-      },
-    ],
-    id: 'clinical_trial_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'clinical_trial_tab_table',
-    selectableRows: false,
-    tabIndex: '3',
-    tableDownloadCSV: customClinicalTrialsTabDownloadCSV,
-    downloadFileName: 'clinical_trials_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-  {
-    name: 'Patents',
-    dataField: 'dataPatent',
-    api: 'GET_PATENTS_OVERVIEW_QUERY',
-    paginationAPIField: 'patentOverView',
-    defaultSortField: 'patent_id',
-    defaultSortDirection: 'asc',
-    count: 'numberOfPatents',
-    buttonText: 'Add Selected Files',
-    dataKey: 'patent_id',
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#DC2FDA',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-    columns: [
-      {
-        dataField: 'patent_id',
-        header: 'Patent ID',
-        sort: 'asc',
-        primary: true,
-        display: true,
-        headerStyles: {
-          width: '40%',
-        },
-      },
-      {
-        dataField: 'queried_project_ids',
-        header: 'Project IDs',
-        sort: 'asc',
-        link: '/project/{queried_project_ids}',
-        display: true,
-        dataTransform: (ids) => {
-          let transformedIds = '';
-
-          for (let i = 0; i < ids.length; i += 1) {
-            if (i === 0) {
-              transformedIds = ids[0];
-            } else {
-              transformedIds = transformedIds + ', ' + ids[i];
-            }
-          }
-
-          return transformedIds;
-        },
-        headerStyles: {
-          width: '30%',
-        },
-      },
-      {
-        dataField: 'fulfilled_date',
-        header: 'Fulfilled Date',
-        sort: 'asc',
-        display: true,
-        headerStyles: {
-          width: '30%',
-        },
-      },
-    ],
-    id: 'patent_tab',
-    onRowsSelect: 'type1',
-    disableRowSelection: 'type1',
-    tableID: 'patent_tab_table',
-    selectableRows: false,
-    tabIndex: '4',
-    tableDownloadCSV: customPatentsTabDownloadCSV,
-    downloadFileName: 'patents_download',
-    headerPagination: true,
-    footerPagination: true,
-  },
-];
-
 // --------------- Tabs Header Data configuration --------------
 export const tabs = [
   {
@@ -624,24 +35,6 @@ export const tabs = [
     title: 'Publications',
     dataField: 'dataPublication',
     count: 'numberOfPublications',
-  },
-  {
-    id: 'dataset_tab',
-    title: 'Datasets',
-    dataField: 'dataDataset',
-    count: 'numberOfDatasets',
-  },
-  {
-    id: 'clinical_trial_tab',
-    title: 'Clinical Trials',
-    dataField: 'dataClinicalTrial',
-    count: 'numberOfClinicalTrials',
-  },
-  {
-    id: 'patent_tab',
-    title: 'Patents',
-    dataField: 'dataPatent',
-    count: 'numberOfPatents',
   },
 ];
 
@@ -658,24 +51,6 @@ export const tabIndex = [
     primaryColor: '#E7E5F1',
     secondaryColor: '#C3DBD4',
     selectedColor: '#6D679E',
-  },
-  {
-    title: 'Datasets',
-    primaryColor: '#D6F2EA',
-    secondaryColor: '#FFDFB8',
-    selectedColor: '#10A075',
-  },
-  {
-    title: 'Clinical Trials',
-    primaryColor: '#D3F0F2',
-    secondaryColor: '#E4E8D5',
-    selectedColor: '#0FA8B1',
-  },
-  {
-    title: 'Patents',
-    primaryColor: '#CFEDF9',
-    secondaryColor: '#C9F1F1',
-    selectedColor: '#0DAFEC',
   },
 ];
 
@@ -696,9 +71,6 @@ query searchProjects (
     numberOfProjects
     numberOfCoreProjects
     numberOfPublications
-    numberOfDatasets
-    numberOfClinicalTrials
-    numberOfPatents
     projectCountByProgram{
       group
       subjects
@@ -778,9 +150,6 @@ export const FILTER_GROUP_QUERY = gql`
       subjects
     }
     numberOfPublications(project_ids: $subject_ids)
-    numberOfDatasets(project_ids: $subject_ids)
-    numberOfClinicalTrials(project_ids: $subject_ids)
-    numberOfPatents(project_ids: $subject_ids)
   }`;
 
 export const FILTER_QUERY = gql`
@@ -796,9 +165,6 @@ searchProjects(programs: $programs,
         numberOfProjects
         numberOfCoreProjects
         numberOfPublications
-        numberOfDatasets
-        numberOfClinicalTrials
-        numberOfPatents
 }
 projectCountByProgram{
   group
@@ -932,109 +298,6 @@ query publicationOverView(
 }
   `;
 
-export const GET_DATASETS_OVERVIEW_QUERY = gql`
-  query datasetOverView(
-    $programs: [String],
-    $docs: [String],
-    $fiscal_years: [String],
-    $award_amounts: [String],
-    $offset: Int,
-    $first: Int,
-    $order_by: String,
-    $sort_direction: String 
-    ){
-    datasetOverView(
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-    ) {
-      accession,
-      title,
-      submission_date,
-      last_update_date,
-      release_date,
-      registration_date,
-      queried_project_ids,
-      type,
-      link,
-      transformed_type
-    }
-}
-  `;
-
-export const GET_CLINICAL_TRIALS_OVERVIEW_QUERY = gql`
-  query clinicalTrialOverView(
-    $programs: [String],
-    $docs: [String],
-    $fiscal_years: [String],
-    $award_amounts: [String],
-    $offset: Int,
-    $first: Int,
-    $order_by: String,
-    $sort_direction: String 
-    ){
-    clinicalTrialOverView(
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-    ) {
-      clinical_trial_id,
-      title,
-      last_update_posted,
-      recruitment_status,
-      queried_project_ids
-    }
-}
-  `;
-
-export const GET_PATENTS_OVERVIEW_QUERY = gql`
-  query patentOverView(
-    $programs: [String],
-    $docs: [String],
-    $fiscal_years: [String],
-    $award_amounts: [String],
-    $offset: Int,
-    $first: Int,
-    $order_by: String,
-    $sort_direction: String 
-    ){
-    patentOverView(
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-    ) {
-      patent_id,
-      fulfilled_date,
-      queried_project_ids
-    }
-}
-  `;
-
-// export const GET_ALL_FILEIDS_CASESTAB_FOR_SELECT_ALL = gql`
-//   query subjectOverView($subject_ids: [String], $first: Int = 10000000){
-//     fileOverView(submitted_file_ids: $subject_ids, first: $first) {
-//         files {
-//               file_id: file_set_id
-//         }
-//     }
-// }
-//   `;
-
 export const GET_ALL_FILEIDS_CASESTAB_FOR_SELECT_ALL = gql`
 query search (          
   $subject_ids: [String],
@@ -1045,15 +308,6 @@ query search (
 }
   `;
 
-// export const GET_ALL_FILEIDS_SAMPLESTAB_FOR_SELECT_ALL = gql`
-// eslint-disable-next-line max-len
-// query sampleOverview($sample_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by:String =""){
-//   sampleOverview(sample_ids: $sample_ids, offset: $offset,first: $first, order_by: $order_by) {
-//     files
-// }
-// }
-//   `;
-
 export const GET_ALL_FILEIDS_SAMPLESTAB_FOR_SELECT_ALL = gql`
 query search (          
   $sample_ids: [String],
@@ -1063,15 +317,6 @@ query search (
   ) 
 }
   `;
-
-// export const GET_ALL_FILEIDS_FILESTAB_FOR_SELECT_ALL = gql`
-// eslint-disable-next-line max-len
-// query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 10, $order_by: String = "file_name") {
-//   fileOverview(file_ids: $file_ids, offset: $offset, first: $first, order_by: $order_by) {
-//     file_id
-//   }
-// }
-//   `;
 
 export const GET_ALL_FILEIDS_FILESTAB_FOR_SELECT_ALL = gql`
 query search (          
@@ -1267,3 +512,225 @@ export const GET_FILE_IDS_FROM_FILE_NAME = gql`
           file_id
       }
   }`;
+
+// --------------- Tabs Table configuration --------------
+export const tabContainers = [
+  {
+    name: 'Grants',
+    dataField: 'dataProject',
+    api: GET_PROJECTS_OVERVIEW_QUERY,
+    paginationAPIField: 'projectOverView',
+    defaultSortField: 'project_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfProjects',
+    buttonText: 'Add Selected Files',
+    dataKey: 'project_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'project_id',
+        header: 'Grant ID',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'queried_project_id',
+        header: 'Project ID',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['queried_project_id'],
+        },
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program',
+        header: 'Program',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/program',
+          pathParams: ['program'],
+        },
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'project_title',
+        header: 'Project Title',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'principal_investigators',
+        header: 'Principal Investigators',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program_officers',
+        header: 'Program Officers',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'lead_doc',
+        header: 'Lead DOC',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'activity_code',
+        header: 'Activity Code',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'award_amount',
+        header: 'Award Amount',
+        display: true,
+        dataTransform: (money) => {
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0,
+          });
+
+          return formatter.format(money);
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'project_end_date',
+        header: 'Project End Date',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'fiscal_year',
+        header: 'Fiscal Year',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'project_tab',
+    tableMsg: {
+      noMatch: 'No Matching Records Found',
+    },
+    tableID: 'project_tab_table',
+    tabIndex: '0',
+    tableDownloadCSV: customProjectsTabDownloadCSV,
+    downloadFileName: 'projects_download',
+  },
+  {
+    name: 'Publications',
+    dataField: 'dataPublication',
+    api: GET_PUBLICATIONS_OVERVIEW_QUERY,
+    paginationAPIField: 'publicationOverView',
+    defaultSortField: 'publication_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfPublications',
+    buttonText: 'Add Selected Files',
+    dataKey: 'publication_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'publication_id',
+        header: 'PubMed ID',
+        cellType: cellTypes.EXTERNAL_LINK,
+        linkAttr: {
+          rootPath: 'https://pubmed.ncbi.nlm.nih.gov',
+          pathParams: ['publication_id'],
+        },
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'queried_project_ids',
+        header: 'Project IDs',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['queried_project_ids'],
+        },
+        display: true,
+        dataTransform: (ids) => {
+          let transformedIds = '';
+
+          for (let i = 0; i < ids.length; i += 1) {
+            if (i === 0) {
+              transformedIds = ids[0];
+            } else {
+              transformedIds = transformedIds + ', ' + ids[i];
+            }
+          }
+
+          return transformedIds;
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'title',
+        header: 'Title',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'authors',
+        header: 'Authors',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'citation_count',
+        header: 'Citation Count',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'relative_citation_ratio',
+        header: 'Relative Citation Ratio',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'publish_date',
+        header: 'Publication Date',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'publication_tab',
+    tableMsg: {
+      noMatch: 'No Matching Records Found',
+    },
+    tableID: 'publication_tab_table',
+    tabIndex: '1',
+    tableDownloadCSV: customPublicationsTabDownloadCSV,
+    downloadFileName: 'publications_download',
+  },
+];
