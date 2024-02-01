@@ -4,20 +4,17 @@ import {
   Grid,
   withStyles,
 } from '@material-ui/core';
-import { getColumns } from '../../bento-components';
+import { getColumns } from '@bento-core/util';
 import _ from 'lodash';
 import {
   GET_PROJECTS_OVERVIEW_QUERY,
   GET_PUBLICATIONS_OVERVIEW_QUERY,
-  GET_DATASETS_OVERVIEW_QUERY,
-  GET_CLINICAL_TRIALS_OVERVIEW_QUERY,
-  GET_PATENTS_OVERVIEW_QUERY,
 } from '../../bento/caseDetailData';
 import CustomDataTable from '../../components/serverPaginatedTable/serverPaginatedTable';
 import DocumentDownload from '../../components/DocumentDownload/DocumentDownloadView';
 import globalData from '../../bento/siteWideConfig';
 
-const getOverviewQuery = (api) => (api === 'GET_PROJECTS_OVERVIEW_QUERY' ? GET_PROJECTS_OVERVIEW_QUERY : (api === 'GET_PUBLICATIONS_OVERVIEW_QUERY' ? GET_PUBLICATIONS_OVERVIEW_QUERY : (api === 'GET_DATASETS_OVERVIEW_QUERY' ? GET_DATASETS_OVERVIEW_QUERY : (api === 'GET_CLINICAL_TRIALS_OVERVIEW_QUERY' ? GET_CLINICAL_TRIALS_OVERVIEW_QUERY : GET_PATENTS_OVERVIEW_QUERY))));
+const getOverviewQuery = (api) => (api === 'GET_PROJECTS_OVERVIEW_QUERY' ? GET_PROJECTS_OVERVIEW_QUERY : GET_PUBLICATIONS_OVERVIEW_QUERY);
 
 const TabView = ({
   classes,
