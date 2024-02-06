@@ -55,46 +55,12 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
     marginRight: '-15px',
   };
 
-  const statBarDatasets = {
-    borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #fcb333, #c98000)',
-    padding: '10px',
-    width: `calc(${Math.log10(statsData.numberOfDatasets) * 75}px)`,
-    height: '40px',
-    float: 'right',
-    marginTop: '-15px',
-    marginRight: '-15px',
-  };
-
-  const statBarClinicalTrials = {
-    borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #32a8be, #00758b)',
-    padding: '10px',
-    width: `calc(${Math.log10(statsData.numberOfClinicalTrials) * 75}px)`,
-    height: '40px',
-    float: 'right',
-    marginTop: '-15px',
-    marginRight: '-15px',
-  };
-
-  const statBarPatents = {
-    borderRadius: '50px 0px 0px 50px',
-    backgroundImage: 'linear-gradient(to right, #95929a, #625f67)',
-    padding: '10px',
-    width: `calc(${Math.log10(statsData.numberOfPatents) * 75}px)`,
-    height: '40px',
-    float: 'right',
-    marginTop: '-15px',
-    marginRight: '-15px',
-  };
+  let modifiedStats = stats;
+  modifiedStats = modifiedStats.slice(0, 4);
 
   return (
     <>
-      <div className={classnames({
-        [classes.statsSection]: stats.length < 7,
-        [classes.statsSectionCenter]: stats.length === 7,
-      })}
-      >
+      <div className={classes.statsSectionCenter}>
         <div className={classes.leftBox}>
           <div className={classes.leftGroup}>
             <div className={classes.leftText}>
@@ -108,15 +74,10 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
           </div>
         </div>
         <div className="statsBox">
-          {stats.length > 0 && (
-            <div
-              className={classnames({
-                [classes.boxCut]: stats.length < 7,
-                [classes.box]: stats.length === 7,
-              })}
-            >
+          {modifiedStats.length > 0 && (
+            <div className={classes.box}>
               {
-                stats.map((stat, index) => (
+                modifiedStats.map((stat, index) => (
                   <div className={classes.statsGroup}>
                     <div className={classes.statsText}>
                       <div className="statsFadeIn">
@@ -128,7 +89,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
                         </div>
                       </div>
                       <div className="statsSlide">
-                        <div style={stat.statTitle === 'Programs' ? statBarPrograms : stat.statTitle === 'Projects' ? statBarProjects : stat.statTitle === 'Grants' ? statBarGrants : stat.statTitle === 'Publications' ? statBarPublications : stat.statTitle === 'Datasets' ? statBarDatasets : stat.statTitle === 'Clinical Trials' ? statBarClinicalTrials : statBarPatents} id={`bar_${index + 1}`} />
+                        <div style={stat.statTitle === 'Programs' ? statBarPrograms : stat.statTitle === 'Projects' ? statBarProjects : stat.statTitle === 'Grants' ? statBarGrants : statBarPublications} id={`bar_${index + 1}`} />
                       </div>
                     </div>
                   </div>
@@ -143,16 +104,6 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
 };
 
 const styles = () => ({
-  statsSection: {
-    maxWidth: '1200px',
-    textAlign: 'right',
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    margin: '-24px auto auto auto',
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
   statsSectionCenter: {
     background: '#403e41',
     backgroundImage: `url(${baseImg})`,
@@ -183,13 +134,6 @@ const styles = () => ({
     letterSpacing: '0.050pt',
     textTransform: 'uppercase',
     width: '869px',
-  },
-  boxCut: {
-    direction: 'ltr',
-    display: 'block',
-    borderBottom: '74px solid white',
-    borderLeft: '50px solid transparent',
-    height: '74px',
   },
   box: {
     direction: 'ltr',
