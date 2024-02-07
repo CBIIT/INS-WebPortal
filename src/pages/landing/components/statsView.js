@@ -1,6 +1,5 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
-import classnames from 'classnames';
 import {
   withStyles,
 } from '@material-ui/core';
@@ -12,51 +11,59 @@ const linkPage = '/explore';
 
 const LandingStatsView = ({ classes, stats, statsData }) => {
   const statBarPrograms = {
-    borderRadius: '50px 0px 0px 50px',
+    borderRadius: '79px 0px 0px 79px',
     backgroundImage: 'linear-gradient(to right, #c56e6e, #923b3c)',
     padding: '10px',
-    width: `calc(${Math.log10(statsData.numberOfPrograms) * 75}px)`,
-    height: '40px',
+    // width: `calc(${Math.log10(statsData.numberOfPrograms) * 48}px)`,
+    width: `calc(${Math.log10(83) * 48}px)`,
+    height: '63px',
     float: 'right',
-    marginTop: '-15px',
+    marginTop: '7px',
     marginRight: '-15px',
   };
 
   const statBarProjects = {
-    borderRadius: '50px 0px 0px 50px',
+    borderRadius: '79px 0px 0px 79px',
     backgroundImage: 'linear-gradient(to right, #be73d6, #8b40a3)',
     padding: '10px',
-    width: `calc(${Math.log10(statsData.numberOfCoreProjects) * 75}px)`,
-    height: '40px',
+    // width: `calc(${Math.log10(statsData.numberOfCoreProjects) * 48}px)`,
+    width: `calc(${Math.log10(694) * 48}px)`,
+    height: '63px',
     float: 'right',
-    marginTop: '-15px',
+    marginTop: '34px',
     marginRight: '-15px',
   };
 
   const statBarGrants = {
-    borderRadius: '50px 0px 0px 50px',
+    borderRadius: '79px 0px 0px 79px',
     backgroundImage: 'linear-gradient(to right, #6b7ea1, #384c6e)',
     padding: '10px',
-    width: `calc(${Math.log10(statsData.numberOfProjects) * 75}px)`,
-    height: '40px',
+    // width: `calc(${Math.log10(statsData.numberOfProjects) * 48}px)`,
+    width: `calc(${Math.log10(2918) * 48}px)`,
+    height: '63px',
     float: 'right',
-    marginTop: '-15px',
+    marginTop: '61px',
     marginRight: '-15px',
   };
 
   const statBarPublications = {
-    borderRadius: '50px 0px 0px 50px',
+    borderRadius: '79px 0px 0px 79px',
     backgroundImage: 'linear-gradient(to right, #aabbff, #7788cc)',
     padding: '10px',
-    width: `calc(${Math.log10(statsData.numberOfPublications) * 75}px)`,
-    height: '40px',
+    // width: `calc(${Math.log10(statsData.numberOfPublications) * 48}px)`,
+    width: `calc(${Math.log10(21360) * 48}px)`,
+    height: '63px',
     float: 'right',
-    marginTop: '-15px',
+    marginTop: '89px',
     marginRight: '-15px',
   };
 
-  let modifiedStats = stats;
-  modifiedStats = modifiedStats.slice(0, 4);
+  const modifiedStats = [
+    { statTitle: 'Programs', statAPI: '83' },
+    { statTitle: 'Projects', statAPI: '694' },
+    { statTitle: 'Grants', statAPI: '2918' },
+    { statTitle: 'Publications', statAPI: '21360' },
+  ];
 
   return (
     <>
@@ -81,11 +88,12 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
                   <div className={classes.statsGroup}>
                     <div className={classes.statsText}>
                       <div className="statsFadeIn">
-                        <div className={classes.statTitle} id={`title_${index + 1}`}>
+                        <div className={stat.statTitle === 'Programs' ? classes.statTitlePrograms : stat.statTitle === 'Projects' ? classes.statTitleProjects : stat.statTitle === 'Grants' ? classes.statTitleGrants : classes.statTitlePublications} id={`title_${index + 1}`}>
                           {stat.statTitle}
                         </div>
-                        <div className={stat.statTitle === 'Programs' ? classes.statCountShort : classes.statCount} id={`count_${index + 1}`}>
-                          {statsData[stat.statAPI]}
+                        <div className={stat.statTitle === 'Programs' ? classes.statCountPrograms : stat.statTitle === 'Projects' ? classes.statCountProjects : stat.statTitle === 'Grants' ? classes.statCountGrants : classes.statCountPublications} id={`count_${index + 1}`}>
+                          {/* {statsData[stat.statAPI]} */}
+                          {stat.statAPI}
                         </div>
                       </div>
                       <div className="statsSlide">
@@ -148,37 +156,98 @@ const styles = () => ({
     lineHeight: '15px',
     float: 'right',
   },
-  statTitle: {
+  statTitlePrograms: {
     display: 'inline-block',
     float: 'right',
     textAlign: 'right',
     color: '#CECECE',
     fontFamily: 'Nunito',
     fontWeight: 900,
-    fontSize: '11px',
+    fontSize: '18px',
     textTransform: 'uppercase',
     paddingRight: '10px',
+    marginTop: '32px',
   },
-  statCountShort: {
+  statTitleProjects: {
+    display: 'inline-block',
+    float: 'right',
+    textAlign: 'right',
+    color: '#CECECE',
+    fontFamily: 'Nunito',
+    fontWeight: 900,
+    fontSize: '18px',
+    textTransform: 'uppercase',
+    paddingRight: '10px',
+    marginTop: '59px',
+  },
+  statTitleGrants: {
+    display: 'inline-block',
+    float: 'right',
+    textAlign: 'right',
+    color: '#CECECE',
+    fontFamily: 'Nunito',
+    fontWeight: 900,
+    fontSize: '18px',
+    textTransform: 'uppercase',
+    paddingRight: '10px',
+    marginTop: '86px',
+  },
+  statTitlePublications: {
+    display: 'inline-block',
+    float: 'right',
+    textAlign: 'right',
+    color: '#CECECE',
+    fontFamily: 'Nunito',
+    fontWeight: 900,
+    fontSize: '18px',
+    textTransform: 'uppercase',
+    paddingRight: '10px',
+    marginTop: '114px',
+  },
+  statCountPrograms: {
     display: 'inline-block',
     color: '#FFFFFF',
     textAlign: 'right',
     float: 'right',
     fontFamily: 'Oswald',
-    fontSize: '24px',
+    fontSize: '38px',
     fontWeight: 600,
     marginRight: '5px',
-    marginLeft: '30px',
+    marginTop: '32px',
   },
-  statCount: {
+  statCountProjects: {
     display: 'inline-block',
     color: '#FFFFFF',
     textAlign: 'right',
     float: 'right',
     fontFamily: 'Oswald',
-    fontSize: '24px',
+    fontSize: '38px',
     fontWeight: 600,
     marginRight: '5px',
+    marginTop: '59px',
+  },
+  statCountGrants: {
+    display: 'inline-block',
+    color: '#FFFFFF',
+    textAlign: 'right',
+    float: 'right',
+    fontFamily: 'Oswald',
+    fontSize: '38px',
+    fontWeight: 600,
+    marginRight: '5px',
+    marginTop: '86px',
+  },
+  statCountPublications: {
+    display: 'inline-block',
+    color: '#FFFFFF',
+    textAlign: 'right',
+    float: 'right',
+    fontFamily: 'Oswald',
+    fontSize: '38px',
+    fontWeight: 600,
+    marginRight: '5px',
+    marginTop: '114px',
+    marginLeft: '-25px',
   },
   floatLeft: {
     float: 'left',
@@ -194,7 +263,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '17px 50px 17px 70px',
+    padding: '17px 50px 81px 70px',
   },
   leftText: {
     fontFamily: 'Inter',
