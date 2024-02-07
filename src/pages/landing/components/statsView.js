@@ -1,4 +1,3 @@
-/* eslint-disable object-curly-newline */
 import React from 'react';
 import {
   withStyles,
@@ -263,7 +262,7 @@ const styles = () => ({
     margin: '5px 5px -10px 5px',
   },
   leftGroup: {
-    padding: '17px 50px 81px 70px',
+    padding: '17px 15px 81px 70px',
   },
   leftText: {
     fontFamily: 'Inter',
