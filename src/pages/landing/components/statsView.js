@@ -80,8 +80,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
                           {stat.statTitle}
                         </div>
                         <div className={stat.statTitle === 'Programs' ? classes.statCountPrograms : stat.statTitle === 'Projects' ? classes.statCountProjects : stat.statTitle === 'Grants' ? classes.statCountGrants : classes.statCountPublications} id={`count_${index + 1}`}>
-                          {/* {statsData[stat.statAPI]} */}
-                          {stat.statAPI}
+                          {statsData[stat.statAPI]}
                         </div>
                       </div>
                       <div className="statsSlide">
