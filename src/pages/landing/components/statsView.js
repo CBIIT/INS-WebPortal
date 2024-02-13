@@ -13,8 +13,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
     borderRadius: '79px 0px 0px 79px',
     backgroundImage: 'linear-gradient(to right, #c56e6e, #923b3c)',
     padding: '10px',
-    // width: `calc(${Math.log10(statsData.numberOfPrograms) * 48}px)`,
-    width: `calc(${Math.log10(83) * 48}px)`,
+    width: `calc(${Math.log10(statsData.numberOfPrograms) * 48}px)`,
     height: '63px',
     float: 'right',
     marginTop: '7px',
@@ -25,8 +24,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
     borderRadius: '79px 0px 0px 79px',
     backgroundImage: 'linear-gradient(to right, #be73d6, #8b40a3)',
     padding: '10px',
-    // width: `calc(${Math.log10(statsData.numberOfProjects) * 48}px)`,
-    width: `calc(${Math.log10(694) * 48}px)`,
+    width: `calc(${Math.log10(statsData.numberOfProjects) * 48}px)`,
     height: '63px',
     float: 'right',
     marginTop: '34px',
@@ -37,8 +35,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
     borderRadius: '79px 0px 0px 79px',
     backgroundImage: 'linear-gradient(to right, #6b7ea1, #384c6e)',
     padding: '10px',
-    // width: `calc(${Math.log10(statsData.numberOfGrants) * 48}px)`,
-    width: `calc(${Math.log10(2918) * 48}px)`,
+    width: `calc(${Math.log10(statsData.numberOfGrants) * 48}px)`,
     height: '63px',
     float: 'right',
     marginTop: '61px',
@@ -49,20 +46,12 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
     borderRadius: '79px 0px 0px 79px',
     backgroundImage: 'linear-gradient(to right, #aabbff, #7788cc)',
     padding: '10px',
-    // width: `calc(${Math.log10(statsData.numberOfPublications) * 48}px)`,
-    width: `calc(${Math.log10(21360) * 48}px)`,
+    width: `calc(${Math.log10(statsData.numberOfPublications) * 48}px)`,
     height: '63px',
     float: 'right',
     marginTop: '89px',
     marginRight: '-15px',
   };
-
-  const modifiedStats = [
-    { statTitle: 'Programs', statAPI: '83' },
-    { statTitle: 'Projects', statAPI: '694' },
-    { statTitle: 'Grants', statAPI: '2918' },
-    { statTitle: 'Publications', statAPI: '21360' },
-  ];
 
   return (
     <>
@@ -80,10 +69,10 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
           </div>
         </div>
         <div className="statsBox">
-          {modifiedStats.length > 0 && (
+          {stats.length > 0 && (
             <div className={classes.box}>
               {
-                modifiedStats.map((stat, index) => (
+                stats.map((stat, index) => (
                   <div className={classes.statsGroup}>
                     <div className={classes.statsText}>
                       <div className="statsFadeIn">
