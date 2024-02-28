@@ -17,14 +17,14 @@ const DashTemplate = ({
     <div>
       <div className={classes.content}>
         <div className={classes.sideBar}>
-          {/* <BentoFacetFilter
+          <BentoFacetFilter
             searchData={dashData}
             activeFilters={activeFilters}
-          /> */}
+          />
         </div>
         <div className={classes.rightContent}>
           <div className={classes.widgetsContainer}>
-            {/* <QueryBarView data={dashData} /> */}
+            <QueryBarView data={dashData} />
             {/* <WidgetView
               data={dashData}
             /> */}
