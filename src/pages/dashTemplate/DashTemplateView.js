@@ -17,18 +17,18 @@ const DashTemplate = ({
     <div>
       <div className={classes.content}>
         <div className={classes.sideBar}>
-          <BentoFacetFilter
+          {/* <BentoFacetFilter
             searchData={dashData}
             activeFilters={activeFilters}
-          />
+          /> */}
         </div>
         <div className={classes.rightContent}>
           <div className={classes.widgetsContainer}>
-            <QueryBarView data={dashData} />
-            <WidgetView
+            {/* <QueryBarView data={dashData} /> */}
+            {/* <WidgetView
               data={dashData}
-            />
-            <hr style={{
+            /> */}
+            {/* <hr style={{
               marginTop: '48px',
               marginBottom: 0,
               color: '#E2E7EC',
@@ -36,11 +36,11 @@ const DashTemplate = ({
               height: '16px',
               borderWidth: 0,
             }}
-            />
-            <TabsView
+            /> */}
+            {/* <TabsView
               dashboardStats={dashData}
               activeFilters={activeFilters}
-            />
+            /> */}
           </div>
         </div>
       </div>

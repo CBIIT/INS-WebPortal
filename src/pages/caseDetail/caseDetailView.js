@@ -20,8 +20,8 @@ import TabsView from './tabs/TabsView';
 const CaseDetail = ({ data, classes }) => {
   const stat = {
     numberOfPrograms: 1,
-    numberOfCoreProjects: 1,
-    numberOfProjects: data.num_projects,
+    numberOfProjects: 1,
+    numberOfGrants: data.num_projects,
     numberOfPublications: data.num_publications,
   };
 

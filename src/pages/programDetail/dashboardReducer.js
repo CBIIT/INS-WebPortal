@@ -399,8 +399,8 @@ const convertResultInPrevType = (result) => {
     ...result.data.searchProjects,
     nodeCountsFromLists: {
       numberOfPrograms: result.data.searchProjects.numberOfPrograms,
+      numberOfGrants: result.data.searchProjects.numberOfGrants,
       numberOfProjects: result.data.searchProjects.numberOfProjects,
-      numberOfCoreProjects: result.data.searchProjects.numberOfCoreProjects,
       numberOfPublications: result.data.searchProjects.numberOfPublications,
     },
   };

@@ -282,8 +282,8 @@ export const showCheckboxCount = 5;
 // --------------- Dashboard Query configuration --------------
 export const GET_DASHBOARD_DATA_QUERY = gql`{
   numberOfPrograms
+  numberOfGrants
   numberOfProjects
-  numberOfCoreProjects
   numberOfPublications
   numberOfGEOs
   numberOfSRAs

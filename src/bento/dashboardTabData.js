@@ -28,7 +28,7 @@ export const tabs = [
     id: 'project_tab',
     title: 'Grants',
     dataField: 'dataProject',
-    count: 'numberOfProjects',
+    count: 'numberOfGrants',
   },
   {
     id: 'publication_tab',
@@ -55,68 +55,32 @@ export const tabIndex = [
 ];
 
 export const DASHBOARD_QUERY_NEW = gql`
-query searchProjects (          
-  $programs: [String],
-  $docs: [String],
-  $fiscal_years: [String],
-  $award_amounts: [String]
-){
-  searchProjects (          
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
-  ) {
-    numberOfPrograms
-    numberOfProjects
-    numberOfCoreProjects
-    numberOfPublications
-    projectCountByProgram{
+query search(
+  # Program fields
+  # $program_ids: [String],
+  $focus_area: [String]
+) {
+searchProjects(
+  # Program fields
+  # program_ids: $program_ids,
+  focus_area: $focus_area
+) {
+  numberOfGrants
+  numberOfPrograms
+  numberOfProjects
+  numberOfPublications
+  projectCountByFocusArea {
       group
       subjects
-    }
-    projectCountByDOC{
-      group
-      subjects
-    }
-    projectCountByFiscalYear{
-      group
-      subjects
-    }
-    projectCountByAwardAmount{
-      group
-      subjects
-    }
-    publicationCountByYear{
-      group
-      subjects
-    }
-    publicationCountByRCR{
-      group
-      subjects
-    }
-    publicationCountByCitation
-    {
-      group
-      subjects
-    }
-    filterProjectCountByProgram{
-      group
-      subjects
-    }
-    filterProjectCountByDOC{
-      group
-      subjects
-    }
-    filterProjectCountByFiscalYear{
-      group
-      subjects
-    }
-    filterProjectCountByAwardAmount{
-      group
-      subjects
-    }
+      __typename
   }
+  filterProjectCountByFocusArea {
+      group
+      subjects
+      __typename
+  }
+  __typename
+}
 }`;
 
 export const FILTER_GROUP_QUERY = gql`
@@ -162,8 +126,8 @@ searchProjects(programs: $programs,
   fiscal_years: $fiscal_years,
   award_amounts: $award_amounts) {
         numberOfPrograms
+        numberOfGrants
         numberOfProjects
-        numberOfCoreProjects
         numberOfPublications
 }
 projectCountByProgram{
@@ -522,7 +486,7 @@ export const tabContainers = [
     paginationAPIField: 'projectOverView',
     defaultSortField: 'project_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfProjects',
+    count: 'numberOfGrants',
     buttonText: 'Add Selected Files',
     dataKey: 'project_id',
     extendedViewConfig: {
