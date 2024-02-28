@@ -37,10 +37,10 @@ const DashTemplate = ({
               borderWidth: 0,
             }}
             /> */}
-            {/* <TabsView
+            <TabsView
               dashboardStats={dashData}
               activeFilters={activeFilters}
-            /> */}
+            />
           </div>
         </div>
       </div>
