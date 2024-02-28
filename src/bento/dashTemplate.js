@@ -24,6 +24,7 @@ export const facetSectionVariables = {
     checkBoxColorsTwo: '#F5FDEE',
     height: '5px',
     isExpanded: true,
+    hasSearch: true,
   },
 };
 
