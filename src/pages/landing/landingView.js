@@ -46,12 +46,12 @@ const LandingView = ({ classes, statsData }) => {
     <>
       <div className={classes.disclaimer}>
         <p>
-          The INS is in early development. Many NCI studies and their outputs are not yet represented here.
+          The INS website is under active development. Some NCI-supported projects and associated outputs may not be represented here.
         </p>
         <p>
-          Please read our
-          <Link to="/about" className={classes.aboutLink}>About page</Link>
-          to learn more.
+          Please contact the
+          <a className={classes.aboutLink} href="mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback">ODS mailbox</a>
+          to provide updates or feedback.
         </p>
       </div>
       <div className={classes.page}>
@@ -64,15 +64,7 @@ const LandingView = ({ classes, statsData }) => {
                   {landingPageData.callToActionTitle}
                 </div>
                 <div className={classes.headerContent}>
-                  As we work to improve this
-                  <b>initial phase</b>
-                  of the Index of NCI Studies (INS), please be aware that we currently gather outputs only from
-                  <b>extramural grants</b>
-                  to the
-                  <b>Cancer Moonshot</b>
-                  or
-                  <b>Childhood Cancer Data Initiative</b>
-                  (CCDI) programs. In addition, there may be some false positive connections between grants and outputs as we improve our automated collection and association processes. Read more on how we are tackling these challenges on the
+                  The INS website is continuously evolving. The Office of Data Sharing conducted a landscape analysis of the NCI-supported programs and key focus areas, and during this process, some projects or programs may have been missed. Additionally, we are in the process of streamlining the outputs (e.g., publications, data, etc.). Therefore, the site may not be comprehensive in terms of the list of projects, and the mapping of projects and outputs is still underway. You can learn more about how we are collecting information on the
                   <Link to="/about" className={classes.headerAboutLink}>About page</Link>
                   .
                 </div>
