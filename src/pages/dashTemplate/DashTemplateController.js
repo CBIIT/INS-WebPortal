@@ -211,18 +211,6 @@ const getDashData = (states) => {
         subjects: 297,
       },
     ],
-    projectCountByProgram: [
-      {
-        group: 'Moonshot',
-        subjects: 297,
-        __typename: 'SearchProjectsReturnObject',
-      },
-      {
-        group: 'CCDI',
-        subjects: 53,
-        __typename: 'SearchProjectsReturnObject',
-      },
-    ],
     projectCountByDOC: [
       {
         group: 'DCTD',
@@ -452,18 +440,6 @@ const getDashData = (states) => {
       {
         group: '15 to 19',
         subjects: 297,
-        __typename: 'SearchProjectsReturnObject',
-      },
-    ],
-    filterProjectCountByProgram: [
-      {
-        group: 'Moonshot',
-        subjects: 297,
-        __typename: 'SearchProjectsReturnObject',
-      },
-      {
-        group: 'CCDI',
-        subjects: 53,
         __typename: 'SearchProjectsReturnObject',
       },
     ],
