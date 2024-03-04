@@ -10,8 +10,8 @@ export const searchTabTitleText = 'Search';
 export const facetSearchData = [{
   label: 'Program',
   field: 'group',
-  api: 'projectCountByProgram',
-  apiForFiltering: 'filterProjectCountByProgram',
+  api: 'projectCountByFocusArea',
+  apiForFiltering: 'filterProjectCountByFocusArea',
   datafield: 'programs',
   section: 'Programs',
   show: true,

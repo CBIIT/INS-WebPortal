@@ -43,7 +43,7 @@ query searchProjects (
     numberOfPrograms
     numberOfProjects
     numberOfPublications
-    projectCountByProgram{
+    projectCountByFocusArea{
       group
       subjects
     }
@@ -72,7 +72,7 @@ query searchProjects (
       group
       subjects
     }
-    filterProjectCountByProgram{
+    filterProjectCountByFocusArea{
       group
       subjects
     }
@@ -103,7 +103,7 @@ export const GET_SEARCH_NODECOUNTS = gql`
       numberOfProjects
       numberOfPublications
   }
-  filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+  filterProjectCountByFocusArea(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
     group
     subjects
   }

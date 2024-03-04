@@ -1219,7 +1219,7 @@ const reducers = {
     }
 
     if (item.allFilters.programs.length !== 0) {
-      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByProgram.map((opt) => opt.group);
+      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByFocusArea.map((opt) => opt.group);
       item.allFilters.programs.forEach((program) => {
         if (validCheckBoxOptions.indexOf(program) > -1) {
           newAllFilters.programs.push(program);

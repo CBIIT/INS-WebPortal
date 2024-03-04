@@ -31,8 +31,26 @@ const getDashData = (states) => {
     numberOfGrants: 2189,
     numberOfProjects: 588,
     numberOfPublications: 11873,
-    projectCountByFocusArea: null,
-    filterProjectCountByFocusArea: [],
+    projectCountByFocusArea: [
+      {
+        group: 'Focus Area 1',
+        subjects: 297,
+      },
+      {
+        group: 'Focus Area 2',
+        subjects: 53,
+      },
+    ],
+    filterProjectCountByFocusArea: [
+      {
+        group: 'Focus Area 1',
+        subjects: 297,
+      },
+      {
+        group: 'Focus Area 2',
+        subjects: 53,
+      },
+    ],
     projectCountByProgram: [
       {
         group: 'Moonshot',

@@ -114,7 +114,7 @@ searchProjects(
 
 export const FILTER_GROUP_QUERY = gql`
   query groupCounts($subject_ids: [String]){
-    projectCountByProgram(project_ids: $subject_ids){
+    projectCountByFocusArea(project_ids: $subject_ids){
       group
       subjects
     }
@@ -159,7 +159,7 @@ searchProjects(programs: $programs,
         numberOfProjects
         numberOfPublications
 }
-projectCountByProgram{
+projectCountByFocusArea{
   group
   subjects
 }
@@ -188,7 +188,7 @@ publicationCountByCitation
   group
   subjects
 }
-filterProjectCountByProgram{
+filterProjectCountByFocusArea{
   group
   subjects
 }
