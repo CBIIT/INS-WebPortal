@@ -31,6 +31,8 @@ const getDashData = (states) => {
     numberOfGrants: 2189,
     numberOfProjects: 588,
     numberOfPublications: 11873,
+    projectCountByFocusArea: null,
+    filterProjectCountByFocusArea: [],
     projectCountByProgram: [
       {
         group: 'Moonshot',
@@ -408,7 +410,7 @@ const getDashData = (states) => {
         __typename: 'SearchProjectsReturnObject',
       },
     ],
-    __typename: 'SearchProjectsResult',
+    __typename: 'SearchResult',
   };
 
   console.log('dashData: ', dashData);

@@ -13,58 +13,18 @@ export const facetSearchData = [{
   api: 'projectCountByProgram',
   apiForFiltering: 'filterProjectCountByProgram',
   datafield: 'programs',
-  section: 'Projects',
+  section: 'Programs',
   show: true,
   tooltips: {
     CCDI: 'Childhood Cancer Data Initiative',
     Moonshot: 'Cancer Moonshot',
   },
 },
-{
-  label: 'Division/Office/Center',
-  field: 'group',
-  api: 'projectCountByDOC',
-  apiForFiltering: 'filterProjectCountByDOC',
-  datafield: 'docs',
-  section: 'Projects',
-  show: true,
-  tooltips: {
-    CCG: 'Center for Cancer Genomics',
-    CCT: 'Center for Cancer Training',
-    CRCHD: 'Center to Reduce Cancer Health Disparities',
-    CSSI: 'Center for Strategic Scientific Initiatives',
-    DCB: 'Division of Cancer Biology',
-    DCCPS: 'Division of Cancer Control and Population Sciences',
-    DCP: 'Division of Cancer Prevention',
-    DCTD: 'Division of Cancer Treatment and Diagnosis',
-    OD: 'Office of the Director',
-    SBIR: 'Small Business Innovation Research',
-    OCC: 'Office of Cancer Centers',
-  },
-},
-{
-  label: 'Fiscal Year',
-  field: 'group',
-  api: 'projectCountByFiscalYear',
-  apiForFiltering: 'filterProjectCountByFiscalYear',
-  datafield: 'fiscal_years',
-  section: 'Projects',
-  show: true,
-},
-{
-  label: 'Award Amount',
-  field: 'group',
-  api: 'projectCountByAwardAmount',
-  apiForFiltering: 'filterProjectCountByAwardAmount',
-  datafield: 'award_amounts',
-  section: 'Projects',
-  show: true,
-},
 ];
 
 // --------------- Dashboard Sidebar Sections styling --------------
 export const facetSectionVariables = {
-  Projects: {
+  Programs: {
     color: '#10A075',
     backgroundColor: '#C0E9D7',
     checkBoxColorsOne: '#E8F7DC',
@@ -77,7 +37,7 @@ export const facetSectionVariables = {
 // --------------- Dashboard Facet Local Find Configuration --------------
 
 export const facetSectionFindApi = {
-  Projects: {
+  Programs: {
     api: 'subjectIds',
   },
 };

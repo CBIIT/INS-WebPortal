@@ -1,6 +1,6 @@
 import { sortType, InputTypes } from '@bento-core/facet-filter';
 
-const PROJECTS = 'Projects';
+const PROGRAMS = 'Programs';
 const GROUP = 'group';
 
 // --------------- Facet resetIcon link configuration --------------
@@ -12,12 +12,12 @@ export const resetIcon = {
 };
 
 export const sectionLabel = {
-  Projects: 'Filter by Projects',
+  Programs: 'Filter by Programs',
 };
 
 // --------------- Dashboard Sidebar Sections styling --------------
 export const facetSectionVariables = {
-  Projects: {
+  Programs: {
     color: '#10A075',
     backgroundColor: '#C0E9D7',
     checkBoxColorsOne: '#E8F7DC',
@@ -29,62 +29,12 @@ export const facetSectionVariables = {
 };
 
 export const facetsConfig = [{
-  section: PROJECTS,
-  label: 'Program',
+  section: PROGRAMS,
+  label: 'FOCUS AREA',
   field: GROUP,
   apiPath: 'projectCountByProgram',
   apiForFiltering: 'filterProjectCountByProgram',
   datafield: 'programs',
-  type: InputTypes.CHECKBOX,
-  sort_type: sortType.ALPHABET,
-  show: true,
-  tooltips: {
-    CCDI: 'Childhood Cancer Data Initiative',
-    Moonshot: 'Cancer Moonshot',
-  },
-},
-{
-  section: PROJECTS,
-  label: 'Division/Office/Center',
-  field: GROUP,
-  apiPath: 'projectCountByDOC',
-  apiForFiltering: 'filterProjectCountByDOC',
-  datafield: 'docs',
-  type: InputTypes.CHECKBOX,
-  sort_type: sortType.ALPHABET,
-  show: true,
-  tooltips: {
-    CCG: 'Center for Cancer Genomics',
-    CCT: 'Center for Cancer Training',
-    CRCHD: 'Center to Reduce Cancer Health Disparities',
-    CSSI: 'Center for Strategic Scientific Initiatives',
-    DCB: 'Division of Cancer Biology',
-    DCCPS: 'Division of Cancer Control and Population Sciences',
-    DCP: 'Division of Cancer Prevention',
-    DCTD: 'Division of Cancer Treatment and Diagnosis',
-    OD: 'Office of the Director',
-    SBIR: 'Small Business Innovation Research',
-    OCC: 'Office of Cancer Centers',
-  },
-},
-{
-  section: PROJECTS,
-  label: 'Fiscal Year',
-  field: GROUP,
-  apiPath: 'projectCountByFiscalYear',
-  apiForFiltering: 'filterProjectCountByFiscalYear',
-  datafield: 'fiscal_years',
-  type: InputTypes.CHECKBOX,
-  sort_type: sortType.ALPHABET,
-  show: true,
-},
-{
-  section: PROJECTS,
-  label: 'Award Amount',
-  field: GROUP,
-  apiPath: 'projectCountByAwardAmount',
-  apiForFiltering: 'filterProjectCountByAwardAmount',
-  datafield: 'award_amounts',
   type: InputTypes.CHECKBOX,
   sort_type: sortType.ALPHABET,
   show: true,
