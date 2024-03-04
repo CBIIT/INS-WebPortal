@@ -83,6 +83,35 @@ searchProjects(
 }
 }`;
 
+// query search {
+//   idsLists {
+//     programIds
+//     programNames
+    
+//     __typename
+//   }
+// }
+
+// query programsOverview(
+//   # Program fields
+//   # $program_ids: [String],
+//   $focus_area: [String]
+// ) {
+// programsOverview(
+//   # Program fields
+//   # program_ids: $program_ids,
+//   focus_area: $focus_area
+// ) {
+//   data_link
+//   focus_area_str
+//   program_id
+//   program_link
+//   program_name
+
+//   __typename
+// }
+// }
+
 export const FILTER_GROUP_QUERY = gql`
   query groupCounts($subject_ids: [String]){
     projectCountByProgram(project_ids: $subject_ids){
