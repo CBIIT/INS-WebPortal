@@ -207,6 +207,54 @@ filterProjectCountByAwardAmount{
 }`;
 
 // --------------- GraphQL query - Retrieve files tab details --------------
+export const GET_PROGRAMS_OVERVIEW_QUERY = gql`
+query programOverView(
+  $programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
+  $award_amounts: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  programOverView(
+    programs: $programs,
+    docs: $docs,
+    fiscal_years: $fiscal_years,
+    award_amounts: $award_amounts,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+    ) {
+    project_id,
+    queried_project_id,
+    application_id,
+    fiscal_year,
+    activity_code,
+    project_title,
+    project_type,
+    abstract_text,
+    keywords,
+    org_name,
+    org_city,
+    org_state,
+    org_country,
+    principal_investigators,
+    lead_doc,
+    program_officers,
+    award_amount,
+    nci_funded_amount,
+    award_notice_date,
+    project_start_date,
+    project_end_date,
+    full_foa,
+    program
+  }
+}
+  `;
+
 export const GET_PROJECTS_OVERVIEW_QUERY = gql`
 query projectOverView(
   $programs: [String],
@@ -508,6 +556,248 @@ export const GET_FILE_IDS_FROM_FILE_NAME = gql`
 
 // --------------- Tabs Table configuration --------------
 export const tabContainers = [
+  {
+    name: 'Programs',
+    dataField: 'dataProgram',
+    api: GET_PROGRAMS_OVERVIEW_QUERY,
+    paginationAPIField: 'programOverView',
+    defaultSortField: 'program_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfPrograms',
+    buttonText: 'Add Selected Files',
+    dataKey: 'program_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'project_id',
+        header: 'Grant ID',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'queried_project_id',
+        header: 'Project ID',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['queried_project_id'],
+        },
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program',
+        header: 'Program',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/program',
+          pathParams: ['program'],
+        },
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'project_title',
+        header: 'Project Title',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'principal_investigators',
+        header: 'Principal Investigators',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program_officers',
+        header: 'Program Officers',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'lead_doc',
+        header: 'Lead DOC',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'activity_code',
+        header: 'Activity Code',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'award_amount',
+        header: 'Award Amount',
+        display: true,
+        dataTransform: (money) => {
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0,
+          });
+
+          return formatter.format(money);
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'project_end_date',
+        header: 'Project End Date',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'fiscal_year',
+        header: 'Fiscal Year',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'project_tab',
+    tableMsg: {
+      noMatch: 'No Matching Records Found',
+    },
+    tableID: 'project_tab_table',
+    tabIndex: '0',
+    tableDownloadCSV: customProjectsTabDownloadCSV,
+    downloadFileName: 'projects_download',
+  },
+  {
+    name: 'Projects',
+    dataField: 'dataProject',
+    api: GET_PROJECTS_OVERVIEW_QUERY,
+    paginationAPIField: 'projectOverView',
+    defaultSortField: 'project_id',
+    defaultSortDirection: 'asc',
+    count: 'numberOfProjects',
+    buttonText: 'Add Selected Files',
+    dataKey: 'project_id',
+    extendedViewConfig: {
+      pagination: true,
+      manageViewColumns: false,
+    },
+    columns: [
+      {
+        dataField: 'project_id',
+        header: 'Grant ID',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'queried_project_id',
+        header: 'Project ID',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['queried_project_id'],
+        },
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program',
+        header: 'Program',
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/program',
+          pathParams: ['program'],
+        },
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'project_title',
+        header: 'Project Title',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'principal_investigators',
+        header: 'Principal Investigators',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program_officers',
+        header: 'Program Officers',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'lead_doc',
+        header: 'Lead DOC',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'activity_code',
+        header: 'Activity Code',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'award_amount',
+        header: 'Award Amount',
+        display: true,
+        dataTransform: (money) => {
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0,
+          });
+
+          return formatter.format(money);
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'project_end_date',
+        header: 'Project End Date',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'fiscal_year',
+        header: 'Fiscal Year',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+    ],
+    id: 'project_tab',
+    tableMsg: {
+      noMatch: 'No Matching Records Found',
+    },
+    tableID: 'project_tab_table',
+    tabIndex: '0',
+    tableDownloadCSV: customProjectsTabDownloadCSV,
+    downloadFileName: 'projects_download',
+  },
   {
     name: 'Grants',
     dataField: 'dataProject',
