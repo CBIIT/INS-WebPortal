@@ -33,182 +33,216 @@ const getDashData = (states) => {
     numberOfPublications: 11873,
     projectCountByFocusArea: [
       {
-        group: 'Bladder Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Brain Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Breast Cancer',
-        subjects: 297,
-      },
-      {
         group: 'Broad Cancer Types',
-        subjects: 297,
-      },
-      {
-        group: 'Cervical Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Colorectal Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Esophageal Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Gastric Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'HIV/AIDS',
-        subjects: 297,
-      },
-      {
-        group: 'Health Disparities',
-        subjects: 297,
-      },
-      {
-        group: 'Kidney Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Leukemia',
-        subjects: 297,
-      },
-      {
-        group: 'Liver Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Lung Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Lymphoma',
-        subjects: 297,
-      },
-      {
-        group: 'Multiple Myeloma',
-        subjects: 297,
-      },
-      {
-        group: 'Osteosarcoma',
-        subjects: 297,
-      },
-      {
-        group: 'Ovarian Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Pancreas Cancer',
-        subjects: 297,
+        subjects: 592,
+        __typename: 'FacetCount',
       },
       {
         group: 'Pediatric/AYA',
-        subjects: 297,
+        subjects: 69,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Health Disparities',
+        subjects: 52,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Lung Cancer',
+        subjects: 32,
+        __typename: 'FacetCount',
       },
       {
         group: 'SPORE',
-        subjects: 297,
+        subjects: 27,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'HIV/AIDS',
+        subjects: 24,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Pancreas Cancer',
+        subjects: 19,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Cervical Cancer',
+        subjects: 17,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Colorectal Cancer',
+        subjects: 15,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Liver Cancer',
+        subjects: 10,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Leukemia',
+        subjects: 6,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Brain Cancer',
+        subjects: 4,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Breast Cancer',
+        subjects: 4,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Esophageal Cancer',
+        subjects: 4,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Gastric Cancer',
+        subjects: 4,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Lymphoma',
+        subjects: 2,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Bladder Cancer',
+        subjects: 1,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Kidney Cancer',
+        subjects: 1,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Multiple Myeloma',
+        subjects: 1,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Ovarian Cancer',
+        subjects: 1,
+        __typename: 'FacetCount',
       },
       {
         group: 'Thyroid Cancer',
-        subjects: 297,
+        subjects: 1,
+        __typename: 'FacetCount',
       },
     ],
     filterProjectCountByFocusArea: [
       {
-        group: 'Bladder Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Brain Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Breast Cancer',
-        subjects: 297,
-      },
-      {
         group: 'Broad Cancer Types',
-        subjects: 297,
-      },
-      {
-        group: 'Cervical Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Colorectal Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Esophageal Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Gastric Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'HIV/AIDS',
-        subjects: 297,
-      },
-      {
-        group: 'Health Disparities',
-        subjects: 297,
-      },
-      {
-        group: 'Kidney Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Leukemia',
-        subjects: 297,
-      },
-      {
-        group: 'Liver Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Lung Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Lymphoma',
-        subjects: 297,
-      },
-      {
-        group: 'Multiple Myeloma',
-        subjects: 297,
-      },
-      {
-        group: 'Osteosarcoma',
-        subjects: 297,
-      },
-      {
-        group: 'Ovarian Cancer',
-        subjects: 297,
-      },
-      {
-        group: 'Pancreas Cancer',
-        subjects: 297,
+        subjects: 592,
+        __typename: 'FacetCount',
       },
       {
         group: 'Pediatric/AYA',
-        subjects: 297,
+        subjects: 69,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Health Disparities',
+        subjects: 52,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Lung Cancer',
+        subjects: 32,
+        __typename: 'FacetCount',
       },
       {
         group: 'SPORE',
-        subjects: 297,
+        subjects: 27,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'HIV/AIDS',
+        subjects: 24,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Pancreas Cancer',
+        subjects: 19,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Cervical Cancer',
+        subjects: 17,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Colorectal Cancer',
+        subjects: 15,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Liver Cancer',
+        subjects: 10,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Leukemia',
+        subjects: 6,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Brain Cancer',
+        subjects: 4,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Breast Cancer',
+        subjects: 4,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Esophageal Cancer',
+        subjects: 4,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Gastric Cancer',
+        subjects: 4,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Lymphoma',
+        subjects: 2,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Bladder Cancer',
+        subjects: 1,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Kidney Cancer',
+        subjects: 1,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Multiple Myeloma',
+        subjects: 1,
+        __typename: 'FacetCount',
+      },
+      {
+        group: 'Ovarian Cancer',
+        subjects: 1,
+        __typename: 'FacetCount',
       },
       {
         group: 'Thyroid Cancer',
-        subjects: 297,
+        subjects: 1,
+        __typename: 'FacetCount',
       },
     ],
     projectCountByDOC: [
