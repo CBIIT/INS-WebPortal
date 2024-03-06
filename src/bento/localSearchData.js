@@ -30,63 +30,16 @@ export const GET_IDS_BY_TYPE = () => gql`{
 
 export const GET_SEARCH_NODES_BY_FACET = gql`
 query searchProjects (          
-  $programs: [String],
-  $docs: [String],
-  $fiscal_years: [String],
-  $award_amounts: [String]
+  $focus_area: [String]
 ){
   searchProjects (          
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
+      focus_area: $focus_area
   ) {
     numberOfPrograms
     numberOfProjects
     numberOfGrants
     numberOfPublications
-    projectCountByFocusArea{
-      group
-      subjects
-    }
-    projectCountByDOC{
-      group
-      subjects
-    }
-    projectCountByFiscalYear{
-      group
-      subjects
-    }
-    projectCountByAwardAmount{
-      group
-      subjects
-    }
-    publicationCountByYear{
-      group
-      subjects
-    }
-    publicationCountByRCR{
-      group
-      subjects
-    }
-    publicationCountByCitation
-    {
-      group
-      subjects
-    }
     filterProjectCountByFocusArea{
-      group
-      subjects
-    }
-    filterProjectCountByDOC{
-      group
-      subjects
-    }
-    filterProjectCountByFiscalYear{
-      group
-      subjects
-    }
-    filterProjectCountByAwardAmount{
       group
       subjects
     }

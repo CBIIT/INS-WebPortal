@@ -91,10 +91,6 @@ searchProjects(
   numberOfPrograms
   numberOfProjects
   numberOfPublications
-  projectCountByFocusArea {
-      group
-      subjects
-  }
   filterProjectCountByFocusArea {
       group
       subjects
@@ -137,8 +133,8 @@ export const FILTER_GROUP_QUERY = gql`
 // }
 
 export const FILTER_QUERY = gql`
-query searchProjects($programs: [String]) {
-searchProjects(programs: $programs) {
+query searchProjects($focus_area: [String]) {
+searchProjects(focus_area: $focus_area) {
         numberOfPrograms
         numberOfGrants
         numberOfProjects

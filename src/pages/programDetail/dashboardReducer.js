@@ -1186,37 +1186,10 @@ const reducers = {
   },
   TOGGLE_CHECKBOX_WITH_API: (state, item) => {
     const newAllFilters = {
-      award_amounts: [], docs: [], fiscal_years: [], programs: [],
+      programs: [],
     };
 
     let validCheckBoxOptions = [];
-
-    if (item.allFilters.award_amounts.length !== 0) {
-      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByAwardAmount.map((opt) => opt.group);
-      item.allFilters.award_amounts.forEach((amount) => {
-        if (validCheckBoxOptions.indexOf(amount) > -1) {
-          newAllFilters.award_amounts.push(amount);
-        }
-      });
-    }
-
-    if (item.allFilters.docs.length !== 0) {
-      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByDOC.map((opt) => opt.group);
-      item.allFilters.docs.forEach((doc) => {
-        if (validCheckBoxOptions.indexOf(doc) > -1) {
-          newAllFilters.docs.push(doc);
-        }
-      });
-    }
-
-    if (item.allFilters.fiscal_years.length !== 0) {
-      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByFiscalYear.map((opt) => opt.group);
-      item.allFilters.fiscal_years.forEach((fyear) => {
-        if (validCheckBoxOptions.indexOf(fyear) > -1) {
-          newAllFilters.fiscal_years.push(fyear);
-        }
-      });
-    }
 
     if (item.allFilters.programs.length !== 0) {
       validCheckBoxOptions = item.data.searchProjects.filterProjectCountByFocusArea.map((opt) => opt.group);
@@ -1252,7 +1225,7 @@ const reducers = {
         variables: newAllFilters,
       },
       stats: getFilteredStat(item.data.searchProjects, statsCount),
-      widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
+      // widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
     };
   },
   LOCAL_SEARCH: (state, item) => {
