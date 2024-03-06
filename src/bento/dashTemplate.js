@@ -60,52 +60,52 @@ export const SUNBURST_COLORS_LEVEL_2 = [
   '#7dc242',
 ];
 
-// A maximum of 6 widgets are allowed
-// for donuts only the following are required: type, title, dataName
-//
-// type: 'sunburst' | 'donut'
-// title: string
-// dataName: string
-// datatable_level1_field: string
-// datatable_level1_colors: string[]
-// datatable_level2_field: string
-// datatable_level2_colors: string[]
-// sliceTitle: string (optional)
-export const widgetConfig = [
-  {
-    type: 'donut',
-    title: 'Projects by Fiscal Year',
-    dataName: 'projectCountByFiscalYearSorted',
-    sliceTitle: 'Projects',
-  },
-  {
-    type: 'donut',
-    title: 'Projects by NCI DOC',
-    dataName: 'projectCountByDOCSorted',
-    sliceTitle: 'Projects',
-  },
-  {
-    type: 'donut',
-    title: 'Projects by Award Amount',
-    dataName: 'projectCountByAwardAmountSorted',
-    sliceTitle: 'Projects',
-  },
-  {
-    type: 'donut',
-    title: 'Publications by Year',
-    dataName: 'publicationCountByYearSorted',
-    sliceTitle: 'Publications',
-  },
-  {
-    type: 'donut',
-    title: 'Publications by RCR Range',
-    dataName: 'publicationCountByRCRTransformed',
-    sliceTitle: 'Publications',
-  },
-  {
-    type: 'donut',
-    title: 'Publications by Citations',
-    dataName: 'publicationCountByCitationSorted',
-    sliceTitle: 'Publications',
-  },
-];
+// // A maximum of 6 widgets are allowed
+// // for donuts only the following are required: type, title, dataName
+// //
+// // type: 'sunburst' | 'donut'
+// // title: string
+// // dataName: string
+// // datatable_level1_field: string
+// // datatable_level1_colors: string[]
+// // datatable_level2_field: string
+// // datatable_level2_colors: string[]
+// // sliceTitle: string (optional)
+// export const widgetConfig = [
+//   {
+//     type: 'donut',
+//     title: 'Projects by Fiscal Year',
+//     dataName: 'projectCountByFiscalYearSorted',
+//     sliceTitle: 'Projects',
+//   },
+//   {
+//     type: 'donut',
+//     title: 'Projects by NCI DOC',
+//     dataName: 'projectCountByDOCSorted',
+//     sliceTitle: 'Projects',
+//   },
+//   {
+//     type: 'donut',
+//     title: 'Projects by Award Amount',
+//     dataName: 'projectCountByAwardAmountSorted',
+//     sliceTitle: 'Projects',
+//   },
+//   {
+//     type: 'donut',
+//     title: 'Publications by Year',
+//     dataName: 'publicationCountByYearSorted',
+//     sliceTitle: 'Publications',
+//   },
+//   {
+//     type: 'donut',
+//     title: 'Publications by RCR Range',
+//     dataName: 'publicationCountByRCRTransformed',
+//     sliceTitle: 'Publications',
+//   },
+//   {
+//     type: 'donut',
+//     title: 'Publications by Citations',
+//     dataName: 'publicationCountByCitationSorted',
+//     sliceTitle: 'Publications',
+//   },
+// ];
