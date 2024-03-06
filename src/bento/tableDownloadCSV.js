@@ -142,7 +142,7 @@ export const customProgramsTabDownloadCSV = {
     'Data Location Details',
   ],
   query: GET_PROGRAMS_TAB,
-  apiVariable: 'programOverView',
+  apiVariable: 'programsOverView',
   fileName: 'INS Programs',
   defaultFullTableDownload: true,
 };
