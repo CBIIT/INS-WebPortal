@@ -563,7 +563,7 @@ export const tabContainers = [
     name: 'Programs',
     dataField: 'dataProgram',
     api: GET_PROGRAMS_OVERVIEW_QUERY,
-    paginationAPIField: 'programsOverView',
+    paginationAPIField: 'programsOverview',
     defaultSortField: 'program_id',
     defaultSortDirection: 'asc',
     count: 'numberOfPrograms',
