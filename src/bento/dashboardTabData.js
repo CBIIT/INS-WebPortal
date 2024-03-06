@@ -2,7 +2,9 @@
 import gql from 'graphql-tag';
 import { cellTypes } from '@bento-core/table';
 import {
+  customProgramsTabDownloadCSV,
   customProjectsTabDownloadCSV,
+  customGrantsTabDownloadCSV,
   customPublicationsTabDownloadCSV,
 } from './tableDownloadCSV';
 
@@ -83,35 +85,6 @@ searchProjects(
 }
 }`;
 
-// query search {
-//   idsLists {
-//     programIds
-//     programNames
-    
-//     __typename
-//   }
-// }
-
-// query programsOverview(
-//   # Program fields
-//   # $program_ids: [String],
-//   $focus_area: [String]
-// ) {
-// programsOverview(
-//   # Program fields
-//   # program_ids: $program_ids,
-//   focus_area: $focus_area
-// ) {
-//   data_link
-//   focus_area_str
-//   program_id
-//   program_link
-//   program_name
-
-//   __typename
-// }
-// }
-
 export const FILTER_GROUP_QUERY = gql`
   query groupCounts($subject_ids: [String]){
     projectCountByFocusArea(project_ids: $subject_ids){
@@ -142,7 +115,7 @@ export const FILTER_GROUP_QUERY = gql`
       group
       subjects
     }
-    numberOfPublications(project_ids: $subject_ids)
+  numberOfPublications(project_ids: $subject_ids)
   }`;
 
 export const FILTER_QUERY = gql`
@@ -208,7 +181,28 @@ filterProjectCountByAwardAmount{
 
 // --------------- GraphQL query - Retrieve files tab details --------------
 export const GET_PROGRAMS_OVERVIEW_QUERY = gql`
-query programOverView(
+query programsOverview(
+  # Program fields
+  # $program_ids: [String],
+  $focus_area: [String]
+) {
+programsOverview(
+  # Program fields
+  # program_ids: $program_ids,
+  focus_area: $focus_area
+) {
+  data_link
+  focus_area_str
+  program_id
+  program_link
+  program_name
+  __typename
+}
+}
+  `;
+
+export const GET_PROJECTS_OVERVIEW_QUERY = gql`
+query projectOverView(
   $programs: [String],
   $docs: [String],
   $fiscal_years: [String],
@@ -218,7 +212,7 @@ query programOverView(
   $order_by: String,
   $sort_direction: String 
   ){
-  programOverView(
+  projectOverView(
     programs: $programs,
     docs: $docs,
     fiscal_years: $fiscal_years,
@@ -255,8 +249,8 @@ query programOverView(
 }
   `;
 
-export const GET_PROJECTS_OVERVIEW_QUERY = gql`
-query projectOverView(
+export const GET_GRANTS_OVERVIEW_QUERY = gql`
+query grantOverView(
   $programs: [String],
   $docs: [String],
   $fiscal_years: [String],
@@ -266,7 +260,7 @@ query projectOverView(
   $order_by: String,
   $sort_direction: String 
   ){
-  projectOverView(
+  grantOverView(
     programs: $programs,
     docs: $docs,
     fiscal_years: $fiscal_years,
@@ -572,110 +566,55 @@ export const tabContainers = [
     },
     columns: [
       {
-        dataField: 'project_id',
-        header: 'Grant ID',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'queried_project_id',
-        header: 'Project ID',
-        cellType: cellTypes.LINK,
-        linkAttr: {
-          rootPath: '/project',
-          pathParams: ['queried_project_id'],
-        },
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'program',
+        dataField: 'program_name',
         header: 'Program',
-        cellType: cellTypes.LINK,
+        // cellType: cellTypes.LINK,
+        // linkAttr: {
+        //   rootPath: '/program',
+        //   pathParams: ['program_name'],
+        // },
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
+      {
+        dataField: 'program_id',
+        header: 'Website',
+        cellType: cellTypes.EXTERNAL_LINK,
         linkAttr: {
-          rootPath: '/program',
-          pathParams: ['program'],
+          pathParams: ['program_link'],
         },
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'project_title',
-        header: 'Project Title',
+        dataField: 'focus_area_str',
+        header: 'Focus Area',
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'principal_investigators',
-        header: 'Principal Investigators',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'program_officers',
-        header: 'Program Officers',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'lead_doc',
-        header: 'Lead DOC',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'activity_code',
-        header: 'Activity Code',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'award_amount',
-        header: 'Award Amount',
-        display: true,
-        dataTransform: (money) => {
-          const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            maximumFractionDigits: 0,
-          });
-
-          return formatter.format(money);
+        dataField: 'program_id',
+        header: 'Data Location Details',
+        cellType: cellTypes.EXTERNAL_LINK,
+        linkAttr: {
+          pathParams: ['data_link'],
         },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'project_end_date',
-        header: 'Project End Date',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'fiscal_year',
-        header: 'Fiscal Year',
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
       },
     ],
-    id: 'project_tab',
+    id: 'program_tab',
     tableMsg: {
       noMatch: 'No Matching Records Found',
     },
-    tableID: 'project_tab_table',
+    tableID: 'program_tab_table',
     tabIndex: '0',
-    tableDownloadCSV: customProjectsTabDownloadCSV,
-    downloadFileName: 'projects_download',
+    tableDownloadCSV: customProgramsTabDownloadCSV,
+    downloadFileName: 'programs_download',
   },
   {
     name: 'Projects',
@@ -794,20 +733,20 @@ export const tabContainers = [
       noMatch: 'No Matching Records Found',
     },
     tableID: 'project_tab_table',
-    tabIndex: '0',
+    tabIndex: '1',
     tableDownloadCSV: customProjectsTabDownloadCSV,
     downloadFileName: 'projects_download',
   },
   {
     name: 'Grants',
-    dataField: 'dataProject',
-    api: GET_PROJECTS_OVERVIEW_QUERY,
-    paginationAPIField: 'projectOverView',
-    defaultSortField: 'project_id',
+    dataField: 'dataGrantt',
+    api: GET_GRANTS_OVERVIEW_QUERY,
+    paginationAPIField: 'grantOverView',
+    defaultSortField: 'grant_id',
     defaultSortDirection: 'asc',
     count: 'numberOfGrants',
     buttonText: 'Add Selected Files',
-    dataKey: 'project_id',
+    dataKey: 'grant_id',
     extendedViewConfig: {
       pagination: true,
       manageViewColumns: false,
@@ -910,14 +849,14 @@ export const tabContainers = [
         role: cellTypes.DISPLAY,
       },
     ],
-    id: 'project_tab',
+    id: 'grant_tab',
     tableMsg: {
       noMatch: 'No Matching Records Found',
     },
-    tableID: 'project_tab_table',
-    tabIndex: '0',
-    tableDownloadCSV: customProjectsTabDownloadCSV,
-    downloadFileName: 'projects_download',
+    tableID: 'grant_tab_table',
+    tabIndex: '2',
+    tableDownloadCSV: customGrantsTabDownloadCSV,
+    downloadFileName: 'grants_download',
   },
   {
     name: 'Publications',
@@ -1012,7 +951,7 @@ export const tabContainers = [
       noMatch: 'No Matching Records Found',
     },
     tableID: 'publication_tab_table',
-    tabIndex: '1',
+    tabIndex: '3',
     tableDownloadCSV: customPublicationsTabDownloadCSV,
     downloadFileName: 'publications_download',
   },

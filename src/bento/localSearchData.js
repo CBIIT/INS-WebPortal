@@ -43,6 +43,7 @@ query searchProjects (
   ) {
     numberOfPrograms
     numberOfProjects
+    numberOfGrants
     numberOfPublications
     projectCountByFocusArea{
       group

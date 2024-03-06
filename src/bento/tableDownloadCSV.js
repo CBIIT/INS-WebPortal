@@ -112,6 +112,46 @@ export const customProgramsTableDownloadCSV = {
   defaultFullTableDownload: true,
 };
 
+export const GET_PROGRAMS_TAB = gql`
+query programsOverview(
+  # Program fields
+  # $program_ids: [String],
+  $focus_area: [String]
+) {
+programsOverview(
+  # Program fields
+  # program_ids: $program_ids,
+  focus_area: $focus_area
+) {
+  data_link
+  focus_area_str
+  program_id
+  program_link
+  program_name
+  __typename
+}
+}
+  `;
+
+export const customProgramsTabDownloadCSV = {
+  keysToInclude: [
+    'program_name',
+    'program_link',
+    'focus_area_str',
+    'data_link',
+  ],
+  header: [
+    'Program',
+    'Website',
+    'Focus Area',
+    'Data Location Details',
+  ],
+  query: GET_PROGRAMS_TAB,
+  apiVariable: 'programOverView',
+  fileName: 'INS Programs',
+  defaultFullTableDownload: true,
+};
+
 export const GET_PROJECTS_TAB = gql`
 query projectOverView(
   $programs: [String],
@@ -189,6 +229,87 @@ export const customProjectsTabDownloadCSV = {
   ],
   query: GET_PROJECTS_TAB,
   apiVariable: 'projectOverView',
+  fileName: 'INS Projects',
+  defaultFullTableDownload: true,
+};
+
+export const GET_GRANTS_TAB = gql`
+query grantOverView(
+  $programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
+  $award_amounts: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  grantOverView(
+    programs: $programs,
+    docs: $docs,
+    fiscal_years: $fiscal_years,
+    award_amounts: $award_amounts,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+    ) {
+    project_id,
+    queried_project_id,
+    application_id,
+    fiscal_year,
+    activity_code,
+    project_title,
+    project_type,
+    abstract_text,
+    keywords,
+    org_name,
+    org_city,
+    org_state,
+    org_country,
+    principal_investigators,
+    lead_doc,
+    program_officers,
+    award_amount,
+    nci_funded_amount,
+    award_notice_date,
+    project_start_date,
+    project_end_date,
+    full_foa,
+    program
+  }
+}
+`;
+
+export const customGrantsTabDownloadCSV = {
+  keysToInclude: [
+    'project_id',
+    'queried_project_id',
+    'program',
+    'project_title',
+    'principal_investigators',
+    'program_officers',
+    'lead_doc',
+    'activity_code',
+    'award_amount',
+    'project_end_date',
+    'fiscal_year',
+  ],
+  header: [
+    'Grant ID',
+    'Project ID',
+    'Program',
+    'Project Title',
+    'Principal Investigators',
+    'Program Officers',
+    'Lead DOC',
+    'Activity Code',
+    'Award Amount',
+    'Project End Date',
+    'Fiscal Year',
+  ],
+  query: GET_GRANTS_TAB,
+  apiVariable: 'grantOverView',
   fileName: 'INS Grants',
   defaultFullTableDownload: true,
 };
