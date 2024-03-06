@@ -58,13 +58,9 @@ export const tabIndex = [
 
 export const DASHBOARD_QUERY_NEW = gql`
 query search(
-  # Program fields
-  # $program_ids: [String],
   $focus_area: [String]
 ) {
 searchProjects(
-  # Program fields
-  # program_ids: $program_ids,
   focus_area: $focus_area
 ) {
   numberOfGrants
@@ -74,14 +70,11 @@ searchProjects(
   projectCountByFocusArea {
       group
       subjects
-      __typename
   }
   filterProjectCountByFocusArea {
       group
       subjects
-      __typename
   }
-  __typename
 }
 }`;
 
@@ -182,13 +175,9 @@ filterProjectCountByAwardAmount{
 // --------------- GraphQL query - Retrieve files tab details --------------
 export const GET_PROGRAMS_OVERVIEW_QUERY = gql`
 query programsOverview(
-  # Program fields
-  # $program_ids: [String],
   $focus_area: [String]
 ) {
 programsOverview(
-  # Program fields
-  # program_ids: $program_ids,
   focus_area: $focus_area
 ) {
   data_link
@@ -196,7 +185,6 @@ programsOverview(
   program_id
   program_link
   program_name
-  __typename
 }
 }
   `;

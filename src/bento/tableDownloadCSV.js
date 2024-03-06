@@ -114,13 +114,9 @@ export const customProgramsTableDownloadCSV = {
 
 export const GET_PROGRAMS_TAB = gql`
 query programsOverview(
-  # Program fields
-  # $program_ids: [String],
   $focus_area: [String]
 ) {
 programsOverview(
-  # Program fields
-  # program_ids: $program_ids,
   focus_area: $focus_area
 ) {
   data_link
@@ -128,7 +124,6 @@ programsOverview(
   program_id
   program_link
   program_name
-  __typename
 }
 }
   `;
