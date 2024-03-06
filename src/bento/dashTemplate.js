@@ -1,6 +1,6 @@
 import { sortType, InputTypes } from '@bento-core/facet-filter';
 
-const PROJECTS = 'Projects';
+const PROGRAMS = 'Programs';
 const GROUP = 'group';
 
 // --------------- Facet resetIcon link configuration --------------
@@ -12,149 +12,100 @@ export const resetIcon = {
 };
 
 export const sectionLabel = {
-  Projects: 'Filter by Projects',
+  Programs: 'Filter by Programs',
 };
 
 // --------------- Dashboard Sidebar Sections styling --------------
 export const facetSectionVariables = {
-  Projects: {
+  Programs: {
     color: '#10A075',
     backgroundColor: '#C0E9D7',
     checkBoxColorsOne: '#E8F7DC',
     checkBoxColorsTwo: '#F5FDEE',
     height: '5px',
     isExpanded: true,
+    hasSearch: true,
   },
 };
 
 export const facetsConfig = [{
-  section: PROJECTS,
-  label: 'Program',
+  section: PROGRAMS,
+  label: 'FOCUS AREA',
   field: GROUP,
-  apiPath: 'projectCountByProgram',
-  apiForFiltering: 'filterProjectCountByProgram',
+  apiPath: 'projectCountByFocusArea',
+  apiForFiltering: 'filterProjectCountByFocusArea',
   datafield: 'programs',
   type: InputTypes.CHECKBOX,
   sort_type: sortType.ALPHABET,
   show: true,
-  tooltips: {
-    CCDI: 'Childhood Cancer Data Initiative',
-    Moonshot: 'Cancer Moonshot',
-  },
-},
-{
-  section: PROJECTS,
-  label: 'Division/Office/Center',
-  field: GROUP,
-  apiPath: 'projectCountByDOC',
-  apiForFiltering: 'filterProjectCountByDOC',
-  datafield: 'docs',
-  type: InputTypes.CHECKBOX,
-  sort_type: sortType.ALPHABET,
-  show: true,
-  tooltips: {
-    CCG: 'Center for Cancer Genomics',
-    CCT: 'Center for Cancer Training',
-    CRCHD: 'Center to Reduce Cancer Health Disparities',
-    CSSI: 'Center for Strategic Scientific Initiatives',
-    DCB: 'Division of Cancer Biology',
-    DCCPS: 'Division of Cancer Control and Population Sciences',
-    DCP: 'Division of Cancer Prevention',
-    DCTD: 'Division of Cancer Treatment and Diagnosis',
-    OD: 'Office of the Director',
-    SBIR: 'Small Business Innovation Research',
-    OCC: 'Office of Cancer Centers',
-  },
-},
-{
-  section: PROJECTS,
-  label: 'Fiscal Year',
-  field: GROUP,
-  apiPath: 'projectCountByFiscalYear',
-  apiForFiltering: 'filterProjectCountByFiscalYear',
-  datafield: 'fiscal_years',
-  type: InputTypes.CHECKBOX,
-  sort_type: sortType.ALPHABET,
-  show: true,
-},
-{
-  section: PROJECTS,
-  label: 'Award Amount',
-  field: GROUP,
-  apiPath: 'projectCountByAwardAmount',
-  apiForFiltering: 'filterProjectCountByAwardAmount',
-  datafield: 'award_amounts',
-  type: InputTypes.CHECKBOX,
-  sort_type: sortType.ALPHABET,
-  show: true,
 },
 ];
 
-// --------------- Dashboard Widgets configuration --------------
-// Sunburst chart color scheme
-export const SUNBURST_COLORS_LEVEL_1 = [
-  '#7dc242',
-  '#274fa5',
-  '#79287c',
-  '#f78f48',
-  '#057ebd',
-];
+// // --------------- Dashboard Widgets configuration --------------
+// // Sunburst chart color scheme
+// export const SUNBURST_COLORS_LEVEL_1 = [
+//   '#7dc242',
+//   '#274fa5',
+//   '#79287c',
+//   '#f78f48',
+//   '#057ebd',
+// ];
 
-export const SUNBURST_COLORS_LEVEL_2 = [
-  '#057ebd',
-  '#f78f48',
-  '#79287c',
-  '#0e3151',
-  '#057ebd',
-  '#7dc242',
-];
+// export const SUNBURST_COLORS_LEVEL_2 = [
+//   '#057ebd',
+//   '#f78f48',
+//   '#79287c',
+//   '#0e3151',
+//   '#057ebd',
+//   '#7dc242',
+// ];
 
-// A maximum of 6 widgets are allowed
-// for donuts only the following are required: type, title, dataName
-//
-// type: 'sunburst' | 'donut'
-// title: string
-// dataName: string
-// datatable_level1_field: string
-// datatable_level1_colors: string[]
-// datatable_level2_field: string
-// datatable_level2_colors: string[]
-// sliceTitle: string (optional)
-export const widgetConfig = [
-  {
-    type: 'donut',
-    title: 'Projects by Fiscal Year',
-    dataName: 'projectCountByFiscalYearSorted',
-    sliceTitle: 'Projects',
-  },
-  {
-    type: 'donut',
-    title: 'Projects by NCI DOC',
-    dataName: 'projectCountByDOCSorted',
-    sliceTitle: 'Projects',
-  },
-  {
-    type: 'donut',
-    title: 'Projects by Award Amount',
-    dataName: 'projectCountByAwardAmountSorted',
-    sliceTitle: 'Projects',
-  },
-  {
-    type: 'donut',
-    title: 'Publications by Year',
-    dataName: 'publicationCountByYearSorted',
-    sliceTitle: 'Publications',
-  },
-  {
-    type: 'donut',
-    title: 'Publications by RCR Range',
-    dataName: 'publicationCountByRCRTransformed',
-    sliceTitle: 'Publications',
-  },
-  {
-    type: 'donut',
-    title: 'Publications by Citations',
-    dataName: 'publicationCountByCitationSorted',
-    sliceTitle: 'Publications',
-  },
-];
+// // A maximum of 6 widgets are allowed
+// // for donuts only the following are required: type, title, dataName
+// //
+// // type: 'sunburst' | 'donut'
+// // title: string
+// // dataName: string
+// // datatable_level1_field: string
+// // datatable_level1_colors: string[]
+// // datatable_level2_field: string
+// // datatable_level2_colors: string[]
+// // sliceTitle: string (optional)
+// export const widgetConfig = [
+//   {
+//     type: 'donut',
+//     title: 'Projects by Fiscal Year',
+//     dataName: 'projectCountByFiscalYearSorted',
+//     sliceTitle: 'Projects',
+//   },
+//   {
+//     type: 'donut',
+//     title: 'Projects by NCI DOC',
+//     dataName: 'projectCountByDOCSorted',
+//     sliceTitle: 'Projects',
+//   },
+//   {
+//     type: 'donut',
+//     title: 'Projects by Award Amount',
+//     dataName: 'projectCountByAwardAmountSorted',
+//     sliceTitle: 'Projects',
+//   },
+//   {
+//     type: 'donut',
+//     title: 'Publications by Year',
+//     dataName: 'publicationCountByYearSorted',
+//     sliceTitle: 'Publications',
+//   },
+//   {
+//     type: 'donut',
+//     title: 'Publications by RCR Range',
+//     dataName: 'publicationCountByRCRTransformed',
+//     sliceTitle: 'Publications',
+//   },
+//   {
+//     type: 'donut',
+//     title: 'Publications by Citations',
+//     dataName: 'publicationCountByCitationSorted',
+//     sliceTitle: 'Publications',
+//   },
+// ];

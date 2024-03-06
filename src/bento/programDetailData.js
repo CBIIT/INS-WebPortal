@@ -119,7 +119,7 @@ const table = {
   paginationAPIField: 'projectOverView',
   defaultSortField: 'project_id',
   defaultSortDirection: 'asc',
-  count: 'numberOfProjects',
+  count: 'numberOfGrants',
   buttonText: 'Add Selected Files',
   dataKey: 'project_id',
   extendedViewConfig: {

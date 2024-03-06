@@ -24,6 +24,14 @@ const customTheme = {
       fontFamily: 'Lato',
       '&.Mui-selected': {
         fontWeight: 'bolder',
+        '&.programs': {
+          background: '#d6f2ea',
+          color: '#10a075',
+        },
+        '&.projects': {
+          background: '#f7d7f7',
+          color: '#c92ec7',
+        },
         '&.grants': {
           background: '#d6f2ea',
           color: '#10a075',
@@ -32,23 +40,23 @@ const customTheme = {
           background: '#cfedf9',
           color: '#0dafec',
         },
-        '&.projects': {
-          background: '#f7d7f7',
-          color: '#c92ec7',
-        },
         '&.MuiTypography-body1': {
           color: 'red',
         },
+      },
+      '& span.programs_count': {
+        marginLeft: '5px',
+        fontSize: '17px',
+      },
+      '& span.projects_count': {
+        marginLeft: '5px',
+        fontSize: '17px',
       },
       '& span.grants_count': {
         marginLeft: '5px',
         fontSize: '17px',
       },
       '& span.publications_count': {
-        marginLeft: '5px',
-        fontSize: '17px',
-      },
-      '& span.projects_count': {
         marginLeft: '5px',
         fontSize: '17px',
       },

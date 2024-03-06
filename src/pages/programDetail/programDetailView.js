@@ -65,8 +65,8 @@ const ProgramView = ({
 
   const stat = {
     numberOfPrograms: 1,
-    numberOfCoreProjects: programData.num_core_projects !== undefined ? programData.num_core_projects : 'undefined',
-    numberOfProjects: programData.num_projects !== undefined ? programData.num_projects : 'undefined',
+    numberOfProjects: programData.num_core_projects !== undefined ? programData.num_core_projects : 'undefined',
+    numberOfGrants: programData.num_projects !== undefined ? programData.num_projects : 'undefined',
     numberOfPublications: programPublicationCount !== undefined ? programPublicationCount : 'undefined',
   };
 
@@ -85,7 +85,7 @@ const ProgramView = ({
     paginationAPIField: table.paginationAPIField,
     dataKey: table.dataKey,
     columns: configColumn(table.columns),
-    count: stat.numberOfProjects,
+    count: stat.numberOfGrants,
     selectedRows: [],
     enableRowSelection: table.enableRowSelection,
     tableMsg: table.tableMsg,
@@ -304,7 +304,7 @@ const ProgramView = ({
                               initState={initTblState}
                               themeConfig={themeConfig}
                               queryVariables={{ programs: [programData.program_id] }}
-                              totalRowCount={stat.numberOfProjects}
+                              totalRowCount={stat.numberOfGrants}
                             />
                           </Grid>
                         </Grid>

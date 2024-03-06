@@ -25,12 +25,12 @@ export const globalStatsData = [
   {
     statTitle: 'Projects',
     type: 'field',
-    statAPI: 'numberOfCoreProjects',
+    statAPI: 'numberOfProjects',
   },
   {
     statTitle: 'Grants',
     type: 'field',
-    statAPI: 'numberOfProjects',
+    statAPI: 'numberOfGrants',
   },
   {
     statTitle: 'Publications',
@@ -42,8 +42,8 @@ export const globalStatsData = [
 // --------------- GraphQL query - Retrieve stats details --------------
 export const GET_GLOBAL_STATS_DATA_QUERY = gql`{
   numberOfPrograms
+  numberOfGrants
   numberOfProjects
-  numberOfCoreProjects
   numberOfPublications
 }
   `;

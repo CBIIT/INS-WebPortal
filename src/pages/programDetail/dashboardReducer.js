@@ -31,8 +31,8 @@ import {
   GET_ALL_FILEIDS_FROM_FILESTAB_FOR_ADD_ALL_CART,
   tabIndex,
   DASHBOARD_QUERY_NEW,
-  GET_PROJECTS_OVERVIEW_QUERY,
-  GET_PUBLICATIONS_OVERVIEW_QUERY,
+  // GET_PROJECTS_OVERVIEW_QUERY,
+  // GET_PUBLICATIONS_OVERVIEW_QUERY,
 } from '../../bento/dashboardTabData';
 import {
   GET_IDS_BY_TYPE,
@@ -399,8 +399,8 @@ const convertResultInPrevType = (result) => {
     ...result.data.searchProjects,
     nodeCountsFromLists: {
       numberOfPrograms: result.data.searchProjects.numberOfPrograms,
+      numberOfGrants: result.data.searchProjects.numberOfGrants,
       numberOfProjects: result.data.searchProjects.numberOfProjects,
-      numberOfCoreProjects: result.data.searchProjects.numberOfCoreProjects,
       numberOfPublications: result.data.searchProjects.numberOfPublications,
     },
   };
@@ -571,14 +571,14 @@ export function addAutoComplete({ newValue, type, isFilteredData = false }) {
   store.dispatch({ type: 'ADD_AUTOCOMPLETE_DATA', payload: { value: items, type } });
 }
 
-const querySwitch = (payload, tabContainer) => {
-  switch (payload) {
-    case ('Grants'):
-      return { QUERY: GET_PROJECTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
-    default:
-      return { QUERY: GET_PUBLICATIONS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
-  }
-};
+// const querySwitch = (payload, tabContainer) => {
+//   switch (payload) {
+//     case ('Grants'):
+//       return { QUERY: GET_PROJECTS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
+//     default:
+//       return { QUERY: GET_PUBLICATIONS_OVERVIEW_QUERY, sortfield: tabContainer.defaultSortField || '', sortDirection: tabContainer.defaultSortDirection || '' };
+//   }
+// };
 
 /**
  * Function to get getquery and default sort.
@@ -587,10 +587,10 @@ const querySwitch = (payload, tabContainer) => {
  * @return {json} with three keys QUERY,GET_PATENTS_OVERVIEW_QUERY, sortfield
  */
 
-const getQueryAndDefaultSort = (payload = tabIndex[0].title) => {
-  const tabContainer = tabContainers.find((x) => x.name === payload);
-  return querySwitch(payload, tabContainer);
-};
+// const getQueryAndDefaultSort = (payload = tabIndex[0].title) => {
+//   const tabContainer = tabContainers.find((x) => x.name === payload);
+//   return querySwitch(payload, tabContainer);
+// };
 
 /**
  * Updates the current active dashboard tab.
@@ -604,44 +604,44 @@ const getQueryAndDefaultSort = (payload = tabIndex[0].title) => {
  * @return {json}
  */
 
-export function fetchDataForDashboardTab(
-  payload,
-  filters = null,
-) {
-  const { QUERY, sortfield, sortDirection } = getQueryAndDefaultSort(payload);
-  const newFilters = filters;
-  // deal with empty string inside the age_at_index filter
-  if (filters && filters.age_at_index && filters.age_at_index.length === 2) {
-    if (filters.age_at_index.includes('')) {
-      newFilters.age_at_index = [];
-    }
-    if (typeof filters.age_at_index[0] === 'string') {
-      newFilters.age_at_index[0] = Number(newFilters.age_at_index[0]);
-    }
-    if (typeof filters.age_at_index[1] === 'string') {
-      newFilters.age_at_index[1] = Number(newFilters.age_at_index[1]);
-    }
-  }
-  const activeFilters = newFilters === null
-    ? {
-      ...getState().allActiveFilters,
-      ..._.mergeWith({}, getState().bulkUpload, getState().autoCompleteSelection, customizer),
-    }
-    : filters;
-  return client
-    .query({
-      query: QUERY,
-      variables: {
-        ...activeFilters,
-        order_by: sortfield || '',
-        sort_direction: sortDirection || 'asc',
-      },
-    })
-    .then((result) => store.dispatch({ type: 'UPDATE_CURRRENT_TAB_DATA', payload: { currentTab: payload, sortDirection, ..._.cloneDeep(result) } }))
-    .catch((error) => store.dispatch(
-      { type: 'DASHBOARDTAB_QUERY_ERR', error },
-    ));
-}
+// export function fetchDataForDashboardTab(
+//   payload,
+//   filters = null,
+// ) {
+//   const { QUERY, sortfield, sortDirection } = getQueryAndDefaultSort(payload);
+//   const newFilters = filters;
+//   // deal with empty string inside the age_at_index filter
+//   if (filters && filters.age_at_index && filters.age_at_index.length === 2) {
+//     if (filters.age_at_index.includes('')) {
+//       newFilters.age_at_index = [];
+//     }
+//     if (typeof filters.age_at_index[0] === 'string') {
+//       newFilters.age_at_index[0] = Number(newFilters.age_at_index[0]);
+//     }
+//     if (typeof filters.age_at_index[1] === 'string') {
+//       newFilters.age_at_index[1] = Number(newFilters.age_at_index[1]);
+//     }
+//   }
+//   const activeFilters = newFilters === null
+//     ? {
+//       ...getState().allActiveFilters,
+//       ..._.mergeWith({}, getState().bulkUpload, getState().autoCompleteSelection, customizer),
+//     }
+//     : filters;
+//   return client
+//     .query({
+//       query: QUERY,
+//       variables: {
+//         ...activeFilters,
+//         order_by: sortfield || '',
+//         sort_direction: sortDirection || 'asc',
+//       },
+//     })
+//     .then((result) => store.dispatch({ type: 'UPDATE_CURRRENT_TAB_DATA', payload: { currentTab: payload, sortDirection, ..._.cloneDeep(result) } }))
+//     .catch((error) => store.dispatch(
+//       { type: 'DASHBOARDTAB_QUERY_ERR', error },
+//     ));
+// }
 
 function transformCasesFileIdsToFiles(data) {
   // use reduce to combine all the files' id into single array
@@ -818,13 +818,13 @@ function getWidgetsData(input, widgetsInfoFromCustConfig) {
  * @return distpatcher
  */
 
-export function fetchDataForDashboardTabDataTable() {
-  if (shouldFetchDataForDashboardTabDataTable(getState())) {
-    return store.dispatch(fetchDashboardTab());
-  }
-  fetchDataForDashboardTab(tabIndex[0].title);
-  return store.dispatch({ type: 'READY_DASHBOARDTAB' });
-}
+// export function fetchDataForDashboardTabDataTable() {
+//   if (shouldFetchDataForDashboardTabDataTable(getState())) {
+//     return store.dispatch(fetchDashboardTab());
+//   }
+//   fetchDataForDashboardTab(tabIndex[0].title);
+//   return store.dispatch({ type: 'READY_DASHBOARDTAB' });
+// }
 
 /**
  * Helper function to create only one filter that was from payload payload
@@ -1186,40 +1186,13 @@ const reducers = {
   },
   TOGGLE_CHECKBOX_WITH_API: (state, item) => {
     const newAllFilters = {
-      award_amounts: [], docs: [], fiscal_years: [], programs: [],
+      programs: [],
     };
 
     let validCheckBoxOptions = [];
 
-    if (item.allFilters.award_amounts.length !== 0) {
-      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByAwardAmount.map((opt) => opt.group);
-      item.allFilters.award_amounts.forEach((amount) => {
-        if (validCheckBoxOptions.indexOf(amount) > -1) {
-          newAllFilters.award_amounts.push(amount);
-        }
-      });
-    }
-
-    if (item.allFilters.docs.length !== 0) {
-      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByDOC.map((opt) => opt.group);
-      item.allFilters.docs.forEach((doc) => {
-        if (validCheckBoxOptions.indexOf(doc) > -1) {
-          newAllFilters.docs.push(doc);
-        }
-      });
-    }
-
-    if (item.allFilters.fiscal_years.length !== 0) {
-      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByFiscalYear.map((opt) => opt.group);
-      item.allFilters.fiscal_years.forEach((fyear) => {
-        if (validCheckBoxOptions.indexOf(fyear) > -1) {
-          newAllFilters.fiscal_years.push(fyear);
-        }
-      });
-    }
-
     if (item.allFilters.programs.length !== 0) {
-      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByProgram.map((opt) => opt.group);
+      validCheckBoxOptions = item.data.searchProjects.filterProjectCountByFocusArea.map((opt) => opt.group);
       item.allFilters.programs.forEach((program) => {
         if (validCheckBoxOptions.indexOf(program) > -1) {
           newAllFilters.programs.push(program);
@@ -1238,10 +1211,10 @@ const reducers = {
     checkboxData1.forEach((cbd, idx) => {
       checkboxData1[idx].tooltips = updatedCheckboxData1[idx].tooltips;
     });
-    fetchDataForDashboardTab(
-      tabIndex[0].title,
-      newAllFilters,
-    );
+    // fetchDataForDashboardTab(
+    //   tabIndex[0].title,
+    //   newAllFilters,
+    // );
 
     return {
       ...state,
@@ -1252,7 +1225,7 @@ const reducers = {
         variables: newAllFilters,
       },
       stats: getFilteredStat(item.data.searchProjects, statsCount),
-      widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
+      // widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
     };
   },
   LOCAL_SEARCH: (state, item) => {
@@ -1345,133 +1318,133 @@ const reducers = {
       widgets: getWidgetsData(tableData, widgetsData),
     };
   },
-  RECEIVE_DASHBOARDTAB: (state, rawItem) => {
-    const item = rawItem;
+  // RECEIVE_DASHBOARDTAB: (state, rawItem) => {
+  //   const item = rawItem;
 
-    const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
-    fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
-    return item.data
-      ? {
-        ...state.dashboard,
-        isFetched: true,
-        isLoading: false,
-        hasError: false,
-        setSideBarLoading: false,
-        searchCriteria: null,
-        error: '',
-        stats: getStatInit(item.data.searchProjects, statsCount),
-        allActiveFilters: allFilters(),
-        filteredSubjectIds: null,
-        filteredSampleIds: null,
-        filteredFileIds: null,
-        filteredClinicalTrialIds: null,
-        filteredPatentIds: null,
-        checkboxForAll: {
-          data: checkboxData,
-        },
-        checkbox: {
-          data: checkboxData,
-        },
-        datatable: {
-          filters: [],
-        },
-        widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
-        dataCaseSelected: {
-          selectedRowInfo: [],
-          selectedRowIndex: [],
-        },
-        dataSampleSelected: {
-          selectedRowInfo: [],
-          selectedRowIndex: [],
-        },
-        dataFileSelected: {
-          selectedRowInfo: [],
-          selectedRowIndex: [],
-        },
-        dataClinicalTrialSelected: {
-          selectedRowInfo: [],
-          selectedRowIndex: [],
-        },
-        dataPatentSelected: {
-          selectedRowInfo: [],
-          selectedRowIndex: [],
-        },
-        autoCompleteSelection: {
-          subject_ids: [],
-          sample_ids: [],
-          file_ids: [],
-        },
-        bulkUpload: {
-          subject_ids: [],
-          sample_ids: [],
-          file_ids: [],
-        },
-      } : { ...state };
-  },
-  CLEAR_ALL: (state, rawItem) => {
-    const item = rawItem;
+  //   const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
+  //   fetchDataForDashboardTab(tabIndex[0].title, allFilters(), null, null, null, null, null);
+  //   return item.data
+  //     ? {
+  //       ...state.dashboard,
+  //       isFetched: true,
+  //       isLoading: false,
+  //       hasError: false,
+  //       setSideBarLoading: false,
+  //       searchCriteria: null,
+  //       error: '',
+  //       stats: getStatInit(item.data.searchProjects, statsCount),
+  //       allActiveFilters: allFilters(),
+  //       filteredSubjectIds: null,
+  //       filteredSampleIds: null,
+  //       filteredFileIds: null,
+  //       filteredClinicalTrialIds: null,
+  //       filteredPatentIds: null,
+  //       checkboxForAll: {
+  //         data: checkboxData,
+  //       },
+  //       checkbox: {
+  //         data: checkboxData,
+  //       },
+  //       datatable: {
+  //         filters: [],
+  //       },
+  //       widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
+  //       dataCaseSelected: {
+  //         selectedRowInfo: [],
+  //         selectedRowIndex: [],
+  //       },
+  //       dataSampleSelected: {
+  //         selectedRowInfo: [],
+  //         selectedRowIndex: [],
+  //       },
+  //       dataFileSelected: {
+  //         selectedRowInfo: [],
+  //         selectedRowIndex: [],
+  //       },
+  //       dataClinicalTrialSelected: {
+  //         selectedRowInfo: [],
+  //         selectedRowIndex: [],
+  //       },
+  //       dataPatentSelected: {
+  //         selectedRowInfo: [],
+  //         selectedRowIndex: [],
+  //       },
+  //       autoCompleteSelection: {
+  //         subject_ids: [],
+  //         sample_ids: [],
+  //         file_ids: [],
+  //       },
+  //       bulkUpload: {
+  //         subject_ids: [],
+  //         sample_ids: [],
+  //         file_ids: [],
+  //       },
+  //     } : { ...state };
+  // },
+  // CLEAR_ALL: (state, rawItem) => {
+  //   const item = rawItem;
 
-    const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
-    fetchDataForDashboardTab(tabIndex[0].title, allFilters());
-    return item.data
-      ? {
-        ...state.dashboard,
-        isFetched: true,
-        isLoading: false,
-        hasError: false,
-        setSideBarLoading: false,
-        error: '',
-        stats: getStatInit(item.data.searchProjects, statsCount),
-        allActiveFilters: allFilters(),
-        filteredSubjectIds: null,
-        filteredSampleIds: null,
-        filteredFileIds: null,
-        filteredClinicalTrialIds: null,
-        filteredPatentIds: null,
-        subjectOverView: {
-          data: item.data.searchProjects.projectOverView,
-        },
-        checkboxForAll: {
-          data: checkboxData,
-        },
-        autoCompleteSelection: {
-          subject_ids: [],
-          sample_ids: [],
-          file_ids: [],
-        },
-        bulkUpload: {
-          subject_ids: [],
-          sample_ids: [],
-          file_ids: [],
-        },
-        checkbox: {
-          data: checkboxData,
-          variables: {},
-        },
-        datatable: {
-          filters: [],
-        },
-        widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
-        dataCaseSelected: {
-          ...state.dataCaseSelected,
-        },
-        dataSampleSelected: {
-          ...state.dataSampleSelected,
-        },
-        dataFileSelected: {
-          ...state.dataFileSelected,
-        },
-        dataClinicalTrialSelected: {
-          ...state.dataClinicalTrialSelected,
-        },
-        dataPatentSelected: {
-          ...state.dataPatentSelected,
-        },
-        sortByList: {
-          ...state.sortByList,
-        },
-      } : { ...state };
-  },
+  //   const checkboxData = customCheckBox(item.data.searchProjects, facetSearchData);
+  //   fetchDataForDashboardTab(tabIndex[0].title, allFilters());
+  //   return item.data
+  //     ? {
+  //       ...state.dashboard,
+  //       isFetched: true,
+  //       isLoading: false,
+  //       hasError: false,
+  //       setSideBarLoading: false,
+  //       error: '',
+  //       stats: getStatInit(item.data.searchProjects, statsCount),
+  //       allActiveFilters: allFilters(),
+  //       filteredSubjectIds: null,
+  //       filteredSampleIds: null,
+  //       filteredFileIds: null,
+  //       filteredClinicalTrialIds: null,
+  //       filteredPatentIds: null,
+  //       subjectOverView: {
+  //         data: item.data.searchProjects.projectOverView,
+  //       },
+  //       checkboxForAll: {
+  //         data: checkboxData,
+  //       },
+  //       autoCompleteSelection: {
+  //         subject_ids: [],
+  //         sample_ids: [],
+  //         file_ids: [],
+  //       },
+  //       bulkUpload: {
+  //         subject_ids: [],
+  //         sample_ids: [],
+  //         file_ids: [],
+  //       },
+  //       checkbox: {
+  //         data: checkboxData,
+  //         variables: {},
+  //       },
+  //       datatable: {
+  //         filters: [],
+  //       },
+  //       widgets: getWidgetsInitData(item.data.searchProjects, widgetsData),
+  //       dataCaseSelected: {
+  //         ...state.dataCaseSelected,
+  //       },
+  //       dataSampleSelected: {
+  //         ...state.dataSampleSelected,
+  //       },
+  //       dataFileSelected: {
+  //         ...state.dataFileSelected,
+  //       },
+  //       dataClinicalTrialSelected: {
+  //         ...state.dataClinicalTrialSelected,
+  //       },
+  //       dataPatentSelected: {
+  //         ...state.dataPatentSelected,
+  //       },
+  //       sortByList: {
+  //         ...state.sortByList,
+  //       },
+  //     } : { ...state };
+  // },
   SORT_SINGLE_GROUP_CHECKBOX: (state, item) => {
     const groupData = state.checkbox.data.filter((group) => item.groupName === group.groupName)[0];
     let { sortByList } = state;

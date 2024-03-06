@@ -10,7 +10,8 @@ import { DASHBOARD_QUERY_NEW } from '../../bento/dashboardTabData';
 const getDashData = (states) => {
   const {
     filterState,
-    localFindUpload, localFindAutocomplete,
+    localFindUpload,
+    localFindAutocomplete,
   } = states;
 
   const client = useApolloClient();
@@ -43,47 +44,47 @@ const getDashData = (states) => {
     return () => controller.abort();
   }, [filterState, localFindUpload, localFindAutocomplete]);
 
-  // --------------- Transform RCR data --------------
-  const transformRCRData = (data) => {
-    const publicationCountByRCRTransformedData = [];
+  // // --------------- Transform RCR data --------------
+  // const transformRCRData = (data) => {
+  //   const publicationCountByRCRTransformedData = [];
 
-    for (let i = 0; i < data.publicationCountByRCR.length; i += 1) {
-      if (data.publicationCountByRCR[i].group !== 'N/A') {
-        publicationCountByRCRTransformedData.push(data.publicationCountByRCR[i]);
-      }
-    }
+  //   for (let i = 0; i < data.publicationCountByRCR.length; i += 1) {
+  //     if (data.publicationCountByRCR[i].group !== 'N/A') {
+  //       publicationCountByRCRTransformedData.push(data.publicationCountByRCR[i]);
+  //     }
+  //   }
 
-    for (let j = 0; j < publicationCountByRCRTransformedData.length; j += 1) {
-      if (publicationCountByRCRTransformedData[j].group === null) {
-        publicationCountByRCRTransformedData[j].group = '0';
-      }
-    }
+  //   for (let j = 0; j < publicationCountByRCRTransformedData.length; j += 1) {
+  //     if (publicationCountByRCRTransformedData[j].group === null) {
+  //       publicationCountByRCRTransformedData[j].group = '0';
+  //     }
+  //   }
 
-    publicationCountByRCRTransformedData.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  //   publicationCountByRCRTransformedData.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
-    return publicationCountByRCRTransformedData;
-  };
+  //   return publicationCountByRCRTransformedData;
+  // };
 
-  // --------------- Transform Donut data --------------
-  const transformDonutData = (data) => {
-    const transformedData = data;
-    transformedData.publicationCountByRCRTransformed = transformRCRData(data);
-    transformedData.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    transformedData.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  // // --------------- Transform Donut data --------------
+  // const transformDonutData = (data) => {
+  //   const transformedData = data;
+  //   transformedData.publicationCountByRCRTransformed = transformRCRData(data);
+  //   transformedData.projectCountByDOCSorted = data.projectCountByDOC.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  //   transformedData.publicationCountByYearSorted = data.publicationCountByYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  //   transformedData.projectCountByFiscalYearSorted = data.projectCountByFiscalYear.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
 
-    for (let i = 0; i < transformedData.publicationCountByYearSorted.length; i += 1) {
-      transformedData.publicationCountByYearSorted[i].group = new Date(parseInt(transformedData.publicationCountByYearSorted[i].group, 10)).getFullYear();
-    }
+  //   for (let i = 0; i < transformedData.publicationCountByYearSorted.length; i += 1) {
+  //     transformedData.publicationCountByYearSorted[i].group = new Date(parseInt(transformedData.publicationCountByYearSorted[i].group, 10)).getFullYear();
+  //   }
 
-    transformedData.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    transformedData.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-    return transformedData;
-  };
+  //   transformedData.projectCountByAwardAmountSorted = data.projectCountByAwardAmount.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  //   transformedData.publicationCountByCitationSorted = data.publicationCountByCitation.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
+  //   return transformedData;
+  // };
 
-  if (dashData) {
-    transformDonutData(dashData);
-  }
+  // if (dashData) {
+  //   transformDonutData(dashData);
+  // }
 
   return { dashData, activeFilters };
 };
