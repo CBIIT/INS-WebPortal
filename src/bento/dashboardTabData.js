@@ -107,34 +107,34 @@ export const FILTER_GROUP_QUERY = gql`
   numberOfPublications(project_ids: $subject_ids)
   }`;
 
-  // projectCountByFocusArea(project_ids: $subject_ids){
-  //   group
-  //   subjects
-  // }
-  // projectCountByDOC(project_ids: $subject_ids){
-  //   group
-  //   subjects
-  // }
-  // projectCountByFiscalYear(project_ids: $subject_ids){
-  //   group
-  //   subjects
-  // } 
-  // projectCountByAwardAmount(project_ids: $subject_ids){
-  //   group
-  //   subjects
-  // } 
-  // publicationCountByYear(project_ids: $subject_ids){
-  //   group
-  //   subjects
-  // }
-  // publicationCountByRCR(project_ids: $subject_ids){
-  //   group
-  //   subjects
-  // }
-  // publicationCountByCitation(project_ids: $subject_ids){
-  //   group
-  //   subjects
-  // }
+// projectCountByFocusArea(project_ids: $subject_ids){
+//   group
+//   subjects
+// }
+// projectCountByDOC(project_ids: $subject_ids){
+//   group
+//   subjects
+// }
+// projectCountByFiscalYear(project_ids: $subject_ids){
+//   group
+//   subjects
+// } 
+// projectCountByAwardAmount(project_ids: $subject_ids){
+//   group
+//   subjects
+// } 
+// publicationCountByYear(project_ids: $subject_ids){
+//   group
+//   subjects
+// }
+// publicationCountByRCR(project_ids: $subject_ids){
+//   group
+//   subjects
+// }
+// publicationCountByCitation(project_ids: $subject_ids){
+//   group
+//   subjects
+// }
 
 export const FILTER_QUERY = gql`
 query searchProjects($programs: [String]) {
@@ -196,10 +196,18 @@ filterProjectCountByFocusArea{
 // --------------- GraphQL query - Retrieve files tab details --------------
 export const GET_PROGRAMS_OVERVIEW_QUERY = gql`
 query programsOverview(
-  $focus_area: [String]
+  $focus_area: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
 ) {
 programsOverview(
-  focus_area: $focus_area
+  focus_area: $focus_area,
+  first: $first,
+  offset: $offset,
+  order_by: $order_by,
+  sort_direction: $sort_direction
 ) {
   data_link
   focus_area_str

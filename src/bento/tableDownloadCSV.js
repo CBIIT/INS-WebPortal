@@ -114,10 +114,16 @@ export const customProgramsTableDownloadCSV = {
 
 export const GET_PROGRAMS_TAB = gql`
 query programsOverview(
-  $focus_area: [String]
+  $focus_area: [String],
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
 ) {
 programsOverview(
-  focus_area: $focus_area
+  focus_area: $focus_area,
+  first: $first,
+  order_by: $order_by,
+  sort_direction: $sort_direction
 ) {
   data_link
   focus_area_str
@@ -142,7 +148,7 @@ export const customProgramsTabDownloadCSV = {
     'Data Location Details',
   ],
   query: GET_PROGRAMS_TAB,
-  apiVariable: 'programsOverView',
+  apiVariable: 'programsOverview',
   fileName: 'INS Programs',
   defaultFullTableDownload: true,
 };
