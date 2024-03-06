@@ -41,24 +41,24 @@ export const facetsConfig = [{
 },
 ];
 
-// --------------- Dashboard Widgets configuration --------------
-// Sunburst chart color scheme
-export const SUNBURST_COLORS_LEVEL_1 = [
-  '#7dc242',
-  '#274fa5',
-  '#79287c',
-  '#f78f48',
-  '#057ebd',
-];
+// // --------------- Dashboard Widgets configuration --------------
+// // Sunburst chart color scheme
+// export const SUNBURST_COLORS_LEVEL_1 = [
+//   '#7dc242',
+//   '#274fa5',
+//   '#79287c',
+//   '#f78f48',
+//   '#057ebd',
+// ];
 
-export const SUNBURST_COLORS_LEVEL_2 = [
-  '#057ebd',
-  '#f78f48',
-  '#79287c',
-  '#0e3151',
-  '#057ebd',
-  '#7dc242',
-];
+// export const SUNBURST_COLORS_LEVEL_2 = [
+//   '#057ebd',
+//   '#f78f48',
+//   '#79287c',
+//   '#0e3151',
+//   '#057ebd',
+//   '#7dc242',
+// ];
 
 // // A maximum of 6 widgets are allowed
 // // for donuts only the following are required: type, title, dataName
