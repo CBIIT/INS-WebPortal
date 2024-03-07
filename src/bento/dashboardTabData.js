@@ -103,35 +103,6 @@ export const FILTER_GROUP_QUERY = gql`
   numberOfPublications(project_ids: $subject_ids)
   }`;
 
-// projectCountByFocusArea(project_ids: $subject_ids){
-//   group
-//   subjects
-// }
-// projectCountByDOC(project_ids: $subject_ids){
-//   group
-//   subjects
-// }
-// projectCountByFiscalYear(project_ids: $subject_ids){
-//   group
-//   subjects
-// } 
-// projectCountByAwardAmount(project_ids: $subject_ids){
-//   group
-//   subjects
-// } 
-// publicationCountByYear(project_ids: $subject_ids){
-//   group
-//   subjects
-// }
-// publicationCountByRCR(project_ids: $subject_ids){
-//   group
-//   subjects
-// }
-// publicationCountByCitation(project_ids: $subject_ids){
-//   group
-//   subjects
-// }
-
 export const FILTER_QUERY = gql`
 query searchProjects($focus_area: [String]) {
 searchProjects(focus_area: $focus_area) {
@@ -145,49 +116,6 @@ filterProjectCountByFocusArea{
   subjects
 }
 }`;
-
-// projectCountByFocusArea{
-//   group
-//   subjects
-// }
-// projectCountByDOC{
-//   group
-//   subjects
-// }
-// projectCountByFiscalYear{
-//   group
-//   subjects
-// }
-// projectCountByAwardAmount{
-//   group
-//   subjects
-// }
-// publicationCountByYear{
-//   group
-//   subjects
-// }
-// publicationCountByRCR{
-//   group
-//   subjects
-// }
-// publicationCountByCitation
-// {
-//   group
-//   subjects
-// }
-
-// filterProjectCountByDOC{
-//   group
-//   subjects
-// }
-// filterProjectCountByFiscalYear{
-//   group
-//   subjects
-// }
-// filterProjectCountByAwardAmount{
-//   group
-//   subjects
-// }
 
 // --------------- GraphQL query - Retrieve files tab details --------------
 export const GET_PROGRAMS_OVERVIEW_QUERY = gql`
