@@ -568,11 +568,11 @@ export const tabContainers = [
     dataField: 'dataProgram',
     api: GET_PROGRAMS_OVERVIEW_QUERY,
     paginationAPIField: 'programsOverview',
-    defaultSortField: 'program_id',
+    defaultSortField: 'program_name',
     defaultSortDirection: 'asc',
     count: 'numberOfPrograms',
     buttonText: 'Add Selected Files',
-    dataKey: 'program_id',
+    dataKey: 'program_name',
     extendedViewConfig: {
       pagination: true,
       manageViewColumns: false,
