@@ -114,12 +114,16 @@ export const customProgramsTableDownloadCSV = {
 
 export const GET_PROGRAMS_TAB = gql`
 query programsOverview(
+  $program_ids: [String],
+  $program_names: [String],
   $focus_area: [String],
   $first: Int,
   $order_by: String,
   $sort_direction: String 
 ) {
 programsOverview(
+  program_ids: $program_ids,
+  program_names: $program_names,
   focus_area: $focus_area,
   first: $first,
   order_by: $order_by,
