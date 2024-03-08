@@ -129,7 +129,6 @@ programsOverview(
 ) {
   data_link
   focus_area_str
-  program_id
   program_link
   program_name
 }

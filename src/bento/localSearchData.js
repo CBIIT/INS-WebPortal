@@ -22,7 +22,7 @@ export const GET_SUBJECT_IDS = gql`
 
 export const GET_IDS_BY_TYPE = () => gql`{
   idsLists {
-    program_id
+    program_acronym
     program_name
   }
 }

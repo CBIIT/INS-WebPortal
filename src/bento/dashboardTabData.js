@@ -147,7 +147,7 @@ programsOverview(
 ) {
   data_link
   focus_area_str
-  program_id
+  program_acronym
   program_link
   program_name
 }
@@ -531,7 +531,7 @@ export const tabContainers = [
         role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'program_id',
+        dataField: 'program_acronym',
         header: 'Website',
         cellType: cellTypes.EXTERNAL_LINK,
         linkAttr: {
@@ -549,7 +549,7 @@ export const tabContainers = [
         role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'program_id',
+        dataField: 'program_acronym',
         header: 'Data Location Details',
         cellType: cellTypes.CONDITIONAL_EXTERNAL_LINK,
         linkAttr: {
