@@ -41,7 +41,7 @@ export const customTheme = {
       '&.add_selected_button': {
         marginRight: '10px',
       },
-      '&.add_selected_button_Cases': {
+      '&.add_selected_button_Programs': {
         backgroundColor: '#10A075',
       },
       '&.add_selected_button_Samples': {

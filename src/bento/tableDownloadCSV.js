@@ -114,12 +114,14 @@ export const customProgramsTableDownloadCSV = {
 
 export const GET_PROGRAMS_TAB = gql`
 query programsOverview(
+  $program_names: [String],
   $focus_area: [String],
   $first: Int,
   $order_by: String,
   $sort_direction: String 
 ) {
 programsOverview(
+  program_names: $program_names,
   focus_area: $focus_area,
   first: $first,
   order_by: $order_by,
@@ -127,7 +129,6 @@ programsOverview(
 ) {
   data_link
   focus_area_str
-  program_id
   program_link
   program_name
 }

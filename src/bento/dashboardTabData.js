@@ -82,9 +82,11 @@ export const tabIndex = [
 
 export const DASHBOARD_QUERY_NEW = gql`
 query search(
+  $program_names: [String],
   $focus_area: [String]
 ) {
 searchProjects(
+  program_names: $program_names,
   focus_area: $focus_area
 ) {
   numberOfGrants
@@ -103,38 +105,17 @@ export const FILTER_GROUP_QUERY = gql`
   numberOfPublications(project_ids: $subject_ids)
   }`;
 
-// projectCountByFocusArea(project_ids: $subject_ids){
-//   group
-//   subjects
-// }
-// projectCountByDOC(project_ids: $subject_ids){
-//   group
-//   subjects
-// }
-// projectCountByFiscalYear(project_ids: $subject_ids){
-//   group
-//   subjects
-// } 
-// projectCountByAwardAmount(project_ids: $subject_ids){
-//   group
-//   subjects
-// } 
-// publicationCountByYear(project_ids: $subject_ids){
-//   group
-//   subjects
-// }
-// publicationCountByRCR(project_ids: $subject_ids){
-//   group
-//   subjects
-// }
-// publicationCountByCitation(project_ids: $subject_ids){
-//   group
-//   subjects
-// }
-
 export const FILTER_QUERY = gql`
-query searchProjects($focus_area: [String]) {
-searchProjects(focus_area: $focus_area) {
+query searchProjects(
+  $program_ids: [String],
+  $program_names: [String],
+  $focus_area: [String]
+) {
+searchProjects(
+  program_ids: $program_ids,
+  program_names: $program_names,
+  focus_area: $focus_area
+) {
         numberOfPrograms
         numberOfGrants
         numberOfProjects
@@ -146,52 +127,10 @@ filterProjectCountByFocusArea{
 }
 }`;
 
-// projectCountByFocusArea{
-//   group
-//   subjects
-// }
-// projectCountByDOC{
-//   group
-//   subjects
-// }
-// projectCountByFiscalYear{
-//   group
-//   subjects
-// }
-// projectCountByAwardAmount{
-//   group
-//   subjects
-// }
-// publicationCountByYear{
-//   group
-//   subjects
-// }
-// publicationCountByRCR{
-//   group
-//   subjects
-// }
-// publicationCountByCitation
-// {
-//   group
-//   subjects
-// }
-
-// filterProjectCountByDOC{
-//   group
-//   subjects
-// }
-// filterProjectCountByFiscalYear{
-//   group
-//   subjects
-// }
-// filterProjectCountByAwardAmount{
-//   group
-//   subjects
-// }
-
 // --------------- GraphQL query - Retrieve files tab details --------------
 export const GET_PROGRAMS_OVERVIEW_QUERY = gql`
 query programsOverview(
+  $program_names: [String],
   $focus_area: [String],
   $offset: Int,
   $first: Int,
@@ -199,6 +138,7 @@ query programsOverview(
   $sort_direction: String 
 ) {
 programsOverview(
+  program_names: $program_names,
   focus_area: $focus_area,
   first: $first,
   offset: $offset,
@@ -207,7 +147,7 @@ programsOverview(
 ) {
   data_link
   focus_area_str
-  program_id
+  program_acronym
   program_link
   program_name
 }
@@ -568,11 +508,11 @@ export const tabContainers = [
     dataField: 'dataProgram',
     api: GET_PROGRAMS_OVERVIEW_QUERY,
     paginationAPIField: 'programsOverview',
-    defaultSortField: 'program_id',
+    defaultSortField: 'program_name',
     defaultSortDirection: 'asc',
     count: 'numberOfPrograms',
     buttonText: 'Add Selected Files',
-    dataKey: 'program_id',
+    dataKey: 'program_name',
     extendedViewConfig: {
       pagination: true,
       manageViewColumns: false,
@@ -591,7 +531,7 @@ export const tabContainers = [
         role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'program_id',
+        dataField: 'program_acronym',
         header: 'Website',
         cellType: cellTypes.EXTERNAL_LINK,
         linkAttr: {
@@ -609,9 +549,9 @@ export const tabContainers = [
         role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'program_id',
+        dataField: 'program_acronym',
         header: 'Data Location Details',
-        cellType: cellTypes.EXTERNAL_LINK,
+        cellType: cellTypes.CONDITIONAL_EXTERNAL_LINK,
         linkAttr: {
           pathParams: ['data_link'],
         },

@@ -22,18 +22,20 @@ export const GET_SUBJECT_IDS = gql`
 
 export const GET_IDS_BY_TYPE = () => gql`{
   idsLists {
-    programIds
-    programNames
+    program_acronym
+    program_name
   }
 }
 `;
 
 export const GET_SEARCH_NODES_BY_FACET = gql`
 query searchProjects (          
+  $program_names: [String],
   $focus_area: [String]
 ){
   searchProjects (          
-      focus_area: $focus_area
+    program_names: $program_names,
+    focus_area: $focus_area
   ) {
     numberOfPrograms
     numberOfProjects

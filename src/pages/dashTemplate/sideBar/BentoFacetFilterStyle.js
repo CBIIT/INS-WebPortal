@@ -80,10 +80,10 @@ export default () => ({
     marginLeft: 3,
     color: '#000000',
   },
-  CasesCheckbox: {
+  ProgramsCheckbox: {
     color: '#10A075',
   },
-  CasesCheckedIcon: {
+  ProgramsCheckedIcon: {
     color: '#10A075',
   },
   checkboxRoot: {
@@ -102,7 +102,7 @@ export default () => ({
     fontSize: '14px',
     marginRight: '0px',
   },
-  activeFacetProjects: {
+  activeFacetPrograms: {
     color: '#10a075',
   },
   activeFacetSamples: {
@@ -114,10 +114,10 @@ export default () => ({
   searchContainer: {
     paddingTop: '15px',
     margin: '0 2px',
-    marginRight: 6,
+    marginRight: 0,
   },
   findCaseButton: {
-    marginLeft: '105px',
+    marginLeft: 0,
     backgroundColor: '#10A075',
     boxSizing: 'border-box',
     height: 30,
@@ -126,7 +126,7 @@ export default () => ({
     cursor: 'pointer',
     borderRadius: 11,
     display: 'flex',
-    marginRight: 6,
+    marginRight: 0,
     justifyContent: 'center',
     alignItems: 'center',
   },

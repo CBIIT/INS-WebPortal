@@ -34,7 +34,7 @@ export const facetsConfig = [{
   field: GROUP,
   apiPath: 'projectCountByFocusArea',
   apiForFiltering: 'filterProjectCountByFocusArea',
-  datafield: 'programs',
+  datafield: 'focus_area',
   type: InputTypes.CHECKBOX,
   sort_type: sortType.ALPHABET,
   show: true,
