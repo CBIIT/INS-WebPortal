@@ -65,7 +65,7 @@ const theme = {
     },
     MuiSvgIcon: {
       root: {
-        '&.projectsCheckedIcon': {
+        '&.programsCheckedIcon': {
           color: '#10a075',
         },
         '&.samplesCheckedIcon': {
@@ -78,7 +78,7 @@ const theme = {
     },
     MuiTypography: {
       root: {
-        '&.projectsSubjects': {
+        '&.programsSubjects': {
           color: '#10a075',
           fontSize: '12px',
           fontFamily: 'Nunito',

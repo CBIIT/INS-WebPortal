@@ -102,7 +102,7 @@ export default () => ({
     fontSize: '14px',
     marginRight: '0px',
   },
-  activeFacetProjects: {
+  activeFacetPrograms: {
     color: '#10a075',
   },
   activeFacetSamples: {
