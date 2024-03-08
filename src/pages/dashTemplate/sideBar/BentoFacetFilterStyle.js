@@ -80,10 +80,10 @@ export default () => ({
     marginLeft: 3,
     color: '#000000',
   },
-  CasesCheckbox: {
+  ProgramsCheckbox: {
     color: '#10A075',
   },
-  CasesCheckedIcon: {
+  ProgramsCheckedIcon: {
     color: '#10A075',
   },
   checkboxRoot: {
@@ -116,7 +116,7 @@ export default () => ({
     margin: '0 2px',
     marginRight: 0,
   },
-  findCaseButton: {
+  findProgramButton: {
     marginLeft: 0,
     backgroundColor: '#10A075',
     boxSizing: 'border-box',
