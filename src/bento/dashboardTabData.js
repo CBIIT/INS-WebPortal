@@ -82,12 +82,10 @@ export const tabIndex = [
 
 export const DASHBOARD_QUERY_NEW = gql`
 query search(
-  $program_ids: [String],
   $program_names: [String],
   $focus_area: [String]
 ) {
 searchProjects(
-  program_ids: $program_ids,
   program_names: $program_names,
   focus_area: $focus_area
 ) {
@@ -132,7 +130,6 @@ filterProjectCountByFocusArea{
 // --------------- GraphQL query - Retrieve files tab details --------------
 export const GET_PROGRAMS_OVERVIEW_QUERY = gql`
 query programsOverview(
-  $program_ids: [String],
   $program_names: [String],
   $focus_area: [String],
   $offset: Int,
@@ -141,7 +138,6 @@ query programsOverview(
   $sort_direction: String 
 ) {
 programsOverview(
-  program_ids: $program_ids,
   program_names: $program_names,
   focus_area: $focus_area,
   first: $first,

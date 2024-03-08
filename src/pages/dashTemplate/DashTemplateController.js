@@ -28,7 +28,7 @@ const getDashData = (states) => {
 
   const activeFilters = {
     ...getFilters(filterState),
-    subject_ids: [
+    program_names: [
       ...(localFindUpload || []).map((obj) => obj.subject_id),
       ...(localFindAutocomplete || []).map((obj) => obj.title),
     ],
@@ -36,6 +36,7 @@ const getDashData = (states) => {
 
   useEffect(() => {
     const controller = new AbortController();
+
     getData(activeFilters).then((result) => {
       if (result.searchProjects) {
         setDashData(result.searchProjects);

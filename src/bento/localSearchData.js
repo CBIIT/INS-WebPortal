@@ -30,12 +30,10 @@ export const GET_IDS_BY_TYPE = () => gql`{
 
 export const GET_SEARCH_NODES_BY_FACET = gql`
 query searchProjects (          
-  $program_ids: [String],
   $program_names: [String],
   $focus_area: [String]
 ){
   searchProjects (          
-    program_ids: $program_ids,
     program_names: $program_names,
     focus_area: $focus_area
   ) {
