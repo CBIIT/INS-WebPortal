@@ -551,7 +551,7 @@ export const tabContainers = [
       {
         dataField: 'program_id',
         header: 'Data Location Details',
-        cellType: cellTypes.EXTERNAL_LINK,
+        cellType: cellTypes.CONDITIONAL_EXTERNAL_LINK,
         linkAttr: {
           pathParams: ['data_link'],
         },
