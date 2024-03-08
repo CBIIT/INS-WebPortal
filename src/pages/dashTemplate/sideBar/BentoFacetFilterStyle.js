@@ -116,7 +116,7 @@ export default () => ({
     margin: '0 2px',
     marginRight: 0,
   },
-  findProgramButton: {
+  findCaseButton: {
     marginLeft: 0,
     backgroundColor: '#10A075',
     boxSizing: 'border-box',
