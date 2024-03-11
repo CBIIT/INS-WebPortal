@@ -25,20 +25,20 @@ const customTheme = {
       '&.Mui-selected': {
         fontWeight: 'bolder',
         '&.programs': {
-          background: '#d6f2ea',
-          color: '#10a075',
+          background: '#D6F2EA',
+          color: '#10A075',
         },
         '&.projects': {
-          background: '#f7d7f7',
-          color: '#c92ec7',
+          background: '#DCD6F2',
+          color: '#2D10A0',
         },
         '&.grants': {
-          background: '#d6f2ea',
-          color: '#10a075',
+          background: '#F2D6DE',
+          color: '#A0103B',
         },
         '&.publications': {
-          background: '#cfedf9',
-          color: '#0dafec',
+          background: '#ECF2D6',
+          color: '#83A010',
         },
         '&.MuiTypography-body1': {
           color: 'red',
