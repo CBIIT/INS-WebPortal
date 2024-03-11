@@ -23,6 +23,10 @@ export const onClearAllAndSelectFacetValue = (facet, facetValue) => {
  * @returns {Promise<string[]>} all ids for the search field
  */
 export async function getAllIds(type) {
+  const programNames = {
+    program_name: [],
+  };
+
   const allids = await client
     .query({
       query: GET_IDS_BY_TYPE(type),
@@ -30,7 +34,12 @@ export async function getAllIds(type) {
     })
     .then((result) => result.data.idsLists)
     .catch(() => []);
-  return allids;
+
+  allids.forEach((data) => {
+    programNames.program_name.push(data.program_name);
+  });
+
+  return programNames;
 }
 
 /**
