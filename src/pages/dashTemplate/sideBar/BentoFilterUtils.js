@@ -25,6 +25,7 @@ export const onClearAllAndSelectFacetValue = (facet, facetValue) => {
 export async function getAllIds(type) {
   const programNames = {
     program_name: [],
+    // program_text: [],
   };
 
   const allids = await client
@@ -37,6 +38,8 @@ export async function getAllIds(type) {
 
   allids.forEach((data) => {
     programNames.program_name.push(`${data.program_name} ${data.program_acronym}`);
+    // programNames.program_name.push(data.program_name);
+    // programNames.program_text.push(`${data.program_name} ${data.program_acronym}`);
   });
 
   return programNames;

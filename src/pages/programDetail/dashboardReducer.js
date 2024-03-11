@@ -692,8 +692,8 @@ export async function fetchAllFileIDsForSelectAll(fileCount = 100000) {
       },
     })
     .then((result) => {
-      const RESULT_DATA = getState().currentActiveTab === tabIndex[4].title ? 'patentOverView' : getState().currentActiveTab === tabIndex[3].title ? 'clinicalTrialOverView' : getState().currentActiveTab === tabIndex[2].title ? 'datasetOverView' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverView' : 'projectOverView';
-      const fileIdsFromQuery = RESULT_DATA === 'projectOverView' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverView' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
+      const RESULT_DATA = getState().currentActiveTab === tabIndex[4].title ? 'patentOverView' : getState().currentActiveTab === tabIndex[3].title ? 'clinicalTrialOverView' : getState().currentActiveTab === tabIndex[2].title ? 'datasetOverView' : getState().currentActiveTab === tabIndex[1].title ? 'publicationOverview' : 'projectOverview';
+      const fileIdsFromQuery = RESULT_DATA === 'projectOverview' ? transformfileIdsToFiles(result.data[RESULT_DATA]) : RESULT_DATA === 'datasetOverView' ? transformCasesFileIdsToFiles(result.data[RESULT_DATA]) : result.data[RESULT_DATA] || [];
       return fileIdsFromQuery;
     });
 
@@ -1270,8 +1270,8 @@ const reducers = {
       currentActiveTab: item.currentTab,
       datatable: {
         ...state.datatable,
-        dataProject: item.data.projectOverView,
-        dataPublication: item.data.publicationOverView,
+        dataProject: item.data.projectOverview,
+        dataPublication: item.data.publicationOverview,
         dataDataset: item.data.datasetOverView,
         dataClinicalTrial: item.data.clinicalTrialOverView,
         dataPatent: item.data.patentOverView,
@@ -1402,7 +1402,7 @@ const reducers = {
   //       filteredClinicalTrialIds: null,
   //       filteredPatentIds: null,
   //       subjectOverView: {
-  //         data: item.data.searchProjects.projectOverView,
+  //         data: item.data.searchProjects.projectOverview,
   //       },
   //       checkboxForAll: {
   //         data: checkboxData,

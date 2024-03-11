@@ -43,13 +43,13 @@ export const customProgramsListTableDownloadCSV = {
 };
 
 export const GET_PROGRAMS_TABLE = gql`
-query projectOverView(
+query projectOverview(
   $programs: [String],
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
-  projectOverView(
+  projectOverview(
     programs: $programs,
     first: $first,
     order_by: $order_by,
@@ -107,7 +107,7 @@ export const customProgramsTableDownloadCSV = {
     'Fiscal Year',
   ],
   query: GET_PROGRAMS_TABLE,
-  apiVariable: 'projectOverView',
+  apiVariable: 'projectOverview',
   fileName: 'INS Program Details',
   defaultFullTableDownload: true,
 };
@@ -155,224 +155,157 @@ export const customProgramsTabDownloadCSV = {
 };
 
 export const GET_PROJECTS_TAB = gql`
-query projectOverView(
-  $programs: [String],
-  $docs: [String],
-  $fiscal_years: [String],
-  $award_amounts: [String],
+query projectsOverview(
+  $program_names: [String],
+  $focus_area: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
-  ){
-  projectOverView(
-    programs: $programs,
-    docs: $docs,
-    fiscal_years: $fiscal_years,
-    award_amounts: $award_amounts,
-    first: $first,
-    offset: $offset,
-    order_by: $order_by,
-    sort_direction: $sort_direction
-    ) {
-    project_id,
-    queried_project_id,
-    application_id,
-    fiscal_year,
-    activity_code,
-    project_title,
-    project_type,
-    abstract_text,
-    keywords,
-    org_name,
-    org_city,
-    org_state,
-    org_country,
-    principal_investigators,
-    lead_doc,
-    program_officers,
-    award_amount,
-    nci_funded_amount,
-    award_notice_date,
-    project_start_date,
-    project_end_date,
-    full_foa,
-    program
-  }
+) {
+projectsOverview(
+  program_names: $program_names,
+  focus_area: $focus_area,
+  first: $first,
+  offset: $offset,
+  order_by: $order_by,
+  sort_direction: $sort_direction
+) {
+  org_name
+  program_names
+  project_end_date
+  project_id
+  project_start_date
+  project_title
 }
-`;
+}
+  `;
 
 export const customProjectsTabDownloadCSV = {
   keysToInclude: [
     'project_id',
-    'queried_project_id',
-    'program',
     'project_title',
-    'principal_investigators',
-    'program_officers',
-    'lead_doc',
-    'activity_code',
-    'award_amount',
+    'program_names',
+    'org_name',
+    'project_start_date',
     'project_end_date',
-    'fiscal_year',
   ],
   header: [
-    'Grant ID',
     'Project ID',
-    'Program',
     'Project Title',
-    'Principal Investigators',
-    'Program Officers',
-    'Lead DOC',
-    'Activity Code',
-    'Award Amount',
+    'Program(s)',
+    'Organization',
+    'Project Start Date',
     'Project End Date',
-    'Fiscal Year',
   ],
   query: GET_PROJECTS_TAB,
-  apiVariable: 'projectOverView',
+  apiVariable: 'projectOverview',
   fileName: 'INS Projects',
   defaultFullTableDownload: true,
 };
 
 export const GET_GRANTS_TAB = gql`
-query grantOverView(
-  $programs: [String],
-  $docs: [String],
-  $fiscal_years: [String],
-  $award_amounts: [String],
+query grantsOverview(
+  $program_names: [String],
+  $focus_area: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
-  ){
-  grantOverView(
-    programs: $programs,
-    docs: $docs,
-    fiscal_years: $fiscal_years,
-    award_amounts: $award_amounts,
-    first: $first,
-    offset: $offset,
-    order_by: $order_by,
-    sort_direction: $sort_direction
-    ) {
-    project_id,
-    queried_project_id,
-    application_id,
-    fiscal_year,
-    activity_code,
-    project_title,
-    project_type,
-    abstract_text,
-    keywords,
-    org_name,
-    org_city,
-    org_state,
-    org_country,
-    principal_investigators,
-    lead_doc,
-    program_officers,
-    award_amount,
-    nci_funded_amount,
-    award_notice_date,
-    project_start_date,
-    project_end_date,
-    full_foa,
-    program
-  }
+) {
+grantsOverview(
+  program_names: $program_names,
+  focus_area: $focus_area,
+  first: $first,
+  offset: $offset,
+  order_by: $order_by,
+  sort_direction: $sort_direction
+) {
+  fiscal_year
+  grant_id
+  grant_title
+  principal_investigators
+  program_officers
+  project_end_date
+  project_id
 }
-`;
+}
+  `;
 
 export const customGrantsTabDownloadCSV = {
   keysToInclude: [
+    'grant_id',
     'project_id',
-    'queried_project_id',
-    'program',
-    'project_title',
+    'grant_title',
     'principal_investigators',
     'program_officers',
-    'lead_doc',
-    'activity_code',
-    'award_amount',
-    'project_end_date',
     'fiscal_year',
+    'project_end_date',
   ],
   header: [
     'Grant ID',
-    'Project ID',
-    'Program',
-    'Project Title',
+    'Project',
+    'Grant Title',
     'Principal Investigators',
     'Program Officers',
-    'Lead DOC',
-    'Activity Code',
-    'Award Amount',
-    'Project End Date',
     'Fiscal Year',
+    'Project End Date',
   ],
   query: GET_GRANTS_TAB,
-  apiVariable: 'grantOverView',
+  apiVariable: 'grantOverview',
   fileName: 'INS Grants',
   defaultFullTableDownload: true,
 };
 
 export const GET_PUBLICATIONS_TAB = gql`
-query publicationOverView(
-  $programs: [String],
-  $docs: [String],
-  $fiscal_years: [String],
-  $award_amounts: [String],
+query publicationsOverview(
+  $program_names: [String],
+  $focus_area: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
-  ){
-  publicationOverView(
-    programs: $programs,
-    docs: $docs,
-    fiscal_years: $fiscal_years,
-    award_amounts: $award_amounts,
-    first: $first,
-    offset: $offset,
-    order_by: $order_by,
-    sort_direction: $sort_direction
-  ) {
-    publication_id,
-    pmc_id,
-    year,
-    journal,
-    title,
-    authors,
-    publish_date,
-    citation_count,
-    relative_citation_ratio,
-    doi,
-    queried_project_ids
-  }
+) {
+publicationsOverview(
+  program_names: $program_names,
+  focus_area: $focus_area,
+  first: $first,
+  offset: $offset,
+  order_by: $order_by,
+  sort_direction: $sort_direction
+) {
+  authors
+  cited_by
+  pmid
+  project_ids
+  publication_date
+  relative_citation_ratio
+  title
 }
-`;
+}
+  `;
 
 export const customPublicationsTabDownloadCSV = {
   keysToInclude: [
-    'publication_id',
-    'queried_project_ids',
+    'pmid',
+    'project_id',
     'title',
     'authors',
-    'citation_count',
+    'publication_date',
+    'cited_by',
     'relative_citation_ratio',
-    'publish_date',
   ],
   header: [
     'PubMed ID',
-    'Project IDs',
+    'Project(s)',
     'Title',
     'Authors',
-    'Citation Count',
-    'Relative Citation Ratio',
     'Publication Date',
+    'Cited By',
+    'Relative Citation Ratio',
   ],
   query: GET_PUBLICATIONS_TAB,
-  apiVariable: 'publicationOverView',
+  apiVariable: 'publicationOverview',
   fileName: 'INS Publications',
   defaultFullTableDownload: true,
 };

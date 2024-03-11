@@ -64,7 +64,7 @@ const leftPanel = {
 };
 
 export const GET_PROJECTS_OVERVIEW_QUERY = gql`
-query projectOverView(
+query projectOverview(
   $programs: [String],
   $docs: [String],
   $fiscal_years: [String],
@@ -74,7 +74,7 @@ query projectOverView(
   $order_by: String,
   $sort_direction: String 
   ){
-  projectOverView(
+  projectOverview(
     programs: $programs,
     docs: $docs,
     fiscal_years: $fiscal_years,
@@ -116,7 +116,7 @@ const table = {
   name: 'Grants',
   dataField: 'dataProject',
   api: GET_PROJECTS_OVERVIEW_QUERY,
-  paginationAPIField: 'projectOverView',
+  paginationAPIField: 'projectOverview',
   defaultSortField: 'project_id',
   defaultSortDirection: 'asc',
   count: 'numberOfGrants',
