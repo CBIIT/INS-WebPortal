@@ -709,7 +709,7 @@ export const tabContainers = [
         role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'project_id',
+        dataField: 'project_ids',
         header: 'Project(s)',
         // cellType: cellTypes.LINK,
         // linkAttr: {
