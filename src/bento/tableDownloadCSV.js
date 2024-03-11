@@ -43,13 +43,13 @@ export const customProgramsListTableDownloadCSV = {
 };
 
 export const GET_PROGRAMS_TABLE = gql`
-query projectOverview(
+query projectsOverview(
   $programs: [String],
   $first: Int,
   $order_by: String,
   $sort_direction: String 
   ){
-  projectOverview(
+  projectsOverview(
     programs: $programs,
     first: $first,
     order_by: $order_by,
@@ -107,7 +107,7 @@ export const customProgramsTableDownloadCSV = {
     'Fiscal Year',
   ],
   query: GET_PROGRAMS_TABLE,
-  apiVariable: 'projectOverview',
+  apiVariable: 'projectsOverview',
   fileName: 'INS Program Details',
   defaultFullTableDownload: true,
 };
@@ -199,7 +199,7 @@ export const customProjectsTabDownloadCSV = {
     'Project End Date',
   ],
   query: GET_PROJECTS_TAB,
-  apiVariable: 'projectOverview',
+  apiVariable: 'projectsOverview',
   fileName: 'INS Projects',
   defaultFullTableDownload: true,
 };
@@ -252,7 +252,7 @@ export const customGrantsTabDownloadCSV = {
     'Project End Date',
   ],
   query: GET_GRANTS_TAB,
-  apiVariable: 'grantOverview',
+  apiVariable: 'grantsOverview',
   fileName: 'INS Grants',
   defaultFullTableDownload: true,
 };
@@ -305,7 +305,7 @@ export const customPublicationsTabDownloadCSV = {
     'Relative Citation Ratio',
   ],
   query: GET_PUBLICATIONS_TAB,
-  apiVariable: 'publicationOverview',
+  apiVariable: 'publicationsOverview',
   fileName: 'INS Publications',
   defaultFullTableDownload: true,
 };
