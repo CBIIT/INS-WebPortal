@@ -511,6 +511,24 @@ export const tabContainers = [
         role: cellTypes.DISPLAY,
       },
     ],
+    downloadColumns: [
+      {
+        dataField: 'program_name',
+        header: 'Program',
+      },
+      {
+        dataField: 'program_link',
+        header: 'Website',
+      },
+      {
+        dataField: 'focus_area_str',
+        header: 'Focus Area',
+      },
+      {
+        dataField: 'data_link',
+        header: 'Data Location Details',
+      },
+    ],
     id: 'program_tab',
     tableMsg: {
       noMatch: 'No Matching Records Found',
