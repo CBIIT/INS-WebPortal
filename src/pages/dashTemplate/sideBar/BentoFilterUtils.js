@@ -36,7 +36,7 @@ export async function getAllIds(type) {
     .catch(() => []);
 
   allids.forEach((data) => {
-    programNames.program_name.push(data.program_name);
+    programNames.program_name.push(`${data.program_name} ${data.program_acronym}`);
   });
 
   return programNames;
