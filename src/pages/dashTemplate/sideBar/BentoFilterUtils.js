@@ -30,6 +30,7 @@ export async function getAllIds(type) {
     })
     .then((result) => result.data.idsLists)
     .catch(() => []);
+
   return allids;
 }
 
