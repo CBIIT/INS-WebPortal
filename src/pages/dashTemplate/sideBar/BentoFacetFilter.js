@@ -60,8 +60,8 @@ const { SearchBox } = SearchBoxGenerator({
     getSuggestions: async (searchType) => {
       try {
         const response = await getAllIds(searchType).catch(() => []);
-        return response && response[searchType] instanceof Array
-          ? response[searchType].map((id) => ({ type: searchType, title: id }))
+        return response && response instanceof Array
+          ? response.map((entry) => ({ title: entry.program_name, id: entry.program_acronym }))
           : [];
       } catch (e) {
         return [];
