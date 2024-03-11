@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
 import { cellTypes } from '@bento-core/table';
-import { customProgramsTableDownloadCSV } from './tableDownloadCSV';
 import programIcon from '../assets/icons/Icon-Programs.png';
 
 // --------------- Page title configuration --------------
@@ -214,7 +213,6 @@ const table = {
   ],
   id: 'project_tab',
   tableID: 'project_tab_table',
-  tableDownloadCSV: customProgramsTableDownloadCSV,
   downloadFileName: 'programs_download',
   tableMsg: {
     noMatch: 'No Matching Records Found',

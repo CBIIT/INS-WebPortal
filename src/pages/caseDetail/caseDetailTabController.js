@@ -114,7 +114,6 @@ const caseDetailTabController = ({ projectID, classes }) => {
         defaultSortDirection={container.defaultSortDirection || 'asc'}
         dataKey={container.dataKey}
         allFilters={{ ...allFilters, ...{ subject_ids: [] } }}
-        tableDownloadCSV={container.tableDownloadCSV || false}
         tooltipMessage={tooltipContent[currentTab]}
         tooltipIcon={tooltipContent.icon}
         tooltipAlt={tooltipContent.alt}

@@ -1,12 +1,6 @@
 /* eslint-disable */
 import gql from 'graphql-tag';
 import { cellTypes } from '@bento-core/table';
-import {
-  customProgramsTabDownloadCSV,
-  customProjectsTabDownloadCSV,
-  customGrantsTabDownloadCSV,
-  customPublicationsTabDownloadCSV,
-} from './tableDownloadCSV';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -535,7 +529,6 @@ export const tabContainers = [
     },
     tableID: 'program_tab_table',
     tabIndex: '0',
-    tableDownloadCSV: customProgramsTabDownloadCSV,
     downloadFileName: 'programs_download',
   },
   {
@@ -612,7 +605,6 @@ export const tabContainers = [
     },
     tableID: 'project_tab_table',
     tabIndex: '1',
-    tableDownloadCSV: customProjectsTabDownloadCSV,
     downloadFileName: 'projects_download',
   },
   {
@@ -696,7 +688,6 @@ export const tabContainers = [
     },
     tableID: 'grant_tab_table',
     tabIndex: '2',
-    tableDownloadCSV: customGrantsTabDownloadCSV,
     downloadFileName: 'grants_download',
   },
   {
@@ -780,7 +771,6 @@ export const tabContainers = [
     },
     tableID: 'publication_tab_table',
     tabIndex: '3',
-    tableDownloadCSV: customPublicationsTabDownloadCSV,
     downloadFileName: 'publications_download',
   },
 ];
