@@ -27,7 +27,7 @@ const tblBody = {
   MuiTableCell: {
     root: {
       minHeight: '45px',
-      padding: '0px 5px 0px 20px',
+      padding: '5px 5px 5px 20px',
       color: '#004C73',
       borderBottom: 'none',
     },
@@ -36,7 +36,7 @@ const tblBody = {
       padding: '0 0 0 5px',
     },
     body: {
-      color: '#13344A',
+      color: '#004c73',
       '&.project_id': {
         width: '10%',
         '& p': {

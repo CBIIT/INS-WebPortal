@@ -218,36 +218,48 @@ function searchView(props) {
       onTabChange,
       getTabData,
     },
-    tabs: [{
-      name: 'All',
-      field: 'all',
-      classes: {
-        root: classes.buttonRoot,
-        wrapper: classes.tabColor,
+    tabs: [
+      // {
+      //   name: 'All',
+      //   field: 'all',
+      //   classes: {
+      //     root: classes.buttonRoot,
+      //     wrapper: classes.tabColor,
+      //   },
+      //   count: (!authCheck() ? searchCounts.about_count : countValues(searchCounts)) || 0,
+      //   value: '1',
+      // },
+      // {
+      //   name: 'Grants',
+      //   field: 'projects',
+      //   classes: {
+      //     root: classes.buttonRoot,
+      //     wrapper: classes.tabColor,
+      //   },
+      //   count: searchCounts.project_count || 0,
+      //   value: '2',
+      // },
+      // {
+      //   name: 'About',
+      //   field: 'about_page',
+      //   classes: {
+      //     root: classes.buttonRoot,
+      //     wrapper: classes.tabColor,
+      //   },
+      //   count: searchCounts.about_count || 0,
+      //   value: '3',
+      // },
+      {
+        name: 'About',
+        field: 'about_page',
+        classes: {
+          root: classes.buttonRoot,
+          wrapper: classes.tabColor,
+        },
+        count: searchCounts.about_count || 0,
+        value: '1',
       },
-      count: (!authCheck() ? searchCounts.about_count : countValues(searchCounts)) || 0,
-      value: '1',
-    },
-    {
-      name: 'Grants',
-      field: 'projects',
-      classes: {
-        root: classes.buttonRoot,
-        wrapper: classes.tabColor,
-      },
-      count: searchCounts.project_count || 0,
-      value: '2',
-    },
-    {
-      name: 'About',
-      field: 'about_page',
-      classes: {
-        root: classes.buttonRoot,
-        wrapper: classes.tabColor,
-      },
-      count: searchCounts.about_count || 0,
-      value: '3',
-    }],
+    ],
   });
 
   useEffect(() => {

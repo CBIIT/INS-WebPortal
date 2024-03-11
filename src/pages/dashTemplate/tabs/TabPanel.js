@@ -55,6 +55,7 @@ const TabView = (props) => {
     paginationAPIField: config.paginationAPIField,
     dataKey: config.dataKey,
     columns: configColumn(config.columns),
+    downloadColumns: config.downloadColumns ? config.downloadColumns : config.columns,
     count: dashboardStats[config.count],
     selectedRows: [],
     enableRowSelection: config.enableRowSelection,
