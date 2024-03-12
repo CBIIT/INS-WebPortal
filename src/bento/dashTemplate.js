@@ -46,13 +46,13 @@ export const widgetConfig = [
     type: 'donut',
     title: 'Programs by Focus Area',
     dataName: 'programCountByFocusArea',
-    sliceTitle: 'Projects',
+    sliceTitle: 'Programs',
   },
   {
     type: 'donut',
     title: 'Programs by DOC',
     dataName: 'programCountByDoc',
-    sliceTitle: 'Projects',
+    sliceTitle: 'Programs',
   },
   {
     type: 'bar',

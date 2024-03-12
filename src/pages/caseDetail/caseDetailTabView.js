@@ -30,7 +30,6 @@ const TabView = ({
   allFilters,
   defaultSortCoulmn,
   defaultSortDirection,
-  tableDownloadCSV,
 }) => {
   const defaultOptions = () => ({
     dataKey,
@@ -65,7 +64,6 @@ const TabView = ({
             queryCustomVaribles={allFilters}
             defaultSortCoulmn={defaultSortCoulmn}
             defaultSortDirection={defaultSortDirection}
-            tableDownloadCSV={tableDownloadCSV}
             dataTransformation={dataTransformCallbacks}
             headerStyles={headerStyles}
           />
