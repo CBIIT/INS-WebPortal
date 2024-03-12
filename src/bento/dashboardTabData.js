@@ -478,7 +478,7 @@ export const tabContainers = [
       {
         dataField: 'program_acronym',
         header: 'Website',
-        cellType: cellTypes.EXTERNAL_LINK,
+        cellType: cellTypes.CONDITIONAL_EXTERNAL_LINK,
         linkAttr: {
           pathParams: ['program_link'],
         },
