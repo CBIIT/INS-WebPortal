@@ -7,10 +7,8 @@ import Header from '../Header/HeaderView';
 import NavBar from '../NavBar/NavBarContainer';
 import Footer from '../Footer/FooterView';
 import Error from '../../pages/error/Error';
-import CaseDetail from '../../pages/caseDetail/caseDetailController';
 import Home from '../../pages/landing/landingController';
 import About from '../../pages/about/aboutController';
-import ProgramDetail from '../../pages/programDetail/programDetailController';
 import GlobalSearchController from '../../pages/search/searchViewController';
 import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
 
@@ -40,8 +38,6 @@ const Layout = ({ classes, isSidebarOpened }) => {
             <Switch>
               <MixedRoute exact path="/" component={Home} />
               <MixedRoute exact path="/home" component={Home} />
-              <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
-              <PrivateRoute path="/project/:id" access={['admin', 'member']} component={CaseDetail} />
               <PrivateRoute path="/explore" access={['admin', 'member']} component={DashTemplate} />
               <Route exact path="/search" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
               <Route path="/search/:id" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />

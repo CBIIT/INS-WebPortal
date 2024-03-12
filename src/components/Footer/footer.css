@@ -8,9 +8,12 @@
 
 .beVersion {
   color: white;
-  margin: -88px auto 0px auto;
+  margin: -102px auto 0px auto;
   max-width: 1800px;
   padding-left: 45px;
-  font-size: 8px;
-  padding-top: 10px;
+  font-size: 12px;
+}
+
+.beVersion a{
+  color: white;
 }
