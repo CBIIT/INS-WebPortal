@@ -27,7 +27,7 @@ const tblBody = {
   MuiTableCell: {
     root: {
       minHeight: '45px',
-      padding: '5px 5px 5px 20px',
+      padding: '10px 5px 10px 20px',
       color: '#004C73',
       borderBottom: 'none',
     },
@@ -68,22 +68,22 @@ const tblBody = {
         width: '15%',
       },
       '&.grants_grant_id_1': {
-        width: '20%',
-      },
-      '&.grants_project_id_2': {
         width: '15%',
       },
+      '&.grants_project_id_2': {
+        width: '10%',
+      },
       '&.grants_grant_title_3': {
-        width: '25%',
+        width: '20%',
       },
       '&.grants_principal_investigators_4': {
-        width: '10%',
+        width: '15%',
       },
       '&.grants_program_officers_5': {
-        width: '10%',
+        width: '15%',
       },
       '&.grants_fiscal_year_6': {
-        width: '5%',
+        width: '10%',
       },
       '&.grants_project_end_date_7': {
         width: '15%',
