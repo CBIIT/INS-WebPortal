@@ -37,59 +37,77 @@ const tblBody = {
     },
     body: {
       color: '#004c73',
-      '&.project_id': {
-        width: '10%',
+      '&.programs_program_name_1': {
+        width: '40%',
       },
-      '&.queried_project_id': {
-        width: '10%',
-      },
-      '&.program': {
-        width: '5%',
-      },
-      '&.project_title': {
+      '&.programs_program_acronym_2': {
         width: '20%',
       },
-      '&.principal_investigators': {
-        width: '10%',
+      '&.programs_focus_area_str_3': {
+        width: '20%',
       },
-      '&.program_officers': {
-        width: '10%',
+      '&.programs_program_acronym_4': {
+        width: '20%',
       },
-      '&.lead_doc': {
-        width: '5%',
-      },
-      '&.activity_code': {
-        width: '5%',
-      },
-      '&.award_amount': {
-        width: '10%',
-      },
-      '&.project_end_date': {
-        width: '10%',
-      },
-      '&.fiscal_year': {
-        width: '5%',
-      },
-      '&.publication_id': {
-        width: '5%',
-      },
-      '&.queried_project_ids': {
+      '&.projects_project_id_1': {
         width: '15%',
       },
-      '&.title': {
+      '&.projects_project_title_2': {
+        width: '20%',
+      },
+      '&.projects_program_names_3': {
+        width: '20%',
+      },
+      '&.projects_org_name_4': {
+        width: '15%',
+      },
+      '&.projects_project_start_date_5': {
+        width: '15%',
+      },
+      '&.projects_project_end_date_6': {
+        width: '15%',
+      },
+      '&.grants_grant_id_1': {
+        width: '20%',
+      },
+      '&.grants_project_id_2': {
+        width: '15%',
+      },
+      '&.grants_grant_title_3': {
         width: '25%',
       },
-      '&.authors': {
-        width: '25%',
-      },
-      '&.citation_count': {
+      '&.grants_principal_investigators_4': {
         width: '10%',
       },
-      '&.relative_citation_ratio': {
+      '&.grants_program_officers_5': {
         width: '10%',
       },
-      '&.publish_date': {
+      '&.grants_fiscal_year_6': {
+        width: '5%',
+      },
+      '&.grants_project_end_date_7': {
+        width: '15%',
+      },
+      '&.publications_pmid_1': {
         width: '10%',
+      },
+      '&.publications_project_ids_2': {
+        width: '15%',
+      },
+      '&.publications_title_3': {
+        width: '20%',
+      },
+      '&.publications_authors_4': {
+        width: '20%',
+      },
+      '&.publications_publication_date_5': {
+        width: '10%',
+      },
+      '&.publications_cited_by_6': {
+        width: '10%',
+      },
+      '&.publications_relative_citation_ratio_7': {
+        width: '15%',
       },
     },
   },
