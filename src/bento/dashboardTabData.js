@@ -474,6 +474,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'programs_program_name_1',
       },
       {
         dataField: 'program_acronym',
@@ -485,6 +486,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'programs_program_acronym_2',
       },
       {
         dataField: 'focus_area_str',
@@ -492,6 +494,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'programs_focus_area_str_3',
       },
       {
         dataField: 'program_acronym',
@@ -503,6 +506,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'programs_program_acronym_4',
       },
     ],
     downloadColumns: [
@@ -557,6 +561,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'projects_project_id_1',
       },
       {
         dataField: 'project_title',
@@ -564,6 +569,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'projects_project_title_2',
       },
       {
         dataField: 'program_names',
@@ -576,6 +582,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'projects_program_names_3',
       },
       {
         dataField: 'org_name',
@@ -583,6 +590,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'projects_org_name_4',
       },
       {
         dataField: 'project_start_date',
@@ -590,6 +598,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'projects_project_start_date_5',
       },
       {
         dataField: 'project_end_date',
@@ -597,6 +606,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'projects_project_end_date_6',
       },
     ],
     id: 'project_tab',
@@ -633,6 +643,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'grants_grant_id_1',
       },
       {
         dataField: 'project_id',
@@ -645,6 +656,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'grants_project_id_2',
       },
       {
         dataField: 'grant_title',
@@ -652,6 +664,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'grants_grant_title_3',
       },
       {
         dataField: 'principal_investigators',
@@ -659,6 +672,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'grants_principal_investigators_4',
       },
       {
         dataField: 'program_officers',
@@ -666,6 +680,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'grants_program_officers_5',
       },
       {
         dataField: 'fiscal_year',
@@ -673,6 +688,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'grants_fiscal_year_6',
       },
       {
         dataField: 'project_end_date',
@@ -680,6 +696,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'grants_project_end_date_7',
       },
     ],
     id: 'grant_tab',
@@ -716,6 +733,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'publications_pmid_1',
       },
       {
         dataField: 'project_ids',
@@ -728,6 +746,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'publications_project_ids_2',
       },
       {
         dataField: 'title',
@@ -735,6 +754,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'publications_title_3',
       },
       {
         dataField: 'authors',
@@ -742,6 +762,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'publications_authors_4',
       },
       {
         dataField: 'publication_date',
@@ -749,6 +770,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'publications_publication_date_5',
       },
       {
         dataField: 'cited_by',
@@ -756,6 +778,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'publications_cited_by_6',
       },
       {
         dataField: 'relative_citation_ratio',
@@ -763,6 +786,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
+        className: 'publications_relative_citation_ratio_7',
       },
     ],
     id: 'publication_tab',
