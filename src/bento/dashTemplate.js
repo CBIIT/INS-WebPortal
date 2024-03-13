@@ -57,7 +57,7 @@ export const widgetConfig = [
   {
     type: 'bar',
     title: 'Publications by Relative Citation Ratio',
-    dataName: 'publicationCountByRcr',
+    dataName: 'publicationCountByRelativeCitationRatio',
     sliceTitle: 'Publications',
   },
 ];

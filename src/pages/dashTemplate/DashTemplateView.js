@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import styles from './DashTemplateStyle';
 import BentoFacetFilter from './sideBar/BentoFacetFilter';
-// import WidgetView from './widget/WidgetView';
+import WidgetView from './widget/WidgetView';
 import StatsView from '../../components/Stats/StatsView';
 import TabsView from './tabs/TabsView';
 import QueryBarView from './filterQueryBar/QueryBarView';
@@ -25,10 +25,10 @@ const DashTemplate = ({
         <div className={classes.rightContent}>
           <div className={classes.widgetsContainer}>
             <QueryBarView data={dashData} />
-            {/* <WidgetView
+            <WidgetView
               data={dashData}
-            /> */}
-            {/* <hr style={{
+            />
+            <hr style={{
               marginTop: '48px',
               marginBottom: 0,
               color: '#E2E7EC',
@@ -36,7 +36,7 @@ const DashTemplate = ({
               height: '16px',
               borderWidth: 0,
             }}
-            /> */}
+            />
             <TabsView
               dashboardStats={dashData}
               activeFilters={activeFilters}

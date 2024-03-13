@@ -87,6 +87,18 @@ searchProjects(
   numberOfPrograms
   numberOfProjects
   numberOfPublications
+  programCountByFocusArea {
+    group
+    subjects
+  }
+  programCountByDoc {
+    group
+    subjects
+  }
+  publicationCountByRelativeCitationRatio {
+    group
+    subjects
+  }
   filterProjectCountByFocusArea {
       group
       subjects
