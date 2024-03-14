@@ -22,7 +22,7 @@ import {
 async function getAllQueryField(searchText, calcOffset, pageSize, isPublic) {
   const searchResp = await queryCountAPI(searchText, isPublic);
   const custodianConfigForTabData = [
-    { countField: 'project_count', nameField: 'projects' },
+    // { countField: 'project_count', nameField: 'projects' },
     { countField: 'about_count', nameField: 'about_page' },
   ];
 
