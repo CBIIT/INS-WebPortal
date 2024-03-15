@@ -11,11 +11,9 @@ export const CustomCellView = (props) => {
     displayEmpty,
     dataField,
     cellStyle,
-    dataFormatter,
   } = props;
   if (cellStyle === 'TRANSFORM') {
-    const content = dataFormatter(props[dataField]);
-    return (<>{ReactHtmlParser(content)}</>);
+    return (<>{ReactHtmlParser(props[dataField].replaceAll(';', '<br />'))}</>);
   }
 
   if (downloadDocument) {
