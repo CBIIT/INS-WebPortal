@@ -597,13 +597,6 @@ export const tabContainers = [
         className: 'projects_program_names_3',
         cellType: cellTypes.CUSTOM_ELEM,
         cellStyle: cellStyles.TRANSFORM,
-        dataFormatter: (name) => {
-          console.log('name0: ', name);
-          // name.replaceAll(";", "/n");
-          name.replaceAll(";", "<br />");
-          console.log('name1: ', name);
-          return name;
-        },
       },
       {
         dataField: 'org_name',
@@ -770,13 +763,6 @@ export const tabContainers = [
         className: 'publications_project_ids_2',
         cellType: cellTypes.CUSTOM_ELEM,
         cellStyle: cellStyles.TRANSFORM,
-        dataFormatter: (name) => {
-          console.log('name0: ', name);
-          // name.replaceAll(";", "/n");
-          name.replaceAll(";", "<br />");
-          console.log('name1: ', name);
-          return name;
-        },
       },
       {
         dataField: 'title',
