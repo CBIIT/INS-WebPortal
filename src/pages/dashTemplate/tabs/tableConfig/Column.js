@@ -1,13 +1,23 @@
 import React from 'react';
+import ReactHtmlParser from 'html-react-parser';
 import { Typography } from '@material-ui/core';
 import { cellTypes, headerTypes } from '@bento-core/table';
 import DocumentDownloadView from '../../../../components/DocumentDownload/DocumentDownloadView';
 
 export const CustomCellView = (props) => {
   const {
-    downloadDocument, documentDownloadProps,
-    displayEmpty, dataField,
+    downloadDocument,
+    documentDownloadProps,
+    displayEmpty,
+    dataField,
+    cellStyle,
+    dataFormatter,
   } = props;
+  if (cellStyle === 'TRANSFORM') {
+    const content = dataFormatter(props[dataField]);
+    return (<>{ReactHtmlParser(content)}</>);
+  }
+
   if (downloadDocument) {
     return (
       <DocumentDownloadView
