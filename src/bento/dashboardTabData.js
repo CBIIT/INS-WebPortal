@@ -768,6 +768,15 @@ export const tabContainers = [
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
         className: 'publications_project_ids_2',
+        cellType: cellTypes.CUSTOM_ELEM,
+        cellStyle: cellStyles.TRANSFORM,
+        dataFormatter: (name) => {
+          console.log('name0: ', name);
+          // name.replaceAll(";", "/n");
+          name.replaceAll(";", "<br />");
+          console.log('name1: ', name);
+          return name;
+        },
       },
       {
         dataField: 'title',
