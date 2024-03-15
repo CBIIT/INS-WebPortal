@@ -1,6 +1,6 @@
 /* eslint-disable */
 import gql from 'graphql-tag';
-import { cellTypes } from '@bento-core/table';
+import { cellTypes, cellStyles } from '@bento-core/table';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -595,6 +595,15 @@ export const tabContainers = [
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
         className: 'projects_program_names_3',
+        cellType: cellTypes.CUSTOM_ELEM,
+        cellStyle: cellStyles.TRANSFORM,
+        dataFormatter: (name) => {
+          console.log('name0: ', name);
+          // name.replaceAll(";", "/n");
+          name.replaceAll(";", "<br />");
+          console.log('name1: ', name);
+          return name;
+        },
       },
       {
         dataField: 'org_name',
