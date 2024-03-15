@@ -96,7 +96,6 @@ query globalSearch($input: String, $first: Int, $offset: Int){
         first: $first
         offset: $offset
     ) {
-        project_count
         about_count
 }
 }
