@@ -92,7 +92,7 @@ const tblBody = {
         width: '10%',
       },
       '&.publications_project_ids_2': {
-        width: '15%',
+        width: '10%',
       },
       '&.publications_title_3': {
         width: '20%',
@@ -101,7 +101,7 @@ const tblBody = {
         width: '20%',
       },
       '&.publications_publication_date_5': {
-        width: '10%',
+        width: '15%',
       },
       '&.publications_cited_by_6': {
         width: '10%',
