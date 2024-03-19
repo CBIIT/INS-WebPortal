@@ -23,13 +23,12 @@
   margin-top: 10px;
 }
 
-.aboutPageDisclaimerItems a {
-  margin: 0px 5px;
+.aboutPageContainer a {
   color: #7747ff;
   text-decoration: none;
 }
 
-.aboutPageDisclaimerItems a[target="_blank"] {
+.aboutPageContainer a[target="_blank"] {
   background: url('../../assets/about/externalLinkIcon.svg') right center no-repeat;
   background-size: 14.5px;
   display: inline-table;
@@ -62,7 +61,7 @@
 }
 
 .aboutPageSectionTop {
-  padding: 40px 44px 60px 44px;
+  padding: 40px 44px 40px 44px;
 }
 
 .aboutPageSectionContent {
@@ -141,11 +140,6 @@
   color: #AEABAB;
   padding-left: 44px;
   padding-top: 40px;
-}
-
-.flowChartImage {
-  margin-right: 50px;
-  margin-left: 50px;
 }
 
 .aboutContentSubHeader {
