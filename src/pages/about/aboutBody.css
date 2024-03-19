@@ -98,13 +98,14 @@
 
 .keyTakeawaysSection {
   float: right;
-  margin-top: 50px;
+  margin: 50px 40px 0 40px;
   padding-right: 0;
   border: solid #8891A1;
   border-radius: 15px;
 }
 
 .keyTakeawaysSectionHeader {
+  margin-bottom: 10px;
   font-size: 23px;
   background-color: #8891A1;
   color: #FFFEFE;
@@ -120,15 +121,11 @@
 .keyTakeawaysSection ul {
   font-size: 16px;
   font-family: "Nunito Sans";
-  font-weight: 600;
+  font-weight: 300;
   letter-spacing: 0;
   line-height: 23px;
-  color: #116187;
-  padding: 0 30px 15px 40px;
-}
-
-.keyTakeawaysSection ul li{
-  margin-top: 10px;
+  padding: 0 30px 0 40px;
+  color: #010101;
 }
 
 .aboutPageSectionMiddle {
