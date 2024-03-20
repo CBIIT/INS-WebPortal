@@ -30,6 +30,7 @@ const tblBody = {
       padding: '10px 5px 10px 20px',
       color: '#004C73',
       borderBottom: 'none',
+      fontSize: '1rem',
     },
     paddingCheckbox: {
       width: '48px',
