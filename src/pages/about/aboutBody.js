@@ -144,7 +144,7 @@ const AboutBody = () => (
                 Home Page
               </h3>
               <p className="p-l-20">
-                Provides an overview of the site, a snapshot of the number of programs, projects, grants, and research outputs along with links to other site pages.
+                Provides an overview of the site, a snapshot of the number of programs, projects, grants, and publications along with links to other site pages.
               </p>
               <h3 className="aboutContentSubHeader">
                 Explore Page
