@@ -14,7 +14,7 @@ const AboutBody = () => (
         <Grid item xs={12}>
           <div className="keyTakeawaysSection">
             <h3 className="keyTakeawaysSectionHeader">
-              Key Takeaway
+              Key Takeaways
             </h3>
             <ul>
               <li>
