@@ -18,6 +18,7 @@ import {
   leftPanel,
   // GET_PROJECTS_OVERVIEW_QUERY,
 } from '../../bento/programDetailData';
+import Subsection from '../../components/PropertySubsection/programDetailSubsection';
 import StatsView from '../../components/Stats/StatsView';
 // import { Typography } from '../../components/Wrappers/Wrappers';
 
@@ -39,8 +40,6 @@ const ProgramView = ({
     numberOfGrants: programGrantCount !== undefined ? programGrantCount : 'undefined',
     numberOfPublications: programPublicationCount !== undefined ? programPublicationCount : 'undefined',
   };
-
-  const updatedAttributesData = manipulateLinks(leftPanel.attributes);
 
   return (
     <>
@@ -73,148 +72,9 @@ const ProgramView = ({
             </div>
           </div>
         </div>
-        <div className={classes.detailContainer}>
-          <Grid container spacing={5}>
-            <Grid item lg={12} sm={12} xs={12} container>
-              <Grid container spacing={4} direction="row" className={classes.detailContainerLeft}>
-                {updatedAttributesData.slice(0, 6).map((attribute, index) => (
-                  <Grid item xs={12}>
-                    <div>
-                      {
-                        attribute.internalLink
-                          ? (
-                            <div>
-                              <span className={classes.detailContainerHeader}>
-                                {attribute.label}
-                              </span>
-                              <div>
-                                <span className={classes.content}>
-                                  {' '}
-                                  <Link
-                                    className={classes.link}
-                                    to={`${attribute.actualLink}${programData[updatedAttributesData[attribute.actualLinkId].dataField]}`}
-                                  >
-                                    {programData[attribute.dataField]}
-                                  </Link>
-                                  {' '}
-                                </span>
-                              </div>
-                            </div>
-                          )
-                          : attribute.externalLink
-                            ? (
-                              <div>
-                                <span
-                                  className={classes.detailContainerHeader}
-                                >
-                                  {attribute.label}
-                                </span>
-                                <div>
-                                  <span className={classes.content}>
-                                    {' '}
-                                    <a
-                                      href={`${attribute.actualLink}${programData[updatedAttributesData[attribute.actualLinkId].dataField]}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className={classes.link}
-                                    >
-                                      {programData[attribute.dataField]}
-                                    </a>
-                                    <img
-                                      src={externalLinkIcon.src}
-                                      alt={externalLinkIcon.alt}
-                                      className={classes.externalLinkIcon}
-                                    />
-                                    {' '}
-                                  </span>
-                                </div>
-                              </div>
-                            )
-                            : attribute.internalLinkToLabel
-                              ? (
-                                <div>
-                                  <span
-                                    className={classes.detailContainerHeaderLink}
-                                  >
-                                    <a href={`${programData[attribute.dataField]}`} rel="noopener noreferrer">{attribute.label}</a>
-                                  </span>
-                                </div>
-                              )
-                              : attribute.externalLinkToLabel
-                                ? (
-                                  <div>
-                                    <span
-                                      className={classes.detailContainerHeaderLink}
-                                    >
-                                      <a href={`${programData[attribute.dataField]}`} target="_blank" rel="noopener noreferrer">{attribute.label}</a>
-                                      <img
-                                        src={externalLinkIcon.src}
-                                        alt={externalLinkIcon.alt}
-                                        className={classes.externalLinkIcon}
-                                      />
-                                    </span>
-                                  </div>
-                                )
-                                : (
-                                  <div>
-                                    <span
-                                      className={classes.detailContainerHeader}
-                                      id={`program_detail_left_section_title_${index + 1}`}
-                                    >
-                                      {attribute.label}
-                                    </span>
-                                    <div>
-                                      <span className={classes.content} id={`program_detail_left_section_description_${index + 1}`}>
-                                        {' '}
-                                        {programData[attribute.dataField]}
-                                        {' '}
-                                      </span>
-                                    </div>
-                                  </div>
-                                )
-                      }
-                    </div>
-                  </Grid>
-                ))}
-              </Grid>
-            </Grid>
-          </Grid>
-        </div>
-      </div>
-      <div className={classes.container}>
         <div className={classes.innerContainer}>
-          {/* <div className={classes.header}>
-            <div className={classes.logo}>
-              <img
-                className={classes.caseIcon}
-                src={icon}
-                alt="INS case detail header logo"
-              />
-            </div>
-            <div className={classes.headerTitle}>
-              <div className={classes.headerMainTitle}>
-                {`${projectHeader.label} :`}
-                {data[projectHeader.dataField]
-                  ? (
-                    <span className={classes.headerMainTitleTwo}>
-                      {' '}
-                      {data[projectHeader.dataField]}
-                    </span>
-                  )
-                  : (
-                    <Typography variant="h5" color="error" size="sm">
-                      {`"${projectHeader.dataField}" is not a valid property name`}
-                    </Typography>
-                  )}
-              </div>
-              <div className={classes.breadCrumb}>
-                {' '}
-                <CustomBreadcrumb data={breadCrumbJson} />
-              </div>
-            </div>
-          </div> */}
-          {/* <Grid container spacing={1} className={classes.detailContainer}>
-            <Grid item sm={6} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
+          <Grid container spacing={1} className={classes.detailContainer}>
+            <Grid item sm={12} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
               <div className={classes.innerPanel}>
                 <Grid container spacing={2}>
                   {leftPanel.slice(0, 3).map((section) => (
@@ -227,7 +87,7 @@ const ProgramView = ({
                 </Grid>
               </div>
             </Grid>
-          </Grid> */}
+          </Grid>
         </div>
       </div>
       {/* <div className={classes.detailTabContainer}>
@@ -651,6 +511,9 @@ const styles = (theme) => ({
     position: 'absolute',
     right: '20px',
     zIndex: '300',
+  },
+  leftPanel: {
+    paddingLeft: '25px !important',
   },
 });
 
