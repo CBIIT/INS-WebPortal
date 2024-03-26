@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import _ from 'lodash';
 import {
@@ -10,91 +11,36 @@ import {
   cn,
 } from '@bento-core/util';
 import {
-  TableContextProvider,
-  TableView,
-  Wrapper,
-} from '@bento-core/paginated-table';
-import { themeConfig } from './tableConfig/Theme';
-import { configColumn } from './tableConfig/Column';
-import { configWrapper, wrapperConfig } from './wrapperConfig/Wrapper';
-import { customTheme } from './wrapperConfig/Theme';
-import WidgetViewNciDoc from './widget/WidgetViewNciDoc';
-import WidgetViewAwardAmount from './widget/WidgetViewAwardAmount';
-import {
   pageTitle,
-  table,
   externalLinkIcon,
   programDetailIcon,
-  breadCrumb,
-  aggregateCount,
   pageSubTitle,
   leftPanel,
-  GET_PROJECTS_OVERVIEW_QUERY,
+  // GET_PROJECTS_OVERVIEW_QUERY,
 } from '../../bento/programDetailData';
 import StatsView from '../../components/Stats/StatsView';
-import { Typography } from '../../components/Wrappers/Wrappers';
-import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
-
-import {
-  singleCheckBox,
-  setSideBarToLoading,
-  setDashboardTableLoading,
-} from './dashboardReducer';
+// import { Typography } from '../../components/Wrappers/Wrappers';
 
 const ProgramView = ({
   classes, data,
 }) => {
   const {
-    programPublicationCount, programDatasetCount, programClinicalTrialCount, programPatentCount,
+    programPublicationCount,
+    programProjectCount,
+    programGrantCount,
   } = data;
-  const programData = data.programDetail;
+  const programData = data.programDetails;
 
-  const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
-
-  const redirectTo = () => {
-    setSideBarToLoading();
-    setDashboardTableLoading();
-    singleCheckBox([{
-      datafield: 'programs',
-      groupName: 'Program',
-      isChecked: true,
-      name: programData.program_id,
-      section: 'Filter By Cases',
-    }]);
-  };
+  // const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
 
   const stat = {
     numberOfPrograms: 1,
-    numberOfProjects: programData.num_core_projects !== undefined ? programData.num_core_projects : 'undefined',
-    numberOfGrants: programData.num_projects !== undefined ? programData.num_projects : 'undefined',
+    numberOfProjects: programProjectCount !== undefined ? programProjectCount : 'undefined',
+    numberOfGrants: programGrantCount !== undefined ? programGrantCount : 'undefined',
     numberOfPublications: programPublicationCount !== undefined ? programPublicationCount : 'undefined',
   };
 
-  const breadCrumbJson = [{
-    name: `${breadCrumb.label}`,
-    to: `${breadCrumb.link}`,
-    isALink: true,
-  }];
-
   const updatedAttributesData = manipulateLinks(leftPanel.attributes);
-
-  const initTblState = (initailState) => ({
-    ...initailState,
-    title: table.name,
-    query: getOverviewQuery(table.api),
-    paginationAPIField: table.paginationAPIField,
-    dataKey: table.dataKey,
-    columns: configColumn(table.columns),
-    count: stat.numberOfGrants,
-    selectedRows: [],
-    enableRowSelection: table.enableRowSelection,
-    tableMsg: table.tableMsg,
-    sortBy: table.defaultSortField,
-    sortOrder: table.defaultSortDirection,
-    extendedViewConfig: table.extendedViewConfig,
-    rowsPerPage: 10,
-    page: 0,
-  });
 
   return (
     <>
@@ -125,30 +71,11 @@ const ProgramView = ({
                 {programData[pageSubTitle.dataField]}
               </span>
             </div>
-            <CustomBreadcrumb className={classes.breadCrumb} data={breadCrumbJson} />
           </div>
-          {aggregateCount.display ? (
-            <div className={classes.headerButton}>
-              <span className={classes.headerButtonLinkSpan}>
-                <Link
-                  className={classes.headerButtonLink}
-                  to={(location) => ({ ...location, pathname: `${aggregateCount.link}` })}
-                  onClick={() => redirectTo()}
-                >
-                  {' '}
-                  <span className={classes.headerButtonLinkText}>{aggregateCount.labelText}</span>
-                  <span className={classes.headerButtonColumn}>{': '}</span>
-                  <span className={classes.headerButtonLinkNumber} id="program_detail_header_file_count">
-                    {programData[aggregateCount.dataField]}
-                  </span>
-                </Link>
-              </span>
-            </div>
-          ) : ''}
         </div>
         <div className={classes.detailContainer}>
           <Grid container spacing={5}>
-            <Grid item lg={7} sm={6} xs={12} container>
+            <Grid item lg={12} sm={12} xs={12} container>
               <Grid container spacing={4} direction="row" className={classes.detailContainerLeft}>
                 {updatedAttributesData.slice(0, 6).map((attribute, index) => (
                   <Grid item xs={12}>
@@ -251,75 +178,66 @@ const ProgramView = ({
                 ))}
               </Grid>
             </Grid>
-            <Grid
-              item
-              lg={5}
-              sm={6}
-              xs={12}
-            >
-              <Grid container spacing={16} direction="row" className={classes.detailContainerRight}>
-                <Grid
-                  item
-                  xs={12}
-                  className={classes.marginTopN37}
-                >
-                  <WidgetViewNciDoc
-                    data={data}
-                  />
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  className={classes.marginTopN37}
-                >
-                  <WidgetViewAwardAmount
-                    data={data}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
           </Grid>
         </div>
       </div>
-      <div id="table_program_detail" className={classes.tableContainer}>
-        <div className={classes.tableDiv}>
-          <div className={classes.tableTitle}>
-            <span className={classes.tableHeader}>{table.name}</span>
-          </div>
-          <Grid item xs={12}>
-            <Grid container spacing={8}>
-              <div className={classes.tableContent}>
-                <Grid item xs={12}>
-                  <Typography>
-                    <TableContextProvider>
-                      <Wrapper
-                        wrapConfig={configWrapper(table, wrapperConfig)}
-                        customTheme={customTheme}
-                        classes={classes}
-                        section={table.name}
-                      >
-                        <Grid container>
-                          <Grid item xs={12} id={table.tableID}>
-                            <TableView
-                              initState={initTblState}
-                              themeConfig={themeConfig}
-                              queryVariables={{ programs: [programData.program_id] }}
-                              totalRowCount={stat.numberOfGrants}
-                            />
-                          </Grid>
-                        </Grid>
-                      </Wrapper>
-                    </TableContextProvider>
-                  </Typography>
+      <div className={classes.container}>
+        <div className={classes.innerContainer}>
+          {/* <div className={classes.header}>
+            <div className={classes.logo}>
+              <img
+                className={classes.caseIcon}
+                src={icon}
+                alt="INS case detail header logo"
+              />
+            </div>
+            <div className={classes.headerTitle}>
+              <div className={classes.headerMainTitle}>
+                {`${projectHeader.label} :`}
+                {data[projectHeader.dataField]
+                  ? (
+                    <span className={classes.headerMainTitleTwo}>
+                      {' '}
+                      {data[projectHeader.dataField]}
+                    </span>
+                  )
+                  : (
+                    <Typography variant="h5" color="error" size="sm">
+                      {`"${projectHeader.dataField}" is not a valid property name`}
+                    </Typography>
+                  )}
+              </div>
+              <div className={classes.breadCrumb}>
+                {' '}
+                <CustomBreadcrumb data={breadCrumbJson} />
+              </div>
+            </div>
+          </div> */}
+          {/* <Grid container spacing={1} className={classes.detailContainer}>
+            <Grid item sm={6} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
+              <div className={classes.innerPanel}>
+                <Grid container spacing={2}>
+                  {leftPanel.slice(0, 3).map((section) => (
+                    <Subsection
+                      key={section.sectionHeader}
+                      config={section}
+                      data={data}
+                    />
+                  ))}
                 </Grid>
               </div>
-              <Grid item xs={8}>
-                <Typography />
-              </Grid>
             </Grid>
-          </Grid>
+          </Grid> */}
         </div>
       </div>
+      {/* <div className={classes.detailTabContainer}>
+        <TabsView
+          projectStats={data}
+          // eslint-disable-next-line max-len
+          activeFilters={{ queried_project_id: [data.queried_project_id], queried_project_ids: [data.queried_project_id] }}
+        />
+      </div> */}
+      <div className={classes.blankSpace} />
     </>
   );
 };
@@ -533,9 +451,6 @@ const styles = (theme) => ({
   },
   headerMSubTitle: {
     paddingTop: '3px',
-  },
-  breadCrumb: {
-    color: '#00B0BD',
   },
   headerButton: {
     fontFamily: theme.custom.fontFamily,

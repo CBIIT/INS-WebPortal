@@ -1,61 +1,41 @@
 import React from 'react';
 import _ from 'lodash';
-import { useQuery } from '@apollo/client';
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import { useQuery } from '@apollo/client';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 import ProgramView from './programDetailView';
-import Error from '../error/Error';
-import { GET_PROGRAM_DETAIL_DATA_QUERY } from '../../bento/programDetailData';
+// import Error from '../error/Error';
+// import { GET_PROGRAM_DETAIL_DATA_QUERY } from '../../bento/programDetailData';
 
 const ProgramDetailContainer = ({ match }) => {
+  // const {
+  //   loading: programDetailsLoading,
+  //   error: programDetailsError,
+  //   data: programDetailsData,
+  // } = useQuery(GET_PROGRAM_DETAIL_DATA_QUERY, {
+  //   variables: { program_id: match.params.id },
+  // });
+
+  const programDetailsDataFake = {
+    programProjectCount: 436,
+    programGrantCount: 63,
+    programPublicationCount: 53,
+    programDetails: {
+      program_id: 'CCDI',
+      program_name: 'Childhood Cancer Data Initiative',
+      program_description: 'The Childhood Cancer Data Initiative focuses on the critical need to collect, analyze, and share data to address the burden of childhood cancer. This initiative aims to make it easier for researchers to learn from each child with cancer.',
+      program_website: 'https://www.cancer.gov/research/areas/childhood/childhood-cancer-data-initiative',
+
+    },
+  };
+
+  // if (programDetailsLoading) return <CircularProgress />;
   // eslint-disable-next-line max-len
-  const { loading: programDetailsLoading, error: programDetailsError, data: programDetailsData } = useQuery(GET_PROGRAM_DETAIL_DATA_QUERY, {
-    variables: { program_id: match.params.id },
-  });
-
-  const transformedData = _.cloneDeep(programDetailsData);
-
-  if (programDetailsData) {
-    // eslint-disable-next-line max-len
-    transformedData.projectCountInProgramByDOCData = [...programDetailsData.projectCountInProgramByDOC].sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-
-    let projectCountInProgramByFundedAmountData = [
-      {
-        group: '<$1M',
-        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_1,
-      },
-      {
-        group: '$1M to $2M',
-        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_2,
-      },
-      {
-        group: '$2M to $4M',
-        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_3,
-      },
-      {
-        group: '$4M to $10M',
-        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_4,
-      },
-      {
-        group: '>=$10M',
-        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_5,
-      },
-    ];
-
-    // eslint-disable-next-line max-len
-    projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-
-    // eslint-disable-next-line max-len
-    transformedData.projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData;
-  }
-
-  if (programDetailsLoading) return <CircularProgress />;
-  // eslint-disable-next-line max-len
-  if (programDetailsError || !programDetailsData || !programDetailsData.programDetail || programDetailsData.programDetail.program_id !== match.params.id) {
-    return (
-      <Error />
-    );
-  }
-  return <ProgramView data={transformedData} />;
+  // if (programDetailsError || !programDetailsData || !programDetailsData.programDetails || programDetailsData.programDetails.program_id !== match.params.id) {
+  //   return (
+  //     <Error />
+  //   );
+  // }
+  return <ProgramView data={programDetailsDataFake} />;
 };
 
 export default ProgramDetailContainer;
