@@ -31,7 +31,7 @@ const leftPanel = [
       {
         label: 'Program Website',
         dataField: 'program_acronym',
-        link: 'program_link',
+        link: '{program_link}',
       },
       {
         label: 'Associated Focus Area(s)',
