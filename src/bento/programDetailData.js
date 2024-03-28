@@ -5,7 +5,7 @@ import programIcon from '../assets/icons/Icon-Programs.png';
 // --------------- Page title configuration --------------
 const pageTitle = {
   label: 'Program:',
-  dataField: 'program_id',
+  dataField: 'program_acronym',
 };
 
 const pageSubTitle = {

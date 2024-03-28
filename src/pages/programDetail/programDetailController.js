@@ -20,7 +20,6 @@ const ProgramDetailContainer = ({ match }) => {
     programGrantCount: 63,
     programPublicationCount: 53,
     programDetails: {
-      program_id: 'CCDI',
       program_name: 'Childhood Cancer Data Initiative',
       program_link: 'https://www.cancer.gov/research/areas/childhood/childhood-cancer-data-initiative',
       focus_area: 'Focus Area 1;Focus Area 2',
@@ -34,11 +33,12 @@ const ProgramDetailContainer = ({ match }) => {
 
   // if (programDetailsLoading) return <CircularProgress />;
   // eslint-disable-next-line max-len
-  // if (programDetailsError || !programDetailsData || !programDetailsData.programDetails || programDetailsData.programDetails.program_id !== match.params.id) {
+  // if (programDetailsError || !programDetailsData || !programDetailsData.programDetails) {
   //   return (
   //     <Error />
   //   );
   // }
+  // return <ProgramView data={programDetailsData} />;
   return <ProgramView data={programDetailsDataFake} />;
 };
 
