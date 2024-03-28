@@ -81,7 +81,7 @@ const ProgramView = ({
                     <Subsection
                       key={section.sectionHeader}
                       config={section}
-                      data={data}
+                      data={data.programDetails}
                     />
                   ))}
                 </Grid>
