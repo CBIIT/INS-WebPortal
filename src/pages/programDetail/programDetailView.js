@@ -1,25 +1,20 @@
-/* eslint-disable max-len */
 import React from 'react';
 import _ from 'lodash';
 import {
   Grid,
   withStyles,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import {
-  manipulateLinks,
-  cn,
-} from '@bento-core/util';
+import { cn } from '@bento-core/util';
 import {
   pageTitle,
-  externalLinkIcon,
   programDetailIcon,
   pageSubTitle,
   leftPanel,
-  // GET_PROJECTS_OVERVIEW_QUERY,
+  GET_PROJECTS_OVERVIEW_QUERY,
 } from '../../bento/programDetailData';
 import Subsection from '../../components/PropertySubsection/programDetailSubsection';
 import StatsView from '../../components/Stats/StatsView';
+// import TabsView from './tabs/TabsView';
 // import { Typography } from '../../components/Wrappers/Wrappers';
 
 const ProgramView = ({
@@ -32,7 +27,7 @@ const ProgramView = ({
   } = data;
   const programData = data.programDetails;
 
-  // const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
+  const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
 
   const stat = {
     numberOfPrograms: 1,
@@ -93,8 +88,10 @@ const ProgramView = ({
       {/* <div className={classes.detailTabContainer}>
         <TabsView
           projectStats={data}
-          // eslint-disable-next-line max-len
-          activeFilters={{ queried_project_id: [data.queried_project_id], queried_project_ids: [data.queried_project_id] }}
+          activeFilters={{
+            queried_project_id: [data.queried_project_id],
+            queried_project_ids: [data.queried_project_id],
+          }}
         />
       </div> */}
       <div className={classes.blankSpace} />
