@@ -515,6 +515,10 @@ const styles = (theme) => ({
     fontFamily: theme.custom.fontFamily,
     background: '#FFFFFF',
   },
+  detailTabContainer: {
+    maxWidth: theme.custom.maxContentWidth,
+    margin: 'auto',
+  },
 });
 
 export default withStyles(styles, { withTheme: true })(ProgramView);
