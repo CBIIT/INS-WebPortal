@@ -14,7 +14,7 @@ import {
 } from '../../bento/programDetailData';
 import Subsection from '../../components/PropertySubsection/programDetailSubsection';
 import StatsView from '../../components/Stats/StatsView';
-// import TabsView from './tabs/TabsView';
+import TabsView from './tabs/TabsView';
 // import { Typography } from '../../components/Wrappers/Wrappers';
 
 const ProgramView = ({
@@ -85,15 +85,12 @@ const ProgramView = ({
           </Grid>
         </div>
       </div>
-      {/* <div className={classes.detailTabContainer}>
+      <div className={classes.detailTabContainer}>
         <TabsView
-          projectStats={data}
-          activeFilters={{
-            queried_project_id: [data.queried_project_id],
-            queried_project_ids: [data.queried_project_id],
-          }}
+          programStats={data}
+          activeFilters={{ program_ids: [programData.program_id] }}
         />
-      </div> */}
+      </div>
       <div className={classes.blankSpace} />
     </>
   );

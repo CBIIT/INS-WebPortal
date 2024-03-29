@@ -28,6 +28,7 @@ const ProgramDetailContainer = ({ match }) => {
       contact_nih: 'Contact NIH 1;Contact NIH 2',
       nofo: 'NOFO 1;NOFO 2',
       program_acronym: 'CCDI',
+      program_id: 'ccdi',
     },
   };
 
