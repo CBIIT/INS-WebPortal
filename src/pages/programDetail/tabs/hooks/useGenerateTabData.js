@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TabPanel from '../TabPanel';
 
 const useGenerateTabData = ({
-  tabContainers, activeFilters, dashboardStats, activeTab,
+  tabContainers, activeFilters, programStats, activeTab,
 }) => {
   /* states */
   const [generatedTabData, setGeneratedTabData] = useState([]);
@@ -15,7 +15,7 @@ const useGenerateTabData = ({
         {tab.name}
         <span className="count">
           (
-          {dashboardStats[tab.count]}
+          {programStats[tab.count]}
           )
         </span>
       </span>
@@ -30,7 +30,7 @@ const useGenerateTabData = ({
     <TabPanel
       tab={tab}
       config={tab}
-      dashboardStats={dashboardStats}
+      programStats={programStats}
       activeFilters={activeFilters}
       activeTab={index === activeTab}
     />
@@ -43,12 +43,12 @@ const useGenerateTabData = ({
 
   /* useEffects */
   useEffect(() => {
-    if (dashboardStats) {
+    if (programStats) {
       setGeneratedTabData(generateTabData());
     }
-  }, [activeTab, dashboardStats]);
+  }, [activeTab, programStats]);
 
-  return { generatedTabData, dashboardStats };
+  return { generatedTabData, programStats };
 };
 
 export default useGenerateTabData;
