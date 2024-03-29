@@ -15,7 +15,6 @@ import {
 import Subsection from '../../components/PropertySubsection/programDetailSubsection';
 import StatsView from '../../components/Stats/StatsView';
 import TabsView from './tabs/TabsView';
-// import { Typography } from '../../components/Wrappers/Wrappers';
 
 const ProgramView = ({
   classes, data,
@@ -40,34 +39,31 @@ const ProgramView = ({
     <>
       <StatsView data={stat} />
       <div className={classes.container}>
-        <div className={classes.header}>
-          <div className={classes.logo}>
-            <img
-              src={programDetailIcon.src}
-              alt={programDetailIcon.alt}
-            />
-          </div>
-          <div className={classes.headerTitle}>
-            <div className={classes.headerMainTitle} id="program_detail_title">
-              <span>
-                {' '}
-                {pageTitle.label}
-                <span>
-                  {' '}
-                  {' '}
-                  {programData[pageTitle.dataField]}
-                </span>
-              </span>
-            </div>
-            <div className={cn(classes.headerMSubTitle, classes.headerSubTitleCate)}>
-              <span id="program_detail_subtile">
-                {' '}
-                {programData[pageSubTitle.dataField]}
-              </span>
-            </div>
-          </div>
-        </div>
         <div className={classes.innerContainer}>
+          <div className={classes.header}>
+            <div className={classes.logo}>
+              <img
+                src={programDetailIcon.src}
+                alt={programDetailIcon.alt}
+              />
+            </div>
+            <div className={classes.headerTitle}>
+              <div className={classes.headerMainTitle} id="program_detail_title">
+                <span>
+                  {pageTitle.label}
+                  <span>
+                    {' '}
+                    {programData[pageTitle.dataField]}
+                  </span>
+                </span>
+              </div>
+              <div className={cn(classes.headerMSubTitle, classes.headerSubTitleCate)}>
+                <span id="program_detail_subtile">
+                  {programData[pageSubTitle.dataField]}
+                </span>
+              </div>
+            </div>
+          </div>
           <Grid container spacing={1} className={classes.detailContainer}>
             <Grid item sm={12} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
               <div className={classes.innerPanel}>
@@ -360,7 +356,6 @@ const styles = (theme) => ({
     color: '#000000',
     size: '12px',
     lineHeight: '23px',
-    height: '725px',
   },
   detailContainerHeader: {
     textTransform: 'uppercase',
@@ -508,6 +503,17 @@ const styles = (theme) => ({
   },
   leftPanel: {
     paddingLeft: '25px !important',
+  },
+  blankSpace: {
+    height: '73px',
+    background: '#f3f3f3',
+  },
+  innerContainer: {
+    maxWidth: '1340px',
+    margin: '0 auto',
+    padding: '0',
+    fontFamily: theme.custom.fontFamily,
+    background: '#FFFFFF',
   },
 });
 
