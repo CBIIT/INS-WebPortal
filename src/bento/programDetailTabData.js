@@ -167,7 +167,7 @@ export const tabContainers = [
     paginationAPIField: 'projectsOverview',
     defaultSortField: 'project_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfProjects',
+    count: 'programProjectCount',
     buttonText: 'Add Selected Files',
     dataKey: 'project_id',
     extendedViewConfig: {
@@ -251,7 +251,7 @@ export const tabContainers = [
     paginationAPIField: 'grantsOverview',
     defaultSortField: 'grant_id',
     defaultSortDirection: 'asc',
-    count: 'numberOfGrants',
+    count: 'programGrantCount',
     buttonText: 'Add Selected Files',
     dataKey: 'grant_id',
     extendedViewConfig: {
@@ -341,7 +341,7 @@ export const tabContainers = [
     paginationAPIField: 'publicationsOverview',
     defaultSortField: 'pmid',
     defaultSortDirection: 'asc',
-    count: 'numberOfPublications',
+    count: 'programPublicationCount',
     buttonText: 'Add Selected Files',
     dataKey: 'pmid',
     extendedViewConfig: {

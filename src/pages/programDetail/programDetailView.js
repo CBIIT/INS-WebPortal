@@ -10,7 +10,6 @@ import {
   programDetailIcon,
   pageSubTitle,
   leftPanel,
-  GET_PROJECTS_OVERVIEW_QUERY,
 } from '../../bento/programDetailData';
 import Subsection from '../../components/PropertySubsection/programDetailSubsection';
 import StatsView from '../../components/Stats/StatsView';
@@ -25,8 +24,6 @@ const ProgramView = ({
     programGrantCount,
   } = data;
   const programData = data.programDetails;
-
-  const getOverviewQuery = () => (GET_PROJECTS_OVERVIEW_QUERY);
 
   const stat = {
     numberOfPrograms: 1,
