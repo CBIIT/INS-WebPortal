@@ -23,6 +23,7 @@ const Tabs = (props) => {
   }));
 
   const tabAreaStyle = {
+    backgroundColor: '#ffffff',
     borderBottom: '3px solid #e7e5e5',
   };
 
