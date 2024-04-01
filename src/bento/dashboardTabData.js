@@ -156,6 +156,7 @@ programsOverview(
   program_acronym
   program_link
   program_name
+  program_id
 }
 }
   `;
@@ -243,221 +244,6 @@ publicationsOverview(
 }
   `;
 
-export const GET_ALL_FILEIDS_CASESTAB_FOR_SELECT_ALL = gql`
-query search (          
-  $subject_ids: [String],
-){
-  fileIDsFromList (          
-      subject_ids: $subject_ids,
-  ) 
-}
-  `;
-
-export const GET_ALL_FILEIDS_SAMPLESTAB_FOR_SELECT_ALL = gql`
-query search (          
-  $sample_ids: [String],
-){
-  fileIDsFromList (          
-    sample_ids: $sample_ids,
-  ) 
-}
-  `;
-
-export const GET_ALL_FILEIDS_FILESTAB_FOR_SELECT_ALL = gql`
-query search (          
-  $file_names: [String] 
-){
-  fileIDsFromList (          
-      file_names: $file_names
-  ) 
-}
-  `;
-
-export const GET_ALL_FILEIDS_FROM_CASESTAB_FOR_ADD_ALL_CART = gql`
-query subjectsAddAllToCart(
-  $subject_ids: [String],
-  $programs: [String],
-  $studies: [String],
-  $diagnoses: [String],
-  $rc_scores: [String],
-  $tumor_sizes: [String],
-  $chemo_regimen: [String],
-  $tumor_grades: [String],
-  $er_status: [String],
-  $pr_status: [String],
-  $endo_therapies: [String],
-  $meno_status: [String],
-  $tissue_type: [String],
-  $composition: [String],
-  $association: [String],
-  $file_type: [String],
-  $age_at_index: [Float],
-  $first: Int,
-  $offset: Int= 0, 
-  $order_by: String = "file_id",
-  $sort_direction: String = "asc" 
-  ){
-  subjectOverview(
-      subject_ids: $subject_ids,
-      programs: $programs,
-      studies: $studies,
-      diagnoses: $diagnoses,
-      rc_scores: $rc_scores,
-      tumor_sizes: $tumor_sizes,
-      chemo_regimen: $chemo_regimen,
-      tumor_grades: $tumor_grades,
-      er_status: $er_status,
-      pr_status: $pr_status,
-      endo_therapies: $endo_therapies,
-      meno_status: $meno_status,
-      tissue_type: $tissue_type,
-      composition: $composition,
-      association: $association,
-      file_type: $file_type,
-      age_at_index: $age_at_index,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-      ) {
-      files
-  }
-}
-    `;
-
-export const GET_ALL_FILEIDS_FROM_SAMPLETAB_FOR_ADD_ALL_CART = gql`
-    query samplesAddAllToCart(
-      $subject_ids: [String],
-      $sample_ids: [String],
-      $programs: [String],
-      $studies: [String],
-      $diagnoses: [String],
-      $rc_scores: [String],
-      $tumor_sizes: [String],
-      $chemo_regimen: [String],
-      $tumor_grades: [String],
-      $er_status: [String],
-      $pr_status: [String],
-      $endo_therapies: [String],
-      $meno_status: [String],
-      $tissue_type: [String],
-      $composition: [String],
-      $association: [String],
-      $file_type: [String],
-      $age_at_index: [Float],
-      $first: Int,
-      $offset: Int= 0, 
-      $order_by: String = "file_id",
-      $sort_direction: String = "asc" ){
-      sampleOverview(
-          subject_ids: $subject_ids,
-          sample_ids: $sample_ids,
-          programs: $programs,
-          studies: $studies,
-          diagnoses: $diagnoses,
-          rc_scores: $rc_scores,
-          tumor_sizes: $tumor_sizes,
-          chemo_regimen: $chemo_regimen,
-          tumor_grades: $tumor_grades,
-          er_status: $er_status,
-          pr_status: $pr_status,
-          endo_therapies: $endo_therapies,
-          meno_status: $meno_status,
-          tissue_type: $tissue_type,
-          composition: $composition,
-          association: $association,
-          file_type: $file_type,
-          age_at_index: $age_at_index,
-          first: $first,
-          offset: $offset,
-          order_by: $order_by,
-          sort_direction: $sort_direction
-          ) {
-          files
-      }
-    }
-        `;
-
-export const GET_ALL_FILEIDS_FROM_FILESTAB_FOR_ADD_ALL_CART = gql`
-query fileAddAllToCart(
-  $subject_ids: [String],
-  $programs: [String],
-  $studies: [String],
-  $diagnoses: [String],
-  $rc_scores: [String],
-  $tumor_sizes: [String],
-  $chemo_regimen: [String],
-  $tumor_grades: [String],
-  $er_status: [String],
-  $pr_status: [String],
-  $endo_therapies: [String],
-  $meno_status: [String],
-  $tissue_type: [String],
-  $composition: [String],
-  $association: [String],
-  $file_type: [String],
-  $age_at_index: [Float],
-  $first: Int,
-  $offset: Int= 0, 
-  $order_by: String = "file_id",
-  $sort_direction: String = "asc"
- ){
-  fileOverview(
-      subject_ids:$subject_ids,
-      programs: $programs,
-      studies: $studies,
-      diagnoses: $diagnoses,
-      rc_scores: $rc_scores,
-      tumor_sizes: $tumor_sizes,
-      chemo_regimen: $chemo_regimen,
-      tumor_grades: $tumor_grades,
-      er_status: $er_status,
-      pr_status: $pr_status,
-      endo_therapies: $endo_therapies,
-      meno_status: $meno_status,
-      tissue_type: $tissue_type,
-      composition: $composition,
-      association: $association,       
-      file_type: $file_type,
-      age_at_index: $age_at_index,
-      first: $first, 
-      offset: $offset, 
-      order_by: $order_by,
-      sort_direction: $sort_direction
-  ){
-      file_id,
-  }
-}
-            `;
-
-// --------------- GraphQL query - Retrieve files tab details --------------
-export const GET_FILES_NAME_QUERY = gql`
-query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 100000, $order_by:String ="file_name"){
-  fileOverview(file_ids: $file_ids, offset: $offset,first: $first, order_by: $order_by) {
-    file_name
-  }
-}
-  `;
-
-export const GET_FILE_IDS_FROM_FILE_NAME = gql`
-  query (
-      $file_name: [String],
-      $offset: Int,
-      $first: Int,
-      $order_by: String
-  )
-  {
-      fileIdsFromFileNameDesc(
-          file_name:$file_name, 
-          offset:$offset,
-          first:$first,
-          order_by:$order_by
-      )
-      {
-          file_id
-      }
-  }`;
-
 // --------------- Tabs Table configuration --------------
 export const tabContainers = [
   {
@@ -478,11 +264,11 @@ export const tabContainers = [
       {
         dataField: 'program_name',
         header: 'Program',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/program',
-        //   pathParams: ['program_name'],
-        // },
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/program',
+          pathParams: ['program_id'],
+        },
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
@@ -586,11 +372,11 @@ export const tabContainers = [
       {
         dataField: 'program_names',
         header: 'Program(s)',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/program',
-        //   pathParams: ['program_names'],
-        // },
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/program',
+          pathParams: ['program_id'],
+        },
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
