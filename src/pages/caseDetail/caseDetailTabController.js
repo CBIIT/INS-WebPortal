@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
-import { getOptions } from '../../bento-components';
+import { getOptions } from '@bento-core/util';
 import TabView from './caseDetailTabView';
 import TabThemeProvider from './caseDetailTabThemeConfig';
 import TabLabel from './caseDetailTabLabel';
@@ -14,7 +14,7 @@ import {
 } from '../../bento/caseDetailData';
 import {
   fetchDataForCaseDetailTab,
-} from './store/caseDetailReducer';
+} from './caseDetailReducer';
 
 function TabContainer({ children, dir }) {
   return (
@@ -114,7 +114,6 @@ const caseDetailTabController = ({ projectID, classes }) => {
         defaultSortDirection={container.defaultSortDirection || 'asc'}
         dataKey={container.dataKey}
         allFilters={{ ...allFilters, ...{ subject_ids: [] } }}
-        tableDownloadCSV={container.tableDownloadCSV || false}
         tooltipMessage={tooltipContent[currentTab]}
         tooltipIcon={tooltipContent.icon}
         tooltipAlt={tooltipContent.alt}

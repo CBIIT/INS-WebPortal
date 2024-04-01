@@ -20,74 +20,28 @@ export const GET_SUBJECT_IDS = gql`
 }
 `;
 
-export const GET_IDS_BY_TYPE = (type) => gql`{
+export const GET_IDS_BY_TYPE = () => gql`{
   idsLists {
-    ${type}
+    program_acronym
+    program_name
   }
 }
 `;
 
 export const GET_SEARCH_NODES_BY_FACET = gql`
 query searchProjects (          
-  $programs: [String],
-  $docs: [String],
-  $fiscal_years: [String],
-  $award_amounts: [String]
+  $program_names: [String],
+  $focus_area: [String]
 ){
   searchProjects (          
-      programs: $programs,
-      docs: $docs,
-      fiscal_years: $fiscal_years,
-      award_amounts: $award_amounts,
+    program_names: $program_names,
+    focus_area: $focus_area
   ) {
     numberOfPrograms
     numberOfProjects
+    numberOfGrants
     numberOfPublications
-    numberOfDatasets
-    numberOfClinicalTrials
-    numberOfPatents
-    projectCountByProgram{
-      group
-      subjects
-    }
-    projectCountByDOC{
-      group
-      subjects
-    }
-    projectCountByFiscalYear{
-      group
-      subjects
-    }
-    projectCountByAwardAmount{
-      group
-      subjects
-    }
-    publicationCountByYear{
-      group
-      subjects
-    }
-    publicationCountByRCR{
-      group
-      subjects
-    }
-    publicationCountByCitation
-    {
-      group
-      subjects
-    }
-    filterProjectCountByProgram{
-      group
-      subjects
-    }
-    filterProjectCountByDOC{
-      group
-      subjects
-    }
-    filterProjectCountByFiscalYear{
-      group
-      subjects
-    }
-    filterProjectCountByAwardAmount{
+    filterProjectCountByFocusArea{
       group
       subjects
     }
@@ -105,11 +59,8 @@ export const GET_SEARCH_NODECOUNTS = gql`
       numberOfPrograms
       numberOfProjects
       numberOfPublications
-      numberOfDatasets
-      numberOfClinicalTrials
-      numberOfPatents
   }
-  filterProjectCountByProgram(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+  filterProjectCountByFocusArea(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
     group
     subjects
   }
@@ -326,53 +277,51 @@ query subjectOverview(
 
 export const widgetsSearchData = [
   {
-    type: 'sunburst',
-    label: 'Programs and Arms',
-    dataName: 'armsByProgramsFromLists',
-    mapWithDashboardWidget: 'armsByPrograms',
-    datatable_level1_field: 'program',
-    datatable_level2_field: 'study_acronym',
-    titleText: 'Cases',
+    type: 'donut',
+    label: 'Projects by Fiscal Year',
+    dataName: 'projectCountByFiscalYearSorted',
+    mapWithDashboardWidget: 'fiscal_year',
+    titleText: 'Projects',
     show: true,
   },
   {
     type: 'donut',
-    label: 'Diagnosis',
-    dataName: 'subjectCountByDiagnosesFromLists',
-    mapWithDashboardWidget: 'subjectCountByDiagnoses',
-    titleText: 'Cases',
+    label: 'Projects by NCI DOC',
+    dataName: 'projectCountByDOCSorted',
+    mapWithDashboardWidget: 'docs',
+    titleText: 'Projects',
     show: true,
   },
   {
     type: 'donut',
-    label: 'Recurrence Score',
-    dataName: 'subjectCountByRecurrenceScoreFromLists',
-    mapWithDashboardWidget: 'subjectCountByRecurrenceScore',
-    titleText: 'Cases',
+    label: 'Projects by Award Amount',
+    dataName: 'projectCountByAwardAmountSorted',
+    mapWithDashboardWidget: 'award_amount',
+    titleText: 'Projects',
     show: true,
   },
   {
     type: 'donut',
-    label: 'Tumor Size',
-    dataName: 'subjectCountByTumorSizeFromLists',
-    mapWithDashboardWidget: 'subjectCountByTumorSize',
-    titleText: 'Cases',
+    label: 'Publications by Year',
+    dataName: 'publicationCountByYearSorted',
+    mapWithDashboardWidget: 'publication_years',
+    titleText: 'Publications',
     show: true,
   },
   {
     type: 'donut',
-    label: 'Chemotherapy',
-    dataName: 'subjectCountByChemotherapyRegimenFromLists',
-    mapWithDashboardWidget: 'subjectCountByChemotherapyRegimen',
-    titleText: 'Cases',
+    label: 'Publications by RCR Range',
+    dataName: 'publicationCountByRCRTransformed',
+    mapWithDashboardWidget: 'rcr',
+    titleText: 'Publications',
     show: true,
   },
   {
     type: 'donut',
-    label: 'Endocrine Therapy',
-    dataName: 'subjectCountByEndocrineTherapyFromLists',
-    mapWithDashboardWidget: 'subjectCountByEndocrineTherapy',
-    titleText: 'Cases',
+    label: 'Publications by Citations',
+    dataName: 'publicationCountByCitationSorted',
+    mapWithDashboardWidget: 'citation',
+    titleText: 'Publications',
     show: true,
   },
 ];

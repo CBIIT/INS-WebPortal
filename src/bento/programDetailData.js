@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { customProgramsTableDownloadCSV } from './tableDownloadCSV';
+import { cellTypes } from '@bento-core/table';
 import programIcon from '../assets/icons/Icon-Programs.png';
 
 // --------------- Page title configuration --------------
@@ -62,126 +62,127 @@ const leftPanel = {
   ],
 };
 
-// --------------- Right Pannel configuration --------------
-// Ideal size for fileIconSrc is 66x53 px
-const rightPanel = {
-  widget: [
-    {
-      label: 'Projects by NCI DOCs',
-      dataName: 'projectCountInProgramByDOCData',
-      datatable_field: 'docs',
-      titleText: 'Projects',
-      display: true,
-    },
-    {
-      label: 'Projects by Award Amount',
-      dataName: 'projectCountInProgramByFundedAmountData',
-      datatable_field: 'funded_amount',
-      titleText: 'Projects',
-      display: true,
-    },
-  ],
-};
+export const GET_PROJECTS_OVERVIEW_QUERY = gql`
+query projectsOverview(
+  $programs: [String],
+  $docs: [String],
+  $fiscal_years: [String],
+  $award_amounts: [String],
+  $offset: Int,
+  $first: Int,
+  $order_by: String,
+  $sort_direction: String 
+  ){
+  projectsOverview(
+    programs: $programs,
+    docs: $docs,
+    fiscal_years: $fiscal_years,
+    award_amounts: $award_amounts,
+    first: $first,
+    offset: $offset,
+    order_by: $order_by,
+    sort_direction: $sort_direction
+    ) {
+    project_id,
+    queried_project_id,
+    application_id,
+    fiscal_year,
+    activity_code,
+    project_title,
+    project_type,
+    abstract_text,
+    keywords,
+    org_name,
+    org_city,
+    org_state,
+    org_country,
+    principal_investigators,
+    lead_doc,
+    program_officers,
+    award_amount,
+    nci_funded_amount,
+    award_notice_date,
+    project_start_date,
+    project_end_date,
+    full_foa,
+    program
+  }
+}
+  `;
 
 // --------------- Table configuration --------------
 const table = {
   name: 'Grants',
-  title: 'Grants',
-  display: true,
   dataField: 'dataProject',
-  api: 'GET_PROJECTS_OVERVIEW_QUERY',
-  paginationAPIField: 'projectOverView',
+  api: GET_PROJECTS_OVERVIEW_QUERY,
+  paginationAPIField: 'projectsOverview',
   defaultSortField: 'project_id',
   defaultSortDirection: 'asc',
-  count: 'numberOfProjects',
+  count: 'numberOfGrants',
   buttonText: 'Add Selected Files',
   dataKey: 'project_id',
-  saveButtonDefaultStyle: {
-    color: '#fff',
-    backgroundColor: '#DC2FDA',
-    opacity: '1',
-    border: '0px',
-    cursor: 'pointer',
-  },
-  ActiveSaveButtonDefaultStyle: {
-    cursor: 'pointer',
-    opacity: 'unset',
-    border: 'unset',
-  },
-  DeactiveSaveButtonDefaultStyle: {
-    opacity: '0.3',
-    cursor: 'auto',
+  extendedViewConfig: {
+    pagination: true,
+    manageViewColumns: false,
   },
   columns: [
     {
       dataField: 'project_id',
       header: 'Grant ID',
-      sort: 'asc',
-      primary: true,
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'queried_project_id',
       header: 'Project ID',
-      sort: 'asc',
-      link: '/project/{queried_project_id}',
-      display: true,
-      headerStyles: {
-        width: '10%',
+      cellType: cellTypes.LINK,
+      linkAttr: {
+        rootPath: '/project',
+        pathParams: ['queried_project_id'],
       },
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'project_title',
       header: 'Project Title',
-      sort: 'asc',
       display: true,
-      headerStyles: {
-        width: '20%',
-      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'principal_investigators',
       header: 'Principal Investigators',
-      sort: 'asc',
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'program_officers',
       header: 'Program Officers',
-      sort: 'asc',
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'lead_doc',
       header: 'Lead DOC',
-      sort: 'asc',
       display: true,
-      headerStyles: {
-        width: '5%',
-      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'activity_code',
       header: 'Activity Code',
-      sort: 'asc',
       display: true,
-      headerStyles: {
-        width: '5%',
-      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'award_amount',
       header: 'Award Amount',
-      sort: 'asc',
       display: true,
       dataTransform: (money) => {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -192,38 +193,30 @@ const table = {
 
         return formatter.format(money);
       },
-      headerStyles: {
-        width: '10%',
-      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'project_end_date',
       header: 'Project End Date',
-      sort: 'asc',
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'fiscal_year',
       header: 'Fiscal Year',
-      sort: 'asc',
       display: true,
-      headerStyles: {
-        width: '10%',
-      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
     },
   ],
   id: 'project_tab',
-  onRowsSelect: 'type1',
-  disableRowSelection: 'type1',
   tableID: 'project_tab_table',
-  selectableRows: false,
-  tableDownloadCSV: customProgramsTableDownloadCSV,
   downloadFileName: 'programs_download',
-  headerPagination: true,
-  footerPagination: true,
+  tableMsg: {
+    noMatch: 'No Matching Records Found',
+  },
 };
 
 // --------------- GraphQL query - Retrieve program details --------------
@@ -260,7 +253,6 @@ export {
   aggregateCount,
   programDetailIcon,
   leftPanel,
-  rightPanel,
   externalLinkIcon,
   breadCrumb,
   GET_PROGRAM_DETAIL_DATA_QUERY,
