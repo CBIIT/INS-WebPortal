@@ -31,6 +31,8 @@ const tblBody = {
       color: '#004C73',
       borderBottom: 'none',
       fontSize: '1rem',
+      lineHeight: '1.5',
+      letterSpacing: '0.00938em',
     },
     paddingCheckbox: {
       width: '48px',
