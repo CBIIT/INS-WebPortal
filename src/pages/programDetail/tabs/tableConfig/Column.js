@@ -28,7 +28,9 @@ export const CustomCellView = (props) => {
         requiredACLs={props[dataField]}
       />
     );
-  } if (typeof displayEmpty === 'boolean') {
+  }
+
+  if (typeof displayEmpty === 'boolean') {
     return (<Typography>{displayEmpty || props[dataField] ? props[dataField] : ''}</Typography>);
   }
 

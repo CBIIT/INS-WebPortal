@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactHtmlParser from 'html-react-parser';
-import { Typography } from '@material-ui/core';
+import {
+  Link,
+  Typography,
+} from '@material-ui/core';
 import { cellTypes, headerTypes } from '@bento-core/table';
 import DocumentDownloadView from '../../../../components/DocumentDownload/DocumentDownloadView';
 
@@ -11,8 +14,30 @@ export const CustomCellView = (props) => {
     displayEmpty,
     dataField,
     cellStyle,
+    linkAttr,
   } = props;
   if (cellStyle === 'TRANSFORM') {
+    return (<>{ReactHtmlParser(props[dataField].replaceAll(';', '<br />'))}</>);
+  }
+
+  if (cellStyle === 'TRANSFORM_LINK') {
+    if (!props[dataField].includes(';')) {
+      const url = `#${linkAttr.rootPath}/`.concat(props[linkAttr.pathParams]);
+      return (
+        <Link href={url} className={cellTypes.LINK}>
+          <Typography>
+            {props[dataField]}
+          </Typography>
+        </Link>
+      );
+    }
+
+    const names = props[dataField].split(';');
+    console.log('names: ', names);
+    console.log('linkAttr.pathParams: ', linkAttr.pathParams);
+    // const ids = props[linkAttr.pathParams].split(';');
+    // console.log('ids: ', ids);
+
     return (<>{ReactHtmlParser(props[dataField].replaceAll(';', '<br />'))}</>);
   }
 
@@ -28,7 +53,9 @@ export const CustomCellView = (props) => {
         requiredACLs={props[dataField]}
       />
     );
-  } if (typeof displayEmpty === 'boolean') {
+  }
+
+  if (typeof displayEmpty === 'boolean') {
     return (<Typography>{displayEmpty || props[dataField] ? props[dataField] : ''}</Typography>);
   }
 

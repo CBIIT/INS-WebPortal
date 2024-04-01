@@ -188,6 +188,8 @@ projectsOverview(
 }
   `;
 
+// program_ids
+
 export const GET_GRANTS_OVERVIEW_QUERY = gql`
 query grantsOverview(
   $program_names: [String],
@@ -372,17 +374,16 @@ export const tabContainers = [
       {
         dataField: 'program_names',
         header: 'Program(s)',
-        cellType: cellTypes.LINK,
-        linkAttr: {
-          rootPath: '/program',
-          pathParams: ['program_id'],
-        },
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
         className: 'projects_program_names_3',
         cellType: cellTypes.CUSTOM_ELEM,
-        cellStyle: cellStyles.TRANSFORM,
+        cellStyle: cellStyles.TRANSFORM_LINK,
+        linkAttr: {
+          rootPath: '/program',
+          pathParams: 'program_id',
+        },
       },
       {
         dataField: 'org_name',
