@@ -35,8 +35,9 @@ export const CustomCellView = (props) => {
     const names = props[dataField].split(';');
     console.log('names: ', names);
     console.log('linkAttr.pathParams: ', linkAttr.pathParams);
-    // const ids = props[linkAttr.pathParams].split(';');
-    // console.log('ids: ', ids);
+    console.log('props[linkAttr.pathParams: ', props[linkAttr.pathParams]);
+    const ids = props[linkAttr.pathParams].split(';');
+    console.log('ids: ', ids);
 
     return (<>{ReactHtmlParser(props[dataField].replaceAll(';', '<br />'))}</>);
   }

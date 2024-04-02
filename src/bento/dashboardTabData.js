@@ -184,11 +184,10 @@ projectsOverview(
   project_id
   project_start_date
   project_title
+  program_ids
 }
 }
   `;
-
-// program_ids
 
 export const GET_GRANTS_OVERVIEW_QUERY = gql`
 query grantsOverview(
@@ -382,7 +381,7 @@ export const tabContainers = [
         cellStyle: cellStyles.TRANSFORM_LINK,
         linkAttr: {
           rootPath: '/program',
-          pathParams: 'program_id',
+          pathParams: 'program_ids',
         },
       },
       {
