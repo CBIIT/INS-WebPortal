@@ -19,17 +19,17 @@ const ProgramView = ({
   classes, data,
 }) => {
   const {
-    programPublicationCount,
-    programProjectCount,
-    programGrantCount,
+    numberOfPublications,
+    numberOfProjects,
+    numberOfGrants,
   } = data;
-  const programData = data.programDetails;
+  const programData = data;
 
   const stat = {
     numberOfPrograms: 1,
-    numberOfProjects: programProjectCount !== undefined ? programProjectCount : 'undefined',
-    numberOfGrants: programGrantCount !== undefined ? programGrantCount : 'undefined',
-    numberOfPublications: programPublicationCount !== undefined ? programPublicationCount : 'undefined',
+    numberOfProjects: numberOfProjects !== undefined ? numberOfProjects : 'undefined',
+    numberOfGrants: numberOfGrants !== undefined ? numberOfGrants : 'undefined',
+    numberOfPublications: numberOfPublications !== undefined ? numberOfPublications : 'undefined',
   };
 
   return (
@@ -69,7 +69,7 @@ const ProgramView = ({
                     <Subsection
                       key={section.sectionHeader}
                       config={section}
-                      data={data.programDetails}
+                      data={data}
                     />
                   ))}
                 </Grid>
