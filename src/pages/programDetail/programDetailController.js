@@ -49,6 +49,9 @@ const ProgramDetailContainer = ({ match }) => {
     ...programCountsData.searchProjects,
     ...programDetailsData.programDetails,
     program_id: [match.params.id],
+    docTransformed: [programDetailsData.programDetails.doc.join(';')],
+    focusAreaTransformed: [programDetailsData.programDetails.focus_area.join(';')],
+    nofoTransformed: [programDetailsData.programDetails.nofo.join(';')],
   };
 
   console.log('programDetailsAllData: ', programDetailsAllData);

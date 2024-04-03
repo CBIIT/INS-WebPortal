@@ -34,7 +34,7 @@ const leftPanel = [
       },
       {
         label: 'Associated Focus Area(s)',
-        dataField: 'focus_area',
+        dataField: 'focusAreaTransformed',
       },
       {
         label: 'Principle Investigator(s)',
@@ -47,7 +47,7 @@ const leftPanel = [
     properties: [
       {
         label: 'NCI Division/Office/Center (DOC)',
-        dataField: 'doc',
+        dataField: 'docTransformed',
       },
       {
         label: 'Program Officer',
@@ -55,7 +55,7 @@ const leftPanel = [
       },
       {
         label: 'Associated Notices of Funding Opportunities (NOFO)',
-        dataField: 'nofo',
+        dataField: 'nofoTransformed',
       },
     ],
   },
