@@ -1,22 +1,50 @@
 // Component to display a property
-import { Grid, withStyles } from '@material-ui/core';
+import {
+  Grid,
+  withStyles,
+} from '@material-ui/core';
 import React from 'react';
-import { Anchor, prepareLinks } from '@bento-core/util';
+import {
+  Anchor,
+  prepareLinks,
+} from '@bento-core/util';
+import { externalLinkIcon } from '../../bento/programDetailData';
 
 const PropertyItem = ({
-  label, value, link, labelLink, classes, index,
+  label,
+  value,
+  link,
+  labelLink,
+  classes,
+  index,
 }) => {
   const defaultValue = '';
   return (
     <Grid item container>
       <Grid item xs={6}>
-        <span className={classes.title} id={`case_detail_left_section_title_${label}`}>
+        <span className={classes.title} id={`program_detail_left_section_title_${label}`}>
           {labelLink ? <Anchor link={labelLink} text={label} classes={classes} /> : label}
         </span>
       </Grid>
-      <Grid item xs={6} className={classes.content} id={`case_detail_left_section_description_${label}_${value}`}>
+      <Grid item xs={6} className={classes.content} id={`program_detail_left_section_description_${label}_${value}`}>
         {value || value === 0 ? (
-          link ? <Anchor link={link} text={value} classes={classes} /> : value
+          link ? (
+            <>
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={classes.link}
+              >
+                {value}
+              </a>
+              <img
+                src={externalLinkIcon.src}
+                alt={externalLinkIcon.alt}
+                className={classes.externalLinkIcon}
+              />
+            </>
+          ) : value
         ) : defaultValue}
       </Grid>
     </Grid>
@@ -28,7 +56,7 @@ const Subsection = ({ config, data, classes }) => {
   const properties = prepareLinks(config.properties, data);
   return (
     <Grid item container className={classes.subsection}>
-      <Grid item container direction="column" className={classes.subsectionBody} xs={9}>
+      <Grid item container direction="column" className={classes.subsectionBody} xs={12}>
         <Grid item>
           <span className={classes.detailContainerHeader}>{config.sectionHeader}</span>
         </Grid>
@@ -70,7 +98,6 @@ const styles = (theme) => ({
     color: '#0296C9',
   },
   subsectionBody: {
-    borderBottom: '1px solid #8DCAFF',
     paddingBottom: '15px',
   },
   subsection: {
@@ -85,7 +112,6 @@ const styles = (theme) => ({
     lineHeight: '12px',
     letterSpacing: '0.017em',
     fontWeight: '600',
-    textTransform: 'uppercase',
     whiteSpace: 'nowrap',
   },
   descriptionPart: {
@@ -96,6 +122,11 @@ const styles = (theme) => ({
   },
   link: {
     textDecoration: 'none',
+  },
+  externalLinkIcon: {
+    width: '16px',
+    verticalAlign: 'sub',
+    marginLeft: '4px',
   },
 });
 

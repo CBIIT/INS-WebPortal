@@ -1,4 +1,3 @@
-/* eslint-disable */
 import gql from 'graphql-tag';
 import { cellTypes, cellStyles } from '@bento-core/table';
 
@@ -20,12 +19,6 @@ export const externalLinkIcon = {
 
 // --------------- Tabs Header Data configuration --------------
 export const tabs = [
-  {
-    id: 'program_tab',
-    title: 'Programs',
-    dataField: 'dataProgram',
-    count: 'numberOfPrograms',
-  },
   {
     id: 'project_tab',
     title: 'Projects',
@@ -49,12 +42,6 @@ export const tabs = [
 // --------------- Tabs Header Style configuration --------------
 export const tabIndex = [
   {
-    title: 'Programs',
-    primaryColor: '#F7D7F7',
-    secondaryColor: '#86D6F0',
-    selectedColor: '#C92EC7',
-  },
-  {
     title: 'Projects',
     primaryColor: '#E7E5F1',
     secondaryColor: '#C3DBD4',
@@ -74,105 +61,17 @@ export const tabIndex = [
   },
 ];
 
-export const DASHBOARD_QUERY_NEW = gql`
-query search(
-  $program_names: [String],
-  $focus_area: [String]
-) {
-searchProjects(
-  program_names: $program_names,
-  focus_area: $focus_area
-) {
-  numberOfGrants
-  numberOfPrograms
-  numberOfProjects
-  numberOfPublications
-  programCountByFocusArea {
-    group
-    subjects
-  }
-  programCountByDoc {
-    group
-    subjects
-  }
-  publicationCountByRelativeCitationRatio {
-    group
-    subjects
-  }
-  filterProjectCountByFocusArea {
-      group
-      subjects
-  }
-}
-}`;
-
-export const FILTER_GROUP_QUERY = gql`
-  query groupCounts($subject_ids: [String]){
-  numberOfPublications(project_ids: $subject_ids)
-  }`;
-
-export const FILTER_QUERY = gql`
-query searchProjects(
-  $program_ids: [String],
-  $program_names: [String],
-  $focus_area: [String]
-) {
-searchProjects(
-  program_ids: $program_ids,
-  program_names: $program_names,
-  focus_area: $focus_area
-) {
-        numberOfPrograms
-        numberOfGrants
-        numberOfProjects
-        numberOfPublications
-}
-filterProjectCountByFocusArea{
-  group
-  subjects
-}
-}`;
-
 // --------------- GraphQL query - Retrieve files tab details --------------
-export const GET_PROGRAMS_OVERVIEW_QUERY = gql`
-query programsOverview(
-  $program_names: [String],
-  $focus_area: [String],
-  $offset: Int,
-  $first: Int,
-  $order_by: String,
-  $sort_direction: String 
-) {
-programsOverview(
-  program_names: $program_names,
-  focus_area: $focus_area,
-  first: $first,
-  offset: $offset,
-  order_by: $order_by,
-  sort_direction: $sort_direction
-) {
-  data_link
-  focus_area_str
-  program_acronym
-  program_link
-  program_name
-  program_id
-}
-}
-  `;
-
 export const GET_PROJECTS_OVERVIEW_QUERY = gql`
 query projectsOverview(
-  $program_names: [String],
-  $focus_area: [String],
+  $program_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
 ) {
 projectsOverview(
-  program_names: $program_names,
-  focus_area: $focus_area,
+  program_ids: $program_ids,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -184,23 +83,20 @@ projectsOverview(
   project_id
   project_start_date
   project_title
-  program_ids
 }
 }
   `;
 
 export const GET_GRANTS_OVERVIEW_QUERY = gql`
 query grantsOverview(
-  $program_names: [String],
-  $focus_area: [String],
+  $program_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
 ) {
 grantsOverview(
-  program_names: $program_names,
-  focus_area: $focus_area,
+  program_ids: $program_ids,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -219,16 +115,14 @@ grantsOverview(
 
 export const GET_PUBLICATIONS_OVERVIEW_QUERY = gql`
 query publicationsOverview(
-  $program_names: [String],
-  $focus_area: [String],
+  $program_ids: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
   $sort_direction: String 
 ) {
 publicationsOverview(
-  program_names: $program_names,
-  focus_area: $focus_area,
+  program_ids: $program_ids,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -247,93 +141,6 @@ publicationsOverview(
 
 // --------------- Tabs Table configuration --------------
 export const tabContainers = [
-  {
-    name: 'Programs',
-    dataField: 'dataProgram',
-    api: GET_PROGRAMS_OVERVIEW_QUERY,
-    paginationAPIField: 'programsOverview',
-    defaultSortField: 'program_name',
-    defaultSortDirection: 'asc',
-    count: 'numberOfPrograms',
-    buttonText: 'Add Selected Files',
-    dataKey: 'program_name',
-    extendedViewConfig: {
-      pagination: true,
-      manageViewColumns: false,
-    },
-    columns: [
-      {
-        dataField: 'program_name',
-        header: 'Program',
-        cellType: cellTypes.LINK,
-        linkAttr: {
-          rootPath: '/program',
-          pathParams: ['program_id'],
-        },
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        className: 'programs_program_name_1',
-      },
-      {
-        dataField: 'program_acronym',
-        header: 'Website',
-        cellType: cellTypes.CONDITIONAL_EXTERNAL_LINK,
-        linkAttr: {
-          pathParams: ['program_link'],
-        },
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        className: 'programs_program_acronym_2',
-      },
-      {
-        dataField: 'focus_area_str',
-        header: 'Focus Area',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        className: 'programs_focus_area_str_3',
-      },
-      {
-        dataField: 'program_acronym',
-        header: 'Data Location Details',
-        cellType: cellTypes.CONDITIONAL_EXTERNAL_LINK,
-        linkAttr: {
-          pathParams: ['data_link'],
-        },
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        className: 'programs_program_acronym_4',
-      },
-    ],
-    downloadColumns: [
-      {
-        dataField: 'program_name',
-        header: 'Program',
-      },
-      {
-        dataField: 'program_link',
-        header: 'Website',
-      },
-      {
-        dataField: 'focus_area_str',
-        header: 'Focus Area',
-      },
-      {
-        dataField: 'data_link',
-        header: 'Data Location Details',
-      },
-    ],
-    id: 'program_tab',
-    tableMsg: {
-      noMatch: 'No Matching Records Found',
-    },
-    tableID: 'program_tab_table',
-    tabIndex: '0',
-    downloadFileName: 'programs_download',
-  },
   {
     name: 'Projects',
     dataField: 'dataProject',
@@ -373,16 +180,17 @@ export const tabContainers = [
       {
         dataField: 'program_names',
         header: 'Program(s)',
+        // cellType: cellTypes.LINK,
+        // linkAttr: {
+        //   rootPath: '/program',
+        //   pathParams: ['program_names'],
+        // },
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
         className: 'projects_program_names_3',
         cellType: cellTypes.CUSTOM_ELEM,
-        cellStyle: cellStyles.TRANSFORM_LINK,
-        linkAttr: {
-          rootPath: '/program',
-          pathParams: 'program_ids',
-        },
+        cellStyle: cellStyles.TRANSFORM,
       },
       {
         dataField: 'org_name',
