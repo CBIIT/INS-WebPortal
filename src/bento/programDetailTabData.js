@@ -61,24 +61,10 @@ export const tabIndex = [
   },
 ];
 
-// export const PROGRAM_DETAIL_QUERY = gql`
-// query search(
-//   $program_ids: [String]
-// ) {
-// searchProjects(
-//   program_ids: $program_ids
-// ) {
-//   numberOfGrants
-//   numberOfProjects
-//   numberOfPublications
-// }
-// }`;
-
 // --------------- GraphQL query - Retrieve files tab details --------------
 export const GET_PROJECTS_OVERVIEW_QUERY = gql`
 query projectsOverview(
   $program_ids: [String],
-  $focus_area: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -86,7 +72,6 @@ query projectsOverview(
 ) {
 projectsOverview(
   program_ids: $program_ids,
-  focus_area: $focus_area,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -105,7 +90,6 @@ projectsOverview(
 export const GET_GRANTS_OVERVIEW_QUERY = gql`
 query grantsOverview(
   $program_ids: [String],
-  $focus_area: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -113,7 +97,6 @@ query grantsOverview(
 ) {
 grantsOverview(
   program_ids: $program_ids,
-  focus_area: $focus_area,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -133,7 +116,6 @@ grantsOverview(
 export const GET_PUBLICATIONS_OVERVIEW_QUERY = gql`
 query publicationsOverview(
   $program_ids: [String],
-  $focus_area: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -141,7 +123,6 @@ query publicationsOverview(
 ) {
 publicationsOverview(
   program_ids: $program_ids,
-  focus_area: $focus_area,
   first: $first,
   offset: $offset,
   order_by: $order_by,
