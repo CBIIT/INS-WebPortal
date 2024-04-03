@@ -21,25 +21,25 @@ export const CustomCellView = (props) => {
   }
 
   if (cellStyle === 'TRANSFORM_LINK') {
-    if (!props[dataField].includes(';')) {
-      const url = `#${linkAttr.rootPath}/`.concat(props[linkAttr.pathParams]);
-      return (
-        <Link href={url} className={cellTypes.LINK}>
+    const names = props[dataField].split(';');
+    const ids = props[linkAttr.pathParams].split(';');
+    const contentArray = [];
+
+    for (let i = 0; i < ids.length; i += 1) {
+      const url = `#${linkAttr.rootPath}/`.concat(ids[i]);
+
+      const linkElement = (
+        <Link key={i} href={url} className={cellTypes.LINK}>
           <Typography>
-            {props[dataField]}
+            {names[i]}
           </Typography>
         </Link>
       );
+
+      contentArray.push(linkElement);
     }
 
-    const names = props[dataField].split(';');
-    console.log('names: ', names);
-    console.log('linkAttr.pathParams: ', linkAttr.pathParams);
-    console.log('props[linkAttr.pathParams: ', props[linkAttr.pathParams]);
-    const ids = props[linkAttr.pathParams].split(';');
-    console.log('ids: ', ids);
-
-    return (<>{ReactHtmlParser(props[dataField].replaceAll(';', '<br />'))}</>);
+    return <>{contentArray}</>;
   }
 
   if (downloadDocument) {
