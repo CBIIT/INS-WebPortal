@@ -61,18 +61,18 @@ export const tabIndex = [
   },
 ];
 
-export const PROGRAM_DETAIL_QUERY = gql`
-query search(
-  $program_ids: [String]
-) {
-searchProjects(
-  program_ids: $program_ids
-) {
-  numberOfGrants
-  numberOfProjects
-  numberOfPublications
-}
-}`;
+// export const PROGRAM_DETAIL_QUERY = gql`
+// query search(
+//   $program_ids: [String]
+// ) {
+// searchProjects(
+//   program_ids: $program_ids
+// ) {
+//   numberOfGrants
+//   numberOfProjects
+//   numberOfPublications
+// }
+// }`;
 
 // --------------- GraphQL query - Retrieve files tab details --------------
 export const GET_PROJECTS_OVERVIEW_QUERY = gql`

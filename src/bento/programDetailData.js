@@ -153,6 +153,19 @@ query programDetails($program_id: String) {
   }
 }`;
 
+const PROGRAM_DETAIL_QUERY = gql`
+query search(
+  $program_ids: [String]
+) {
+searchProjects(
+  program_ids: $program_ids
+) {
+  numberOfGrants
+  numberOfProjects
+  numberOfPublications
+}
+}`;
+
 export {
   pageTitle,
   pageSubTitle,
@@ -160,4 +173,5 @@ export {
   leftPanel,
   externalLinkIcon,
   GET_PROGRAM_DETAIL_DATA_QUERY,
+  PROGRAM_DETAIL_QUERY,
 };
