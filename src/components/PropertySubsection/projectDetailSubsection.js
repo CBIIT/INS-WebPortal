@@ -20,34 +20,62 @@ const PropertyItem = ({
 }) => {
   const defaultValue = '';
   return (
-    <Grid item container>
-      <Grid item xs={6}>
-        <span className={classes.title} id={`project_detail_left_section_title_${label}`}>
-          {labelLink ? <Anchor link={labelLink} text={label} classes={classes} /> : label}
-        </span>
-      </Grid>
-      <Grid item xs={6} className={classes.content} id={`project_detail_left_section_description_${label}_${value}`}>
-        {value || value === 0 ? (
-          link ? (
-            <>
-              <a
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.link}
-              >
-                {value}
-              </a>
-              <img
-                src={externalLinkIcon.src}
-                alt={externalLinkIcon.alt}
-                className={classes.externalLinkIcon}
-              />
-            </>
-          ) : value
-        ) : defaultValue}
-      </Grid>
-    </Grid>
+    <>
+      {label ? (
+        <Grid item container>
+          <Grid item xs={6}>
+            <span className={classes.title} id={`project_detail_left_section_title_${label}`}>
+              {labelLink ? <Anchor link={labelLink} text={label} classes={classes} /> : label}
+            </span>
+          </Grid>
+          <Grid item xs={6} className={classes.content} id={`project_detail_left_section_description_${label}_${value}`}>
+            {value || value === 0 ? (
+              link ? (
+                <>
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={classes.link}
+                  >
+                    {value}
+                  </a>
+                  <img
+                    src={externalLinkIcon.src}
+                    alt={externalLinkIcon.alt}
+                    className={classes.externalLinkIcon}
+                  />
+                </>
+              ) : value
+            ) : defaultValue}
+          </Grid>
+        </Grid>
+      ) : (
+        <Grid item container>
+          <Grid item xs={12} className={classes.content} id={`project_detail_left_section_description_${value}`}>
+            {value || value === 0 ? (
+              link ? (
+                <>
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={classes.link}
+                  >
+                    {value}
+                  </a>
+                  <img
+                    src={externalLinkIcon.src}
+                    alt={externalLinkIcon.alt}
+                    className={classes.externalLinkIcon}
+                  />
+                </>
+              ) : value
+            ) : defaultValue}
+          </Grid>
+        </Grid>
+      )}
+    </>
   );
 };
 
