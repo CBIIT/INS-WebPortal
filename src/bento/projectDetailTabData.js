@@ -20,12 +20,6 @@ export const externalLinkIcon = {
 // --------------- Tabs Header Data configuration --------------
 export const tabs = [
   {
-    id: 'project_tab',
-    title: 'Projects',
-    dataField: 'dataProject',
-    count: 'numberOfProjects',
-  },
-  {
     id: 'grant_tab',
     title: 'Grants',
     dataField: 'dataGrant',
@@ -41,12 +35,6 @@ export const tabs = [
 
 // --------------- Tabs Header Style configuration --------------
 export const tabIndex = [
-  {
-    title: 'Projects',
-    primaryColor: '#E7E5F1',
-    secondaryColor: '#C3DBD4',
-    selectedColor: '#6D679E',
-  },
   {
     title: 'Grants',
     primaryColor: '#F7D7F7',

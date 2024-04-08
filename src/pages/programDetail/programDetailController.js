@@ -18,8 +18,6 @@ const ProgramDetailContainer = ({ match }) => {
     variables: { program_ids: [match.params.id] },
   });
 
-  console.log('programCountsData: ', programCountsData);
-
   const {
     loading: programDetailsLoading,
     error: programDetailsError,
@@ -28,9 +26,10 @@ const ProgramDetailContainer = ({ match }) => {
     variables: { program_id: match.params.id },
   });
 
-  console.log('programDetailsData: ', programDetailsData);
-
-  if (programCountsLoading || programDetailsLoading) return <CircularProgress />;
+  if (
+    programCountsLoading
+    || programDetailsLoading
+  ) return <CircularProgress />;
 
   if (
     programCountsError
@@ -54,7 +53,6 @@ const ProgramDetailContainer = ({ match }) => {
     nofoTransformed: [programDetailsData.programDetails.nofo.join(';')],
   };
 
-  console.log('programDetailsAllData: ', programDetailsAllData);
   return <ProgramView data={programDetailsAllData} />;
 };
 

@@ -29,7 +29,7 @@ const leftPanel = [
     properties: [
       {
         label: 'Associated Programs',
-        dataField: 'program_name of each program.program_id',
+        dataField: 'program_acronyms',
       },
       {
         label: 'Organization',
@@ -75,17 +75,9 @@ query projectDetails($project_id: String) {
   }
 }`;
 
-// const PROJECT_DETAIL_QUERY = gql`
-// query search(
-//   $project_id: [String]
-// ) {
-// searchProjects(
-//   project_id: $project_id
-// ) {
-//   numberOfGrants
-//   numberOfPublications
-// }
-// }`;
+// numberOfGrants
+// numberOfPrograms
+// numberOfPublications
 
 export {
   pageTitle,
@@ -94,5 +86,4 @@ export {
   leftPanel,
   externalLinkIcon,
   GET_PROJECT_DETAIL_DATA_QUERY,
-  // PROJECT_DETAIL_QUERY,
 };

@@ -19,13 +19,14 @@ const ProjectView = ({
   classes, data,
 }) => {
   const {
+    numberOfPrograms,
     numberOfPublications,
     numberOfGrants,
   } = data;
   const projectData = data;
 
   const stat = {
-    numberOfPrograms: 1,
+    numberOfPrograms: numberOfPrograms !== undefined ? numberOfPrograms : 'undefined',
     numberOfProjects: 1,
     numberOfGrants: numberOfGrants !== undefined ? numberOfGrants : 'undefined',
     numberOfPublications: numberOfPublications !== undefined ? numberOfPublications : 'undefined',
@@ -78,10 +79,10 @@ const ProjectView = ({
         </div>
       </div>
       <div className={classes.detailTabContainer}>
-        <TabsView
+        {/* <TabsView
           projectStats={data}
           activeFilters={{ project_id: [projectData.project_id] }}
-        />
+        /> */}
       </div>
       <div className={classes.blankSpace} />
     </>
