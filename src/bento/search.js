@@ -1,14 +1,5 @@
 import gql from 'graphql-tag';
 import client from '../utils/graphqlClient';
-import programIcon from '../assets/icons/Icon-Programs.png';
-
-// --------------- Icons configuration --------------
-// Ideal size for programListingIcon is 100x100 px
-// Ideal size for externalLinkIcon is 16x16 px
-export const programListingIcon = {
-  src: programIcon,
-  alt: 'INS program logo',
-};
 
 /** certain search data items */
 /** used by the Global Search header autocomplete */
