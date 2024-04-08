@@ -43,8 +43,8 @@ const tblBody = {
           lineBreak: 'anywhere',
         },
       },
-      '&.program': {
-        width: '5%',
+      '&.queried_project_id': {
+        width: '10%',
         '& p': {
           lineBreak: 'anywhere',
         },
@@ -73,49 +73,25 @@ const tblBody = {
           lineBreak: 'anywhere',
         },
       },
+      '&.activity_code': {
+        width: '5%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
       '&.award_amount': {
         width: '10%',
         '& p': {
           lineBreak: 'anywhere',
         },
       },
+      '&.project_end_date': {
+        width: '10%',
+        '& p': {
+          lineBreak: 'anywhere',
+        },
+      },
       '&.fiscal_year': {
-        width: '5%',
-        '& p': {
-          lineBreak: 'anywhere',
-        },
-      },
-      '&.publication_id': {
-        width: '5%',
-        '& p': {
-          lineBreak: 'anywhere',
-        },
-      },
-      '&.title': {
-        width: '25%',
-        '& p': {
-          lineBreak: 'anywhere',
-        },
-      },
-      '&.authors': {
-        width: '25%',
-        '& p': {
-          lineBreak: 'anywhere',
-        },
-      },
-      '&.citation_count': {
-        width: '10%',
-        '& p': {
-          lineBreak: 'anywhere',
-        },
-      },
-      '&.relative_citation_ratio': {
-        width: '10%',
-        '& p': {
-          lineBreak: 'anywhere',
-        },
-      },
-      '&.publish_date': {
         width: '10%',
         '& p': {
           lineBreak: 'anywhere',

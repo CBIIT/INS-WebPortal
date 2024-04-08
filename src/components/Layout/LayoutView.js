@@ -11,7 +11,7 @@ import Home from '../../pages/landing/landingController';
 import About from '../../pages/about/aboutController';
 import GlobalSearchController from '../../pages/search/searchViewController';
 import ProgramDetail from '../../pages/programDetail/programDetailController';
-import CaseDetail from '../../pages/caseDetail/caseDetailController';
+import ProjectDetail from '../../pages/projectDetail/projectDetailController';
 import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
 
 import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
@@ -42,7 +42,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <MixedRoute exact path="/home" component={Home} />
               <PrivateRoute path="/explore" access={['admin', 'member']} component={DashTemplate} />
               <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
-              <PrivateRoute path="/project/:id" access={['admin', 'member']} component={CaseDetail} />
+              <PrivateRoute path="/project/:id" access={['admin', 'member']} component={ProjectDetail} />
               <Route exact path="/search" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
               <Route path="/search/:id" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
               {aboutPageRoutes.map(

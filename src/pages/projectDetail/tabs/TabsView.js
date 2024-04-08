@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs as BentoTabs } from '@bento-core/tab';
 import TabPanel from './TabPanel';
-import { tabContainers } from '../../../bento/caseDetailData';
+import { tabContainers } from '../../../bento/programDetailTabData';
 import customTheme from './DefaultTabTheme';
 
 const Tabs = (props) => {
@@ -12,13 +12,13 @@ const Tabs = (props) => {
 
   /**
   * 1. change <name> to <display> as array item
-  * 2. <display> -> [tab.name, props.projectStats[tab.count]]
+  * 2. <display> -> [tab.name, props.programStats[tab.count]]
   */
   const getTabs = (tabs) => tabs.map((tab) => ({
     ...tab,
     name: tab.name,
-    count: `(${props.projectStats[tab.count]})`,
-    display: [tab.name, props.projectStats[tab.count]],
+    count: `(${props.programStats[tab.count]})`,
+    display: [tab.name, props.programStats[tab.count]],
     clsName: `${tab.name}`.toLowerCase().replace(' ', '_'),
   }));
 

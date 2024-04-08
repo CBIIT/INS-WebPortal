@@ -20,7 +20,7 @@ const TabView = (props) => {
   */
   const {
     config,
-    projectStats,
+    programStats,
     activeFilters,
     classes,
     activeTab,
@@ -55,7 +55,8 @@ const TabView = (props) => {
     paginationAPIField: config.paginationAPIField,
     dataKey: config.dataKey,
     columns: configColumn(config.columns),
-    count: projectStats[config.count],
+    downloadColumns: config.downloadColumns ? config.downloadColumns : config.columns,
+    count: programStats[config.count],
     selectedRows: [],
     enableRowSelection: config.enableRowSelection,
     tableMsg: config.tableMsg,
@@ -81,7 +82,7 @@ const TabView = (props) => {
               initState={initTblState}
               themeConfig={themeConfig}
               queryVariables={activeFilters}
-              totalRowCount={projectStats[config.count]}
+              totalRowCount={programStats[config.count]}
               activeTab={activeTab}
             />
           </Grid>
