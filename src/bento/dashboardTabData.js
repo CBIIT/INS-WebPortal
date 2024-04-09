@@ -352,11 +352,11 @@ export const tabContainers = [
       {
         dataField: 'project_id',
         header: 'Project ID',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/project',
-        //   pathParams: ['project_id'],
-        // },
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['project_id'],
+        },
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
@@ -448,11 +448,11 @@ export const tabContainers = [
       {
         dataField: 'project_id',
         header: 'Project',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/project',
-        //   pathParams: ['project_id'],
-        // },
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['project_id'],
+        },
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
@@ -538,17 +538,16 @@ export const tabContainers = [
       {
         dataField: 'project_ids',
         header: 'Project(s)',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/project',
-        //   pathParams: ['project_id'],
-        // },
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
         className: 'publications_project_ids_2',
         cellType: cellTypes.CUSTOM_ELEM,
-        cellStyle: cellStyles.TRANSFORM,
+        cellStyle: cellStyles.TRANSFORM_LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['project_ids'],
+        },
       },
       {
         dataField: 'title',
