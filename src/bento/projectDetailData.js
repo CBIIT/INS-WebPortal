@@ -75,9 +75,18 @@ query projectDetails($project_id: String) {
   }
 }`;
 
-// numberOfGrants
-// numberOfPrograms
-// numberOfPublications
+const PROJECT_STATS_QUERY = gql`
+query stats(
+  $project_id: [String]
+) {
+stats(
+  project_id: $project_id
+) {
+  numberOfGrants
+  numberOfPrograms
+  numberOfPublications
+}
+}`;
 
 export {
   pageTitle,
@@ -86,4 +95,5 @@ export {
   leftPanel,
   externalLinkIcon,
   GET_PROJECT_DETAIL_DATA_QUERY,
+  PROJECT_STATS_QUERY,
 };
