@@ -222,7 +222,7 @@ export const tabContainers = [
       noMatch: 'No Matching Records Found',
     },
     tableID: 'project_tab_table',
-    tabIndex: '1',
+    tabIndex: '0',
     downloadFileName: 'projects_download',
   },
   {
@@ -312,7 +312,7 @@ export const tabContainers = [
       noMatch: 'No Matching Records Found',
     },
     tableID: 'grant_tab_table',
-    tabIndex: '2',
+    tabIndex: '1',
     downloadFileName: 'grants_download',
   },
   {
@@ -404,7 +404,7 @@ export const tabContainers = [
       noMatch: 'No Matching Records Found',
     },
     tableID: 'publication_tab_table',
-    tabIndex: '3',
+    tabIndex: '2',
     downloadFileName: 'publications_download',
   },
 ];
