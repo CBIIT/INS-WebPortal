@@ -79,10 +79,10 @@ const ProjectView = ({
         </div>
       </div>
       <div className={classes.detailTabContainer}>
-        {/* <TabsView
+        <TabsView
           projectStats={data}
-          activeFilters={{ project_id: [projectData.project_id] }}
-        /> */}
+          activeFilters={{ project_id: projectData.project_id }}
+        />
       </div>
       <div className={classes.blankSpace} />
     </>
