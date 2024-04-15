@@ -22,7 +22,6 @@
     "@bento-core/table": "1.0.1-ins.18",
     "@bento-core/util": "1.0.1-ins.0",
     "@bento-core/widgets": "1.0.1-ins.4",
-    "html-react-parser": "^3.0.15",
     "@jbrowse/react-linear-genome-view": "^2.1.5",
     "@librpc/web": "^1.1.1",
     "@material-ui/core": "^4.12.4",
