@@ -4,6 +4,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import React from 'react';
+import ReactHtmlParser from 'html-react-parser';
 import {
   Anchor,
   prepareLinks,
@@ -19,6 +20,23 @@ const PropertyItem = ({
   index,
 }) => {
   const defaultValue = '';
+  let concatenatedLinks = '';
+  if (link) {
+    const names = value.split(';');
+    const ids = link.split(';');
+    const contentArray = [];
+
+    for (let i = 0; i < ids.length; i += 1) {
+      const url = `#/program/${ids[i]}`;
+
+      const linkElement = `<a key="${i}" href="${url}" style="text-decoration: none;">${names[i]}</a>`;
+
+      contentArray.push(linkElement);
+    }
+
+    concatenatedLinks = contentArray.join(';');
+  }
+
   return (
     <>
       {label ? (
@@ -29,25 +47,15 @@ const PropertyItem = ({
             </span>
           </Grid>
           <Grid item xs={6} className={classes.content} id={`project_detail_left_section_description_${label}_${value}`}>
-            {value || value === 0 ? (
-              link ? (
-                <>
-                  <a
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={classes.link}
-                  >
-                    {value}
-                  </a>
-                  <img
-                    src={externalLinkIcon.src}
-                    alt={externalLinkIcon.alt}
-                    className={classes.externalLinkIcon}
-                  />
-                </>
-              ) : value
-            ) : defaultValue}
+            {
+              value
+                || value === 0
+                ? (
+                  link
+                    ? <>{ReactHtmlParser(concatenatedLinks)}</>
+                    : value
+                ) : defaultValue
+            }
           </Grid>
         </Grid>
       ) : (
