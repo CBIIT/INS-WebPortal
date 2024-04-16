@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactHtmlParser from 'html-react-parser';
 import {
   Link,
   Typography,
@@ -16,10 +15,6 @@ export const CustomCellView = (props) => {
     cellStyle,
     linkAttr,
   } = props;
-  if (cellStyle === 'TRANSFORM') {
-    return (<>{ReactHtmlParser(props[dataField].replaceAll(';', '<br />'))}</>);
-  }
-
   if (cellStyle === 'TRANSFORM_LINK') {
     const names = props[dataField].split(';');
     const ids = props[linkAttr.pathParams].split(';');

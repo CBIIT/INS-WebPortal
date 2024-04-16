@@ -30,6 +30,7 @@ const leftPanel = [
       {
         label: 'Associated Programs',
         dataField: 'program_acronyms',
+        link: '{program_ids}',
       },
       {
         label: 'Organization',
