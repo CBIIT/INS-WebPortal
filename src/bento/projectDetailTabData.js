@@ -135,11 +135,11 @@ export const tabContainers = [
       {
         dataField: 'project_id',
         header: 'Project',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/project',
-        //   pathParams: ['project_id'],
-        // },
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['project_id'],
+        },
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
@@ -191,7 +191,7 @@ export const tabContainers = [
       noMatch: 'No Matching Records Found',
     },
     tableID: 'grant_tab_table',
-    tabIndex: '2',
+    tabIndex: '0',
     downloadFileName: 'grants_download',
   },
   {
@@ -225,17 +225,16 @@ export const tabContainers = [
       {
         dataField: 'project_ids',
         header: 'Project(s)',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/project',
-        //   pathParams: ['project_id'],
-        // },
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
         className: 'publications_project_ids_2',
         cellType: cellTypes.CUSTOM_ELEM,
-        cellStyle: cellStyles.TRANSFORM,
+        cellStyle: cellStyles.TRANSFORM_LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['project_ids'],
+        },
       },
       {
         dataField: 'title',
@@ -283,7 +282,7 @@ export const tabContainers = [
       noMatch: 'No Matching Records Found',
     },
     tableID: 'publication_tab_table',
-    tabIndex: '3',
+    tabIndex: '1',
     downloadFileName: 'publications_download',
   },
 ];

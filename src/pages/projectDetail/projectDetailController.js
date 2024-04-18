@@ -4,9 +4,20 @@ import { useQuery } from '@apollo/client';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ProjectView from './projectDetailView';
 import Error from '../error/Error';
-import { GET_PROJECT_DETAIL_DATA_QUERY } from '../../bento/projectDetailData';
+import {
+  GET_PROJECT_DETAIL_DATA_QUERY,
+  PROJECT_STATS_QUERY,
+} from '../../bento/projectDetailData';
 
 const ProjectDetailContainer = ({ match }) => {
+  const {
+    loading: projectCountsLoading,
+    error: projectCountsError,
+    data: projectCountsData,
+  } = useQuery(PROJECT_STATS_QUERY, {
+    variables: { project_id: match.params.id },
+  });
+
   const {
     loading: projectDetailsLoading,
     error: projectDetailsError,
@@ -15,10 +26,15 @@ const ProjectDetailContainer = ({ match }) => {
     variables: { project_id: match.params.id },
   });
 
-  if (projectDetailsLoading) return <CircularProgress />;
+  if (
+    projectCountsLoading
+    || projectDetailsLoading
+  ) return <CircularProgress />;
 
   if (
-    projectDetailsError
+    projectCountsError
+    || !projectCountsData
+    || projectDetailsError
     || !projectDetailsData
     || !projectDetailsData.projectDetails
   ) {
@@ -28,11 +44,8 @@ const ProjectDetailContainer = ({ match }) => {
   }
 
   const projectDetailsAllData = {
+    ...projectCountsData.stats,
     ...projectDetailsData.projectDetails,
-    project_id: [match.params.id],
-    numberOfPrograms: 1,
-    numberOfGrants: 12,
-    numberOfPublications: 123,
   };
 
   return <ProjectView data={projectDetailsAllData} />;
