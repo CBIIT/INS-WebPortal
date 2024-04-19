@@ -103,6 +103,10 @@ searchProjects(
       group
       subjects
   }
+  filterProjectCountByCancerType {
+    group
+    subjects
+}
 }
 }`;
 
@@ -128,6 +132,10 @@ searchProjects(
         numberOfPublications
 }
 filterProjectCountByFocusArea{
+  group
+  subjects
+}
+filterProjectCountByCancerType{
   group
   subjects
 }
@@ -296,6 +304,14 @@ export const tabContainers = [
         className: 'programs_focus_area_str_3',
       },
       {
+        dataField: 'cancer_type',
+        header: 'Cancer Type',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+        className: 'programs_cancer_type_4',
+      },
+      {
         dataField: 'program_acronym',
         header: 'Data Location Details',
         cellType: cellTypes.CONDITIONAL_EXTERNAL_LINK,
@@ -305,7 +321,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
-        className: 'programs_program_acronym_4',
+        className: 'programs_program_acronym_5',
       },
     ],
     downloadColumns: [
@@ -320,6 +336,10 @@ export const tabContainers = [
       {
         dataField: 'focus_area_str',
         header: 'Focus Area',
+      },
+      {
+        dataField: 'cancer_type',
+        header: 'Cancer Type',
       },
       {
         dataField: 'data_link',

@@ -37,6 +37,10 @@ const leftPanel = [
         dataField: 'focusAreaTransformed',
       },
       {
+        label: 'Associated Cancer Types(s)',
+        dataField: 'cancerTypesTransformed',
+      },
+      {
         label: 'Principle Investigator(s)',
         dataField: 'contact_pi',
       },

@@ -38,6 +38,17 @@ export const facetsConfig = [{
   sort_type: sortType.ALPHABET,
   show: true,
 },
+{
+  section: PROGRAMS,
+  label: 'CANCER TYPE',
+  field: GROUP,
+  apiPath: 'projectCountByCancerType',
+  apiForFiltering: 'filterProjectCountByCancerType',
+  datafield: 'cancer_type',
+  type: InputTypes.CHECKBOX,
+  sort_type: sortType.ALPHABET,
+  show: true,
+},
 ];
 
 // --------------- Dashboard Widgets configuration --------------

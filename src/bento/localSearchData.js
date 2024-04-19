@@ -45,6 +45,10 @@ query searchProjects (
       group
       subjects
     }
+    filterProjectCountByCancerType{
+      group
+      subjects
+    }
   }
 }`;
 
@@ -61,6 +65,10 @@ export const GET_SEARCH_NODECOUNTS = gql`
       numberOfPublications
   }
   filterProjectCountByFocusArea(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
+    group
+    subjects
+  }
+  filterProjectCountByCancerType(programs: $programs, docs: $docs, fiscal_years: $fiscal_years, award_amounts: $award_amounts) {
     group
     subjects
   }
