@@ -157,6 +157,7 @@ programsOverview(
   program_link
   program_name
   program_id
+  data_link_and_program_acronym
 }
 }
   `;
@@ -296,7 +297,7 @@ export const tabContainers = [
         className: 'programs_focus_area_str_3',
       },
       {
-        dataField: 'program_acronym',
+        dataField: 'data_link_and_program_acronym',
         header: 'Data Location Details',
         cellType: cellTypes.CONDITIONAL_EXTERNAL_LINK,
         linkAttr: {
