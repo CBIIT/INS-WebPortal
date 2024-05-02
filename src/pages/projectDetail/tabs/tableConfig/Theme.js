@@ -49,7 +49,7 @@ const tblBody = {
       '&.programs_focus_area_str_3': {
         width: '20%',
       },
-      '&.programs_cancer_type_4': {
+      '&.programs_cancer_type_str_4': {
         width: '20%',
       },
       '&.programs_program_acronym_5': {

@@ -73,6 +73,7 @@ query programDetails($program_id: String) {
       contact_pi
       doc
       focus_area
+      cancer_type
       nofo
       program_acronym
       program_link

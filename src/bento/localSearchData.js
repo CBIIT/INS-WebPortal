@@ -31,11 +31,13 @@ export const GET_IDS_BY_TYPE = () => gql`{
 export const GET_SEARCH_NODES_BY_FACET = gql`
 query searchProjects (          
   $program_names: [String],
-  $focus_area: [String]
+  $focus_area: [String],
+  $cancer_type: [String]
 ){
   searchProjects (          
     program_names: $program_names,
-    focus_area: $focus_area
+    focus_area: $focus_area,
+    cancer_type: $cancer_type
   ) {
     numberOfPrograms
     numberOfProjects
