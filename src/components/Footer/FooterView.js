@@ -22,7 +22,7 @@ const INSFooter = () => {
           <p>
             Data Version:
             &nbsp;
-            <a rel="noreferrer" href="https://github.com/CBIIT/INS-Data" target="_blank">v1.0.0</a>
+            <a rel="noreferrer" href="https://github.com/CBIIT/INS-Data" target="_blank">v1.1.0</a>
           </p>
         </div>
       </div>

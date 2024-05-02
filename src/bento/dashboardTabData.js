@@ -172,6 +172,7 @@ programsOverview(
   program_link
   program_name
   program_id
+  data_link_and_program_acronym
 }
 }
   `;
