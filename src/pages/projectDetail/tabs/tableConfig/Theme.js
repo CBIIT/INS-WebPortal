@@ -40,39 +40,6 @@ const tblBody = {
     },
     body: {
       color: '#004c73',
-      '&.programs_program_name_1': {
-        width: '20%',
-      },
-      '&.programs_program_acronym_2': {
-        width: '20%',
-      },
-      '&.programs_focus_area_str_3': {
-        width: '20%',
-      },
-      '&.programs_cancer_type_str_4': {
-        width: '20%',
-      },
-      '&.programs_program_acronym_5': {
-        width: '20%',
-      },
-      '&.projects_project_id_1': {
-        width: '15%',
-      },
-      '&.projects_project_title_2': {
-        width: '20%',
-      },
-      '&.projects_program_names_3': {
-        width: '20%',
-      },
-      '&.projects_org_name_4': {
-        width: '15%',
-      },
-      '&.projects_project_start_date_5': {
-        width: '15%',
-      },
-      '&.projects_project_end_date_6': {
-        width: '15%',
-      },
       '&.grants_grant_id_1': {
         width: '15%',
       },
