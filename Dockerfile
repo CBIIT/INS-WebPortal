@@ -1,4 +1,4 @@
-FROM node:16.20.1-alpine  as build
+FROM node:16.20.1-alpine AS build
 
 
 WORKDIR /usr/src/app
@@ -10,7 +10,7 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm ci
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build --silent
 
 # FROM nginx:1.23.3-alpine
-FROM nginx:1.25.2
+FROM nginx:1.25.2 AS fnl_base_image
 
 RUN apt-get update && apt-get -y upgrade
 
