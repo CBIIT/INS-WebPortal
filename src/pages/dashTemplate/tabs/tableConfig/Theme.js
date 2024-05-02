@@ -41,7 +41,7 @@ const tblBody = {
     body: {
       color: '#004c73',
       '&.programs_program_name_1': {
-        width: '40%',
+        width: '20%',
       },
       '&.programs_program_acronym_2': {
         width: '20%',
@@ -49,7 +49,10 @@ const tblBody = {
       '&.programs_focus_area_str_3': {
         width: '20%',
       },
-      '&.programs_program_acronym_4': {
+      '&.programs_cancer_type_str_4': {
+        width: '20%',
+      },
+      '&.programs_program_acronym_5': {
         width: '20%',
       },
       '&.projects_project_id_1': {
