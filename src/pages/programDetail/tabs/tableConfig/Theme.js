@@ -40,18 +40,6 @@ const tblBody = {
     },
     body: {
       color: '#004c73',
-      '&.programs_program_name_1': {
-        width: '40%',
-      },
-      '&.programs_program_acronym_2': {
-        width: '20%',
-      },
-      '&.programs_focus_area_str_3': {
-        width: '20%',
-      },
-      '&.programs_program_acronym_4': {
-        width: '20%',
-      },
       '&.projects_project_id_1': {
         width: '15%',
       },

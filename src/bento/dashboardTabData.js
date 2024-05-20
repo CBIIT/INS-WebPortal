@@ -77,11 +77,13 @@ export const tabIndex = [
 export const DASHBOARD_QUERY_NEW = gql`
 query search(
   $program_names: [String],
-  $focus_area: [String]
+  $focus_area: [String],
+  $cancer_type: [String],
 ) {
 searchProjects(
   program_names: $program_names,
-  focus_area: $focus_area
+  focus_area: $focus_area,
+  cancer_type: $cancer_type
 ) {
   numberOfGrants
   numberOfPrograms
@@ -103,6 +105,10 @@ searchProjects(
       group
       subjects
   }
+  filterProjectCountByCancerType {
+    group
+    subjects
+}
 }
 }`;
 
@@ -115,12 +121,14 @@ export const FILTER_QUERY = gql`
 query searchProjects(
   $program_ids: [String],
   $program_names: [String],
-  $focus_area: [String]
+  $focus_area: [String],
+  $cancer_type: [String]
 ) {
 searchProjects(
   program_ids: $program_ids,
   program_names: $program_names,
-  focus_area: $focus_area
+  focus_area: $focus_area,
+  cancer_type: $cancer_type
 ) {
         numberOfPrograms
         numberOfGrants
@@ -131,6 +139,10 @@ filterProjectCountByFocusArea{
   group
   subjects
 }
+filterProjectCountByCancerType{
+  group
+  subjects
+}
 }`;
 
 // --------------- GraphQL query - Retrieve files tab details --------------
@@ -138,6 +150,7 @@ export const GET_PROGRAMS_OVERVIEW_QUERY = gql`
 query programsOverview(
   $program_names: [String],
   $focus_area: [String],
+  $cancer_type: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -146,6 +159,7 @@ query programsOverview(
 programsOverview(
   program_names: $program_names,
   focus_area: $focus_area,
+  cancer_type: $cancer_type,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -153,10 +167,12 @@ programsOverview(
 ) {
   data_link
   focus_area_str
+  cancer_type_str
   program_acronym
   program_link
   program_name
   program_id
+  data_link_and_program_acronym
 }
 }
   `;
@@ -165,6 +181,7 @@ export const GET_PROJECTS_OVERVIEW_QUERY = gql`
 query projectsOverview(
   $program_names: [String],
   $focus_area: [String],
+  $cancer_type: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -173,6 +190,7 @@ query projectsOverview(
 projectsOverview(
   program_names: $program_names,
   focus_area: $focus_area,
+  cancer_type: $cancer_type,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -193,6 +211,7 @@ export const GET_GRANTS_OVERVIEW_QUERY = gql`
 query grantsOverview(
   $program_names: [String],
   $focus_area: [String],
+  $cancer_type: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -201,6 +220,7 @@ query grantsOverview(
 grantsOverview(
   program_names: $program_names,
   focus_area: $focus_area,
+  cancer_type: $cancer_type,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -221,6 +241,7 @@ export const GET_PUBLICATIONS_OVERVIEW_QUERY = gql`
 query publicationsOverview(
   $program_names: [String],
   $focus_area: [String],
+  $cancer_type: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -229,6 +250,7 @@ query publicationsOverview(
 publicationsOverview(
   program_names: $program_names,
   focus_area: $focus_area,
+  cancer_type: $cancer_type,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -296,7 +318,15 @@ export const tabContainers = [
         className: 'programs_focus_area_str_3',
       },
       {
-        dataField: 'program_acronym',
+        dataField: 'cancer_type_str',
+        header: 'Cancer Type',
+        display: true,
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+        className: 'programs_cancer_type_str_4',
+      },
+      {
+        dataField: 'data_link_and_program_acronym',
         header: 'Data Location Details',
         cellType: cellTypes.CONDITIONAL_EXTERNAL_LINK,
         linkAttr: {
@@ -305,7 +335,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
-        className: 'programs_program_acronym_4',
+        className: 'programs_program_acronym_5',
       },
     ],
     downloadColumns: [
@@ -320,6 +350,10 @@ export const tabContainers = [
       {
         dataField: 'focus_area_str',
         header: 'Focus Area',
+      },
+      {
+        dataField: 'cancer_type_str',
+        header: 'Cancer Type',
       },
       {
         dataField: 'data_link',

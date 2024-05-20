@@ -50,6 +50,7 @@ const ProgramDetailContainer = ({ match }) => {
     program_id: match.params.id,
     docTransformed: [programDetailsData.programDetails.doc.join(';')],
     focusAreaTransformed: [programDetailsData.programDetails.focus_area.join(';')],
+    cancerTypesTransformed: [programDetailsData.programDetails.cancer_type.join(';')],
     nofoTransformed: [programDetailsData.programDetails.nofo.join(';')],
   };
 

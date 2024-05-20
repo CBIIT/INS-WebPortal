@@ -37,6 +37,10 @@ const leftPanel = [
         dataField: 'focusAreaTransformed',
       },
       {
+        label: 'Associated Cancer Types(s)',
+        dataField: 'cancerTypesTransformed',
+      },
+      {
         label: 'Principle Investigator(s)',
         dataField: 'contact_pi',
       },
@@ -69,6 +73,7 @@ query programDetails($program_id: String) {
       contact_pi
       doc
       focus_area
+      cancer_type
       nofo
       program_acronym
       program_link
