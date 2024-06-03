@@ -16,16 +16,6 @@ const INSFooter = () => {
   return (
     <>
       <Footer classes={styles} data={footerUpdatedData} />
-      <div>
-        <div className="beVersion">
-          <p>Software Version: v2.1.0</p>
-          <p>
-            Data Version:
-            &nbsp;
-            <a rel="noreferrer" href="https://github.com/CBIIT/INS-Data" target="_blank">v1.1.0</a>
-          </p>
-        </div>
-      </div>
     </>
   );
 };

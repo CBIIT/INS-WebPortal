@@ -27,6 +27,26 @@ export default {
       ],
     },
     {
+      title: 'System Info',
+      systemInfoInLinkSection: true,
+      items: [
+        {
+          text: 'Release Notes',
+          link: 'Release_v2.1.0.pdf',
+        },
+        {
+          text: `FE Version: ${env.REACT_APP_FE_VERSION || '0.0.0'}`,
+        },
+        {
+          text: `BE Version: ${env.REACT_APP_BE_VERSION || '0.0.0'}`,
+        },
+        {
+          text: 'Data Version: 1.1.0',
+          link: 'https://github.com/CBIIT/INS-Data',
+        },
+      ],
+    },
+    {
       title: 'NIH Policies',
       items: [
         {
