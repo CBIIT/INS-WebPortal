@@ -11,7 +11,7 @@ window.injectedEnv = {
   REACT_APP_AUTH_SERVICE_API: 'http://localhost:3000/api/auth/',
   REACT_APP_USER_SERVICE_API: 'http://localhost:3000/api/users/',
   REACT_APP_DATA_VERSION: '1.1.0',
-  REACT_APP_BE_VERSION: '2.2.0',
+  REACT_APP_BE_VERSION: '2.1.0',
   REACT_APP_FE_VERSION: '2.2.0',
 
   // IDP Auth url
