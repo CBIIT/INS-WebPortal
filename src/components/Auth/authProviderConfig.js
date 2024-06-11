@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import gql from 'graphql-tag';
 import { redirect } from '@bento-core/authentication';
-import GET_USER_DETAILS from '../../bento/authProviderData';
 import env from '../../utils/env';
 import { storeInLocalStorage, deleteFromLocalStorage } from '../../utils/localStorage';
 
@@ -15,7 +14,6 @@ export const AUTHPROVIDER_CONFIG = {
     NIH_CLIENT_ID: env.REACT_APP_NIH_CLIENT_ID || 'Sample Id',
     NIH_AUTH_URL: env.REACT_APP_NIH_AUTH_URL || 'https://stsstg.nih.gov/auth/oauth/v2/authorize',
     AUTH_API: env.REACT_APP_AUTH_SERVICE_API || '',
-    GET_USER_DETAILS,
   },
 
   // Helper functions used by the component
