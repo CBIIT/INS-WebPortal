@@ -20,15 +20,15 @@ const createContext = () => {
 
 const [useNotification, Notifications] = createContext();
 
-export const NotifactionProvider = ({ children }) => {
+export const NotifactionProvider = ({ children }) =>
 
-  // States
+// States
 
-  // Variables
+// Variables
 
-  // Methods
+// Methods
 
-  return (
+  (
     <Notifications
       value={{
       }}
@@ -36,6 +36,4 @@ export const NotifactionProvider = ({ children }) => {
       {children}
     </Notifications>
   );
-};
-
 export { useNotification };

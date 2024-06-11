@@ -9,6 +9,7 @@ import Footer from '../Footer/FooterView';
 import Error from '../../pages/error/Error';
 import Home from '../../pages/landing/landingController';
 import About from '../../pages/about/aboutController';
+import Disclaimer from '../Disclaimer';
 import GlobalSearchController from '../../pages/search/searchViewController';
 import ProgramDetail from '../../pages/programDetail/programDetailController';
 import ProjectDetail from '../../pages/projectDetail/projectDetailController';
@@ -31,6 +32,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
       <CssBaseline />
       <HashRouter>
         <>
+          <Disclaimer />
           <Header />
           <NavBar />
           <div

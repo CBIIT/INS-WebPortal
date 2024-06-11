@@ -44,16 +44,6 @@ const LandingView = ({ classes, statsData }) => {
 
   return (
     <>
-      <div className={classes.disclaimer}>
-        <p>
-          The INS website is under active development. Some NCI-supported projects and associated outputs may not be represented here.
-        </p>
-        <p>
-          Please contact the
-          <a className={classes.aboutLink} href="mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback">ODS mailbox</a>
-          to provide updates or feedback.
-        </p>
-      </div>
       <div className={classes.page}>
         <div className={classes.container}>
           <Grid container spacing={16} direction="row">
