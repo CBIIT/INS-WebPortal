@@ -76,7 +76,6 @@ const styles = (theme) => ({
     flexGrow: 1,
     width: 'calc(100%)',
     background: theme.custom.bodyBackGround,
-    marginTop: '185px',
   },
   '@global': {
     '*::-webkit-scrollbar': {

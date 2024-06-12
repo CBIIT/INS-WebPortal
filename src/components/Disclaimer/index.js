@@ -24,9 +24,9 @@ const DisClaimer = ({classes}) => {
 const styles = () => ({
   disclaimer: {
     position: 'relative',
-    height: '47px',
     backgroundColor: '#b31d3d',
     width: '100%',
+    padding: '10px 0',
     textAlign: 'center',
     color: 'white',
     fontSize: '14px',

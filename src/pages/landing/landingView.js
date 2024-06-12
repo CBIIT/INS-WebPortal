@@ -414,37 +414,9 @@ const LandingView = ({ classes, statsData }) => {
 };
 
 const styles = () => ({
-  disclaimer: {
-    position: 'fixed',
-    top: '139px',
-    left: '0px',
-    height: '47px',
-    backgroundColor: '#b31d3d',
-    width: '100%',
-    zIndex: '999',
-    textAlign: 'center',
-    color: 'white',
-    fontSize: '14px',
-    fontFamily: 'Nunito',
-    fontWeight: '500',
-    paddingTop: '8px',
-
-    '& p': {
-      margin: '0px',
-      lineHeight: '16px',
-    },
-  },
-  aboutLink: {
-    fontWeight: '800',
-    color: 'white',
-    padding: '5px',
-  },
-  page: {
-    marginTop: '-47px',
-  },
   heroImage: {
     width: '100%',
-    height: '567px',
+    height: '520px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     backgroundImage: `url(${landingPageData.landingPageHero.img})`,
