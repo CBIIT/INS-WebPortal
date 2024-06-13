@@ -32,9 +32,9 @@ const Layout = ({ classes, isSidebarOpened }) => {
       <CssBaseline />
       <HashRouter>
         <>
-          <Disclaimer />
           <Header />
           <NavBar />
+          <Disclaimer />
           <div
             className={classes.content}
           >
