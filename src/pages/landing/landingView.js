@@ -505,7 +505,7 @@ const styles = () => ({
     marginTop: '40px',
     marginBottom: '26px',
     position: 'relative',
-    zIndex: 9999,
+    zIndex: 99,
 
     '& b': {
       margin: '0px 5px',
