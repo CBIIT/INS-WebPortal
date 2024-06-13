@@ -10,8 +10,7 @@ RUN apk upgrade --update && apk --no-cache add git
 RUN NODE_OPTIONS="--openssl-legacy-provider"
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm set progress=false
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm ci --legacy-peer-deps
-RUN NODE_OPTIONS="--openssl-legacy-provider"
-RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build --silent
+RUN NODE_OPTIONS="--openssl-legacy-provider" npm run build --silent
 
 # FROM nginx:1.23.3-alpine
 FROM nginx:1.25.2 AS fnl_base_image
