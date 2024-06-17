@@ -7,7 +7,7 @@ const Nav = styled.div`
     width: 100%;
     height: 40px;
     background-color: rgb(62, 60, 63);
-    z-index: 999
+  z-index: 999;
 `;
 
 const NavContainer = styled.div`
