@@ -43,7 +43,7 @@ const styles = () => ({
     },
   },
   aboutLink: {
-    fontWeight: '800',
+    fontWeight: "800",
     color: 'white',
     padding: '5px',
   },
