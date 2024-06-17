@@ -35,6 +35,7 @@ const styles = () => ({
     fontFamily: 'Nunito',
     fontWeight: '500',
     paddingTop: '8px',
+    zIndex: 99,
 
     '& p': {
       margin: '0px',
