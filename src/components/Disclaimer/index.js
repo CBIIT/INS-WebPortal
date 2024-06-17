@@ -31,7 +31,7 @@ const styles = () => ({
     padding: '10px 0',
     textAlign: 'center',
     color: 'white',
-    fontSize: '14px',
+    fontSize: "14px",
     fontFamily: 'Nunito',
     fontWeight: "500",
     paddingTop: '8px',
