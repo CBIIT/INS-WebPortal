@@ -1,6 +1,6 @@
 import React from 'react';
 import StatsBar from '@bento-core/stats-bar';
-import { withStyles } from '@material-ui/core';
+import { withStyles } from "@material-ui/core";
 import { statsStyling, globalStatsData } from '../../bento/globalStatsData';
 
 // TODO - see if the variables `data` and `stats` can be merged to begin with
