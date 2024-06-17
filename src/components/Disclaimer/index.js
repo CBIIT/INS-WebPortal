@@ -33,7 +33,7 @@ const styles = () => ({
     color: 'white',
     fontSize: '14px',
     fontFamily: 'Nunito',
-    fontWeight: '500',
+    fontWeight: "500",
     paddingTop: '8px',
     zIndex: 99,
 
