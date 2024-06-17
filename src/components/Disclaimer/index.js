@@ -27,13 +27,13 @@ const styles = () => ({
   disclaimer: {
     position: 'relative',
     backgroundColor: '#b31d3d',
-    width: "100%",
-    padding: "10px 0",
+    width: '100%',
+    padding: '10px 0',
     textAlign: 'center',
     color: 'white',
-    fontSize: "14px",
+    fontSize: '14px',
     fontFamily: 'Nunito',
-    fontWeight: "500",
+    fontWeight: '500',
     paddingTop: '8px',
     zIndex: 99,
 
@@ -43,7 +43,7 @@ const styles = () => ({
     },
   },
   aboutLink: {
-    fontWeight: "800",
+    fontWeight: '800',
     color: 'white',
     padding: '5px',
   },
