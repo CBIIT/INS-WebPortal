@@ -1,9 +1,10 @@
 import React from 'react';
 import StatsBar from '@bento-core/stats-bar';
+import { withStyles } from '@material-ui/core';
 import { statsStyling, globalStatsData } from '../../bento/globalStatsData';
 
 // TODO - see if the variables `data` and `stats` can be merged to begin with
-const StatsView = ({ data }) => {
+const StatsView = ({ data, classes }) => {
   // Incorporate data into the stats array
   const stats = globalStatsData.map((e) => ({
     name: e.statTitle,
@@ -12,11 +13,18 @@ const StatsView = ({ data }) => {
   }));
 
   return (
-    <StatsBar
-      stats={stats}
-      styles={statsStyling}
-    />
+    <div className={classes.statsContainer}>
+      <StatsBar
+        stats={stats}
+        styles={statsStyling}
+      />
+    </div>
   );
 };
+const styles = () => ({
+  statsContainer: {
+    width: '100%',
+  },
+});
 
-export default StatsView;
+export default withStyles(styles)(StatsView);

@@ -9,6 +9,7 @@ import Footer from '../Footer/FooterView';
 import Error from '../../pages/error/Error';
 import Home from '../../pages/landing/landingController';
 import About from '../../pages/about/aboutController';
+import Disclaimer from '../Disclaimer';
 import GlobalSearchController from '../../pages/search/searchViewController';
 import ProgramDetail from '../../pages/programDetail/programDetailController';
 import ProjectDetail from '../../pages/projectDetail/projectDetailController';
@@ -33,6 +34,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
         <>
           <Header />
           <NavBar />
+          <Disclaimer />
           <div
             className={classes.content}
           >
@@ -74,7 +76,6 @@ const styles = (theme) => ({
     flexGrow: 1,
     width: 'calc(100%)',
     background: theme.custom.bodyBackGround,
-    marginTop: '185px',
   },
   '@global': {
     '*::-webkit-scrollbar': {

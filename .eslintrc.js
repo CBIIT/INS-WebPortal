@@ -35,7 +35,7 @@ module.exports = {
     "no-sequences":"off",
     "no-console":"off",
     "no-unused-vars":"off",
-    "react/destructuring-assignment": "off",
+    'react/destructuring-assignment': 'off',
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
   },
 };

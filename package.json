@@ -16,7 +16,7 @@
     "@bento-core/local-find": "1.0.1-ins.3",
     "@bento-core/paginated-table": "1.0.1-ins.28",
     "@bento-core/query-bar": "1.0.1-ins.6",
-    "@bento-core/stats-bar": "1.0.0",
+    "@bento-core/stats-bar": "^1.0.1-ins.0",
     "@bento-core/tab": "1.0.0",
     "@bento-core/table": "1.0.1-ins.26",
     "@bento-core/tool-tip": "1.0.0",
@@ -165,10 +165,6 @@
       "web.jsx",
       "jsx",
       "node"
-    ],
-    "watchPlugins": [
-      "/Users/doddapanenis2/Desktop/Develop/icdc-frontend/node_modules/jest-watch-typeahead/filename.js",
-      "/Users/doddapanenis2/Desktop/Develop/icdc-frontend/node_modules/jest-watch-typeahead/testname.js"
     ]
   },
   "babel": {

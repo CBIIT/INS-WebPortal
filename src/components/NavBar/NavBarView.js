@@ -3,14 +3,11 @@ import { useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Nav = styled.div`
-    top: 0;
-    left: 0;
-    position: fixed;
+    position: relative;
     width: 100%;
     height: 40px;
-    margin-top: 100px;
     background-color: rgb(62, 60, 63);
-    z-index: 1100;
+  z-index: 999;
 `;
 
 const NavContainer = styled.div`
