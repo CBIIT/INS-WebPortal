@@ -126,7 +126,8 @@ export const tblContainer = {
   MuiTableContainer: {
     root: {
       width: '100%',
-      overflowX: 'auto',
+      overflowX: 'visible',
+      marginTop: '52px',
       transform: 'rotateX(180deg)',
       boxShadow: 'none',
       borderRadius: '0',
