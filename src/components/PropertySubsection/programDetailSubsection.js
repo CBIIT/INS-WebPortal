@@ -37,12 +37,12 @@ const PropertyItem = ({
                 className={classes.link}
               >
                 {value}
+                <img
+                  src={externalLinkIcon.src}
+                  alt={externalLinkIcon.alt}
+                  className={classes.externalLinkIcon}
+                />
               </a>
-              <img
-                src={externalLinkIcon.src}
-                alt={externalLinkIcon.alt}
-                className={classes.externalLinkIcon}
-              />
             </>
           ) : value
         ) : defaultValue}
