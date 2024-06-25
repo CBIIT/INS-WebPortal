@@ -42,7 +42,7 @@ export default {
           text: 'BE Version: 2.2.0',
         },
         {
-          text: 'Data Version: 1.2.0',
+          text: 'Data Version: 1.1.0',
           link: 'https://github.com/CBIIT/INS-Data',
         },
       ],
