@@ -5,9 +5,14 @@ const DisClaimer = ({ classes }) => (
   <>
     <div className={classes.disclaimer}>
       <p>
-        The INS website is under active development.
-        Some NCI-supported projects and associated
-        outputs may not be represented here.
+        The INS website currently includes
+        research output from only a small
+        percentage of NCI-funded programs.
+      </p>
+      <p>
+        The site will be progressively updated
+        to include additional projects and programs
+        generating scientific data and publications.
       </p>
       <p>
         Please contact the
