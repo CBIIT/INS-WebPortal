@@ -358,6 +358,7 @@ export const tabContainers = [
         display: true,
         tooltipText: 'sort',
         tooltipDefinition: '',
+        tooltipLocation: 'first',
         role: cellTypes.DISPLAY,
         className: 'publications_pmid_1',
       },
