@@ -9,7 +9,10 @@ import Footer from '../Footer/FooterView';
 import Error from '../../pages/error/Error';
 import Home from '../../pages/landing/landingController';
 import About from '../../pages/about/aboutController';
+import Disclaimer from '../Disclaimer';
 import GlobalSearchController from '../../pages/search/searchViewController';
+import ProgramDetail from '../../pages/programDetail/programDetailController';
+import ProjectDetail from '../../pages/projectDetail/projectDetailController';
 import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
 
 import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
@@ -31,6 +34,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
         <>
           <Header />
           <NavBar />
+          <Disclaimer />
           <div
             className={classes.content}
           >
@@ -39,6 +43,8 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <MixedRoute exact path="/" component={Home} />
               <MixedRoute exact path="/home" component={Home} />
               <PrivateRoute path="/explore" access={['admin', 'member']} component={DashTemplate} />
+              <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
+              <PrivateRoute path="/project/:id" access={['admin', 'member']} component={ProjectDetail} />
               <Route exact path="/search" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
               <Route path="/search/:id" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
               {aboutPageRoutes.map(
@@ -70,7 +76,6 @@ const styles = (theme) => ({
     flexGrow: 1,
     width: 'calc(100%)',
     background: theme.custom.bodyBackGround,
-    marginTop: '185px',
   },
   '@global': {
     '*::-webkit-scrollbar': {

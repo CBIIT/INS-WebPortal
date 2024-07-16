@@ -1,4 +1,3 @@
-/* eslint-disable */
 import gql from 'graphql-tag';
 import { cellTypes, cellStyles } from '@bento-core/table';
 
@@ -77,11 +76,13 @@ export const tabIndex = [
 export const DASHBOARD_QUERY_NEW = gql`
 query search(
   $program_names: [String],
-  $focus_area: [String]
+  $focus_area: [String],
+  $cancer_type: [String],
 ) {
 searchProjects(
   program_names: $program_names,
-  focus_area: $focus_area
+  focus_area: $focus_area,
+  cancer_type: $cancer_type
 ) {
   numberOfGrants
   numberOfPrograms
@@ -103,6 +104,10 @@ searchProjects(
       group
       subjects
   }
+  filterProjectCountByCancerType {
+    group
+    subjects
+}
 }
 }`;
 
@@ -115,12 +120,14 @@ export const FILTER_QUERY = gql`
 query searchProjects(
   $program_ids: [String],
   $program_names: [String],
-  $focus_area: [String]
+  $focus_area: [String],
+  $cancer_type: [String]
 ) {
 searchProjects(
   program_ids: $program_ids,
   program_names: $program_names,
-  focus_area: $focus_area
+  focus_area: $focus_area,
+  cancer_type: $cancer_type
 ) {
         numberOfPrograms
         numberOfGrants
@@ -131,6 +138,10 @@ filterProjectCountByFocusArea{
   group
   subjects
 }
+filterProjectCountByCancerType{
+  group
+  subjects
+}
 }`;
 
 // --------------- GraphQL query - Retrieve files tab details --------------
@@ -138,6 +149,7 @@ export const GET_PROGRAMS_OVERVIEW_QUERY = gql`
 query programsOverview(
   $program_names: [String],
   $focus_area: [String],
+  $cancer_type: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -146,6 +158,7 @@ query programsOverview(
 programsOverview(
   program_names: $program_names,
   focus_area: $focus_area,
+  cancer_type: $cancer_type,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -153,9 +166,12 @@ programsOverview(
 ) {
   data_link
   focus_area_str
+  cancer_type_str
   program_acronym
   program_link
   program_name
+  program_id
+  data_link_and_program_acronym
 }
 }
   `;
@@ -164,6 +180,7 @@ export const GET_PROJECTS_OVERVIEW_QUERY = gql`
 query projectsOverview(
   $program_names: [String],
   $focus_area: [String],
+  $cancer_type: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -172,6 +189,7 @@ query projectsOverview(
 projectsOverview(
   program_names: $program_names,
   focus_area: $focus_area,
+  cancer_type: $cancer_type,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -183,6 +201,7 @@ projectsOverview(
   project_id
   project_start_date
   project_title
+  program_ids
 }
 }
   `;
@@ -191,6 +210,7 @@ export const GET_GRANTS_OVERVIEW_QUERY = gql`
 query grantsOverview(
   $program_names: [String],
   $focus_area: [String],
+  $cancer_type: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -199,6 +219,7 @@ query grantsOverview(
 grantsOverview(
   program_names: $program_names,
   focus_area: $focus_area,
+  cancer_type: $cancer_type,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -219,6 +240,7 @@ export const GET_PUBLICATIONS_OVERVIEW_QUERY = gql`
 query publicationsOverview(
   $program_names: [String],
   $focus_area: [String],
+  $cancer_type: [String],
   $offset: Int,
   $first: Int,
   $order_by: String,
@@ -227,6 +249,7 @@ query publicationsOverview(
 publicationsOverview(
   program_names: $program_names,
   focus_area: $focus_area,
+  cancer_type: $cancer_type,
   first: $first,
   offset: $offset,
   order_by: $order_by,
@@ -242,221 +265,6 @@ publicationsOverview(
 }
 }
   `;
-
-export const GET_ALL_FILEIDS_CASESTAB_FOR_SELECT_ALL = gql`
-query search (          
-  $subject_ids: [String],
-){
-  fileIDsFromList (          
-      subject_ids: $subject_ids,
-  ) 
-}
-  `;
-
-export const GET_ALL_FILEIDS_SAMPLESTAB_FOR_SELECT_ALL = gql`
-query search (          
-  $sample_ids: [String],
-){
-  fileIDsFromList (          
-    sample_ids: $sample_ids,
-  ) 
-}
-  `;
-
-export const GET_ALL_FILEIDS_FILESTAB_FOR_SELECT_ALL = gql`
-query search (          
-  $file_names: [String] 
-){
-  fileIDsFromList (          
-      file_names: $file_names
-  ) 
-}
-  `;
-
-export const GET_ALL_FILEIDS_FROM_CASESTAB_FOR_ADD_ALL_CART = gql`
-query subjectsAddAllToCart(
-  $subject_ids: [String],
-  $programs: [String],
-  $studies: [String],
-  $diagnoses: [String],
-  $rc_scores: [String],
-  $tumor_sizes: [String],
-  $chemo_regimen: [String],
-  $tumor_grades: [String],
-  $er_status: [String],
-  $pr_status: [String],
-  $endo_therapies: [String],
-  $meno_status: [String],
-  $tissue_type: [String],
-  $composition: [String],
-  $association: [String],
-  $file_type: [String],
-  $age_at_index: [Float],
-  $first: Int,
-  $offset: Int= 0, 
-  $order_by: String = "file_id",
-  $sort_direction: String = "asc" 
-  ){
-  subjectOverview(
-      subject_ids: $subject_ids,
-      programs: $programs,
-      studies: $studies,
-      diagnoses: $diagnoses,
-      rc_scores: $rc_scores,
-      tumor_sizes: $tumor_sizes,
-      chemo_regimen: $chemo_regimen,
-      tumor_grades: $tumor_grades,
-      er_status: $er_status,
-      pr_status: $pr_status,
-      endo_therapies: $endo_therapies,
-      meno_status: $meno_status,
-      tissue_type: $tissue_type,
-      composition: $composition,
-      association: $association,
-      file_type: $file_type,
-      age_at_index: $age_at_index,
-      first: $first,
-      offset: $offset,
-      order_by: $order_by,
-      sort_direction: $sort_direction
-      ) {
-      files
-  }
-}
-    `;
-
-export const GET_ALL_FILEIDS_FROM_SAMPLETAB_FOR_ADD_ALL_CART = gql`
-    query samplesAddAllToCart(
-      $subject_ids: [String],
-      $sample_ids: [String],
-      $programs: [String],
-      $studies: [String],
-      $diagnoses: [String],
-      $rc_scores: [String],
-      $tumor_sizes: [String],
-      $chemo_regimen: [String],
-      $tumor_grades: [String],
-      $er_status: [String],
-      $pr_status: [String],
-      $endo_therapies: [String],
-      $meno_status: [String],
-      $tissue_type: [String],
-      $composition: [String],
-      $association: [String],
-      $file_type: [String],
-      $age_at_index: [Float],
-      $first: Int,
-      $offset: Int= 0, 
-      $order_by: String = "file_id",
-      $sort_direction: String = "asc" ){
-      sampleOverview(
-          subject_ids: $subject_ids,
-          sample_ids: $sample_ids,
-          programs: $programs,
-          studies: $studies,
-          diagnoses: $diagnoses,
-          rc_scores: $rc_scores,
-          tumor_sizes: $tumor_sizes,
-          chemo_regimen: $chemo_regimen,
-          tumor_grades: $tumor_grades,
-          er_status: $er_status,
-          pr_status: $pr_status,
-          endo_therapies: $endo_therapies,
-          meno_status: $meno_status,
-          tissue_type: $tissue_type,
-          composition: $composition,
-          association: $association,
-          file_type: $file_type,
-          age_at_index: $age_at_index,
-          first: $first,
-          offset: $offset,
-          order_by: $order_by,
-          sort_direction: $sort_direction
-          ) {
-          files
-      }
-    }
-        `;
-
-export const GET_ALL_FILEIDS_FROM_FILESTAB_FOR_ADD_ALL_CART = gql`
-query fileAddAllToCart(
-  $subject_ids: [String],
-  $programs: [String],
-  $studies: [String],
-  $diagnoses: [String],
-  $rc_scores: [String],
-  $tumor_sizes: [String],
-  $chemo_regimen: [String],
-  $tumor_grades: [String],
-  $er_status: [String],
-  $pr_status: [String],
-  $endo_therapies: [String],
-  $meno_status: [String],
-  $tissue_type: [String],
-  $composition: [String],
-  $association: [String],
-  $file_type: [String],
-  $age_at_index: [Float],
-  $first: Int,
-  $offset: Int= 0, 
-  $order_by: String = "file_id",
-  $sort_direction: String = "asc"
- ){
-  fileOverview(
-      subject_ids:$subject_ids,
-      programs: $programs,
-      studies: $studies,
-      diagnoses: $diagnoses,
-      rc_scores: $rc_scores,
-      tumor_sizes: $tumor_sizes,
-      chemo_regimen: $chemo_regimen,
-      tumor_grades: $tumor_grades,
-      er_status: $er_status,
-      pr_status: $pr_status,
-      endo_therapies: $endo_therapies,
-      meno_status: $meno_status,
-      tissue_type: $tissue_type,
-      composition: $composition,
-      association: $association,       
-      file_type: $file_type,
-      age_at_index: $age_at_index,
-      first: $first, 
-      offset: $offset, 
-      order_by: $order_by,
-      sort_direction: $sort_direction
-  ){
-      file_id,
-  }
-}
-            `;
-
-// --------------- GraphQL query - Retrieve files tab details --------------
-export const GET_FILES_NAME_QUERY = gql`
-query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 100000, $order_by:String ="file_name"){
-  fileOverview(file_ids: $file_ids, offset: $offset,first: $first, order_by: $order_by) {
-    file_name
-  }
-}
-  `;
-
-export const GET_FILE_IDS_FROM_FILE_NAME = gql`
-  query (
-      $file_name: [String],
-      $offset: Int,
-      $first: Int,
-      $order_by: String
-  )
-  {
-      fileIdsFromFileNameDesc(
-          file_name:$file_name, 
-          offset:$offset,
-          first:$first,
-          order_by:$order_by
-      )
-      {
-          file_id
-      }
-  }`;
 
 // --------------- Tabs Table configuration --------------
 export const tabContainers = [
@@ -478,13 +286,15 @@ export const tabContainers = [
       {
         dataField: 'program_name',
         header: 'Program',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/program',
-        //   pathParams: ['program_name'],
-        // },
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/program',
+          pathParams: ['program_id'],
+        },
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'A coherent assembly of plans, project activities, and supporting resources contained within an administrative framework, the purpose of which is to implement an organization\'s mission or some specific program-related aspect of that mission.',
+        tooltipLocation: 'first',
         role: cellTypes.DISPLAY,
         className: 'programs_program_name_1',
       },
@@ -497,6 +307,7 @@ export const tabContainers = [
         },
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'Link to program website',
         role: cellTypes.DISPLAY,
         className: 'programs_program_acronym_2',
       },
@@ -505,11 +316,21 @@ export const tabContainers = [
         header: 'Focus Area',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'NCI research focus area',
         role: cellTypes.DISPLAY,
         className: 'programs_focus_area_str_3',
       },
       {
-        dataField: 'program_acronym',
+        dataField: 'cancer_type_str',
+        header: 'Cancer Type',
+        display: true,
+        tooltipText: 'sort',
+        tooltipDefinition: 'Program\'s cancer type focus',
+        role: cellTypes.DISPLAY,
+        className: 'programs_cancer_type_str_4',
+      },
+      {
+        dataField: 'data_link_and_program_acronym',
         header: 'Data Location Details',
         cellType: cellTypes.CONDITIONAL_EXTERNAL_LINK,
         linkAttr: {
@@ -517,8 +338,10 @@ export const tabContainers = [
         },
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'Link to program\'s data location, platform, or portal',
+        tooltipLocation: 'last',
         role: cellTypes.DISPLAY,
-        className: 'programs_program_acronym_4',
+        className: 'programs_program_acronym_5',
       },
     ],
     downloadColumns: [
@@ -533,6 +356,10 @@ export const tabContainers = [
       {
         dataField: 'focus_area_str',
         header: 'Focus Area',
+      },
+      {
+        dataField: 'cancer_type_str',
+        header: 'Cancer Type',
       },
       {
         dataField: 'data_link',
@@ -565,13 +392,15 @@ export const tabContainers = [
       {
         dataField: 'project_id',
         header: 'Project ID',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/project',
-        //   pathParams: ['project_id'],
-        // },
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['project_id'],
+        },
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'The primary unit of collaborative research effort sometimes also known as a core project or parent project. Projects receive funding from awards to conduct research and produce outputs, often across multiple years. Within INS, projects are contracts and groupings of extramural grants with identical Activity Code, Institute Code, and Serial Number. For example, 1P01CA210944-01 and 5P01CA210944-02 are both extramural grants awarded to project P01CA210944.',
+        tooltipLocation: 'first',
         role: cellTypes.DISPLAY,
         className: 'projects_project_id_1',
       },
@@ -580,29 +409,31 @@ export const tabContainers = [
         header: 'Project Title',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'Title of the funded grant, contract, or intramural (sub)project.',
         role: cellTypes.DISPLAY,
         className: 'projects_project_title_2',
       },
       {
         dataField: 'program_names',
         header: 'Program(s)',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/program',
-        //   pathParams: ['program_names'],
-        // },
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'A coherent assembly of plans, project activities, and supporting resources contained within an administrative framework, the purpose of which is to implement an organization\'s mission or some specific program-related aspect of that mission.',
         role: cellTypes.DISPLAY,
         className: 'projects_program_names_3',
         cellType: cellTypes.CUSTOM_ELEM,
-        cellStyle: cellStyles.TRANSFORM,
+        cellStyle: cellStyles.TRANSFORM_LINK,
+        linkAttr: {
+          rootPath: '/program',
+          pathParams: 'program_ids',
+        },
       },
       {
         dataField: 'org_name',
         header: 'Organization',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'The educational institution, research organization, business, or government agency receiving funding for the grant, contract, cooperative agreement, or intramural project.',
         role: cellTypes.DISPLAY,
         className: 'projects_org_name_4',
       },
@@ -611,6 +442,7 @@ export const tabContainers = [
         header: 'Project Start Date',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'The start date of a project. For subprojects of a multi-project grant, this is the start date of the parent award.',
         role: cellTypes.DISPLAY,
         className: 'projects_project_start_date_5',
       },
@@ -619,6 +451,8 @@ export const tabContainers = [
         header: 'Project End Date',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'The current end date of the project, including any future years for which commitments have been made. For subprojects of a multi-project grant, this is the end date of the parent award. Upon competitive renewal of a grant, the project end date is extended by the length of the renewal award.',
+        tooltipLocation: 'last',
         role: cellTypes.DISPLAY,
         className: 'projects_project_end_date_6',
       },
@@ -656,19 +490,22 @@ export const tabContainers = [
         },
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'Financial assistance mechanism providing money, property, or both to an eligible entity to carry out an approved project or activity. A grant is used whenever the NIH Institute or Center anticipates no substantial programmatic involvement with the recipient during performance of the financially assisted activities.',
+        tooltipLocation: 'first',
         role: cellTypes.DISPLAY,
         className: 'grants_grant_id_1',
       },
       {
         dataField: 'project_id',
         header: 'Project',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/project',
-        //   pathParams: ['project_id'],
-        // },
+        cellType: cellTypes.LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['project_id'],
+        },
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'The primary unit of collaborative research effort sometimes also known as a core project or parent project. Projects receive funding from awards to conduct research and produce outputs, often across multiple years. Within INS, projects are contracts and groupings of extramural grants with identical Activity Code, Institute Code, and Serial Number. For example, 1P01CA210944-01 and 5P01CA210944-02 are both extramural grants awarded to project P01CA210944.',
         role: cellTypes.DISPLAY,
         className: 'grants_project_id_2',
       },
@@ -677,6 +514,7 @@ export const tabContainers = [
         header: 'Grant Title',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'Title of the funded grant, contract, or intramural (sub)project.',
         role: cellTypes.DISPLAY,
         className: 'grants_grant_title_3',
       },
@@ -685,6 +523,7 @@ export const tabContainers = [
         header: 'Principal Investigators',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'The individual designated by the applicant organization to have the appropriate level of authority and responsibility to direct the project or program to be supported by the award.',
         role: cellTypes.DISPLAY,
         className: 'grants_principal_investigators_4',
       },
@@ -693,6 +532,7 @@ export const tabContainers = [
         header: 'Program Officers',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'An NCI or other institute staff member who coordinates the substantive aspects of a contract from planning the request for proposal to oversight.',
         role: cellTypes.DISPLAY,
         className: 'grants_program_officers_5',
       },
@@ -701,6 +541,7 @@ export const tabContainers = [
         header: 'Fiscal Year',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'The fiscal year appropriation from which project funds were obligated.',
         role: cellTypes.DISPLAY,
         className: 'grants_fiscal_year_6',
       },
@@ -709,6 +550,8 @@ export const tabContainers = [
         header: 'Project End Date',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'The current end date of the project, including any future years for which commitments have been made. For subprojects of a multi-project grant, this is the end date of the parent award. Upon competitive renewal of a grant, the project end date is extended by the length of the renewal award.',
+        tooltipLocation: 'last',
         role: cellTypes.DISPLAY,
         className: 'grants_project_end_date_7',
       },
@@ -746,29 +589,32 @@ export const tabContainers = [
         },
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: '',
+        tooltipLocation: 'first',
         role: cellTypes.DISPLAY,
         className: 'publications_pmid_1',
       },
       {
         dataField: 'project_ids',
         header: 'Project(s)',
-        // cellType: cellTypes.LINK,
-        // linkAttr: {
-        //   rootPath: '/project',
-        //   pathParams: ['project_id'],
-        // },
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'The primary unit of collaborative research effort sometimes also known as a core project or parent project. Projects receive funding from awards to conduct research and produce outputs, often across multiple years. Within INS, projects are contracts and groupings of extramural grants with identical Activity Code, Institute Code, and Serial Number. For example, 1P01CA210944-01 and 5P01CA210944-02 are both extramural grants awarded to project P01CA210944.',
         role: cellTypes.DISPLAY,
         className: 'publications_project_ids_2',
         cellType: cellTypes.CUSTOM_ELEM,
-        cellStyle: cellStyles.TRANSFORM,
+        cellStyle: cellStyles.TRANSFORM_LINK,
+        linkAttr: {
+          rootPath: '/project',
+          pathParams: ['project_ids'],
+        },
       },
       {
         dataField: 'title',
         header: 'Title',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: '',
         role: cellTypes.DISPLAY,
         className: 'publications_title_3',
       },
@@ -777,6 +623,7 @@ export const tabContainers = [
         header: 'Authors',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: '',
         role: cellTypes.DISPLAY,
         className: 'publications_authors_4',
       },
@@ -785,6 +632,7 @@ export const tabContainers = [
         header: 'Publication Date',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: '',
         role: cellTypes.DISPLAY,
         className: 'publications_publication_date_5',
       },
@@ -793,6 +641,7 @@ export const tabContainers = [
         header: 'Cited By',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: '',
         role: cellTypes.DISPLAY,
         className: 'publications_cited_by_6',
       },
@@ -801,6 +650,8 @@ export const tabContainers = [
         header: 'Relative Citation Ratio',
         display: true,
         tooltipText: 'sort',
+        tooltipDefinition: 'NIH Office of Portfolio Analysis metric of scientific influence. RCR represents the field- and time-normalized citation rate and is benchmarked to 1.0 for a typical (median) NIH paper in the corresponding year of publication. A paper with an RCR of 1.0 has received the same number of cites/year as the median NIH-funded paper in its field, a paper with an RCR of 2.0 has received twice as many cites/year as the median NIH-funded paper in its field, while an RCR of 0.5 means that it is receiving half as many citations per year. The RCR is not available for papers published last fiscal year, since, in general, not enough time has passed for citation statistics to meaningfully accrue in that time frame. An exception is made for papers with 5 or more citations since publication, as these are deemed to be accruing citations quickly enough for reliable calculations.',
+        tooltipLocation: 'last',
         role: cellTypes.DISPLAY,
         className: 'publications_relative_citation_ratio_7',
       },

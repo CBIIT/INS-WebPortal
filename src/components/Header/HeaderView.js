@@ -13,6 +13,9 @@ import {
 import { PUBLIC_ACCESS } from '../../bento/siteWideConfig';
 
 const styles = {
+  headerBar: {
+    position: 'relative',
+  },
   nihLogoImg: {
     minHeight: '100px',
     cursor: 'pointer',

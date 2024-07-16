@@ -4,58 +4,57 @@ import { useQuery } from '@apollo/client';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ProgramView from './programDetailView';
 import Error from '../error/Error';
-import { GET_PROGRAM_DETAIL_DATA_QUERY } from '../../bento/programDetailData';
+import {
+  GET_PROGRAM_DETAIL_DATA_QUERY,
+  PROGRAM_DETAIL_QUERY,
+} from '../../bento/programDetailData';
 
 const ProgramDetailContainer = ({ match }) => {
-  // eslint-disable-next-line max-len
-  const { loading: programDetailsLoading, error: programDetailsError, data: programDetailsData } = useQuery(GET_PROGRAM_DETAIL_DATA_QUERY, {
+  const {
+    loading: programCountsLoading,
+    error: programCountsError,
+    data: programCountsData,
+  } = useQuery(PROGRAM_DETAIL_QUERY, {
+    variables: { program_ids: [match.params.id] },
+  });
+
+  const {
+    loading: programDetailsLoading,
+    error: programDetailsError,
+    data: programDetailsData,
+  } = useQuery(GET_PROGRAM_DETAIL_DATA_QUERY, {
     variables: { program_id: match.params.id },
   });
 
-  const transformedData = _.cloneDeep(programDetailsData);
+  if (
+    programCountsLoading
+    || programDetailsLoading
+  ) return <CircularProgress />;
 
-  if (programDetailsData) {
-    // eslint-disable-next-line max-len
-    transformedData.projectCountInProgramByDOCData = [...programDetailsData.projectCountInProgramByDOC].sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-
-    let projectCountInProgramByFundedAmountData = [
-      {
-        group: '<$1M',
-        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_1,
-      },
-      {
-        group: '$1M to $2M',
-        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_2,
-      },
-      {
-        group: '$2M to $4M',
-        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_3,
-      },
-      {
-        group: '$4M to $10M',
-        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_4,
-      },
-      {
-        group: '>=$10M',
-        subjects: programDetailsData.projectCountInProgramByFundedAmount[0].funded_amount_5,
-      },
-    ];
-
-    // eslint-disable-next-line max-len
-    projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData.sort((a, b) => ((a.subjects < b.subjects) ? 1 : -1));
-
-    // eslint-disable-next-line max-len
-    transformedData.projectCountInProgramByFundedAmountData = projectCountInProgramByFundedAmountData;
-  }
-
-  if (programDetailsLoading) return <CircularProgress />;
-  // eslint-disable-next-line max-len
-  if (programDetailsError || !programDetailsData || !programDetailsData.programDetail || programDetailsData.programDetail.program_id !== match.params.id) {
+  if (
+    programCountsError
+    || !programCountsData
+    || !programCountsData.searchProjects
+    || programDetailsError
+    || !programDetailsData
+    || !programDetailsData.programDetails
+  ) {
     return (
       <Error />
     );
   }
-  return <ProgramView data={transformedData} />;
+
+  const programDetailsAllData = {
+    ...programCountsData.searchProjects,
+    ...programDetailsData.programDetails,
+    program_id: match.params.id,
+    docTransformed: [programDetailsData.programDetails.doc.join(';')],
+    focusAreaTransformed: [programDetailsData.programDetails.focus_area.join(';')],
+    cancerTypesTransformed: [programDetailsData.programDetails.cancer_type.join(';')],
+    nofoTransformed: [programDetailsData.programDetails.nofo.join(';')],
+  };
+
+  return <ProgramView data={programDetailsAllData} />;
 };
 
 export default ProgramDetailContainer;

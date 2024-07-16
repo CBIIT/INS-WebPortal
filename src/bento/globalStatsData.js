@@ -7,6 +7,9 @@ export const statsStyling = {
     height: '47px',
     background: '#B531AD',
   },
+  statsSection: {
+    position: 'relative',
+  },
   statTitle: {
     color: '#D0D0D0',
   },

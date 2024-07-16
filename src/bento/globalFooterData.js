@@ -6,8 +6,9 @@ export default {
   footerLogoSubText: 'at the National Institutes of Health',
   footerLogoHyperlink: 'https://cancer.gov/',
   footerStaticText: 'NIH … Turning Discovery Into Health®',
-  version: env.REACT_APP_FE_VERSION,
+  FEversion: env.REACT_APP_FE_VERSION,
   BEversion: env.REACT_APP_BE_VERSION,
+  DATAversion: env.REACT_APP_DATA_VERSION,
   // A maximum of 3 Subsections (link_sections) are allowed
   // A maximum of 4 Subsection Links ('items' under link_sections) are allowed
   // A maximum of 4 Anchor Links (global_footer_links) are allowed
@@ -23,6 +24,26 @@ export default {
         {
           text: 'Contact INS',
           link: 'nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback',
+        },
+      ],
+    },
+    {
+      title: 'System Info',
+      systemInfoInLinkSection: true,
+      items: [
+        {
+          text: 'Release Notes',
+          link: 'Release_v2.2.0.pdf',
+        },
+        {
+          text: `FE Version: ${env.REACT_APP_FE_VERSION || '2.2.0'}`,
+        },
+        {
+          text: `BE Version: ${env.REACT_APP_BE_VERSION || '2.2.0'}`,
+        },
+        {
+          text: `Data Version: ${env.REACT_APP_DATA_VERSION || '1.1.0'}`,
+          link: 'https://github.com/CBIIT/INS-Data',
         },
       ],
     },

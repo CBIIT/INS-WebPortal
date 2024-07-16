@@ -44,16 +44,6 @@ const LandingView = ({ classes, statsData }) => {
 
   return (
     <>
-      <div className={classes.disclaimer}>
-        <p>
-          The INS website is under active development. Some NCI-supported projects and associated outputs may not be represented here.
-        </p>
-        <p>
-          Please contact the
-          <a className={classes.aboutLink} href="mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback">ODS mailbox</a>
-          to provide updates or feedback.
-        </p>
-      </div>
       <div className={classes.page}>
         <div className={classes.container}>
           <Grid container spacing={16} direction="row">
@@ -424,37 +414,9 @@ const LandingView = ({ classes, statsData }) => {
 };
 
 const styles = () => ({
-  disclaimer: {
-    position: 'fixed',
-    top: '139px',
-    left: '0px',
-    height: '47px',
-    backgroundColor: '#b31d3d',
-    width: '100%',
-    zIndex: '999',
-    textAlign: 'center',
-    color: 'white',
-    fontSize: '14px',
-    fontFamily: 'Nunito',
-    fontWeight: '500',
-    paddingTop: '8px',
-
-    '& p': {
-      margin: '0px',
-      lineHeight: '16px',
-    },
-  },
-  aboutLink: {
-    fontWeight: '800',
-    color: 'white',
-    padding: '5px',
-  },
-  page: {
-    marginTop: '-47px',
-  },
   heroImage: {
     width: '100%',
-    height: '567px',
+    height: '520px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     backgroundImage: `url(${landingPageData.landingPageHero.img})`,
@@ -504,6 +466,8 @@ const styles = () => ({
     lineHeight: '20px',
     marginTop: '40px',
     marginBottom: '26px',
+    position: 'relative',
+    zIndex: 99,
 
     '& b': {
       margin: '0px 5px',

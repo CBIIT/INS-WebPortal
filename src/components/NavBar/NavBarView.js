@@ -3,14 +3,11 @@ import { useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Nav = styled.div`
-    top: 0;
-    left: 0;
-    position: fixed;
+    position: relative;
     width: 100%;
     height: 40px;
-    margin-top: 100px;
     background-color: rgb(62, 60, 63);
-    z-index: 1100;
+  z-index: 999;
 `;
 
 const NavContainer = styled.div`
@@ -143,7 +140,7 @@ const NavBar = () => {
               <ul className="dropdown-list">
                 <li><NavLink to="/about" style={path === '/about' ? subMenuActiveStyle : null}>About INS</NavLink></li>
                 <li><a href="/INS_glossary_v2.0.0.pdf" target="_blank" rel="noreferrer">Glossary (PDF)</a></li>
-                <li><a href="/Release_v2.0.0.pdf" target="_blank" rel="noreferrer">Release Notes (PDF)</a></li>
+                <li><a href="/Release_v2.2.0.pdf" target="_blank" rel="noreferrer">Release Notes (PDF)</a></li>
               </ul>
             </MenuDropDown>
           </LiSection>
