@@ -131,7 +131,8 @@ const NavBar = () => {
       <NavContainer>
         <UlContainer>
           <LiSection style={path === '/home' ? activeStyle : null}><NavLink to="/home">Home</NavLink></LiSection>
-          <LiSection style={path === '/explore' ? activeStyle : null}><NavLink to="/explore">Explore</NavLink></LiSection>
+          <LiSection style={path === '/programs' ? activeStyle : null}><NavLink to="/programs">Programs</NavLink></LiSection>
+          <LiSection style={path === '/datasets' ? activeStyle : null}><NavLink to="/datasets">Datasets</NavLink></LiSection>
           <LiSection style={path === '/about' ? activeStyle : null}>
             <span className="menuLabel">
               About

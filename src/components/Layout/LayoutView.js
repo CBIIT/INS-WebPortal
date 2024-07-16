@@ -42,7 +42,8 @@ const Layout = ({ classes, isSidebarOpened }) => {
             <Switch>
               <MixedRoute exact path="/" component={Home} />
               <MixedRoute exact path="/home" component={Home} />
-              <PrivateRoute path="/explore" access={['admin', 'member']} component={DashTemplate} />
+              <PrivateRoute path="/programs" access={['admin', 'member']} component={DashTemplate} />
+              <PrivateRoute path="/datasets" access={['admin', 'member']} component={DashTemplate} />
               <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
               <PrivateRoute path="/project/:id" access={['admin', 'member']} component={ProjectDetail} />
               <Route exact path="/search" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />

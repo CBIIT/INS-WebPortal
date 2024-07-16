@@ -147,7 +147,7 @@ const AboutBody = () => (
                 Provides an overview of the site, a snapshot of the number of programs, projects, grants, and publications along with links to other site pages.
               </p>
               <h3 className="aboutContentSubHeader">
-                Explore Page
+                Programs Page
               </h3>
               <p className="p-l-20">
                 Provides access to all information within INS. Tabs for Programs, Projects, Grants, and Publications each show summary information and provide links to other resources where appropriate. Filters applied on the left will change the information displayed in all tabs and plots accordingly.
