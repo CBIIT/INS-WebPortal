@@ -36,13 +36,13 @@ export default {
           link: 'Release_v2.2.0.pdf',
         },
         {
-          text: `FE Version: ${env.REACT_APP_FE_VERSION || '2.2.1'}`,
+          text: `FE Version: ${env.REACT_APP_FE_VERSION || '3.0.0'}`,
         },
         {
-          text: `BE Version: ${env.REACT_APP_BE_VERSION || '2.2.1'}`,
+          text: `BE Version: ${env.REACT_APP_BE_VERSION || '3.0.0'}`,
         },
         {
-          text: `Data Version: ${env.REACT_APP_DATA_VERSION || '1.1.0'}`,
+          text: `Data Version: ${env.REACT_APP_DATA_VERSION || '2.0.0'}`,
           link: 'https://github.com/CBIIT/INS-Data',
         },
       ],
