@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import baseImg from '../../../assets/landing/Base.png';
 import './statsStyles.css';
 
-const linkPage = '/explore';
+const linkPage = '/programs';
 
 const LandingStatsView = ({ classes, stats, statsData }) => {
   const statBarPrograms = {
