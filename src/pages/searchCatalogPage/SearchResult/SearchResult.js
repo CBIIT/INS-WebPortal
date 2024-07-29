@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import {

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import * as types from './actionTypes';
 import * as searchApi from '../../api/searchApi';
 import * as participatingResourcesApi from '../../api/participatingResourcesApi';
