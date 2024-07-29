@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  loadFromUrlQuery, startFullTextSearch, bubbleSearchTextRemoveClick, bubbleResourcesRemoveClick
+  loadFromUrlQuery, startFullTextSearch, bubbleSearchTextRemoveClick, bubbleResourcesRemoveClick,
 } from '../../redux/actions/searchActions';
 import SearchCatalogPage from './SearchCatalogPage';
 

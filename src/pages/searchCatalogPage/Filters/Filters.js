@@ -2,23 +2,21 @@ import React, { useEffect } from 'react';
 import {
   useLocation,
   useNavigate,
-} from "react-router-dom";
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FilterItem from './FilterItem';
 import './Filters.css';
 import clearAllIcon from '../../../assets/img/clearAllIcon.svg';
 
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search);
-};
+const useQuery = () => new URLSearchParams(useLocation().search);
 
 const replaceResourceFilter = (query, filter) => {
-  let str = "";
-  if (query.get("search_text")) {
-    str += `&search_text=${query.get("search_text")}`;
+  let str = '';
+  if (query.get('search_text')) {
+    str += `&search_text=${query.get('search_text')}`;
   }
-  if (filter !== "") {
-    const tmp = query.get("filterByResource") ? query.get("filterByResource").split("|") : [];
+  if (filter !== '') {
+    const tmp = query.get('filterByResource') ? query.get('filterByResource').split('|') : [];
     const idx = tmp.indexOf(filter);
     if (idx > -1) {
       tmp.splice(idx, 1);
@@ -26,24 +24,22 @@ const replaceResourceFilter = (query, filter) => {
       tmp.push(filter);
     }
     if (tmp.length > 0) {
-      tmp.sort((a, b) => {
-        return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
-      });
-      str += `&filterByResource=${tmp.join("|")}`;
+      tmp.sort((a, b) => (a.toLowerCase() < b.toLowerCase() ? -1 : 1));
+      str += `&filterByResource=${tmp.join('|')}`;
     }
   }
-  str += "&page=1";
-  if (query.get("pageSize")) {
-    str += `&pageSize=${query.get("pageSize")}`;
+  str += '&page=1';
+  if (query.get('pageSize')) {
+    str += `&pageSize=${query.get('pageSize')}`;
   }
-  if (query.get("sortBy")) {
-    str += `&sortBy=${query.get("sortBy")}`;
+  if (query.get('sortBy')) {
+    str += `&sortBy=${query.get('sortBy')}`;
   }
-  if (query.get("sortOrder")) {
-    str += `&sortOrder=${query.get("sortOrder")}`;
+  if (query.get('sortOrder')) {
+    str += `&sortOrder=${query.get('sortOrder')}`;
   }
-  if (query.get("viewType")) {
-    str += `&viewType=${query.get("viewType")}`;
+  if (query.get('viewType')) {
+    str += `&viewType=${query.get('viewType')}`;
   }
   return str.substring(1);
 };
@@ -56,11 +52,11 @@ const Filters = ({
 }) => {
   const query = useQuery();
   const navigate = useNavigate();
-  const sources = sourceFilters === "all" ? searchFilters.map(element => element.data_resource_id.toLowerCase()) : sourceFilters.split("|").filter(element => element);
+  const sources = sourceFilters === 'all' ? searchFilters.map((element) => element.data_resource_id.toLowerCase()) : sourceFilters.split('|').filter((element) => element);
 
   useEffect(() => {
     if (searchFilters.length === 0) {
-      onLoadSearchDataResources().catch(error => {
+      onLoadSearchDataResources().catch((error) => {
         throw new Error(`Loading search catalog page filters failed ${error}`);
       });
     }
@@ -76,8 +72,8 @@ const Filters = ({
       <div className="filterSection">
         <div className="filterLabel">
           <span>Resources</span>
-          <button type="button" onClick={() => handleResourceClick("")} className="clear-all-button">
-              <img src={clearAllIcon} alt="clear-all" />
+          <button type="button" onClick={() => handleResourceClick('')} className="clear-all-button">
+            <img src={clearAllIcon} alt="clear-all" />
           </button>
         </div>
         <div className="filterBlock">

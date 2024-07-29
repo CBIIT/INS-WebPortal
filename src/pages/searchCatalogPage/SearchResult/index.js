@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import SearchResult from './SearchResult';
 import {
-  changeSorting, changeSortingOrder
+  changeSorting, changeSortingOrder,
 } from '../../../redux/actions/searchActions';
 import { loadGlossaryTerms } from '../../../redux/actions/applicationActions';
 

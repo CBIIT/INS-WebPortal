@@ -3,13 +3,13 @@ import {
   useLocation,
   useNavigate,
   Link,
-} from "react-router-dom";
+} from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Popover } from 'bootstrap';
-import ReactHtmlParser from "html-react-parser";
-import externalIcon from "../../../assets/img/resource.svg";
-import dataResourceIcon from "../../../assets/img/DataResource.svg";
+import ReactHtmlParser from 'html-react-parser';
+import externalIcon from '../../../assets/img/resource.svg';
+import dataResourceIcon from '../../../assets/img/DataResource.svg';
 
 const SearchResultContainer = styled.div`
   width: 100%;
@@ -287,37 +287,33 @@ const SortingOrderDesc = styled.span`
 `;
 
 const toCapitalize = (str) => {
-  const arr = str.split(" ");
+  const arr = str.split(' ');
 
-  const result = arr.map((t) => {
-    return t.charAt(0).toUpperCase() + t.slice(1);
-  });
+  const result = arr.map((t) => t.charAt(0).toUpperCase() + t.slice(1));
 
-  return result.join(" ");
+  return result.join(' ');
 };
 
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search);
-};
+const useQuery = () => new URLSearchParams(useLocation().search);
 
 const replaceQueryStr = (query, sorting) => {
-  let str = "";
-  if (query.get("search_text")) {
-    str += `&search_text=${query.get("search_text")}`;
+  let str = '';
+  if (query.get('search_text')) {
+    str += `&search_text=${query.get('search_text')}`;
   }
-  if (query.get("filterByResource")) {
-    str += `&filterByResource=${query.get("filterByResource")}`;
+  if (query.get('filterByResource')) {
+    str += `&filterByResource=${query.get('filterByResource')}`;
   }
-  if (query.get("page")) {
-    str += `&page=${query.get("page")}`;
+  if (query.get('page')) {
+    str += `&page=${query.get('page')}`;
   }
-  if (query.get("pageSize")) {
-    str += `&pageSize=${query.get("pageSize")}`;
+  if (query.get('pageSize')) {
+    str += `&pageSize=${query.get('pageSize')}`;
   }
   str += `&sortBy=${sorting.k}`;
   str += `&sortOrder=${sorting.v}`;
-  if (query.get("viewType")) {
-    str += `&viewType=${query.get("viewType")}`;
+  if (query.get('viewType')) {
+    str += `&viewType=${query.get('viewType')}`;
   }
   return str.substring(1);
 };
@@ -338,43 +334,43 @@ const SearchResult = ({
     const name = column;
     if (name === sort.name) {
       const toSortBy = {};
-      if (name === "Dataset") {
-        toSortBy.name = "Dataset";
-        toSortBy.k = "dataset_name.raw";
-      } else if (name === "Cases") {
-        toSortBy.name = "Cases";
-        toSortBy.k = "case_id";
-      } else if (name === "Samples") {
-        toSortBy.name = "Samples";
-        toSortBy.k = "sample_id";
-      } else if (name === "Resource") {
-        toSortBy.name = "Resource";
-        toSortBy.k = "data_resource_id";
+      if (name === 'Dataset') {
+        toSortBy.name = 'Dataset';
+        toSortBy.k = 'dataset_name.raw';
+      } else if (name === 'Cases') {
+        toSortBy.name = 'Cases';
+        toSortBy.k = 'case_id';
+      } else if (name === 'Samples') {
+        toSortBy.name = 'Samples';
+        toSortBy.k = 'sample_id';
+      } else if (name === 'Resource') {
+        toSortBy.name = 'Resource';
+        toSortBy.k = 'data_resource_id';
       } else {
-        toSortBy.name = "Primary Dataset Scope";
-        toSortBy.k = "primary_dataset_scope";
+        toSortBy.name = 'Primary Dataset Scope';
+        toSortBy.k = 'primary_dataset_scope';
       }
-      toSortBy.v = sort.v === "asc" ? "desc" : "asc";
+      toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
       const queryStr = replaceQueryStr(query, toSortBy);
       navigate(`/search?${queryStr}`);
       onChangeSortingOrder(toSortBy.v);
     } else {
       const toSortBy = {};
-      if (name === "Dataset") {
-        toSortBy.name = "Dataset";
-        toSortBy.k = "dataset_name.raw";
-      } else if (name === "Cases") {
-        toSortBy.name = "Cases";
-        toSortBy.k = "case_id";
-      } else if (name === "Samples") {
-        toSortBy.name = "Samples";
-        toSortBy.k = "sample_id";
-      } else if (name === "Resource") {
-        toSortBy.name = "Resource";
-        toSortBy.k = "data_resource_id";
+      if (name === 'Dataset') {
+        toSortBy.name = 'Dataset';
+        toSortBy.k = 'dataset_name.raw';
+      } else if (name === 'Cases') {
+        toSortBy.name = 'Cases';
+        toSortBy.k = 'case_id';
+      } else if (name === 'Samples') {
+        toSortBy.name = 'Samples';
+        toSortBy.k = 'sample_id';
+      } else if (name === 'Resource') {
+        toSortBy.name = 'Resource';
+        toSortBy.k = 'data_resource_id';
       } else {
-        toSortBy.name = "Primary Dataset Scope";
-        toSortBy.k = "primary_dataset_scope";
+        toSortBy.name = 'Primary Dataset Scope';
+        toSortBy.k = 'primary_dataset_scope';
       }
       toSortBy.v = sort.v;
       const queryStr = replaceQueryStr(query, toSortBy);
@@ -385,21 +381,19 @@ const SearchResult = ({
 
   const initializePopover = () => {
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.map((popoverTriggerEl) => {
-      return new Popover(popoverTriggerEl);
-    });
+    popoverTriggerList.map((popoverTriggerEl) => new Popover(popoverTriggerEl));
   };
 
   const caseDiseaseDiagnosisList = resultList.map((rt) => {
-    const tmp = {labels: [], matched: []};
-    if (rt.highlight && rt.highlight["case_disease_diagnosis.k"]) {
-      tmp.labels = rt.highlight["case_disease_diagnosis.k"];
+    const tmp = { labels: [], matched: [] };
+    if (rt.highlight && rt.highlight['case_disease_diagnosis.k']) {
+      tmp.labels = rt.highlight['case_disease_diagnosis.k'];
     }
 
-    if (rt.highlight && rt.highlight["case_disease_diagnosis.s"]) {
+    if (rt.highlight && rt.highlight['case_disease_diagnosis.s']) {
       const syns = [];
-      rt.highlight["case_disease_diagnosis.s"].forEach((syn) => {
-        const syn1 = syn.replace(/<b>/g, "").replace(/<\/b>/g, "");
+      rt.highlight['case_disease_diagnosis.s'].forEach((syn) => {
+        const syn1 = syn.replace(/<b>/g, '').replace(/<\/b>/g, '');
         if (syns.indexOf(syn1) === -1) {
           syns.push(syn1);
         }
@@ -419,7 +413,7 @@ const SearchResult = ({
     // merge matched with labels to remove duplicate items
     if (tmp.labels.length > 0) {
       tmp.labels.forEach((phl) => {
-        const orignialText = phl.replace(/<b>/g, "").replace(/<\/b>/g, "");
+        const orignialText = phl.replace(/<b>/g, '').replace(/<\/b>/g, '');
         if (tmp.matched.indexOf(orignialText) === -1) {
           tmp.matched.push(phl);
         }
@@ -432,12 +426,12 @@ const SearchResult = ({
     if (tmp.matched.length > 0) {
       // sort by alphabetic order first
       tmp.matched.sort((a, b) => {
-        const la = a.replace(/<b>/g, "").replace(/<\/b>/g, "").toLowerCase();
-        const lb = b.replace(/<b>/g, "").replace(/<\/b>/g, "").toLowerCase();
+        const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+        const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
         return la < lb ? -1 : 1;
       });
       matched = tmp.matched.map((item) => {
-        const rawItem = item.replace(/<b>/g, "").replace(/<\/b>/g, "");
+        const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
         const idx = result.indexOf(rawItem);
         if (idx > -1) {
           result.splice(idx, 1);
@@ -452,8 +446,8 @@ const SearchResult = ({
   const sampleAssayMethodList = resultList.map((rt) => {
     let tmp = [];
     let matched = [];
-    if (rt.highlight && rt.highlight["sample_assay_method.k"]) {
-      tmp = rt.highlight["sample_assay_method.k"];
+    if (rt.highlight && rt.highlight['sample_assay_method.k']) {
+      tmp = rt.highlight['sample_assay_method.k'];
     }
 
     const result = rt.content.sample_assay_method ? rt.content.sample_assay_method.map((rst) => rst.n) : [];
@@ -461,12 +455,12 @@ const SearchResult = ({
     if (tmp.length > 0) {
       // sort by alphabetic order first
       tmp.sort((a, b) => {
-        const la = a.replace(/<b>/g, "").replace(/<\/b>/g, "").toLowerCase();
-        const lb = b.replace(/<b>/g, "").replace(/<\/b>/g, "").toLowerCase();
+        const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+        const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
         return la < lb ? -1 : 1;
       });
       matched = tmp.map((item) => {
-        const rawItem = item.replace(/<b>/g, "").replace(/<\/b>/g, "");
+        const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
         const idx = result.indexOf(rawItem);
         if (idx > -1) {
           result.splice(idx, 1);
@@ -479,15 +473,15 @@ const SearchResult = ({
   });
 
   const caseTumorSiteList = resultList.map((rt) => {
-    const tmp = {labels: [], matched: []};
-    if (rt.highlight && rt.highlight["case_tumor_site.k"]) {
-      tmp.labels = rt.highlight["case_tumor_site.k"];
+    const tmp = { labels: [], matched: [] };
+    if (rt.highlight && rt.highlight['case_tumor_site.k']) {
+      tmp.labels = rt.highlight['case_tumor_site.k'];
     }
 
-    if (rt.highlight && rt.highlight["case_tumor_site.s"]) {
+    if (rt.highlight && rt.highlight['case_tumor_site.s']) {
       const syns = [];
-      rt.highlight["case_tumor_site.s"].forEach((syn) => {
-        const syn1 = syn.replace(/<b>/g, "").replace(/<\/b>/g, "");
+      rt.highlight['case_tumor_site.s'].forEach((syn) => {
+        const syn1 = syn.replace(/<b>/g, '').replace(/<\/b>/g, '');
         if (syns.indexOf(syn1) === -1) {
           syns.push(syn1);
         }
@@ -507,7 +501,7 @@ const SearchResult = ({
     // merge matched with labels to remove duplicate items
     if (tmp.labels.length > 0) {
       tmp.labels.forEach((phl) => {
-        const orignialText = phl.replace(/<b>/g, "").replace(/<\/b>/g, "");
+        const orignialText = phl.replace(/<b>/g, '').replace(/<\/b>/g, '');
         if (tmp.matched.indexOf(orignialText) === -1) {
           tmp.matched.push(phl);
         }
@@ -524,12 +518,12 @@ const SearchResult = ({
     if (tmp.matched.length > 0) {
       // sort by alphabetic order first
       tmp.matched.sort((a, b) => {
-        const la = a.replace(/<b>/g, "").replace(/<\/b>/g, "").toLowerCase();
-        const lb = b.replace(/<b>/g, "").replace(/<\/b>/g, "").toLowerCase();
+        const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+        const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
         return la < lb ? -1 : 1;
       });
       matched = tmp.matched.map((item) => {
-        const rawItem = item.replace(/<b>/g, "").replace(/<\/b>/g, "");
+        const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
         const idx = result.indexOf(rawItem);
         if (idx > -1) {
           result.splice(idx, 1);
@@ -543,8 +537,8 @@ const SearchResult = ({
 
   const projectsList = resultList.map((rt) => {
     let tmp = [];
-    if (rt.highlight && rt.highlight["projects.p_k"]) {
-      tmp = rt.highlight["projects.p_k"];
+    if (rt.highlight && rt.highlight['projects.p_k']) {
+      tmp = rt.highlight['projects.p_k'];
     }
 
     if (tmp.length === 0) {
@@ -556,12 +550,12 @@ const SearchResult = ({
 
     // sort by alphabetic order first
     tmp.sort((a, b) => {
-      const la = a.replace(/<b>/g, "").replace(/<\/b>/g, "").toLowerCase();
-      const lb = b.replace(/<b>/g, "").replace(/<\/b>/g, "").toLowerCase();
+      const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+      const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
       return la < lb ? -1 : 1;
     });
     matched = tmp.map((item) => {
-      const rawItem = item.replace(/<b>/g, "").replace(/<\/b>/g, "");
+      const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
       const idx = result.indexOf(rawItem);
       if (idx > -1) {
         result.splice(idx, 1);
@@ -572,9 +566,7 @@ const SearchResult = ({
     return matched.concat(result);
   });
 
-  const getTooltipTermList = resultList.map((rt) => {
-    return rt.content.primary_dataset_scope;
-  });
+  const getTooltipTermList = resultList.map((rt) => rt.content.primary_dataset_scope);
 
   useEffect(() => {
     initializePopover();
@@ -583,9 +575,9 @@ const SearchResult = ({
   // fetch data if there is new terms on the page
   useEffect(() => {
     const termSet = [...new Set(getTooltipTermList)].filter((term) => !(term in glossaryTerms));
-    const termPara = {termNames: termSet};
+    const termPara = { termNames: termSet };
     if (termSet.length > 0) {
-      onLoadGlossaryTerms(termPara).catch(error => {
+      onLoadGlossaryTerms(termPara).catch((error) => {
         throw new Error(`Loading Glossary Terms from url query failed: ${error}`);
       });
     }
@@ -595,108 +587,108 @@ const SearchResult = ({
     <>
       <SearchResultContainer>
         {
-          viewType === "card" && (
+          viewType === 'card' && (
             resultList.length === 0 ? (
               <div className="messageContainer">No result found. Please refine your search.</div>
             ) : resultList.map((rst, idx) => {
-            const key = `sr_${idx}`;
-            const tooltip = glossaryTerms[rst.content.primary_dataset_scope];
-            let desc = rst.highlight && rst.highlight.desc ? rst.highlight.desc[0] : rst.content.desc;
-            if (desc === null) {
-              desc = "";
-            }
-            if (desc.length > 500) {
-              desc = `${desc.substring(0, 500).replace(/<(?![b/])/g, "&lt;")} ...`;
-            } else {
-              desc = desc.replace(/<(?![b/])/g, "&lt;");
-            }
-            const arr = desc.split("http");
-            let descArr = [];
-            const isSearchArr = [];
-            if (arr.length > 1) {
-              if (arr[0].endsWith("<b>")) {
-                descArr.push(arr[0].substring(0, arr[0].length - 3));
-                isSearchArr.push(0);
-              } else {
-                descArr.push(arr[0]);
-                isSearchArr.push(0);
+              const key = `sr_${idx}`;
+              const tooltip = glossaryTerms[rst.content.primary_dataset_scope];
+              let desc = rst.highlight && rst.highlight.desc ? rst.highlight.desc[0] : rst.content.desc;
+              if (desc === null) {
+                desc = '';
               }
+              if (desc.length > 500) {
+                desc = `${desc.substring(0, 500).replace(/<(?![b/])/g, '&lt;')} ...`;
+              } else {
+                desc = desc.replace(/<(?![b/])/g, '&lt;');
+              }
+              const arr = desc.split('http');
+              let descArr = [];
+              const isSearchArr = [];
+              if (arr.length > 1) {
+                if (arr[0].endsWith('<b>')) {
+                  descArr.push(arr[0].substring(0, arr[0].length - 3));
+                  isSearchArr.push(0);
+                } else {
+                  descArr.push(arr[0]);
+                  isSearchArr.push(0);
+                }
                 for (let i = 1; i < arr.length; i += 1) {
-                    const urlArr = arr[i].split(" ");
-                    if (urlArr[0].includes("</b>")) {
-                      isSearchArr.push(1);
+                  const urlArr = arr[i].split(' ');
+                  if (urlArr[0].includes('</b>')) {
+                    isSearchArr.push(1);
+                  } else {
+                    isSearchArr.push(0);
+                  }
+                  const url = urlArr[0].replace('</b>', '');
+                  const urlLastChar = url[url.length - 1];
+                  if (',;.()<>{}'.includes(urlLastChar)) {
+                    const newUrl = 'http'.concat(url.substring(0, url.length - 1));
+                    descArr.push(newUrl);
+                    const restText = arr[i].split(url.substring(0, url.length - 1))[1];
+                    if (restText.endsWith('<b>')) {
+                      descArr.push(restText.substring(0, restText.length - 3));
                     } else {
+                      descArr.push(restText);
+                    }
+                    isSearchArr.push(0);
+                  } else {
+                    const newUrl = 'http'.concat(url);
+                    descArr.push(newUrl);
+                    if (urlArr.length !== 1) {
+                      const restText = arr[i].split(url)[1];
+                      if (restText.endsWith('<b>')) {
+                        descArr.push(restText.substring(0, restText.length - 3));
+                      } else {
+                        descArr.push(restText);
+                      }
                       isSearchArr.push(0);
                     }
-                    const url = urlArr[0].replace("</b>", "");
-                    const urlLastChar = url[url.length - 1];
-                    if (",;.()<>{}".includes(urlLastChar)) {
-                        const newUrl = "http".concat(url.substring(0, url.length - 1));
-                        descArr.push(newUrl);
-                        const restText = arr[i].split(url.substring(0, url.length - 1))[1];
-                        if (restText.endsWith("<b>")) {
-                          descArr.push(restText.substring(0, restText.length - 3));
-                        } else {
-                          descArr.push(restText);
-                        }
-                        isSearchArr.push(0);
-                    } else {
-                        const newUrl = "http".concat(url);
-                        descArr.push(newUrl);
-                        if (urlArr.length !== 1) {
-                          const restText = arr[i].split(url)[1];
-                          if (restText.endsWith("<b>")) {
-                            descArr.push(restText.substring(0, restText.length - 3));
-                          } else {
-                            descArr.push(restText);
-                          }
-                          isSearchArr.push(0);
-                        }
-                    }
+                  }
                 }
-            } else {
-              descArr = arr;
-              isSearchArr.push(0);
-            }
-            const otherMatches = [];
-            if (rst.highlight) {
-              Object.keys(rst.highlight).forEach((hl) => {
-                if (hl !== "dataset_name" && hl !== "data_resource_id" && hl !== "data_resource_name" && hl !== "desc"
-                && hl !== "projects.p_k" && hl !== "case_disease_diagnosis.k" && hl !== "case_disease_diagnosis.s"
-                && hl !== "case_tumor_site.k" && hl !== "case_tumor_site.s" && hl !== "sample_assay_method.k") {
-                  otherMatches.push(hl);
-                }
-              });
-            }
-            const additionalMatches = [];
-            if (rst.additionalHits) {
-              rst.additionalHits.forEach((add) => {
-                const tmp = {};
-                tmp.name = add.content.attr_name;
-                tmp.matches = add.highlight["additional.attr_set.k"];
-                additionalMatches.push(tmp);
-              });
-            }
-            return (
-              <div key={key} className="container">
-                <div className="row align-items-start headerRow">
-                  <div className="col-sm-8 resultTitle">
-                    <Link to={`/dataset/${rst.content.dataset_id}`}>{rst.content.dataset_name}</Link>
+              } else {
+                descArr = arr;
+                isSearchArr.push(0);
+              }
+              const otherMatches = [];
+              if (rst.highlight) {
+                Object.keys(rst.highlight).forEach((hl) => {
+                  if (hl !== 'dataset_name' && hl !== 'data_resource_id' && hl !== 'data_resource_name' && hl !== 'desc'
+                && hl !== 'projects.p_k' && hl !== 'case_disease_diagnosis.k' && hl !== 'case_disease_diagnosis.s'
+                && hl !== 'case_tumor_site.k' && hl !== 'case_tumor_site.s' && hl !== 'sample_assay_method.k') {
+                    otherMatches.push(hl);
+                  }
+                });
+              }
+              const additionalMatches = [];
+              if (rst.additionalHits) {
+                rst.additionalHits.forEach((add) => {
+                  const tmp = {};
+                  tmp.name = add.content.attr_name;
+                  tmp.matches = add.highlight['additional.attr_set.k'];
+                  additionalMatches.push(tmp);
+                });
+              }
+              return (
+                <div key={key} className="container">
+                  <div className="row align-items-start headerRow">
+                    <div className="col-sm-8 resultTitle">
+                      <Link to={`/dataset/${rst.content.dataset_id}`}>{rst.content.dataset_name}</Link>
+                    </div>
+                    <div className="col-sm-4">
+                      <span className="typeBlock" data-bs-custom-class="custom-popover" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content={tooltip}>
+                        {rst.content.primary_dataset_scope}
+                      </span>
+                    </div>
                   </div>
-                  <div className="col-sm-4">
-                    <span className="typeBlock" data-bs-custom-class="custom-popover" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content={tooltip}>
-                      {rst.content.primary_dataset_scope}
-                    </span>
-                  </div>
-                </div>
-                <div className="row align-items-start subHeaderRow">
-                  <div className="col-sm">
-                    <img src={dataResourceIcon} alt="data-resource" />
+                  <div className="row align-items-start subHeaderRow">
+                    <div className="col-sm">
+                      <img src={dataResourceIcon} alt="data-resource" />
                     &nbsp;
-                    <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link>
+                      <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link>
+                    </div>
                   </div>
-                </div>
-                {
+                  {
                   caseDiseaseDiagnosisList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -710,14 +702,14 @@ const SearchResult = ({
                               </span>
                             );
                           })
-                          : caseDiseaseDiagnosisList[idx].map((cdd, cddidx) => {
-                            const cddkey = `cdd_${cddidx}`;
-                            return (
-                              <span key={cddkey} className="itemSpan">
-                                {ReactHtmlParser(cdd)}
-                              </span>
-                            );
-                          })
+                            : caseDiseaseDiagnosisList[idx].map((cdd, cddidx) => {
+                              const cddkey = `cdd_${cddidx}`;
+                              return (
+                                <span key={cddkey} className="itemSpan">
+                                  {ReactHtmlParser(cdd)}
+                                </span>
+                              );
+                            })
                         }
                         {
                           caseDiseaseDiagnosisList[idx].length > 10 && <span className="itemContinued">...</span>
@@ -726,7 +718,7 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                {
+                  {
                   rst.content.case_id && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -738,7 +730,7 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                {
+                  {
                   sampleAssayMethodList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -752,14 +744,14 @@ const SearchResult = ({
                               </span>
                             );
                           })
-                          : sampleAssayMethodList[idx].map((sam, samidx) => {
-                            const samkey = `sam_${samidx}`;
-                            return (
-                              <span key={samkey} className="itemSpan">
-                                {ReactHtmlParser(sam)}
-                              </span>
-                            );
-                          })
+                            : sampleAssayMethodList[idx].map((sam, samidx) => {
+                              const samkey = `sam_${samidx}`;
+                              return (
+                                <span key={samkey} className="itemSpan">
+                                  {ReactHtmlParser(sam)}
+                                </span>
+                              );
+                            })
                         }
                         {
                           sampleAssayMethodList[idx].length > 10 && <span className="itemContinued">...</span>
@@ -768,7 +760,7 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                {
+                  {
                   rst.content.sample_id && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -780,27 +772,27 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                {
-                  desc !== "" && (
+                  {
+                  desc !== '' && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
                         <label>Description:</label>
                         <span className="textSpan">
-                        {
+                          {
                           descArr.map((item, desidx) => {
                             const deskey = `des_${desidx}`;
                             return (
-                              item.includes("http")
-                              ? (
-                              <span key={deskey} className={isSearchArr[desidx] === 1 ? "descLink" : null}>
-                                {
+                              item.includes('http')
+                                ? (
+                                  <span key={deskey} className={isSearchArr[desidx] === 1 ? 'descLink' : null}>
+                                    {
                                   isSearchArr[desidx] === 1
-                                  ? <a href={item} target="_blank" rel="noreferrer noopener">{item}</a>
-                                  : <a href={item} target="_blank" rel="noreferrer noopener" style={{backgroundColor: "white", fontWeight: "bold", textDecoration: "underline"}}>{item}</a>
+                                    ? <a href={item} target="_blank" rel="noreferrer noopener">{item}</a>
+                                    : <a href={item} target="_blank" rel="noreferrer noopener" style={{ backgroundColor: 'white', fontWeight: 'bold', textDecoration: 'underline' }}>{item}</a>
                                 }
-                              </span>
-                              )
-                              : <span key={deskey}>{ReactHtmlParser(item)}</span>
+                                  </span>
+                                )
+                                : <span key={deskey}>{ReactHtmlParser(item)}</span>
                             );
                           })
                         }
@@ -809,7 +801,7 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                {
+                  {
                   caseTumorSiteList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -823,14 +815,14 @@ const SearchResult = ({
                               </span>
                             );
                           })
-                          : caseTumorSiteList[idx].map((cdd, cddidx) => {
-                            const cddkey = `cdd_${cddidx}`;
-                            return (
-                              <span key={cddkey} className="itemSpan">
-                                {ReactHtmlParser(cdd)}
-                              </span>
-                            );
-                          })
+                            : caseTumorSiteList[idx].map((cdd, cddidx) => {
+                              const cddkey = `cdd_${cddidx}`;
+                              return (
+                                <span key={cddkey} className="itemSpan">
+                                  {ReactHtmlParser(cdd)}
+                                </span>
+                              );
+                            })
                         }
                         {
                           caseTumorSiteList[idx].length > 10 && <span className="itemContinued">...</span>
@@ -839,7 +831,7 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                {
+                  {
                   projectsList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -853,14 +845,14 @@ const SearchResult = ({
                               </span>
                             );
                           })
-                          : projectsList[idx].map((pl, plidx) => {
-                            const plkey = `cdd_${plidx}`;
-                            return (
-                              <span key={plkey} className="itemSpan">
-                                {ReactHtmlParser(pl)}
-                              </span>
-                            );
-                          })
+                            : projectsList[idx].map((pl, plidx) => {
+                              const plkey = `cdd_${plidx}`;
+                              return (
+                                <span key={plkey} className="itemSpan">
+                                  {ReactHtmlParser(pl)}
+                                </span>
+                              );
+                            })
                         }
                         {
                           projectsList[idx].length > 10 && <span className="itemContinued">...</span>
@@ -869,38 +861,38 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                {
+                  {
                   otherMatches.slice(0, 10).map((hl, hlidx) => {
-                      const hlKey = `hl_${hl}_${hlidx}`;
-                      let otherLinks = `${(rst.highlight[hl])}`;
-                      otherLinks = otherLinks.replace(/<b>/g, "").replace(/<\/b>/g, "");
-                      otherLinks = otherLinks.split(";");
-                      return (
-                        <div key={hlKey} className="row align-items-start footerRow">
-                          <div className="col">
-                            <label>
-                              Other Match:&nbsp;
-                              {toCapitalize(hl.replace(".k", "").replace(/_/g, " "))}
-                            </label>
-                            :&nbsp;
-                            {/* {ReactHtmlParser(rst.highlight[hl])} */}
-                            {
-                              (otherLinks && otherLinks[0].includes("http")) ? otherLinks.map((ol, olidx) => {
+                    const hlKey = `hl_${hl}_${hlidx}`;
+                    let otherLinks = `${(rst.highlight[hl])}`;
+                    otherLinks = otherLinks.replace(/<b>/g, '').replace(/<\/b>/g, '');
+                    otherLinks = otherLinks.split(';');
+                    return (
+                      <div key={hlKey} className="row align-items-start footerRow">
+                        <div className="col">
+                          <label>
+                            Other Match:&nbsp;
+                            {toCapitalize(hl.replace('.k', '').replace(/_/g, ' '))}
+                          </label>
+                          :&nbsp;
+                          {/* {ReactHtmlParser(rst.highlight[hl])} */}
+                          {
+                              (otherLinks && otherLinks[0].includes('http')) ? otherLinks.map((ol, olidx) => {
                                 const olkey = `cdd_${olidx}`;
                                 return (
                                   <span key={olkey} className="itemSpan">
-                                    {ol.includes("http") ? <a href={ol} target="_blank" rel="noreferrer noopener">{ol}</a> : ol}
+                                    {ol.includes('http') ? <a href={ol} target="_blank" rel="noreferrer noopener">{ol}</a> : ol}
                                   </span>
                                 );
                               })
-                              : ReactHtmlParser(rst.highlight[hl][0])
+                                : ReactHtmlParser(rst.highlight[hl][0])
                             }
-                          </div>
                         </div>
-                      );
-                    })
+                      </div>
+                    );
+                  })
                 }
-                {
+                  {
                   additionalMatches.length > 0 && additionalMatches.map((am, amidx) => {
                     const addkey = `add_${amidx}`;
                     return (
@@ -913,8 +905,8 @@ const SearchResult = ({
                           </label>
                           {
                             am.matches.map((m, midx) => {
-                              const mraw = m.replace(/<b>/g, "").replace(/<\/b>/g, "");
-                              if (mraw.startsWith("http")) {
+                              const mraw = m.replace(/<b>/g, '').replace(/<\/b>/g, '');
+                              if (mraw.startsWith('http')) {
                                 const amkey = `am_${midx}`;
                                 return (
                                   <span key={amkey} className="itemSpan">
@@ -922,8 +914,8 @@ const SearchResult = ({
                                   </span>
                                 );
                               }
-                              if (am.name === "GEO Study Identifier") {
-                                const geoId = m.replace(/<b>/g, "").replace(/<\/b>/g, "");
+                              if (am.name === 'GEO Study Identifier') {
+                                const geoId = m.replace(/<b>/g, '').replace(/<\/b>/g, '');
                                 const geoLink = ''.concat('https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=', geoId);
                                 return (
                                   <span className="itemSpan">
@@ -931,8 +923,8 @@ const SearchResult = ({
                                   </span>
                                 );
                               }
-                              if (am.name === "dbGaP Study Identifier") {
-                                const dbId = m.replace(/<b>/g, "").replace(/<\/b>/g, "");
+                              if (am.name === 'dbGaP Study Identifier') {
+                                const dbId = m.replace(/<b>/g, '').replace(/<\/b>/g, '');
                                 const dbLink = ''.concat('https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=', dbId);
                                 return (
                                   <span className="itemSpan">
@@ -950,69 +942,69 @@ const SearchResult = ({
                     );
                   })
                 }
-              </div>
-            );
-          }))
+                </div>
+              );
+            }))
         }
         {
-          viewType === "table" && (
+          viewType === 'table' && (
             <table className="table table-striped">
               <TableHead>
-                  <tr style={{ color: '#004187' }}>
-                      <th scope="col" width="40%" abbr="Dataset" onClick={() => handleSortBy("Dataset")}>
-                        Dataset&nbsp;
-                        {
-                          sort.k === "dataset_name.raw" && (
-                            sort.v === "desc"
-                            ? <SortingOrder />
-                            : <SortingOrderDesc />
+                <tr style={{ color: '#004187' }}>
+                  <th scope="col" width="40%" abbr="Dataset" onClick={() => handleSortBy('Dataset')}>
+                    Dataset&nbsp;
+                    {
+                          sort.k === 'dataset_name.raw' && (
+                            sort.v === 'desc'
+                              ? <SortingOrder />
+                              : <SortingOrderDesc />
                           )
                         }
-                      </th>
-                      <th scope="col" width="12%" abbr="Cases" onClick={() => handleSortBy("Cases")}>
-                        Cases&nbsp;
-                        {
-                          sort.k === "case_id" && (
-                            sort.v === "desc"
-                            ? <SortingOrder />
-                            : <SortingOrderDesc />
+                  </th>
+                  <th scope="col" width="12%" abbr="Cases" onClick={() => handleSortBy('Cases')}>
+                    Cases&nbsp;
+                    {
+                          sort.k === 'case_id' && (
+                            sort.v === 'desc'
+                              ? <SortingOrder />
+                              : <SortingOrderDesc />
                           )
                         }
-                      </th>
-                      <th scope="col" width="13%" abbr="Samples" onClick={() => handleSortBy("Samples")}>
-                        Samples&nbsp;
-                        {
-                          sort.k === "sample_id" && (
-                            sort.v === "desc"
-                            ? <SortingOrder />
-                            : <SortingOrderDesc />
+                  </th>
+                  <th scope="col" width="13%" abbr="Samples" onClick={() => handleSortBy('Samples')}>
+                    Samples&nbsp;
+                    {
+                          sort.k === 'sample_id' && (
+                            sort.v === 'desc'
+                              ? <SortingOrder />
+                              : <SortingOrderDesc />
                           )
                         }
-                      </th>
-                      <th scope="col" width="15%" abbr="Resource" onClick={() => handleSortBy("Resource")}>
-                        Resource&nbsp;
-                        {
-                          sort.k === "data_resource_id" && (
-                            sort.v === "desc"
-                            ? <SortingOrder />
-                            : <SortingOrderDesc />
+                  </th>
+                  <th scope="col" width="15%" abbr="Resource" onClick={() => handleSortBy('Resource')}>
+                    Resource&nbsp;
+                    {
+                          sort.k === 'data_resource_id' && (
+                            sort.v === 'desc'
+                              ? <SortingOrder />
+                              : <SortingOrderDesc />
                           )
                         }
-                      </th>
-                      <th scope="col" width="20%" abbr="Primary Dataset Scope" onClick={() => handleSortBy("Primary Dataset Scope")}>
-                        Primary Dataset Scope&nbsp;
-                        {
-                          sort.k === "primary_dataset_scope" && (
-                            sort.v === "desc"
-                            ? <SortingOrder />
-                            : <SortingOrderDesc />
+                  </th>
+                  <th scope="col" width="20%" abbr="Primary Dataset Scope" onClick={() => handleSortBy('Primary Dataset Scope')}>
+                    Primary Dataset Scope&nbsp;
+                    {
+                          sort.k === 'primary_dataset_scope' && (
+                            sort.v === 'desc'
+                              ? <SortingOrder />
+                              : <SortingOrderDesc />
                           )
                         }
-                      </th>
-                  </tr>
+                  </th>
+                </tr>
               </TableHead>
               <tbody>
-                  {
+                {
                   resultList.length === 0 ? (
                     <div className="tableMessageContainer">No result found. Please refine your search.</div>
                   ) : resultList.map((rst, idx) => {

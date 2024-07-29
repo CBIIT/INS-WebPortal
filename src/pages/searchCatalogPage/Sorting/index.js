@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  changeSorting, changeSortingOrder
+  changeSorting, changeSortingOrder,
 } from '../../../redux/actions/searchActions';
 import Sorting from './Sorting';
 
