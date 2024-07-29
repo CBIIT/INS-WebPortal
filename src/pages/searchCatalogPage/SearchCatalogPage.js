@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import {
