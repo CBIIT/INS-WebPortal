@@ -5,10 +5,10 @@ import documentSearch from './documentSearchReducer';
 import application from './applicationReducer';
 
 const rootReducer = combineReducers({
-    participatingResources,
-    datasets,
-    documentSearch,
-    application,
+  participatingResources,
+  datasets,
+  documentSearch,
+  application,
 });
 
 export default rootReducer;
