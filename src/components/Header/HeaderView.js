@@ -25,11 +25,11 @@ const styles = {
 
 const INSHeader = (props) => {
   const location = useLocation();
-
   const isSignedIn = useSelector((state) => state && state.login.isSignedIn);
   const isAdmin = useSelector((state) => state.login && state.login.role && state.login.role === 'admin');
   const hasApprovedArms = useSelector((state) => state.login.acl
     && state.login.acl.some((arm) => arm.accessStatus === 'approved'));
+
   const authenticated = PUBLIC_ACCESS === accessLevelTypes.METADATA_ONLY
     || (isSignedIn && (hasApprovedArms || isAdmin));
 
@@ -41,6 +41,7 @@ const INSHeader = (props) => {
       minimumInputLength: 0,
     },
   };
+
   const { SearchBar } = SearchBarGenerator(SearchBarConfig);
 
   return (
