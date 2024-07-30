@@ -4,7 +4,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import ToolTip from '@bento-core/tool-tip';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@bento-core/authentication';
 import env from '../../utils/env';
 import CustomIcon from '../CustomIcon/CustomIconView';
@@ -70,7 +70,7 @@ const DocumentDownload = ({
     signInWithGoogle,
     signOut,
   } = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { isSignedIn, acl: currentUserACL = [], role } = useSelector((state) => state.login);
   const [showModal, setShowModal] = React.useState(false);
@@ -102,7 +102,7 @@ const DocumentDownload = ({
           <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={toolTipTextUnauthenticated} arrow placement="bottom">
             <div
               style={{ textAlign: 'center' }}
-              onClick={() => history.push('/login?redirect=/programs')}
+              onClick={() => navigate('/login?redirect=/programs')}
             >
               <CustomIcon imgSrc={iconUnauthenticated} />
             </div>
@@ -111,7 +111,7 @@ const DocumentDownload = ({
           <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={toolTipTextUnauthenticated} arrow placement="bottom">
             <div
               style={{ textAlign: 'center' }}
-              onClick={() => history.push('/request')}
+              onClick={() => navigate('/request')}
             >
               <CustomIcon imgSrc={iconUnauthenticated} />
             </div>
