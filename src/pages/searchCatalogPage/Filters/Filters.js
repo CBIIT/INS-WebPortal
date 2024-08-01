@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import {
   useLocation,
-  useNavigate,
+  useHistory,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FilterItem from './FilterItem';
@@ -53,7 +53,7 @@ const Filters = ({
   onLoadSearchDataResources,
 }) => {
   const query = useQuery();
-  const navigate = useNavigate();
+  const history = useHistory();
   const sources = sourceFilters === 'all' ? searchFilters.map((element) => element.data_resource_id.toLowerCase()) : sourceFilters.split('|').filter((element) => element);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const Filters = ({
 
   const handleResourceClick = (filter) => {
     const queryStr = replaceResourceFilter(query, filter);
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   return (

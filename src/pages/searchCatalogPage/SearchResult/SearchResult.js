@@ -4,7 +4,7 @@
 import React, { useEffect } from 'react';
 import {
   useLocation,
-  useNavigate,
+  useHistory,
   Link,
 } from 'react-router-dom';
 import styled from 'styled-components';
@@ -331,7 +331,7 @@ const SearchResult = ({
   glossaryTerms,
 }) => {
   const query = useQuery();
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const handleSortBy = (column) => {
     const name = column;
@@ -355,7 +355,7 @@ const SearchResult = ({
       }
       toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
       const queryStr = replaceQueryStr(query, toSortBy);
-      navigate(`/search?${queryStr}`);
+      history.push(`/search?${queryStr}`);
       onChangeSortingOrder(toSortBy.v);
     } else {
       const toSortBy = {};
@@ -377,7 +377,7 @@ const SearchResult = ({
       }
       toSortBy.v = sort.v;
       const queryStr = replaceQueryStr(query, toSortBy);
-      navigate(`/search?${queryStr}`);
+      history.push(`/search?${queryStr}`);
       onChangeSorting(toSortBy);
     }
   };

@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import {
   useLocation,
-  useNavigate,
+  useHistory,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -61,7 +61,7 @@ const SelectionInput = ({
   const [currentValue, setCurrentValue] = useState('Dataset');
   const dropdownSelection = useRef(null);
   const query = useQuery();
-  const navigate = useNavigate();
+  const history = useHistory();
   useOutsideAlerter(dropdownSelection);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const SelectionInput = ({
     dropdownSelection.current.classList.remove('active');
     setCurrentValue(sort.name);
     const queryStr = replaceQueryStr(query, sort.k);
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   return (

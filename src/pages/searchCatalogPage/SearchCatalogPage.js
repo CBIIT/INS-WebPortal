@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   useLocation,
-  useNavigate,
-  useSearchParams,
+  useHistory,
 } from 'react-router-dom';
 import { OverlayTrigger } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -16,6 +15,11 @@ import PageInfo from './PageInfo';
 import Filters from './Filters';
 import SearchResult from './SearchResult';
 import './searchCatalogPage.css';
+
+const useSearchParams = () => {
+  const { search } = useLocation();
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+};
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -87,7 +91,7 @@ const SearchCatalogPage = ({
 }) => {
   const query = useQuery();
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const history = useHistory();
   const searchTerm = query.get('search_text') ? query.get('search_text').trim() : '';
   const [searchText, setSearchText] = useState(searchTerm);
 
@@ -123,25 +127,25 @@ const SearchCatalogPage = ({
   const handleBubbleSearchTextRemoveClick = () => {
     setSearchText('');
     const queryStr = replaceQueryStr(query, '');
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
     onBubbleSearchTextRemoveClick();
   };
 
   const handleBubbleResourcesRemoveClick = () => {
     const queryStr = replaceResourceFilter(query, '');
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
     onBubbleResourcesRemoveClick();
   };
 
   const handleSearchBoxKeyPress = () => {
     const queryStr = replaceQueryStr(query, searchText);
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
     onStartFullTextSearch(searchText);
   };
 
   const handleSearchSubmit = () => {
     const queryStr = replaceQueryStr(query, searchText);
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
     onStartFullTextSearch(searchText);
   };
 

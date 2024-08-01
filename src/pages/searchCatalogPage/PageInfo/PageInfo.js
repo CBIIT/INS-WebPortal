@@ -2,7 +2,7 @@
 import React from 'react';
 import {
   useLocation,
-  useNavigate,
+  useHistory,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Pagination from '../../../components/Pagination';
@@ -59,18 +59,18 @@ const PageInfo = ({
   pageInfo,
 }) => {
   const query = useQuery();
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const pageClick = (page) => {
     window.scrollTo(0, 0);
     const queryStr = replaceQueryStr(query, page);
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   const sizeClick = (pageSize) => {
     window.scrollTo(0, 0);
     const queryStr = replaceQueryStrPageSize(query, pageSize);
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   return (

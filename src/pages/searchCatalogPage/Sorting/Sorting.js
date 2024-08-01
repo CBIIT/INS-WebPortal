@@ -2,7 +2,7 @@
 import React from 'react';
 import {
   useLocation,
-  useNavigate,
+  useHistory,
 } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -92,16 +92,16 @@ const Sorting = ({
   sort,
 }) => {
   const query = useQuery();
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const handleASCSorting = () => {
     const queryStr = replaceQueryStr(query, 'asc');
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   const handleDESCSorting = () => {
     const queryStr = replaceQueryStr(query, 'desc');
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   return (

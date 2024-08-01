@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   useLocation,
-  useNavigate,
+  useHistory,
 } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -41,11 +41,11 @@ const SwitchView = ({
   viewType,
 }) => {
   const query = useQuery();
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const handleSwitchView = (vt) => {
     const queryStr = replaceQueryStr(query, vt);
-    navigate(`/search?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   return (
