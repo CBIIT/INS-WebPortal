@@ -1,10 +1,11 @@
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import NavBarView from './NavBarView';
 import { toggleSidebar } from '../Layout/LayoutState';
 
 export default compose(
+  withRouter,
   connect(
     (state) => ({
       isSidebarOpened: state.layout.isSidebarOpened,
@@ -16,7 +17,7 @@ export default compose(
     componentDidMount() {
     },
     shouldComponentUpdate({ location: nextLocation }) {
-      const pathName = useLocation().pathname;
+      const pathName = this.props.location.pathname;
       return (
         pathName !== nextLocation || false // if the path is same don't update
       );
