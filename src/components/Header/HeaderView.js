@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Header } from '@bento-core/header';
-import { useLocation } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { SearchBarGenerator } from '@bento-core/global-search';
 import { accessLevelTypes } from '@bento-core/authentication';
 import headerData from '../../bento/globalHeaderData';
@@ -24,7 +24,7 @@ const styles = {
 };
 
 const INSHeader = (props) => {
-  const location = useLocation();
+  const { location } = props;
 
   const isSignedIn = useSelector((state) => state && state.login.isSignedIn);
   const isAdmin = useSelector((state) => state.login && state.login.role && state.login.role === 'admin');
@@ -54,4 +54,4 @@ const INSHeader = (props) => {
   );
 };
 
-export default INSHeader;
+export default withRouter(INSHeader);

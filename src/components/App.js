@@ -1,14 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Layout from './Layout/LayoutContainer';
 import { CustomThemeProvider } from './ThemeContext';
 
 const App = () => (
   <CustomThemeProvider>
     <BrowserRouter>
-      <Routes>
+      <Switch>
         <Route path="/" component={Layout} />
-      </Routes>
+      </Switch>
     </BrowserRouter>
   </CustomThemeProvider>
 );

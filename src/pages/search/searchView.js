@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { withStyles, Box } from '@material-ui/core';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   SearchBarGenerator, SearchResultsGenerator, countValues,
 } from '@bento-core/global-search';
@@ -77,7 +77,7 @@ function searchView(props) {
     isSignedIn, isAuthorized, publicAccessEnabled,
   } = props;
 
-  const navigate = useNavigate();
+  const history = useHistory();
   const [searchText, setSearchText] = useState(searchparam);
   const [searchCounts, setSearchCounts] = useState([]);
 
@@ -96,10 +96,10 @@ function searchView(props) {
 
     if (activeVal === 'inactive') {
       if (isSignedIn && !isAuthorized) {
-        navigate(`/request?redirect=/search/${searchText}`);
+        history.push(`/request?redirect=/search/${searchText}`);
         return;
       }
-      navigate(`/login?redirect=/search/${searchText}`);
+      history.push(`/login?redirect=/search/${searchText}`);
     }
   };
 
@@ -117,7 +117,7 @@ function searchView(props) {
     queryCountAPI(value, !authCheck()).then((d) => {
       setSearchText(value);
       setSearchCounts(d);
-      navigate(`/search/${value}`);
+      history.push(`/search/${value}`);
     });
   };
 
@@ -133,7 +133,7 @@ function searchView(props) {
       setSearchText('');
       setSearchCounts([]);
       if (reason === 'clear') {
-        navigate('/search');
+        history.push('/search');
       }
       return [];
     }

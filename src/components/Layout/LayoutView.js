@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles, CssBaseline } from '@material-ui/core';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { AuthenticationMiddlewareGenerator } from '@bento-core/authentication';
 import aboutPageRoutes from '../../bento/aboutPagesRoutes';
 import Header from '../Header/HeaderView';
@@ -16,7 +16,6 @@ import ProjectDetail from '../../pages/projectDetail/projectDetailController';
 import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
 
 import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
-import SearchCatalogPage from '../../pages/searchCatalogPage';
 
 const ScrollToTop = () => {
   window.scrollTo(0, 0);
@@ -39,27 +38,27 @@ const Layout = ({ classes, isSidebarOpened }) => {
           <div
             className={classes.content}
           >
-            <Routes component={ScrollToTop} />
-            <Route>
+            <Route component={ScrollToTop} />
+            <Switch>
               <MixedRoute exact path="/" component={Home} />
               <MixedRoute exact path="/home" component={Home} />
               <PrivateRoute path="/programs" access={['admin', 'member']} component={DashTemplate} />
-              <PrivateRoute path="/datasets" access={['admin', 'member']} component={SearchCatalogPage} />
+              <PrivateRoute path="/datasets" access={['admin', 'member']} component={DashTemplate} />
               <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
               <PrivateRoute path="/project/:id" access={['admin', 'member']} component={ProjectDetail} />
-              <Routes exact path="/search" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
-              <Routes path="/search/:id" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
+              <Route exact path="/search" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
+              <Route path="/search/:id" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
               {aboutPageRoutes.map(
                 (aboutPageRoute, index) => (
-                  <Routes
+                  <Route
                     key={index}
                     path={aboutPageRoute}
                     component={About}
                   />
                 ),
               )}
-              <Routes component={Error} />
-            </Route>
+              <Route component={Error} />
+            </Switch>
             <Footer data={{ isSidebarOpened }} />
           </div>
         </>
