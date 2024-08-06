@@ -3,7 +3,7 @@ import ExportButton from './ExportButton';
 
 const ReduxExportButton = (() => {
   const mapStateToProps = (state) => ({
-    searchCriteria: state.datasets.searchCriteria,
+    // searchCriteria: state.datasets.searchCriteria,
   });
 
   const mapDispatchToProps = {};

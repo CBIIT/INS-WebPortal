@@ -387,189 +387,189 @@ const SearchResult = ({
     popoverTriggerList.map((popoverTriggerEl) => new Popover(popoverTriggerEl));
   };
 
-  const caseDiseaseDiagnosisList = resultList.map((rt) => {
-    const tmp = { labels: [], matched: [] };
-    if (rt.highlight && rt.highlight['case_disease_diagnosis.k']) {
-      tmp.labels = rt.highlight['case_disease_diagnosis.k'];
-    }
+  // const caseDiseaseDiagnosisList = resultList.map((rt) => {
+  //   const tmp = { labels: [], matched: [] };
+  //   if (rt.highlight && rt.highlight['case_disease_diagnosis.k']) {
+  //     tmp.labels = rt.highlight['case_disease_diagnosis.k'];
+  //   }
 
-    if (rt.highlight && rt.highlight['case_disease_diagnosis.s']) {
-      const syns = [];
-      rt.highlight['case_disease_diagnosis.s'].forEach((syn) => {
-        const syn1 = syn.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        if (syns.indexOf(syn1) === -1) {
-          syns.push(syn1);
-        }
-      });
-      rt.content.case_disease_diagnosis.forEach((item) => {
-        if (item.s) {
-          for (let i = 0; i < syns.length; i += 1) {
-            if (item.s.indexOf(syns[i]) > -1) {
-              tmp.matched.push(item.n);
-              break;
-            }
-          }
-        }
-      });
-    }
+  //   if (rt.highlight && rt.highlight['case_disease_diagnosis.s']) {
+  //     const syns = [];
+  //     rt.highlight['case_disease_diagnosis.s'].forEach((syn) => {
+  //       const syn1 = syn.replace(/<b>/g, '').replace(/<\/b>/g, '');
+  //       if (syns.indexOf(syn1) === -1) {
+  //         syns.push(syn1);
+  //       }
+  //     });
+  //     rt.content.case_disease_diagnosis.forEach((item) => {
+  //       if (item.s) {
+  //         for (let i = 0; i < syns.length; i += 1) {
+  //           if (item.s.indexOf(syns[i]) > -1) {
+  //             tmp.matched.push(item.n);
+  //             break;
+  //           }
+  //         }
+  //       }
+  //     });
+  //   }
 
-    // merge matched with labels to remove duplicate items
-    if (tmp.labels.length > 0) {
-      tmp.labels.forEach((phl) => {
-        const orignialText = phl.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        if (tmp.matched.indexOf(orignialText) === -1) {
-          tmp.matched.push(phl);
-        }
-      });
-    }
+  //   // merge matched with labels to remove duplicate items
+  //   if (tmp.labels.length > 0) {
+  //     tmp.labels.forEach((phl) => {
+  //       const orignialText = phl.replace(/<b>/g, '').replace(/<\/b>/g, '');
+  //       if (tmp.matched.indexOf(orignialText) === -1) {
+  //         tmp.matched.push(phl);
+  //       }
+  //     });
+  //   }
 
-    const result = rt.content.case_disease_diagnosis ? rt.content.case_disease_diagnosis.map((rst) => rst.n) : [];
-    let matched = [];
+  //   const result = rt.content.case_disease_diagnosis ? rt.content.case_disease_diagnosis.map((rst) => rst.n) : [];
+  //   let matched = [];
 
-    if (tmp.matched.length > 0) {
-      // sort by alphabetic order first
-      tmp.matched.sort((a, b) => {
-        const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        return la < lb ? -1 : 1;
-      });
-      matched = tmp.matched.map((item) => {
-        const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        const idx = result.indexOf(rawItem);
-        if (idx > -1) {
-          result.splice(idx, 1);
-        }
-        return `<b>${rawItem}</b>`;
-      });
-    }
+  //   if (tmp.matched.length > 0) {
+  //     // sort by alphabetic order first
+  //     tmp.matched.sort((a, b) => {
+  //       const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+  //       const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+  //       return la < lb ? -1 : 1;
+  //     });
+  //     matched = tmp.matched.map((item) => {
+  //       const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
+  //       const idx = result.indexOf(rawItem);
+  //       if (idx > -1) {
+  //         result.splice(idx, 1);
+  //       }
+  //       return `<b>${rawItem}</b>`;
+  //     });
+  //   }
 
-    return matched.concat(result);
-  });
+  //   return matched.concat(result);
+  // });
 
-  const sampleAssayMethodList = resultList.map((rt) => {
-    let tmp = [];
-    let matched = [];
-    if (rt.highlight && rt.highlight['sample_assay_method.k']) {
-      tmp = rt.highlight['sample_assay_method.k'];
-    }
+  // const sampleAssayMethodList = resultList.map((rt) => {
+  //   let tmp = [];
+  //   let matched = [];
+  //   if (rt.highlight && rt.highlight['sample_assay_method.k']) {
+  //     tmp = rt.highlight['sample_assay_method.k'];
+  //   }
 
-    const result = rt.content.sample_assay_method ? rt.content.sample_assay_method.map((rst) => rst.n) : [];
+  //   const result = rt.content.sample_assay_method ? rt.content.sample_assay_method.map((rst) => rst.n) : [];
 
-    if (tmp.length > 0) {
-      // sort by alphabetic order first
-      tmp.sort((a, b) => {
-        const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        return la < lb ? -1 : 1;
-      });
-      matched = tmp.map((item) => {
-        const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        const idx = result.indexOf(rawItem);
-        if (idx > -1) {
-          result.splice(idx, 1);
-        }
-        return `<b>${rawItem}</b>`;
-      });
-    }
+  //   if (tmp.length > 0) {
+  //     // sort by alphabetic order first
+  //     tmp.sort((a, b) => {
+  //       const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+  //       const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+  //       return la < lb ? -1 : 1;
+  //     });
+  //     matched = tmp.map((item) => {
+  //       const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
+  //       const idx = result.indexOf(rawItem);
+  //       if (idx > -1) {
+  //         result.splice(idx, 1);
+  //       }
+  //       return `<b>${rawItem}</b>`;
+  //     });
+  //   }
 
-    return matched.concat(result);
-  });
+  //   return matched.concat(result);
+  // });
 
-  const caseTumorSiteList = resultList.map((rt) => {
-    const tmp = { labels: [], matched: [] };
-    if (rt.highlight && rt.highlight['case_tumor_site.k']) {
-      tmp.labels = rt.highlight['case_tumor_site.k'];
-    }
+  // const caseTumorSiteList = resultList.map((rt) => {
+  //   const tmp = { labels: [], matched: [] };
+  //   if (rt.highlight && rt.highlight['case_tumor_site.k']) {
+  //     tmp.labels = rt.highlight['case_tumor_site.k'];
+  //   }
 
-    if (rt.highlight && rt.highlight['case_tumor_site.s']) {
-      const syns = [];
-      rt.highlight['case_tumor_site.s'].forEach((syn) => {
-        const syn1 = syn.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        if (syns.indexOf(syn1) === -1) {
-          syns.push(syn1);
-        }
-      });
-      rt.content.case_tumor_site.forEach((item) => {
-        if (item.s) {
-          for (let i = 0; i < syns.length; i += 1) {
-            if (item.s.indexOf(syns[i]) > -1) {
-              tmp.matched.push(item.n);
-              break;
-            }
-          }
-        }
-      });
-    }
+  //   if (rt.highlight && rt.highlight['case_tumor_site.s']) {
+  //     const syns = [];
+  //     rt.highlight['case_tumor_site.s'].forEach((syn) => {
+  //       const syn1 = syn.replace(/<b>/g, '').replace(/<\/b>/g, '');
+  //       if (syns.indexOf(syn1) === -1) {
+  //         syns.push(syn1);
+  //       }
+  //     });
+  //     rt.content.case_tumor_site.forEach((item) => {
+  //       if (item.s) {
+  //         for (let i = 0; i < syns.length; i += 1) {
+  //           if (item.s.indexOf(syns[i]) > -1) {
+  //             tmp.matched.push(item.n);
+  //             break;
+  //           }
+  //         }
+  //       }
+  //     });
+  //   }
 
-    // merge matched with labels to remove duplicate items
-    if (tmp.labels.length > 0) {
-      tmp.labels.forEach((phl) => {
-        const orignialText = phl.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        if (tmp.matched.indexOf(orignialText) === -1) {
-          tmp.matched.push(phl);
-        }
-      });
-    }
+  //   // merge matched with labels to remove duplicate items
+  //   if (tmp.labels.length > 0) {
+  //     tmp.labels.forEach((phl) => {
+  //       const orignialText = phl.replace(/<b>/g, '').replace(/<\/b>/g, '');
+  //       if (tmp.matched.indexOf(orignialText) === -1) {
+  //         tmp.matched.push(phl);
+  //       }
+  //     });
+  //   }
 
-    if (tmp.matched.length === 0) {
-      return [];
-    }
+  //   if (tmp.matched.length === 0) {
+  //     return [];
+  //   }
 
-    const result = rt.content.case_tumor_site ? rt.content.case_tumor_site.map((rst) => rst.n) : [];
-    let matched = [];
+  //   const result = rt.content.case_tumor_site ? rt.content.case_tumor_site.map((rst) => rst.n) : [];
+  //   let matched = [];
 
-    if (tmp.matched.length > 0) {
-      // sort by alphabetic order first
-      tmp.matched.sort((a, b) => {
-        const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        return la < lb ? -1 : 1;
-      });
-      matched = tmp.matched.map((item) => {
-        const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        const idx = result.indexOf(rawItem);
-        if (idx > -1) {
-          result.splice(idx, 1);
-        }
-        return `<b>${rawItem}</b>`;
-      });
-    }
+  //   if (tmp.matched.length > 0) {
+  //     // sort by alphabetic order first
+  //     tmp.matched.sort((a, b) => {
+  //       const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+  //       const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+  //       return la < lb ? -1 : 1;
+  //     });
+  //     matched = tmp.matched.map((item) => {
+  //       const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
+  //       const idx = result.indexOf(rawItem);
+  //       if (idx > -1) {
+  //         result.splice(idx, 1);
+  //       }
+  //       return `<b>${rawItem}</b>`;
+  //     });
+  //   }
 
-    return matched.concat(result);
-  });
+  //   return matched.concat(result);
+  // });
 
-  const projectsList = resultList.map((rt) => {
-    let tmp = [];
-    if (rt.highlight && rt.highlight['projects.p_k']) {
-      tmp = rt.highlight['projects.p_k'];
-    }
+  // const projectsList = resultList.map((rt) => {
+  //   let tmp = [];
+  //   if (rt.highlight && rt.highlight['projects.p_k']) {
+  //     tmp = rt.highlight['projects.p_k'];
+  //   }
 
-    if (tmp.length === 0) {
-      return [];
-    }
+  //   if (tmp.length === 0) {
+  //     return [];
+  //   }
 
-    const result = rt.content.projects ? rt.content.projects.map((rst) => rst.p_k) : [];
-    let matched = [];
+  //   const result = rt.content.projects ? rt.content.projects.map((rst) => rst.p_k) : [];
+  //   let matched = [];
 
-    // sort by alphabetic order first
-    tmp.sort((a, b) => {
-      const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-      const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-      return la < lb ? -1 : 1;
-    });
-    matched = tmp.map((item) => {
-      const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
-      const idx = result.indexOf(rawItem);
-      if (idx > -1) {
-        result.splice(idx, 1);
-      }
-      return `<b>${rawItem}</b>`;
-    });
+  //   // sort by alphabetic order first
+  //   tmp.sort((a, b) => {
+  //     const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+  //     const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
+  //     return la < lb ? -1 : 1;
+  //   });
+  //   matched = tmp.map((item) => {
+  //     const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
+  //     const idx = result.indexOf(rawItem);
+  //     if (idx > -1) {
+  //       result.splice(idx, 1);
+  //     }
+  //     return `<b>${rawItem}</b>`;
+  //   });
 
-    return matched.concat(result);
-  });
+  //   return matched.concat(result);
+  // });
 
-  const getTooltipTermList = resultList.map((rt) => rt.content.primary_dataset_scope);
+  // const getTooltipTermList = resultList.map((rt) => rt.content.primary_dataset_scope);
 
   useEffect(() => {
     initializePopover();
@@ -577,13 +577,13 @@ const SearchResult = ({
 
   // fetch data if there is new terms on the page
   useEffect(() => {
-    const termSet = [...new Set(getTooltipTermList)].filter((term) => !(term in glossaryTerms));
-    const termPara = { termNames: termSet };
-    if (termSet.length > 0) {
-      onLoadGlossaryTerms(termPara).catch((error) => {
-        throw new Error(`Loading Glossary Terms from url query failed: ${error}`);
-      });
-    }
+    // const termSet = [...new Set(getTooltipTermList)].filter((term) => !(term in glossaryTerms));
+    // const termPara = { termNames: termSet };
+    // if (termSet.length > 0) {
+    //   onLoadGlossaryTerms(termPara).catch((error) => {
+    //     throw new Error(`Loading Glossary Terms from url query failed: ${error}`);
+    //   });
+    // }
   }, [resultList]);
 
   return (
@@ -691,7 +691,7 @@ const SearchResult = ({
                       <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link>
                     </div>
                   </div>
-                  {
+                  {/* {
                   caseDiseaseDiagnosisList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -720,7 +720,7 @@ const SearchResult = ({
                       </div>
                     </div>
                   )
-                }
+                } */}
                   {
                   rst.content.case_id && (
                     <div className="row align-items-start bodyRow">
@@ -733,7 +733,7 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                  {
+                  {/* {
                   sampleAssayMethodList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -762,7 +762,7 @@ const SearchResult = ({
                       </div>
                     </div>
                   )
-                }
+                } */}
                   {
                   rst.content.sample_id && (
                     <div className="row align-items-start bodyRow">
@@ -804,7 +804,7 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                  {
+                  {/* {
                   caseTumorSiteList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -833,8 +833,8 @@ const SearchResult = ({
                       </div>
                     </div>
                   )
-                }
-                  {
+                } */}
+                  {/* {
                   projectsList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -863,7 +863,7 @@ const SearchResult = ({
                       </div>
                     </div>
                   )
-                }
+                } */}
                   {
                   otherMatches.slice(0, 10).map((hl, hlidx) => {
                     const hlKey = `hl_${hl}_${hlidx}`;

@@ -119,9 +119,9 @@ const SearchCatalogPage = ({
     if (query.get('viewType')) {
       options.viewType = query.get('viewType').trim();
     }
-    onLoadFromUrlQuery(searchTerm, options).catch((error) => {
-      throw new Error(`Loading search from url query failed: ${error}`);
-    });
+    // onLoadFromUrlQuery(searchTerm, options).catch((error) => {
+    //   throw new Error(`Loading search from url query failed: ${error}`);
+    // });
   }, [searchParams]);
 
   const handleBubbleSearchTextRemoveClick = () => {
@@ -196,7 +196,7 @@ const SearchCatalogPage = ({
               </OverlayTrigger>
             </div>
           </div>
-          <div className="searchBoxContainer">
+          {/* <div className="searchBoxContainer">
             <SearchBox
               searchText={searchText}
               searchKeyword={searchKeyword}
@@ -207,7 +207,7 @@ const SearchCatalogPage = ({
               onSearchSubmit={handleSearchSubmit}
               onSearchTextInputChange={handleSearchTextInputChange}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="searchCatalogContainer">

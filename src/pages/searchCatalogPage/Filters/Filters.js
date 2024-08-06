@@ -17,19 +17,19 @@ const replaceResourceFilter = (query, filter) => {
   if (query.get('search_text')) {
     str += `&search_text=${query.get('search_text')}`;
   }
-  if (filter !== '') {
-    const tmp = query.get('filterByResource') ? query.get('filterByResource').split('|') : [];
-    const idx = tmp.indexOf(filter);
-    if (idx > -1) {
-      tmp.splice(idx, 1);
-    } else {
-      tmp.push(filter);
-    }
-    if (tmp.length > 0) {
-      tmp.sort((a, b) => (a.toLowerCase() < b.toLowerCase() ? -1 : 1));
-      str += `&filterByResource=${tmp.join('|')}`;
-    }
-  }
+  // if (filter !== '') {
+  //   const tmp = query.get('filterByResource') ? query.get('filterByResource').split('|') : [];
+  //   const idx = tmp.indexOf(filter);
+  //   if (idx > -1) {
+  //     tmp.splice(idx, 1);
+  //   } else {
+  //     tmp.push(filter);
+  //   }
+  //   if (tmp.length > 0) {
+  //     tmp.sort((a, b) => (a.toLowerCase() < b.toLowerCase() ? -1 : 1));
+  //     str += `&filterByResource=${tmp.join('|')}`;
+  //   }
+  // }
   str += '&page=1';
   if (query.get('pageSize')) {
     str += `&pageSize=${query.get('pageSize')}`;
@@ -54,14 +54,14 @@ const Filters = ({
 }) => {
   const query = useQuery();
   const history = useHistory();
-  const sources = sourceFilters === 'all' ? searchFilters.map((element) => element.data_resource_id.toLowerCase()) : sourceFilters.split('|').filter((element) => element);
+  // const sources = sourceFilters === 'all' ? searchFilters.map((element) => element.data_resource_id.toLowerCase()) : sourceFilters.split('|').filter((element) => element);
 
   useEffect(() => {
-    if (searchFilters.length === 0) {
-      onLoadSearchDataResources().catch((error) => {
-        throw new Error(`Loading search catalog page filters failed ${error}`);
-      });
-    }
+    // if (searchFilters.length === 0) {
+    //   onLoadSearchDataResources().catch((error) => {
+    //     throw new Error(`Loading search catalog page filters failed ${error}`);
+    //   });
+    // }
   }, []);
 
   const handleResourceClick = (filter) => {
@@ -79,7 +79,7 @@ const Filters = ({
           </button>
         </div>
         <div className="filterBlock">
-          <div className="accordion">
+          {/* <div className="accordion">
             {searchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
               const checked = selectedFilters.indexOf(field.data_resource_id) > -1;
@@ -87,7 +87,7 @@ const Filters = ({
                 <FilterItem key={key} item={field} checked={checked} highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1} onSourceClick={handleResourceClick} />
               );
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     </>

@@ -6,7 +6,7 @@ import PageInfo from './PageInfo';
 
 const ReduxPageInfo = (() => {
   const mapStateToProps = (state) => ({
-    pageInfo: state.datasets.searchCriteria.pageInfo,
+    // pageInfo: state.datasets.searchCriteria.pageInfo,
   });
 
   const mapDispatchToProps = {

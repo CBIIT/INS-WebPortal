@@ -6,7 +6,7 @@ import SwitchView from './SwitchView';
 
 const ReduxSwitchView = (() => {
   const mapStateToProps = (state) => ({
-    viewType: state.datasets.viewType,
+    // viewType: state.datasets.viewType,
   });
 
   const mapDispatchToProps = {

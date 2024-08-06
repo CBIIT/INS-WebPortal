@@ -92,8 +92,8 @@ const Pagination = ({
   pageClick,
   sizeClick,
 }) => {
-  const pageCount = Math.ceil(pageInfo.total / pageInfo.pageSize);
-  const pages = getPager(pageCount, pageInfo.page);
+  // const pageCount = Math.ceil(pageInfo.total / pageInfo.pageSize);
+  // const pages = getPager(pageCount, pageInfo.page);
   const handlePageClick = (pageIndex) => {
     pageClick(pageIndex);
   };
@@ -109,65 +109,66 @@ const Pagination = ({
   };
 
   useEffect(() => {
-    initializeDropdown();
+    // initializeDropdown();
   }, [pageInfo]);
 
   return (
-    <PaginationContainer>
-      {
-      pageInfo.total > 0
-      && (
-      <>
-        <ResultsPerPage>
-          Results per Page:
-          <div className="dropdown">
-            <button className="btns btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              {pageInfo.pageSize}
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 10 ? 'active-top' : ''}`} aria-hidden="true" onClick={() => handleSizeClick(10)}>10</a></li>
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 20 ? 'active' : ''}`} aria-hidden="true" onClick={() => handleSizeClick(20)}>20</a></li>
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 50 ? 'active' : ''}`} aria-hidden="true" onClick={() => handleSizeClick(50)}>50</a></li>
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 100 ? 'active-bottom' : ''}`} aria-hidden="true" onClick={() => handleSizeClick(100)}>100</a></li>
-            </ul>
-          </div>
-        </ResultsPerPage>
-        <PageSummary>
-          Showing&nbsp;
-          {(pageInfo.page - 1) * pageInfo.pageSize + 1}
-          -
-          {pageInfo.total < pageInfo.page * pageInfo.pageSize ? pageInfo.total : pageInfo.page * pageInfo.pageSize}
-        &nbsp;of&nbsp;
-          <span id="total_records_count">{pageInfo.total}</span>
-        </PageSummary>
-        <PageSelect>
-          <BSPagination className="pagination-ccdc">
-            {
-            pageInfo.page === 1 ? (
-              <BSPagination.Prev className="bspage-link-prev" disabled>&#60;</BSPagination.Prev>
-            ) : (<BSPagination.Prev className="bspage-link-prev" onClick={() => handlePageClick(pageInfo.page - 1)}>&#60;</BSPagination.Prev>)
-          }
-            {
-            pages.map((page, idx) => {
-              const key = `page_${idx}`;
-              return page === pageInfo.page ? (
-                <BSPagination.Item className="bspage-link" key={key} active>{page}</BSPagination.Item>
-              ) : (
-                <BSPagination.Item className="bspage-link" key={key} onClick={() => handlePageClick(page)}>{page}</BSPagination.Item>
-              );
-            })
-          }
-            {
-            pageInfo.page === pageCount ? (
-              <BSPagination.Next className="bspage-link-next" disabled>&#62;</BSPagination.Next>
-            ) : (<BSPagination.Next className="bspage-link-next" onClick={() => handlePageClick(pageInfo.page + 1)}>&#62;</BSPagination.Next>)
-          }
-          </BSPagination>
-        </PageSelect>
-      </>
-      )
-      }
-    </PaginationContainer>
+    <div />
+    // <PaginationContainer>
+    //   {
+    //   pageInfo.total > 0
+    //   && (
+    //   <>
+    //     <ResultsPerPage>
+    //       Results per Page:
+    //       <div className="dropdown">
+    //         <button className="btns btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    //           {pageInfo.pageSize}
+    //         </button>
+    //         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    //           <li><a className={`dropdown-item ${pageInfo.pageSize === 10 ? 'active-top' : ''}`} aria-hidden="true" onClick={() => handleSizeClick(10)}>10</a></li>
+    //           <li><a className={`dropdown-item ${pageInfo.pageSize === 20 ? 'active' : ''}`} aria-hidden="true" onClick={() => handleSizeClick(20)}>20</a></li>
+    //           <li><a className={`dropdown-item ${pageInfo.pageSize === 50 ? 'active' : ''}`} aria-hidden="true" onClick={() => handleSizeClick(50)}>50</a></li>
+    //           <li><a className={`dropdown-item ${pageInfo.pageSize === 100 ? 'active-bottom' : ''}`} aria-hidden="true" onClick={() => handleSizeClick(100)}>100</a></li>
+    //         </ul>
+    //       </div>
+    //     </ResultsPerPage>
+    //     <PageSummary>
+    //       Showing&nbsp;
+    //       {(pageInfo.page - 1) * pageInfo.pageSize + 1}
+    //       -
+    //       {pageInfo.total < pageInfo.page * pageInfo.pageSize ? pageInfo.total : pageInfo.page * pageInfo.pageSize}
+    //     &nbsp;of&nbsp;
+    //       <span id="total_records_count">{pageInfo.total}</span>
+    //     </PageSummary>
+    //     <PageSelect>
+    //       <BSPagination className="pagination-ccdc">
+    //         {
+    //         pageInfo.page === 1 ? (
+    //           <BSPagination.Prev className="bspage-link-prev" disabled>&#60;</BSPagination.Prev>
+    //         ) : (<BSPagination.Prev className="bspage-link-prev" onClick={() => handlePageClick(pageInfo.page - 1)}>&#60;</BSPagination.Prev>)
+    //       }
+    //         {
+    //         pages.map((page, idx) => {
+    //           const key = `page_${idx}`;
+    //           return page === pageInfo.page ? (
+    //             <BSPagination.Item className="bspage-link" key={key} active>{page}</BSPagination.Item>
+    //           ) : (
+    //             <BSPagination.Item className="bspage-link" key={key} onClick={() => handlePageClick(page)}>{page}</BSPagination.Item>
+    //           );
+    //         })
+    //       }
+    //         {
+    //         pageInfo.page === pageCount ? (
+    //           <BSPagination.Next className="bspage-link-next" disabled>&#62;</BSPagination.Next>
+    //         ) : (<BSPagination.Next className="bspage-link-next" onClick={() => handlePageClick(pageInfo.page + 1)}>&#62;</BSPagination.Next>)
+    //       }
+    //       </BSPagination>
+    //     </PageSelect>
+    //   </>
+    //   )
+    //   }
+    // </PaginationContainer>
   );
 };
 
