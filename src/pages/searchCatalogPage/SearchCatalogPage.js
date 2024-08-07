@@ -119,11 +119,9 @@ const SearchCatalogPage = ({
     if (query.get('viewType')) {
       options.viewType = query.get('viewType').trim();
     }
-    if(onLoadFromUrlQuery){
       onLoadFromUrlQuery(searchTerm, options).catch((error) => {
       throw new Error(`Loading search from url query failed: ${error}`);
     });
-    }
   }, [searchParams]);
 
   const handleBubbleSearchTextRemoveClick = () => {
