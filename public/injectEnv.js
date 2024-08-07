@@ -13,7 +13,7 @@ window.injectedEnv = {
   REACT_APP_DATA_VERSION: '2.0.0',
   REACT_APP_BE_VERSION: '3.0.0',
   REACT_APP_FE_VERSION: '3.0.0',
-
+  REACT_APP_REST_BACKEND: 'https://datacatalog.ccdi.cancer.gov/service/',
   // IDP Auth url
   REACT_APP_NIH_AUTH_URL: 'https://stsstg.nih.gov/auth/oauth/v2/authorize',
   // Client IDs for IDP

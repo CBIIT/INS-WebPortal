@@ -1,6 +1,7 @@
 import { handleResponse, handleError } from './apiUtils';
+import env from '../utils/env';
 
-const baseUrl = 'http://localhost:3000/service/application';
+const baseUrl = `${env.REACT_APP_REST_BACKEND}application`;
 
 export function getApplicationVersionInfo() {
   return fetch(`${baseUrl}/version`)

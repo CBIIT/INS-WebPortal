@@ -1,4 +1,6 @@
-const baseUrl = 'http://localhost:3000/service/files';
+import env from '../utils/env';
+
+const baseUrl = `${env.REACT_APP_REST_BACKEND}files`;
 
 const sayswho = () => {
   const ua = navigator.userAgent;

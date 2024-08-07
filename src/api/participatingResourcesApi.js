@@ -1,6 +1,7 @@
 import { handleResponse, handleError } from './apiUtils';
+import env from '../utils/env';
 
-const baseUrl = 'http://localhost:3000/service/dataresources';
+const baseUrl = `${env.REACT_APP_REST_BACKEND}dataresources`;
 
 export function getLandingParticipatingResources() {
   return fetch(`${baseUrl}/landing`)
