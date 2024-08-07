@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from './apiUtils';
 
-const baseUrl = 'https://datacatalog-dev.ccdi.cancer.gov/service/documents';
+const baseUrl = 'http://localhost:3000/service/documents';
 
 export function searchDocument(body) {
   return fetch(`${baseUrl}/search`, {

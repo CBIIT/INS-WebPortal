@@ -1,4 +1,4 @@
-const baseUrl = 'https://datacatalog-dev.ccdi.cancer.gov/service/files';
+const baseUrl = 'http://localhost:3000/service/files';
 
 const sayswho = () => {
   const ua = navigator.userAgent;

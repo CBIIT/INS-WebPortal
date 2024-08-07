@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from './apiUtils';
 
-const baseUrl = 'https://datacatalog-dev.ccdi.cancer.gov/service/dataresources';
+const baseUrl = 'http://localhost:3000/service/dataresources';
 
 export function getLandingParticipatingResources() {
   return fetch(`${baseUrl}/landing`)

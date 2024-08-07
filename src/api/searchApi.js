@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from './apiUtils';
 
-const baseUrl = 'https://datacatalog-dev.ccdi.cancer.gov/service/datasets';
+const baseUrl = 'http://localhost:3000/service/datasets';
 
 export function searchCatalog(body) {
   return fetch(`${baseUrl}/search`, {

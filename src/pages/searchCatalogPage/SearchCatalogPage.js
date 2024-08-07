@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
-/* eslint-disable max-len */
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import {
   useLocation,
@@ -119,9 +119,11 @@ const SearchCatalogPage = ({
     if (query.get('viewType')) {
       options.viewType = query.get('viewType').trim();
     }
-    onLoadFromUrlQuery(searchTerm, options).catch((error) => {
+    if(onLoadFromUrlQuery){
+      onLoadFromUrlQuery(searchTerm, options).catch((error) => {
       throw new Error(`Loading search from url query failed: ${error}`);
     });
+    }
   }, [searchParams]);
 
   const handleBubbleSearchTextRemoveClick = () => {

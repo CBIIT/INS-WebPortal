@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from './apiUtils';
 
-const baseUrl = 'https://datacatalog-dev.ccdi.cancer.gov/service/application';
+const baseUrl = 'http://localhost:3000/service/application';
 
 export function getApplicationVersionInfo() {
   return fetch(`${baseUrl}/version`)
