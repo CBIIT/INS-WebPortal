@@ -1,6 +1,6 @@
 import env from '../utils/env';
 
-const baseUrl = `${env.REACT_APP_REST_BACKEND}files`;
+const baseUrl = 'https://datacatalog.ccdi.cancer.gov/service/files';
 
 const sayswho = () => {
   const ua = navigator.userAgent;

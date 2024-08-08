@@ -1,7 +1,7 @@
 import { handleResponse, handleError } from './apiUtils';
 import env from '../utils/env';
 
-const baseUrl = `${env.REACT_APP_REST_BACKEND}application`;
+const baseUrl = 'https://datacatalog.ccdi.cancer.gov/service/application';
 
 export function getApplicationVersionInfo() {
   return fetch(`${baseUrl}/version`)
