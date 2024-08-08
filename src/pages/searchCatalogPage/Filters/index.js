@@ -6,9 +6,9 @@ import Filters from './Filters';
 
 const ReduxFilters = (() => {
   const mapStateToProps = (state) => ({
-    searchFilters: state.datasets.resourcesList,
-    sourceFilters: state.datasets.searchSourceResults,
-    selectedFilters: state.datasets.searchCriteria.resources_filter,
+    searchFilters: state.datasets ? state.datasets.resourcesList : '',
+    sourceFilters: state.datasets ? state.datasets.searchSourceResults : '',
+    selectedFilters: state.datasets ? state.datasets.searchCriteria.resources_filter : '',
   });
 
   const mapDispatchToProps = {

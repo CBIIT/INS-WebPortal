@@ -57,6 +57,7 @@ export function loadSearchDataResources() {
   const func = function func(dispatch) {
     return participatingResourcesApi.getAllParticipatingResources()
       .then((searchResults) => {
+        console.log('searchResults: ', searchResults);
         dispatch(loadSearchFiltersSuccess(searchResults.data));
       })
       .catch((error) => {
@@ -114,6 +115,7 @@ export function loadFromUrlQuery(searchText, filters) {
     searchCriteria.viewType = filters.viewType ? filters.viewType : 'card';
     return searchApi.searchCatalog(searchCriteria)
       .then((searchResults) => {
+        console.log('searchResults: ', searchResults);
         dispatch(loadSearchResultsSuccess(searchResults.data));
         dispatch(runFullTextSearch(searchText));
         dispatch(applyResourcesFilter(searchCriteria.resources_filter));

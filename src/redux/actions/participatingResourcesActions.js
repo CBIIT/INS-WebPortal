@@ -107,6 +107,7 @@ export function loadFromUrlQuery(filters) {
     searchCriteria.pageInfo.pageSize = filters.pageSize ? filters.pageSize : 10;
     return participatingResourcesApi.searchParticipatingResources(searchCriteria)
       .then((searchResults) => {
+        console.log('searchResults: ', searchResults);
         dispatch(loadSearchResultsSuccess(searchResults.data));
         dispatch(loadSearchFiltersSelectionSuccess(searchCriteria.facet_filters));
         dispatch(switchPage(searchResults.data.pageInfo));

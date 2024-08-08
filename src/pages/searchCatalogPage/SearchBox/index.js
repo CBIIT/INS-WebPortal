@@ -115,7 +115,7 @@ const SelectionBubbleArea = styled.div`
 `;
 
 const getSearchableText = (searchString) => {
-  const termArr = searchString.trim().split(' ');
+  const termArr = searchString ? searchString.trim().split(' ') : [];
   const result = [];
   termArr.forEach((term) => {
     const t = term.trim();
@@ -123,7 +123,7 @@ const getSearchableText = (searchString) => {
       result.push(t);
     }
   });
-  return result.length === 0 ? '' : result.join(' ');
+  return result.length === 0 ? '' : result ? result.join(' ') : '';
 };
 
 const SearchBox = ({
@@ -138,7 +138,7 @@ const SearchBox = ({
 }) => {
   const searchableText = getSearchableText(searchText);
   const bubbleSearchKeyword = getSearchableText(searchKeyword);
-  const bubbleResources = resourceFilters.join(' , ');
+  const bubbleResources = resourceFilters ? resourceFilters.join(' , ') : '';
 
   const handleTextInputChange = (event) => {
     const text = event.target.value;

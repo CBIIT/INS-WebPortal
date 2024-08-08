@@ -37,6 +37,7 @@ export function loadApplicationVersionInfo() {
   const func = function func(dispatch) {
     return applicationApi.getApplicationVersionInfo()
       .then((result) => {
+        console.log('result: ', result);
         dispatch(loadApplicationVersionInfoSuccess(result.data));
       })
       .catch((error) => {
@@ -97,6 +98,7 @@ export function loadGlossaryTerms(termNames) {
   const func = function func(dispatch) {
     return applicationApi.getGlossaryTerms(termNames)
       .then((result) => {
+        console.log('result: ', result);
         dispatch(loadGlossaryTermsSuccess(result.definitions));
       })
       .catch((error) => {
