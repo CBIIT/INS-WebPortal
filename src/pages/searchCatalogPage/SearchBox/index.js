@@ -162,8 +162,8 @@ const SearchBox = ({
         <InputGroup className="searchBoxInputGroup">
           <FormControl
             type="search"
-            placeholder="Search the Catalog"
-            aria-label="Search the Catalog"
+            placeholder="Datasets search"
+            aria-label="Datasets search"
             aria-describedby="basic-addon"
             value={searchText}
             onChange={(e) => handleTextInputChange(e)}
