@@ -1,5 +1,4 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable react/no-unknown-property */
+/* eslint-disable  */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
@@ -115,12 +114,14 @@ const SelectionBubbleArea = styled.div`
 `;
 
 const getSearchableText = (searchString) => {
-  const termArr = searchString.trim().split(' ');
+  const termArr = searchString?searchString.trim().split(' '):[];
   const result = [];
   termArr.forEach((term) => {
-    const t = term.trim();
-    if (t.length > 2) {
-      result.push(t);
+    if(term){
+      const t = term.trim();
+      if (t.length > 2) {
+        result.push(t);
+      }
     }
   });
   return result.length === 0 ? '' : result.join(' ');
@@ -138,7 +139,7 @@ const SearchBox = ({
 }) => {
   const searchableText = getSearchableText(searchText);
   const bubbleSearchKeyword = getSearchableText(searchKeyword);
-  const bubbleResources = resourceFilters.join(' , ');
+  const bubbleResources = resourceFilters ? resourceFilters.join(' , ') : '';
 
   const handleTextInputChange = (event) => {
     const text = event.target.value;

@@ -1,4 +1,6 @@
-const baseUrl = 'https://datacatalog-dev.ccdi.cancer.gov/service/datasets';
+import env from '../utils/env';
+
+const baseUrl = `${env.REACT_APP_REST_BACKEND}datasets`;
 
 export function getSearchResult(body) {
   fetch(`${baseUrl}/export`, {

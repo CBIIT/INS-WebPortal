@@ -5,11 +5,15 @@ import {
 import Filters from './Filters';
 
 const ReduxFilters = (() => {
-  const mapStateToProps = (state) => ({
-    searchFilters: state.datasets.resourcesList,
-    sourceFilters: state.datasets.searchSourceResults,
-    selectedFilters: state.datasets.searchCriteria.resources_filter,
-  });
+  const mapStateToProps = (state) => {
+    const datasets = state.datasets || {};
+
+    return {
+      searchFilters: datasets.resourcesList || [],
+      sourceFilters: datasets.searchSourceResults || [],
+      selectedFilters: (datasets.searchCriteria && datasets.searchCriteria.resources_filter) || [],
+    };
+  };
 
   const mapDispatchToProps = {
     onLoadSearchDataResources: loadSearchDataResources,

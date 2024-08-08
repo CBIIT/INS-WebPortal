@@ -1,6 +1,7 @@
 import { handleResponse, handleError } from './apiUtils';
+import env from '../utils/env';
 
-const baseUrl = 'https://datacatalog-dev.ccdi.cancer.gov/service/dataresources';
+const baseUrl = `${env.REACT_APP_REST_BACKEND}dataresources`;
 
 export function getLandingParticipatingResources() {
   return fetch(`${baseUrl}/landing`)

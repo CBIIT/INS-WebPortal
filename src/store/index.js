@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
@@ -9,6 +10,11 @@ import { LoginReducerGenerator } from '@bento-core/authentication';
 import layout from '../components/Layout/LayoutState';
 import stats from '../components/Stats/StatsState';
 import { getFromLocalStorage } from '../utils/localStorage';
+import participatingResources from '../redux/reducers/participatingResourcesReducer';
+import datasets from '../redux/reducers/searchReducer';
+import documentSearch from '../redux/reducers/documentSearchReducer';
+import application from '../redux/reducers/applicationReducer';
+import initialState from '../redux/reducers/initialState';
 
 const { localFind } = LocalFindReducerGenerator();
 const { statusReducer } = sideBarReducerGenerator();
@@ -22,11 +28,16 @@ const reducers = {
   login,
   layout,
   stats,
+  participatingResources,
+  datasets,
+  documentSearch,
+  application,
 };
 const loggerMiddleware = createLogger();
 
-const store = createStore(
+const store = createStore( 
   combineReducers(reducers),
+  initialState,
   composeWithDevTools(applyMiddleware(ReduxThunk, loggerMiddleware)),
 );
 

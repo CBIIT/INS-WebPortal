@@ -1,3 +1,4 @@
+/* eslint-disable  */
 import { connect } from 'react-redux';
 import {
   switchDataView,
@@ -5,9 +6,13 @@ import {
 import SwitchView from './SwitchView';
 
 const ReduxSwitchView = (() => {
-  const mapStateToProps = (state) => ({
-    viewType: state.datasets.viewType,
-  });
+  const mapStateToProps = (state) => {
+    const datasets = state.datasets || {};
+
+    return {
+      viewType: datasets.viewType || '', 
+    };
+  };
 
   const mapDispatchToProps = {
     onSwitchView: switchDataView,

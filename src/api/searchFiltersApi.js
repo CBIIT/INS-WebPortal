@@ -1,6 +1,7 @@
 import { handleResponse, handleError } from './apiUtils';
+import env from '../utils/env';
 
-const baseUrl = 'https://datacatalog-dev.ccdi.cancer.gov/service/datasets';
+const baseUrl = `${env.REACT_APP_REST_BACKEND}datasets`;
 
 export function getSearchFilters() {
   return fetch(`${baseUrl}/filters`)

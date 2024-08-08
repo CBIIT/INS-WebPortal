@@ -16,7 +16,7 @@ import ProjectDetail from '../../pages/projectDetail/projectDetailController';
 import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
 
 import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
-import SearchCatalogPage from '../../pages/searchCatalogPage/SearchCatalogPage';
+import SearchCatalogPage from '../../pages/searchCatalogPage';
 
 const ScrollToTop = () => {
   window.scrollTo(0, 0);
