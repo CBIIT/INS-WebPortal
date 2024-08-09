@@ -1,7 +1,7 @@
 import { handleResponse, handleError } from './apiUtils';
 import env from '../utils/env';
 
-const baseUrl = `${env.REACT_APP_REST_BACKEND}documents`;
+const baseUrl = 'https://datacatalog.ccdi.cancer.gov/service/documents';
 
 export function searchDocument(body) {
   return fetch(`${baseUrl}/search`, {
