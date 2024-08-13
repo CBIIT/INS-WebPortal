@@ -159,7 +159,7 @@ const SearchCatalogPage = ({
         <div className="searchBarArea">
           <div className="searchBarLabel">
             <span>
-              Search Results
+              Explore Datasets
             </span>
             <div className="searchTooltip">
               <OverlayTrigger

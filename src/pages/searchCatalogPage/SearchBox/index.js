@@ -41,8 +41,10 @@ const SearchBoxArea = styled.div`
   width: 50%;
 
   .searchBoxInputGroup {
-    float: right;
+    width: 200%;
     padding: 0 0 20px 0;
+    display: flex;
+    justify-content: center;
   }
   
   .searchBoxInputGroup .form-control {
@@ -58,10 +60,12 @@ const SearchBoxArea = styled.div`
   }
   
   .searchBoxInputGroup .form-control::placeholder {
-    color: #004187;
+    color: #666666;
     font-family: Inter;
-    font-weight: 600;
-    font-size: 25px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 19.36px;
+    text-align: left;
   }
   
   .searchBoxButton {
@@ -114,10 +118,10 @@ const SelectionBubbleArea = styled.div`
 `;
 
 const getSearchableText = (searchString) => {
-  const termArr = searchString?searchString.trim().split(' '):[];
+  const termArr = searchString ? searchString.trim().split(' ') : [];
   const result = [];
   termArr.forEach((term) => {
-    if(term){
+    if (term) {
       const t = term.trim();
       if (t.length > 2) {
         result.push(t);
@@ -162,8 +166,8 @@ const SearchBox = ({
         <InputGroup className="searchBoxInputGroup">
           <FormControl
             type="search"
-            placeholder="Datasets search"
-            aria-label="Datasets search"
+            placeholder="Search Datasets"
+            aria-label="Search Datasets"
             aria-describedby="basic-addon"
             value={searchText}
             onChange={(e) => handleTextInputChange(e)}

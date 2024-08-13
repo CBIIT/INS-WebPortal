@@ -12,13 +12,14 @@
 
 .searchBarLabel {
   padding: 20px 0 10px 0;
-  color: #004187;
-  font-size: 42px;
-  line-height: 34px;
-  font-weight: bold;
+  color: #64005F;
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 800;
   font-family: Inter;
   width: 100%;
   display: flex;
+  justify-content: center;
 }
 
 .searchTooltip {
