@@ -355,7 +355,7 @@ const SearchResult = ({
       }
       toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
       const queryStr = replaceQueryStr(query, toSortBy);
-      history.push(`/search?${queryStr}`);
+      history.push(`/datasetsSearch?${queryStr}`);
       onChangeSortingOrder(toSortBy.v);
     } else {
       const toSortBy = {};
@@ -377,7 +377,7 @@ const SearchResult = ({
       }
       toSortBy.v = sort.v;
       const queryStr = replaceQueryStr(query, toSortBy);
-      history.push(`/search?${queryStr}`);
+      history.push(`/datasetsSearch?${queryStr}`);
       onChangeSorting(toSortBy);
     }
   };
