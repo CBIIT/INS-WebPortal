@@ -32,7 +32,7 @@ const BubbleContainer = styled.div`
 const SearchIcon = styled.div`
   position: absolute;
   right: 320px;
-  top: 80px;
+  top: 100px;
   z-index: 10;
 `;
 
