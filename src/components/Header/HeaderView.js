@@ -49,7 +49,7 @@ const INSHeader = (props) => {
       alt={headerData.globalHeaderLogoAltText}
       homeLink={headerData.globalHeaderLogoLink}
       customStyle={styles}
-      SearchComponent={!location.pathname.match('/search') ? SearchBar : undefined}
+      SearchComponent={!location.pathname.match('/globalsearch') ? SearchBar : undefined}
     />
   );
 };

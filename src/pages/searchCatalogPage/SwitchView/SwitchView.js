@@ -45,7 +45,7 @@ const SwitchView = ({
 
   const handleSwitchView = (vt) => {
     const queryStr = replaceQueryStr(query, vt);
-    history.push(`/datasetsSearch?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   return (

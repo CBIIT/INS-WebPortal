@@ -81,7 +81,7 @@ const SelectionInput = ({
     dropdownSelection.current.classList.remove('active');
     setCurrentValue(sort.name);
     const queryStr = replaceQueryStr(query, sort.k);
-    history.push(`/datasetsSearch?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   return (

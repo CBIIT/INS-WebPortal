@@ -96,12 +96,12 @@ const Sorting = ({
 
   const handleASCSorting = () => {
     const queryStr = replaceQueryStr(query, 'asc');
-    history.push(`/datasetsSearch?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   const handleDESCSorting = () => {
     const queryStr = replaceQueryStr(query, 'desc');
-    history.push(`/datasetsSearch?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   return (

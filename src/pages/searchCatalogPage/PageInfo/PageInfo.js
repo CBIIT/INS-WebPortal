@@ -64,13 +64,13 @@ const PageInfo = ({
   const pageClick = (page) => {
     window.scrollTo(0, 0);
     const queryStr = replaceQueryStr(query, page);
-    history.push(`/datasetsSearch?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   const sizeClick = (pageSize) => {
     window.scrollTo(0, 0);
     const queryStr = replaceQueryStrPageSize(query, pageSize);
-    history.push(`/datasetsSearch?${queryStr}`);
+    history.push(`/search?${queryStr}`);
   };
 
   return (
