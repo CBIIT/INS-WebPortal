@@ -131,6 +131,7 @@ export function loadFromUrlQuery(searchText, filters) {
 }
 
 export function startFullTextSearch(searchText) {
+  console.log('searchText: ', searchText);
   const func = function func(dispatch) {
     dispatch(runFullTextSearch(searchText));
   };
