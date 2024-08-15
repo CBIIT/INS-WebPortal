@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable react/forbid-prop-types */
 import React, { useEffect } from 'react';
 import {
   useLocation,
@@ -85,7 +85,13 @@ const Filters = ({
               const key = `filters_${idx}`;
               const checked = selectedFilters.indexOf(field.data_resource_id) > -1;
               return (
-                <FilterItem key={key} item={field} checked={checked} highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1} onSourceClick={handleResourceClick} />
+                <FilterItem
+                  key={key}
+                  item={field}
+                  checked={checked}
+                  highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1}
+                  onSourceClick={handleResourceClick}
+                />
               );
             })}
           </div>
