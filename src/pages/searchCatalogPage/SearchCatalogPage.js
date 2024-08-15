@@ -127,25 +127,25 @@ const SearchCatalogPage = ({
   const handleBubbleSearchTextRemoveClick = () => {
     setSearchText('');
     const queryStr = replaceQueryStr(query, '');
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
     onBubbleSearchTextRemoveClick();
   };
 
   const handleBubbleResourcesRemoveClick = () => {
     const queryStr = replaceResourceFilter(query, '');
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
     onBubbleResourcesRemoveClick();
   };
 
   const handleSearchBoxKeyPress = () => {
     const queryStr = replaceQueryStr(query, searchText);
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
     onStartFullTextSearch(searchText);
   };
 
   const handleSearchSubmit = () => {
     const queryStr = replaceQueryStr(query, searchText);
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
     onStartFullTextSearch(searchText);
   };
 
