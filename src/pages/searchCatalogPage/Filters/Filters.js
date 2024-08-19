@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable react/forbid-prop-types */
 import React, { useEffect } from 'react';
 import {
   useLocation,
@@ -53,9 +53,10 @@ const Filters = ({
 }) => {
   const query = useQuery();
   const history = useHistory();
-  const sources = !sourceFilters || sourceFilters === 'all' 
-  ? searchFilters.map((element) => element.data_resource_id.toLowerCase()) 
-  : sourceFilters.filter((element) => element);
+  const sourceFiltersArray = Array.isArray(sourceFilters) ? sourceFilters : [sourceFilters];
+  const sources = !sourceFilters || sourceFilters === 'all'
+    ? searchFilters.map((element) => element.data_resource_id.toLowerCase())
+    : sourceFiltersArray.filter((element) => element);
 
   useEffect(() => {
     if (searchFilters.length === 0) {
@@ -67,7 +68,7 @@ const Filters = ({
 
   const handleResourceClick = (filter) => {
     const queryStr = replaceResourceFilter(query, filter);
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
   };
 
   return (
@@ -85,7 +86,13 @@ const Filters = ({
               const key = `filters_${idx}`;
               const checked = selectedFilters.indexOf(field.data_resource_id) > -1;
               return (
-                <FilterItem key={key} item={field} checked={checked} highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1} onSourceClick={handleResourceClick} />
+                <FilterItem
+                  key={key}
+                  item={field}
+                  checked={checked}
+                  highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1}
+                  onSourceClick={handleResourceClick}
+                />
               );
             })}
           </div>
