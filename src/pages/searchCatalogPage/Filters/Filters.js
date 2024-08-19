@@ -53,9 +53,10 @@ const Filters = ({
 }) => {
   const query = useQuery();
   const history = useHistory();
+  const sourceFiltersArray = Array.isArray(sourceFilters) ? sourceFilters : [sourceFilters];
   const sources = !sourceFilters || sourceFilters === 'all'
     ? searchFilters.map((element) => element.data_resource_id.toLowerCase())
-    : sourceFilters.filter((element) => element);
+    : sourceFiltersArray.filter((element) => element);
 
   useEffect(() => {
     if (searchFilters.length === 0) {
