@@ -32,7 +32,6 @@ export default {
     searchResults: [],
     searchSourceResults: 'all',
     resourcesList: [],
-    viewType: 'card',
     details: {},
   },
   documentSearch: {

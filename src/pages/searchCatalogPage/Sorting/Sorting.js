@@ -82,9 +82,6 @@ const replaceQueryStr = (query, sortOrder) => {
     str += `&sortBy=${query.get('sortBy')}`;
   }
   str += `&sortOrder=${sortOrder}`;
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
-  }
   return str.substring(1);
 };
 

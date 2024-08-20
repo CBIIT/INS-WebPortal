@@ -39,9 +39,6 @@ const replaceResourceFilter = (query, filter) => {
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
   }
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
-  }
   return str.substring(1);
 };
 
@@ -75,7 +72,7 @@ const Filters = ({
     <>
       <div className="filterSection">
         <div className="filterLabel">
-          <span>Resources</span>
+          <span>Filter by Primary Disease</span>
           <button type="button" onClick={() => handleResourceClick('')} className="clear-all-button">
             <img src={clearAllIcon} alt="clear-all" />
           </button>

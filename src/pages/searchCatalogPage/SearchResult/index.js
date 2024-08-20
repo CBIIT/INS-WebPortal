@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { connect } from 'react-redux';
 import SearchResult from './SearchResult';
 import {
@@ -15,8 +14,7 @@ const ReduxSearchResult = (() => {
 
     return {
       resultList: datasets.searchResults || [],
-      sort: searchCriteria.sort || 'defaultSort', // Replace 'defaultSort' with an appropriate default value
-      viewType: datasets.viewType || 'defaultViewType', // Replace 'defaultViewType' with an appropriate default value
+      sort: searchCriteria.sort || 'defaultSort',
       glossaryTerms: application.glossaryTerms || [],
     };
   };

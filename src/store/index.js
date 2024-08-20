@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
@@ -35,7 +34,7 @@ const reducers = {
 };
 const loggerMiddleware = createLogger();
 
-const store = createStore( 
+const store = createStore(
   combineReducers(reducers),
   initialState,
   composeWithDevTools(applyMiddleware(ReduxThunk, loggerMiddleware)),
