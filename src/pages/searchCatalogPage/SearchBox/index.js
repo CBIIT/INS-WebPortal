@@ -5,6 +5,7 @@ import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import xIcon from '../../../assets/img/xmark-solid.svg';
 import SearchIconImg from './search.svg';
+import CloseIconImg from './close.svg';
 
 const BubbleContainer = styled.div`
   max-width: calc(50% - 20px);
@@ -207,7 +208,7 @@ const SearchBox = ({
               :&nbsp;
               {bubbleSearchKeyword.length > 24 ? `${bubbleSearchKeyword.substring(0, 21)}...` : bubbleSearchKeyword}
               <span className="removeBubble" onClick={() => handleBubbleSearchTextRemoveClick()} aria-hidden="true">
-                <i className="fas fa-times" />
+                <img src={CloseIconImg} alt="close-icon" />
               </span>
             </BubbleContainer>
           )
@@ -215,11 +216,11 @@ const SearchBox = ({
         {
           bubbleResources.length > 0 && (
             <BubbleContainer title={bubbleResources}>
-              Resources
+              Primary Disease
               :&nbsp;
               {bubbleResources.length > 24 ? `${bubbleResources.substring(0, 21)}...` : bubbleResources}
               <span className="removeBubble" onClick={() => handleBubbleResourcesRemoveClick()} aria-hidden="true">
-                <i className="fas fa-times" />
+                <img src={CloseIconImg} alt="close-icon" />
               </span>
             </BubbleContainer>
           )

@@ -27,9 +27,6 @@ const replaceQueryStr = (query, page) => {
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
   }
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
-  }
   return str.substring(1);
 };
 
@@ -48,9 +45,6 @@ const replaceQueryStrPageSize = (query, pageSize) => {
   }
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
-  }
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
   }
   return str.substring(1);
 };

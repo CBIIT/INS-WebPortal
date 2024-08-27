@@ -39,9 +39,6 @@ const replaceResourceFilter = (query, filter) => {
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
   }
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
-  }
   return str.substring(1);
 };
 
@@ -75,7 +72,7 @@ const Filters = ({
     <>
       <div className="filterSection">
         <div className="filterLabel">
-          <span>Resources</span>
+          <span>Filter by Primary Disease</span>
           <button type="button" onClick={() => handleResourceClick('')} className="clear-all-button">
             <img src={clearAllIcon} alt="clear-all" />
           </button>
@@ -85,7 +82,8 @@ const Filters = ({
             {searchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
               const checked = selectedFilters.indexOf(field.data_resource_id) > -1;
-              return (
+              const arrayOfSources = sources.flatMap((item) => item.split('|'));
+              return arrayOfSources.includes(field.data_resource_id.toLowerCase()) ? (
                 <FilterItem
                   key={key}
                   item={field}
@@ -93,7 +91,33 @@ const Filters = ({
                   highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1}
                   onSourceClick={handleResourceClick}
                 />
-              );
+              ) : null;
+            })}
+          </div>
+        </div>
+      </div>
+      <div className="filterSection">
+        <div className="filterLabel">
+          <span>Filter by Second filter</span>
+          <button type="button" onClick={() => handleResourceClick('')} className="clear-all-button">
+            <img src={clearAllIcon} alt="clear-all" />
+          </button>
+        </div>
+        <div className="filterBlock">
+          <div className="accordion">
+            {searchFilters.map((field, idx) => {
+              const key = `filters_${idx}`;
+              const checked = selectedFilters.indexOf(field.data_resource_id) > -1;
+              const arrayOfSources = sources.flatMap((item) => item.split('|'));
+              return arrayOfSources.includes(field.data_resource_id.toLowerCase()) ? (
+                <FilterItem
+                  key={key}
+                  item={field}
+                  checked={checked}
+                  highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1}
+                  onSourceClick={handleResourceClick}
+                />
+              ) : null;
             })}
           </div>
         </div>

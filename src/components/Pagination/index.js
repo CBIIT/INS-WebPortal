@@ -1,4 +1,7 @@
-/* eslint-disable */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BSPagination from 'react-bootstrap/Pagination';
@@ -88,8 +91,8 @@ const Pagination = ({
   pageClick,
   sizeClick,
 }) => {
-  const pageCount = pageInfo.total && pageInfo.pageSize 
-    ? Math.ceil(pageInfo.total / pageInfo.pageSize) 
+  const pageCount = pageInfo.total && pageInfo.pageSize
+    ? Math.ceil(pageInfo.total / pageInfo.pageSize)
     : 0;
   const pages = getPager(pageCount, pageInfo.page);
   const handlePageClick = (pageIndex) => {
