@@ -82,7 +82,8 @@ const Filters = ({
             {searchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
               const checked = selectedFilters.indexOf(field.data_resource_id) > -1;
-              return (
+              const arrayOfSources = sources.flatMap((item) => item.split('|'));
+              return arrayOfSources.includes(field.data_resource_id.toLowerCase()) ? (
                 <FilterItem
                   key={key}
                   item={field}
@@ -90,7 +91,7 @@ const Filters = ({
                   highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1}
                   onSourceClick={handleResourceClick}
                 />
-              );
+              ) : null;
             })}
           </div>
         </div>
@@ -107,7 +108,8 @@ const Filters = ({
             {searchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
               const checked = selectedFilters.indexOf(field.data_resource_id) > -1;
-              return (
+              const arrayOfSources = sources.flatMap((item) => item.split('|'));
+              return arrayOfSources.includes(field.data_resource_id.toLowerCase()) ? (
                 <FilterItem
                   key={key}
                   item={field}
@@ -115,7 +117,7 @@ const Filters = ({
                   highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1}
                   onSourceClick={handleResourceClick}
                 />
-              );
+              ) : null;
             })}
           </div>
         </div>
