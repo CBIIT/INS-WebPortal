@@ -62,30 +62,13 @@ const FilterItem = ({
 
   return (
     <OptionContainer>
-      {
-        highlight ? (
-          <>
-            <label>
-              <span style={{ display: 'none' }}>{item.data_resource_id}</span>
-              <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.data_resource_id} checked={checked} readOnly />
-            </label>
-            <SearchableOption title={`${item.resource_name} , ${item.resource_type}`} onClick={handleResourceClick}>
-              {item.data_resource_id}
-            </SearchableOption>
-          </>
-        )
-          : (
-            <>
-              <label>
-                <span style={{ display: 'none' }}>{item.data_resource_id}</span>
-                <input className="form-check-input checkbox-disabled" type="checkbox" value={item.data_resource_id} checked={checked} disabled="disabled" />
-              </label>
-              <OptionLabel title={`${item.resource_name} , ${item.resource_type}`}>
-                {item.data_resource_id}
-              </OptionLabel>
-            </>
-          )
-      }
+      <label>
+        <span style={{ display: 'none' }}>{item.data_resource_id}</span>
+        <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.data_resource_id} checked={checked} readOnly />
+      </label>
+      <SearchableOption title={`${item.resource_name} , ${item.resource_type}`} onClick={handleResourceClick}>
+        {item.data_resource_id}
+      </SearchableOption>
     </OptionContainer>
   );
 };
