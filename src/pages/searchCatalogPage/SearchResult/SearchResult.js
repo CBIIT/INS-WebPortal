@@ -668,20 +668,17 @@ const SearchResult = ({
             return (
               <div key={key} className="container">
                 <div className="row align-items-start headerRow">
-                  <div className="col-sm-8 resultTitle">
-                    <Link to={`/dataset/${rst.content.dataset_id}`}>{rst.content.dataset_name}</Link>
-                  </div>
-                  <div className="col-sm-4">
-                    <span className="typeBlock" data-bs-custom-class="custom-popover" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content={tooltip}>
-                      {rst.content.primary_dataset_scope}
-                    </span>
+                  <div className="col-sm resultTitle">
+                    {/* <Link to={`/dataset/${rst.content.dataset_id}`}>{rst.content.dataset_name}</Link> */}
+                    {rst.content.dataset_name}
                   </div>
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm">
                     <img src={dataResourceIcon} alt="data-resource" />
                     &nbsp;
-                    <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link>
+                    {/* <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link> */}
+                    {rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}
                   </div>
                 </div>
                 {
