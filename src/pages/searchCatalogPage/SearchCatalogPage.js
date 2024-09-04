@@ -205,11 +205,6 @@ const SearchCatalogPage = ({
             <Filters />
           </div>
           <div className="searchContentContainer">
-            <div className="searchContentHeader">
-              <div className="exportArea">
-                <ExportButton />
-              </div>
-            </div>
             <div className="searchDisplayOptionsRow">
               <div className="searchSortingArea">
                 <Sorting />
@@ -217,6 +212,7 @@ const SearchCatalogPage = ({
               <div className="contentPagingArea">
                 <PageInfo />
               </div>
+              <ExportButton />
             </div>
             <div className="searchContent">
               <SearchResult />
