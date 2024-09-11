@@ -1,4 +1,4 @@
-/* eslint-disable  */
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
@@ -80,7 +80,6 @@ const SearchBoxArea = styled.div`
     color: white;
     border: 2.5px solid #564587;
     background-color: #564587;
-    ${'' /* padding: .75rem 1rem; */}
     position: relative;
     right: 1px;
     line-height: 26px;
@@ -148,7 +147,6 @@ const SearchBox = ({
 }) => {
   const searchableText = getSearchableText(searchText);
   const bubbleSearchKeyword = getSearchableText(searchKeyword);
-  const bubbleResources = resourceFilters ? resourceFilters.join(' , ') : '';
 
   const handleTextInputChange = (event) => {
     const text = event.target.value;
@@ -188,7 +186,7 @@ const SearchBox = ({
             searchableText.length > 0 ? (
               <Button variant="outline-secondary" className="searchBoxButton" onClick={() => handleSubmit()}>SUBMIT</Button>
             ) : (
-              <button type="button" variant="outline-secondary" className="searchBoxButton buttonDisabled" disabled>SUBMIT</button>
+              <Button type="button" variant="outline-secondary" className="searchBoxButton buttonDisabled" disabled>SUBMIT</Button>
             )
           }
           {
@@ -204,8 +202,7 @@ const SearchBox = ({
         {
           bubbleSearchKeyword !== '' && (
             <BubbleContainer title={bubbleSearchKeyword}>
-              Search Text
-              :&nbsp;
+              Search Text:&nbsp;
               {bubbleSearchKeyword.length > 24 ? `${bubbleSearchKeyword.substring(0, 21)}...` : bubbleSearchKeyword}
               <span className="removeBubble" onClick={() => handleBubbleSearchTextRemoveClick()} aria-hidden="true">
                 <img src={CloseIconImg} alt="close-icon" />
@@ -214,16 +211,15 @@ const SearchBox = ({
           )
         }
         {
-          bubbleResources.length > 0 && (
-            <BubbleContainer title={bubbleResources}>
-              Primary Disease
-              :&nbsp;
-              {bubbleResources.length > 24 ? `${bubbleResources.substring(0, 21)}...` : bubbleResources}
-              <span className="removeBubble" onClick={() => handleBubbleResourcesRemoveClick()} aria-hidden="true">
+          resourceFilters.length > 0 && resourceFilters.map((filter, index) => (
+            <BubbleContainer key={index} title={filter}>
+              Primary Disease:&nbsp;
+              {filter}
+              <span className="removeBubble" onClick={() => handleBubbleResourcesRemoveClick(filter)} aria-hidden="true">
                 <img src={CloseIconImg} alt="close-icon" />
               </span>
             </BubbleContainer>
-          )
+          ))
         }
       </SelectionBubbleArea>
     </>

@@ -79,8 +79,6 @@ const SearchCatalogPage = ({
   onBubbleResourcesRemoveClick,
 }) => {
   const query = useSearchParams();
-  // const query = useQuery();
-  // const [searchParams] = useSearchParams();
   const history = useHistory();
   const searchTerm = query.get('search_text') ? query.get('search_text').trim() : '';
   const [searchText, setSearchText] = useState(searchTerm);
@@ -110,7 +108,6 @@ const SearchCatalogPage = ({
     onLoadFromUrlQuery(searchTerm, options).catch((error) => {
       console.error(`Loading search from URL query failed: ${error}`);
     });
-    // }, [searchParams]);
   }, [query.toString()]);
 
   const handleBubbleSearchTextRemoveClick = () => {
@@ -120,8 +117,8 @@ const SearchCatalogPage = ({
     onBubbleSearchTextRemoveClick();
   };
 
-  const handleBubbleResourcesRemoveClick = () => {
-    const queryStr = replaceResourceFilter(query, '');
+  const handleBubbleResourcesRemoveClick = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter);
     history.push(`/datasets?${queryStr}`);
     onBubbleResourcesRemoveClick();
   };
