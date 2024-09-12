@@ -21,10 +21,8 @@ const Container = styled.div`
 
 const BubbleContainer = styled.div`
   max-width: calc(50% - 20px);
-  border-radius: 20px;
-  background-color: #EDF0F2;
-  color: #2E5A79;
-  border: 2px solid #ECBD4D;
+  background: #E6E6E6;
+  color: #474747;
   font-size: 13px;
   font-family: Lato;
   font-weight: 400;
@@ -212,7 +210,7 @@ const SearchBox = ({
         {
           bubbleSearchKeyword !== '' && (
             <BubbleContainer title={bubbleSearchKeyword}>
-              Search Text:&nbsp;
+              <span style={{ fontSize: '10px' }}>SEARCH TEXT:&nbsp;</span>
               {bubbleSearchKeyword.length > 24 ? `${bubbleSearchKeyword.substring(0, 21)}...` : bubbleSearchKeyword}
               <span className="removeBubble" onClick={() => handleBubbleSearchTextRemoveClick()} aria-hidden="true">
                 <img src={CloseIconImg} alt="close-icon" />
@@ -223,7 +221,7 @@ const SearchBox = ({
         {
           resourceFilters.length > 0 && resourceFilters.map((filter, index) => (
             <BubbleContainer key={index} title={filter}>
-              Primary Disease:&nbsp;
+              <span style={{ fontSize: '10px' }}>PRIMARY DISEASE:&nbsp;</span>
               {filter}
               <span className="removeBubble" onClick={() => handleBubbleResourcesRemoveClick(filter)} aria-hidden="true">
                 <img src={CloseIconImg} alt="close-icon" />
