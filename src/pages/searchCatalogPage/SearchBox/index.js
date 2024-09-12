@@ -7,6 +7,18 @@ import xIcon from '../../../assets/img/xmark-solid.svg';
 import SearchIconImg from './search.svg';
 import CloseIconImg from './close.svg';
 
+const Container = styled.div`
+  width: 100%;
+
+  .searchBoxAreaGroup{
+    width: 100%
+  }
+
+  .selectionBubbleAreaGroup{
+    width: 100%
+  }
+`;
+
 const BubbleContainer = styled.div`
   max-width: calc(50% - 20px);
   border-radius: 20px;
@@ -42,7 +54,7 @@ const SearchBoxArea = styled.div`
 
   .searchBoxInputGroup {
     border-radius: 0;
-    width: 200%;
+    width: 100%;
     padding: 0 0 20px 0;
     display: flex;
     justify-content: center;
@@ -55,6 +67,7 @@ const SearchBoxArea = styled.div`
     border: 1px solid #000000;
     color: #000000;
     padding-right: 40px;
+    padding-left: 8px;
     font-size: 16px;
   }
 
@@ -164,8 +177,8 @@ const SearchBox = ({
   };
 
   return (
-    <>
-      <SearchBoxArea>
+    <Container>
+      <SearchBoxArea className="searchBoxAreaGroup">
         <InputGroup className="searchBoxInputGroup">
           <FormControl
             type="search"
@@ -178,9 +191,6 @@ const SearchBox = ({
           />
           <SearchIcon>
             <img src={SearchIconImg} alt="search-icon" />
-            {/* <span class="material-symbols-outlined">
-              search
-            </span> */}
           </SearchIcon>
           {
             searchableText.length > 0 ? (
@@ -198,7 +208,7 @@ const SearchBox = ({
           }
         </InputGroup>
       </SearchBoxArea>
-      <SelectionBubbleArea>
+      <SelectionBubbleArea className="selectionBubbleAreaGroup">
         {
           bubbleSearchKeyword !== '' && (
             <BubbleContainer title={bubbleSearchKeyword}>
@@ -222,7 +232,7 @@ const SearchBox = ({
           ))
         }
       </SelectionBubbleArea>
-    </>
+    </Container>
   );
 };
 
