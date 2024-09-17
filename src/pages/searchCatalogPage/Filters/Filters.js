@@ -97,10 +97,7 @@ const Filters = ({
             Clear all filtered selections
           </span>
         </div>
-        {/* HERE
-        <button type="button" onClick={() => handleResourceClick('')} className="clear-all-button">
-          <img src={clearAllIcon} alt="clear-all" />
-        </button> */}
+        <hr className="divider" />
         <div className="filterLabel">
           <span>Filter by Primary Disease</span>
         </div>

@@ -42,14 +42,17 @@
 }
 
 .filterLabel {
-  background-color: #f7f8fa;
+  background: #f7f8fa;
   margin: 5px 5px 0 5px;
   padding: 10px;
-  color: #004187;
-  font-weight: 900;
-  font-family: Lato;
-  font-size: 23px;
+  color: #000000;
   position: relative;
+  font-family: Open Sans;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 22px;
+  letter-spacing: 0.15px;
+  text-align: left;
 }
 
 .clear-all-button {
@@ -99,4 +102,9 @@
   margin-left: 8px;
   color: #638fb5;
   font-size: 14px;
+}
+
+.divider {
+  height: 5px;
+  background: #546290;
 }
