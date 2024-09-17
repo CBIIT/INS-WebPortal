@@ -22,7 +22,7 @@
   text-decoration: none;
 }
 
-.advancedSearchButton span a{
+.advancedSearchButton span a {
   color: white;
   text-decoration: none;
 }
@@ -39,10 +39,6 @@
 .filterBlock {
   background-color: #f7f8fa;
   margin: 0 5px;
-}
-
-.filterSection {
-  border-top: 3px solid #c3d5e0;
 }
 
 .filterLabel {
@@ -70,4 +66,37 @@
 .clear-all-button:hover {
   width: 23px;
   height: 23px;
+}
+
+.floatRight {
+  margin: 7px 0px 7px 6px;
+}
+
+.customButton {
+  border-radius: 9px !important;
+  max-width: 30px !important;
+  max-height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  margin-top: 0px !important;
+  font-size: 9px !important;
+  text-transform: none !important;
+  color: #3d4241 !important;
+  margin-left: 0px !important;
+}
+
+.customButton:hover {
+  background-color: #566672;
+  color: white;
+}
+
+.clearAllButtonRoot {
+  margin: auto;
+}
+
+.resetText {
+  margin-top: 0px;
+  margin-left: 8px;
+  color: #638fb5;
+  font-size: 14px;
 }
