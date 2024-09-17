@@ -32,10 +32,15 @@ const OptionContainer = styled.div`
 
 const SearchableOption = styled.span`
   padding-left: 8px;
-  font-weight: bold;
-  color: #004187;
-  font-size: 17px;
+  color: #000000;
   cursor: pointer;
+  font-family: Nunito;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 15px;
+  letter-spacing: 0.15px;
+  text-align: left;
+  width: 100%;
 
   &:hover {
     text-decoration: underline;
@@ -64,6 +69,9 @@ const FilterItem = ({
       </label>
       <SearchableOption title={`${item.resource_name} , ${item.resource_type}`} onClick={handleResourceClick}>
         {item.data_resource_id}
+        <span style={{ float: 'right' }}>
+          (123)
+        </span>
       </SearchableOption>
     </OptionContainer>
   );
