@@ -101,6 +101,20 @@ const Filters = ({
         <div className="filterLabel">
           <span>Filter by Primary Disease</span>
         </div>
+        <div className="sort">
+          <span className="icon">
+            <span className="reset" aria-hidden="true">
+              <img
+                src={resetIcon.src}
+                height={resetIcon.size}
+                width={resetIcon.size}
+                alt={resetIcon.alt}
+              />
+            </span>
+          </span>
+          <span className="alphabetically">Sort alphabetically</span>
+          <span className="count">Sort by count</span>
+        </div>
         <div className="filterBlock">
           <div className="accordion">
             {searchFilters.map((field, idx) => {

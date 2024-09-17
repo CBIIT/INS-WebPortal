@@ -108,3 +108,40 @@
   height: 5px;
   background: #546290;
 }
+
+.sort {
+  border-top: 1px solid #B1B1B1;
+  text-align: left;
+  padding-top: 10px;
+  margin-bottom: 5px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 10px;
+  font-family: Nunito;
+  margin-left: 16px;
+  margin-right: 12px;
+}
+
+.reset {
+  font-size: 10px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.alphabetically {
+  cursor: pointer;
+  font-size: 10px;
+  font-family: Nunito;
+  margin-right: 32px;
+}
+
+.count {
+  float: right;
+  cursor: pointer;
+  font-size: 10px;
+  margin-top: 5px;
+  font-family: Nunito;
+  margin-right: 10px;
+}
