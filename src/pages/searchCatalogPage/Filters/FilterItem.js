@@ -8,16 +8,12 @@ const OptionContainer = styled.div`
   display: flex;
   padding: 5px 0 5px 10px;
   
-  :nth-child(6n+1) {
-    background-color: #e9e9e9;
+  :nth-child(even) {
+    background-color: #F9FCFF;
   }
 
-  :nth-child(6n+3) {
-    background-color: #d6e6f3;
-  }
-
-  :nth-child(6n+5) {
-    background-color: #e9e2bc;
+  :nth-child(odd) {
+    background-color: #F0F6F6;
   }
 
   .form-check-input {
