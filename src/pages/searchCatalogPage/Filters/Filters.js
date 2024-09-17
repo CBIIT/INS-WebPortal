@@ -5,6 +5,7 @@ import {
   useHistory,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core';
 import FilterItem from './FilterItem';
 import './Filters.css';
 import clearAllIcon from '../../../assets/img/clearAllIcon.svg';
@@ -68,14 +69,51 @@ const Filters = ({
     history.push(`/datasets?${queryStr}`);
   };
 
+  const resetIcon = {
+    src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Clear-icon.svg',
+    alt: 'Reset icon',
+    size: '12 px',
+  };
+
   return (
     <>
-      <div className="filterSection">
+      <div>
+        <div className="floatRight">
+          <Button
+            id="button_sidebar_clear_all_filters"
+            variant="outlined"
+            onClick={() => handleResourceClick('')}
+            className="customButton"
+            classes={{ root: 'clearAllButtonRoot' }}
+          >
+            <img
+              src={resetIcon.src}
+              height={resetIcon.size}
+              width={resetIcon.size}
+              alt={resetIcon.alt}
+            />
+          </Button>
+          <span className="resetText">
+            Clear all filtered selections
+          </span>
+        </div>
+        <hr className="divider" />
         <div className="filterLabel">
           <span>Filter by Primary Disease</span>
-          <button type="button" onClick={() => handleResourceClick('')} className="clear-all-button">
-            <img src={clearAllIcon} alt="clear-all" />
-          </button>
+        </div>
+        <div className="sort">
+          <span className="icon">
+            <span className="reset" aria-hidden="true">
+              <img
+                src={resetIcon.src}
+                height={resetIcon.size}
+                width={resetIcon.size}
+                alt={resetIcon.alt}
+              />
+            </span>
+          </span>
+          <span className="alphabetically">Sort alphabetically</span>
+          <span className="count">Sort by count</span>
         </div>
         <div className="filterBlock">
           <div className="accordion">
