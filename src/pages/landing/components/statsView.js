@@ -100,6 +100,7 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
 
 const styles = () => ({
   statsSectionCenter: {
+    zIndex: 2,
     background: '#403e41',
     backgroundImage: `url(${baseImg})`,
     backgroundRepeat: 'no-repeat',
