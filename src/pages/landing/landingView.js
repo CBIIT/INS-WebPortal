@@ -45,7 +45,7 @@ const LandingView = ({ classes, statsData }) => {
   return (
     <>
       <div className={classes.page}>
-        <div className={classes.container}>
+        <div className={classes.LandingContainer}>
           <Grid container spacing={16} direction="row">
             <div className={classes.heroImage} />
             <div className={classes.heroTextContainer}>
@@ -430,6 +430,12 @@ const styles = () => ({
     fontFamily: 'Raleway, sans-serif',
     margin: '0 auto',
   },
+  LandingContainer: {
+    fontFamily: 'Raleway, sans-serif',
+    margin: '0 auto',
+    position: 'relative',
+    height: '525px',
+  },
   whiteSection: {
     height: '8px',
     background: 'white',
@@ -732,7 +738,7 @@ const styles = () => ({
     height: '1200px',
     margin: 'auto',
     right: 0,
-    top: '147px',
+    top: '-50px',
     left: 0,
     '@media (min-width: 900px)': {
       width: '906px',
@@ -743,7 +749,7 @@ const styles = () => ({
     height: '375px',
     backgroundColor: 'blue',
     position: 'relative',
-    top: '230px',
+    top: '43px',
     left: '227px',
     zIndex: '1',
     opacity: '0',
