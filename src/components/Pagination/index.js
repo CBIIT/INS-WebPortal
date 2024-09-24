@@ -29,7 +29,7 @@ const ResultsPerPage = styled.div`
     display: inline-block;
     margin: -3px 0 0 -3px;
     color: #004187;
-    background-color: white;
+    background-color: #F3F3F3;
     border: none;
     font-size: 15px;
   }
@@ -123,10 +123,26 @@ const Pagination = ({
               {pageInfo.pageSize}
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 10 ? 'active-top' : ''}`} role="button" onClick={() => handleSizeClick(10)}>10</a></li>
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 20 ? 'active' : ''}`} role="button" onClick={() => handleSizeClick(20)}>20</a></li>
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 50 ? 'active' : ''}`} role="button" onClick={() => handleSizeClick(50)}>50</a></li>
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 100 ? 'active-bottom' : ''}`} role="button" onClick={() => handleSizeClick(100)}>100</a></li>
+              <li>
+                <a className={`dropdown-item ${pageInfo.pageSize === 10 ? 'active-top' : ''}`} role="button" onClick={() => handleSizeClick(10)}>
+                  10
+                </a>
+              </li>
+              <li>
+                <a className={`dropdown-item ${pageInfo.pageSize === 20 ? 'active' : ''}`} role="button" onClick={() => handleSizeClick(20)}>
+                  20
+                </a>
+              </li>
+              <li>
+                <a className={`dropdown-item ${pageInfo.pageSize === 50 ? 'active' : ''}`} role="button" onClick={() => handleSizeClick(50)}>
+                  50
+                </a>
+              </li>
+              <li>
+                <a className={`dropdown-item ${pageInfo.pageSize === 100 ? 'active-bottom' : ''}`} role="button" onClick={() => handleSizeClick(100)}>
+                  100
+                </a>
+              </li>
             </ul>
           </div>
         </ResultsPerPage>
@@ -140,14 +156,42 @@ const Pagination = ({
         <PageSelect>
           <BSPagination className="pagination-ccdc">
             {pageInfo.page === 1 ? (
-              <BSPagination.Prev className="bspage-link-prev" disabled>&#60;</BSPagination.Prev>
+              <>
+                <BSPagination className="bspage-link-first" disabled>
+                  &#124;&#60;
+                </BSPagination>
+                <BSPagination className="bspage-link-prev" disabled>
+                  &#60;
+                </BSPagination>
+              </>
             ) : (
-              <BSPagination.Prev className="bspage-link-prev" onClick={() => handlePageClick(pageInfo.page - 1)}>&#60;</BSPagination.Prev>
+              <>
+                <BSPagination className="bspage-link-first" onClick={() => handlePageClick(0)}>
+                  &#124;&#60;
+                </BSPagination>
+                <BSPagination className="bspage-link-prev" onClick={() => handlePageClick(pageInfo.page - 1)}>
+                  &#60;
+                </BSPagination>
+              </>
             )}
             {pageInfo.page === pageCount ? (
-              <BSPagination.Next className="bspage-link-next" disabled>&#62;</BSPagination.Next>
+              <>
+                <BSPagination className="bspage-link-next" disabled>
+                  &#62;
+                </BSPagination>
+                <BSPagination className="bspage-link-last" disabled>
+                  &#62;&#124;
+                </BSPagination>
+              </>
             ) : (
-              <BSPagination.Next className="bspage-link-next" onClick={() => handlePageClick(pageInfo.page + 1)}>&#62;</BSPagination.Next>
+              <>
+                <BSPagination className="bspage-link-next" onClick={() => handlePageClick(pageInfo.page + 1)}>
+                  &#62;
+                </BSPagination>
+                <BSPagination className="bspage-link-last" onClick={() => handlePageClick(pageCount)}>
+                  &#62;&#124;
+                </BSPagination>
+              </>
             )}
           </BSPagination>
         </PageSelect>
