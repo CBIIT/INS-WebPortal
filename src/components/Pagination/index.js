@@ -165,10 +165,10 @@ const Pagination = ({
           <BSPagination className="pagination-ccdc">
             {pageInfo.page === 1 ? (
               <>
-                <BSPagination className="bspage-link-first" disabled>
+                <BSPagination className="bspage-link-first-disabled" disabled>
                   <img src={FirstDisabledIconImg} alt="first-disabled-icon" />
                 </BSPagination>
-                <BSPagination className="bspage-link-prev" disabled>
+                <BSPagination className="bspage-link-prev-disabled" disabled>
                   <img src={PrevDisabledIconImg} alt="prev-disabled-icon" />
                 </BSPagination>
               </>
@@ -184,10 +184,10 @@ const Pagination = ({
             )}
             {pageInfo.page === pageCount ? (
               <>
-                <BSPagination className="bspage-link-next" disabled>
+                <BSPagination className="bspage-link-next-disabled" disabled>
                   <img src={NextDisabledIconImg} alt="next-disabled-icon" />
                 </BSPagination>
-                <BSPagination className="bspage-link-last" disabled>
+                <BSPagination className="bspage-link-last-disabled" disabled>
                   <img src={LastDisabledIconImg} alt="last-disabled-icon" />
                 </BSPagination>
               </>
