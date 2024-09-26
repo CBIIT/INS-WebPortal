@@ -8,6 +8,14 @@ import BSPagination from 'react-bootstrap/Pagination';
 import styled from 'styled-components';
 import { Dropdown } from 'bootstrap';
 import './Pagination.css';
+import FirstDisabledIconImg from './first_disabled.svg';
+import PrevDisabledIconImg from './prev_disabled.svg';
+import NextDisabledIconImg from './next_disabled.svg';
+import LastDisabledIconImg from './last_disabled.svg';
+import FirstIconImg from './first.svg';
+import PrevIconImg from './prev.svg';
+import NextIconImg from './next.svg';
+import LastIconImg from './last.svg';
 
 const PaginationContainer = styled.div`
   display: flex;
@@ -158,38 +166,38 @@ const Pagination = ({
             {pageInfo.page === 1 ? (
               <>
                 <BSPagination className="bspage-link-first" disabled>
-                  &#124;&#60;
+                  <img src={FirstDisabledIconImg} alt="first-disabled-icon" />
                 </BSPagination>
                 <BSPagination className="bspage-link-prev" disabled>
-                  &#60;
+                  <img src={PrevDisabledIconImg} alt="prev-disabled-icon" />
                 </BSPagination>
               </>
             ) : (
               <>
                 <BSPagination className="bspage-link-first" onClick={() => handlePageClick(0)}>
-                  &#124;&#60;
+                  <img src={FirstIconImg} alt="first-icon" />
                 </BSPagination>
                 <BSPagination className="bspage-link-prev" onClick={() => handlePageClick(pageInfo.page - 1)}>
-                  &#60;
+                  <img src={PrevIconImg} alt="prev-icon" />
                 </BSPagination>
               </>
             )}
             {pageInfo.page === pageCount ? (
               <>
                 <BSPagination className="bspage-link-next" disabled>
-                  &#62;
+                  <img src={NextDisabledIconImg} alt="next-disabled-icon" />
                 </BSPagination>
                 <BSPagination className="bspage-link-last" disabled>
-                  &#62;&#124;
+                  <img src={LastDisabledIconImg} alt="last-disabled-icon" />
                 </BSPagination>
               </>
             ) : (
               <>
                 <BSPagination className="bspage-link-next" onClick={() => handlePageClick(pageInfo.page + 1)}>
-                  &#62;
+                  <img src={NextIconImg} alt="next-icon" />
                 </BSPagination>
                 <BSPagination className="bspage-link-last" onClick={() => handlePageClick(pageCount)}>
-                  &#62;&#124;
+                  <img src={LastIconImg} alt="last-icon" />
                 </BSPagination>
               </>
             )}

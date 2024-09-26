@@ -1,8 +1,6 @@
 .pagination-ccdc {
   margin: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .pagination-ccdc .page-item .page-link {
@@ -55,68 +53,36 @@
   color: #004187;
 }
 
-.bspage-link-first .page-link {
-  position: relative;
-  display: block;
-  text-decoration: none;
-  background-color: #F6FBFF;
-  color: #004187;
-  border-left: 1px solid #A0B3C8;
-  border-right: 1px solid #A0B3C8;
-  font-weight: bold;
-  font-family: Lato;
-  font-size: 15px;
+.bspage-link-first,
+.page-link {
+  margin-left: -80px;
 }
 
 .bspage-link-first.page-item .page-link {
   border-radius: 0;
 }
 
-.bspage-link-prev .page-link {
-  position: relative;
-  display: block;
-  text-decoration: none;
-  background-color: #F6FBFF;
-  color: #004187;
-  border-left: 1px solid #A0B3C8;
-  border-right: 1px solid #A0B3C8;
-  font-weight: bold;
-  font-family: Lato;
-  font-size: 15px;
+.bspage-link-prev,
+.page-link {
+  margin-left: -40px;
 }
 
 .bspage-link-prev.page-item .page-link {
   border-radius: 0;
 }
 
-.bspage-link-next .page-link {
-  position: relative;
-  display: block;
-  text-decoration: none;
-  background-color: #F6FBFF;
-  color: #004187;
-  border-left: 1px solid #A0B3C8;
-  border-right: 1px solid #A0B3C8;
-  font-weight: bold;
-  font-family: Lato;
-  font-size: 15px;
+.bspage-link-next,
+.page-link {
+  margin-left: -40px;
 }
 
 .bspage-link-next.page-item .page-link {
   border-radius: 0;
 }
 
-.bspage-link-last .page-link {
-  position: relative;
-  display: block;
-  text-decoration: none;
-  background-color: #F6FBFF;
-  color: #004187;
-  border-left: 1px solid #A0B3C8;
-  border-right: 1px solid #A0B3C8;
-  font-weight: bold;
-  font-family: Lato;
-  font-size: 15px;
+.bspage-link-last,
+.page-link {
+  margin-left: -40px;
 }
 
 .bspage-link-last.page-item .page-link {
