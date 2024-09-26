@@ -114,6 +114,7 @@
 }
 
 .contentPagingArea {
+  margin-right: 160px;
   position: absolute;
   right: 0;
 }
