@@ -16,6 +16,7 @@ const Container = styled.div`
 
   .selectionBubbleAreaGroup{
     width: 100%
+    margin-left: -10px;
   }
 `;
 
@@ -27,7 +28,8 @@ const BubbleContainer = styled.div`
   font-family: Lato;
   font-weight: 400;
   padding: 5px 14px;
-  margin-left: 15px;
+  margin-left: 10px;
+  margin-top: 5px;
   float: left;
 
   .removeBubble {
@@ -53,7 +55,7 @@ const SearchBoxArea = styled.div`
   .searchBoxInputGroup {
     border-radius: 0;
     width: 100%;
-    padding: 0 0 20px 0;
+    padding: 0 0 15px 0;
     display: flex;
     justify-content: center;
   }

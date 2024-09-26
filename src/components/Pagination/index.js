@@ -8,6 +8,14 @@ import BSPagination from 'react-bootstrap/Pagination';
 import styled from 'styled-components';
 import { Dropdown } from 'bootstrap';
 import './Pagination.css';
+import FirstDisabledIconImg from './first_disabled.svg';
+import PrevDisabledIconImg from './prev_disabled.svg';
+import NextDisabledIconImg from './next_disabled.svg';
+import LastDisabledIconImg from './last_disabled.svg';
+import FirstIconImg from './first.svg';
+import PrevIconImg from './prev.svg';
+import NextIconImg from './next.svg';
+import LastIconImg from './last.svg';
 
 const PaginationContainer = styled.div`
   display: flex;
@@ -29,7 +37,7 @@ const ResultsPerPage = styled.div`
     display: inline-block;
     margin: -3px 0 0 -3px;
     color: #004187;
-    background-color: white;
+    background-color: #F3F3F3;
     border: none;
     font-size: 15px;
   }
@@ -123,10 +131,26 @@ const Pagination = ({
               {pageInfo.pageSize}
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 10 ? 'active-top' : ''}`} role="button" onClick={() => handleSizeClick(10)}>10</a></li>
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 20 ? 'active' : ''}`} role="button" onClick={() => handleSizeClick(20)}>20</a></li>
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 50 ? 'active' : ''}`} role="button" onClick={() => handleSizeClick(50)}>50</a></li>
-              <li><a className={`dropdown-item ${pageInfo.pageSize === 100 ? 'active-bottom' : ''}`} role="button" onClick={() => handleSizeClick(100)}>100</a></li>
+              <li>
+                <a className={`dropdown-item ${pageInfo.pageSize === 10 ? 'active-top' : ''}`} role="button" onClick={() => handleSizeClick(10)}>
+                  10
+                </a>
+              </li>
+              <li>
+                <a className={`dropdown-item ${pageInfo.pageSize === 20 ? 'active' : ''}`} role="button" onClick={() => handleSizeClick(20)}>
+                  20
+                </a>
+              </li>
+              <li>
+                <a className={`dropdown-item ${pageInfo.pageSize === 50 ? 'active' : ''}`} role="button" onClick={() => handleSizeClick(50)}>
+                  50
+                </a>
+              </li>
+              <li>
+                <a className={`dropdown-item ${pageInfo.pageSize === 100 ? 'active-bottom' : ''}`} role="button" onClick={() => handleSizeClick(100)}>
+                  100
+                </a>
+              </li>
             </ul>
           </div>
         </ResultsPerPage>
@@ -140,14 +164,42 @@ const Pagination = ({
         <PageSelect>
           <BSPagination className="pagination-ccdc">
             {pageInfo.page === 1 ? (
-              <BSPagination.Prev className="bspage-link-prev" disabled>&#60;</BSPagination.Prev>
+              <>
+                <BSPagination className="bspage-link-first" disabled>
+                  <img src={FirstDisabledIconImg} alt="first-disabled-icon" />
+                </BSPagination>
+                <BSPagination className="bspage-link-prev" disabled>
+                  <img src={PrevDisabledIconImg} alt="prev-disabled-icon" />
+                </BSPagination>
+              </>
             ) : (
-              <BSPagination.Prev className="bspage-link-prev" onClick={() => handlePageClick(pageInfo.page - 1)}>&#60;</BSPagination.Prev>
+              <>
+                <BSPagination className="bspage-link-first" onClick={() => handlePageClick(0)}>
+                  <img src={FirstIconImg} alt="first-icon" />
+                </BSPagination>
+                <BSPagination className="bspage-link-prev" onClick={() => handlePageClick(pageInfo.page - 1)}>
+                  <img src={PrevIconImg} alt="prev-icon" />
+                </BSPagination>
+              </>
             )}
             {pageInfo.page === pageCount ? (
-              <BSPagination.Next className="bspage-link-next" disabled>&#62;</BSPagination.Next>
+              <>
+                <BSPagination className="bspage-link-next" disabled>
+                  <img src={NextDisabledIconImg} alt="next-disabled-icon" />
+                </BSPagination>
+                <BSPagination className="bspage-link-last" disabled>
+                  <img src={LastDisabledIconImg} alt="last-disabled-icon" />
+                </BSPagination>
+              </>
             ) : (
-              <BSPagination.Next className="bspage-link-next" onClick={() => handlePageClick(pageInfo.page + 1)}>&#62;</BSPagination.Next>
+              <>
+                <BSPagination className="bspage-link-next" onClick={() => handlePageClick(pageInfo.page + 1)}>
+                  <img src={NextIconImg} alt="next-icon" />
+                </BSPagination>
+                <BSPagination className="bspage-link-last" onClick={() => handlePageClick(pageCount)}>
+                  <img src={LastIconImg} alt="last-icon" />
+                </BSPagination>
+              </>
             )}
           </BSPagination>
         </PageSelect>
