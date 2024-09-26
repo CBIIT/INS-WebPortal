@@ -56,6 +56,7 @@
 .bspage-link-first,
 .page-link {
   margin-left: -80px;
+  margin-top: 5px;
 }
 
 .bspage-link-first.page-item .page-link {
@@ -65,6 +66,7 @@
 .bspage-link-prev,
 .page-link {
   margin-left: -40px;
+  margin-top: 10px;
 }
 
 .bspage-link-prev.page-item .page-link {
@@ -74,6 +76,7 @@
 .bspage-link-next,
 .page-link {
   margin-left: -40px;
+  margin-top: 10px;
 }
 
 .bspage-link-next.page-item .page-link {
@@ -83,6 +86,7 @@
 .bspage-link-last,
 .page-link {
   margin-left: -40px;
+  margin-top: 5px;
 }
 
 .bspage-link-last.page-item .page-link {
