@@ -4,7 +4,7 @@
   "version": "4.0.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.6.9",
+    "@apollo/client": "^3.11.8",
     "@apollo/react-components": "^4.0.0",
     "@babel/core": "7.2.2",
     "@bento-core/authentication": "1.0.0",
