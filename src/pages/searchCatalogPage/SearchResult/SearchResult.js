@@ -211,6 +211,7 @@ const SearchResultContainer = styled.div`
     line-height: 20px;
     text-align: left;
     color: #1C58A1;
+    margin-bottom: 10px;
   }
 
   .bodyRow .textSpan {
