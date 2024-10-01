@@ -28,7 +28,7 @@
     "@material-ui/data-grid": "*",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "*",
-    "@svgr/webpack": "4.1.0",
+    "@svgr/webpack": "4.3.3",
     "axios": "^0.21.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
