@@ -11,12 +11,12 @@ const Container = styled.div`
   width: 100%;
 
   .searchBoxAreaGroup{
-    width: 100%
+    width: 100%;
   }
 
   .selectionBubbleAreaGroup{
-    width: 100%
-    margin-left: -10px;
+    width: 830px;
+    margin-left: 180px;
   }
 `;
 
