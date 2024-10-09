@@ -62,7 +62,7 @@ export const widgetConfig = [
   {
     type: 'donut',
     title: 'Programs by NCI DOC',
-    dataName: 'programCountByDoc',
+    dataName: 'programCountByProgramDoc',
     sliceTitle: 'Programs',
   },
   {
