@@ -14,7 +14,7 @@ import GlobalSearchController from '../../pages/search/searchViewController';
 import ProgramDetail from '../../pages/programDetail/programDetailController';
 import ProjectDetail from '../../pages/projectDetail/projectDetailController';
 import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
-
+import DataSetDetailContainer from '../../pages/dataSetDetail/dataSetDetailController';
 import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
 import SearchCatalogPage from '../../pages/searchCatalogPage';
 
@@ -47,6 +47,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <PrivateRoute path="/datasets" access={['admin', 'member']} component={SearchCatalogPage} />
               <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
               <PrivateRoute path="/project/:id" access={['admin', 'member']} component={ProjectDetail} />
+              <PrivateRoute path="/dataset/:id" access={['admin', 'member']} component={DataSetDetailContainer} />
               <Route exact path="/search" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
               <Route path="/search/:id" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
               {aboutPageRoutes.map(
