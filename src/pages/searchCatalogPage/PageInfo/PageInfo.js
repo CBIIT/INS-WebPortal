@@ -50,7 +50,7 @@ const replaceQueryStrPageSize = (query, pageSize) => {
 };
 
 const PageInfo = ({
-  pageInfo,
+  pageInfo = { total: 100, pageSize: 10, page: 1 },
 }) => {
   const query = useQuery();
   const history = useHistory();

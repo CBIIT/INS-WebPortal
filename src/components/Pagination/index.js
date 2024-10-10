@@ -130,7 +130,7 @@ const getPager = (totalPages, currentPage) => {
 };
 
 const Pagination = ({
-  pageInfo = { total: 100, pageSize: 10, page: 1 },
+  pageInfo,
   pageClick,
   sizeClick,
 }) => {
