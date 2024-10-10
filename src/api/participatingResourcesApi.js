@@ -1,7 +1,7 @@
 import { handleResponse, handleError } from './apiUtils';
 import env from '../utils/env';
 
-const baseUrl = 'https://datacatalog.ccdi.cancer.gov/service/dataresources';
+const baseUrl = 'https://studycatalog-dev.cancer.gov/service/datasets';
 
 export function getLandingParticipatingResources() {
   return fetch(`${baseUrl}/landing`)
