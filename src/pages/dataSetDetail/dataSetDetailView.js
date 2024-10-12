@@ -11,6 +11,9 @@ import {
 } from '@material-ui/core';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/dataset_icon.png';
+import {
+  externalLinkIcon,
+} from '../../bento/datasetDetailData';
 
 const DataSetDetailView = ({
   classes, data,
@@ -27,7 +30,7 @@ const DataSetDetailView = ({
         {' '}
         {' '}
         {' '}
-        Genome-wide Pleiotropy Scan across Multiple Cancers
+        {data.dataset_title || ''}
       </Grid>
     </Grid>
 
@@ -45,12 +48,15 @@ const DataSetDetailView = ({
           <div className={classes.headerTitle}>
             <div className={classes.headerMainTitle} id="program_detail_title">
               <span>
-                Dataset: Genome-wide Pleiotropy Scan across Multiple Cancers
+                Dataset:
+                {data.dataset_title || ''}
               </span>
             </div>
             <div className={cn(classes.headerMSubTitle, classes.headerSubTitleCate)}>
               <span id="program_detail_subtile">
-                dbGaP: phs002809
+                dbGaP:
+                {' '}
+                {data.dbGaP_phs || ''}
               </span>
             </div>
           </div>
@@ -66,17 +72,7 @@ const DataSetDetailView = ({
             Study Description
           </Typography>
           <Typography variant="body1" paragraph className={classes.studyContent}>
-            A whole-exome sequencing
-            (WES) study was conducted in
-            3,233 cases diagnosed with multiple
-            primary cancers and 3,229 matched
-            cancer-free controls (90% non-Hispanic
-            white, 3% African-American,
-            3% East Asian, and 4% Latino)
-            selected from individuals in the
-            Kaiser Permanente Research Bank (KPRB)
-            who were members of the Kaiser
-            Permanente Northern California (KPNC) health plan...
+            {data.description || ''}
             {' '}
             <Link href="#datasets" color="primary">
               Read More
@@ -94,42 +90,49 @@ const DataSetDetailView = ({
           <Typography variant="h2" className={classes.title}>Basic Information</Typography>
           <div className={classes.subSection}>
             <Typography variant="body2" className={classes.subTitle}>
-              <strong>Study Page: </strong>
+              <strong>Study Page </strong>
             </Typography>
             <Typography variant="body2" className={classes.text}>
-              <Link href="https://dbGaP link" target="_blank">
-                dbGaP: phs002809
+              <Link href={data.dbGaP_URL} target="_blank">
+                dbGaP:
+                {data.dbGaP_phs || ''}
+                <img
+                  src={externalLinkIcon.src}
+                  alt={externalLinkIcon.alt}
+                  className={classes.externalLinkIcon}
+                />
               </Link>
+
             </Typography>
             <Typography variant="body2" className={classes.subTitle}>
               <strong>NCI Division/Office/Center (DOC): </strong>
             </Typography>
             <Typography variant="body2" className={classes.text}>
-              DCB
+              {data.dataset_doc || ''}
             </Typography>
             <Typography variant="body2" className={classes.subTitle}>
               <strong>Release Date: </strong>
             </Typography>
             <Typography variant="body2" className={classes.text}>
-              10/3/2022
+              {data.release_date || ''}
             </Typography>
             <Typography variant="body2" className={classes.subTitle}>
               <strong>Principal Investigator(s): </strong>
             </Typography>
             <Typography variant="body2" className={classes.text}>
-              John Witte
+              {data.PI_name || ''}
             </Typography>
             <Typography variant="body2" className={classes.subTitle}>
               <strong>Funding Source(s): </strong>
             </Typography>
             <Typography variant="body2" className={classes.text}>
-              CA201358
+              {data.funding_source || ''}
             </Typography>
             <Typography variant="body2" className={classes.subTitle}>
               <strong>Cited Publication PMID(s): </strong>
             </Typography>
             <Typography variant="body2" className={classes.text}>
-              33087929; 36199081
+              {data.dataset_pmid || ''}
             </Typography>
           </div>
         </Grid>
@@ -143,26 +146,26 @@ const DataSetDetailView = ({
                 <strong>Study Type </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                Case-Control; Exome Sequencing; Individual-Level Genomic Data; Prospective
+                {data.study_type || ''}
               </Typography>
 
               <Typography variant="body2" className={classes.subTitle}>
                 <strong>Limitations for Reuse </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                HMB-IRB-NPU
+                {data.limitations_for_reuse || ''}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
                 <strong>Assay Method </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                WES
+                {data.assay_method || ''}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
                 <strong>Participant Count; Sample Count </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                5432; 5432
+                {data.participant_count || ''}
               </Typography>
 
             </Grid>
@@ -171,34 +174,35 @@ const DataSetDetailView = ({
                 <strong>Primary Disease </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                Neoplasms, Multiple Primary
+                {data.primary_disease || ''}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
                 <strong>Related Genes </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                PHF19; TP53; EZH2; CDKN1B ;PBX1
+                {data.related_genes || ''}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
                 <strong>Related Terms </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                Liver Neoplasms; Brain Neoplasms; Brain Tumor
+                {data.related_terms || ''}
               </Typography>
 
               <Typography variant="body2" className={classes.subTitle}>
                 <strong>Study Link(s) </strong>
               </Typography>
-              <Typography variant="body2" className={classes.text}>
-                <Link href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE270231" target="_blank">
-                  https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE270231
-                </Link>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                <Link href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE270231" target="_blank">
-                  https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE270231
-                </Link>
-              </Typography>
+              {data.study_links && data.study_links.length > 0 ? (
+                data.study_links.map((link, index) => (
+                  <Typography variant="body2" className={classes.text} key={index}>
+                    <Link href={link} target="_blank">
+                      {link}
+                    </Link>
+                  </Typography>
+                ))
+              ) : (
+                ''
+              )}
             </Grid>
           </Grid>
         </Grid>
@@ -241,6 +245,11 @@ const styles = (theme) => ({
     background: '#FFFF',
     maxWidth: '1340px',
   },
+  externalLinkIcon: {
+    width: '16px',
+    verticalAlign: 'sub',
+    marginLeft: '4px',
+  },
   nav: {
     paddingLeft: '32px',
     paddingRight: '32px',
@@ -263,9 +272,11 @@ const styles = (theme) => ({
     paddingLeft: '21px',
     paddingRight: '35px',
     borderBottom: '#4B619A 10px solid',
-    height: '80px',
+    height: 'fit-content',
     maxWidth: '1340px',
     margin: 'auto',
+    display: 'inline-block',
+
   },
   headerTitle: {
     margin: 'auto',
@@ -386,6 +397,7 @@ const styles = (theme) => ({
   },
   text: {
     padding: '0 10px 0 0',
+    wordWrap: 'break-word',
   },
   additionalContainer: {
     marginTop: '40px',
