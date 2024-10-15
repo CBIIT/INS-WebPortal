@@ -96,10 +96,10 @@ function searchView(props) {
 
     if (activeVal === 'inactive') {
       if (isSignedIn && !isAuthorized) {
-        history.push(`/request?redirect=/search/${searchText}`);
+        history.push(`/request?redirect=/globalsearch/${searchText}`);
         return;
       }
-      history.push(`/login?redirect=/search/${searchText}`);
+      history.push(`/login?redirect=/globalsearch/${searchText}`);
     }
   };
 
@@ -117,7 +117,7 @@ function searchView(props) {
     queryCountAPI(value, !authCheck()).then((d) => {
       setSearchText(value);
       setSearchCounts(d);
-      history.push(`/search/${value}`);
+      history.push(`/globalsearch/${value}`);
     });
   };
 
@@ -133,7 +133,7 @@ function searchView(props) {
       setSearchText('');
       setSearchCounts([]);
       if (reason === 'clear') {
-        history.push('/search');
+        history.push('/globalsearch');
       }
       return [];
     }

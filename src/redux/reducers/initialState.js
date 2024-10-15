@@ -21,7 +21,7 @@ export default {
       pageInfo: {
         page: 1,
         pageSize: 10,
-        total: 0,
+        total: 100,
       },
       sort: {
         name: 'Dataset',
@@ -32,7 +32,6 @@ export default {
     searchResults: [],
     searchSourceResults: 'all',
     resourcesList: [],
-    viewType: 'card',
     details: {},
   },
   documentSearch: {
@@ -41,7 +40,7 @@ export default {
     pageInfo: {
       page: 1,
       pageSize: 10,
-      total: -1,
+      total: 100,
     },
   },
   application: {
@@ -51,8 +50,8 @@ export default {
     siteUpdates: [],
     pageInfo: {
       page: 1,
-      pageSize: 3,
-      total: 0,
+      pageSize: 10,
+      total: 100,
     },
     glossaryTerms: {},
     glossaryLetters: {},

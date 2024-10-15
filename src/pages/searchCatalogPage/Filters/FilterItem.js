@@ -8,16 +8,12 @@ const OptionContainer = styled.div`
   display: flex;
   padding: 5px 0 5px 10px;
   
-  :nth-child(6n+1) {
-    background-color: #e9e9e9;
+  :nth-child(even) {
+    background-color: #F9FCFF;
   }
 
-  :nth-child(6n+3) {
-    background-color: #d6e6f3;
-  }
-
-  :nth-child(6n+5) {
-    background-color: #e9e2bc;
+  :nth-child(odd) {
+    background-color: #F0F6F6;
   }
 
   .form-check-input {
@@ -36,10 +32,15 @@ const OptionContainer = styled.div`
 
 const SearchableOption = styled.span`
   padding-left: 8px;
-  font-weight: bold;
-  color: #004187;
-  font-size: 17px;
+  color: #000000;
   cursor: pointer;
+  font-family: Nunito;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 15px;
+  letter-spacing: 0.15px;
+  text-align: left;
+  width: 100%;
 
   &:hover {
     text-decoration: underline;
@@ -62,30 +63,16 @@ const FilterItem = ({
 
   return (
     <OptionContainer>
-      {
-        highlight ? (
-          <>
-            <label>
-              <span style={{ display: 'none' }}>{item.data_resource_id}</span>
-              <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.data_resource_id} checked={checked} readOnly />
-            </label>
-            <SearchableOption title={`${item.resource_name} , ${item.resource_type}`} onClick={handleResourceClick}>
-              {item.data_resource_id}
-            </SearchableOption>
-          </>
-        )
-          : (
-            <>
-              <label>
-                <span style={{ display: 'none' }}>{item.data_resource_id}</span>
-                <input className="form-check-input checkbox-disabled" type="checkbox" value={item.data_resource_id} checked={checked} disabled="disabled" />
-              </label>
-              <OptionLabel title={`${item.resource_name} , ${item.resource_type}`}>
-                {item.data_resource_id}
-              </OptionLabel>
-            </>
-          )
-      }
+      <label>
+        <span style={{ display: 'none' }}>{item.data_resource_id}</span>
+        <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.data_resource_id} checked={checked} readOnly />
+      </label>
+      <SearchableOption title={`${item.resource_name} , ${item.resource_type}`} onClick={handleResourceClick}>
+        {item.data_resource_id}
+        <span style={{ float: 'right' }}>
+          (123)
+        </span>
+      </SearchableOption>
     </OptionContainer>
   );
 };

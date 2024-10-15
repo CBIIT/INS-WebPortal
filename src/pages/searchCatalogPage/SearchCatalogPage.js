@@ -1,15 +1,11 @@
 /* eslint-disable react/forbid-prop-types */
-/* eslint-disable */
-import React, { useState, useEffect } from 'react';
-import {
-  useLocation,
-  useHistory,
-} from 'react-router-dom';
+/* eslint-disable max-len */
+import React, { useState, useEffect, useMemo } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { OverlayTrigger } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import SearchBox from './SearchBox';
 import ExportButton from './ExportButton';
-import SwitchView from './SwitchView';
 import Sorting from './Sorting';
 import PageInfo from './PageInfo';
 import Filters from './Filters';
@@ -18,10 +14,10 @@ import './searchCatalogPage.css';
 
 const useSearchParams = () => {
   const { search } = useLocation();
-  return React.useMemo(() => new URLSearchParams(search), [search]);
+  return useMemo(() => new URLSearchParams(search), [search]);
 };
 
-const useQuery = () => new URLSearchParams(useLocation().search);
+// const useQuery = () => new URLSearchParams(useLocation().search);
 
 const replaceQueryStr = (query, searchText) => {
   let str = '';
@@ -40,9 +36,6 @@ const replaceQueryStr = (query, searchText) => {
   }
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
-  }
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
   }
   return str.substring(1);
 };
@@ -74,23 +67,18 @@ const replaceResourceFilter = (query, filter) => {
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
   }
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
-  }
   return str.substring(1);
 };
 
 const SearchCatalogPage = ({
   searchKeyword,
   resourceFilters,
-  viewType,
   onLoadFromUrlQuery,
   onStartFullTextSearch,
   onBubbleSearchTextRemoveClick,
   onBubbleResourcesRemoveClick,
 }) => {
-  const query = useQuery();
-  const [searchParams] = useSearchParams();
+  const query = useSearchParams();
   const history = useHistory();
   const searchTerm = query.get('search_text') ? query.get('search_text').trim() : '';
   const [searchText, setSearchText] = useState(searchTerm);
@@ -116,36 +104,34 @@ const SearchCatalogPage = ({
     if (query.get('sortOrder')) {
       options.sortOrder = query.get('sortOrder').trim();
     }
-    if (query.get('viewType')) {
-      options.viewType = query.get('viewType').trim();
-    }
-      onLoadFromUrlQuery(searchTerm, options).catch((error) => {
-      throw new Error(`Loading search from url query failed: ${error}`);
+
+    onLoadFromUrlQuery(searchTerm, options).catch((error) => {
+      console.error(`Loading search from URL query failed: ${error}`);
     });
-  }, [searchParams]);
+  }, [query.toString()]);
 
   const handleBubbleSearchTextRemoveClick = () => {
     setSearchText('');
     const queryStr = replaceQueryStr(query, '');
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
     onBubbleSearchTextRemoveClick();
   };
 
-  const handleBubbleResourcesRemoveClick = () => {
-    const queryStr = replaceResourceFilter(query, '');
-    history.push(`/search?${queryStr}`);
+  const handleBubbleResourcesRemoveClick = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter);
+    history.push(`/datasets?${queryStr}`);
     onBubbleResourcesRemoveClick();
   };
 
   const handleSearchBoxKeyPress = () => {
     const queryStr = replaceQueryStr(query, searchText);
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
     onStartFullTextSearch(searchText);
   };
 
   const handleSearchSubmit = () => {
     const queryStr = replaceQueryStr(query, searchText);
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
     onStartFullTextSearch(searchText);
   };
 
@@ -159,7 +145,7 @@ const SearchCatalogPage = ({
         <div className="searchBarArea">
           <div className="searchBarLabel">
             <span>
-              Search Results
+              Explore Datasets
             </span>
             <div className="searchTooltip">
               <OverlayTrigger
@@ -216,23 +202,14 @@ const SearchCatalogPage = ({
             <Filters />
           </div>
           <div className="searchContentContainer">
-            <div className="searchContentHeader">
-              <div className="contentSwitchArea">
-                <SwitchView />
-              </div>
-              <div className="exportArea">
-                <ExportButton />
-              </div>
-            </div>
-            <div className={viewType === 'card' ? 'searchDisplayOptionsRow' : 'searchDisplayOptionsRowTable'}>
+            <div className="searchDisplayOptionsRow">
               <div className="searchSortingArea">
-                {
-                  viewType === 'card' ? <Sorting /> : ''
-                }
+                <Sorting />
               </div>
               <div className="contentPagingArea">
                 <PageInfo />
               </div>
+              <ExportButton />
             </div>
             <div className="searchContent">
               <SearchResult />
@@ -252,7 +229,6 @@ const SearchCatalogPage = ({
 SearchCatalogPage.propTypes = {
   searchKeyword: PropTypes.string.isRequired,
   resourceFilters: PropTypes.array.isRequired,
-  viewType: PropTypes.string.isRequired,
   onLoadFromUrlQuery: PropTypes.func.isRequired,
   onStartFullTextSearch: PropTypes.func.isRequired,
   onBubbleSearchTextRemoveClick: PropTypes.func.isRequired,

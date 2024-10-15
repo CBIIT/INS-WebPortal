@@ -82,9 +82,6 @@ const replaceQueryStr = (query, sortOrder) => {
     str += `&sortBy=${query.get('sortBy')}`;
   }
   str += `&sortOrder=${sortOrder}`;
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
-  }
   return str.substring(1);
 };
 
@@ -96,21 +93,20 @@ const Sorting = ({
 
   const handleASCSorting = () => {
     const queryStr = replaceQueryStr(query, 'asc');
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
   };
 
   const handleDESCSorting = () => {
     const queryStr = replaceQueryStr(query, 'desc');
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
   };
 
   return (
     <>
       <SortingContainer>
         <SortingLabel>
-          SORT BY
+          SORT BY TITLE
         </SortingLabel>
-        <SelectionInput value={sort} items={[{ name: 'Dataset', k: 'dataset_name.raw', v: 'asc' }, { name: 'Cases', k: 'case_id', v: 'asc' }, { name: 'Samples', k: 'sample_id', v: 'asc' }, { name: 'Resource', k: 'data_resource_id', v: 'asc' }, { name: 'Primary Dataset Scope', k: 'primary_dataset_scope', v: 'asc' }]} />
       </SortingContainer>
       {
         sort.v === 'asc'

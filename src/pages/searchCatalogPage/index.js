@@ -9,7 +9,6 @@ const ReduxSearchCatalogPage = (() => {
     searchCriteria: state.datasets.searchCriteria.search_text,
     searchKeyword: state.datasets.searchCriteria.search_text,
     resourceFilters: state.datasets.searchCriteria.resources_filter,
-    viewType: state.datasets.viewType,
   });
 
   const mapDispatchToProps = {

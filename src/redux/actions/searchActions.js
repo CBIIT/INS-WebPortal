@@ -43,10 +43,6 @@ export function switchSize(pageInfo) {
   return { type: types.SWITCH_SIZE, pageInfo };
 }
 
-export function switchView(viewType) {
-  return { type: types.SWITCH_VIEW, viewType };
-}
-
 export function loadDatasetDetailSuccess(id, data) {
   const tmp = {};
   tmp[id] = data;
@@ -111,7 +107,6 @@ export function loadFromUrlQuery(searchText, filters) {
     } else {
       searchCriteria.sort.v = 'asc';
     }
-    searchCriteria.viewType = filters.viewType ? filters.viewType : 'card';
     return searchApi.searchCatalog(searchCriteria)
       .then((searchResults) => {
         dispatch(loadSearchResultsSuccess(searchResults.data));
@@ -121,7 +116,6 @@ export function loadFromUrlQuery(searchText, filters) {
         dispatch(switchSize(searchResults.data.pageInfo));
         dispatch(switchSorting({ name: searchResults.data.sort.name, k: searchResults.data.sort.k }));
         dispatch(switchSortingOrder(searchResults.data.sort.v));
-        dispatch(switchView(searchCriteria.viewType));
       })
       .catch((error) => {
         throw error;
@@ -175,13 +169,6 @@ export function pageSelect(pageInfo) {
 export function sizeSelect(pageInfo) {
   const func = function func(dispatch) {
     dispatch(switchSize({ pageSize: pageInfo.pageSize ? pageInfo.pageSize : 10 }));
-  };
-  return func;
-}
-
-export function switchDataView(viewType) {
-  const func = function func(dispatch) {
-    return dispatch(switchView(viewType));
   };
   return func;
 }

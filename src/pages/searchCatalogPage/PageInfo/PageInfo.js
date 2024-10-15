@@ -27,9 +27,6 @@ const replaceQueryStr = (query, page) => {
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
   }
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
-  }
   return str.substring(1);
 };
 
@@ -49,14 +46,11 @@ const replaceQueryStrPageSize = (query, pageSize) => {
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
   }
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
-  }
   return str.substring(1);
 };
 
 const PageInfo = ({
-  pageInfo,
+  pageInfo = { total: 100, pageSize: 10, page: 1 },
 }) => {
   const query = useQuery();
   const history = useHistory();
@@ -64,13 +58,13 @@ const PageInfo = ({
   const pageClick = (page) => {
     window.scrollTo(0, 0);
     const queryStr = replaceQueryStr(query, page);
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
   };
 
   const sizeClick = (pageSize) => {
     window.scrollTo(0, 0);
     const queryStr = replaceQueryStrPageSize(query, pageSize);
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
   };
 
   return (
