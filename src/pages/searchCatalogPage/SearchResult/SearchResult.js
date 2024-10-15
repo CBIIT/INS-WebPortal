@@ -50,9 +50,21 @@ const SearchResultContainer = styled.div`
   }
 
   .container .headerRow .resultTitle {
-    color: #046ab2;
-    font-weight: bold;
-    padding: 5px 0;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    color: #20506A;
+  }
+
+  .resultSubTitle{
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    text-align: left;
+    color: #571AFF;
   }
 
   .headerRow .piBlock {
@@ -126,10 +138,12 @@ const SearchResultContainer = styled.div`
   }
 
   .bodyRow .itemSpan {
-    margin-left: 5px;
-    padding: 0 5px;
-    display: inline-block;
-    margin-bottom: 5px;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    color: #212529;
   }
 
   .bodyRow b {
@@ -190,20 +204,41 @@ const SearchResultContainer = styled.div`
     // margin: 0px 0px 0px 0px;
   }
 
+  .labelDiv{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+    color: #1C58A1;
+    margin-bottom: 10px;
+  }
+
   .bodyRow .textSpan {
-    margin-left: 5px;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    color: #212529;
   }
 
   .bodyRow .caseCountHighlight {
-    font-family: 'Inter';
-    font-weight: 600;
-    color: #625bef;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    color: #212529;
   }
 
   .bodyRow .sampleCountHighlight {
-    font-family: 'Inter';
-    font-weight: 600;
-    color: #11a78b;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    color: #212529;
   }
 
   .bodyRow .itemContinued {
@@ -315,16 +350,12 @@ const replaceQueryStr = (query, sorting) => {
   }
   str += `&sortBy=${sorting.k}`;
   str += `&sortOrder=${sorting.v}`;
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
-  }
   return str.substring(1);
 };
 
 const SearchResult = ({
   resultList,
   sort,
-  viewType,
   onChangeSorting,
   onChangeSortingOrder,
   onLoadGlossaryTerms,
@@ -355,7 +386,7 @@ const SearchResult = ({
       }
       toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
       const queryStr = replaceQueryStr(query, toSortBy);
-      history.push(`/search?${queryStr}`);
+      history.push(`/datasets?${queryStr}`);
       onChangeSortingOrder(toSortBy.v);
     } else {
       const toSortBy = {};
@@ -377,7 +408,7 @@ const SearchResult = ({
       }
       toSortBy.v = sort.v;
       const queryStr = replaceQueryStr(query, toSortBy);
-      history.push(`/search?${queryStr}`);
+      history.push(`/datasets?${queryStr}`);
       onChangeSorting(toSortBy);
     }
   };
@@ -551,7 +582,6 @@ const SearchResult = ({
     const result = rt.content.projects ? rt.content.projects.map((rst) => rst.p_k) : [];
     let matched = [];
 
-    // sort by alphabetic order first
     tmp.sort((a, b) => {
       const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
       const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
@@ -573,9 +603,8 @@ const SearchResult = ({
 
   useEffect(() => {
     initializePopover();
-  }, [resultList, viewType, glossaryTerms]);
+  }, [resultList, glossaryTerms]);
 
-  // fetch data if there is new terms on the page
   useEffect(() => {
     const termSet = [...new Set(getTooltipTermList)].filter((term) => !(term in glossaryTerms));
     const termPara = { termNames: termSet };
@@ -590,112 +619,108 @@ const SearchResult = ({
     <>
       <SearchResultContainer>
         {
-          viewType === 'card' && (
-            resultList.length === 0 ? (
-              <div className="messageContainer">No result found. Please refine your search.</div>
-            ) : resultList.map((rst, idx) => {
-              const key = `sr_${idx}`;
-              const tooltip = glossaryTerms[rst.content.primary_dataset_scope];
-              let desc = rst.highlight && rst.highlight.desc ? rst.highlight.desc[0] : rst.content.desc;
-              if (desc === null) {
-                desc = '';
-              }
-              if (desc.length > 500) {
-                desc = `${desc.substring(0, 500).replace(/<(?![b/])/g, '&lt;')} ...`;
+          resultList.length === 0 ? (
+            <div className="messageContainer">No result found. Please refine your search.</div>
+          ) : resultList.map((rst, idx) => {
+            const key = `sr_${idx}`;
+            const tooltip = glossaryTerms[rst.content.primary_dataset_scope];
+            let desc = rst.highlight && rst.highlight.desc ? rst.highlight.desc[0] : rst.content.desc;
+            if (desc === null) {
+              desc = '';
+            }
+            if (desc.length > 500) {
+              desc = `${desc.substring(0, 500).replace(/<(?![b/])/g, '&lt;')} ...`;
+            } else {
+              desc = desc.replace(/<(?![b/])/g, '&lt;');
+            }
+            const arr = desc.split('http');
+            let descArr = [];
+            const isSearchArr = [];
+            if (arr.length > 1) {
+              if (arr[0].endsWith('<b>')) {
+                descArr.push(arr[0].substring(0, arr[0].length - 3));
+                isSearchArr.push(0);
               } else {
-                desc = desc.replace(/<(?![b/])/g, '&lt;');
+                descArr.push(arr[0]);
+                isSearchArr.push(0);
               }
-              const arr = desc.split('http');
-              let descArr = [];
-              const isSearchArr = [];
-              if (arr.length > 1) {
-                if (arr[0].endsWith('<b>')) {
-                  descArr.push(arr[0].substring(0, arr[0].length - 3));
-                  isSearchArr.push(0);
+              for (let i = 1; i < arr.length; i += 1) {
+                const urlArr = arr[i].split(' ');
+                if (urlArr[0].includes('</b>')) {
+                  isSearchArr.push(1);
                 } else {
-                  descArr.push(arr[0]);
                   isSearchArr.push(0);
                 }
-                for (let i = 1; i < arr.length; i += 1) {
-                  const urlArr = arr[i].split(' ');
-                  if (urlArr[0].includes('</b>')) {
-                    isSearchArr.push(1);
+                const url = urlArr[0].replace('</b>', '');
+                const urlLastChar = url[url.length - 1];
+                if (',;.()<>{}'.includes(urlLastChar)) {
+                  const newUrl = 'http'.concat(url.substring(0, url.length - 1));
+                  descArr.push(newUrl);
+                  const restText = arr[i].split(url.substring(0, url.length - 1))[1];
+                  if (restText.endsWith('<b>')) {
+                    descArr.push(restText.substring(0, restText.length - 3));
                   } else {
-                    isSearchArr.push(0);
+                    descArr.push(restText);
                   }
-                  const url = urlArr[0].replace('</b>', '');
-                  const urlLastChar = url[url.length - 1];
-                  if (',;.()<>{}'.includes(urlLastChar)) {
-                    const newUrl = 'http'.concat(url.substring(0, url.length - 1));
-                    descArr.push(newUrl);
-                    const restText = arr[i].split(url.substring(0, url.length - 1))[1];
+                  isSearchArr.push(0);
+                } else {
+                  const newUrl = 'http'.concat(url);
+                  descArr.push(newUrl);
+                  if (urlArr.length !== 1) {
+                    const restText = arr[i].split(url)[1];
                     if (restText.endsWith('<b>')) {
                       descArr.push(restText.substring(0, restText.length - 3));
                     } else {
                       descArr.push(restText);
                     }
                     isSearchArr.push(0);
-                  } else {
-                    const newUrl = 'http'.concat(url);
-                    descArr.push(newUrl);
-                    if (urlArr.length !== 1) {
-                      const restText = arr[i].split(url)[1];
-                      if (restText.endsWith('<b>')) {
-                        descArr.push(restText.substring(0, restText.length - 3));
-                      } else {
-                        descArr.push(restText);
-                      }
-                      isSearchArr.push(0);
-                    }
                   }
                 }
-              } else {
-                descArr = arr;
-                isSearchArr.push(0);
               }
-              const otherMatches = [];
-              if (rst.highlight) {
-                Object.keys(rst.highlight).forEach((hl) => {
-                  if (hl !== 'dataset_name' && hl !== 'data_resource_id' && hl !== 'data_resource_name' && hl !== 'desc'
-                && hl !== 'projects.p_k' && hl !== 'case_disease_diagnosis.k' && hl !== 'case_disease_diagnosis.s'
-                && hl !== 'case_tumor_site.k' && hl !== 'case_tumor_site.s' && hl !== 'sample_assay_method.k') {
-                    otherMatches.push(hl);
-                  }
-                });
-              }
-              const additionalMatches = [];
-              if (rst.additionalHits) {
-                rst.additionalHits.forEach((add) => {
-                  const tmp = {};
-                  tmp.name = add.content.attr_name;
-                  tmp.matches = add.highlight['additional.attr_set.k'];
-                  additionalMatches.push(tmp);
-                });
-              }
-              return (
-                <div key={key} className="container">
-                  <div className="row align-items-start headerRow">
-                    <div className="col-sm-8 resultTitle">
-                      <Link to={`/dataset/${rst.content.dataset_id}`}>{rst.content.dataset_name}</Link>
-                    </div>
-                    <div className="col-sm-4">
-                      <span className="typeBlock" data-bs-custom-class="custom-popover" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content={tooltip}>
-                        {rst.content.primary_dataset_scope}
-                      </span>
-                    </div>
+            } else {
+              descArr = arr;
+              isSearchArr.push(0);
+            }
+            const otherMatches = [];
+            if (rst.highlight) {
+              Object.keys(rst.highlight).forEach((hl) => {
+                if (hl !== 'dataset_name' && hl !== 'data_resource_id' && hl !== 'data_resource_name' && hl !== 'desc'
+                  && hl !== 'projects.p_k' && hl !== 'case_disease_diagnosis.k' && hl !== 'case_disease_diagnosis.s'
+                  && hl !== 'case_tumor_site.k' && hl !== 'case_tumor_site.s' && hl !== 'sample_assay_method.k') {
+                  otherMatches.push(hl);
+                }
+              });
+            }
+            const additionalMatches = [];
+            if (rst.additionalHits) {
+              rst.additionalHits.forEach((add) => {
+                const tmp = {};
+                tmp.name = add.content.attr_name;
+                tmp.matches = add.highlight['additional.attr_set.k'];
+                additionalMatches.push(tmp);
+              });
+            }
+            return (
+              <div key={key} className="container">
+                <div className="row align-items-start headerRow">
+                  <div className="col-sm resultTitle">
+                    {/* <Link to={`/dataset/${rst.content.dataset_id}`}>{rst.content.dataset_name}</Link> */}
+                    {rst.content.dataset_name}
                   </div>
-                  <div className="row align-items-start subHeaderRow">
-                    <div className="col-sm">
-                      <img src={dataResourceIcon} alt="data-resource" />
+                </div>
+                <div className="row align-items-start subHeaderRow">
+                  <div className="col-sm resultSubTitle">
+                    <img src={dataResourceIcon} alt="data-resource" />
                     &nbsp;
-                      <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link>
-                    </div>
+                    {/* <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link> */}
+                    {rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}
                   </div>
-                  {
+                </div>
+                {
                   caseDiseaseDiagnosisList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Case Disease Diagnosis:</label>
+                      <div className="col labelDiv">
+                        <label>Primary Disease:&nbsp;&nbsp;&nbsp;</label>
                         {
                           caseDiseaseDiagnosisList[idx].length > 10 ? caseDiseaseDiagnosisList[idx].slice(0, 10).map((cdd, cddidx) => {
                             const cddkey = `cdd_${cddidx}`;
@@ -721,11 +746,11 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                  {
+                {
                   rst.content.case_id && (
                     <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Case Count:</label>
+                      <div className="col labelDiv">
+                        <label>Participant Count:&nbsp;&nbsp;&nbsp;</label>
                         <span className="textSpan caseCountHighlight">
                           {rst.content.case_id.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                         </span>
@@ -733,7 +758,7 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                  {
+                {
                   sampleAssayMethodList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -763,11 +788,11 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                  {
+                {
                   rst.content.sample_id && (
                     <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Sample Count:</label>
+                      <div className="col labelDiv">
+                        <label>Sample Count:&nbsp;&nbsp;&nbsp;</label>
                         <span className="textSpan sampleCountHighlight">
                           {rst.content.sample_id.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                         </span>
@@ -775,36 +800,36 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                  {
+                {
                   desc !== '' && (
                     <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Description:</label>
+                      <div className="col labelDiv">
+                        <label>Description:&nbsp;&nbsp;&nbsp;</label>
                         <span className="textSpan">
                           {
-                          descArr.map((item, desidx) => {
-                            const deskey = `des_${desidx}`;
-                            return (
-                              item.includes('http')
-                                ? (
-                                  <span key={deskey} className={isSearchArr[desidx] === 1 ? 'descLink' : null}>
-                                    {
-                                  isSearchArr[desidx] === 1
-                                    ? <a href={item} target="_blank" rel="noreferrer noopener">{item}</a>
-                                    : <a href={item} target="_blank" rel="noreferrer noopener" style={{ backgroundColor: 'white', fontWeight: 'bold', textDecoration: 'underline' }}>{item}</a>
-                                }
-                                  </span>
-                                )
-                                : <span key={deskey}>{ReactHtmlParser(item)}</span>
-                            );
-                          })
-                        }
+                            descArr.map((item, desidx) => {
+                              const deskey = `des_${desidx}`;
+                              return (
+                                item.includes('http')
+                                  ? (
+                                    <span key={deskey} className={isSearchArr[desidx] === 1 ? 'descLink' : null}>
+                                      {
+                                        isSearchArr[desidx] === 1
+                                          ? <a href={item} target="_blank" rel="noreferrer noopener">{item}</a>
+                                          : <a href={item} target="_blank" rel="noreferrer noopener" style={{ backgroundColor: 'white', fontWeight: 'bold', textDecoration: 'underline' }}>{item}</a>
+                                      }
+                                    </span>
+                                  )
+                                  : <span key={deskey}>{ReactHtmlParser(item)}</span>
+                              );
+                            })
+                          }
                         </span>
                       </div>
                     </div>
                   )
                 }
-                  {
+                {
                   caseTumorSiteList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -834,7 +859,7 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                  {
+                {
                   projectsList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -864,7 +889,7 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                  {
+                {
                   otherMatches.slice(0, 10).map((hl, hlidx) => {
                     const hlKey = `hl_${hl}_${hlidx}`;
                     let otherLinks = `${(rst.highlight[hl])}`;
@@ -880,22 +905,22 @@ const SearchResult = ({
                           :&nbsp;
                           {/* {ReactHtmlParser(rst.highlight[hl])} */}
                           {
-                              (otherLinks && otherLinks[0].includes('http')) ? otherLinks.map((ol, olidx) => {
-                                const olkey = `cdd_${olidx}`;
-                                return (
-                                  <span key={olkey} className="itemSpan">
-                                    {ol.includes('http') ? <a href={ol} target="_blank" rel="noreferrer noopener">{ol}</a> : ol}
-                                  </span>
-                                );
-                              })
-                                : ReactHtmlParser(rst.highlight[hl][0])
-                            }
+                            (otherLinks && otherLinks[0].includes('http')) ? otherLinks.map((ol, olidx) => {
+                              const olkey = `cdd_${olidx}`;
+                              return (
+                                <span key={olkey} className="itemSpan">
+                                  {ol.includes('http') ? <a href={ol} target="_blank" rel="noreferrer noopener">{ol}</a> : ol}
+                                </span>
+                              );
+                            })
+                              : ReactHtmlParser(rst.highlight[hl][0])
+                          }
                         </div>
                       </div>
                     );
                   })
                 }
-                  {
+                {
                   additionalMatches.length > 0 && additionalMatches.map((am, amidx) => {
                     const addkey = `add_${amidx}`;
                     return (
@@ -945,94 +970,9 @@ const SearchResult = ({
                     );
                   })
                 }
-                </div>
-              );
-            }))
-        }
-        {
-          viewType === 'table' && (
-            <table className="table table-striped">
-              <TableHead>
-                <tr style={{ color: '#004187' }}>
-                  <th scope="col" width="40%" abbr="Dataset" onClick={() => handleSortBy('Dataset')}>
-                    Dataset&nbsp;
-                    {
-                          sort.k === 'dataset_name.raw' && (
-                            sort.v === 'desc'
-                              ? <SortingOrder />
-                              : <SortingOrderDesc />
-                          )
-                        }
-                  </th>
-                  <th scope="col" width="12%" abbr="Cases" onClick={() => handleSortBy('Cases')}>
-                    Cases&nbsp;
-                    {
-                          sort.k === 'case_id' && (
-                            sort.v === 'desc'
-                              ? <SortingOrder />
-                              : <SortingOrderDesc />
-                          )
-                        }
-                  </th>
-                  <th scope="col" width="13%" abbr="Samples" onClick={() => handleSortBy('Samples')}>
-                    Samples&nbsp;
-                    {
-                          sort.k === 'sample_id' && (
-                            sort.v === 'desc'
-                              ? <SortingOrder />
-                              : <SortingOrderDesc />
-                          )
-                        }
-                  </th>
-                  <th scope="col" width="15%" abbr="Resource" onClick={() => handleSortBy('Resource')}>
-                    Resource&nbsp;
-                    {
-                          sort.k === 'data_resource_id' && (
-                            sort.v === 'desc'
-                              ? <SortingOrder />
-                              : <SortingOrderDesc />
-                          )
-                        }
-                  </th>
-                  <th scope="col" width="20%" abbr="Primary Dataset Scope" onClick={() => handleSortBy('Primary Dataset Scope')}>
-                    Primary Dataset Scope&nbsp;
-                    {
-                          sort.k === 'primary_dataset_scope' && (
-                            sort.v === 'desc'
-                              ? <SortingOrder />
-                              : <SortingOrderDesc />
-                          )
-                        }
-                  </th>
-                </tr>
-              </TableHead>
-              <tbody>
-                {
-                  resultList.length === 0 ? (
-                    <div className="tableMessageContainer">No result found. Please refine your search.</div>
-                  ) : resultList.map((rst, idx) => {
-                    const key = `dataset_table_${idx}`;
-                    const tooltip = glossaryTerms[rst.content.primary_dataset_scope];
-                    return (
-                      <tr key={key} className="datasetTableRow">
-                        <td><Link to={`/dataset/${rst.content.dataset_id}`}>{rst.content.dataset_name}</Link></td>
-                        <td>{rst.content.case_id}</td>
-                        <td>{rst.content.sample_id}</td>
-                        <td><Link to={`/resource/${rst.content.data_resource_id}`}>{rst.content.data_resource_id}</Link></td>
-                        <td>
-                          <span className="typeBlock">
-                            <span data-bs-custom-class="custom-popover" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content={tooltip}>
-                              {rst.content.primary_dataset_scope}
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })
-                  }
-              </tbody>
-            </table>
-          )
+              </div>
+            );
+          })
         }
       </SearchResultContainer>
     </>
@@ -1042,7 +982,6 @@ const SearchResult = ({
 SearchResult.propTypes = {
   resultList: PropTypes.array.isRequired,
   sort: PropTypes.object.isRequired,
-  viewType: PropTypes.string.isRequired,
   onChangeSorting: PropTypes.func.isRequired,
   onChangeSortingOrder: PropTypes.func.isRequired,
   onLoadGlossaryTerms: PropTypes.func.isRequired,

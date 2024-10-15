@@ -70,7 +70,7 @@ grantsOverview(
   grant_title
   principal_investigators
   program_officers
-  project_end_date
+  grant_end_date
   project_id
 }
 }
@@ -97,7 +97,7 @@ publicationsOverview(
   project_ids
   publication_date
   relative_citation_ratio
-  title
+  publication_title
 }
 }
   `;
@@ -185,7 +185,7 @@ export const tabContainers = [
         className: 'grants_fiscal_year_6',
       },
       {
-        dataField: 'project_end_date',
+        dataField: 'grant_end_date',
         header: 'Project End Date',
         display: true,
         tooltipText: 'sort',

@@ -79,11 +79,6 @@ export default function searchReducer(state = initialState.datasets, action) {
           },
         },
       };
-    case types.SWITCH_VIEW:
-      return {
-        ...state,
-        viewType: action.viewType,
-      };
     case types.LOAD_DATASET_DETAIL_SUCCESS:
       return {
         ...state,

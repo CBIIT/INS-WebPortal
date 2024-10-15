@@ -18,13 +18,13 @@ export default function applicationReducer(state = initialState.application, act
       return {
         ...state,
         siteUpdates: action.siteUpdates,
-        // pageInfo: action.siteUpdates.pageInfo,
+        pageInfo: action.siteUpdates.pageInfo,
       };
     case types.ADD_SITE_UPDATE_SUCCESS:
       return {
         ...state,
         siteUpdates: state.siteUpdates.concat(action.siteUpdates),
-        // pageInfo: action.siteUpdates.pageInfo,
+        pageInfo: action.siteUpdates.pageInfo,
       };
     case types.SWITCH_PAGE:
       return {

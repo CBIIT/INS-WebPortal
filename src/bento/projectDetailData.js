@@ -34,7 +34,7 @@ const leftPanel = [
       },
       {
         label: 'Organization',
-        dataField: 'org_name',
+        dataField: 'project_org_name',
       },
       {
         label: 'Project Start Date',
@@ -64,9 +64,9 @@ const leftPanel = [
 const GET_PROJECT_DETAIL_DATA_QUERY = gql`
 query projectDetails($project_id: String) {
   projectDetails(project_id: $project_id) {
-      abstract_text
-      opportunity_number
-      org_name
+      project_abstract_text
+      project_opportunity_number
+      project_org_name
       program_acronyms
       program_ids
       project_end_date

@@ -1,10 +1,11 @@
-/* eslint-disable */
+/* eslint-disable react/forbid-prop-types */
 import React, { useEffect } from 'react';
 import {
   useLocation,
   useHistory,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core';
 import FilterItem from './FilterItem';
 import './Filters.css';
 import clearAllIcon from '../../../assets/img/clearAllIcon.svg';
@@ -39,9 +40,6 @@ const replaceResourceFilter = (query, filter) => {
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
   }
-  if (query.get('viewType')) {
-    str += `&viewType=${query.get('viewType')}`;
-  }
   return str.substring(1);
 };
 
@@ -53,9 +51,10 @@ const Filters = ({
 }) => {
   const query = useQuery();
   const history = useHistory();
-  const sources = !sourceFilters || sourceFilters === 'all' 
-  ? searchFilters.map((element) => element.data_resource_id.toLowerCase()) 
-  : sourceFilters.filter((element) => element);
+  const sourceFiltersArray = Array.isArray(sourceFilters) ? sourceFilters : [sourceFilters];
+  const sources = !sourceFilters || sourceFilters === 'all'
+    ? searchFilters.map((element) => element.data_resource_id.toLowerCase())
+    : sourceFiltersArray.filter((element) => element);
 
   useEffect(() => {
     if (searchFilters.length === 0) {
@@ -67,26 +66,70 @@ const Filters = ({
 
   const handleResourceClick = (filter) => {
     const queryStr = replaceResourceFilter(query, filter);
-    history.push(`/search?${queryStr}`);
+    history.push(`/datasets?${queryStr}`);
+  };
+
+  const resetIcon = {
+    src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Clear-icon.svg',
+    alt: 'Reset icon',
+    size: '12 px',
   };
 
   return (
     <>
-      <div className="filterSection">
+      <div>
+        <div className="floatRight">
+          <Button
+            id="button_sidebar_clear_all_filters"
+            variant="outlined"
+            onClick={() => handleResourceClick('')}
+            className="customButton"
+            classes={{ root: 'clearAllButtonRoot' }}
+          >
+            <img
+              src={resetIcon.src}
+              height={resetIcon.size}
+              width={resetIcon.size}
+              alt={resetIcon.alt}
+            />
+          </Button>
+          <span className="resetText">
+            Clear all filtered selections
+          </span>
+        </div>
+        <hr className="divider" />
         <div className="filterLabel">
-          <span>Resources</span>
-          <button type="button" onClick={() => handleResourceClick('')} className="clear-all-button">
-            <img src={clearAllIcon} alt="clear-all" />
-          </button>
+          <span>Filter by Primary Disease</span>
+        </div>
+        <div className="sort">
+          <span className="icon">
+            <span className="reset" aria-hidden="true">
+              <img
+                src={resetIcon.src}
+                height={resetIcon.size}
+                width={resetIcon.size}
+                alt={resetIcon.alt}
+              />
+            </span>
+          </span>
+          <span className="alphabetically">Sort alphabetically</span>
+          <span className="count">Sort by count</span>
         </div>
         <div className="filterBlock">
           <div className="accordion">
             {searchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
               const checked = selectedFilters.indexOf(field.data_resource_id) > -1;
-              return (
-                <FilterItem key={key} item={field} checked={checked} highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1} onSourceClick={handleResourceClick} />
-              );
+              const arrayOfSources = sources.flatMap((item) => item.split('|'));
+              return arrayOfSources.includes(field.data_resource_id.toLowerCase()) ? (
+                <FilterItem
+                  key={key}
+                  item={field}
+                  checked={checked}
+                  highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1}
+                  onSourceClick={handleResourceClick}
+                />
+              ) : null;
             })}
           </div>
         </div>

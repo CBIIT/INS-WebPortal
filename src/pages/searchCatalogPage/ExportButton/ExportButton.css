@@ -4,13 +4,13 @@
 }
 
 .buttonStyle {
-  width: 100px;
+  margin-left: 450px;
   position: relative;
   font-size: 14px;
   font-weight: bold;
   text-align: right;
   color: white;
-  padding: 10px 0px 10px 200px;
+  padding: 10px 25px;
   margin-top: -3px;
   text-transform: uppercase;
   display: flex;
@@ -20,6 +20,7 @@
   align-items: center;
   float: right;
   text-decoration: none;
+  background: #00758D;
 }
 
 .buttonStyle:hover {

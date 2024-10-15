@@ -49,7 +49,7 @@ query globalSearch($input: String, $first: Int, $offset: Int){
           project_title
           abstract_text
           keywords
-          org_name
+          project_org_name
           org_city
           org_state
           lead_doc
