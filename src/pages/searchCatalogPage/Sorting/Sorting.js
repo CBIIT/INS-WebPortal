@@ -105,9 +105,8 @@ const Sorting = ({
     <>
       <SortingContainer>
         <SortingLabel>
-          SORT BY
+          SORT BY TITLE
         </SortingLabel>
-        <SelectionInput value={sort} items={[{ name: 'Dataset', k: 'dataset_name.raw', v: 'asc' }, { name: 'Cases', k: 'case_id', v: 'asc' }, { name: 'Samples', k: 'sample_id', v: 'asc' }, { name: 'Resource', k: 'data_resource_id', v: 'asc' }, { name: 'Primary Dataset Scope', k: 'primary_dataset_scope', v: 'asc' }]} />
       </SortingContainer>
       {
         sort.v === 'asc'

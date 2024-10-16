@@ -50,9 +50,21 @@ const SearchResultContainer = styled.div`
   }
 
   .container .headerRow .resultTitle {
-    color: #046ab2;
-    font-weight: bold;
-    padding: 5px 0;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    color: #20506A;
+  }
+
+  .resultSubTitle{
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    text-align: left;
+    color: #571AFF;
   }
 
   .headerRow .piBlock {
@@ -126,10 +138,12 @@ const SearchResultContainer = styled.div`
   }
 
   .bodyRow .itemSpan {
-    margin-left: 5px;
-    padding: 0 5px;
-    display: inline-block;
-    margin-bottom: 5px;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    color: #212529;
   }
 
   .bodyRow b {
@@ -190,20 +204,41 @@ const SearchResultContainer = styled.div`
     // margin: 0px 0px 0px 0px;
   }
 
+  .labelDiv{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+    color: #1C58A1;
+    margin-bottom: 10px;
+  }
+
   .bodyRow .textSpan {
-    margin-left: 5px;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    color: #212529;
   }
 
   .bodyRow .caseCountHighlight {
-    font-family: 'Inter';
-    font-weight: 600;
-    color: #625bef;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    color: #212529;
   }
 
   .bodyRow .sampleCountHighlight {
-    font-family: 'Inter';
-    font-weight: 600;
-    color: #11a78b;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    color: #212529;
   }
 
   .bodyRow .itemContinued {
@@ -674,7 +709,7 @@ const SearchResult = ({
                   </div>
                 </div>
                 <div className="row align-items-start subHeaderRow">
-                  <div className="col-sm">
+                  <div className="col-sm resultSubTitle">
                     <img src={dataResourceIcon} alt="data-resource" />
                     &nbsp;
                     {/* <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link> */}
@@ -684,8 +719,8 @@ const SearchResult = ({
                 {
                   caseDiseaseDiagnosisList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Case Disease Diagnosis:</label>
+                      <div className="col labelDiv">
+                        <label>Primary Disease:&nbsp;&nbsp;&nbsp;</label>
                         {
                           caseDiseaseDiagnosisList[idx].length > 10 ? caseDiseaseDiagnosisList[idx].slice(0, 10).map((cdd, cddidx) => {
                             const cddkey = `cdd_${cddidx}`;
@@ -714,8 +749,8 @@ const SearchResult = ({
                 {
                   rst.content.case_id && (
                     <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Case Count:</label>
+                      <div className="col labelDiv">
+                        <label>Participant Count:&nbsp;&nbsp;&nbsp;</label>
                         <span className="textSpan caseCountHighlight">
                           {rst.content.case_id.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                         </span>
@@ -756,8 +791,8 @@ const SearchResult = ({
                 {
                   rst.content.sample_id && (
                     <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Sample Count:</label>
+                      <div className="col labelDiv">
+                        <label>Sample Count:&nbsp;&nbsp;&nbsp;</label>
                         <span className="textSpan sampleCountHighlight">
                           {rst.content.sample_id.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                         </span>
@@ -768,8 +803,8 @@ const SearchResult = ({
                 {
                   description !== '' && (
                     <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Description:</label>
+                      <div className="col labelDiv">
+                        <label>Description:&nbsp;&nbsp;&nbsp;</label>
                         <span className="textSpan">
                           {
                             descArr.map((item, desidx) => {
