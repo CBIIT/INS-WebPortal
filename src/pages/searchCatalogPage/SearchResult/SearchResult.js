@@ -323,7 +323,7 @@ const SearchResult = ({
   sort,
   onChangeSorting,
   onChangeSortingOrder,
-  onLoadGlossaryTerms,
+  // onLoadGlossaryTerms,
   glossaryTerms,
 }) => {
   const query = useQuery();
@@ -573,11 +573,11 @@ const SearchResult = ({
   useEffect(() => {
     const termSet = [...new Set(getTooltipTermList)].filter((term) => !(term in glossaryTerms));
     const termPara = { termNames: termSet };
-    if (termSet.length > 0) {
-      onLoadGlossaryTerms(termPara).catch((error) => {
-        throw new Error(`Loading Glossary Terms from url query failed: ${error}`);
-      });
-    }
+    // if (termSet.length > 0) {
+    //   onLoadGlossaryTerms(termPara).catch((error) => {
+    //     throw new Error(`Loading Glossary Terms from url query failed: ${error}`);
+    //   });
+    // }
   }, [resultList]);
 
   return (
@@ -670,7 +670,7 @@ const SearchResult = ({
                 <div className="row align-items-start headerRow">
                   <div className="col-sm resultTitle">
                     {/* <Link to={`/dataset/${rst.content.dataset_id}`}>{rst.content.dataset_name}</Link> */}
-                    {rst.content.dataset_name}
+                    {rst.content.dataset_title}
                   </div>
                 </div>
                 <div className="row align-items-start subHeaderRow">
@@ -678,7 +678,7 @@ const SearchResult = ({
                     <img src={dataResourceIcon} alt="data-resource" />
                     &nbsp;
                     {/* <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link> */}
-                    {rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}
+                    {rst.content.dbGaP_phs}
                   </div>
                 </div>
                 {
@@ -949,7 +949,7 @@ SearchResult.propTypes = {
   sort: PropTypes.object.isRequired,
   onChangeSorting: PropTypes.func.isRequired,
   onChangeSortingOrder: PropTypes.func.isRequired,
-  onLoadGlossaryTerms: PropTypes.func.isRequired,
+  // onLoadGlossaryTerms: PropTypes.func.isRequired,
   glossaryTerms: PropTypes.object.isRequired,
 };
 

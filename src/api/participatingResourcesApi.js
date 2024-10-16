@@ -22,6 +22,7 @@ export function getSearchFilters() {
 }
 
 export function searchParticipatingResources(body) {
+  console.log('getLandingParticipatingResources');
   return fetch(`${baseUrl}/search`, {
     method: 'POST',
     body: JSON.stringify(body),
