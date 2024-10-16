@@ -349,7 +349,7 @@ const SearchResult = ({
         toSortBy.name = 'Primary Dataset Scope';
         toSortBy.k = 'primary_dataset_scope';
       }
-      toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
+      toSortBy.v = sort.v === 'asc' ? 'description' : 'asc';
       const queryStr = replaceQueryStr(query, toSortBy);
       history.push(`/datasets?${queryStr}`);
       onChangeSortingOrder(toSortBy.v);
@@ -589,16 +589,16 @@ const SearchResult = ({
           ) : resultList.map((rst, idx) => {
             const key = `sr_${idx}`;
             const tooltip = glossaryTerms[rst.content.primary_dataset_scope];
-            let desc = rst.highlight && rst.highlight.desc ? rst.highlight.desc[0] : rst.content.desc;
-            if (desc === null) {
-              desc = '';
+            let description = rst.highlight && rst.highlight.description ? rst.highlight.description[0] : rst.content.description;
+            if (description === null) {
+              description = '';
             }
-            if (desc.length > 500) {
-              desc = `${desc.substring(0, 500).replace(/<(?![b/])/g, '&lt;')} ...`;
+            if (description.length > 500) {
+              description = `${description.substring(0, 500).replace(/<(?![b/])/g, '&lt;')} ...`;
             } else {
-              desc = desc.replace(/<(?![b/])/g, '&lt;');
+              description = description.replace(/<(?![b/])/g, '&lt;');
             }
-            const arr = desc.split('http');
+            const arr = description.split('http');
             let descArr = [];
             const isSearchArr = [];
             if (arr.length > 1) {
@@ -649,7 +649,7 @@ const SearchResult = ({
             const otherMatches = [];
             if (rst.highlight) {
               Object.keys(rst.highlight).forEach((hl) => {
-                if (hl !== 'dataset_name' && hl !== 'data_resource_id' && hl !== 'data_resource_name' && hl !== 'desc'
+                if (hl !== 'dataset_name' && hl !== 'data_resource_id' && hl !== 'data_resource_name' && hl !== 'description'
                   && hl !== 'projects.p_k' && hl !== 'case_disease_diagnosis.k' && hl !== 'case_disease_diagnosis.s'
                   && hl !== 'case_tumor_site.k' && hl !== 'case_tumor_site.s' && hl !== 'sample_assay_method.k') {
                   otherMatches.push(hl);
@@ -766,7 +766,7 @@ const SearchResult = ({
                   )
                 }
                 {
-                  desc !== '' && (
+                  description !== '' && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
                         <label>Description:</label>
