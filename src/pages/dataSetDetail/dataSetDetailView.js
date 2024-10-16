@@ -33,9 +33,6 @@ const DataSetDetailView = ({
         {data.dataset_title || ''}
       </Grid>
     </Grid>
-
-    {/* Header */}
-
     <div className={classes.container}>
       <div className={classes.innerContainer}>
         <div className={classes.header}>
@@ -63,8 +60,6 @@ const DataSetDetailView = ({
         </div>
       </div>
     </div>
-
-    {/* Study Description */}
     <div className={classes.studyContainer}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -82,7 +77,6 @@ const DataSetDetailView = ({
         </Grid>
       </Grid>
     </div>
-    {/* Basic Information and Data Details */}
     <div className={classes.basicInformationContainer}>
       <Grid container spacing={4}>
         {/* Basic Information */}
@@ -137,7 +131,6 @@ const DataSetDetailView = ({
           </div>
         </Grid>
         <div className={classes.divder} />
-        {/* Data Details */}
         <Grid item xs={12} md={8} className={classes.space}>
           <Typography variant="h6" className={classes.title}>Data Details</Typography>
           <Grid container className={classes.subSection}>
@@ -208,7 +201,6 @@ const DataSetDetailView = ({
         </Grid>
       </Grid>
     </div>
-    {/* Additional Details Coming Soon */}
     <div className={classes.additionalContainer}>
       <Grid container spacing={2}>
         <Grid item xs={12} className={classes.space}>

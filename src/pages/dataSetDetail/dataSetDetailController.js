@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { useQuery } from '@apollo/client';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DataSetDetailView from './dataSetDetailView';
