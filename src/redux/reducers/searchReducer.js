@@ -21,7 +21,7 @@ export default function searchReducer(state = initialState.datasets, action) {
         ...state,
         searchCriteria: {
           ...state.searchCriteria,
-          resources_filter: action.filter,
+          filters: action.filter,
         },
       };
     }

@@ -3,28 +3,9 @@ import env from '../utils/env';
 
 const baseUrl = 'https://studycatalog-dev.cancer.gov/service/datasets';
 
-// export function searchCatalog(body) {
-export function searchCatalog() {
+export function searchCatalog(body) {
   console.log('searchCatalog');
-  const body = {
-    search_text: 'the cancer',
-    filters: {
-      primary_disease: [
-        'Carcinoma, Non-Small-Cell Lung',
-        'Burkitt Lymphoma',
-      ],
-    },
-    pageInfo: {
-      page: 1,
-      pageSize: 10,
-    },
-    sort: {
-      name: 'Dataset',
-      k: 'dataset_pmid.sort',
-      v: 'asc',
-    },
-    viewType: 'card',
-  };
+  console.log('body:', body);
   return fetch(`${baseUrl}/search`, {
     method: 'POST',
     body: JSON.stringify(body),

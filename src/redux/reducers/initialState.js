@@ -17,17 +17,20 @@ export default {
   datasets: {
     searchCriteria: {
       search_text: '',
-      resources_filter: [],
+      filters: {
+        primary_disease: [
+        ],
+      },
       pageInfo: {
         page: 1,
         pageSize: 10,
-        total: 100,
       },
       sort: {
         name: 'Dataset',
-        k: 'dataset_name.raw',
+        k: 'dataset_pmid.sort',
         v: 'asc',
       },
+      viewType: 'card',
     },
     searchResults: [],
     searchSourceResults: 'all',

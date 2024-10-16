@@ -66,7 +66,7 @@ export function loadFromUrlQuery(searchText, filters) {
   const func = function func(dispatch) {
     const searchCriteria = {};
     searchCriteria.search_text = searchText;
-    searchCriteria.resources_filter = filters.filterByResource ? filters.filterByResource : [];
+    searchCriteria.filters = filters.filterByResource ? filters.filterByResource : [];
     searchCriteria.pageInfo = {};
     searchCriteria.pageInfo.page = filters.page ? filters.page : 1;
     searchCriteria.pageInfo.pageSize = filters.pageSize ? filters.pageSize : 10;
@@ -111,7 +111,7 @@ export function loadFromUrlQuery(searchText, filters) {
       .then((searchResults) => {
         dispatch(loadSearchResultsSuccess(searchResults.data));
         dispatch(runFullTextSearch(searchText));
-        dispatch(applyResourcesFilter(searchCriteria.resources_filter));
+        dispatch(applyResourcesFilter(searchCriteria.filters));
         dispatch(switchPage(searchResults.data.pageInfo));
         dispatch(switchSize(searchResults.data.pageInfo));
         dispatch(switchSorting({ name: searchResults.data.sort.name, k: searchResults.data.sort.k }));
