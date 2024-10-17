@@ -66,16 +66,16 @@ export function loadFromUrlQuery(searchText, filters) {
   const func = function func(dispatch) {
     const searchCriteria = {};
     searchCriteria.search_text = searchText;
-    searchCriteria.filters = filters.filterByResource ? filters.filterByResource : [];
+    searchCriteria.filters = filters.filterByResource ? filters.filterByResource : {};
     searchCriteria.pageInfo = {};
     searchCriteria.pageInfo.page = filters.page ? filters.page : 1;
     searchCriteria.pageInfo.pageSize = filters.pageSize ? filters.pageSize : 10;
     searchCriteria.sort = {};
     if (filters.sortBy) {
       switch (filters.sortBy) {
-        case 'dataset_name.raw':
+        case 'dataset_title.sort':
           searchCriteria.sort.name = 'Dataset';
-          searchCriteria.sort.k = 'dataset_name.raw';
+          searchCriteria.sort.k = 'dataset_title.sort';
           break;
         case 'case_id':
           searchCriteria.sort.name = 'Cases';
@@ -94,13 +94,13 @@ export function loadFromUrlQuery(searchText, filters) {
           searchCriteria.sort.k = 'primary_dataset_scope';
           break;
         default:
-          dispatch(switchSorting({ name: 'Dataset', k: 'dataset_name.raw' }));
+          dispatch(switchSorting({ name: 'Dataset', k: 'dataset_title.sort' }));
           searchCriteria.sort.name = 'Dataset';
-          searchCriteria.sort.k = 'dataset_name.raw';
+          searchCriteria.sort.k = 'dataset_title.sort';
       }
     } else {
       searchCriteria.sort.name = 'Dataset';
-      searchCriteria.sort.k = 'dataset_name.raw';
+      searchCriteria.sort.k = 'dataset_title.sort';
     }
     if (filters.sortOrder) {
       searchCriteria.sort.v = filters.sortOrder;

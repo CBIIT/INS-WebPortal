@@ -370,7 +370,7 @@ const SearchResult = ({
       const toSortBy = {};
       if (name === 'Dataset') {
         toSortBy.name = 'Dataset';
-        toSortBy.k = 'dataset_name.raw';
+        toSortBy.k = 'dataset_title.sort';
       } else if (name === 'Cases') {
         toSortBy.name = 'Cases';
         toSortBy.k = 'case_id';
@@ -392,7 +392,7 @@ const SearchResult = ({
       const toSortBy = {};
       if (name === 'Dataset') {
         toSortBy.name = 'Dataset';
-        toSortBy.k = 'dataset_name.raw';
+        toSortBy.k = 'dataset_title.sort';
       } else if (name === 'Cases') {
         toSortBy.name = 'Cases';
         toSortBy.k = 'case_id';

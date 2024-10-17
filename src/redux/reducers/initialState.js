@@ -27,7 +27,7 @@ export default {
       },
       sort: {
         name: 'Dataset',
-        k: 'dataset_pmid.sort',
+        k: 'dataset_title.sort',
         v: 'asc',
       },
       viewType: 'card',
