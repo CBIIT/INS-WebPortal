@@ -176,6 +176,12 @@ const DataSetDetailView = ({
                 {data.related_genes || ''}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
+                <strong>Related Diseases </strong>
+              </Typography>
+              <Typography variant="body2" className={classes.text}>
+                {data.related_diseases || ''}
+              </Typography>
+              <Typography variant="body2" className={classes.subTitle}>
                 <strong>Related Terms </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
@@ -235,7 +241,6 @@ const styles = (theme) => ({
   mainContainer: {
     paddingTop: '10px',
     background: '#FFFF',
-    maxWidth: '1340px',
   },
   externalLinkIcon: {
     width: '16px',
@@ -255,7 +260,6 @@ const styles = (theme) => ({
     paddingBottom: '16px',
   },
   innerContainer: {
-    maxWidth: '1340px',
     padding: '0 ',
     fontFamily: theme.custom.fontFamily,
     background: '#FFFFFF',
@@ -265,7 +269,6 @@ const styles = (theme) => ({
     paddingRight: '35px',
     borderBottom: '#4B619A 10px solid',
     height: 'fit-content',
-    maxWidth: '1340px',
     margin: 'auto',
     display: 'inline-block',
 
