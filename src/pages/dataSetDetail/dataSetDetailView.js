@@ -21,15 +21,12 @@ const DataSetDetailView = ({
   <Container className={classes.mainContainer}>
     <Grid container spacing={2} alignItems="center" justify="space-between" className={classes.nav}>
       <Grid item>
-        <Link href="#datasets">
+        <Link href="#datasets" className={classes.navLink}>
           Explore Dataset
-          {' '}
-          {' '}
-          >
         </Link>
-        {' '}
-        {' '}
-        {' '}
+        {'    '}
+        >
+        {'    '}
         {data.dataset_title || ''}
       </Grid>
     </Grid>
@@ -176,6 +173,12 @@ const DataSetDetailView = ({
                 {data.related_genes || ''}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
+                <strong>Related Diseases </strong>
+              </Typography>
+              <Typography variant="body2" className={classes.text}>
+                {data.related_diseases || ''}
+              </Typography>
+              <Typography variant="body2" className={classes.subTitle}>
                 <strong>Related Terms </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
@@ -235,7 +238,6 @@ const styles = (theme) => ({
   mainContainer: {
     paddingTop: '10px',
     background: '#FFFF',
-    maxWidth: '1340px',
   },
   externalLinkIcon: {
     width: '16px',
@@ -245,6 +247,13 @@ const styles = (theme) => ({
   nav: {
     paddingLeft: '32px',
     paddingRight: '32px',
+    fontSize: '16px',
+    fontWeight: '400',
+    lineHeight: '26px',
+    textAlign: 'left',
+  },
+  navLink: {
+    color: '#005EA2',
   },
   container: {
     paddingTop: '30px',
@@ -255,7 +264,6 @@ const styles = (theme) => ({
     paddingBottom: '16px',
   },
   innerContainer: {
-    maxWidth: '1340px',
     padding: '0 ',
     fontFamily: theme.custom.fontFamily,
     background: '#FFFFFF',
@@ -265,7 +273,6 @@ const styles = (theme) => ({
     paddingRight: '35px',
     borderBottom: '#4B619A 10px solid',
     height: 'fit-content',
-    maxWidth: '1340px',
     margin: 'auto',
     display: 'inline-block',
 
