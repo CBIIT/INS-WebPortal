@@ -4,8 +4,6 @@ import env from '../utils/env';
 const baseUrl = 'https://studycatalog-dev.cancer.gov/service/datasets';
 
 export function searchCatalog(body) {
-  console.log('searchCatalog');
-  console.log('body:', body);
   return fetch(`${baseUrl}/search`, {
     method: 'POST',
     body: JSON.stringify(body),

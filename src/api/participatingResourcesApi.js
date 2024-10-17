@@ -10,8 +10,10 @@ export function getLandingParticipatingResources() {
 }
 
 export function getAllParticipatingResources() {
-  return fetch(`${baseUrl}/all`)
-    .then(handleResponse)
+  return fetch(`${baseUrl}/filters`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  }).then(handleResponse)
     .catch(handleError);
 }
 
@@ -22,7 +24,6 @@ export function getSearchFilters() {
 }
 
 export function searchParticipatingResources(body) {
-  console.log('getLandingParticipatingResources');
   return fetch(`${baseUrl}/search`, {
     method: 'POST',
     body: JSON.stringify(body),
