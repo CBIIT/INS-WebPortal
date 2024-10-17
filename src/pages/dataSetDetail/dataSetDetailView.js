@@ -21,15 +21,12 @@ const DataSetDetailView = ({
   <Container className={classes.mainContainer}>
     <Grid container spacing={2} alignItems="center" justify="space-between" className={classes.nav}>
       <Grid item>
-        <Link href="#datasets">
+        <Link href="#datasets" className={classes.navLink}>
           Explore Dataset
-          {' '}
-          {' '}
-          >
         </Link>
-        {' '}
-        {' '}
-        {' '}
+        {'    '}
+        >
+        {'    '}
         {data.dataset_title || ''}
       </Grid>
     </Grid>
@@ -250,6 +247,13 @@ const styles = (theme) => ({
   nav: {
     paddingLeft: '32px',
     paddingRight: '32px',
+    fontSize: '16px',
+    fontWeight: '400',
+    lineHeight: '26px',
+    textAlign: 'left',
+  },
+  navLink: {
+    color: '#005EA2',
   },
   container: {
     paddingTop: '30px',
