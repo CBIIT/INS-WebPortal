@@ -237,7 +237,9 @@ const DataSetDetailView = ({
                     </Typography>
                   ))
                 ) : (
-                  ''
+                  <Typography variant="body2" className={classes.text}>
+                    {' '}
+                  </Typography>
                 )}
 
               </Grid>
@@ -443,6 +445,7 @@ const styles = (theme) => ({
   text: {
     padding: '0 10px 0 0',
     wordWrap: 'break-word',
+    minHeight: '25px',
   },
   additionalContainer: {
     marginTop: '40px',
