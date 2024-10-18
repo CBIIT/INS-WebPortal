@@ -368,44 +368,16 @@ const SearchResult = ({
     const name = column;
     if (name === sort.name) {
       const toSortBy = {};
-      if (name === 'Dataset') {
-        toSortBy.name = 'Dataset';
-        toSortBy.k = 'dataset_title.sort';
-      } else if (name === 'Cases') {
-        toSortBy.name = 'Cases';
-        toSortBy.k = 'case_id';
-      } else if (name === 'Samples') {
-        toSortBy.name = 'Samples';
-        toSortBy.k = 'sample_id';
-      } else if (name === 'Resource') {
-        toSortBy.name = 'Resource';
-        toSortBy.k = 'data_resource_id';
-      } else {
-        toSortBy.name = 'Primary Dataset Scope';
-        toSortBy.k = 'primary_dataset_scope';
-      }
-      toSortBy.v = sort.v === 'asc' ? 'description' : 'asc';
+      toSortBy.name = 'Dataset';
+      toSortBy.k = 'dataset_title.sort';
+      toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
       const queryStr = replaceQueryStr(query, toSortBy);
       history.push(`/datasets?${queryStr}`);
       onChangeSortingOrder(toSortBy.v);
     } else {
       const toSortBy = {};
-      if (name === 'Dataset') {
-        toSortBy.name = 'Dataset';
-        toSortBy.k = 'dataset_title.sort';
-      } else if (name === 'Cases') {
-        toSortBy.name = 'Cases';
-        toSortBy.k = 'case_id';
-      } else if (name === 'Samples') {
-        toSortBy.name = 'Samples';
-        toSortBy.k = 'sample_id';
-      } else if (name === 'Resource') {
-        toSortBy.name = 'Resource';
-        toSortBy.k = 'data_resource_id';
-      } else {
-        toSortBy.name = 'Primary Dataset Scope';
-        toSortBy.k = 'primary_dataset_scope';
-      }
+      toSortBy.name = 'Dataset';
+      toSortBy.k = 'dataset_title.sort';
       toSortBy.v = sort.v;
       const queryStr = replaceQueryStr(query, toSortBy);
       history.push(`/datasets?${queryStr}`);
@@ -623,7 +595,6 @@ const SearchResult = ({
             <div className="messageContainer">No result found. Please refine your search.</div>
           ) : resultList.map((rst, idx) => {
             const key = `sr_${idx}`;
-            const tooltip = glossaryTerms[rst.content.primary_dataset_scope];
             let description = rst.highlight && rst.highlight.description ? rst.highlight.description[0] : rst.content.description;
             if (description === null) {
               description = '';
@@ -684,7 +655,7 @@ const SearchResult = ({
             const otherMatches = [];
             if (rst.highlight) {
               Object.keys(rst.highlight).forEach((hl) => {
-                if (hl !== 'dataset_name' && hl !== 'data_resource_id' && hl !== 'data_resource_name' && hl !== 'description'
+                if (hl !== 'dataset_name' && hl !== 'name' && hl !== 'data_resource_name' && hl !== 'description'
                   && hl !== 'projects.p_k' && hl !== 'case_disease_diagnosis.k' && hl !== 'case_disease_diagnosis.s'
                   && hl !== 'case_tumor_site.k' && hl !== 'case_tumor_site.s' && hl !== 'sample_assay_method.k') {
                   otherMatches.push(hl);
@@ -712,7 +683,7 @@ const SearchResult = ({
                   <div className="col-sm resultSubTitle">
                     <img src={dataResourceIcon} alt="data-resource" />
                     &nbsp;
-                    {/* <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link> */}
+                    {/* <Link to={`/resource/${rst.content.dbGaP_phs}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.dbGaP_phs}</Link> */}
                     {rst.content.dbGaP_phs}
                   </div>
                 </div>
