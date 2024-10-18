@@ -683,8 +683,7 @@ const SearchResult = ({
                   <div className="col-sm resultSubTitle">
                     <img src={dataResourceIcon} alt="data-resource" />
                     &nbsp;
-                    {/* <Link to={`/resource/${rst.content.dbGaP_phs}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.dbGaP_phs}</Link> */}
-                    {rst.content.dbGaP_phs}
+                    <Link to={`/dataset/${rst.content.dbGaP_phs}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.dbGaP_phs}</Link>
                   </div>
                 </div>
                 {
