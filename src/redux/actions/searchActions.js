@@ -53,7 +53,6 @@ export function loadSearchDataResources() {
   const func = function func(dispatch) {
     return participatingResourcesApi.getAllParticipatingResources()
       .then((searchResults) => {
-        console.log('searchResults:', searchResults.data.primary_disease);
         dispatch(loadSearchFiltersSuccess(searchResults.data.primary_disease));
       })
       .catch((error) => {

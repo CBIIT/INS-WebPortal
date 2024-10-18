@@ -116,9 +116,10 @@ const Filters = ({
           <span className="count">Sort by count</span>
         </div>
         <div className="filterBlock">
-          <div className="accordion">
+          {/* <div className="accordion">
             {searchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
+              console.log('field:', field);
               const checked = selectedFilters.indexOf(field.name) > -1;
               const arrayOfSources = sources.flatMap((item) => item.split('|'));
               return arrayOfSources.includes(field.name.toLowerCase()) ? (
@@ -131,7 +132,7 @@ const Filters = ({
                 />
               ) : null;
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     </>
