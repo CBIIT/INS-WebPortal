@@ -550,7 +550,7 @@ const styles = () => ({
   smallImage: {
     width: '12px',
     height: '12px',
-    marginLeft: '50px',
+    marginLeft: '18px',
   },
   image: {
     width: '293px',
