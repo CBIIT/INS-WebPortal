@@ -1,7 +1,7 @@
 import { handleResponse, handleError } from './apiUtils';
 import env from '../utils/env';
 
-const baseUrl = 'https://datacatalog.ccdi.cancer.gov/service/application';
+const baseUrl = 'https://studycatalog-dev.cancer.gov/service/datasets';
 
 export function getApplicationVersionInfo() {
   return fetch(`${baseUrl}/version`)
@@ -24,14 +24,14 @@ export function getSiteUpdates(body) {
     .catch(handleError);
 }
 
-export function getGlossaryTerms(body) {
-  return fetch(`${baseUrl}/glossaryTerms`, {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: { 'Content-Type': 'application/json' },
-  }).then(handleResponse)
-    .catch(handleError);
-}
+// export function getGlossaryTerms(body) {
+//   return fetch(`${baseUrl}/glossaryTerms`, {
+//     method: 'POST',
+//     body: JSON.stringify(body),
+//     headers: { 'Content-Type': 'application/json' },
+//   }).then(handleResponse)
+//     .catch(handleError);
+// }
 
 export function getGlossaryTermsByFirstLetter(body) {
   return fetch(`${baseUrl}/glossaryTermsByFirstLetter`, {

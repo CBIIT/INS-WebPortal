@@ -11,7 +11,7 @@ const ReduxFilters = (() => {
     return {
       searchFilters: datasets.resourcesList || [],
       sourceFilters: datasets.searchSourceResults || [],
-      selectedFilters: (datasets.searchCriteria && datasets.searchCriteria.resources_filter) || [],
+      selectedFilters: (datasets.searchCriteria && datasets.searchCriteria.filters) || [],
     };
   };
 

@@ -93,18 +93,18 @@ export function pageSelect(pageInfo) {
   return func;
 }
 
-export function loadGlossaryTerms(termNames) {
-  const func = function func(dispatch) {
-    return applicationApi.getGlossaryTerms(termNames)
-      .then((result) => {
-        dispatch(loadGlossaryTermsSuccess(result.definitions));
-      })
-      .catch((error) => {
-        throw error;
-      });
-  };
-  return func;
-}
+// export function loadGlossaryTerms(termNames) {
+//   const func = function func(dispatch) {
+//     return applicationApi.getGlossaryTerms(termNames)
+//       .then((result) => {
+//         dispatch(loadGlossaryTermsSuccess(result.definitions));
+//       })
+//       .catch((error) => {
+//         throw error;
+//       });
+//   };
+//   return func;
+// }
 
 export function loadGlossaryTermsByFirstLetter(firstLetter) {
   const func = function func(dispatch) {
