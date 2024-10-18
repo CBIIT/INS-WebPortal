@@ -53,7 +53,7 @@ const Filters = ({
   const history = useHistory();
   const sourceFiltersArray = Array.isArray(sourceFilters) ? sourceFilters : [sourceFilters];
   const sources = !sourceFilters || sourceFilters === 'all'
-    ? searchFilters.map((element) => element.data_resource_id.toLowerCase())
+    ? searchFilters.map((element) => element.name.toLowerCase())
     : sourceFiltersArray.filter((element) => element);
 
   useEffect(() => {
@@ -116,22 +116,23 @@ const Filters = ({
           <span className="count">Sort by count</span>
         </div>
         <div className="filterBlock">
-          <div className="accordion">
+          {/* <div className="accordion">
             {searchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
-              const checked = selectedFilters.indexOf(field.data_resource_id) > -1;
+              console.log('field:', field);
+              const checked = selectedFilters.indexOf(field.name) > -1;
               const arrayOfSources = sources.flatMap((item) => item.split('|'));
-              return arrayOfSources.includes(field.data_resource_id.toLowerCase()) ? (
+              return arrayOfSources.includes(field.name.toLowerCase()) ? (
                 <FilterItem
                   key={key}
                   item={field}
                   checked={checked}
-                  highlight={sources.indexOf(field.data_resource_id.toLowerCase()) > -1}
+                  highlight={sources.indexOf(field.name.toLowerCase()) > -1}
                   onSourceClick={handleResourceClick}
                 />
               ) : null;
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     </>

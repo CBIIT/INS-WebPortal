@@ -8,7 +8,7 @@ const ReduxSearchCatalogPage = (() => {
   const mapStateToProps = (state) => ({
     searchCriteria: state.datasets.searchCriteria.search_text,
     searchKeyword: state.datasets.searchCriteria.search_text,
-    resourceFilters: state.datasets.searchCriteria.resources_filter,
+    resourceFilters: state.datasets.searchCriteria.filters,
   });
 
   const mapDispatchToProps = {

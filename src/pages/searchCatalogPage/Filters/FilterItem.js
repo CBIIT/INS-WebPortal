@@ -58,19 +58,19 @@ const FilterItem = ({
   item, checked, highlight, onSourceClick,
 }) => {
   const handleResourceClick = () => {
-    onSourceClick(item.data_resource_id);
+    onSourceClick(item.name);
   };
 
   return (
     <OptionContainer>
       <label>
-        <span style={{ display: 'none' }}>{item.data_resource_id}</span>
-        <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.data_resource_id} checked={checked} readOnly />
+        <span style={{ display: 'none' }}>{item.name}</span>
+        <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.name} checked={checked} readOnly />
       </label>
-      <SearchableOption title={`${item.resource_name} , ${item.resource_type}`} onClick={handleResourceClick}>
-        {item.data_resource_id}
+      <SearchableOption title={`${item.name}: ${item.count}`} onClick={handleResourceClick}>
+        {item.name}
         <span style={{ float: 'right' }}>
-          (123)
+          {item.count}
         </span>
       </SearchableOption>
     </OptionContainer>
