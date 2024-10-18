@@ -58,7 +58,7 @@ const LandingView = ({ classes, statsData }) => {
                   <Link to="/about" className={classes.headerAboutLink}>About page</Link>
                   .
                 </div>
-                <div className={classes.headerButtonSection}>
+                <div className={classes.headerLinkGroup}>
                   <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
                     <Button className={classes.buttonText}>
                       {landingPageData.callToActionButtonText}
@@ -810,6 +810,10 @@ const styles = () => ({
     borderBottom: '2px solid #A90532',
     textDecoration: 'none',
     marginLeft: '52px',
+  },
+  headerLinkGroup: {
+    zIndex: '999',
+    position: 'absolute',
   },
   INSTextContainer: {
     marginTop: '-460px',
