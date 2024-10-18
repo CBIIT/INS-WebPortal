@@ -177,7 +177,7 @@ const styles = () => ({
     fontSize: '12px',
     textTransform: 'uppercase',
     paddingRight: '10px',
-    marginTop: '36px',
+    marginTop: '38px',
   },
   statTitle3: {
     display: 'inline-block',
@@ -189,7 +189,7 @@ const styles = () => ({
     fontSize: '12px',
     textTransform: 'uppercase',
     paddingRight: '10px',
-    marginTop: '53px',
+    marginTop: '55px',
   },
   statTitle4: {
     display: 'inline-block',
@@ -201,7 +201,7 @@ const styles = () => ({
     fontSize: '12px',
     textTransform: 'uppercase',
     paddingRight: '10px',
-    marginTop: '70px',
+    marginTop: '72px',
   },
   statTitle5: {
     display: 'inline-block',
@@ -213,7 +213,7 @@ const styles = () => ({
     fontSize: '12px',
     textTransform: 'uppercase',
     paddingRight: '10px',
-    marginTop: '87px',
+    marginTop: '89px',
   },
   statCount1: {
     display: 'inline-block',
