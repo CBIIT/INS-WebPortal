@@ -114,34 +114,45 @@ const DataSetDetailView = ({
 
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
-                <strong>NCI Division/Office/Center (DOC): </strong>
+                <strong>NCI Division/Office/Center  </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
                 {data.dataset_doc || ''}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
-                <strong>Release Date: </strong>
+                <strong>Release Date </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
                 {data.release_date || ''}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
-                <strong>Principal Investigator(s): </strong>
+                <strong>Principal Investigator(s) </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
                 {data.PI_name || ''}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
-                <strong>Funding Source(s): </strong>
+                <strong>Funding Source(s) </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
                 {data.funding_source || ''}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
-                <strong>Cited Publication PMID(s): </strong>
+                <strong>Cited Publication PMID(s) </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                {data.dataset_pmid || ''}
+                {data.dataset_pmid ? (
+                  <Link href={`https://pubmed.ncbi.nlm.nih.gov/${data.dataset_pmid}/`} target="_blank" className={classes.link}>
+                    {data.dataset_pmid}
+                    <img
+                      src={externalLinkIcon.src}
+                      alt={externalLinkIcon.alt}
+                      className={classes.externalLinkIcon}
+                    />
+                  </Link>
+                ) : (
+                  ''
+                )}
               </Typography>
             </div>
           </Grid>
@@ -170,10 +181,16 @@ const DataSetDetailView = ({
                   {data.assay_method || ''}
                 </Typography>
                 <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Participant Count; Sample Count </strong>
+                  <strong>Participant Count</strong>
                 </Typography>
                 <Typography variant="body2" className={classes.text}>
                   {data.participant_count || ''}
+                </Typography>
+                <Typography variant="body2" className={classes.subTitle}>
+                  <strong>Sample Count </strong>
+                </Typography>
+                <Typography variant="body2" className={classes.text}>
+                  {data.sample_count || ''}
                 </Typography>
 
               </Grid>
