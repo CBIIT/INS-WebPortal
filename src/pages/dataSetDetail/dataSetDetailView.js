@@ -323,7 +323,7 @@ const styles = (theme) => ({
     height: 'fit-content',
     margin: 'auto',
     display: 'inline-block',
-
+    width: '100%',
   },
   headerTitle: {
     margin: 'auto',
