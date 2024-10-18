@@ -224,7 +224,7 @@ const DataSetDetailView = ({
                   <strong>Study Link(s) </strong>
                 </Typography>
                 {data.study_links && data.study_links.length > 0 ? (
-                  data.study_links.map((link, index) => (
+                  data.study_links.split(';').map((link, index) => (
                     <Typography variant="body2" className={classes.text} key={index}>
                       <Link href={link} target="_blank" className={classes.link}>
                         {link}
@@ -239,6 +239,7 @@ const DataSetDetailView = ({
                 ) : (
                   ''
                 )}
+
               </Grid>
             </Grid>
           </Grid>
