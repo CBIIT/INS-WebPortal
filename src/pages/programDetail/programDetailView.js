@@ -10,6 +10,7 @@ import {
   programDetailIcon,
   pageSubTitle,
   leftPanel,
+  externalLinkIcon,
 } from '../../bento/programDetailData';
 import Subsection from '../../components/PropertySubsection/programDetailSubsection';
 import StatsView from '../../components/Stats/StatsView';
@@ -97,14 +98,25 @@ const ProgramView = ({
       ) : (
         <div className={classes.noResearchOutputsBG}>
           <div className={classes.noResearchOutputs}>
-            <div className={classes.noResearchOutputsHeader}>No output exists for this program</div>
+            <div className={classes.noResearchOutputsHeader}>
+              Looking For Research Outputs Of This Program ?
+            </div>
             <div className={cn(classes.noResearchOutputsContent, classes.textCenter, classes.p10)}>
               Please visit the
               {' '}
               {programData.program_link ? (
-                <a href={programData.program_link} target="_blank" rel="noopener noreferrer">
+                <>
+                  <a href={programData.program_link} target="_blank" rel="noopener noreferrer" className={classes.textDecorationNone}>
+                    TARGET
+                    <img
+                      src={externalLinkIcon.src}
+                      alt={externalLinkIcon.alt}
+                      className={classes.externalLinkIcon}
+                    />
+                  </a>
+                  {' '}
                   program website
-                </a>
+                </>
               ) : (
                 'program website'
               )}
@@ -261,6 +273,14 @@ const styles = (theme) => ({
   },
   p10: {
     padding: '10px',
+  },
+  externalLinkIcon: {
+    width: '16px',
+    verticalAlign: 'sub',
+    marginLeft: '4px',
+  },
+  textDecorationNone: {
+    textDecoration: 'none',
   },
 });
 

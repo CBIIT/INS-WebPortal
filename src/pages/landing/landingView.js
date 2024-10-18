@@ -70,6 +70,17 @@ const LandingView = ({ classes, statsData }) => {
                       />
                     </Button>
                   </Link>
+                  <Link to={landingPageData.callToActionLink2} className={classes.headerLinkButton2}>
+                    <Button className={classes.buttonText}>
+                      {landingPageData.callToActionButtonText2}
+                      <img
+                        src={landingPageData.heroExploreButtonArrow.img}
+                        className={classes.smallImage}
+                        alt={landingPageData.heroExploreButtonArrow.alt}
+                        id="buttonArrow"
+                      />
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -424,7 +435,7 @@ const styles = () => ({
   texture: {
     backgroundSize: 'cover',
     background: '#9D0995',
-    padding: '350px 0 80px 0',
+    padding: '355px 0 80px 0',
   },
   container: {
     fontFamily: 'Raleway, sans-serif',
@@ -539,7 +550,7 @@ const styles = () => ({
   smallImage: {
     width: '12px',
     height: '12px',
-    marginLeft: '30px',
+    marginLeft: '18px',
   },
   image: {
     width: '293px',
@@ -763,11 +774,12 @@ const styles = () => ({
   buttonText: {
     fontFamily: 'Lato',
     fontWeight: 'bold',
-    fontSize: '16px',
+    fontSize: '14px',
     lineHeight: '26px',
     padding: '0px 0px 12px 0px',
     height: '40px',
     color: '#A90532',
+    width: '180px',
   },
   iconTextWrapper: {
     width: '165px',
@@ -793,6 +805,11 @@ const styles = () => ({
   headerLinkButton: {
     borderBottom: '2px solid #A90532',
     textDecoration: 'none',
+  },
+  headerLinkButton2: {
+    borderBottom: '2px solid #A90532',
+    textDecoration: 'none',
+    marginLeft: '52px',
   },
   INSTextContainer: {
     marginTop: '-460px',

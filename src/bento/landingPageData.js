@@ -22,8 +22,10 @@ import heroExploreButtonArrow from '../assets/landing/heroExploreButtonArrow.svg
 export const landingPageData = {
   callToActionTitle: 'Landscape Analysis of NCI-Supported Projects & Associated Outputs',
   callToActionDescription: 'A comprehensive index of programs funded by the National Cancer Institute, devoted to transparency and accuracy of fund allocation and interconnectedness of data output. This pilot phase of the site is temporarily limited to data generated through extramural grants from two NCI programs.',
-  callToActionButtonText: 'EXPLORE INS DATA',
+  callToActionButtonText: ' EXPLORE PROGRAMS',
   callToActionLink: '/programs',
+  callToActionButtonText2: 'EXPLORE DATASETS',
+  callToActionLink2: '/datasets',
   nciCommunityTitle: 'NCI Community',
   nciCommunityDescription: 'INS finds NCI programs and projects',
   nciCommunityLink: '/programs',
@@ -87,6 +89,10 @@ export const landingPageData = {
       statAPI: 'numberOfPrograms',
     },
     {
+      statTitle: 'Datasets',
+      statAPI: 'numberOfDatasets',
+    },
+    {
       statTitle: 'Projects',
       statAPI: 'numberOfProjects',
     },
@@ -138,5 +144,6 @@ export const GET_LANDING_PAGE_DATA_QUERY = gql`{
   numberOfProjects
   numberOfGrants
   numberOfPublications
+  numberOfDatasets
 }
   `;
