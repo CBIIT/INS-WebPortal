@@ -358,7 +358,7 @@ const SearchResult = ({
   sort,
   onChangeSorting,
   onChangeSortingOrder,
-  onLoadGlossaryTerms,
+  // onLoadGlossaryTerms,
   glossaryTerms,
 }) => {
   const query = useQuery();
@@ -368,44 +368,16 @@ const SearchResult = ({
     const name = column;
     if (name === sort.name) {
       const toSortBy = {};
-      if (name === 'Dataset') {
-        toSortBy.name = 'Dataset';
-        toSortBy.k = 'dataset_name.raw';
-      } else if (name === 'Cases') {
-        toSortBy.name = 'Cases';
-        toSortBy.k = 'case_id';
-      } else if (name === 'Samples') {
-        toSortBy.name = 'Samples';
-        toSortBy.k = 'sample_id';
-      } else if (name === 'Resource') {
-        toSortBy.name = 'Resource';
-        toSortBy.k = 'data_resource_id';
-      } else {
-        toSortBy.name = 'Primary Dataset Scope';
-        toSortBy.k = 'primary_dataset_scope';
-      }
+      toSortBy.name = 'Dataset';
+      toSortBy.k = 'dataset_title.sort';
       toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
       const queryStr = replaceQueryStr(query, toSortBy);
       history.push(`/datasets?${queryStr}`);
       onChangeSortingOrder(toSortBy.v);
     } else {
       const toSortBy = {};
-      if (name === 'Dataset') {
-        toSortBy.name = 'Dataset';
-        toSortBy.k = 'dataset_name.raw';
-      } else if (name === 'Cases') {
-        toSortBy.name = 'Cases';
-        toSortBy.k = 'case_id';
-      } else if (name === 'Samples') {
-        toSortBy.name = 'Samples';
-        toSortBy.k = 'sample_id';
-      } else if (name === 'Resource') {
-        toSortBy.name = 'Resource';
-        toSortBy.k = 'data_resource_id';
-      } else {
-        toSortBy.name = 'Primary Dataset Scope';
-        toSortBy.k = 'primary_dataset_scope';
-      }
+      toSortBy.name = 'Dataset';
+      toSortBy.k = 'dataset_title.sort';
       toSortBy.v = sort.v;
       const queryStr = replaceQueryStr(query, toSortBy);
       history.push(`/datasets?${queryStr}`);
@@ -608,11 +580,11 @@ const SearchResult = ({
   useEffect(() => {
     const termSet = [...new Set(getTooltipTermList)].filter((term) => !(term in glossaryTerms));
     const termPara = { termNames: termSet };
-    if (termSet.length > 0) {
-      onLoadGlossaryTerms(termPara).catch((error) => {
-        throw new Error(`Loading Glossary Terms from url query failed: ${error}`);
-      });
-    }
+    // if (termSet.length > 0) {
+    //   onLoadGlossaryTerms(termPara).catch((error) => {
+    //     throw new Error(`Loading Glossary Terms from url query failed: ${error}`);
+    //   });
+    // }
   }, [resultList]);
 
   return (
@@ -623,17 +595,16 @@ const SearchResult = ({
             <div className="messageContainer">No result found. Please refine your search.</div>
           ) : resultList.map((rst, idx) => {
             const key = `sr_${idx}`;
-            const tooltip = glossaryTerms[rst.content.primary_dataset_scope];
-            let desc = rst.highlight && rst.highlight.desc ? rst.highlight.desc[0] : rst.content.desc;
-            if (desc === null) {
-              desc = '';
+            let description = rst.highlight && rst.highlight.description ? rst.highlight.description[0] : rst.content.description;
+            if (description === null) {
+              description = '';
             }
-            if (desc.length > 500) {
-              desc = `${desc.substring(0, 500).replace(/<(?![b/])/g, '&lt;')} ...`;
+            if (description.length > 500) {
+              description = `${description.substring(0, 500).replace(/<(?![b/])/g, '&lt;')} ...`;
             } else {
-              desc = desc.replace(/<(?![b/])/g, '&lt;');
+              description = description.replace(/<(?![b/])/g, '&lt;');
             }
-            const arr = desc.split('http');
+            const arr = description.split('http');
             let descArr = [];
             const isSearchArr = [];
             if (arr.length > 1) {
@@ -684,7 +655,7 @@ const SearchResult = ({
             const otherMatches = [];
             if (rst.highlight) {
               Object.keys(rst.highlight).forEach((hl) => {
-                if (hl !== 'dataset_name' && hl !== 'data_resource_id' && hl !== 'data_resource_name' && hl !== 'desc'
+                if (hl !== 'dataset_name' && hl !== 'name' && hl !== 'data_resource_name' && hl !== 'description'
                   && hl !== 'projects.p_k' && hl !== 'case_disease_diagnosis.k' && hl !== 'case_disease_diagnosis.s'
                   && hl !== 'case_tumor_site.k' && hl !== 'case_tumor_site.s' && hl !== 'sample_assay_method.k') {
                   otherMatches.push(hl);
@@ -704,61 +675,37 @@ const SearchResult = ({
               <div key={key} className="container">
                 <div className="row align-items-start headerRow">
                   <div className="col-sm resultTitle">
-                    {/* <Link to={`/dataset/${rst.content.dataset_id}`}>{rst.content.dataset_name}</Link> */}
-                    {rst.content.dataset_name}
+                    {rst.content.dataset_title}
                   </div>
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
                     <img src={dataResourceIcon} alt="data-resource" />
                     &nbsp;
-                    {/* <Link to={`/resource/${rst.content.data_resource_id}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}</Link> */}
-                    {rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.data_resource_id}
+                    <Link to={`/dataset/${rst.content.dbGaP_phs}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.dbGaP_phs}</Link>
                   </div>
                 </div>
                 {
-                  caseDiseaseDiagnosisList[idx].length > 0 && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col labelDiv">
-                        <label>Primary Disease:&nbsp;&nbsp;&nbsp;</label>
-                        {
-                          caseDiseaseDiagnosisList[idx].length > 10 ? caseDiseaseDiagnosisList[idx].slice(0, 10).map((cdd, cddidx) => {
-                            const cddkey = `cdd_${cddidx}`;
-                            return (
-                              <span key={cddkey} className="itemSpan">
-                                {ReactHtmlParser(cdd)}
-                              </span>
-                            );
-                          })
-                            : caseDiseaseDiagnosisList[idx].map((cdd, cddidx) => {
-                              const cddkey = `cdd_${cddidx}`;
-                              return (
-                                <span key={cddkey} className="itemSpan">
-                                  {ReactHtmlParser(cdd)}
-                                </span>
-                              );
-                            })
-                        }
-                        {
-                          caseDiseaseDiagnosisList[idx].length > 10 && <span className="itemContinued">...</span>
-                        }
-                      </div>
+                  <div className="row align-items-start bodyRow">
+                    <div className="col labelDiv">
+                      <label>Primary Disease:&nbsp;&nbsp;&nbsp;</label>
+                      <span className="itemSpan">
+                        {rst.content.primary_disease}
+                      </span>
                     </div>
-                  )
+                  </div>
                 }
                 {
-                  rst.content.case_id && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col labelDiv">
-                        <label>Participant Count:&nbsp;&nbsp;&nbsp;</label>
-                        <span className="textSpan caseCountHighlight">
-                          {rst.content.case_id.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </span>
-                      </div>
+                  <div className="row align-items-start bodyRow">
+                    <div className="col labelDiv">
+                      <label>Participant Count:&nbsp;&nbsp;&nbsp;</label>
+                      <span className="textSpan caseCountHighlight">
+                        {rst.content.participant_count}
+                      </span>
                     </div>
-                  )
+                  </div>
                 }
-                {
+                {/* {
                   sampleAssayMethodList[idx].length > 0 && (
                     <div className="row align-items-start bodyRow">
                       <div className="col">
@@ -787,21 +734,19 @@ const SearchResult = ({
                       </div>
                     </div>
                   )
-                }
+                } */}
                 {
-                  rst.content.sample_id && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col labelDiv">
-                        <label>Sample Count:&nbsp;&nbsp;&nbsp;</label>
-                        <span className="textSpan sampleCountHighlight">
-                          {rst.content.sample_id.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </span>
-                      </div>
+                  <div className="row align-items-start bodyRow">
+                    <div className="col labelDiv">
+                      <label>Sample Count:&nbsp;&nbsp;&nbsp;</label>
+                      <span className="textSpan sampleCountHighlight">
+                        {rst.content.sample_count}
+                      </span>
                     </div>
-                  )
+                  </div>
                 }
                 {
-                  desc !== '' && (
+                  description !== '' && (
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
                         <label>Description:&nbsp;&nbsp;&nbsp;</label>
@@ -829,147 +774,6 @@ const SearchResult = ({
                     </div>
                   )
                 }
-                {
-                  caseTumorSiteList[idx].length > 0 && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Other Match:&nbsp;Case Tumor Site:</label>
-                        {
-                          caseTumorSiteList[idx].length > 10 ? caseTumorSiteList[idx].slice(0, 10).map((cdd, cddidx) => {
-                            const cddkey = `cdd_${cddidx}`;
-                            return (
-                              <span key={cddkey} className="itemSpan">
-                                {ReactHtmlParser(cdd)}
-                              </span>
-                            );
-                          })
-                            : caseTumorSiteList[idx].map((cdd, cddidx) => {
-                              const cddkey = `cdd_${cddidx}`;
-                              return (
-                                <span key={cddkey} className="itemSpan">
-                                  {ReactHtmlParser(cdd)}
-                                </span>
-                              );
-                            })
-                        }
-                        {
-                          caseTumorSiteList[idx].length > 10 && <span className="itemContinued">...</span>
-                        }
-                      </div>
-                    </div>
-                  )
-                }
-                {
-                  projectsList[idx].length > 0 && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Other Match:&nbsp;Projects:</label>
-                        {
-                          projectsList[idx].length > 10 ? projectsList[idx].slice(0, 10).map((pl, plidx) => {
-                            const plkey = `pl_${plidx}`;
-                            return (
-                              <span key={plkey} className="itemSpan">
-                                {ReactHtmlParser(pl)}
-                              </span>
-                            );
-                          })
-                            : projectsList[idx].map((pl, plidx) => {
-                              const plkey = `cdd_${plidx}`;
-                              return (
-                                <span key={plkey} className="itemSpan">
-                                  {ReactHtmlParser(pl)}
-                                </span>
-                              );
-                            })
-                        }
-                        {
-                          projectsList[idx].length > 10 && <span className="itemContinued">...</span>
-                        }
-                      </div>
-                    </div>
-                  )
-                }
-                {
-                  otherMatches.slice(0, 10).map((hl, hlidx) => {
-                    const hlKey = `hl_${hl}_${hlidx}`;
-                    let otherLinks = `${(rst.highlight[hl])}`;
-                    otherLinks = otherLinks.replace(/<b>/g, '').replace(/<\/b>/g, '');
-                    otherLinks = otherLinks.split(';');
-                    return (
-                      <div key={hlKey} className="row align-items-start footerRow">
-                        <div className="col">
-                          <label>
-                            Other Match:&nbsp;
-                            {toCapitalize(hl.replace('.k', '').replace(/_/g, ' '))}
-                          </label>
-                          :&nbsp;
-                          {/* {ReactHtmlParser(rst.highlight[hl])} */}
-                          {
-                            (otherLinks && otherLinks[0].includes('http')) ? otherLinks.map((ol, olidx) => {
-                              const olkey = `cdd_${olidx}`;
-                              return (
-                                <span key={olkey} className="itemSpan">
-                                  {ol.includes('http') ? <a href={ol} target="_blank" rel="noreferrer noopener">{ol}</a> : ol}
-                                </span>
-                              );
-                            })
-                              : ReactHtmlParser(rst.highlight[hl][0])
-                          }
-                        </div>
-                      </div>
-                    );
-                  })
-                }
-                {
-                  additionalMatches.length > 0 && additionalMatches.map((am, amidx) => {
-                    const addkey = `add_${amidx}`;
-                    return (
-                      <div key={addkey} className="row align-items-start footerRow">
-                        <div className="col">
-                          <label>
-                            Other Match:&nbsp;
-                            {am.name}
-                            :&nbsp;
-                          </label>
-                          {
-                            am.matches.map((m, midx) => {
-                              const mraw = m.replace(/<b>/g, '').replace(/<\/b>/g, '');
-                              if (mraw.startsWith('http')) {
-                                const amkey = `am_${midx}`;
-                                return (
-                                  <span key={amkey} className="itemSpan">
-                                    <a href={mraw} target="_blank" rel="noreferrer noopener">{mraw}</a>
-                                  </span>
-                                );
-                              }
-                              if (am.name === 'GEO Study Identifier') {
-                                const geoId = m.replace(/<b>/g, '').replace(/<\/b>/g, '');
-                                const geoLink = ''.concat('https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=', geoId);
-                                return (
-                                  <span className="itemSpan">
-                                    <a href={geoLink} target="_blank" rel="noreferrer noopener">{geoId}</a>
-                                  </span>
-                                );
-                              }
-                              if (am.name === 'dbGaP Study Identifier') {
-                                const dbId = m.replace(/<b>/g, '').replace(/<\/b>/g, '');
-                                const dbLink = ''.concat('https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=', dbId);
-                                return (
-                                  <span className="itemSpan">
-                                    <a href={dbLink} target="_blank" rel="noreferrer noopener">{dbId}</a>
-                                  </span>
-                                );
-                              }
-                              return (
-                                <span className="itemSpan additionalItemSpan">{ReactHtmlParser(m)}</span>
-                              );
-                            })
-                          }
-                        </div>
-                      </div>
-                    );
-                  })
-                }
               </div>
             );
           })
@@ -984,7 +788,7 @@ SearchResult.propTypes = {
   sort: PropTypes.object.isRequired,
   onChangeSorting: PropTypes.func.isRequired,
   onChangeSortingOrder: PropTypes.func.isRequired,
-  onLoadGlossaryTerms: PropTypes.func.isRequired,
+  // onLoadGlossaryTerms: PropTypes.func.isRequired,
   glossaryTerms: PropTypes.object.isRequired,
 };
 
