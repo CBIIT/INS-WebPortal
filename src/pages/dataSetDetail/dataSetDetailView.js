@@ -142,18 +142,24 @@ const DataSetDetailView = ({
               </Typography>
               <Typography variant="body2" className={classes.text}>
                 {data.dataset_pmid ? (
-                  <Link href={`https://pubmed.ncbi.nlm.nih.gov/${data.dataset_pmid}/`} target="_blank" className={classes.link}>
-                    {data.dataset_pmid}
-                    <img
-                      src={externalLinkIcon.src}
-                      alt={externalLinkIcon.alt}
-                      className={classes.externalLinkIcon}
-                    />
-                  </Link>
+                  data.dataset_pmid.split(';').map((pmid, index) => (
+                    <span key={index}>
+                      <Link href={`https://pubmed.ncbi.nlm.nih.gov/${pmid.trim()}/`} target="_blank" className={classes.link}>
+                        {pmid.trim()}
+                        <img
+                          src={externalLinkIcon.src}
+                          alt={externalLinkIcon.alt}
+                          className={classes.externalLinkIcon}
+                        />
+                      </Link>
+                      {index < data.dataset_pmid.split(';').length - 1 && '; '}
+                    </span>
+                  ))
                 ) : (
                   ''
                 )}
               </Typography>
+
             </div>
           </Grid>
           <div className={classes.divder} />
