@@ -107,7 +107,7 @@ const ProgramView = ({
               {programData.program_link ? (
                 <>
                   <a href={programData.program_link} target="_blank" rel="noopener noreferrer" className={classes.textDecorationNone}>
-                    TARGET
+                    {programData.program_acronym}
                     <img
                       src={externalLinkIcon.src}
                       alt={externalLinkIcon.alt}
