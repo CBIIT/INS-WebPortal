@@ -3,16 +3,11 @@
   width: 906px;
   height: 1200px;
   margin-top: -180px;
-  left: 900px;
+  left: calc(50% - 170px);
   top: 27px;
   right: 0;
 }
 
-@media (max-width: 1800px) {
-  .heroImageContainer {
-    margin-left: calc(50vw - 1050px);
-  };
-}
 .NCICommunityBubbleContainer {
   position: absolute;
   width: 10px;
