@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react'; // Add useState
 import {
   useLocation,
   useHistory,
@@ -51,6 +51,10 @@ const Filters = ({
 }) => {
   const query = useQuery();
   const history = useHistory();
+  
+  // Add sorting state
+  const [sortType, setSortType] = useState('alphabetically'); // Can be 'alphabetically' or 'count'
+  
   const sourceFiltersArray = Array.isArray(sourceFilters) ? sourceFilters : [sourceFilters];
   const sources = !sourceFilters || sourceFilters === 'all'
     ? searchFilters.map((element) => element.name.toLowerCase())
@@ -69,11 +73,30 @@ const Filters = ({
     history.push(`/datasets?${queryStr}`);
   };
 
+  // Add handler to change sorting type
+  const handleSortTypeChange = (type) => {
+    setSortType(type);
+  };
+
+  // Sort searchFilters based on the selected sortType
+  const sortedSearchFilters = [...searchFilters].sort((a, b) => {
+    if (sortType === 'alphabetically') {
+      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+    } else if (sortType === 'count') {
+      return b.count - a.count; // Assuming there is a 'count' field in the searchFilters items
+    }
+    return 0;
+  });
+
   const resetIcon = {
     src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Clear-icon.svg',
     alt: 'Reset icon',
     size: '12 px',
   };
+
+  // Dynamic CSS classes for sorting options
+  const alphabeticallyClass = sortType === 'alphabetically' ? 'sortOption selected' : 'sortOption';
+  const countClass = sortType === 'count' ? 'sortOption selected' : 'sortOption';
 
   return (
     <>
@@ -99,28 +122,36 @@ const Filters = ({
         </div>
         <hr className="divider" />
         <div className="filterLabel">
-          <span>Filter by Primary Disease</span>
+          <span>Filter by  Primary Disease</span>
         </div>
         <div className="sort">
           <span className="icon">
-            <span className="reset" aria-hidden="true">
+            <Button
+              onClick={() => handleResourceClick('')}
+              className="reset"
+              classes={{ root: 'clearAllButtonRoot' }}
+            >
               <img
                 src={resetIcon.src}
                 height={resetIcon.size}
                 width={resetIcon.size}
                 alt={resetIcon.alt}
               />
-            </span>
+            </Button>
           </span>
-          <span className="alphabetically">Sort alphabetically</span>
-          <span className="count">Sort by count</span>
+          <span className={alphabeticallyClass} onClick={() => handleSortTypeChange('alphabetically')}>
+            Sort alphabetically
+          </span>
+          <span className={countClass} onClick={() => handleSortTypeChange('count')}>
+            Sort by count
+          </span>
         </div>
         <div className="filterBlock">
           <div className="accordion">
-            {searchFilters.map((field, idx) => {
+            {sortedSearchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
               const arrayOfSources = sources.flatMap((item) => item.split('|'));
-              const checked = selectedFilters.primary_disease && selectedFilters.primary_disease.indexOf(field.name) > -1;
+              const checked = !!(selectedFilters.primary_disease && selectedFilters.primary_disease.indexOf(field.name) > -1);
               return arrayOfSources.includes(field.name.toLowerCase()) ? (
                 <FilterItem
                   key={key}
@@ -146,3 +177,5 @@ Filters.propTypes = {
 };
 
 export default Filters;
+
+

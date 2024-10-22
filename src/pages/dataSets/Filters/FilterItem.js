@@ -1,5 +1,4 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -7,7 +6,8 @@ import styled from 'styled-components';
 const OptionContainer = styled.div`
   display: flex;
   padding: 5px 0 5px 10px;
-  
+  border-top: 1px solid #D2D2D2;
+
   :nth-child(even) {
     background-color: #F9FCFF;
   }
@@ -31,7 +31,7 @@ const OptionContainer = styled.div`
 `;
 
 const SearchableOption = styled.span`
-  padding-left: 8px;
+  padding: 0 10px 0 8px  ;
   color: #000000;
   cursor: pointer;
   font-family: Nunito;
@@ -54,6 +54,10 @@ const OptionLabel = styled.span`
   font-size: 17px;
 `;
 
+const CountSpan = styled.span`
+  float: right;
+  padding-right: 10px;
+`;
 const FilterItem = ({
   item, checked, highlight, onSourceClick,
 }) => {
@@ -67,12 +71,14 @@ const FilterItem = ({
         <span style={{ display: 'none' }}>{item.name}</span>
         <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.name} checked={checked} readOnly />
       </label>
+
       <SearchableOption title={`${item.name}: ${item.count}`} onClick={handleResourceClick}>
         {item.name}
-        <span style={{ float: 'right' }}>
-          {item.count}
-        </span>
+       
       </SearchableOption>
+       <CountSpan>
+          ({item.count})
+       </CountSpan>
     </OptionContainer>
   );
 };
