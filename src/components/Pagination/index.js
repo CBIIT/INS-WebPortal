@@ -23,10 +23,12 @@ const PaginationContainer = styled.div`
 
 const ResultsPerPage = styled.div`
   margin: 5px 12px 0 0;
-  color: #004187;
-  font-weight: 400;
   font-family: Lato;
   font-size: 15px;
+  font-weight: 400;
+  line-height: 20.02px;
+  letter-spacing: 0.15px;
+  text-align: left;
 
   div {
     display: inline-block;
@@ -34,19 +36,13 @@ const ResultsPerPage = styled.div`
   }
 
   button {
-    display: inline-block;
     display: inline-flex;
     align-items: center;
     margin: -3px 0 0 -3px;
-    margin: -3px 0 0 -3px;
-    color: #004187;
-    color: #004187;
-    background-color: #F3F3F3;
+    color: #000;
     background-color: #F3F3F3;
     border: none;
-    border: none;
-    font-size: 15px;
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
     &:hover {
       background-color: #e0e0e0;
@@ -80,7 +76,7 @@ const ResultsPerPage = styled.div`
   a {
     min-width: 30px;
     padding: 8px;
-    color: #004187;
+    color: #000;
     display: block;
     text-align: center;
     cursor: pointer;
@@ -97,7 +93,7 @@ const ResultsPerPage = styled.div`
 const PageSummary = styled.div`
   padding: .2rem 1.5rem .2rem 0;
   margin: 3px 0 0 0;
-  color: #004187;
+  color: #000;
   font-weight: 400;
   font-family: Lato;
   font-size: 15px;

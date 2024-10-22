@@ -1,6 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable max-len */
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import {
   useLocation,
@@ -29,11 +27,11 @@ const SearchResultContainer = styled.div`
   }
 
   .container {
-    padding: 0;
-    margin: 0 0 10px 0;
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
+    margin: 12px  16px;
+    padding: 12px 20px;
+    border: 1px solid #D3D3D3;
     font-size: 14px;
+    background-color: #F8FBFD;
   }
 
   .container:hover {
@@ -65,6 +63,9 @@ const SearchResultContainer = styled.div`
     line-height: 19px;
     text-align: left;
     color: #571AFF;
+    padding-bottom: 10px !important;
+    margin-bottom: 10px !important;
+    border-bottom: 1px solid #D3D3D3;
   }
 
   .headerRow .piBlock {
@@ -201,7 +202,6 @@ const SearchResultContainer = styled.div`
     background-size: 32px;
     // display: inline-table;
     padding: 1px 30px 1px 5px;
-    // margin: 0px 0px 0px 0px;
   }
 
   .labelDiv{
@@ -212,6 +212,7 @@ const SearchResultContainer = styled.div`
     text-align: left;
     color: #1C58A1;
     margin-bottom: 10px;
+    padding-left: 20px;
   }
 
   .bodyRow .textSpan {
@@ -705,36 +706,6 @@ const SearchResult = ({
                     </div>
                   </div>
                 }
-                {/* {
-                  sampleAssayMethodList[idx].length > 0 && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col">
-                        <label>Sample Assay Method:</label>
-                        {
-                          sampleAssayMethodList[idx].length > 10 ? sampleAssayMethodList[idx].slice(0, 10).map((sam, samidx) => {
-                            const samkey = `sam_${samidx}`;
-                            return (
-                              <span key={samkey} className="itemSpan">
-                                {ReactHtmlParser(sam)}
-                              </span>
-                            );
-                          })
-                            : sampleAssayMethodList[idx].map((sam, samidx) => {
-                              const samkey = `sam_${samidx}`;
-                              return (
-                                <span key={samkey} className="itemSpan">
-                                  {ReactHtmlParser(sam)}
-                                </span>
-                              );
-                            })
-                        }
-                        {
-                          sampleAssayMethodList[idx].length > 10 && <span className="itemContinued">...</span>
-                        }
-                      </div>
-                    </div>
-                  )
-                } */}
                 {
                   <div className="row align-items-start bodyRow">
                     <div className="col labelDiv">

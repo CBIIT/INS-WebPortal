@@ -1,5 +1,4 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable max-len */
+/* eslint-disable */
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { OverlayTrigger } from 'react-bootstrap';
@@ -166,14 +165,16 @@ const SearchCatalogPage = ({
             <Filters />
           </div>
           <div className="searchContentContainer">
+
             <div className="searchDisplayOptionsRow">
+             
               <div className="searchSortingArea">
                 <Sorting />
               </div>
               <div className="contentPagingArea">
                 <PageInfo />
               </div>
-              <ExportButton />
+               <ExportButton />
             </div>
             <div className="searchContent">
               <SearchResult />
