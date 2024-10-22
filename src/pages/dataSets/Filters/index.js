@@ -7,14 +7,12 @@ import Filters from './Filters';
 const ReduxFilters = (() => {
   const mapStateToProps = (state) => {
     const datasets = state.datasets || {};
-
     return {
       searchFilters: datasets.resourcesList || [],
       sourceFilters: datasets.searchSourceResults || [],
       selectedFilters: (datasets.searchCriteria && datasets.searchCriteria.filters) || [],
     };
   };
-
   const mapDispatchToProps = {
     onLoadSearchDataResources: loadSearchDataResources,
   };

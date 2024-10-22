@@ -16,7 +16,7 @@ import ProjectDetail from '../../pages/projectDetail/projectDetailController';
 import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
 import DataSetDetailContainer from '../../pages/dataSetDetail/dataSetDetailController';
 import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
-import SearchCatalogPage from '../../pages/searchCatalogPage';
+import DateSet from '../../pages/dataSets';
 
 const ScrollToTop = () => {
   window.scrollTo(0, 0);
@@ -44,7 +44,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <MixedRoute exact path="/" component={Home} />
               <MixedRoute exact path="/home" component={Home} />
               <PrivateRoute path="/programs" access={['admin', 'member']} component={DashTemplate} />
-              <PrivateRoute path="/datasets" access={['admin', 'member']} component={SearchCatalogPage} />
+              <PrivateRoute path="/datasets" access={['admin', 'member']} component={DateSet} />
               <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
               <PrivateRoute path="/project/:id" access={['admin', 'member']} component={ProjectDetail} />
               <PrivateRoute path="/dataset/:id" access={['admin', 'member']} component={DataSetDetailContainer} />

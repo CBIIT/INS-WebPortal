@@ -26,8 +26,6 @@ const ProgramView = ({
   } = data;
   const programData = data;
 
-  console.log(programData);
-
   const totalResearchOutputs = (numberOfProjects || 0)
   + (numberOfGrants || 0)
   + (numberOfPublications || 0);
