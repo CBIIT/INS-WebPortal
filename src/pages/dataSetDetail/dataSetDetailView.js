@@ -31,6 +31,9 @@ const DataSetDetailView = ({
     ? `${data.description.substring(0, descMaxLength)}...`
     : data.description;
 
+  // Utility to add space after semicolons
+  const formatSemicolonSeparatedString = (str) => str.split(';').map((item) => item.trim()).join('; ');
+
   return (
     <Container className={classes.mainContainer}>
       <Grid container spacing={2} alignItems="center" justify="space-between" className={classes.nav}>
@@ -57,7 +60,7 @@ const DataSetDetailView = ({
               <div className={classes.headerMainTitle} id="program_detail_title">
                 <span>
                   Dataset:
-                  {data.dataset_title || ''}
+                  {formatSemicolonSeparatedString(data.dataset_title || '')}
                 </span>
               </div>
               <div className={cn(classes.headerMSubTitle,
@@ -117,43 +120,65 @@ const DataSetDetailView = ({
                 <strong>NCI Division/Office/Center  </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                {data.dataset_doc || ''}
+                {formatSemicolonSeparatedString(data.dataset_doc || '')}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
                 <strong>Release Date </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                {data.release_date || ''}
+                {formatSemicolonSeparatedString(data.release_date || '')}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
                 <strong>Principal Investigator(s) </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                {data.PI_name || ''}
+                {formatSemicolonSeparatedString(data.PI_name || '')}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
                 <strong>Funding Source(s) </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                {data.funding_source || ''}
+                {formatSemicolonSeparatedString(data.funding_source || '')}
               </Typography>
               <Typography variant="body2" className={classes.subTitle}>
                 <strong>Cited Publication PMID(s) </strong>
               </Typography>
               <Typography variant="body2" className={classes.text}>
                 {data.dataset_pmid ? (
-                  <Link href={`https://pubmed.ncbi.nlm.nih.gov/${data.dataset_pmid}/`} target="_blank" className={classes.link}>
-                    {data.dataset_pmid}
-                    <img
-                      src={externalLinkIcon.src}
-                      alt={externalLinkIcon.alt}
-                      className={classes.externalLinkIcon}
-                    />
-                  </Link>
+                  data.dataset_pmid.split(';').map((pmid, index) => {
+                    const trimmedPmid = pmid.trim();
+
+                    // Check if the value is not an empty string and is numeric
+                    const isNumeric = trimmedPmid !== '' && !Number.isNaN(Number(trimmedPmid));
+
+                    return (
+                      <span key={index}>
+                        {isNumeric ? (
+                          <Link
+                            href={`https://pubmed.ncbi.nlm.nih.gov/${trimmedPmid}/`}
+                            target="_blank"
+                            className={classes.link}
+                          >
+                            {trimmedPmid}
+                            <img
+                              src={externalLinkIcon.src}
+                              alt={externalLinkIcon.alt}
+                              className={classes.externalLinkIcon}
+                            />
+                          </Link>
+                        ) : (
+                          <span>{trimmedPmid}</span>
+                        )}
+                        {index < data.dataset_pmid.split(';').length - 1 && '; '}
+                        {index < data.dataset_pmid.split(';').length - 1 && ' '}
+                      </span>
+                    );
+                  })
                 ) : (
                   ''
                 )}
               </Typography>
+
             </div>
           </Grid>
           <div className={classes.divder} />
@@ -165,20 +190,20 @@ const DataSetDetailView = ({
                   <strong>Study Type </strong>
                 </Typography>
                 <Typography variant="body2" className={classes.text}>
-                  {data.study_type || ''}
+                  {formatSemicolonSeparatedString(data.study_type || '')}
                 </Typography>
 
                 <Typography variant="body2" className={classes.subTitle}>
                   <strong>Limitations for Reuse </strong>
                 </Typography>
                 <Typography variant="body2" className={classes.text}>
-                  {data.limitations_for_reuse || ''}
+                  {formatSemicolonSeparatedString(data.limitations_for_reuse || '')}
                 </Typography>
                 <Typography variant="body2" className={classes.subTitle}>
                   <strong>Assay Method </strong>
                 </Typography>
                 <Typography variant="body2" className={classes.text}>
-                  {data.assay_method || ''}
+                  {formatSemicolonSeparatedString(data.assay_method || '')}
                 </Typography>
                 <Typography variant="body2" className={classes.subTitle}>
                   <strong>Participant Count</strong>
@@ -199,25 +224,25 @@ const DataSetDetailView = ({
                   <strong>Primary Disease </strong>
                 </Typography>
                 <Typography variant="body2" className={classes.text}>
-                  {data.primary_disease || ''}
+                  {formatSemicolonSeparatedString(data.primary_disease || '')}
                 </Typography>
                 <Typography variant="body2" className={classes.subTitle}>
                   <strong>Related Genes </strong>
                 </Typography>
                 <Typography variant="body2" className={classes.text}>
-                  {data.related_genes || ''}
+                  {formatSemicolonSeparatedString(data.related_genes || '')}
                 </Typography>
                 <Typography variant="body2" className={classes.subTitle}>
                   <strong>Related Diseases </strong>
                 </Typography>
                 <Typography variant="body2" className={classes.text}>
-                  {data.related_diseases || ''}
+                  {formatSemicolonSeparatedString(data.related_diseases || '')}
                 </Typography>
                 <Typography variant="body2" className={classes.subTitle}>
                   <strong>Related Terms </strong>
                 </Typography>
                 <Typography variant="body2" className={classes.text}>
-                  {data.related_terms || ''}
+                  {formatSemicolonSeparatedString(data.related_terms || '')}
                 </Typography>
 
                 <Typography variant="body2" className={classes.subTitle}>
