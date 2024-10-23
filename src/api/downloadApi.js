@@ -1,6 +1,6 @@
 import env from '../utils/env';
 
-const baseUrl = 'https://studycatalog-dev.cancer.gov/service/datasets';
+const baseUrl = env.REACT_APP_REST_BACKEND_API;
 
 const sayswho = () => {
   const ua = navigator.userAgent;
@@ -21,7 +21,7 @@ const sayswho = () => {
 };
 
 export function getSubmissionTemplate() {
-  fetch(`${baseUrl}/submissionTemplate`)
+  fetch(`${baseUrl}submissionTemplate`)
     .then((response) => {
       response.blob().then((blob) => {
         const url = window.URL.createObjectURL(blob);
@@ -34,7 +34,7 @@ export function getSubmissionTemplate() {
 }
 
 export function getUserGuide() {
-  fetch(`${baseUrl}/userGuide`)
+  fetch(`${baseUrl}userGuide`)
     .then((response) => {
       response.blob().then((blob) => {
         const url = window.URL.createObjectURL(blob);
