@@ -4,6 +4,10 @@
 }
 
 .buttonStyle {
+  border: none;
+  height: 37px;
+  width: 140px;
+  line-height: 39px;
   margin-left: 450px;
   position: relative;
   font-size: 14px;

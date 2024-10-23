@@ -1,5 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as exportApi from '../../../api/exportApi';
@@ -16,18 +14,14 @@ const ExportButton = ({
 
   return (
     <>
-      <a href="#" role="button" className="buttonStyle" onClick={handleExport}>
+      <button type="button" className="buttonStyle" onClick={handleExport}>
         <span className="spanText">
           <img src={ExportIconImg} alt="export-icon" />
           Export
         </span>
-      </a>
+      </button>
     </>
   );
-};
-
-ExportButton.propTypes = {
-  searchCriteria: PropTypes.object.isRequired,
 };
 
 export default ExportButton;

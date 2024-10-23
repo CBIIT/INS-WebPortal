@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import {
   useLocation,
@@ -126,10 +125,6 @@ const Sorting = ({
       }
     </>
   );
-};
-
-Sorting.propTypes = {
-  sort: PropTypes.object.isRequired,
 };
 
 export default Sorting;
