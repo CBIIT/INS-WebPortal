@@ -442,6 +442,9 @@ const SearchResult = ({
     popoverTriggerList.map((popoverTriggerEl) => new Popover(popoverTriggerEl));
   };
 
+  function removeHTMLTags(str) {
+      return str.replace(/<\/?[^>]+(>|$)/g, "");
+  }
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -458,7 +461,7 @@ const SearchResult = ({
             <div className="messageContainer">No result found. Please refine your search.</div>
           ) : resultList.map((rst, idx) => {
             const key = `sr_${idx}`;
-            let description = rst.content.description;
+            let description = removeHTMLTags(rst.content.description);
             if (description === null) {
               description = '';
             }
@@ -512,9 +515,6 @@ const SearchResult = ({
                 }
               }
             });
-             console.log('additionalMatches')
-            console.log(hideContent)
-            console.log(additionalMatches)
             return (
               <div key={key} className="container">
                 <div className="row align-items-start headerRow">
