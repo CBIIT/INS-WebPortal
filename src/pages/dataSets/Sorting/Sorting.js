@@ -20,10 +20,11 @@ const SortingContainer = styled.div`
 const SortingLabel = styled.div`
   line-height: 37.5px;
   padding-right: 10px;
-  color: #748895;
-  font-size: 13px;
-  font-family: Inter;
-  font-weight: 600;
+  padding-left: 20px;
+  color: #000;
+    font-weight: 400;
+    font-family: Lato;
+    font-size: 14px;
 `;
 
 const SortingOrderASC = styled.div`

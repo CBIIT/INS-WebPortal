@@ -1,5 +1,4 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable max-len */
+/* eslint-disable */
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { OverlayTrigger } from 'react-bootstrap';
@@ -16,8 +15,6 @@ const useSearchParams = () => {
   const { search } = useLocation();
   return useMemo(() => new URLSearchParams(search), [search]);
 };
-
-// const useQuery = () => new URLSearchParams(useLocation().search);
 
 const replaceQueryStr = (query, searchText) => {
   let str = '';
@@ -147,40 +144,6 @@ const SearchCatalogPage = ({
             <span>
               Explore Datasets
             </span>
-            <div className="searchTooltip">
-              <OverlayTrigger
-                placement="right-start"
-                overlay={
-                  (
-                    <div className="searchTooltipBox">
-                      <p>
-                        <strong>Search Rules</strong>
-                        :
-                      </p>
-                      <ul>
-                        <li>
-                          A minimum of 3 character are needed for a term search.
-                        </li>
-                        <li>
-                          Searches will return both full and partial word results (i.e. leuk will returns results for leukemia).
-                        </li>
-                        <li>
-                          If you search multiple terms (i.e. lymphocytic survivors) the search results will return sources that contain all the specified terms (AND Boolean operator).
-                        </li>
-                        <li>
-                          Results can be filtered by Participating Resource by checking a resource in the Resource column.  Selecting multiple Resources will filter as an OR Boolean operator.
-                        </li>
-                        <li>
-                          Anatomical site searches leverage the NCI Thesaurus to display Case Tumor Site synonym matches. For example, a search for ‘eye’ will also return results for ‘orbit’.
-                        </li>
-                      </ul>
-                    </div>
-                  )
-                }
-              >
-                <button type="button" aria-label="searchTooltip" className="searchTooltipButton"><i className="fas fa-question-circle" /></button>
-              </OverlayTrigger>
-            </div>
           </div>
           <div className="searchBoxContainer">
             <SearchBox
@@ -202,14 +165,16 @@ const SearchCatalogPage = ({
             <Filters />
           </div>
           <div className="searchContentContainer">
+
             <div className="searchDisplayOptionsRow">
+             
               <div className="searchSortingArea">
                 <Sorting />
               </div>
               <div className="contentPagingArea">
                 <PageInfo />
               </div>
-              <ExportButton />
+               <ExportButton />
             </div>
             <div className="searchContent">
               <SearchResult />

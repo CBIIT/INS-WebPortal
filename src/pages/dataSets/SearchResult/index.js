@@ -15,6 +15,7 @@ const ReduxSearchResult = (() => {
     return {
       resultList: datasets.searchResults || [],
       sort: searchCriteria.sort || 'defaultSort',
+      search: searchCriteria,
       glossaryTerms: application.glossaryTerms || [],
     };
   };

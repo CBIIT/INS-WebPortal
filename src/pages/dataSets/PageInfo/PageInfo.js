@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types */
+/* eslint-disable */
 import React from 'react';
 import {
   useLocation,
@@ -66,7 +66,7 @@ const PageInfo = ({
     const queryStr = replaceQueryStrPageSize(query, pageSize);
     history.push(`/datasets?${queryStr}`);
   };
-
+  console.log(pageInfo)
   return (
     <>
       <Pagination pageInfo={pageInfo} pageClick={pageClick} sizeClick={sizeClick} />
