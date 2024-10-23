@@ -165,6 +165,13 @@ const SearchResultContainer = styled.div`
     color: #004187;
   }
 
+  b b,
+  b b b,
+  b b b b,
+  b b b b b {
+    border: none !important;
+  }
+
   .footerRow .itemSpan {
     padding: 0 5px;
     display: inline-block;
@@ -365,16 +372,49 @@ const replaceQueryStr = (query, sorting) => {
   return str.substring(1);
 };
 
+
+
+function getCombinations(arr) {
+    let result = [];
+    // Helper function to generate combinations
+    function combine(prefix, start) {
+        for (let i = start; i < arr.length; i++) {
+            const newCombo = prefix.trim() + ' ' + arr[i].trim();
+            result.push(newCombo);
+            combine(newCombo, i + 1); // Recursively generate combinations
+        }
+    }
+
+    combine('', 0);
+    return result;
+}
+
+
 const SearchResult = ({
   resultList,
   sort,
+  search,
   onChangeSorting,
   onChangeSortingOrder,
   // onLoadGlossaryTerms,
   glossaryTerms,
 }) => {
+  
   const query = useQuery();
   const history = useHistory();
+  console.log('searchCriteria')
+  console.log(search)
+
+  let searchTerms = search.search_text.split(" ").filter(item => item !== "");
+  let searchCombination = getCombinations(searchTerms);
+
+  // Check if search.filter.primary_disease exists and is an array
+  if (search.filters&&search.filters.primary_disease&&Array.isArray(search.filters.primary_disease) && search.filters.primary_disease.length > 0) {
+    // Concatenate the two arrays
+    searchCombination = search.filters.primary_disease.concat(searchCombination);
+  }
+
+  searchCombination.sort((a, b) => b.length - a.length);
 
   const handleSortBy = (column) => {
     const name = column;
@@ -402,197 +442,13 @@ const SearchResult = ({
     popoverTriggerList.map((popoverTriggerEl) => new Popover(popoverTriggerEl));
   };
 
-  const caseDiseaseDiagnosisList = resultList.map((rt) => {
-    const tmp = { labels: [], matched: [] };
-    if (rt.highlight && rt.highlight['case_disease_diagnosis.k']) {
-      tmp.labels = rt.highlight['case_disease_diagnosis.k'];
-    }
-
-    if (rt.highlight && rt.highlight['case_disease_diagnosis.s']) {
-      const syns = [];
-      rt.highlight['case_disease_diagnosis.s'].forEach((syn) => {
-        const syn1 = syn.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        if (syns.indexOf(syn1) === -1) {
-          syns.push(syn1);
-        }
-      });
-      rt.content.case_disease_diagnosis.forEach((item) => {
-        if (item.s) {
-          for (let i = 0; i < syns.length; i += 1) {
-            if (item.s.indexOf(syns[i]) > -1) {
-              tmp.matched.push(item.n);
-              break;
-            }
-          }
-        }
-      });
-    }
-
-    // merge matched with labels to remove duplicate items
-    if (tmp.labels.length > 0) {
-      tmp.labels.forEach((phl) => {
-        const orignialText = phl.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        if (tmp.matched.indexOf(orignialText) === -1) {
-          tmp.matched.push(phl);
-        }
-      });
-    }
-
-    const result = rt.content.case_disease_diagnosis ? rt.content.case_disease_diagnosis.map((rst) => rst.n) : [];
-    let matched = [];
-
-    if (tmp.matched.length > 0) {
-      // sort by alphabetic order first
-      tmp.matched.sort((a, b) => {
-        const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        return la < lb ? -1 : 1;
-      });
-      matched = tmp.matched.map((item) => {
-        const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        const idx = result.indexOf(rawItem);
-        if (idx > -1) {
-          result.splice(idx, 1);
-        }
-        return `<b>${rawItem}</b>`;
-      });
-    }
-
-    return matched.concat(result);
-  });
-
-  const sampleAssayMethodList = resultList.map((rt) => {
-    let tmp = [];
-    let matched = [];
-    if (rt.highlight && rt.highlight['sample_assay_method.k']) {
-      tmp = rt.highlight['sample_assay_method.k'];
-    }
-
-    const result = rt.content.sample_assay_method ? rt.content.sample_assay_method.map((rst) => rst.n) : [];
-
-    if (tmp.length > 0) {
-      // sort by alphabetic order first
-      tmp.sort((a, b) => {
-        const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        return la < lb ? -1 : 1;
-      });
-      matched = tmp.map((item) => {
-        const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        const idx = result.indexOf(rawItem);
-        if (idx > -1) {
-          result.splice(idx, 1);
-        }
-        return `<b>${rawItem}</b>`;
-      });
-    }
-
-    return matched.concat(result);
-  });
-
-  const caseTumorSiteList = resultList.map((rt) => {
-    const tmp = { labels: [], matched: [] };
-    if (rt.highlight && rt.highlight['case_tumor_site.k']) {
-      tmp.labels = rt.highlight['case_tumor_site.k'];
-    }
-
-    if (rt.highlight && rt.highlight['case_tumor_site.s']) {
-      const syns = [];
-      rt.highlight['case_tumor_site.s'].forEach((syn) => {
-        const syn1 = syn.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        if (syns.indexOf(syn1) === -1) {
-          syns.push(syn1);
-        }
-      });
-      rt.content.case_tumor_site.forEach((item) => {
-        if (item.s) {
-          for (let i = 0; i < syns.length; i += 1) {
-            if (item.s.indexOf(syns[i]) > -1) {
-              tmp.matched.push(item.n);
-              break;
-            }
-          }
-        }
-      });
-    }
-
-    // merge matched with labels to remove duplicate items
-    if (tmp.labels.length > 0) {
-      tmp.labels.forEach((phl) => {
-        const orignialText = phl.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        if (tmp.matched.indexOf(orignialText) === -1) {
-          tmp.matched.push(phl);
-        }
-      });
-    }
-
-    if (tmp.matched.length === 0) {
-      return [];
-    }
-
-    const result = rt.content.case_tumor_site ? rt.content.case_tumor_site.map((rst) => rst.n) : [];
-    let matched = [];
-
-    if (tmp.matched.length > 0) {
-      // sort by alphabetic order first
-      tmp.matched.sort((a, b) => {
-        const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-        return la < lb ? -1 : 1;
-      });
-      matched = tmp.matched.map((item) => {
-        const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
-        const idx = result.indexOf(rawItem);
-        if (idx > -1) {
-          result.splice(idx, 1);
-        }
-        return `<b>${rawItem}</b>`;
-      });
-    }
-
-    return matched.concat(result);
-  });
-
-  const projectsList = resultList.map((rt) => {
-    let tmp = [];
-    if (rt.highlight && rt.highlight['projects.p_k']) {
-      tmp = rt.highlight['projects.p_k'];
-    }
-
-    if (tmp.length === 0) {
-      return [];
-    }
-
-    const result = rt.content.projects ? rt.content.projects.map((rst) => rst.p_k) : [];
-    let matched = [];
-
-    tmp.sort((a, b) => {
-      const la = a.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-      const lb = b.replace(/<b>/g, '').replace(/<\/b>/g, '').toLowerCase();
-      return la < lb ? -1 : 1;
-    });
-    matched = tmp.map((item) => {
-      const rawItem = item.replace(/<b>/g, '').replace(/<\/b>/g, '');
-      const idx = result.indexOf(rawItem);
-      if (idx > -1) {
-        result.splice(idx, 1);
-      }
-      return `<b>${rawItem}</b>`;
-    });
-
-    return matched.concat(result);
-  });
-
-  const getTooltipTermList = resultList.map((rt) => rt.content.primary_dataset_scope);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     initializePopover();
   }, [resultList, glossaryTerms]);
-
-  useEffect(() => {
-    const termSet = [...new Set(getTooltipTermList)].filter((term) => !(term in glossaryTerms));
-    const termPara = { termNames: termSet };
-  }, [resultList]);
 
   return (
     <>
@@ -602,7 +458,7 @@ const SearchResult = ({
             <div className="messageContainer">No result found. Please refine your search.</div>
           ) : resultList.map((rst, idx) => {
             const key = `sr_${idx}`;
-            let description = rst.highlight && rst.highlight.description ? rst.highlight.description[0] : rst.content.description;
+            let description = rst.content.description;
             if (description === null) {
               description = '';
             }
@@ -611,78 +467,62 @@ const SearchResult = ({
             } else {
               description = description.replace(/<(?![b/])/g, '&lt;');
             }
-            const arr = description.split('http');
-            let descArr = [];
-            const isSearchArr = [];
-            if (arr.length > 1) {
-              if (arr[0].endsWith('<b>')) {
-                descArr.push(arr[0].substring(0, arr[0].length - 3));
-                isSearchArr.push(0);
-              } else {
-                descArr.push(arr[0]);
-                isSearchArr.push(0);
-              }
-              for (let i = 1; i < arr.length; i += 1) {
-                const urlArr = arr[i].split(' ');
-                if (urlArr[0].includes('</b>')) {
-                  isSearchArr.push(1);
-                } else {
-                  isSearchArr.push(0);
-                }
-                const url = urlArr[0].replace('</b>', '');
-                const urlLastChar = url[url.length - 1];
-                if (',;.()<>{}'.includes(urlLastChar)) {
-                  const newUrl = 'http'.concat(url.substring(0, url.length - 1));
-                  descArr.push(newUrl);
-                  const restText = arr[i].split(url.substring(0, url.length - 1))[1];
-                  if (restText.endsWith('<b>')) {
-                    descArr.push(restText.substring(0, restText.length - 3));
-                  } else {
-                    descArr.push(restText);
+            
+            let hightLightedPrimaryDisease = rst.content.primary_disease;
+            let hightLightedDesc = description;
+            
+            searchCombination.forEach((term) => {
+              const regex = new RegExp(`(${term})`, 'gi'); // Case-insensitive search
+              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, "<b>$1</b>", term);
+              hightLightedDesc = hightLightedDesc.replace(regex, "<b>$1</b>", term);
+            });
+
+
+              const additionalMatches = [];
+
+              let hideContent =[{'dbGaP URL':  rst.content.dbGaP_URL},
+                    {'PI name':  rst.content.PI_name},
+                    {'GPA':  rst.content.GPA},
+                    {'dataset doc':  rst.content.dataset_doc},
+                    {'dataset pmid':  rst.content.dataset_pmid},
+                    {'funding source':  rst.content.funding_source},
+                    {'related diseases':  rst.content.related_diseases},
+                    {'related terms':  rst.content.related_terms},
+                    {'study links':  rst.content.study_links},
+                    {'study type':  rst.content.study_type},
+                    {'assay method':  rst.content.assay_method},
+                    {'limitations for reuse':  rst.content.limitations_for_reuse},
+                    {'release date':  rst.content.release_dat}]
+
+
+              // Iterate through hideContent and check for matches
+            hideContent.forEach((item) => {
+              for (let key in item) {
+                let value = item[key];
+                let highlightedValue = value;
+                let foundMatch = false;
+                searchCombination.forEach((term) => {
+                  const regex = new RegExp(`(${term})`, 'gi'); // Case-sensitive search
+                  if (value && value.includes(term)) { // Check if value contains the term
+                    highlightedValue = highlightedValue.replace(regex, "<b>$1</b>", term); // Replace the term with bolded version
+                    foundMatch = true;
                   }
-                  isSearchArr.push(0);
-                } else {
-                  const newUrl = 'http'.concat(url);
-                  descArr.push(newUrl);
-                  if (urlArr.length !== 1) {
-                    const restText = arr[i].split(url)[1];
-                    if (restText.endsWith('<b>')) {
-                      descArr.push(restText.substring(0, restText.length - 3));
-                    } else {
-                      descArr.push(restText);
-                    }
-                    isSearchArr.push(0);
-                  }
+                });
+                if(foundMatch){
+                   additionalMatches.push({ [key]: highlightedValue }); // Add the updated item to additionalMatches
                 }
               }
-            } else {
-              descArr = arr;
-              isSearchArr.push(0);
-            }
-            const otherMatches = [];
-            if (rst.highlight) {
-              Object.keys(rst.highlight).forEach((hl) => {
-                if (hl !== 'dataset_name' && hl !== 'name' && hl !== 'data_resource_name' && hl !== 'description'
-                  && hl !== 'projects.p_k' && hl !== 'case_disease_diagnosis.k' && hl !== 'case_disease_diagnosis.s'
-                  && hl !== 'case_tumor_site.k' && hl !== 'case_tumor_site.s' && hl !== 'sample_assay_method.k') {
-                  otherMatches.push(hl);
-                }
-              });
-            }
-            const additionalMatches = [];
-            if (rst.additionalHits) {
-              rst.additionalHits.forEach((add) => {
-                const tmp = {};
-                tmp.name = add.content.attr_name;
-                tmp.matches = add.highlight['additional.attr_set.k'];
-                additionalMatches.push(tmp);
-              });
-            }
+            });
+             console.log('additionalMatches')
+            console.log(hideContent)
+            console.log(additionalMatches)
             return (
               <div key={key} className="container">
                 <div className="row align-items-start headerRow">
                   <div className="col-sm resultTitle">
-                    {rst.content.dataset_title}
+                    <Link to={`/dataset/${rst.content.dbGaP_phs}`}>
+                           {rst.content.dataset_title}
+                      </Link>
                   </div>
                 </div>
                 <div className="row align-items-start subHeaderRow">
@@ -690,7 +530,7 @@ const SearchResult = ({
                     <img src={dataResourceIcon} alt="data-resource" className="img1"/>
                     {rst.content.dbGaP_URL ? (
                       <a href={rst.content.dbGaP_URL} target="_blank" rel="noopener noreferrer" className="link">
-                        {rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.dbGaP_phs}
+                        {rst.content.dbGaP_phs}
                         <img
                           src={externalLinkIcon.src}
                           alt={externalLinkIcon.alt}
@@ -699,7 +539,7 @@ const SearchResult = ({
                       </a>
                     ) : (
                       <span className="link">
-                        {rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.dbGaP_phs}
+                        {rst.content.dbGaP_phs}
                       </span>
                     )}
                   </div>
@@ -709,7 +549,7 @@ const SearchResult = ({
                     <div className="col labelDiv">
                       <label>Primary Disease:&nbsp;&nbsp;&nbsp;</label>
                       <span className="itemSpan">
-                        {rst.content.primary_disease}
+                        {ReactHtmlParser(hightLightedPrimaryDisease)}
                       </span>
                     </div>
                   </div>
@@ -740,29 +580,25 @@ const SearchResult = ({
                       <div className="col labelDiv">
                         <label>Description:&nbsp;&nbsp;&nbsp;</label>
                         <span className="textSpan">
-                          {
-                            descArr.map((item, desidx) => {
-                              const deskey = `des_${desidx}`;
-                              return (
-                                item.includes('http')
-                                  ? (
-                                    <span key={deskey} className={isSearchArr[desidx] === 1 ? 'descLink' : null}>
-                                      {
-                                        isSearchArr[desidx] === 1
-                                          ? <a href={item} target="_blank" rel="noreferrer noopener">{item}</a>
-                                          : <a href={item} target="_blank" rel="noreferrer noopener" style={{ backgroundColor: 'white', fontWeight: 'bold', textDecoration: 'underline' }}>{item}</a>
-                                      }
-                                    </span>
-                                  )
-                                  : <span key={deskey}>{ReactHtmlParser(item)}</span>
-                              );
-                            })
-                          }
+                          {ReactHtmlParser(hightLightedDesc)}
                         </span>
                       </div>
                     </div>
                   )
                 }
+
+                {
+                additionalMatches.length > 0 && additionalMatches.map((match, index) => (
+                  <div className="row align-items-start bodyRow" key={index}>
+                    <div className="col labelDiv">
+                      <label>Other Match in {Object.keys(match)[0]}:&nbsp;&nbsp;&nbsp;</label>
+                      <span className="textSpan">
+                        {ReactHtmlParser(Object.values(match)[0])}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              }
               </div>
             );
           })
