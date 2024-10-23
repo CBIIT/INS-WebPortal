@@ -69,7 +69,7 @@ const AboutBody = () => (
                     NCI’s Office of Data Sharing
                   </a>
                   {' '}
-                  and represent collections of scientific research projects and support that serve as hubs for scientific discovery. Programs are associated with Focus Area groupings (such as Pediatric or
+                  and represent collections of scientific research projects and support that serve as hubs for scientific discovery. Programs are associated with Special Topic groupings (such as Pediatric or
                   {' '}
                   <a target="_blank" rel="noopener noreferrer" href="https://www.cancer.gov/research/key-initiatives/moonshot-cancer-initiative">
                     Cancer Moonshot

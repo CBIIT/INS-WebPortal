@@ -33,7 +33,7 @@ const leftPanel = [
         link: '{program_link}',
       },
       {
-        label: 'Associated Focus Area(s)',
+        label: 'Associated Special Topic(s)',
         dataField: 'focusAreaTransformed',
       },
       {
