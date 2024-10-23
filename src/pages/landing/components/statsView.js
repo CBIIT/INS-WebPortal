@@ -11,10 +11,10 @@ const linkPage = '/programs';
 const LandingStatsView = ({ classes, stats, statsData }) => {
   const statsBarColor = [
     'linear-gradient(to right, #c56e6e, #923b3c)',
-    'linear-gradient(to right, #be73d6, #8b40a3)',
+    'linear-gradient(to right, #fabe5f, #EDA534)',
     'linear-gradient(to right, #6b7ea1, #384c6e)',
     'linear-gradient(to right, #aabbff, #7788cc)',
-    'linear-gradient(to right, #fabe5f, #EDA534)',
+    'linear-gradient(to right, #be73d6, #8b40a3)',
   ];
   const statsStyle = stats.map((stat, index) => ({
     right: {
