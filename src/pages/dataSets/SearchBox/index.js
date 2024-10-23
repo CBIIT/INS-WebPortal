@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
@@ -221,7 +220,9 @@ const SearchBox = ({
           )
         }
         {
-          resourceFilters.primary_disease && resourceFilters.primary_disease.length > 0 && resourceFilters.primary_disease.map((filter, index) => (
+          resourceFilters.primary_disease
+          && resourceFilters.primary_disease.length > 0
+          && resourceFilters.primary_disease.map((filter, index) => (
             <BubbleContainer key={index} title={filter}>
               <span style={{ fontSize: '10px' }}>PRIMARY DISEASE:&nbsp;</span>
               {filter}
@@ -234,17 +235,6 @@ const SearchBox = ({
       </SelectionBubbleArea>
     </Container>
   );
-};
-
-SearchBox.propTypes = {
-  searchText: PropTypes.string.isRequired,
-  searchKeyword: PropTypes.string.isRequired,
-  resourceFilters: PropTypes.array.isRequired,
-  handleBubbleSearchTextRemoveClick: PropTypes.func.isRequired,
-  handleBubbleResourcesRemoveClick: PropTypes.func.isRequired,
-  onSearchBoxKeyPress: PropTypes.func.isRequired,
-  onSearchSubmit: PropTypes.func.isRequired,
-  onSearchTextInputChange: PropTypes.func.isRequired,
 };
 
 export default SearchBox;

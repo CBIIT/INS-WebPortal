@@ -1,4 +1,3 @@
-/* eslint-disable */
 import * as types from './actionTypes';
 import * as searchApi from '../../api/searchApi';
 import * as participatingResourcesApi from '../../api/participatingResourcesApi';
@@ -68,10 +67,10 @@ export function loadFromUrlQuery(searchText, filters) {
     console.log(filters);
     const searchCriteria = {};
     searchCriteria.search_text = searchText;
-    searchCriteria.filters ={};
+    searchCriteria.filters = {};
     if (Array.isArray(filters.filterByResource) && filters.filterByResource.length > 0) {
       searchCriteria.filters.primary_disease = filters.filterByResource;
-    } 
+    }
     searchCriteria.pageInfo = {};
     searchCriteria.pageInfo.page = filters.page ? filters.page : 1;
     searchCriteria.pageInfo.pageSize = filters.pageSize ? filters.pageSize : 10;
@@ -90,7 +89,9 @@ export function loadFromUrlQuery(searchText, filters) {
         dispatch(applyResourcesFilter(searchCriteria.filters));
         dispatch(switchPage(searchResults.data.pageInfo));
         dispatch(switchSize(searchResults.data.pageInfo));
-        dispatch(switchSorting({ name: searchResults.data.sort.name, k: searchResults.data.sort.k }));
+        dispatch(switchSorting(
+          { name: searchResults.data.sort.name, k: searchResults.data.sort.k },
+        ));
         dispatch(switchSortingOrder(searchResults.data.sort.v));
       })
       .catch((error) => {

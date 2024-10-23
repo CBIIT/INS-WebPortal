@@ -1,4 +1,3 @@
-/* eslint-disable  */
 import { connect } from 'react-redux';
 import ExportButton from './ExportButton';
 
@@ -6,7 +5,7 @@ const ReduxExportButton = (() => {
   const mapStateToProps = (state) => {
     const datasets = state.datasets || {};
     return {
-      searchCriteria: datasets.searchCriteria || '', 
+      searchCriteria: datasets.searchCriteria || '',
     };
   };
 

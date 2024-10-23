@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -37,7 +36,7 @@ const SearchableOption = styled.span`
   font-family: Nunito;
   font-size: 14px;
   font-weight: 300;
-  line-height: 15px;
+  line-height: 22px;
   letter-spacing: 0.15px;
   text-align: left;
   width: 100%;
@@ -67,27 +66,22 @@ const FilterItem = ({
 
   return (
     <OptionContainer>
-      <label>
+      <span>
         <span style={{ display: 'none' }}>{item.name}</span>
         <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.name} checked={checked} readOnly />
-      </label>
+      </span>
 
       <SearchableOption title={`${item.name}: ${item.count}`} onClick={handleResourceClick}>
         {item.name}
-       
+
       </SearchableOption>
-       <CountSpan>
-          ({item.count})
-       </CountSpan>
+      <CountSpan>
+        (
+        {item.count}
+        )
+      </CountSpan>
     </OptionContainer>
   );
-};
-
-FilterItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  checked: PropTypes.bool.isRequired,
-  highlight: PropTypes.bool.isRequired,
-  onSourceClick: PropTypes.func.isRequired,
 };
 
 export default FilterItem;

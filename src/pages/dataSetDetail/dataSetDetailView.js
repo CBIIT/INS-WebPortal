@@ -9,6 +9,7 @@ import {
   Link,
   withStyles,
 } from '@material-ui/core';
+import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/dataset_icon.png';
 import {
@@ -18,7 +19,7 @@ import {
 const DataSetDetailView = ({
   classes, data,
 }) => {
-  const descMaxLength = 950;
+  const descMaxLength = 9999999;
   const [expanded, setExpanded] = useState(false);
 
   // Function to toggle "Read More" and "Read Less"
@@ -83,7 +84,7 @@ const DataSetDetailView = ({
               Study Description
             </Typography>
             <Typography variant="body1" paragraph className={classes.studyContent}>
-              {expanded ? data.description : truncatedDescription || ''}
+              {expanded ? ReactHtmlParser(data.description) : ReactHtmlParser(truncatedDescription) || ''}
               {' '}
               {data.description && data.description.length > descMaxLength && (
               <Button onClick={toggleExpand} color="primary" className={classes.link}>

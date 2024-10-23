@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect } from 'react';
 import {
   useLocation,
@@ -143,7 +142,7 @@ const SearchResultContainer = styled.div`
     color: #6199d0;
   }
 
-  .bodyRow label {
+  .bodyRow span {
     font-weight: 600;
   }
 
@@ -372,23 +371,20 @@ const replaceQueryStr = (query, sorting) => {
   return str.substring(1);
 };
 
-
-
 function getCombinations(arr) {
-    let result = [];
-    // Helper function to generate combinations
-    function combine(prefix, start) {
-        for (let i = start; i < arr.length; i++) {
-            const newCombo = prefix.trim() + ' ' + arr[i].trim();
-            result.push(newCombo);
-            combine(newCombo, i + 1); // Recursively generate combinations
-        }
+  const result = [];
+
+  // Helper function to generate combinations
+  function combine(prefix, start) {
+    for (let i = start; i < arr.length; i += 1) {
+      const newCombo = `${prefix.trim()} ${arr[i].trim()}`;
+      result.push(newCombo);
+      combine(newCombo, i + 1); // Recursively generate combinations
     }
-
-    combine('', 0);
-    return result;
+  }
+  combine('', 0);
+  return result;
 }
-
 
 const SearchResult = ({
   resultList,
@@ -396,20 +392,18 @@ const SearchResult = ({
   search,
   onChangeSorting,
   onChangeSortingOrder,
-  // onLoadGlossaryTerms,
   glossaryTerms,
 }) => {
-  
   const query = useQuery();
   const history = useHistory();
-  console.log('searchCriteria')
-  console.log(search)
 
-  let searchTerms = search.search_text.split(" ").filter(item => item !== "");
+  const searchTerms = search.search_text.split(' ').filter((item) => item !== '');
   let searchCombination = getCombinations(searchTerms);
 
   // Check if search.filter.primary_disease exists and is an array
-  if (search.filters&&search.filters.primary_disease&&Array.isArray(search.filters.primary_disease) && search.filters.primary_disease.length > 0) {
+  if (search.filters && search.filters.primary_disease
+    && Array.isArray(search.filters.primary_disease)
+     && search.filters.primary_disease.length > 0) {
     // Concatenate the two arrays
     searchCombination = search.filters.primary_disease.concat(searchCombination);
   }
@@ -442,6 +436,9 @@ const SearchResult = ({
     popoverTriggerList.map((popoverTriggerEl) => new Popover(popoverTriggerEl));
   };
 
+  function removeHTMLTags(str) {
+    return str.replace(/<\/?[^>]+(>|$)/g, '');
+  }
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -457,8 +454,8 @@ const SearchResult = ({
           resultList.length === 0 ? (
             <div className="messageContainer">No result found. Please refine your search.</div>
           ) : resultList.map((rst, idx) => {
-            const key = `sr_${idx}`;
-            let description = rst.content.description;
+            const keyName = `sr_${idx}`;
+            let description = removeHTMLTags(rst.content.description);
             if (description === null) {
               description = '';
             }
@@ -467,66 +464,63 @@ const SearchResult = ({
             } else {
               description = description.replace(/<(?![b/])/g, '&lt;');
             }
-            
+
             let hightLightedPrimaryDisease = rst.content.primary_disease;
             let hightLightedDesc = description;
-            
+
             searchCombination.forEach((term) => {
               const regex = new RegExp(`(${term})`, 'gi'); // Case-insensitive search
-              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, "<b>$1</b>", term);
-              hightLightedDesc = hightLightedDesc.replace(regex, "<b>$1</b>", term);
+              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, '<b>$1</b>', term);
+              hightLightedDesc = hightLightedDesc.replace(regex, '<b>$1</b>', term);
             });
 
+            const additionalMatches = [];
 
-              const additionalMatches = [];
+            const hideContent = [{ 'dbGaP URL': rst.content.dbGaP_URL },
+              { 'PI name': rst.content.PI_name },
+              { GPA: rst.content.GPA },
+              { 'dataset doc': rst.content.dataset_doc },
+              { 'dataset pmid': rst.content.dataset_pmid },
+              { 'funding source': rst.content.funding_source },
+              { 'related diseases': rst.content.related_diseases },
+              { 'related terms': rst.content.related_terms },
+              { 'study links': rst.content.study_links },
+              { 'study type': rst.content.study_type },
+              { 'assay method': rst.content.assay_method },
+              { 'limitations for reuse': rst.content.limitations_for_reuse },
+              { 'release date': rst.content.release_dat }];
 
-              let hideContent =[{'dbGaP URL':  rst.content.dbGaP_URL},
-                    {'PI name':  rst.content.PI_name},
-                    {'GPA':  rst.content.GPA},
-                    {'dataset doc':  rst.content.dataset_doc},
-                    {'dataset pmid':  rst.content.dataset_pmid},
-                    {'funding source':  rst.content.funding_source},
-                    {'related diseases':  rst.content.related_diseases},
-                    {'related terms':  rst.content.related_terms},
-                    {'study links':  rst.content.study_links},
-                    {'study type':  rst.content.study_type},
-                    {'assay method':  rst.content.assay_method},
-                    {'limitations for reuse':  rst.content.limitations_for_reuse},
-                    {'release date':  rst.content.release_dat}]
-
-              // Iterate through hideContent and check for matches
+            // Iterate through hideContent and check for matches
             hideContent.forEach((item) => {
-              for (let key in item) {
-                let value = item[key];
+              Object.entries(item).forEach(([key, value]) => {
                 let highlightedValue = value;
                 let foundMatch = false;
+
                 searchCombination.forEach((term) => {
-                  const regex = new RegExp(`(${term})`, 'gi'); // Case-sensitive search
+                  const regex = new RegExp(`(${term})`, 'gi'); // Case-insensitive search
                   if (value && value.includes(term)) { // Check if value contains the term
-                    highlightedValue = highlightedValue.replace(regex, "<b>$1</b>", term); // Replace the term with bolded version
+                    highlightedValue = highlightedValue.replace(regex, '<b>$1</b>'); // Replace the term with bolded version
                     foundMatch = true;
                   }
                 });
-                if(foundMatch){
-                   additionalMatches.push({ [key]: highlightedValue }); // Add the updated item to additionalMatches
+
+                if (foundMatch) {
+                  additionalMatches.push({ [key]: highlightedValue });
                 }
-              }
+              });
             });
-             console.log('additionalMatches')
-            console.log(hideContent)
-            console.log(additionalMatches)
             return (
-              <div key={key} className="container">
+              <div key={keyName} className="container">
                 <div className="row align-items-start headerRow">
                   <div className="col-sm resultTitle">
                     <Link to={`/dataset/${rst.content.dbGaP_phs}`}>
-                           {rst.content.dataset_title}
-                      </Link>
+                      {rst.content.dataset_title}
+                    </Link>
                   </div>
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
-                    <img src={dataResourceIcon} alt="data-resource" className="img1"/>
+                    <img src={dataResourceIcon} alt="data-resource" className="img1" />
                     {rst.content.dbGaP_URL ? (
                       <a href={rst.content.dbGaP_URL} target="_blank" rel="noopener noreferrer" className="link">
                         {rst.content.dbGaP_phs}
@@ -546,7 +540,7 @@ const SearchResult = ({
                 {
                   <div className="row align-items-start bodyRow">
                     <div className="col labelDiv">
-                      <label>Primary Disease:&nbsp;&nbsp;&nbsp;</label>
+                      <span>Primary Disease:&nbsp;&nbsp;&nbsp;</span>
                       <span className="itemSpan">
                         {ReactHtmlParser(hightLightedPrimaryDisease)}
                       </span>
@@ -556,7 +550,7 @@ const SearchResult = ({
                 {
                   <div className="row align-items-start bodyRow">
                     <div className="col labelDiv">
-                      <label>Participant Count:&nbsp;&nbsp;&nbsp;</label>
+                      <span>Participant Count:&nbsp;&nbsp;&nbsp;</span>
                       <span className="textSpan caseCountHighlight">
                         {rst.content.participant_count}
                       </span>
@@ -566,7 +560,7 @@ const SearchResult = ({
                 {
                   <div className="row align-items-start bodyRow">
                     <div className="col labelDiv">
-                      <label>Sample Count:&nbsp;&nbsp;&nbsp;</label>
+                      <span>Sample Count:&nbsp;&nbsp;&nbsp;</span>
                       <span className="textSpan sampleCountHighlight">
                         {rst.content.sample_count}
                       </span>
@@ -577,7 +571,7 @@ const SearchResult = ({
                   description !== '' && (
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
-                        <label>Description:&nbsp;&nbsp;&nbsp;</label>
+                        <span>Description:&nbsp;&nbsp;&nbsp;</span>
                         <span className="textSpan">
                           {ReactHtmlParser(hightLightedDesc)}
                         </span>
@@ -590,7 +584,11 @@ const SearchResult = ({
                 additionalMatches.length > 0 && additionalMatches.map((match, index) => (
                   <div className="row align-items-start bodyRow" key={index}>
                     <div className="col labelDiv">
-                      <label>Other Match in {Object.keys(match)[0]}:&nbsp;&nbsp;&nbsp;</label>
+                      <span>
+                        Other Match in
+                        {Object.keys(match)[0]}
+                        :&nbsp;&nbsp;&nbsp;
+                      </span>
                       <span className="textSpan">
                         {ReactHtmlParser(Object.values(match)[0])}
                       </span>
@@ -605,15 +603,6 @@ const SearchResult = ({
       </SearchResultContainer>
     </>
   );
-};
-
-SearchResult.propTypes = {
-  resultList: PropTypes.array.isRequired,
-  sort: PropTypes.object.isRequired,
-  onChangeSorting: PropTypes.func.isRequired,
-  onChangeSortingOrder: PropTypes.func.isRequired,
-  // onLoadGlossaryTerms: PropTypes.func.isRequired,
-  glossaryTerms: PropTypes.object.isRequired,
 };
 
 export default SearchResult;

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { OverlayTrigger } from 'react-bootstrap';
@@ -167,14 +166,14 @@ const SearchCatalogPage = ({
           <div className="searchContentContainer">
 
             <div className="searchDisplayOptionsRow">
-             
+
               <div className="searchSortingArea">
                 <Sorting />
               </div>
               <div className="contentPagingArea">
                 <PageInfo />
               </div>
-               <ExportButton />
+              <ExportButton />
             </div>
             <div className="searchContent">
               <SearchResult />
@@ -189,15 +188,6 @@ const SearchCatalogPage = ({
       </div>
     </>
   );
-};
-
-SearchCatalogPage.propTypes = {
-  searchKeyword: PropTypes.string.isRequired,
-  resourceFilters: PropTypes.array.isRequired,
-  onLoadFromUrlQuery: PropTypes.func.isRequired,
-  onStartFullTextSearch: PropTypes.func.isRequired,
-  onBubbleSearchTextRemoveClick: PropTypes.func.isRequired,
-  onBubbleResourcesRemoveClick: PropTypes.func.isRequired,
 };
 
 export default SearchCatalogPage;
