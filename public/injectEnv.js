@@ -3,7 +3,7 @@
 window.injectedEnv = {
 
   REACT_APP_APPLICATION_VERSION: 'YYYY_MM_DD/HH:MM',
-
+  REACT_APP_REST_BACKEND_API: 'https://studycatalog-dev.cancer.gov/service/datasets/',
   // Services API End Points:
   REACT_APP_BACKEND_API: 'https://studycatalog-dev.cancer.gov/v1/graphql/',
   REACT_APP_BACKEND_PUBLIC_API: 'https://studycatalog-dev.cancer.gov/v1/graphql/',

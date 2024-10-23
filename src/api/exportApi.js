@@ -1,9 +1,9 @@
 import env from '../utils/env';
 
-const baseUrl = 'https://studycatalog-dev.cancer.gov/service/datasets';
+const baseUrl = env.REACT_APP_REST_BACKEND_API;
 
 export function getSearchResult(body) {
-  fetch(`${baseUrl}/export`, {
+  fetch(`${baseUrl}export`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' },
