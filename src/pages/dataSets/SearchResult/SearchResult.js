@@ -10,7 +10,10 @@ import PropTypes from 'prop-types';
 import { Popover } from 'bootstrap';
 import ReactHtmlParser from 'html-react-parser';
 import externalIcon from '../../../assets/img/resource.svg';
-import dataResourceIcon from '../../../assets/img/DataResource.svg';
+import dataResourceIcon from '../../../assets/img/DataResource.png';
+import {
+  externalLinkIcon,
+} from '../../../bento/datasetDetailData';
 
 const SearchResultContainer = styled.div`
   width: 100%;
@@ -117,17 +120,23 @@ const SearchResultContainer = styled.div`
   }
 
   .subHeaderRow .col-sm {
-    padding: 0;
+    padding: 0 5px;
   }
 
-  .subHeaderRow .col-sm img {
+  .subHeaderRow .col-sm .img1 {
     width: 14pt;
-    margin-top: -5px;
   }
+
+  .subHeaderRow .col-sm .img2 {
+    width: 16pt;
+    height: 10pt;
+    padding: 0 4px;
+  }
+
 
   .subHeaderRow .col-sm a {
     font-weight: bold;
-    color: #0075c7;
+    color: #571AFF;
   }
 
   .subHeaderRow .fa-file {
@@ -197,10 +206,8 @@ const SearchResultContainer = styled.div`
   }
 
   a[target="_blank"] {
-    color: #004187;
-    background: url(${externalIcon}) right center no-repeat #DFEEF9;
+    color: #571AFF;
     background-size: 32px;
-    // display: inline-table;
     padding: 1px 30px 1px 5px;
   }
 
@@ -288,6 +295,10 @@ const SearchResultContainer = styled.div`
 
   .datasetTableRow span:hover .tooltiptext {
     visibility: visible;
+  }
+
+  .externalLinkIcon {
+
   }
 `;
 
@@ -581,11 +592,6 @@ const SearchResult = ({
   useEffect(() => {
     const termSet = [...new Set(getTooltipTermList)].filter((term) => !(term in glossaryTerms));
     const termPara = { termNames: termSet };
-    // if (termSet.length > 0) {
-    //   onLoadGlossaryTerms(termPara).catch((error) => {
-    //     throw new Error(`Loading Glossary Terms from url query failed: ${error}`);
-    //   });
-    // }
   }, [resultList]);
 
   return (
@@ -681,9 +687,21 @@ const SearchResult = ({
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
-                    <img src={dataResourceIcon} alt="data-resource" />
-                    &nbsp;
-                    <Link to={`/dataset/${rst.content.dbGaP_phs}`}>{rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.dbGaP_phs}</Link>
+                    <img src={dataResourceIcon} alt="data-resource" className="img1"/>
+                    {rst.content.dbGaP_URL ? (
+                      <a href={rst.content.dbGaP_URL} target="_blank" rel="noopener noreferrer" className="link">
+                        {rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.dbGaP_phs}
+                        <img
+                          src={externalLinkIcon.src}
+                          alt={externalLinkIcon.alt}
+                          className="img2"
+                        />
+                      </a>
+                    ) : (
+                      <span className="link">
+                        {rst.highlight && rst.highlight.data_resource_name ? ReactHtmlParser(rst.highlight.data_resource_name[0]) : rst.content.dbGaP_phs}
+                      </span>
+                    )}
                   </div>
                 </div>
                 {

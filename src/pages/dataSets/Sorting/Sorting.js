@@ -20,6 +20,7 @@ const SortingContainer = styled.div`
 const SortingLabel = styled.div`
   line-height: 37.5px;
   padding-right: 10px;
+  padding-left: 20px;
   color: #000;
     font-weight: 400;
     font-family: Lato;
