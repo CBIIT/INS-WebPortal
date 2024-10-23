@@ -64,6 +64,8 @@ export function loadSearchDataResources() {
 
 export function loadFromUrlQuery(searchText, filters) {
   const func = function func(dispatch) {
+    console.log('filters');
+    console.log(filters);
     const searchCriteria = {};
     searchCriteria.search_text = searchText;
     searchCriteria.filters ={};
