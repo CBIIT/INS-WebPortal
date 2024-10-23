@@ -494,7 +494,6 @@ const SearchResult = ({
                     {'limitations for reuse':  rst.content.limitations_for_reuse},
                     {'release date':  rst.content.release_dat}]
 
-
               // Iterate through hideContent and check for matches
             hideContent.forEach((item) => {
               for (let key in item) {
