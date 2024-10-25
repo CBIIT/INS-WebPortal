@@ -40,7 +40,7 @@ export const facetsConfig = [{
 },
 {
   section: PROGRAMS,
-  label: 'CANCER TYPE',
+  label: 'Cancer Type',
   field: GROUP,
   apiPath: 'projectCountByCancerType',
   apiForFiltering: 'filterProjectCountByCancerType',
