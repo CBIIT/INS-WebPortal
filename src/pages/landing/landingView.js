@@ -54,7 +54,7 @@ const LandingView = ({ classes, statsData }) => {
                   {landingPageData.callToActionTitle}
                 </div>
                 <div className={classes.headerContent}>
-                  The INS website is continuously evolving. The Office of Data Sharing conducted a landscape analysis of the NCI-supported programs and key focus areas, and during this process, some projects or programs may have been missed. Additionally, we are in the process of streamlining the outputs (e.g., publications, data, etc.). Therefore, the site may not be comprehensive in terms of the list of projects, and the mapping of projects and outputs is still underway. You can learn more about how we are collecting information on the
+                  The INS website is continuously evolving. The Office of Data Sharing conducted a landscape analysis of the NCI-supported programs and key special topics, and during this process, some projects or programs may have been missed. Additionally, we are in the process of streamlining the outputs (e.g., publications, data, etc.). Therefore, the site may not be comprehensive in terms of the list of projects, and the mapping of projects and outputs is still underway. You can learn more about how we are collecting information on the
                   <Link to="/about" className={classes.headerAboutLink}>About page</Link>
                   .
                 </div>

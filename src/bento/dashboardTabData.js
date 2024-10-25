@@ -313,7 +313,7 @@ export const tabContainers = [
       },
       {
         dataField: 'focus_area_str',
-        header: 'Focus Area',
+        header: 'Special Topic',
         display: true,
         tooltipText: 'sort',
         tooltipDefinition: 'NCI research focus area',
@@ -355,7 +355,7 @@ export const tabContainers = [
       },
       {
         dataField: 'focus_area_str',
-        header: 'Focus Area',
+        header: 'Special Topic',
       },
       {
         dataField: 'cancer_type_str',

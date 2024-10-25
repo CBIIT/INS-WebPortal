@@ -29,7 +29,7 @@ export const facetSectionVariables = {
 
 export const facetsConfig = [{
   section: PROGRAMS,
-  label: 'FOCUS AREA',
+  label: 'Special Topic',
   field: GROUP,
   apiPath: 'projectCountByFocusArea',
   apiForFiltering: 'filterProjectCountByFocusArea',
@@ -40,7 +40,7 @@ export const facetsConfig = [{
 },
 {
   section: PROGRAMS,
-  label: 'CANCER TYPE',
+  label: 'Cancer Type',
   field: GROUP,
   apiPath: 'projectCountByCancerType',
   apiForFiltering: 'filterProjectCountByCancerType',
@@ -55,7 +55,7 @@ export const facetsConfig = [{
 export const widgetConfig = [
   {
     type: 'donut',
-    title: 'Programs by Focus Area',
+    title: 'Programs by Special Topic',
     dataName: 'programCountByFocusArea',
     sliceTitle: 'Programs',
   },
