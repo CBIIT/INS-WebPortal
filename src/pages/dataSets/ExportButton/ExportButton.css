@@ -25,6 +25,7 @@
   float: right;
   text-decoration: none;
   background: #00758D;
+  top: 5px;
 }
 
 .buttonStyle:hover {
