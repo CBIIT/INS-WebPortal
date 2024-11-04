@@ -249,7 +249,7 @@ export const tabContainers = [
         },
       },
       {
-        dataField: 'title',
+        dataField: 'publication_title',
         header: 'Title',
         display: true,
         tooltipText: 'sort',

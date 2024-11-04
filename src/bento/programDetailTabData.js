@@ -215,7 +215,7 @@ export const tabContainers = [
         className: 'projects_project_start_date_5',
       },
       {
-        dataField: 'grant_end_date',
+        dataField: 'project_end_date',
         header: 'Project End Date',
         display: true,
         tooltipText: 'sort',
