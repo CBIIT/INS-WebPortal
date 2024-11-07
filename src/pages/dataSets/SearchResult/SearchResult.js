@@ -586,6 +586,7 @@ const SearchResult = ({
                     <div className="col labelDiv">
                       <span>
                         Other Match in
+                        {' '}
                         {Object.keys(match)[0]}
                         :&nbsp;&nbsp;&nbsp;
                       </span>
