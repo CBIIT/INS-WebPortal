@@ -188,9 +188,15 @@ const SearchBox = ({
             onChange={(e) => handleTextInputChange(e)}
             onKeyPress={(e) => handleKeyPress(e)}
           />
-          <SearchIcon>
-            <img src={SearchIconImg} alt="search-icon" />
-          </SearchIcon>
+          {
+            searchText.length > 0 ? (
+              <SearchIcon />
+            ) : (
+              <SearchIcon>
+                <img src={SearchIconImg} alt="search-icon" />
+              </SearchIcon>
+            )
+          }
           {
             searchableText.length > 0 ? (
               <Button variant="outline-secondary" className="searchBoxButton" onClick={() => handleSubmit()}>SUBMIT</Button>
