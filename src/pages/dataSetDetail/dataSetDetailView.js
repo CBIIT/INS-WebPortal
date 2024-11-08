@@ -43,7 +43,7 @@ const DataSetDetailView = ({
             Explore Dataset
           </Link>
           {'    '}
-          >
+          {'>'}
           {'    '}
           {data.dataset_title || ''}
         </Grid>
@@ -61,17 +61,23 @@ const DataSetDetailView = ({
               <div className={classes.headerMainTitle} id="program_detail_title">
                 <span>
                   Dataset:
+                  {' '}
                   {formatSemicolonSeparatedString(data.dataset_title || '')}
                 </span>
               </div>
               <div className={cn(classes.headerMSubTitle,
                 classes.headerSubTitleCate, classes.link)}
               >
-                <span id="program_detail_subtile" className={classes.link}>
+                <Link href={data.dbGaP_URL} target="_blank" className={classes.link}>
                   dbGaP:
                   {' '}
                   {data.dbGaP_phs || ''}
-                </span>
+                  <img
+                    src={externalLinkIcon.src}
+                    alt={externalLinkIcon.alt}
+                    className={classes.externalLinkIcon}
+                  />
+                </Link>
               </div>
             </div>
           </div>
@@ -108,6 +114,7 @@ const DataSetDetailView = ({
               <Typography variant="body2" className={classes.text}>
                 <Link href={data.dbGaP_URL} target="_blank" className={classes.link}>
                   dbGaP:
+                  {' '}
                   {data.dbGaP_phs || ''}
                   <img
                     src={externalLinkIcon.src}
@@ -377,7 +384,6 @@ const styles = (theme) => ({
     color: '#00B0BD',
     fontWeight: '300',
     fontFamily: 'Poppins',
-    textTransform: 'uppercase',
     letterSpacing: '0.023em',
     fontSize: '15px',
     overflow: 'hidden',
