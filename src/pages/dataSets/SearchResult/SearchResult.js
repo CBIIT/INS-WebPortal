@@ -459,19 +459,22 @@ const SearchResult = ({
             if (description === null) {
               description = '';
             }
-            if (description.length > 500) {
-              description = `${description.substring(0, 500).replace(/<(?![b/])/g, '&lt;')} ...`;
-            } else {
-              description = description.replace(/<(?![b/])/g, '&lt;');
-            }
 
             let hightLightedPrimaryDisease = rst.content.primary_disease;
-            let hightLightedDesc = description;
+            let hightLightedDesc = description.replace(/<(?![b/])/g, '&lt;');
 
             searchCombination.forEach((term) => {
-              const regex = new RegExp(`(${term})`, 'gi'); // Case-insensitive search
-              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match, p1) => `<b>${p1.slice(1)}</b>`);
-              hightLightedDesc = hightLightedDesc.replace(regex, (match, p1) => `<b>${p1.slice(1)}</b>`);
+              const regex = new RegExp(`(${term.trim()})`, 'gi'); // Case-insensitive partial match
+              // Check if hightLightedDesc is over 500 characters
+              // and if no match is found in the original `desc`
+              const hasMatchInDesc = regex.test(hightLightedDesc);
+
+              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
+              hightLightedDesc = hightLightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
+
+              if (hightLightedDesc.length > 500 && !hasMatchInDesc) {
+                hightLightedDesc = `${hightLightedDesc.substring(0, 500)} ...`;
+              }
             });
 
             const additionalMatches = [];
@@ -497,9 +500,9 @@ const SearchResult = ({
                 let foundMatch = false;
 
                 searchCombination.forEach((term) => {
-                  const regex = new RegExp(`(${term})`, 'gi'); // Case-insensitive search
+                  const regex = new RegExp(`(${term.trim()})`, 'gi'); // Case-insensitive search
                   if (value && value.includes(term)) { // Check if value contains the term
-                    highlightedValue = highlightedValue.replace(regex, (match, p1) => `<b>${p1.slice(1)}</b>`); // Replace the term with bolded version
+                    highlightedValue = highlightedValue.replace(regex, (match) => `<b>${match}</b>`).trim(); // Replace the term with bolded version
                     foundMatch = true;
                   }
                 });
