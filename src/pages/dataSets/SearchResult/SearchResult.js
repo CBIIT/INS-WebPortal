@@ -482,16 +482,15 @@ const SearchResult = ({
             const hideContent = [{ 'dbGaP URL': rst.content.dbGaP_URL },
               { 'PI name': rst.content.PI_name },
               { GPA: rst.content.GPA },
-              { 'dataset doc': rst.content.dataset_doc },
               { 'dataset pmid': rst.content.dataset_pmid },
               { 'funding source': rst.content.funding_source },
               { 'related diseases': rst.content.related_diseases },
               { 'related terms': rst.content.related_terms },
               { 'study links': rst.content.study_links },
+              { 'related genes': rst.content.related_genes },
               { 'study type': rst.content.study_type },
               { 'assay method': rst.content.assay_method },
-              { 'limitations for reuse': rst.content.limitations_for_reuse },
-              { 'release date': rst.content.release_dat }];
+              { 'limitations for reuse': rst.content.limitations_for_reuse }];
 
             // Iterate through hideContent and check for matches
             hideContent.forEach((item) => {
