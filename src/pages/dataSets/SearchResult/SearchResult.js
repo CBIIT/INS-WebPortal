@@ -459,19 +459,22 @@ const SearchResult = ({
             if (description === null) {
               description = '';
             }
-            if (description.length > 500) {
-              description = `${description.substring(0, 500).replace(/<(?![b/])/g, '&lt;')} ...`;
-            } else {
-              description = description.replace(/<(?![b/])/g, '&lt;');
-            }
 
             let hightLightedPrimaryDisease = rst.content.primary_disease;
-            let hightLightedDesc = description;
+            let hightLightedDesc = description.replace(/<(?![b/])/g, '&lt;');
 
             searchCombination.forEach((term) => {
-              const regex = new RegExp(`(${term})`, 'gi'); // Case-insensitive search
-              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match, p1) => `<b>${p1.slice(1)}</b>`);
-              hightLightedDesc = hightLightedDesc.replace(regex, (match, p1) => `<b>${p1.slice(1)}</b>`);
+              const regex = new RegExp(`(${term.trim()})`, 'gi'); // Case-insensitive partial match
+              // Check if hightLightedDesc is over 500 characters
+              // and if no match is found in the original `desc`
+              const hasMatchInDesc = regex.test(hightLightedDesc);
+
+              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
+              hightLightedDesc = hightLightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
+
+              if (hightLightedDesc.length > 500 && !hasMatchInDesc) {
+                hightLightedDesc = `${hightLightedDesc.substring(0, 500)} ...`;
+              }
             });
 
             const additionalMatches = [];
@@ -479,16 +482,15 @@ const SearchResult = ({
             const hideContent = [{ 'dbGaP URL': rst.content.dbGaP_URL },
               { 'PI name': rst.content.PI_name },
               { GPA: rst.content.GPA },
-              { 'dataset doc': rst.content.dataset_doc },
               { 'dataset pmid': rst.content.dataset_pmid },
               { 'funding source': rst.content.funding_source },
               { 'related diseases': rst.content.related_diseases },
               { 'related terms': rst.content.related_terms },
               { 'study links': rst.content.study_links },
+              { 'related genes': rst.content.related_genes },
               { 'study type': rst.content.study_type },
               { 'assay method': rst.content.assay_method },
-              { 'limitations for reuse': rst.content.limitations_for_reuse },
-              { 'release date': rst.content.release_dat }];
+              { 'limitations for reuse': rst.content.limitations_for_reuse }];
 
             // Iterate through hideContent and check for matches
             hideContent.forEach((item) => {
@@ -497,9 +499,9 @@ const SearchResult = ({
                 let foundMatch = false;
 
                 searchCombination.forEach((term) => {
-                  const regex = new RegExp(`(${term})`, 'gi'); // Case-insensitive search
+                  const regex = new RegExp(`(${term.trim()})`, 'gi'); // Case-insensitive search
                   if (value && value.includes(term)) { // Check if value contains the term
-                    highlightedValue = highlightedValue.replace(regex, (match, p1) => `<b>${p1.slice(1)}</b>`); // Replace the term with bolded version
+                    highlightedValue = highlightedValue.replace(regex, (match) => `<b>${match}</b>`).trim(); // Replace the term with bolded version
                     foundMatch = true;
                   }
                 });
