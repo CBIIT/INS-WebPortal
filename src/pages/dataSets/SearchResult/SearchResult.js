@@ -470,8 +470,8 @@ const SearchResult = ({
 
             searchCombination.forEach((term) => {
               const regex = new RegExp(`(${term})`, 'gi'); // Case-insensitive search
-              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, '<b>$1</b>', term);
-              hightLightedDesc = hightLightedDesc.replace(regex, '<b>$1</b>', term);
+              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match, p1) => `<b>${p1.slice(1)}</b>`);
+              hightLightedDesc = hightLightedDesc.replace(regex, (match, p1) => `<b>${p1.slice(1)}</b>`);
             });
 
             const additionalMatches = [];
@@ -499,7 +499,7 @@ const SearchResult = ({
                 searchCombination.forEach((term) => {
                   const regex = new RegExp(`(${term})`, 'gi'); // Case-insensitive search
                   if (value && value.includes(term)) { // Check if value contains the term
-                    highlightedValue = highlightedValue.replace(regex, '<b>$1</b>'); // Replace the term with bolded version
+                    highlightedValue = highlightedValue.replace(regex, (match, p1) => `<b>${p1.slice(1)}</b>`); // Replace the term with bolded version
                     foundMatch = true;
                   }
                 });
@@ -586,6 +586,7 @@ const SearchResult = ({
                     <div className="col labelDiv">
                       <span>
                         Other Match in
+                        {' '}
                         {Object.keys(match)[0]}
                         :&nbsp;&nbsp;&nbsp;
                       </span>
