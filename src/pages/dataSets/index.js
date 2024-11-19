@@ -6,8 +6,8 @@ import SearchCatalogPage from './SearchCatalogPage';
 
 const ReduxSearchCatalogPage = (() => {
   const mapStateToProps = (state) => ({
-    searchCriteria: state.datasets.searchCriteria.search_text,
-    searchKeyword: state.datasets.searchCriteria.search_text,
+    searchCriteria: state.datasets.searchCriteria.search_text.replace(/[^a-zA-Z0-9]/g, ' '),
+    searchKeyword: state.datasets.searchCriteria.search_text.replace(/[^a-zA-Z0-9]/g, ' '),
     resourceFilters: state.datasets.searchCriteria.filters,
   });
 
