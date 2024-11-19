@@ -380,13 +380,11 @@ const replaceQueryStr = (query, sorting) => {
 
 function getCombinations(arr) {
   const result = [];
-
-  // Helper function to generate combinations
   function combine(prefix, start) {
     for (let i = start; i < arr.length; i += 1) {
       const newCombo = `${prefix.trim()} ${arr[i].trim()}`;
       result.push(newCombo);
-      combine(newCombo, i + 1); // Recursively generate combinations
+      combine(newCombo, i + 1);
     }
   }
   combine('', 0);
@@ -403,15 +401,12 @@ const SearchResult = ({
 }) => {
   const query = useQuery();
   const history = useHistory();
-
-  const searchTerms = search.search_text.split(' ').filter((item) => item !== '');
+  const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, '');
+  const searchTerms = sanatizeSearchTerms.split(' ').filter((item) => item !== '');
   let searchCombination = getCombinations(searchTerms);
-
-  // Check if search.filter.primary_disease exists and is an array
   if (search.filters && search.filters.primary_disease
     && Array.isArray(search.filters.primary_disease)
-     && search.filters.primary_disease.length > 0) {
-    // Concatenate the two arrays
+    && search.filters.primary_disease.length > 0) {
     searchCombination = search.filters.primary_disease.concat(searchCombination);
   }
 
@@ -471,9 +466,11 @@ const SearchResult = ({
             let hightLightedDesc = description.replace(/<(?![b/])/g, '&lt;');
             let hasMatchInDesc = false;
             searchCombination.forEach((term) => {
-              const regex = new RegExp(`(${term.trim()})`, 'gi'); // Case-insensitive partial match
-              // Check if hightLightedDesc is over 500 characters
-              // and if no match is found in the original `desc`
+              function modifyTerm(text) {
+                return text.replace(/[^a-zA-Z0-9 ]/g, '');
+              }
+              const modifiedTerm = modifyTerm(term);
+              const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
               hasMatchInDesc = regex.test(hightLightedDesc);
 
               hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
@@ -486,7 +483,8 @@ const SearchResult = ({
 
             const additionalMatches = [];
 
-            const hideContent = [{ 'dbGaP URL': rst.content.dbGaP_URL },
+            const hideContent = [
+              { 'dbGaP URL': rst.content.dbGaP_URL },
               { 'PI name': rst.content.PI_name },
               { GPA: rst.content.GPA },
               { 'dataset pmid': rst.content.dataset_pmid },
@@ -497,7 +495,8 @@ const SearchResult = ({
               { 'related genes': rst.content.related_genes },
               { 'study type': rst.content.study_type },
               { 'assay method': rst.content.assay_method },
-              { 'limitations for reuse': rst.content.limitations_for_reuse }];
+              { 'limitations for reuse': rst.content.limitations_for_reuse },
+            ];
 
             // Iterate through hideContent and check for matches
             hideContent.forEach((item) => {
@@ -506,10 +505,16 @@ const SearchResult = ({
                 let foundMatch = false;
 
                 searchCombination.forEach((term) => {
-                  const regex = new RegExp(`(${term.trim()})`, 'gi'); // Case-insensitive search
-                  if (value.toLowerCase() && value.toLowerCase().includes(term.toLowerCase())) {
-                    // Check if value contains the term
-                    highlightedValue = highlightedValue.replace(regex, (match) => `<b>${match}</b>`).trim(); // Replace the term with bolded version
+                  function modifyTerm(text) {
+                    return text.replace(/[^a-zA-Z0-9 ]/g, '');
+                  }
+                  const modifiedTerm = modifyTerm(term);
+                  const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
+                  if (
+                    value.toLowerCase()
+                    && value.toLowerCase().includes(modifiedTerm.toLowerCase())
+                  ) {
+                    highlightedValue = highlightedValue.replace(regex, (match) => `<b>${match}</b>`).trim();
                     foundMatch = true;
                   }
                 });
@@ -591,22 +596,22 @@ const SearchResult = ({
                 }
 
                 {
-                additionalMatches.length > 0 && additionalMatches.map((match, index) => (
-                  <div className="row align-items-start bodyRow" key={index}>
-                    <div className="col labelDiv">
-                      <span>
-                        Other Match in
-                        {' '}
-                        {Object.keys(match)[0]}
-                        :&nbsp;&nbsp;&nbsp;
-                      </span>
-                      <span className="additionalMatches">
-                        {ReactHtmlParser(Object.values(match)[0])}
-                      </span>
+                  additionalMatches.length > 0 && additionalMatches.map((match, index) => (
+                    <div className="row align-items-start bodyRow" key={index}>
+                      <div className="col labelDiv">
+                        <span>
+                          Other Match in
+                          {' '}
+                          {Object.keys(match)[0]}
+                          :&nbsp;&nbsp;&nbsp;
+                        </span>
+                        <span className="additionalMatches">
+                          {ReactHtmlParser(Object.values(match)[0])}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))
-              }
+                  ))
+                }
               </div>
             );
           })

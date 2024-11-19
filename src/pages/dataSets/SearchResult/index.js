@@ -4,7 +4,6 @@ import {
   changeSorting,
   changeSortingOrder,
 } from '../../../redux/actions/searchActions';
-// import { loadGlossaryTerms } from '../../../redux/actions/applicationActions';
 
 const ReduxSearchResult = (() => {
   const mapStateToProps = (state) => {
@@ -23,7 +22,6 @@ const ReduxSearchResult = (() => {
   const mapDispatchToProps = {
     onChangeSorting: changeSorting,
     onChangeSortingOrder: changeSortingOrder,
-    // onLoadGlossaryTerms: loadGlossaryTerms,
   };
 
   return connect(mapStateToProps, mapDispatchToProps)(SearchResult);
