@@ -401,7 +401,7 @@ const SearchResult = ({
 }) => {
   const query = useQuery();
   const history = useHistory();
-  const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, '');
+  const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
   const searchTerms = sanatizeSearchTerms.split(' ').filter((item) => item !== '');
   let searchCombination = getCombinations(searchTerms);
   if (search.filters && search.filters.primary_disease
@@ -467,7 +467,7 @@ const SearchResult = ({
             let hasMatchInDesc = false;
             searchCombination.forEach((term) => {
               function modifyTerm(text) {
-                return text.replace(/[^a-zA-Z0-9 ]/g, '');
+                return text.replace(/[^a-zA-Z0-9 ]/g, ' ');
               }
               const modifiedTerm = modifyTerm(term);
               const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
@@ -506,7 +506,7 @@ const SearchResult = ({
 
                 searchCombination.forEach((term) => {
                   function modifyTerm(text) {
-                    return text.replace(/[^a-zA-Z0-9 ]/g, '');
+                    return text.replace(/[^a-zA-Z0-9 ]/g, ' ');
                   }
                   const modifiedTerm = modifyTerm(term);
                   const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');

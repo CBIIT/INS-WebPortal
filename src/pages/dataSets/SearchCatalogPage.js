@@ -18,7 +18,7 @@ const useSearchParams = () => {
 const replaceQueryStr = (query, searchText) => {
   let str = '';
   if (searchText.trim() !== '') {
-    str += `&search_text=${searchText.replace(/[^a-zA-Z0-9 ]/g, '').trim()}`;
+    str += `&search_text=${searchText.replace(/[^a-zA-Z0-9 ]/g, ' ').trim()}`;
   }
   if (query.get('filterByResource')) {
     str += `&filterByResource=${query.get('filterByResource')}`;
