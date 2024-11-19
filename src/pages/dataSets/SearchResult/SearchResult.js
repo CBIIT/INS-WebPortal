@@ -380,13 +380,11 @@ const replaceQueryStr = (query, sorting) => {
 
 function getCombinations(arr) {
   const result = [];
-
-  // Helper function to generate combinations
   function combine(prefix, start) {
     for (let i = start; i < arr.length; i += 1) {
       const newCombo = `${prefix.trim()} ${arr[i].trim()}`;
       result.push(newCombo);
-      combine(newCombo, i + 1); // Recursively generate combinations
+      combine(newCombo, i + 1);
     }
   }
   combine('', 0);
@@ -403,15 +401,13 @@ const SearchResult = ({
 }) => {
   const query = useQuery();
   const history = useHistory();
-
-  const searchTerms = search.search_text.split(' ').filter((item) => item !== '');
+  const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, '');
+  console.log('sanatizeSearchTerms:', sanatizeSearchTerms);
+  const searchTerms = sanatizeSearchTerms.split(' ').filter((item) => item !== '');
   let searchCombination = getCombinations(searchTerms);
-
-  // Check if search.filter.primary_disease exists and is an array
   if (search.filters && search.filters.primary_disease
     && Array.isArray(search.filters.primary_disease)
     && search.filters.primary_disease.length > 0) {
-    // Concatenate the two arrays
     searchCombination = search.filters.primary_disease.concat(searchCombination);
   }
 
