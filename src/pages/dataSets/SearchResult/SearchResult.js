@@ -402,7 +402,6 @@ const SearchResult = ({
   const query = useQuery();
   const history = useHistory();
   const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, '');
-  console.log('sanatizeSearchTerms:', sanatizeSearchTerms);
   const searchTerms = sanatizeSearchTerms.split(' ').filter((item) => item !== '');
   let searchCombination = getCombinations(searchTerms);
   if (search.filters && search.filters.primary_disease
