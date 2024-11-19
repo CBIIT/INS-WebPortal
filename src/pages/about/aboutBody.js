@@ -79,7 +79,10 @@ const AboutBody = () => (
                       SM
                     </sup>
                   </a>
-                  ) as well as known sources of NCI funding (such as specific awards or Notices of Funding Opportunities). Programs may support multiple projects and their downstream efforts. Not all NCI-supported programs are included in the current release of INS. Curation is ongoing; additional programs will be added, and existing program information will be updated in the future.
+                  ) as well as known sources of NCI funding (such as specific awards or Notices of Funding Opportunities). Programs may support multiple projects and their downstream efforts.
+                  {' '}
+                  <b>Not all NCI-supported programs are included in the current release of INS</b>
+                  . Curation is ongoing; additional programs will be added, and existing program information will be updated in the future.
                 </li>
                 <li>
                   <b>Grants & Projects:</b>
@@ -89,7 +92,12 @@ const AboutBody = () => (
                   <a target="_blank" rel="noopener noreferrer" href="https://www.cancer.gov/research/nci-role/extramural">
                     extramural grants
                   </a>
-                  , but also includes some projects supported by contracts. The INS does not currently include intramural awards. Only grants and projects that received NCI funding during or after year 2000 are included in the INS. The curation of grants and projects is automated using resources from the
+                  , but also includes some projects supported by contracts.
+                  {' '}
+                  {' '}
+                  <b>The INS does not currently include intramural awards.</b>
+                  {' '}
+                  Only grants and projects that received NCI funding during or after year 2000 are included in the INS. The curation of grants and projects is automated using resources from the
                   {' '}
                   <a target="_blank" rel="noopener noreferrer" href="https://reporter.nih.gov/">
                     NIH RePORTER
@@ -137,7 +145,12 @@ const AboutBody = () => (
                   </a>
                   ,
                   {' '}
-                  though the INS will expand to other repositories and data resources in the future. Dataset information is retrieved from NCBI dbGaP using a combination of public dbGaP resources and then reviewed and curated before including within the INS.
+                  though
+                  {' '}
+                  {' '}
+                  <b>the INS will expand to other repositories and data resources in the future.</b>
+                  {' '}
+                  Dataset information is retrieved from NCBI dbGaP using a combination of public dbGaP resources and then reviewed and curated before including within the INS.
                 </li>
               </ul>
             </div>

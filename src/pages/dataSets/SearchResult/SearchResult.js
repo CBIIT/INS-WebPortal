@@ -156,12 +156,13 @@ const SearchResultContainer = styled.div`
   }
 
   .bodyRow b {
-    margin: 0 3px 0 3px;
-    padding: 1px 5px 1px 5px;
+    margin: 0 3px;
+    padding: 0px 5px;
     border: 1px solid #9EC1DB;
     border-radius: 5px;
     background-color: #DFEEF9;
     color: #004187;
+    font-size: 14px;
   }
 
   b b,
@@ -303,9 +304,15 @@ const SearchResultContainer = styled.div`
     visibility: visible;
   }
 
-  .externalLinkIcon {
-
+  .additionalMatches {
+    line-height:26px;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 400 !important;
+    text-align: left;
+    color: #212529;
   }
+
 `;
 
 const TableHead = styled.thead`
@@ -462,20 +469,20 @@ const SearchResult = ({
 
             let hightLightedPrimaryDisease = rst.content.primary_disease;
             let hightLightedDesc = description.replace(/<(?![b/])/g, '&lt;');
-
+            let hasMatchInDesc = false;
             searchCombination.forEach((term) => {
               const regex = new RegExp(`(${term.trim()})`, 'gi'); // Case-insensitive partial match
               // Check if hightLightedDesc is over 500 characters
               // and if no match is found in the original `desc`
-              const hasMatchInDesc = regex.test(hightLightedDesc);
+              hasMatchInDesc = regex.test(hightLightedDesc);
 
               hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
               hightLightedDesc = hightLightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
-
-              if (hightLightedDesc.length > 500 && !hasMatchInDesc) {
-                hightLightedDesc = `${hightLightedDesc.substring(0, 500)} ...`;
-              }
             });
+
+            if (hightLightedDesc.length > 500 && !hasMatchInDesc) {
+              hightLightedDesc = `${hightLightedDesc.substring(0, 500)} ...`;
+            }
 
             const additionalMatches = [];
 
@@ -500,7 +507,8 @@ const SearchResult = ({
 
                 searchCombination.forEach((term) => {
                   const regex = new RegExp(`(${term.trim()})`, 'gi'); // Case-insensitive search
-                  if (value && value.includes(term)) { // Check if value contains the term
+                  if (value.toLowerCase() && value.toLowerCase().includes(term.toLowerCase())) {
+                    // Check if value contains the term
                     highlightedValue = highlightedValue.replace(regex, (match) => `<b>${match}</b>`).trim(); // Replace the term with bolded version
                     foundMatch = true;
                   }
@@ -592,7 +600,7 @@ const SearchResult = ({
                         {Object.keys(match)[0]}
                         :&nbsp;&nbsp;&nbsp;
                       </span>
-                      <span className="textSpan">
+                      <span className="additionalMatches">
                         {ReactHtmlParser(Object.values(match)[0])}
                       </span>
                     </div>
