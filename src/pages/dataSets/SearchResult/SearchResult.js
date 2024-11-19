@@ -156,12 +156,13 @@ const SearchResultContainer = styled.div`
   }
 
   .bodyRow b {
-    margin: 0 3px 0 3px;
-    padding: 1px 5px 1px 5px;
+    margin: 0 3px;
+    padding: 0px 5px;
     border: 1px solid #9EC1DB;
     border-radius: 5px;
     background-color: #DFEEF9;
     color: #004187;
+    font-size: 14px;
   }
 
   b b,
@@ -303,9 +304,15 @@ const SearchResultContainer = styled.div`
     visibility: visible;
   }
 
-  .externalLinkIcon {
-
+  .additionalMatches {
+    line-height:26px;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 400 !important;
+    text-align: left;
+    color: #212529;
   }
+
 `;
 
 const TableHead = styled.thead`
@@ -593,7 +600,7 @@ const SearchResult = ({
                         {Object.keys(match)[0]}
                         :&nbsp;&nbsp;&nbsp;
                       </span>
-                      <span className="textSpan">
+                      <span className="additionalMatches">
                         {ReactHtmlParser(Object.values(match)[0])}
                       </span>
                     </div>
