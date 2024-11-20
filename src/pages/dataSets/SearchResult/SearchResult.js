@@ -470,9 +470,9 @@ const SearchResult = ({
               function modifyTerm(text) {
                 return text.replace(/[^a-zA-Z0-9 ]/g, ' ');
               }
-              const modifiedTerm = modifyTerm(term);
+              const modifiedTerm = modifyTerm(term).trim();
               const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
-              hasMatchInDesc = regex.test(hightLightedDesc);
+              hasMatchInDesc = hasMatchInDesc || regex.test(hightLightedDesc);
 
               hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
               hightLightedDesc = hightLightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
@@ -509,7 +509,7 @@ const SearchResult = ({
                   function modifyTerm(text) {
                     return text.replace(/[^a-zA-Z0-9 ]/g, ' ');
                   }
-                  const modifiedTerm = modifyTerm(term);
+                  const modifiedTerm = modifyTerm(term).trim();
                   const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
                   if (
                     value.toLowerCase()
