@@ -311,6 +311,7 @@ const SearchResultContainer = styled.div`
     font-weight: 400 !important;
     text-align: left;
     color: #212529;
+    word-break: break-word;
   }
 
 `;
@@ -512,7 +513,7 @@ const SearchResult = ({
                   const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
                   if (
                     value.toLowerCase()
-                    && value.toLowerCase().includes(modifiedTerm.toLowerCase())
+                    && value.toLowerCase().includes(modifiedTerm.trim().toLowerCase())
                   ) {
                     highlightedValue = highlightedValue.replace(regex, (match) => `<b>${match}</b>`).trim();
                     foundMatch = true;
