@@ -311,6 +311,7 @@ const SearchResultContainer = styled.div`
     font-weight: 400 !important;
     text-align: left;
     color: #212529;
+    word-break: break-word;
   }
 
 `;
@@ -507,7 +508,9 @@ const SearchResult = ({
 
                 searchCombination.forEach((term) => {
                   const regex = new RegExp(`(${term.trim()})`, 'gi'); // Case-insensitive search
-                  if (value.toLowerCase() && value.toLowerCase().includes(term.toLowerCase())) {
+                  if (value.toLowerCase() && value.toLowerCase().includes(
+                    term.trim().toLowerCase(),
+                  )) {
                     // Check if value contains the term
                     highlightedValue = highlightedValue.replace(regex, (match) => `<b>${match}</b>`).trim(); // Replace the term with bolded version
                     foundMatch = true;
