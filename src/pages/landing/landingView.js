@@ -45,7 +45,7 @@ const LandingView = ({ classes, statsData }) => {
   return (
     <>
       <div className={classes.page}>
-        <div className={classes.container}>
+        <div className={classes.LandingContainer}>
           <Grid container spacing={16} direction="row">
             <div className={classes.heroImage} />
             <div className={classes.heroTextContainer}>
@@ -54,14 +54,25 @@ const LandingView = ({ classes, statsData }) => {
                   {landingPageData.callToActionTitle}
                 </div>
                 <div className={classes.headerContent}>
-                  The INS website is continuously evolving. The Office of Data Sharing conducted a landscape analysis of the NCI-supported programs and key focus areas, and during this process, some projects or programs may have been missed. Additionally, we are in the process of streamlining the outputs (e.g., publications, data, etc.). Therefore, the site may not be comprehensive in terms of the list of projects, and the mapping of projects and outputs is still underway. You can learn more about how we are collecting information on the
+                  The INS website is continuously evolving. The Office of Data Sharing conducted a landscape analysis of the NCI-supported programs and key special topics, and during this process, some projects or programs may have been missed. Additionally, we are in the process of streamlining the outputs (e.g., publications, data, etc.). Therefore, the site may not be comprehensive in terms of the list of projects, and the mapping of projects and outputs is still underway. You can learn more about how we are collecting information on the
                   <Link to="/about" className={classes.headerAboutLink}>About page</Link>
                   .
                 </div>
-                <div className={classes.headerButtonSection}>
+                <div className={classes.headerLinkGroup}>
                   <Link to={landingPageData.callToActionLink} className={classes.headerLinkButton}>
                     <Button className={classes.buttonText}>
                       {landingPageData.callToActionButtonText}
+                      <img
+                        src={landingPageData.heroExploreButtonArrow.img}
+                        className={classes.smallImage}
+                        alt={landingPageData.heroExploreButtonArrow.alt}
+                        id="buttonArrow"
+                      />
+                    </Button>
+                  </Link>
+                  <Link to={landingPageData.callToActionLink2} className={classes.headerLinkButton2}>
+                    <Button className={classes.buttonText}>
+                      {landingPageData.callToActionButtonText2}
                       <img
                         src={landingPageData.heroExploreButtonArrow.img}
                         className={classes.smallImage}
@@ -424,11 +435,17 @@ const styles = () => ({
   texture: {
     backgroundSize: 'cover',
     background: '#9D0995',
-    padding: '350px 0 80px 0',
+    padding: '355px 0 80px 0',
   },
   container: {
     fontFamily: 'Raleway, sans-serif',
     margin: '0 auto',
+  },
+  LandingContainer: {
+    fontFamily: 'Raleway, sans-serif',
+    margin: '0 auto',
+    position: 'relative',
+    height: '525px',
   },
   whiteSection: {
     height: '8px',
@@ -533,7 +550,7 @@ const styles = () => ({
   smallImage: {
     width: '12px',
     height: '12px',
-    marginLeft: '30px',
+    marginLeft: '18px',
   },
   image: {
     width: '293px',
@@ -732,7 +749,7 @@ const styles = () => ({
     height: '1200px',
     margin: 'auto',
     right: 0,
-    top: '147px',
+    top: '-50px',
     left: 0,
     '@media (min-width: 900px)': {
       width: '906px',
@@ -743,7 +760,7 @@ const styles = () => ({
     height: '375px',
     backgroundColor: 'blue',
     position: 'relative',
-    top: '230px',
+    top: '43px',
     left: '227px',
     zIndex: '1',
     opacity: '0',
@@ -757,11 +774,12 @@ const styles = () => ({
   buttonText: {
     fontFamily: 'Lato',
     fontWeight: 'bold',
-    fontSize: '16px',
+    fontSize: '14px',
     lineHeight: '26px',
     padding: '0px 0px 12px 0px',
     height: '40px',
     color: '#A90532',
+    width: '180px',
   },
   iconTextWrapper: {
     width: '165px',
@@ -787,6 +805,15 @@ const styles = () => ({
   headerLinkButton: {
     borderBottom: '2px solid #A90532',
     textDecoration: 'none',
+  },
+  headerLinkButton2: {
+    borderBottom: '2px solid #A90532',
+    textDecoration: 'none',
+    marginLeft: '52px',
+  },
+  headerLinkGroup: {
+    zIndex: '999',
+    position: 'absolute',
   },
   INSTextContainer: {
     marginTop: '-460px',

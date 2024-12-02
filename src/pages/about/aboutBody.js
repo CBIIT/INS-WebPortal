@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import flowChart from '../../assets/about/INS_Data_Gathering.png';
+import flowChart from '../../assets/about/INS_about_page_data_infographic.png';
 import './aboutBody.css';
 
 const AboutBody = () => (
@@ -30,9 +30,11 @@ const AboutBody = () => (
                 ,
                 {' '}
                 <a target="_blank" rel="noopener noreferrer" href="https://icite.od.nih.gov">NIH iCite</a>
-                , and
                 {' '}
                 <a target="_blank" rel="noopener noreferrer" href="https://pubmed.ncbi.nlm.nih.gov">NCBI PubMed</a>
+                , and
+                {' '}
+                <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">NCBI dbGaP</a>
                 {' '}
                 along with curated inputs.
               </li>
@@ -69,7 +71,7 @@ const AboutBody = () => (
                     NCI’s Office of Data Sharing
                   </a>
                   {' '}
-                  and represent collections of scientific research projects and support that serve as hubs for scientific discovery. Programs are associated with Focus Area groupings (such as Pediatric or
+                  and represent collections of scientific research projects and support that serve as hubs for scientific discovery. Programs are associated with Special Topic groupings (such as Pediatric or
                   {' '}
                   <a target="_blank" rel="noopener noreferrer" href="https://www.cancer.gov/research/key-initiatives/moonshot-cancer-initiative">
                     Cancer Moonshot
@@ -77,7 +79,10 @@ const AboutBody = () => (
                       SM
                     </sup>
                   </a>
-                  ) as well as known sources of NCI funding (such as specific awards or Notices of Funding Opportunities). Programs may support multiple projects and their downstream efforts. Not all NCI-supported programs are included in the current release of INS. Curation is ongoing; additional programs will be added, and existing program information will be updated in the future.
+                  ) as well as known sources of NCI funding (such as specific awards or Notices of Funding Opportunities). Programs may support multiple projects and their downstream efforts.
+                  {' '}
+                  <b>Not all NCI-supported programs are included in the current release of INS</b>
+                  . Curation is ongoing; additional programs will be added, and existing program information will be updated in the future.
                 </li>
                 <li>
                   <b>Grants & Projects:</b>
@@ -87,7 +92,12 @@ const AboutBody = () => (
                   <a target="_blank" rel="noopener noreferrer" href="https://www.cancer.gov/research/nci-role/extramural">
                     extramural grants
                   </a>
-                  , but also includes some projects supported by contracts. The INS does not currently include intramural awards. Only grants and projects that received NCI funding during or after year 2000 are included in the INS. The curation of grants and projects is automated using resources from the
+                  , but also includes some projects supported by contracts.
+                  {' '}
+                  {' '}
+                  <b>The INS does not currently include intramural awards.</b>
+                  {' '}
+                  Only grants and projects that received NCI funding during or after year 2000 are included in the INS. The curation of grants and projects is automated using resources from the
                   {' '}
                   <a target="_blank" rel="noopener noreferrer" href="https://reporter.nih.gov/">
                     NIH RePORTER
@@ -125,6 +135,23 @@ const AboutBody = () => (
                   </a>
                   .
                 </li>
+                <li>
+                  <b>Datasets:</b>
+                  {' '}
+                  The INS incorporates information and links to datasets generated from NCI-supported research. Initially, this includes references to NCI supported studies registered with the
+                  {' '}
+                  <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">
+                    NCBI dbGaP
+                  </a>
+                  ,
+                  {' '}
+                  though
+                  {' '}
+                  {' '}
+                  <b>the INS will expand to other repositories and data resources in the future.</b>
+                  {' '}
+                  Dataset information is retrieved from NCBI dbGaP using a combination of public dbGaP resources and then reviewed and curated before including within the INS.
+                </li>
               </ul>
             </div>
           </Grid>
@@ -147,10 +174,16 @@ const AboutBody = () => (
                 Provides an overview of the site, a snapshot of the number of programs, projects, grants, and publications along with links to other site pages.
               </p>
               <h3 className="aboutContentSubHeader">
-                Explore Page
+                Programs Page
               </h3>
               <p className="p-l-20">
-                Provides access to all information within INS. Tabs for Programs, Projects, Grants, and Publications each show summary information and provide links to other resources where appropriate. Filters applied on the left will change the information displayed in all tabs and plots accordingly.
+                Provides access to all Program-derived information within INS. Tabs for Programs, Projects, Grants, and Publications each show summary information and provide links to other resources where appropriate. Filters applied on the left will change the information displayed in all tabs and plots accordingly. Select a Program or Project link in the table to view additional information.
+              </p>
+              <h3 className="aboutContentSubHeader">
+                Datasets Page
+              </h3>
+              <p className="p-l-20">
+                Provides access to all Dataset information captured within INS. The list of displayed Datasets can be narrowed using the keyword search box or the left-hand filters. Select a Dataset title to see additional information.
               </p>
               <h3 className="aboutContentSubHeader">
                 About Page

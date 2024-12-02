@@ -77,7 +77,7 @@ projectsOverview(
   order_by: $order_by,
   sort_direction: $sort_direction
 ) {
-  org_name
+  project_org_name
   program_names
   project_end_date
   project_id
@@ -108,7 +108,7 @@ grantsOverview(
   grant_title
   principal_investigators
   program_officers
-  project_end_date
+  grant_end_date
   project_id
 }
 }
@@ -135,7 +135,7 @@ publicationsOverview(
   project_ids
   publication_date
   relative_citation_ratio
-  title
+  publication_title
 }
 }
   `;
@@ -197,7 +197,7 @@ export const tabContainers = [
         },
       },
       {
-        dataField: 'org_name',
+        dataField: 'project_org_name',
         header: 'Organization',
         display: true,
         tooltipText: 'sort',
@@ -258,7 +258,7 @@ export const tabContainers = [
         },
         display: true,
         tooltipText: 'sort',
-        tooltipDefinition: 'Financial assistance mechanism providing money, property, or both to an eligible entity to carry out an approved project or activity. A grant is used whenever the NIH Institute or Center anticipates no substantial programmatic involvement with the recipient during performance of the financially assisted activities. Within the initial releases of INS, the terms “grant” and “award” are used synonymously.',
+        tooltipDefinition: 'Financial assistance mechanism providing money, property, or both to an eligible entity to carry out an approved project or activity. A grant is used whenever the NIH Institute or Center anticipates no substantial programmatic involvement with the recipient during performance of the financially assisted activities.',
         tooltipLocation: 'first',
         role: cellTypes.DISPLAY,
         className: 'grants_grant_id_1',
@@ -282,7 +282,7 @@ export const tabContainers = [
         header: 'Grant Title',
         display: true,
         tooltipText: 'sort',
-        tooltipDefinition: 'Financial assistance mechanism providing money, property, or both to an eligible entity to carry out an approved project or activity. A grant is used whenever the NIH Institute or Center anticipates no substantial programmatic involvement with the recipient during performance of the financially assisted activities. Within the initial releases of INS, the terms “grant” and “award” are used synonymously.',
+        tooltipDefinition: 'Title of the funded grant, contract, or intramural (sub)project.',
         role: cellTypes.DISPLAY,
         className: 'grants_grant_title_3',
       },
@@ -314,7 +314,7 @@ export const tabContainers = [
         className: 'grants_fiscal_year_6',
       },
       {
-        dataField: 'project_end_date',
+        dataField: 'grant_end_date',
         header: 'Project End Date',
         display: true,
         tooltipText: 'sort',
@@ -378,7 +378,7 @@ export const tabContainers = [
         },
       },
       {
-        dataField: 'title',
+        dataField: 'publication_title',
         header: 'Title',
         display: true,
         tooltipText: 'sort',

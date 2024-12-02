@@ -92,7 +92,7 @@ searchProjects(
     group
     subjects
   }
-  programCountByDoc {
+  programCountByProgramDoc {
     group
     subjects
   }
@@ -195,7 +195,7 @@ projectsOverview(
   order_by: $order_by,
   sort_direction: $sort_direction
 ) {
-  org_name
+  project_org_name
   program_names
   project_end_date
   project_id
@@ -230,7 +230,7 @@ grantsOverview(
   grant_title
   principal_investigators
   program_officers
-  project_end_date
+  grant_end_date
   project_id
 }
 }
@@ -261,7 +261,7 @@ publicationsOverview(
   project_ids
   publication_date
   relative_citation_ratio
-  title
+  publication_title
 }
 }
   `;
@@ -313,7 +313,7 @@ export const tabContainers = [
       },
       {
         dataField: 'focus_area_str',
-        header: 'Focus Area',
+        header: 'Special Topic',
         display: true,
         tooltipText: 'sort',
         tooltipDefinition: 'NCI research focus area',
@@ -355,7 +355,7 @@ export const tabContainers = [
       },
       {
         dataField: 'focus_area_str',
-        header: 'Focus Area',
+        header: 'Special Topic',
       },
       {
         dataField: 'cancer_type_str',
@@ -429,7 +429,7 @@ export const tabContainers = [
         },
       },
       {
-        dataField: 'org_name',
+        dataField: 'project_org_name',
         header: 'Organization',
         display: true,
         tooltipText: 'sort',
@@ -546,7 +546,7 @@ export const tabContainers = [
         className: 'grants_fiscal_year_6',
       },
       {
-        dataField: 'project_end_date',
+        dataField: 'grant_end_date',
         header: 'Project End Date',
         display: true,
         tooltipText: 'sort',
@@ -610,7 +610,7 @@ export const tabContainers = [
         },
       },
       {
-        dataField: 'title',
+        dataField: 'publication_title',
         header: 'Title',
         display: true,
         tooltipText: 'sort',

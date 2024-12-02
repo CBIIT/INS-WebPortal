@@ -33,7 +33,7 @@ const leftPanel = [
         link: '{program_link}',
       },
       {
-        label: 'Associated Focus Area(s)',
+        label: 'Associated Special Topic(s)',
         dataField: 'focusAreaTransformed',
       },
       {
@@ -71,7 +71,7 @@ query programDetails($program_id: String) {
   programDetails(program_id: $program_id) {
       contact_nih
       contact_pi
-      doc
+      program_doc
       focus_area
       cancer_type
       nofo

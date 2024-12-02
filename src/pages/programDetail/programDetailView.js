@@ -10,6 +10,7 @@ import {
   programDetailIcon,
   pageSubTitle,
   leftPanel,
+  externalLinkIcon,
 } from '../../bento/programDetailData';
 import Subsection from '../../components/PropertySubsection/programDetailSubsection';
 import StatsView from '../../components/Stats/StatsView';
@@ -24,6 +25,10 @@ const ProgramView = ({
     numberOfGrants,
   } = data;
   const programData = data;
+
+  const totalResearchOutputs = (numberOfProjects || 0)
+  + (numberOfGrants || 0)
+  + (numberOfPublications || 0);
 
   const stat = {
     numberOfPrograms: 1,
@@ -78,13 +83,57 @@ const ProgramView = ({
           </Grid>
         </div>
       </div>
-      <div className={classes.detailTabContainer}>
-        <TabsView
-          programStats={data}
-          activeFilters={{ program_ids: [programData.program_id] }}
-        />
-      </div>
-      <div className={classes.blankSpace} />
+      {totalResearchOutputs > 0 ? (
+        <>
+          <div className={classes.detailTabContainer}>
+            <TabsView
+              programStats={data}
+              activeFilters={{ program_ids: [programData.program_id] }}
+            />
+          </div>
+          <div className={classes.blankSpace} />
+        </>
+      ) : (
+        <div className={classes.noResearchOutputsBG}>
+          <div className={classes.noResearchOutputs}>
+            <div className={classes.noResearchOutputsHeader}>
+              Looking For Research Outputs Of This Program ?
+            </div>
+            <div className={cn(classes.noResearchOutputsContent, classes.textCenter, classes.p10)}>
+              Please visit the
+              {' '}
+              {programData.program_link ? (
+                <>
+                  <a href={programData.program_link} target="_blank" rel="noopener noreferrer" className={classes.textDecorationNone}>
+                    {programData.program_acronym}
+                    <img
+                      src={externalLinkIcon.src}
+                      alt={externalLinkIcon.alt}
+                      className={classes.externalLinkIcon}
+                    />
+                  </a>
+                  {' '}
+                  program website
+                </>
+              ) : (
+                'program website'
+              )}
+              {' '}
+              directly to learn more.
+            </div>
+            <div className={classes.noResearchOutputsContent}>
+              Many Programs are complex collections
+              of interconnected funding inputs with
+              abundant research outputs. The INS is
+              continually improving and working to
+              capture this complexity for all Programs.
+              While we improve, the many research outputs
+              for some Programs may not be reflected within INS.
+            </div>
+          </div>
+        </div>
+      )}
+
     </>
   );
 };
@@ -188,6 +237,48 @@ const styles = (theme) => ({
   detailTabContainer: {
     maxWidth: theme.custom.maxContentWidth,
     margin: 'auto',
+  },
+  noResearchOutputsBG: {
+    background: '#E6F2F7',
+    width: '100%',
+    padding: '60px 0 130px 0',
+  },
+  noResearchOutputs: {
+    maxWidth: '1034px',
+    margin: 'auto',
+    background: '#fff',
+    padding: '20px',
+    border: 'solid 1px #9D9D9D',
+    borderRadius: '12px',
+  },
+  noResearchOutputsHeader: {
+    textAlign: 'center',
+    fontSize: '19px',
+    fontWeight: '600',
+    lineHeight: '20px',
+    color: '#4B619A',
+    textTransform: 'capitalize',
+    padding: '10px 0',
+  },
+  noResearchOutputsContent: {
+    textAlign: 'left',
+    fontSize: '18px',
+    fontWeight: '400',
+    lineHeight: '25px',
+  },
+  textCenter: {
+    textAlign: 'center',
+  },
+  p10: {
+    padding: '10px',
+  },
+  externalLinkIcon: {
+    width: '16px',
+    verticalAlign: 'sub',
+    marginLeft: '4px',
+  },
+  textDecorationNone: {
+    textDecoration: 'none',
   },
 });
 
