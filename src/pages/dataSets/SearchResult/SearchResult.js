@@ -497,8 +497,8 @@ const SearchResult = ({
               { 'study type': rst.content.study_type },
               { 'assay method': rst.content.assay_method },
               { 'limitations for reuse': rst.content.limitations_for_reuse },
+              { 'NCI Division/Office/Center': rst.content.dataset_doc },
             ];
-
             // Iterate through hideContent and check for matches
             hideContent.forEach((item) => {
               Object.entries(item).forEach(([key, value]) => {
