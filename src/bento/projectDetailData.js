@@ -46,7 +46,7 @@ const leftPanel = [
       },
       {
         label: 'Notice of Funding Opportunity',
-        dataField: 'opportunity_number',
+        dataField: 'project_opportunity_number',
       },
     ],
   },
@@ -54,7 +54,7 @@ const leftPanel = [
     sectionHeader: 'Project Summary',
     properties: [
       {
-        dataField: 'abstract_text',
+        dataField: 'project_abstract_text',
       },
     ],
   },
