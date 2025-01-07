@@ -179,7 +179,7 @@ const styles = (theme) => ({
     letterSpacing: '0.025em',
     color: '#274FA5 ',
     fontSize: '26px',
-    lineHeight: '24px',
+    lineHeight: '32px',
     paddingLeft: '0px',
   },
   headerSubTitleCate: {
