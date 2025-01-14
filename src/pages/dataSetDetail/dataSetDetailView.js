@@ -40,7 +40,7 @@ const DataSetDetailView = ({
       <Grid container spacing={2} alignItems="center" justify="space-between" className={classes.nav}>
         <Grid item>
           <Link href="#datasets" className={classes.navLink}>
-            Explore Dataset
+            Explore Datasets
           </Link>
           {'    '}
           {'>'}

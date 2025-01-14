@@ -3,6 +3,7 @@ import _ from 'lodash';
 import {
   Grid,
   withStyles,
+  Link,
 } from '@material-ui/core';
 import { cn } from '@bento-core/util';
 import {
@@ -37,6 +38,15 @@ const ProjectView = ({
       <StatsView data={stat} />
       <div className={classes.container}>
         <div className={classes.innerContainer}>
+          <div className={classes.breadCrumbs}>
+            <Link href="#programs" className={classes.navLink}>
+              Explore Projects
+            </Link>
+            {'    '}
+            {'>'}
+            {'    '}
+            {projectData[pageTitle.dataField] || ''}
+          </div>
           <div className={classes.header}>
             <div className={classes.logo}>
               <img
@@ -187,6 +197,17 @@ const styles = (theme) => ({
   detailTabContainer: {
     maxWidth: theme.custom.maxContentWidth,
     margin: 'auto',
+  },
+  navLink: {
+    color: '#005EA2',
+  },
+  breadCrumbs: {
+    fontSize: '16px',
+    textAlign: 'left',
+    fontWeight: '400',
+    lineHeight: '26px',
+    marginTop: '-30px',
+    marginBottom: '60px',
   },
 });
 
