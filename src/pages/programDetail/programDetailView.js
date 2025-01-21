@@ -179,18 +179,18 @@ const styles = (theme) => ({
   },
   headerMainTitle: {
     '& > span': {
-      fontWeight: '300',
+      fontWeight: '400',
       letterSpacing: '0.017em',
     },
     '& > span > span': {
-      fontWeight: 'bold',
+      fontWeight: '600',
       letterSpacing: '0.025em',
     },
-    fontFamily: 'Lato',
+    fontFamily: 'Inter',
     letterSpacing: '0.025em',
     color: '#274FA5 ',
     fontSize: '26px',
-    lineHeight: '32px',
+    lineHeight: '30px',
     paddingLeft: '0px',
   },
   headerSubTitleCate: {
