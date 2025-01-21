@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import programIcon from '../assets/icons/Icon-Programs.png';
+import programIcon from '../assets/icons/Programs.svg';
 
 // --------------- Page title configuration --------------
 const pageTitle = {

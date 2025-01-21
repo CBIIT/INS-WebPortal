@@ -11,12 +11,6 @@ const pageSubTitle = {
   dataField: 'program_name',
 };
 
-// --------------- Icons configuration --------------
-const programDetailIcon = {
-  src: programIcon,
-  alt: 'INS program logo',
-};
-
 const externalLinkIcon = {
   src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/externalLinkIcon.svg',
   alt: 'External link icon',
@@ -51,7 +45,6 @@ query datasetDetails($dbGaP_phs: String) {
 export {
   pageTitle,
   pageSubTitle,
-  programDetailIcon,
   externalLinkIcon,
   getDataSetDetailDataQuery,
 };

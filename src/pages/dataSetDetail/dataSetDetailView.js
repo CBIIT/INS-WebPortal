@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
   Container,
   Grid,
-  Card,
-  CardContent,
   Typography,
   Button,
   Link,
@@ -11,7 +9,7 @@ import {
 } from '@material-ui/core';
 import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
-import icon from '../../assets/icons/dataset_icon.png';
+import icon from '../../assets/icons/Datasets.svg';
 import {
   externalLinkIcon,
 } from '../../bento/datasetDetailData';
