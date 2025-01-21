@@ -14,7 +14,7 @@ const pageSubTitle = {
 // --------------- Icons configuration --------------
 const programDetailIcon = {
   src: programIcon,
-  alt: 'INS program logo',
+  alt: 'INS programs logo',
 };
 
 const externalLinkIcon = {

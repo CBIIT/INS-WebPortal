@@ -156,7 +156,7 @@ const styles = (theme) => ({
     color: '#000',
   },
   container: {
-    paddingTop: '50px',
+    paddingTop: '30px',
     fontFamily: theme.custom.fontFamily,
     paddingLeft: '32px',
     paddingRight: '32px',
@@ -168,12 +168,13 @@ const styles = (theme) => ({
     paddingRight: '35px',
     borderBottom: '#4B619A 10px solid',
     height: 'fit-content',
-    maxWidth: '1340px',
     margin: 'auto',
+    display: 'inline-block',
+    width: '100%',
   },
   headerTitle: {
     margin: 'auto',
-    marginLeft: '85px',
+    marginLeft: '95px',
     width: 'calc(100% - 265px)',
   },
   headerMainTitle: {
@@ -211,10 +212,9 @@ const styles = (theme) => ({
   logo: {
     position: 'absolute',
     float: 'left',
-    marginLeft: '-23px',
-    marginTop: '-21px',
+    marginTop: '-9px',
     width: '107px',
-    filter: 'drop-shadow(-3px 2px 6px rgba(27,28,28,0.29))',
+    filter: 'drop-shadow(24px 22px 7px rgba(27,28,28,0.29))',
   },
   detailContainer: {
     maxWidth: '1340px',
@@ -236,9 +236,7 @@ const styles = (theme) => ({
     background: '#f3f3f3',
   },
   innerContainer: {
-    maxWidth: '1340px',
-    margin: '0 auto',
-    padding: '0',
+    padding: '0 ',
     fontFamily: theme.custom.fontFamily,
     background: '#FFFFFF',
   },
@@ -303,8 +301,8 @@ const styles = (theme) => ({
     textAlign: 'left',
     fontWeight: '400',
     lineHeight: '26px',
-    marginTop: '-30px',
-    marginBottom: '60px',
+    marginTop: '-20px',
+    marginBottom: '55px',
   },
 });
 

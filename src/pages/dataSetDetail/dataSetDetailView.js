@@ -52,7 +52,7 @@ const DataSetDetailView = ({
             <div className={classes.logo}>
               <img
                 src={icon}
-                alt="dataset header icon"
+                alt="INS datasets logo"
               />
             </div>
             <div className={classes.headerTitle}>
@@ -314,6 +314,7 @@ const styles = (theme) => ({
   mainContainer: {
     paddingTop: '10px',
     background: '#FFFF',
+    maxWidth: '100%',
   },
   externalLinkIcon: {
     width: '16px',
