@@ -121,7 +121,7 @@ const ProgramView = ({
         <div className={classes.noResearchOutputsBG}>
           <div className={classes.noResearchOutputs}>
             <div className={classes.noResearchOutputsHeader}>
-              Looking For Research Outputs Of This Program ?
+              Looking For Research Outputs Of This Program?
             </div>
             <div className={cn(classes.noResearchOutputsContent, classes.textCenter, classes.p10)}>
               Please visit the
