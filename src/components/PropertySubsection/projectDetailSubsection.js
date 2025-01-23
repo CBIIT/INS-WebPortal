@@ -128,10 +128,11 @@ const styles = (theme) => ({
   },
   detailContainerHeader: {
     textTransform: 'uppercase',
-    fontFamily: 'Lato',
-    fontSize: '17px',
-    letterSpacing: '0.025em',
-    color: '#0296C9',
+    fontFamily: 'Inter',
+    fontSize: '19px',
+    fontWeight: '400',
+    lineHeight: '20px',
+    color: '#3478A5',
   },
   subsectionBody: {
     paddingBottom: '15px',
@@ -142,13 +143,11 @@ const styles = (theme) => ({
     },
   },
   title: {
-    color: '#9d9d9c',
-    fontFamily: theme.custom.fontFamilySans,
-    fontSize: '12px',
-    lineHeight: '12px',
-    letterSpacing: '0.017em',
+    color: '#1C58A1',
+    fontFamily: 'Inter',
+    fontSize: '16px',
+    lineHeight: '20px',
     fontWeight: '600',
-    whiteSpace: 'nowrap',
   },
   descriptionPart: {
     paddingBottom: '26px',
