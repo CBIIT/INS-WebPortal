@@ -23,7 +23,7 @@ const externalLinkIcon = {
 };
 
 // --------------- Data panel configuration --------------
-const leftPanel = [
+const topPanel = [
   {
     sectionHeader: 'Project Information',
     properties: [
@@ -50,6 +50,9 @@ const leftPanel = [
       },
     ],
   },
+];
+
+const bottomPanel = [
   {
     sectionHeader: 'Project Summary',
     properties: [
@@ -93,7 +96,8 @@ export {
   pageTitle,
   pageSubTitle,
   projectDetailIcon,
-  leftPanel,
+  topPanel,
+  bottomPanel,
   externalLinkIcon,
   GET_PROJECT_DETAIL_DATA_QUERY,
   PROJECT_STATS_QUERY,

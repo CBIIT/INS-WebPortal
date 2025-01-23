@@ -10,7 +10,8 @@ import {
   pageTitle,
   projectDetailIcon,
   pageSubTitle,
-  leftPanel,
+  topPanel,
+  bottomPanel,
 } from '../../bento/projectDetailData';
 import Subsection from '../../components/PropertySubsection/projectDetailSubsection';
 import StatsView from '../../components/Stats/StatsView';
@@ -72,10 +73,23 @@ const ProjectView = ({
             </div>
           </div>
           <Grid container spacing={1} className={classes.detailContainer}>
-            <Grid item sm={12} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
+            <Grid item sm={12} xs={12} className={[classes.detailPanel, classes.topPanel]}>
               <div className={classes.innerPanel}>
                 <Grid container spacing={2}>
-                  {leftPanel.slice(0, 3).map((section) => (
+                  {topPanel.slice(0, 3).map((section) => (
+                    <Subsection
+                      key={section.sectionHeader}
+                      config={section}
+                      data={data}
+                    />
+                  ))}
+                </Grid>
+              </div>
+            </Grid>
+            <Grid item sm={12} xs={12} className={[classes.detailPanel, classes.bottomPanel]}>
+              <div className={classes.innerPanel}>
+                <Grid container spacing={2}>
+                  {bottomPanel.slice(0, 3).map((section) => (
                     <Subsection
                       key={section.sectionHeader}
                       config={section}
@@ -179,7 +193,10 @@ const styles = (theme) => ({
     size: '12px',
     lineHeight: '23px',
   },
-  leftPanel: {
+  topPanel: {
+    paddingLeft: '25px !important',
+  },
+  bottomPanel: {
     paddingLeft: '25px !important',
   },
   blankSpace: {

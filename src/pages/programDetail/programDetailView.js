@@ -11,6 +11,7 @@ import {
   programDetailIcon,
   pageSubTitle,
   leftPanel,
+  rightPanel,
   externalLinkIcon,
 } from '../../bento/programDetailData';
 import Subsection from '../../components/PropertySubsection/programDetailSubsection';
@@ -77,10 +78,23 @@ const ProgramView = ({
             </div>
           </div>
           <Grid container spacing={1} className={classes.detailContainer}>
-            <Grid item sm={12} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
+            <Grid item sm={6} xs={6} className={[classes.detailPanel, classes.leftPanel]}>
               <div className={classes.innerPanel}>
                 <Grid container spacing={2}>
                   {leftPanel.slice(0, 3).map((section) => (
+                    <Subsection
+                      key={section.sectionHeader}
+                      config={section}
+                      data={data}
+                    />
+                  ))}
+                </Grid>
+              </div>
+            </Grid>
+            <Grid item sm={6} xs={6} className={[classes.detailPanel, classes.rightPanel]}>
+              <div className={classes.innerPanel}>
+                <Grid container spacing={2}>
+                  {rightPanel.slice(0, 3).map((section) => (
                     <Subsection
                       key={section.sectionHeader}
                       config={section}
@@ -229,6 +243,9 @@ const styles = (theme) => ({
     lineHeight: '23px',
   },
   leftPanel: {
+    paddingLeft: '25px !important',
+  },
+  rightPanel: {
     paddingLeft: '25px !important',
   },
   blankSpace: {

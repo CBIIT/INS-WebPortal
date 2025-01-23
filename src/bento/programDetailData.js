@@ -46,6 +46,9 @@ const leftPanel = [
       },
     ],
   },
+];
+
+const rightPanel = [
   {
     sectionHeader: 'NCI Support',
     properties: [
@@ -99,6 +102,7 @@ export {
   pageSubTitle,
   programDetailIcon,
   leftPanel,
+  rightPanel,
   externalLinkIcon,
   GET_PROGRAM_DETAIL_DATA_QUERY,
   PROGRAM_DETAIL_QUERY,
