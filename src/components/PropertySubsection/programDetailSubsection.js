@@ -88,7 +88,10 @@ const Subsection = ({ config, data, classes }) => {
 
 const styles = (theme) => ({
   content: {
-    fontSize: '12px',
+    fontFamily: 'Nunito',
+    fontSize: '18px',
+    fontWeight: '400',
+    lineHeight: '25px',
   },
   detailContainerHeader: {
     textTransform: 'uppercase',
@@ -120,7 +123,8 @@ const styles = (theme) => ({
     fontWeight: 'bold',
   },
   link: {
-    textDecoration: 'none',
+    fontWeight: '600',
+    color: '#571AFF',
   },
   externalLinkIcon: {
     width: '16px',
