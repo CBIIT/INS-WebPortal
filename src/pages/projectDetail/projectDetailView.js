@@ -73,7 +73,7 @@ const ProjectView = ({
             </div>
           </div>
           <Grid container spacing={1} className={classes.detailContainer}>
-            <Grid item sm={12} xs={12} className={[classes.detailPanel, classes.topPanel]}>
+            <Grid item sm={6} xs={6} className={[classes.detailPanel, classes.topPanel]}>
               <div className={classes.innerPanel}>
                 <Grid container spacing={2}>
                   {topPanel.slice(0, 3).map((section) => (
@@ -184,8 +184,8 @@ const styles = (theme) => ({
   detailContainer: {
     maxWidth: '1340px',
     margin: 'auto',
-    marginBlockEnd: '24px',
-    paddingTop: '24px',
+    marginBlockEnd: '50px',
+    paddingTop: '50px',
     paddingLeft: '5px',
     fontFamily: theme.custom.fontFamily,
     letterSpacing: '0.014em',
@@ -197,7 +197,10 @@ const styles = (theme) => ({
     paddingLeft: '25px !important',
   },
   bottomPanel: {
+    borderTop: '3px solid #7D91C4',
     paddingLeft: '25px !important',
+    marginTop: '55px',
+    paddingTop: '59px !important',
   },
   blankSpace: {
     height: '73px',

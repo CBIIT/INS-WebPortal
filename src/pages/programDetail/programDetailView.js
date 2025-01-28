@@ -233,8 +233,8 @@ const styles = (theme) => ({
   detailContainer: {
     maxWidth: '1340px',
     margin: 'auto',
-    marginBlockEnd: '24px',
-    paddingTop: '24px',
+    marginBlockEnd: '50px',
+    paddingTop: '50px',
     paddingLeft: '5px',
     fontFamily: theme.custom.fontFamily,
     letterSpacing: '0.014em',
@@ -244,13 +244,13 @@ const styles = (theme) => ({
   },
   leftPanel: {
     paddingLeft: '25px !important',
-    borderRight: '1px solid #B0D7E6',
-    marginTop: '-10px',
-    paddingTop: '14px !important',
-    marginBottom: '-30px',
-    paddingBottom: '34px !important',
   },
   rightPanel: {
+    borderLeft: '1px solid #B0D7E6',
+    marginTop: '-30px',
+    paddingTop: '34px !important',
+    marginBottom: '-45px',
+    paddingBottom: '49px !important',
     paddingLeft: '25px !important',
   },
   blankSpace: {
