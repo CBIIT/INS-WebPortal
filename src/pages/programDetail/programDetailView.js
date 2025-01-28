@@ -244,6 +244,7 @@ const styles = (theme) => ({
   },
   leftPanel: {
     paddingLeft: '25px !important',
+    borderRight: '1px solid #B0D7E6',
   },
   rightPanel: {
     paddingLeft: '25px !important',
