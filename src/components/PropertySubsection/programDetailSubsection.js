@@ -92,6 +92,8 @@ const styles = (theme) => ({
     fontSize: '18px',
     fontWeight: '400',
     lineHeight: '25px',
+    position: 'relative',
+    top: '15px',
   },
   detailContainerHeader: {
     textTransform: 'uppercase',
@@ -115,6 +117,9 @@ const styles = (theme) => ({
     fontSize: '16px',
     lineHeight: '20px',
     fontWeight: '600',
+    position: 'relative',
+    left: '10px',
+    top: '15px',
   },
   descriptionPart: {
     paddingBottom: '26px',
