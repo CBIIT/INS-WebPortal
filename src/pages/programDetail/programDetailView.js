@@ -255,7 +255,7 @@ const styles = (theme) => ({
   },
   blankSpace: {
     height: '73px',
-    background: '#f3f3f3',
+    background: '#e6f2f7',
   },
   innerContainer: {
     padding: '0 ',
