@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import _ from 'lodash';
 import {
@@ -121,14 +122,14 @@ const ProgramView = ({
         <div className={classes.noResearchOutputsBG}>
           <div className={classes.noResearchOutputs}>
             <div className={classes.noResearchOutputsHeader}>
-              Looking For Research Outputs Of This Program?
+              Looking for Research Output of this program?
             </div>
-            <div className={cn(classes.noResearchOutputsContent, classes.textCenter, classes.p10)}>
+            <div className={cn(classes.noResearchOutputsContent)}>
               Please visit the
               {' '}
               {programData.program_link ? (
                 <>
-                  <a href={programData.program_link} target="_blank" rel="noopener noreferrer" className={classes.textDecorationNone}>
+                  <a href={programData.program_link} target="_blank" rel="noopener noreferrer" className={classes.link}>
                     {programData.program_acronym}
                     <img
                       src={externalLinkIcon.src}
@@ -143,16 +144,7 @@ const ProgramView = ({
                 'program website'
               )}
               {' '}
-              directly to learn more.
-            </div>
-            <div className={classes.noResearchOutputsContent}>
-              Many Programs are complex collections
-              of interconnected funding inputs with
-              abundant research outputs. The INS is
-              continually improving and working to
-              capture this complexity for all Programs.
-              While we improve, the many research outputs
-              for some Programs may not be reflected within INS.
+              directly to learn more. Many programs are complex collections of interconnected funding inputs with abundant research outputs. The INS is continually improving and working to capture this complexity for all Programs. While we improve, the many research outputs for some programs may not be reflected within INS.
             </div>
           </div>
         </div>
@@ -280,19 +272,21 @@ const styles = (theme) => ({
     borderRadius: '12px',
   },
   noResearchOutputsHeader: {
+    fontFamily: 'Inter',
     textAlign: 'center',
     fontSize: '19px',
     fontWeight: '600',
     lineHeight: '20px',
     color: '#4B619A',
-    textTransform: 'capitalize',
     padding: '10px 0',
   },
   noResearchOutputsContent: {
+    fontFamily: 'Nunito',
     textAlign: 'left',
     fontSize: '18px',
     fontWeight: '400',
     lineHeight: '25px',
+    margin: '20px',
   },
   textCenter: {
     textAlign: 'center',
@@ -305,8 +299,8 @@ const styles = (theme) => ({
     verticalAlign: 'sub',
     marginLeft: '4px',
   },
-  textDecorationNone: {
-    textDecoration: 'none',
+  link: {
+    color: '#571AFF',
   },
   navLink: {
     color: '#005EA2',
