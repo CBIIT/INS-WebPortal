@@ -94,6 +94,7 @@ const styles = (theme) => ({
     lineHeight: '25px',
     position: 'relative',
     top: '15px',
+    marginBottom: '10px',
   },
   detailContainerHeader: {
     textTransform: 'uppercase',
@@ -120,6 +121,7 @@ const styles = (theme) => ({
     position: 'relative',
     left: '10px',
     top: '15px',
+    marginBottom: '10px',
   },
   descriptionPart: {
     paddingBottom: '26px',
