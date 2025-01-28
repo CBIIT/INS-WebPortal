@@ -245,6 +245,10 @@ const styles = (theme) => ({
   leftPanel: {
     paddingLeft: '25px !important',
     borderRight: '1px solid #B0D7E6',
+    marginTop: '-10px',
+    paddingTop: '14px !important',
+    marginBottom: '-30px',
+    paddingBottom: '34px !important',
   },
   rightPanel: {
     paddingLeft: '25px !important',
