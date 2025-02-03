@@ -164,8 +164,8 @@ const styles = (theme) => ({
   container: {
     paddingTop: '30px',
     fontFamily: theme.custom.fontFamily,
-    paddingLeft: '32px',
-    paddingRight: '32px',
+    paddingLeft: '48px',
+    paddingRight: '48px',
     background: '#FFFF',
     paddingBottom: '16px',
   },
