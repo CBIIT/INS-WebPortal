@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import programIcon from '../assets/icons/Icon-Programs.png';
+import programIcon from '../assets/icons/Programs.svg';
 
 // --------------- Page title configuration --------------
 const pageTitle = {
@@ -14,7 +14,7 @@ const pageSubTitle = {
 // --------------- Icons configuration --------------
 const programDetailIcon = {
   src: programIcon,
-  alt: 'INS program logo',
+  alt: 'INS programs logo',
 };
 
 const externalLinkIcon = {
@@ -46,6 +46,9 @@ const leftPanel = [
       },
     ],
   },
+];
+
+const rightPanel = [
   {
     sectionHeader: 'NCI Support',
     properties: [
@@ -99,6 +102,7 @@ export {
   pageSubTitle,
   programDetailIcon,
   leftPanel,
+  rightPanel,
   externalLinkIcon,
   GET_PROGRAM_DETAIL_DATA_QUERY,
   PROGRAM_DETAIL_QUERY,

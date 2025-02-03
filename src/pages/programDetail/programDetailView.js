@@ -1,8 +1,10 @@
+/* eslint-disable max-len */
 import React from 'react';
 import _ from 'lodash';
 import {
   Grid,
   withStyles,
+  Link,
 } from '@material-ui/core';
 import { cn } from '@bento-core/util';
 import {
@@ -10,6 +12,7 @@ import {
   programDetailIcon,
   pageSubTitle,
   leftPanel,
+  rightPanel,
   externalLinkIcon,
 } from '../../bento/programDetailData';
 import Subsection from '../../components/PropertySubsection/programDetailSubsection';
@@ -27,8 +30,8 @@ const ProgramView = ({
   const programData = data;
 
   const totalResearchOutputs = (numberOfProjects || 0)
-  + (numberOfGrants || 0)
-  + (numberOfPublications || 0);
+    + (numberOfGrants || 0)
+    + (numberOfPublications || 0);
 
   const stat = {
     numberOfPrograms: 1,
@@ -42,6 +45,15 @@ const ProgramView = ({
       <StatsView data={stat} />
       <div className={classes.container}>
         <div className={classes.innerContainer}>
+          <div className={classes.breadCrumbs}>
+            <Link href="#programs" className={classes.navLink}>
+              Explore Programs
+            </Link>
+            {'    '}
+            {'>'}
+            {'    '}
+            {programData[pageTitle.dataField] || ''}
+          </div>
           <div className={classes.header}>
             <div className={classes.logo}>
               <img
@@ -67,10 +79,23 @@ const ProgramView = ({
             </div>
           </div>
           <Grid container spacing={1} className={classes.detailContainer}>
-            <Grid item sm={12} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
+            <Grid item sm={6} xs={6} className={[classes.detailPanel, classes.leftPanel]}>
               <div className={classes.innerPanel}>
                 <Grid container spacing={2}>
                   {leftPanel.slice(0, 3).map((section) => (
+                    <Subsection
+                      key={section.sectionHeader}
+                      config={section}
+                      data={data}
+                    />
+                  ))}
+                </Grid>
+              </div>
+            </Grid>
+            <Grid item sm={6} xs={6} className={[classes.detailPanel, classes.rightPanel]}>
+              <div className={classes.innerPanel}>
+                <Grid container spacing={2}>
+                  {rightPanel.slice(0, 3).map((section) => (
                     <Subsection
                       key={section.sectionHeader}
                       config={section}
@@ -97,14 +122,14 @@ const ProgramView = ({
         <div className={classes.noResearchOutputsBG}>
           <div className={classes.noResearchOutputs}>
             <div className={classes.noResearchOutputsHeader}>
-              Looking For Research Outputs Of This Program ?
+              Looking for Research Output of this program?
             </div>
-            <div className={cn(classes.noResearchOutputsContent, classes.textCenter, classes.p10)}>
+            <div className={cn(classes.noResearchOutputsContent)}>
               Please visit the
               {' '}
               {programData.program_link ? (
                 <>
-                  <a href={programData.program_link} target="_blank" rel="noopener noreferrer" className={classes.textDecorationNone}>
+                  <a href={programData.program_link} target="_blank" rel="noopener noreferrer" className={classes.link}>
                     {programData.program_acronym}
                     <img
                       src={externalLinkIcon.src}
@@ -119,16 +144,7 @@ const ProgramView = ({
                 'program website'
               )}
               {' '}
-              directly to learn more.
-            </div>
-            <div className={classes.noResearchOutputsContent}>
-              Many Programs are complex collections
-              of interconnected funding inputs with
-              abundant research outputs. The INS is
-              continually improving and working to
-              capture this complexity for all Programs.
-              While we improve, the many research outputs
-              for some Programs may not be reflected within INS.
+              directly to learn more. Many programs are complex collections of interconnected funding inputs with abundant research outputs. The INS is continually improving and working to capture this complexity for all Programs. While we improve, the many research outputs for some programs may not be reflected within INS.
             </div>
           </div>
         </div>
@@ -146,7 +162,7 @@ const styles = (theme) => ({
     color: '#000',
   },
   container: {
-    paddingTop: '50px',
+    paddingTop: '30px',
     fontFamily: theme.custom.fontFamily,
     paddingLeft: '32px',
     paddingRight: '32px',
@@ -158,39 +174,39 @@ const styles = (theme) => ({
     paddingRight: '35px',
     borderBottom: '#4B619A 10px solid',
     height: 'fit-content',
-    maxWidth: '1340px',
     margin: 'auto',
+    display: 'inline-block',
+    width: '100%',
   },
   headerTitle: {
     margin: 'auto',
-    marginLeft: '85px',
+    marginLeft: '95px',
     width: 'calc(100% - 265px)',
   },
   headerMainTitle: {
     '& > span': {
-      fontWeight: '300',
+      fontWeight: '400',
       letterSpacing: '0.017em',
     },
     '& > span > span': {
-      fontWeight: 'bold',
+      fontWeight: '600',
       letterSpacing: '0.025em',
     },
-    fontFamily: 'Lato',
+    fontFamily: 'Inter',
     letterSpacing: '0.025em',
     color: '#274FA5 ',
     fontSize: '26px',
-    lineHeight: '32px',
+    lineHeight: '30px',
     paddingLeft: '0px',
   },
   headerSubTitleCate: {
-    color: '#00B0BD',
-    fontWeight: '300',
-    fontFamily: 'Poppins',
-    textTransform: 'uppercase',
+    color: '#5A656A',
+    fontWeight: '400',
+    fontFamily: 'Nunito',
     letterSpacing: '0.023em',
-    fontSize: '15px',
+    fontSize: '16px',
     overflow: 'hidden',
-    lineHeight: '24px',
+    lineHeight: '25px',
     paddingLeft: '2px',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -202,16 +218,15 @@ const styles = (theme) => ({
   logo: {
     position: 'absolute',
     float: 'left',
-    marginLeft: '-23px',
-    marginTop: '-21px',
+    marginTop: '-9px',
     width: '107px',
-    filter: 'drop-shadow(-3px 2px 6px rgba(27,28,28,0.29))',
+    filter: 'drop-shadow(24px 22px 7px rgba(27,28,28,0.29))',
   },
   detailContainer: {
     maxWidth: '1340px',
     margin: 'auto',
-    marginBlockEnd: '24px',
-    paddingTop: '24px',
+    marginBlockEnd: '50px',
+    paddingTop: '50px',
     paddingLeft: '5px',
     fontFamily: theme.custom.fontFamily,
     letterSpacing: '0.014em',
@@ -222,14 +237,20 @@ const styles = (theme) => ({
   leftPanel: {
     paddingLeft: '25px !important',
   },
+  rightPanel: {
+    borderLeft: '1px solid #B0D7E6',
+    marginTop: '-30px',
+    paddingTop: '34px !important',
+    marginBottom: '-45px',
+    paddingBottom: '49px !important',
+    paddingLeft: '25px !important',
+  },
   blankSpace: {
     height: '73px',
-    background: '#f3f3f3',
+    background: '#e6f2f7',
   },
   innerContainer: {
-    maxWidth: '1340px',
-    margin: '0 auto',
-    padding: '0',
+    padding: '0 ',
     fontFamily: theme.custom.fontFamily,
     background: '#FFFFFF',
   },
@@ -251,19 +272,21 @@ const styles = (theme) => ({
     borderRadius: '12px',
   },
   noResearchOutputsHeader: {
+    fontFamily: 'Inter',
     textAlign: 'center',
     fontSize: '19px',
     fontWeight: '600',
     lineHeight: '20px',
     color: '#4B619A',
-    textTransform: 'capitalize',
     padding: '10px 0',
   },
   noResearchOutputsContent: {
+    fontFamily: 'Nunito',
     textAlign: 'left',
     fontSize: '18px',
     fontWeight: '400',
     lineHeight: '25px',
+    margin: '20px',
   },
   textCenter: {
     textAlign: 'center',
@@ -276,8 +299,26 @@ const styles = (theme) => ({
     verticalAlign: 'sub',
     marginLeft: '4px',
   },
-  textDecorationNone: {
-    textDecoration: 'none',
+  link: {
+    color: '#571AFF',
+  },
+  navLink: {
+    color: '#005EA2',
+    fontFamily: 'Public Sans',
+    fontSize: '16px',
+    fontWeight: '400',
+    lineHeight: '26px',
+    textDecoration: 'underline solid',
+  },
+  breadCrumbs: {
+    color: '#1B1B1B',
+    fontFamily: 'Public Sans',
+    fontSize: '16px',
+    textAlign: 'left',
+    fontWeight: '400',
+    lineHeight: '26px',
+    marginTop: '-20px',
+    marginBottom: '55px',
   },
 });
 

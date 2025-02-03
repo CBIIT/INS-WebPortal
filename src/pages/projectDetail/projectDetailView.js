@@ -3,13 +3,15 @@ import _ from 'lodash';
 import {
   Grid,
   withStyles,
+  Link,
 } from '@material-ui/core';
 import { cn } from '@bento-core/util';
 import {
   pageTitle,
   projectDetailIcon,
   pageSubTitle,
-  leftPanel,
+  topPanel,
+  bottomPanel,
 } from '../../bento/projectDetailData';
 import Subsection from '../../components/PropertySubsection/projectDetailSubsection';
 import StatsView from '../../components/Stats/StatsView';
@@ -37,6 +39,15 @@ const ProjectView = ({
       <StatsView data={stat} />
       <div className={classes.container}>
         <div className={classes.innerContainer}>
+          <div className={classes.breadCrumbs}>
+            <Link href="#programs" className={classes.navLink}>
+              Explore Projects
+            </Link>
+            {'    '}
+            {'>'}
+            {'    '}
+            {projectData[pageTitle.dataField] || ''}
+          </div>
           <div className={classes.header}>
             <div className={classes.logo}>
               <img
@@ -62,10 +73,23 @@ const ProjectView = ({
             </div>
           </div>
           <Grid container spacing={1} className={classes.detailContainer}>
-            <Grid item sm={12} xs={12} className={[classes.detailPanel, classes.leftPanel]}>
+            <Grid item sm={6} xs={6} className={[classes.detailPanel, classes.topPanel]}>
               <div className={classes.innerPanel}>
                 <Grid container spacing={2}>
-                  {leftPanel.slice(0, 3).map((section) => (
+                  {topPanel.slice(0, 3).map((section) => (
+                    <Subsection
+                      key={section.sectionHeader}
+                      config={section}
+                      data={data}
+                    />
+                  ))}
+                </Grid>
+              </div>
+            </Grid>
+            <Grid item sm={12} xs={12} className={[classes.detailPanel, classes.bottomPanel]}>
+              <div className={classes.innerPanel}>
+                <Grid container spacing={2}>
+                  {bottomPanel.slice(0, 3).map((section) => (
                     <Subsection
                       key={section.sectionHeader}
                       config={section}
@@ -97,7 +121,7 @@ const styles = (theme) => ({
     color: '#000',
   },
   container: {
-    paddingTop: '50px',
+    paddingTop: '30px',
     fontFamily: theme.custom.fontFamily,
     paddingLeft: '32px',
     paddingRight: '32px',
@@ -109,39 +133,39 @@ const styles = (theme) => ({
     paddingRight: '35px',
     borderBottom: '#4B619A 10px solid',
     height: 'fit-content',
-    maxWidth: '1340px',
     margin: 'auto',
+    display: 'inline-block',
+    width: '100%',
   },
   headerTitle: {
     margin: 'auto',
-    marginLeft: '85px',
+    marginLeft: '95px',
     width: 'calc(100% - 265px)',
   },
   headerMainTitle: {
     '& > span': {
-      fontWeight: '300',
+      fontWeight: '400',
       letterSpacing: '0.017em',
     },
     '& > span > span': {
-      fontWeight: 'bold',
+      fontWeight: '600',
       letterSpacing: '0.025em',
     },
-    fontFamily: 'Lato',
+    fontFamily: 'Inter',
     letterSpacing: '0.025em',
     color: '#274FA5 ',
     fontSize: '26px',
-    lineHeight: '32px',
+    lineHeight: '30px',
     paddingLeft: '0px',
   },
   headerSubTitleCate: {
-    color: '#00B0BD',
-    fontWeight: '300',
-    fontFamily: 'Poppins',
-    textTransform: 'uppercase',
+    color: '#5A656A',
+    fontWeight: '400',
+    fontFamily: 'Nunito',
     letterSpacing: '0.023em',
-    fontSize: '15px',
+    fontSize: '16px',
     overflow: 'hidden',
-    lineHeight: '24px',
+    lineHeight: '25px',
     paddingLeft: '2px',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -153,16 +177,15 @@ const styles = (theme) => ({
   logo: {
     position: 'absolute',
     float: 'left',
-    marginLeft: '-23px',
-    marginTop: '-21px',
+    marginTop: '-9px',
     width: '107px',
-    filter: 'drop-shadow(-3px 2px 6px rgba(27,28,28,0.29))',
+    filter: 'drop-shadow(24px 22px 7px rgba(27,28,28,0.29))',
   },
   detailContainer: {
     maxWidth: '1340px',
     margin: 'auto',
-    marginBlockEnd: '24px',
-    paddingTop: '24px',
+    marginBlockEnd: '50px',
+    paddingTop: '50px',
     paddingLeft: '5px',
     fontFamily: theme.custom.fontFamily,
     letterSpacing: '0.014em',
@@ -170,23 +193,45 @@ const styles = (theme) => ({
     size: '12px',
     lineHeight: '23px',
   },
-  leftPanel: {
+  topPanel: {
     paddingLeft: '25px !important',
+  },
+  bottomPanel: {
+    borderTop: '3px solid #7D91C4',
+    paddingLeft: '25px !important',
+    marginTop: '55px',
+    paddingTop: '59px !important',
   },
   blankSpace: {
     height: '73px',
-    background: '#f3f3f3',
+    background: '#e6f2f7',
   },
   innerContainer: {
-    maxWidth: '1340px',
-    margin: '0 auto',
-    padding: '0',
+    padding: '0 ',
     fontFamily: theme.custom.fontFamily,
     background: '#FFFFFF',
   },
   detailTabContainer: {
     maxWidth: theme.custom.maxContentWidth,
     margin: 'auto',
+  },
+  navLink: {
+    color: '#005EA2',
+    fontFamily: 'Public Sans',
+    fontSize: '16px',
+    fontWeight: '400',
+    lineHeight: '26px',
+    textDecoration: 'underline solid',
+  },
+  breadCrumbs: {
+    color: '#1B1B1B',
+    fontFamily: 'Public Sans',
+    fontSize: '16px',
+    textAlign: 'left',
+    fontWeight: '400',
+    lineHeight: '26px',
+    marginTop: '-20px',
+    marginBottom: '55px',
   },
 });
 

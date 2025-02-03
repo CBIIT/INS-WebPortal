@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
   Container,
   Grid,
-  Card,
-  CardContent,
   Typography,
   Button,
   Link,
@@ -11,7 +9,7 @@ import {
 } from '@material-ui/core';
 import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
-import icon from '../../assets/icons/dataset_icon.png';
+import icon from '../../assets/icons/Datasets.svg';
 import {
   externalLinkIcon,
 } from '../../bento/datasetDetailData';
@@ -40,7 +38,7 @@ const DataSetDetailView = ({
       <Grid container spacing={2} alignItems="center" justify="space-between" className={classes.nav}>
         <Grid item>
           <Link href="#datasets" className={classes.navLink}>
-            Explore Dataset
+            Explore Datasets
           </Link>
           {'    '}
           {'>'}
@@ -54,7 +52,7 @@ const DataSetDetailView = ({
             <div className={classes.logo}>
               <img
                 src={icon}
-                alt="dataset header icon"
+                alt="INS datasets logo"
               />
             </div>
             <div className={classes.headerTitle}>
@@ -93,9 +91,9 @@ const DataSetDetailView = ({
               {expanded ? ReactHtmlParser(data.description) : ReactHtmlParser(truncatedDescription) || ''}
               {' '}
               {data.description && data.description.length > descMaxLength && (
-              <Button onClick={toggleExpand} color="primary" className={classes.link}>
-                {expanded ? '' : 'Read More'}
-              </Button>
+                <Button onClick={toggleExpand} color="primary" className={classes.link}>
+                  {expanded ? '' : 'Read More'}
+                </Button>
               )}
             </Typography>
 
@@ -316,6 +314,7 @@ const styles = (theme) => ({
   mainContainer: {
     paddingTop: '10px',
     background: '#FFFF',
+    maxWidth: '100%',
   },
   externalLinkIcon: {
     width: '16px',
@@ -323,6 +322,8 @@ const styles = (theme) => ({
     marginLeft: '4px',
   },
   nav: {
+    color: '#1B1B1B',
+    fontFamily: 'Public Sans',
     paddingLeft: '32px',
     paddingRight: '32px',
     fontSize: '16px',
@@ -332,6 +333,11 @@ const styles = (theme) => ({
   },
   navLink: {
     color: '#005EA2',
+    fontFamily: 'Public Sans',
+    fontSize: '16px',
+    fontWeight: '400',
+    lineHeight: '26px',
+    textDecoration: 'underline solid',
   },
   link: {
     color: '#571AFF',
@@ -366,28 +372,28 @@ const styles = (theme) => ({
   },
   headerMainTitle: {
     '& > span': {
-      fontWeight: '300',
+      fontWeight: '400',
       letterSpacing: '0.017em',
     },
     '& > span > span': {
-      fontWeight: 'bold',
+      fontWeight: '600',
       letterSpacing: '0.025em',
     },
-    fontFamily: 'Lato',
+    fontFamily: 'Inter',
     letterSpacing: '0.025em',
     color: '#274FA5 ',
     fontSize: '26px',
-    lineHeight: '32px',
+    lineHeight: '30px',
     paddingLeft: '0px',
   },
   headerSubTitleCate: {
-    color: '#00B0BD',
-    fontWeight: '300',
-    fontFamily: 'Poppins',
+    color: '#5A656A',
+    fontWeight: '400',
+    fontFamily: 'Nunito',
     letterSpacing: '0.023em',
-    fontSize: '15px',
+    fontSize: '16px',
     overflow: 'hidden',
-    lineHeight: '24px',
+    lineHeight: '25px',
     paddingLeft: '2px',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
