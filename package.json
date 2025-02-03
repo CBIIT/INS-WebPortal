@@ -16,7 +16,7 @@
     "@bento-core/local-find": "1.0.1-ins.3",
     "@bento-core/paginated-table": "1.0.1-ins.29",
     "@bento-core/query-bar": "1.0.1-ins.6",
-    "@bento-core/stats-bar": "^1.0.1-ins.0",
+    "@bento-core/stats-bar": "1.0.1-ins.10",
     "@bento-core/tab": "1.0.0",
     "@bento-core/table": "1.0.1-ins.27",
     "@bento-core/tool-tip": "1.0.0",
