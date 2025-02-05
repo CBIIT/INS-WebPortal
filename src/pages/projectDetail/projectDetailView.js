@@ -182,7 +182,7 @@ const styles = (theme) => ({
     filter: 'drop-shadow(24px 22px 7px rgba(27,28,28,0.29))',
   },
   detailContainer: {
-    maxWidth: '1340px',
+    maxWidth: '100%',
     margin: 'auto',
     marginBlockEnd: '50px',
     paddingTop: '50px',
