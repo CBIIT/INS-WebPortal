@@ -255,7 +255,7 @@ const styles = (theme) => ({
     background: '#FFFFFF',
   },
   detailTabContainer: {
-    maxWidth: theme.custom.maxContentWidth,
+    maxWidth: '95%',
     margin: 'auto',
   },
   noResearchOutputsBG: {
