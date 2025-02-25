@@ -400,7 +400,7 @@ const styles = (theme) => ({
     paddingRight: '200px',
   },
   headerMSubTitle: {
-    paddingTop: '3px',
+    paddingBottom: '3px',
   },
   logo: {
     position: 'absolute',

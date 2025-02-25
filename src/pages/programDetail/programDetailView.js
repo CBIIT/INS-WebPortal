@@ -183,7 +183,7 @@ const styles = (theme) => ({
   headerTitle: {
     margin: 'auto',
     marginLeft: '95px',
-    width: 'calc(100% - 265px)',
+    width: 'calc(100% - 60px)',
   },
   headerMainTitle: {
     '& > span': {
@@ -215,7 +215,7 @@ const styles = (theme) => ({
     paddingRight: '200px',
   },
   headerMSubTitle: {
-    paddingTop: '3px',
+    paddingBottom: '3px',
   },
   logo: {
     position: 'absolute',

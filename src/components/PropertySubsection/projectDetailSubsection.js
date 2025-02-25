@@ -29,7 +29,7 @@ const PropertyItem = ({
     for (let i = 0; i < ids.length; i += 1) {
       const url = `#/program/${ids[i]}`;
 
-      const linkElement = `<a key="${i}" href="${url}" style="text-decoration: none;">${names[i]}</a>`;
+      const linkElement = `<a key="${i}" href="${url}" style="color: #571AFF;">${names[i]}</a>`;
 
       contentArray.push(linkElement);
     }
