@@ -44,7 +44,9 @@ const ProjectView = ({
               Explore Projects
             </Link>
             {'    '}
-            {'>'}
+            <span className={classes.carrot}>
+              {'>'}
+            </span>
             {'    '}
             {projectData[pageTitle.dataField] || ''}
           </div>
@@ -232,6 +234,9 @@ const styles = (theme) => ({
     lineHeight: '26px',
     marginTop: '-20px',
     marginBottom: '55px',
+  },
+  carrot: {
+    color: '#71767A',
   },
 });
 
