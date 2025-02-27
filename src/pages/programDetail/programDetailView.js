@@ -50,7 +50,9 @@ const ProgramView = ({
               Explore Programs
             </Link>
             {'    '}
-            {'>'}
+            <span className={classes.carrot}>
+              {'>'}
+            </span>
             {'    '}
             {programData[pageTitle.dataField] || ''}
           </div>
@@ -181,7 +183,7 @@ const styles = (theme) => ({
   headerTitle: {
     margin: 'auto',
     marginLeft: '95px',
-    width: 'calc(100% - 265px)',
+    width: 'calc(100% - 60px)',
   },
   headerMainTitle: {
     '& > span': {
@@ -213,7 +215,7 @@ const styles = (theme) => ({
     paddingRight: '200px',
   },
   headerMSubTitle: {
-    paddingTop: '3px',
+    paddingBottom: '3px',
   },
   logo: {
     position: 'absolute',
@@ -319,6 +321,9 @@ const styles = (theme) => ({
     lineHeight: '26px',
     marginTop: '-20px',
     marginBottom: '55px',
+  },
+  carrot: {
+    color: '#71767A',
   },
 });
 

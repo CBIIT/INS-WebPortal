@@ -29,16 +29,16 @@ const customTheme = {
           color: '#10a075',
         },
         '&.projects': {
-          background: '#d3f0f2',
-          color: '#0fa8b1',
+          background: '#D6F2EA',
+          color: '#09767B',
         },
         '&.grants': {
-          background: '#cfedf9',
-          color: '#0dafec',
+          background: '#CFEDF9',
+          color: '#087096',
         },
         '&.publications': {
-          background: '#f7d7f7',
-          color: '#c92ec7',
+          background: '#F7E1F1',
+          color: '#8E006B',
         },
         '&.MuiTypography-body1': {
           color: 'red',

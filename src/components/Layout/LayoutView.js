@@ -10,6 +10,7 @@ import Error from '../../pages/error/Error';
 import Home from '../../pages/landing/landingController';
 import About from '../../pages/about/aboutController';
 import Disclaimer from '../Disclaimer';
+import ScreenSizePopup from '../Mobile/ScreenSizePopup';
 import GlobalSearchController from '../../pages/search/searchViewController';
 import ProgramDetail from '../../pages/programDetail/programDetailController';
 import ProjectDetail from '../../pages/projectDetail/projectDetailController';
@@ -36,6 +37,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
           <Header />
           <NavBar />
           <Disclaimer />
+          <ScreenSizePopup />
           <div
             className={classes.content}
           >
