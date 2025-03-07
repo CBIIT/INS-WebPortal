@@ -219,7 +219,7 @@ const styles = (theme) => ({
   },
   navLink: {
     color: '#005EA2',
-    fontFamily: 'Public Sans',
+    fontFamily: 'Inter',
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '26px',
@@ -227,7 +227,7 @@ const styles = (theme) => ({
   },
   breadCrumbs: {
     color: '#1B1B1B',
-    fontFamily: 'Public Sans',
+    fontFamily: 'Inter',
     fontSize: '16px',
     textAlign: 'left',
     fontWeight: '400',
