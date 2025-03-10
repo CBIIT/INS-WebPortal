@@ -9,6 +9,13 @@ const Nav = styled.div`
   height: 40px;
   background-color: rgb(62, 60, 63);
   z-index: 999;
+
+  @media (max-width: 990px) {
+    margin-top: -55px;
+    margin-left: -340px;
+    z-index: 1201;
+    background: white;
+  }
 `;
 
 const NavContainer = styled.div`
@@ -143,7 +150,7 @@ const Hamburger = styled.div`
   right: 15px;
   font-size: 24px;
   cursor: pointer;
-  color: white;
+  color: black;
 
   @media (max-width: 990px) {
     display: block;
