@@ -150,7 +150,7 @@ const Hamburger = styled.div`
   right: 15px;
   font-size: 24px;
   cursor: pointer;
-  color: black;
+  color: #413E41;
 
   @media (max-width: 990px) {
     display: block;
