@@ -46,6 +46,10 @@ const styles = () => ({
       margin: '0px',
       lineHeight: '16px',
     },
+
+    '@media (max-width: 900px)': {
+      display: 'none',
+    },
   },
   aboutLink: {
     fontWeight: '800',
