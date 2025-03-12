@@ -1,26 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Nav = styled.div`
-    position: relative;
-    width: 100%;
-    height: 40px;
-    background-color: rgb(62, 60, 63);
+  position: relative;
+  width: 100%;
+  height: 40px;
+  background-color: rgb(62, 60, 63);
   z-index: 999;
+
+  @media (max-width: 990px) {
+    margin-top: -55px;
+    margin-left: -340px;
+    z-index: 1201;
+    background: white;
+  }
 `;
 
 const NavContainer = styled.div`
-    margin: 0 auto;
-    width: 100%;
-    text-align: center;
-    position: relative;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  position: relative;
 `;
 
 const UlContainer = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  
+
+  @media (max-width: 990px) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    display: ${({ open }) => (open ? 'flex' : 'none')};
+    background-color: rgb(62, 60, 63);
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    left: 0;
+    align-items: center;
+  }
 `;
 
 const LiSection = styled.li`
@@ -35,9 +57,9 @@ const LiSection = styled.li`
   font-family: Nunito;
   text-decoration: none;
   cursor: pointer;
-  transition:all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
-  a{
+  a {
     display: block;
     color: #ffffff;
     text-decoration: none;
@@ -47,6 +69,13 @@ const LiSection = styled.li`
   &:hover {
     color: #ffffff;
     background-color: #241F24;
+  }
+
+  @media (max-width: 990px) {
+    padding: 10px 0;
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 
   .menuLabel {
@@ -114,6 +143,20 @@ const MenuDropDown = styled.div`
   }
 `;
 
+const Hamburger = styled.div`
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #413E41;
+
+  @media (max-width: 990px) {
+    display: block;
+  }
+`;
+
 const activeStyle = {
   color: '#ffffff',
   backgroundColor: '#241F24',
@@ -126,22 +169,30 @@ const subMenuActiveStyle = {
 
 const NavBar = () => {
   const path = useLocation().pathname;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const handleMenuItemClick = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <Nav>
       <NavContainer>
-        <UlContainer>
-          <LiSection style={path === '/home' ? activeStyle : null}><NavLink to="/home">Home</NavLink></LiSection>
-          <LiSection style={path === '/programs' ? activeStyle : null}><NavLink to="/programs">Programs</NavLink></LiSection>
-          <LiSection style={path === '/datasets' ? activeStyle : null}><NavLink to="/datasets">Datasets</NavLink></LiSection>
+        <Hamburger onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </Hamburger>
+        <UlContainer open={menuOpen}>
+          <LiSection style={path === '/home' ? activeStyle : null} onClick={handleMenuItemClick}><NavLink to="/home">Home</NavLink></LiSection>
+          <LiSection style={path === '/programs' ? activeStyle : null} onClick={handleMenuItemClick}><NavLink to="/programs">Programs</NavLink></LiSection>
+          <LiSection style={path === '/datasets' ? activeStyle : null} onClick={handleMenuItemClick}><NavLink to="/datasets">Datasets</NavLink></LiSection>
           <LiSection style={path === '/about' ? activeStyle : null}>
             <span className="menuLabel">
               About
             </span>
             <MenuDropDown className="dropdown-block">
               <ul className="dropdown-list">
-                <li><NavLink to="/about" style={path === '/about' ? subMenuActiveStyle : null}>About INS</NavLink></li>
-                <li><a href="/INS_glossary_v3.0.0.pdf" target="_blank" rel="noreferrer">Glossary (PDF)</a></li>
-                <li><a href="/Release_v3.0.1.pdf" target="_blank" rel="noreferrer">Release Notes (PDF)</a></li>
+                <li><NavLink to="/about" style={path === '/about' ? subMenuActiveStyle : null} onClick={handleMenuItemClick}>About INS</NavLink></li>
+                <li><a href="/INS_glossary_v3.0.0.pdf" target="_blank" rel="noreferrer" onClick={handleMenuItemClick}>Glossary (PDF)</a></li>
+                <li><a href="/Release_v3.0.1.pdf" target="_blank" rel="noreferrer" onClick={handleMenuItemClick}>Release Notes (PDF)</a></li>
               </ul>
             </MenuDropDown>
           </LiSection>
