@@ -11,6 +11,26 @@ const ScreenSizePopup = () => {
   const recommendedScreenSize = 990;
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const [showPopup, setShowPopup] = useState(window.innerWidth < recommendedScreenSize);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newSize = window.innerWidth;
+      setScreenSize(newSize);
+      setShowPopup(newSize < recommendedScreenSize);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (showPopup) {
+      setTimeout(() => setAnimate(true), 50);
+    } else {
+      setAnimate(false);
+    }
+  }, [showPopup]);
 
   const styles = {
     overlay: {
@@ -24,13 +44,14 @@ const ScreenSizePopup = () => {
     },
     popup: {
       position: 'fixed',
-      top: '18%',
-      left: '18%',
-      transform: 'translate(-50%, -50%)',
-      backgroundColor: '#fff',
+      top: '250px',
+      left: animate ? '0px' : '-350px',
+      transform: 'translateY(-50%)',
+      transition: 'left 0.3s ease-in-out',
+      backgroundColor: '#390156',
+      color: '#fff',
       padding: '20px',
-      width: '80%',
-      maxWidth: '350px',
+      width: '350px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
       zIndex: 1202,
       textAlign: 'center',
@@ -43,11 +64,12 @@ const ScreenSizePopup = () => {
       cursor: 'pointer',
       border: 'none',
       background: 'none',
+      color: '#fff',
     },
     button: {
-      margin: '20px 0',
-      padding: '15px 30px',
-      backgroundColor: '#E6C167',
+      margin: '80px 0 50px 0',
+      padding: '10px 30px',
+      backgroundColor: '#F3C758',
       border: 'none',
       cursor: 'pointer',
       fontFamily: 'Raleway',
@@ -57,37 +79,28 @@ const ScreenSizePopup = () => {
       letterSpacing: '5%',
       verticalAlign: 'middle',
       textTransform: 'uppercase',
-
+      color: '#3F3C3F',
     },
     header: {
       fontFamily: 'Inter',
       fontWeight: '400',
-      fontSize: '23px',
+      fontSize: '26px',
       lineHeight: '26px',
       letterSpacing: '0px',
-      marginTop: '15px',
+      marginTop: '70px',
+      textAlign: 'center',
+      textTransform: 'uppercase',
     },
     content: {
       fontFamily: 'Nunito',
       fontSize: '18px',
       lineHeight: '25px',
       letterSpacing: '0%',
-      marginTop: '15px',
-      padding: '10px 35px',
-      textAlign: 'left',
+      marginTop: '30px',
+      padding: '10px',
+      textAlign: 'center',
     },
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      const newSize = window.innerWidth;
-      setScreenSize(newSize);
-      setShowPopup(newSize < recommendedScreenSize);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     showPopup && (
@@ -102,13 +115,11 @@ const ScreenSizePopup = () => {
               {screenSize}
               px
             </strong>
-            .
-            To use all features of the INS, we
+            . To use all features of the INS, we
             {' '}
             <strong>recommend accessing it</strong>
             {' '}
-            from a computer or other device
-            with a minimum screen size of
+            from a computer or other device with a minimum screen size of
             {' '}
             <strong>
               {recommendedScreenSize}
