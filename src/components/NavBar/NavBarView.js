@@ -38,9 +38,9 @@ const UlContainer = styled.ul`
     display: ${({ open }) => (open ? 'flex' : 'none')};
     background-color: rgb(62, 60, 63);
     position: absolute;
-    top: 40px;
+    margin-top: 55px;
+    margin-left: 340px;
     width: 100%;
-    left: 0;
     align-items: center;
   }
 `;
