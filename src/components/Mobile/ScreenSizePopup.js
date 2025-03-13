@@ -11,6 +11,26 @@ const ScreenSizePopup = () => {
   const recommendedScreenSize = 990;
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const [showPopup, setShowPopup] = useState(window.innerWidth < recommendedScreenSize);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newSize = window.innerWidth;
+      setScreenSize(newSize);
+      setShowPopup(newSize < recommendedScreenSize);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (showPopup) {
+      setTimeout(() => setAnimate(true), 50);
+    } else {
+      setAnimate(false);
+    }
+  }, [showPopup]);
 
   const styles = {
     overlay: {
@@ -24,6 +44,10 @@ const ScreenSizePopup = () => {
     },
     popup: {
       position: 'fixed',
+      top: '250px',
+      left: animate ? '0px' : '-350px',
+      transform: 'translateY(-50%)',
+      transition: 'left 0.3s ease-in-out',
       backgroundColor: '#390156',
       color: '#fff',
       padding: '20px',
@@ -78,17 +102,6 @@ const ScreenSizePopup = () => {
     },
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      const newSize = window.innerWidth;
-      setScreenSize(newSize);
-      setShowPopup(newSize < recommendedScreenSize);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   return (
     showPopup && (
       <div style={styles.overlay}>
@@ -102,13 +115,11 @@ const ScreenSizePopup = () => {
               {screenSize}
               px
             </strong>
-            .
-            To use all features of the INS, we
+            . To use all features of the INS, we
             {' '}
             <strong>recommend accessing it</strong>
             {' '}
-            from a computer or other device
-            with a minimum screen size of
+            from a computer or other device with a minimum screen size of
             {' '}
             <strong>
               {recommendedScreenSize}
