@@ -431,15 +431,21 @@ const LandingView = ({ classes, statsData }) => {
 const styles = () => ({
   heroImage: {
     width: '100%',
-    height: '520px',
+    height: '550px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     backgroundImage: `url(${landingPageData.landingPageHero.img})`,
+    '@media (max-width: 480px)': {
+      height: '1100px',
+    },
   },
   texture: {
     backgroundSize: 'cover',
     background: '#9D0995',
     padding: '355px 0 80px 0',
+    '@media (max-width: 480px)': {
+      marginTop: '550px',
+    },
   },
   container: {
     fontFamily: 'Raleway, sans-serif',
@@ -784,8 +790,7 @@ const styles = () => ({
   heroTextWrapper: {
     width: '420px',
     '@media (max-width: 480px)': {
-      paddingLeft: '24px',
-      paddingTop: '380px',
+      padding: '380px 24px 0 24px',
     },
   },
   buttonText: {
