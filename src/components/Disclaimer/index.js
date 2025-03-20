@@ -47,7 +47,7 @@ const styles = () => ({
       lineHeight: '16px',
     },
 
-    '@media (max-width: 990px)': {
+    '@media (max-width: 480px)': {
       display: 'none',
     },
   },

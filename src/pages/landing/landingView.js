@@ -10,6 +10,7 @@ import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
+import mobileHeroImg from '../../assets/landing/MobileHeroImg.svg';
 import './landingStyles.css';
 
 let forwardAnimationReady = true;
@@ -282,13 +283,16 @@ const LandingView = ({ classes, statsData }) => {
                   </>
                 )}
             </div>
+            <div className={classes.heroImageContainerMobile}>
+              <img src={mobileHeroImg} className={classes.mobileHeroImg} alt="Mobile Hero Img" />
+            </div>
           </Grid>
         </div>
         <div className={classes.whiteSection} />
         <StatsView stats={landingPageData.landingPageStatsBar} statsData={statsData} />
         <div className={classes.container}>
           <div className={classes.texture}>
-            <Grid container spacing={16} direction="row" className={classes.landingContainer}>
+            <Grid container spacing={16} direction="row" className={classes.landingContainerBottom}>
               <div className={classes.contentLeft}>
                 <div className={classes.about}>
                   <div className={classes.aboutImageSection}>
@@ -446,6 +450,9 @@ const styles = () => ({
     margin: '0 auto',
     position: 'relative',
     height: '525px',
+    '@media (max-width: 480px)': {
+      marginTop: '15px',
+    },
   },
   whiteSection: {
     height: '8px',
@@ -471,6 +478,10 @@ const styles = () => ({
     lineHeight: '34px',
     color: '#000000',
     letterSpacing: '-0px',
+    '@media (max-width: 480px)': {
+      lineHeight: '40px',
+      letterSpacing: '0.1%',
+    },
   },
   paddingLeft50: {
     paddingLeft: '50px',
@@ -485,7 +496,6 @@ const styles = () => ({
     marginBottom: '26px',
     position: 'relative',
     zIndex: 99,
-
     '& b': {
       margin: '0px 5px',
     },
@@ -527,7 +537,7 @@ const styles = () => ({
     padding: '23px 110px 26px 30px',
     fontFamily: 'Inter',
   },
-  landingContainer: {
+  landingContainerBottom: {
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -754,6 +764,9 @@ const styles = () => ({
     '@media (min-width: 900px)': {
       width: '906px',
     },
+    '@media (max-width: 480px)': {
+      width: '100%',
+    },
   },
   hoverInteraction: {
     width: '425px',
@@ -770,6 +783,10 @@ const styles = () => ({
   },
   heroTextWrapper: {
     width: '420px',
+    '@media (max-width: 480px)': {
+      paddingLeft: '24px',
+      paddingTop: '380px',
+    },
   },
   buttonText: {
     fontFamily: 'Lato',
@@ -826,6 +843,18 @@ const styles = () => ({
     fontWeight: '1000',
     letterSpacing: '-0px',
     textAlign: 'center',
+  },
+  heroImageContainerMobile: {
+    '@media (min-width: 480px)': {
+      display: 'none',
+    },
+  },
+  mobileHeroImg: {
+    position: 'absolute',
+    left: '20px',
+    top: '11px',
+    width: '100%',
+    mixBlendMode: 'multiply',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);
