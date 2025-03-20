@@ -71,6 +71,7 @@ const LandingView = ({ classes, statsData }) => {
                       />
                     </Button>
                   </Link>
+                  <br className={classes.mobileOnlyStyle} />
                   <Link to={landingPageData.callToActionLink2} className={classes.headerLinkButton2}>
                     <Button className={classes.buttonText}>
                       {landingPageData.callToActionButtonText2}
@@ -802,6 +803,7 @@ const styles = () => ({
     height: '40px',
     color: '#A90532',
     width: '180px',
+    justifyContent: 'space-between',
   },
   iconTextWrapper: {
     width: '165px',
@@ -832,6 +834,9 @@ const styles = () => ({
     borderBottom: '2px solid #A90532',
     textDecoration: 'none',
     marginLeft: '52px',
+    '@media (max-width: 480px)': {
+      marginLeft: '0',
+    },
   },
   headerLinkGroup: {
     zIndex: '999',
@@ -856,10 +861,15 @@ const styles = () => ({
   },
   mobileHeroImg: {
     position: 'absolute',
-    left: '20px',
+    left: '10px',
     top: '11px',
     width: '100%',
     mixBlendMode: 'multiply',
+  },
+  mobileOnlyStyle: {
+    '@media (min-width: 480px)': {
+      display: 'none',
+    },
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);
