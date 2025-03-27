@@ -4,6 +4,12 @@
   margin-bottom: -8px;
 }
 
+@media (max-width: 480px) {
+  .statsBox {
+    display: none;
+  }
+}
+
 .statsSlide {
   animation: 1.5s linear slide;
 }

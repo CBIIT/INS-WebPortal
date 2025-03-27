@@ -101,6 +101,8 @@ const styles = () => ({
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
     '@media (max-width: 480px)': {
       marginTop: '550px',
+      height: 'auto',
+      flexDirection: 'column',
     },
   },
   bannerTexture: {
@@ -165,6 +167,9 @@ const styles = () => ({
   },
   leftGroup: {
     padding: '35px 24px 65px 70px',
+    '@media (max-width: 480px)': {
+      padding: '42px 14px 10px 14px',
+    },
   },
   leftText: {
     fontFamily: 'Inter',
@@ -173,6 +178,9 @@ const styles = () => ({
     fontWeight: '800',
     textAlign: 'left',
     lineHeight: '40px',
+    '@media (max-width: 480px)': {
+      letterSpacing: '0.1%',
+    },
   },
   linkText: {
     color: '#E26063',
