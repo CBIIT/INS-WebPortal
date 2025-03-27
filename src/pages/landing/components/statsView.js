@@ -92,34 +92,29 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
           {stats.length > 0 && (
             <div className={classes.chart}>
               <div className={classes.chartBar}>
-                <div className={classes.programs} style={mobileStylePrograms}>
-                  <span>{statsData.numberOfPrograms}</span>
-                  <div className={classes.label}>PROGRAMS</div>
-                </div>
+                <span>{statsData.numberOfPrograms}</span>
+                <div className={classes.label}>PROGRAMS</div>
+                <div className={classes.programs} style={mobileStylePrograms} />
               </div>
               <div className={classes.chartBar}>
-                <div className={classes.datasets} style={mobileStyleDatasets}>
-                  <span>{statsData.numberOfDatasets}</span>
-                  <div className={classes.label}>DATASETS</div>
-                </div>
+                <span>{statsData.numberOfDatasets}</span>
+                <div className={classes.label}>DATASETS</div>
+                <div className={classes.datasets} style={mobileStyleDatasets} />
               </div>
               <div className={classes.chartBar}>
-                <div className={classes.projects} style={mobileStyleProjects}>
-                  <span>{statsData.numberOfProjects}</span>
-                  <div className={classes.label}>PROJECTS</div>
-                </div>
+                <span>{statsData.numberOfProjects}</span>
+                <div className={classes.label}>PROJECTS</div>
+                <div className={classes.projects} style={mobileStyleProjects} />
               </div>
               <div className={classes.chartBar}>
-                <div className={classes.grants} style={mobileStyleGrants}>
-                  <span>{statsData.numberOfGrants}</span>
-                  <div className={classes.label}>GRANTS</div>
-                </div>
+                <span>{statsData.numberOfGrants}</span>
+                <div className={classes.label}>GRANTS</div>
+                <div className={classes.grants} style={mobileStyleGrants} />
               </div>
               <div className={classes.chartBar}>
-                <div className={classes.publications} style={mobileStylePublications}>
-                  <span>{statsData.numberOfPublications}</span>
-                  <div className={classes.label}>PUBLICATIONS</div>
-                </div>
+                <span>{statsData.numberOfPublications}</span>
+                <div className={classes.label}>PUBLICATIONS</div>
+                <div className={classes.publications} style={mobileStylePublications} />
               </div>
             </div>
           )}
@@ -278,8 +273,7 @@ const styles = () => ({
       justifyContent: 'flex-end',
       alignItems: 'center',
       '& span': {
-        position: 'absolute',
-        marginBottom: '375px',
+        marginBottom: '20px',
         fontFamily: 'Oswald',
         fontWeight: '500',
         fontSize: '22px',
@@ -291,7 +285,6 @@ const styles = () => ({
   },
   label: {
     writingMode: 'vertical-rl',
-    position: 'absolute',
     fontFamily: 'Nunito Sans',
     fontWeight: '700',
     fontSize: '11.5px',
@@ -299,6 +292,7 @@ const styles = () => ({
     letterSpacing: '2%',
     verticalAlign: 'bottom',
     paddingLeft: 'calc(((100vw - 56px)/10) - 6px)',
+    marginBottom: '20px',
   },
   chartBar: {
     height: '400px',
