@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 */
 
 const ScreenSizePopup = () => {
-  const recommendedScreenSize = 990;
+  const recommendedScreenSize = 480;
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const [showPopup, setShowPopup] = useState(window.innerWidth < recommendedScreenSize);
   const [animate, setAnimate] = useState(false);
@@ -122,8 +122,7 @@ const ScreenSizePopup = () => {
             from a computer or other device with a minimum screen size of
             {' '}
             <strong>
-              {recommendedScreenSize}
-              px
+              990px
             </strong>
             .
           </div>

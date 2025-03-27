@@ -3,12 +3,26 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import baseImg from '../../../assets/landing/Base.png';
 import './statsStyles.css';
 
 const linkPage = '/programs';
 
 const LandingStatsView = ({ classes, stats, statsData }) => {
+  const mobileStylePrograms = {
+    height: `calc(${Math.log10(statsData.numberOfPrograms) * 63}px)`,
+  };
+  const mobileStyleDatasets = {
+    height: `calc(${Math.log10(statsData.numberOfDatasets) * 63}px)`,
+  };
+  const mobileStyleProjects = {
+    height: `calc(${Math.log10(statsData.numberOfProjects) * 63}px)`,
+  };
+  const mobileStyleGrants = {
+    height: `calc(${Math.log10(statsData.numberOfGrants) * 63}px)`,
+  };
+  const mobileStylePublications = {
+    height: `calc(${Math.log10(statsData.numberOfPublications) * 63}px)`,
+  };
   const statsBarColor = [
     'linear-gradient(to right, #c56e6e, #923b3c)',
     'linear-gradient(to right, #fabe5f, #EDA534)',
@@ -74,6 +88,37 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
             </div>
           )}
         </div>
+        <div className={classes.mobileStatsBox}>
+          {stats.length > 0 && (
+            <div className={classes.chart}>
+              <div className={classes.chartBar}>
+                <span>{statsData.numberOfPrograms}</span>
+                <div className={classes.label}>PROGRAMS</div>
+                <div className={classes.programs} style={mobileStylePrograms} />
+              </div>
+              <div className={classes.chartBar}>
+                <span>{statsData.numberOfDatasets}</span>
+                <div className={classes.label}>DATASETS</div>
+                <div className={classes.datasets} style={mobileStyleDatasets} />
+              </div>
+              <div className={classes.chartBar}>
+                <span>{statsData.numberOfProjects}</span>
+                <div className={classes.label}>PROJECTS</div>
+                <div className={classes.projects} style={mobileStyleProjects} />
+              </div>
+              <div className={classes.chartBar}>
+                <span>{statsData.numberOfGrants}</span>
+                <div className={classes.label}>GRANTS</div>
+                <div className={classes.grants} style={mobileStyleGrants} />
+              </div>
+              <div className={classes.chartBar}>
+                <span>{statsData.numberOfPublications}</span>
+                <div className={classes.label}>PUBLICATIONS</div>
+                <div className={classes.publications} style={mobileStylePublications} />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
@@ -99,6 +144,11 @@ const styles = () => ({
       overflow: 'inherit',
     },
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+    '@media (max-width: 480px)': {
+      marginTop: '550px',
+      height: 'auto',
+      flexDirection: 'column',
+    },
   },
   bannerTexture: {
     color: '#4898B4',
@@ -162,6 +212,9 @@ const styles = () => ({
   },
   leftGroup: {
     padding: '35px 24px 65px 70px',
+    '@media (max-width: 480px)': {
+      padding: '42px 14px 10px 14px',
+    },
   },
   leftText: {
     fontFamily: 'Inter',
@@ -170,6 +223,9 @@ const styles = () => ({
     fontWeight: '800',
     textAlign: 'left',
     lineHeight: '40px',
+    '@media (max-width: 480px)': {
+      letterSpacing: '0.1%',
+    },
   },
   linkText: {
     color: '#E26063',
@@ -195,6 +251,77 @@ const styles = () => ({
     position: 'absolute',
     zIndex: '999',
     marginTop: '18px',
+  },
+  mobileStatsBox: {
+    '@media (min-width: 480px)': {
+      display: 'none',
+    },
+  },
+  chart: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: '5px',
+    padding: '0 16px',
+    '& div': {
+      width: 'calc((100vw - 56px)/5)',
+      textAlign: 'center',
+      color: 'white',
+      fontWeight: 'bold',
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      '& span': {
+        marginBottom: '20px',
+        fontFamily: 'Oswald',
+        fontWeight: '500',
+        fontSize: '22px',
+        lineHeight: '15px',
+        letterSpacing: '0%',
+        verticalAlign: 'middle',
+      },
+    },
+  },
+  label: {
+    writingMode: 'vertical-rl',
+    fontFamily: 'Nunito Sans',
+    fontWeight: '700',
+    fontSize: '11.5px',
+    lineHeight: '15px',
+    letterSpacing: '2%',
+    verticalAlign: 'bottom',
+    paddingLeft: 'calc(((100vw - 56px)/10) - 6px)',
+    marginBottom: '20px',
+  },
+  chartBar: {
+    height: '400px',
+    background: 'linear-gradient(0deg, rgba(94, 94, 94, 1) 0%, rgba(65, 62, 65, 1) 100%)',
+  },
+  programs: {
+    background: '#E26063',
+    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
+    position: 'relative',
+  },
+  datasets: {
+    background: '#EDA534',
+    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
+    position: 'relative',
+  },
+  projects: {
+    background: '#B06DCE',
+    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
+    position: 'relative',
+  },
+  grants: {
+    background: '#6488E5',
+    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
+    position: 'relative',
+  },
+  publications: {
+    background: '#9DA9F9',
+    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
+    position: 'relative',
   },
 });
 
