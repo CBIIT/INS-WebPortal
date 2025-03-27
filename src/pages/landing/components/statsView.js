@@ -3,7 +3,6 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import baseImg from '../../../assets/landing/Base.png';
 import './statsStyles.css';
 
 const linkPage = '/programs';
@@ -72,6 +71,33 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
                 })
               }
             </div>
+          )}
+        </div>
+        <div className={classes.mobileStatsBox}>
+          {stats.length > 0 && (
+            <div className={classes.chart}>
+              <div className={classes.programs}>
+                <span>{statsData.numberOfPrograms}</span>
+                <div className={classes.label}>PROGRAMS</div>
+              </div>
+              <div className={classes.datasets}>
+                <span>{statsData.numberOfDatasets}</span>
+                <div className={classes.label}>DATASETS</div>
+              </div>
+              <div className={classes.projects}>
+                <span>{statsData.numberOfProjects}</span>
+                <div className={classes.label}>PROJECTS</div>
+              </div>
+              <div className={classes.grants}>
+                <span>{statsData.numberOfGrants}</span>
+                <div className={classes.label}>GRANTS</div>
+              </div>
+              <div className={classes.publications}>
+                <span>{statsData.numberOfPublications}</span>
+                <div className={classes.label}>PUBLICATIONS</div>
+              </div>
+            </div>
+
           )}
         </div>
       </div>
@@ -206,6 +232,63 @@ const styles = () => ({
     position: 'absolute',
     zIndex: '999',
     marginTop: '18px',
+  },
+  mobileStatsBox: {
+    '@media (min-width: 480px)': {
+      display: 'none',
+    },
+  },
+  chart: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: '20px',
+    padding: '0 20px',
+    '& div': {
+      width: '60px',
+      borderRadius: '30px 30px 0 0',
+      textAlign: 'center',
+      color: 'white',
+      fontWeight: 'bold',
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      '& span': {
+        marginBottom: '5px',
+      },
+    },
+  },
+  label: {
+    writingMode: 'vertical-rl',
+    position: 'absolute',
+    fontSize: '14px',
+    fontWeight: 'bold',
+  },
+  programs: {
+    height: '80px',
+    background: '#E26063',
+    position: 'relative',
+  },
+  datasets: {
+    height: '80px',
+    background: '#EDA534',
+    position: 'relative',
+  },
+  projects: {
+    height: '150px',
+    background: '#B06DCE',
+    position: 'relative',
+  },
+  grants: {
+    height: '220px',
+    background: '#6488E5',
+    position: 'relative',
+  },
+  publications: {
+    height: '400px',
+    background: '#9DA9F9',
+    position: 'relative',
   },
 });
 
