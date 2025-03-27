@@ -583,7 +583,7 @@ const styles = () => ({
     background: '#9D0995',
     padding: '355px 0 80px 0',
     '@media (max-width: 480px)': {
-      marginTop: '950px',
+      marginTop: 'calc(950px + calc(430px - 100vw))',
       marginBottom: '-40px',
     },
   },

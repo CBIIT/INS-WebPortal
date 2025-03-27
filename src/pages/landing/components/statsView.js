@@ -8,6 +8,21 @@ import './statsStyles.css';
 const linkPage = '/programs';
 
 const LandingStatsView = ({ classes, stats, statsData }) => {
+  const mobileStylePrograms = {
+    height: `calc(${Math.log10(statsData.numberOfPrograms) * 63}px)`,
+  };
+  const mobileStyleDatasets = {
+    height: `calc(${Math.log10(statsData.numberOfDatasets) * 63}px)`,
+  };
+  const mobileStyleProjects = {
+    height: `calc(${Math.log10(statsData.numberOfProjects) * 63}px)`,
+  };
+  const mobileStyleGrants = {
+    height: `calc(${Math.log10(statsData.numberOfGrants) * 63}px)`,
+  };
+  const mobileStylePublications = {
+    height: `calc(${Math.log10(statsData.numberOfPublications) * 63}px)`,
+  };
   const statsBarColor = [
     'linear-gradient(to right, #c56e6e, #923b3c)',
     'linear-gradient(to right, #fabe5f, #EDA534)',
@@ -76,28 +91,37 @@ const LandingStatsView = ({ classes, stats, statsData }) => {
         <div className={classes.mobileStatsBox}>
           {stats.length > 0 && (
             <div className={classes.chart}>
-              <div className={classes.programs}>
-                <span>{statsData.numberOfPrograms}</span>
-                <div className={classes.label}>PROGRAMS</div>
+              <div className={classes.chartBar}>
+                <div className={classes.programs} style={mobileStylePrograms}>
+                  <span>{statsData.numberOfPrograms}</span>
+                  <div className={classes.label}>PROGRAMS</div>
+                </div>
               </div>
-              <div className={classes.datasets}>
-                <span>{statsData.numberOfDatasets}</span>
-                <div className={classes.label}>DATASETS</div>
+              <div className={classes.chartBar}>
+                <div className={classes.datasets} style={mobileStyleDatasets}>
+                  <span>{statsData.numberOfDatasets}</span>
+                  <div className={classes.label}>DATASETS</div>
+                </div>
               </div>
-              <div className={classes.projects}>
-                <span>{statsData.numberOfProjects}</span>
-                <div className={classes.label}>PROJECTS</div>
+              <div className={classes.chartBar}>
+                <div className={classes.projects} style={mobileStyleProjects}>
+                  <span>{statsData.numberOfProjects}</span>
+                  <div className={classes.label}>PROJECTS</div>
+                </div>
               </div>
-              <div className={classes.grants}>
-                <span>{statsData.numberOfGrants}</span>
-                <div className={classes.label}>GRANTS</div>
+              <div className={classes.chartBar}>
+                <div className={classes.grants} style={mobileStyleGrants}>
+                  <span>{statsData.numberOfGrants}</span>
+                  <div className={classes.label}>GRANTS</div>
+                </div>
               </div>
-              <div className={classes.publications}>
-                <span>{statsData.numberOfPublications}</span>
-                <div className={classes.label}>PUBLICATIONS</div>
+              <div className={classes.chartBar}>
+                <div className={classes.publications} style={mobileStylePublications}>
+                  <span>{statsData.numberOfPublications}</span>
+                  <div className={classes.label}>PUBLICATIONS</div>
+                </div>
               </div>
             </div>
-
           )}
         </div>
       </div>
@@ -241,11 +265,10 @@ const styles = () => ({
   chart: {
     display: 'flex',
     alignItems: 'flex-end',
-    gap: '20px',
-    padding: '0 20px',
+    gap: '5px',
+    padding: '0 16px',
     '& div': {
-      width: '60px',
-      borderRadius: '30px 30px 0 0',
+      width: 'calc((100vw - 56px)/5)',
       textAlign: 'center',
       color: 'white',
       fontWeight: 'bold',
@@ -265,29 +288,33 @@ const styles = () => ({
     fontSize: '14px',
     fontWeight: 'bold',
   },
+  chartBar: {
+    height: '400px',
+    background: 'linear-gradient(0deg, rgba(94, 94, 94, 1) 0%, rgba(65, 62, 65, 1) 100%)',
+  },
   programs: {
-    height: '80px',
     background: '#E26063',
+    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
     position: 'relative',
   },
   datasets: {
-    height: '80px',
     background: '#EDA534',
+    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
     position: 'relative',
   },
   projects: {
-    height: '150px',
     background: '#B06DCE',
+    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
     position: 'relative',
   },
   grants: {
-    height: '220px',
     background: '#6488E5',
+    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
     position: 'relative',
   },
   publications: {
-    height: '400px',
     background: '#9DA9F9',
+    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
     position: 'relative',
   },
 });
