@@ -10,6 +10,11 @@ import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
+import mobileHeroImg from '../../assets/landing/MobileHeroImg.svg';
+import mobileAboutTile from '../../assets/landing/mobileAboutTile.svg';
+import mobileDataTile from '../../assets/landing/mobileDataTile.svg';
+import mobileProgramsTile from '../../assets/landing/mobileProgramsTile.svg';
+import mobileSupportTile from '../../assets/landing/mobileSupportTile.svg';
 import './landingStyles.css';
 
 let forwardAnimationReady = true;
@@ -70,6 +75,7 @@ const LandingView = ({ classes, statsData }) => {
                       />
                     </Button>
                   </Link>
+                  <br className={classes.mobileOnlyStyle} />
                   <Link to={landingPageData.callToActionLink2} className={classes.headerLinkButton2}>
                     <Button className={classes.buttonText}>
                       {landingPageData.callToActionButtonText2}
@@ -282,13 +288,16 @@ const LandingView = ({ classes, statsData }) => {
                   </>
                 )}
             </div>
+            <div className={classes.heroImageContainerMobile}>
+              <img src={mobileHeroImg} className={classes.mobileHeroImg} alt="Mobile Hero Img" />
+            </div>
           </Grid>
         </div>
         <div className={classes.whiteSection} />
         <StatsView stats={landingPageData.landingPageStatsBar} statsData={statsData} />
         <div className={classes.container}>
           <div className={classes.texture}>
-            <Grid container spacing={16} direction="row" className={classes.landingContainer}>
+            <Grid container spacing={16} direction="row" className={classes.landingContainerBottom}>
               <div className={classes.contentLeft}>
                 <div className={classes.about}>
                   <div className={classes.aboutImageSection}>
@@ -417,6 +426,140 @@ const LandingView = ({ classes, statsData }) => {
                 </div>
               </div>
             </Grid>
+            <Grid container spacing={16} direction="row" className={classes.landingContainerBottomMobile}>
+              <div className={classes.mobileTiles}>
+                <div className={classes.mobileImgTile}>
+                  <img
+                    className={classes.mobileImg}
+                    src={mobileAboutTile}
+                    alt="Mobile About Tile"
+                    id="Mobile-About-Tile"
+                  />
+                </div>
+                <div className={classes.content}>
+                  <div className={classes.contentHeader}>
+                    ABOUT INS
+                  </div>
+                  <div className={classes.contentContainer}>
+                    For questions or feedback, please contact INS support.
+                  </div>
+                </div>
+                <div className={classes.yellowButton}>
+                  <div className={classes.yellowButtonLeft}>
+                    <img className={classes.icon} src={icon} alt="icon" />
+                    {' '}
+                  </div>
+                  <div className={classes.yellowButtonRight}>
+                    <Link
+                      to={landingPageData.tile1.callToActionLink}
+                      className={classes.yellowButton}
+                    >
+                      Read ABOUT INS
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <div className={classes.mobileTiles}>
+                <div className={classes.mobileImgTile}>
+                  <img
+                    className={classes.mobileImg}
+                    src={mobileDataTile}
+                    alt="Mobile Data Tile"
+                    id="Mobile-Data-Tile"
+                  />
+                </div>
+                <div className={classes.content}>
+                  <div className={classes.contentHeader}>
+                    DATA GATHERING
+                  </div>
+                  <div className={classes.contentContainer}>
+                    The INS data pipeline combines expert curation and automation to link programs and studies with research outputs.
+                  </div>
+                </div>
+                <div className={classes.yellowButton}>
+                  <div className={classes.yellowButtonLeft}>
+                    <img className={classes.icon} src={icon} alt="icon" />
+                    {' '}
+                  </div>
+                  <div className={classes.yellowButtonRight}>
+                    <Link
+                      to={landingPageData.tile1.callToActionLink}
+                      className={classes.yellowButton}
+                    >
+                      Learn about the pipeline
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <div className={classes.mobileTiles}>
+                <div className={classes.mobileImgTile}>
+                  <img
+                    className={classes.mobileImg}
+                    src={mobileProgramsTile}
+                    alt="Mobile Programs Tile"
+                    id="Mobile-Programs-Tile"
+                  />
+                </div>
+                <div className={classes.content}>
+                  <div className={classes.contentHeader}>
+                    PROGRAMS
+                  </div>
+                  <div className={classes.contentContainer}>
+                    Provides a list of programs currently included in the site.
+                  </div>
+                </div>
+                <div className={classes.yellowButton}>
+                  <div className={classes.yellowButtonLeft}>
+                    <img className={classes.icon} src={icon} alt="icon" />
+                    {' '}
+                  </div>
+                  <div className={classes.yellowButtonRight}>
+                    <Link
+                      to={landingPageData.tile2.callToActionLink}
+                      className={classes.yellowButton}
+                    >
+                      view program listing
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <div className={classes.mobileTiles}>
+                <div className={classes.mobileImgTile}>
+                  <img
+                    className={classes.mobileImg}
+                    src={mobileSupportTile}
+                    alt="Mobile About Tile"
+                    id="Mobile-About-Tile"
+                  />
+                </div>
+                <div className={classes.content}>
+                  <div className={classes.contentHeader}>
+                    INS SUPPORT
+                  </div>
+                  <div className={classes.contentContainer}>
+                    For questions or feedback, please contact INS support.
+                  </div>
+                </div>
+                <div className={classes.yellowButton}>
+                  <div className={classes.yellowButtonLeft}>
+                    <img className={classes.icon} src={icon} alt="icon" />
+                    {' '}
+                  </div>
+                  <div className={classes.yellowButtonRight}>
+                    <Button
+                      to="#"
+                      className={classes.yellowButtonSupport}
+                      onClick={(e) => {
+                        window.location.href = 'mailto:nciofficeofdatasharing@mail.nih.gov?Subject=Index%20of%20NCI%20Studies%20feedback';
+                        e.preventDefault();
+                      }}
+                    >
+                      Contact INS
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </Grid>
           </div>
         </div>
       </div>
@@ -427,15 +570,22 @@ const LandingView = ({ classes, statsData }) => {
 const styles = () => ({
   heroImage: {
     width: '100%',
-    height: '520px',
+    height: '550px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     backgroundImage: `url(${landingPageData.landingPageHero.img})`,
+    '@media (max-width: 480px)': {
+      height: '1100px',
+    },
   },
   texture: {
     backgroundSize: 'cover',
     background: '#9D0995',
     padding: '355px 0 80px 0',
+    '@media (max-width: 480px)': {
+      marginTop: 'calc(950px + calc(430px - 100vw))',
+      marginBottom: '-40px',
+    },
   },
   container: {
     fontFamily: 'Raleway, sans-serif',
@@ -446,6 +596,9 @@ const styles = () => ({
     margin: '0 auto',
     position: 'relative',
     height: '525px',
+    '@media (max-width: 480px)': {
+      marginTop: '15px',
+    },
   },
   whiteSection: {
     height: '8px',
@@ -471,6 +624,10 @@ const styles = () => ({
     lineHeight: '34px',
     color: '#000000',
     letterSpacing: '-0px',
+    '@media (max-width: 480px)': {
+      lineHeight: '40px',
+      letterSpacing: '0.1%',
+    },
   },
   paddingLeft50: {
     paddingLeft: '50px',
@@ -485,7 +642,6 @@ const styles = () => ({
     marginBottom: '26px',
     position: 'relative',
     zIndex: 99,
-
     '& b': {
       margin: '0px 5px',
     },
@@ -527,9 +683,17 @@ const styles = () => ({
     padding: '23px 110px 26px 30px',
     fontFamily: 'Inter',
   },
-  landingContainer: {
+  landingContainerBottom: {
     alignItems: 'center',
     justifyContent: 'center',
+    '@media (max-width: 480px)': {
+      display: 'none',
+    },
+  },
+  landingContainerBottomMobile: {
+    '@media (min-width: 480px)': {
+      display: 'none',
+    },
   },
   contentLeft: {
     float: 'left',
@@ -656,13 +820,13 @@ const styles = () => ({
   mountainMeadowButtonSection: {
     height: '46px',
     width: '176px',
-    backgroundColor: '#DDA211',
+    backgroundColor: '#F3C758',
     marginTop: '20px',
   },
   yellowButton: {
     height: '45px',
-    background: '#DDA211',
-    color: '#FFFFFF',
+    background: '#F3C758',
+    color: '#3F3C3F',
     fontFamily: 'Raleway',
     fontSize: '14px',
     fontWeight: '600',
@@ -672,7 +836,7 @@ const styles = () => ({
     letterSpacing: '1px',
   },
   yellowButtonSupport: {
-    color: '#FFFFFF',
+    color: '#3F3C3F',
     fontFamily: 'Raleway',
     fontSize: '14px',
     fontWeight: '600',
@@ -718,7 +882,7 @@ const styles = () => ({
     padding: '15px 5px 0 0',
     height: '9px',
     width: '71px',
-    color: '#FFFFFF',
+    color: '#3F3C3F',
     fontFamily: 'Raleway',
     fontSize: '14px',
     fontWeight: '600',
@@ -754,6 +918,9 @@ const styles = () => ({
     '@media (min-width: 900px)': {
       width: '906px',
     },
+    '@media (max-width: 480px)': {
+      width: '100%',
+    },
   },
   hoverInteraction: {
     width: '425px',
@@ -770,6 +937,9 @@ const styles = () => ({
   },
   heroTextWrapper: {
     width: '420px',
+    '@media (max-width: 480px)': {
+      padding: '380px 24px 0 24px',
+    },
   },
   buttonText: {
     fontFamily: 'Lato',
@@ -780,6 +950,7 @@ const styles = () => ({
     height: '40px',
     color: '#A90532',
     width: '180px',
+    justifyContent: 'space-between',
   },
   iconTextWrapper: {
     width: '165px',
@@ -810,6 +981,9 @@ const styles = () => ({
     borderBottom: '2px solid #A90532',
     textDecoration: 'none',
     marginLeft: '52px',
+    '@media (max-width: 480px)': {
+      marginLeft: '0',
+    },
   },
   headerLinkGroup: {
     zIndex: '999',
@@ -826,6 +1000,33 @@ const styles = () => ({
     fontWeight: '1000',
     letterSpacing: '-0px',
     textAlign: 'center',
+  },
+  heroImageContainerMobile: {
+    '@media (min-width: 480px)': {
+      display: 'none',
+    },
+  },
+  mobileHeroImg: {
+    position: 'absolute',
+    left: '10px',
+    top: '11px',
+    width: 'calc(100vw - 20px)',
+    mixBlendMode: 'multiply',
+  },
+  mobileOnlyStyle: {
+    '@media (min-width: 480px)': {
+      display: 'none',
+    },
+  },
+  mobileTiles: {
+    margin: '20px 40px 20px 40px',
+  },
+  mobileImgTile: {
+    background: '#fff',
+    width: '100%',
+  },
+  mobileImg: {
+    width: 'calc(100vw - 80px)',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);

@@ -10,7 +10,7 @@ const Nav = styled.div`
   background-color: rgb(62, 60, 63);
   z-index: 999;
 
-  @media (max-width: 990px) {
+  @media (max-width: 480px) {
     margin-top: -55px;
     margin-left: -340px;
     z-index: 1201;
@@ -31,7 +31,7 @@ const UlContainer = styled.ul`
   padding: 0;
   
 
-  @media (max-width: 990px) {
+  @media (max-width: 480px) {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -71,7 +71,7 @@ const LiSection = styled.li`
     background-color: #241F24;
   }
 
-  @media (max-width: 990px) {
+  @media (max-width: 480px) {
     padding: 10px 0;
     display: block;
     width: 100%;
@@ -152,7 +152,7 @@ const Hamburger = styled.div`
   cursor: pointer;
   color: #413E41;
 
-  @media (max-width: 990px) {
+  @media (max-width: 480px) {
     display: block;
   }
 `;
