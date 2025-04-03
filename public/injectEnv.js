@@ -11,8 +11,8 @@ window.injectedEnv = {
   REACT_APP_AUTH_SERVICE_API: 'http://localhost:3000/api/auth/',
   REACT_APP_USER_SERVICE_API: 'http://localhost:3000/api/users/',
   REACT_APP_DATA_VERSION: '2.0.0',
-  REACT_APP_BE_VERSION: '3.0.0',
-  REACT_APP_FE_VERSION: '3.0.1',
+  REACT_APP_BE_VERSION: '3.0.2',
+  REACT_APP_FE_VERSION: '3.1.0',
   REACT_APP_REST_BACKEND: 'https://studycatalog-dev.cancer.gov/service/datasets/',
   // IDP Auth url
   REACT_APP_NIH_AUTH_URL: 'https://stsstg.nih.gov/auth/oauth/v2/authorize',
