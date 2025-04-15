@@ -71,10 +71,12 @@
   padding: 40px 44px 40px 44px;
 }
 
-.aboutPageSectionContent {
-  float: left;
-  padding-right: 100px;
-  padding-bottom: 20px;
+@media (min-width: 480px) {
+  .aboutPageSectionContent {
+    padding-right: 100px;
+    float: left;
+    padding-bottom: 20px;
+  }
 }
 
 .aboutContentHeader {
@@ -185,4 +187,31 @@
 
 html {
   overflow-x: hidden;
+}
+
+.accordionButton {
+  background-color: #20506A;
+  color: white;
+  font-size: 18px;
+  font-family: Inter;
+  font-weight: 500;
+  width: calc(100vw - 88px);
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.accordionIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.accordionContent {
+  padding: 10px 16px;
+  background-color: #f8f8f8;
 }
