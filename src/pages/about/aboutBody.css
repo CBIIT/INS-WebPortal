@@ -9,8 +9,10 @@
   text-align: center;
   font-weight: 800;
   font-family: Inter;
-  line-height: 34px;
   padding-top: 50px;
+  line-height: 40px;
+  letter-spacing: 0.1%;
+  vertical-align: middle;
 }
 
 .aboutPageDisclaimerItems {
@@ -37,6 +39,12 @@
 .aboutPageSection {
   width: 1200px;
   margin: auto;
+}
+
+@media (max-width: 480px) {
+  .aboutPageSection {
+    width: auto;
+  }
 }
 
 .aboutPageDisclaimer {
@@ -127,8 +135,25 @@
   color: #010101;
 }
 
-.aboutPageSectionMiddle {
-  background-color: #413E41;
+.flowChartSection {
+  width: 1200px;
+}
+
+@media (max-width: 480px) {
+  .flowChartSection {
+    display: none;
+  }
+}
+
+.flowChartSectionMobile {
+  margin-left: 16px;
+  width: calc(100vw - 32px);
+}
+
+@media (min-width: 480px) {
+  .flowChartSectionMobile {
+    display: none;
+  }
 }
 
 .flowChartContentHeader {
@@ -139,7 +164,7 @@
 }
 
 .aboutContentSubHeader {
-  color: #AEABAB;
+  color: #3A0558;
   font-family: Lato;
   font-size: 20px;
   padding-left: 20px;

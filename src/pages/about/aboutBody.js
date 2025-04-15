@@ -158,7 +158,8 @@ const AboutBody = () => (
         </Grid>
         <Grid container className="aboutPageSectionMiddle">
           <Grid item xs={12}>
-            <img width="1200px" src={flowChart} alt="flow_chart" id="flow-chart" />
+            <img className="flowChartSection" src={flowChart} alt="flow_chart" id="flow-chart" />
+            <img className="flowChartSectionMobile" src={flowChart} alt="flow_chart" id="flow-chart" />
           </Grid>
         </Grid>
         <Grid container className="aboutPageSectionBottom">

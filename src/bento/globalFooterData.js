@@ -39,7 +39,7 @@ export default {
           text: `FE Version: ${env.REACT_APP_FE_VERSION || '3.1.0'}`,
         },
         {
-          text: `BE Version: ${env.REACT_APP_BE_VERSION || '3.0.2'}`,
+          text: `BE Version: ${env.REACT_APP_BE_VERSION || '3.1.0'}`,
         },
         {
           text: `Data Version: ${env.REACT_APP_DATA_VERSION || '2.0.0'}`,
