@@ -45,7 +45,7 @@ const AboutBody = () => (
           <Grid item xs={12}>
             <div className="aboutPageDisclaimerContent">
               <h2 className="disclaimerHeader">
-                INS OBJECTIVES AND SCOPE
+                OBJECTIVES AND SCOPE
               </h2>
               <p>
                 The National Cancer Institute (NCI) is pleased to release the next phase of the Index of NCI Studies (INS) to tackle the challenge of assembling NCI program information from publicly available resources. Building connections between NCI programs, projects, grants, and research outputs is a complex task typically addressed through manual curation by portfolio analysis experts. Due to the challenging nature of curating this information, the INS is not comprehensive - additional information will be added in an iterative fashion. For detailed documentation about the information within INS, please see our open-source
@@ -195,7 +195,7 @@ const AboutBody = () => (
             </div>
             <div className="aboutPageSectionContent">
               <h2 className="aboutContentHeader">
-                Contact INS
+                Contact Us
               </h2>
               <p>
                 Thank you for visiting! For questions or feedback, please contact
