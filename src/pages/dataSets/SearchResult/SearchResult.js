@@ -325,6 +325,7 @@ const SearchResultContainer = styled.div`
     font-size: 16px;
     margin-right: 20px;
     margin-left: 0;
+    font-weight: bold;
   }
 
 `;
