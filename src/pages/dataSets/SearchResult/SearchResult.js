@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { Popover } from 'bootstrap';
 import ReactHtmlParser from 'html-react-parser';
 import externalIcon from '../../../assets/img/resource.svg';
+import databaseIcon from '../../../assets/icons/database.svg';
 import dataResourceIcon from '../../../assets/img/DataResource.png';
 import {
   externalLinkIcon,
@@ -119,7 +120,12 @@ const SearchResultContainer = styled.div`
   }
 
   .subHeaderRow .col-sm {
-    padding: 0 5px;
+    padding: 0;
+  }
+
+  .subHeaderRow .col-sm .img0 {
+    vertical-align: middle;
+    margin-right: 5px;
   }
 
   .subHeaderRow .col-sm .img1 {
@@ -312,6 +318,13 @@ const SearchResultContainer = styled.div`
     text-align: left;
     color: #212529;
     word-break: break-word;
+  }
+
+  .dataRepo {
+    color: #004187;
+    font-size: 16px;
+    margin-right: 20px;
+    margin-left: 0;
   }
 
 `;
@@ -536,6 +549,10 @@ const SearchResult = ({
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
+                    <span className="dataRepo">
+                      <img src={databaseIcon} alt="database-icon" className="img0" />
+                      dbGaP
+                    </span>
                     <img src={dataResourceIcon} alt="data-resource" className="img1" />
                     {rst.content.dbGaP_URL ? (
                       <a href={rst.content.dbGaP_URL} target="_blank" rel="noopener noreferrer" className="link">
