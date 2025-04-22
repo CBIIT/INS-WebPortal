@@ -5,10 +5,8 @@ import {
   Link,
 } from 'react-router-dom';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { Popover } from 'bootstrap';
 import ReactHtmlParser from 'html-react-parser';
-import externalIcon from '../../../assets/img/resource.svg';
 import databaseIcon from '../../../assets/icons/database.svg';
 import dataResourceIcon from '../../../assets/img/DataResource.png';
 import {

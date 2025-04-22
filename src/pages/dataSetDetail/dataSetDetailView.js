@@ -11,9 +11,8 @@ import {
 import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
-import {
-  externalLinkIcon,
-} from '../../bento/datasetDetailData';
+import { externalLinkIcon } from '../../bento/datasetDetailData';
+import databaseIcon from '../../assets/icons/database.svg';
 import helpIcon from './help.svg';
 
 const DataSetDetailView = ({
@@ -55,7 +54,7 @@ const DataSetDetailView = ({
               />
             </div>
             <div className={classes.headerTitle}>
-              <div className={classes.headerMainTitle} id="program_detail_title">
+              <div className={classes.headerMainTitle} id="dataset_detail_title">
                 <span>
                   Dataset:
                   {' '}
@@ -65,6 +64,10 @@ const DataSetDetailView = ({
               <div className={cn(classes.headerMSubTitle,
                 classes.headerSubTitleCate, classes.link)}
               >
+                <span className="dataRepo">
+                  <img src={databaseIcon} alt="database-icon" className="img0" />
+                  dbGaP
+                </span>
                 <Link href={data.dbGaP_URL} target="_blank" className={classes.link}>
                   dbGaP:
                   {' '}
@@ -609,6 +612,17 @@ const styles = (theme) => ({
       borderStyle: 'solid',
       borderColor: 'black transparent transparent transparent',
     },
+  },
+  img0: {
+    verticalAlign: 'middle',
+    marginRight: '5px',
+  },
+  dataRepo: {
+    color: '#004187',
+    fontSize: '16px',
+    marginRight: '20px',
+    marginLeft: '0',
+    fontWeight: 'bold',
   },
 });
 
