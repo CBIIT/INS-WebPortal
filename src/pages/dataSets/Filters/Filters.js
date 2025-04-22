@@ -158,8 +158,8 @@ const Filters = ({
             {sortedSearchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
               const arrayOfSources = sources.flatMap((item) => item.split('|'));
-              const checked = !!(selectedFilters.primary_disease
-                && selectedFilters.primary_disease.indexOf(field.name) > -1);
+              const checked = !!(selectedFilters.dataset_source_repo
+                && selectedFilters.dataset_source_repo.indexOf(field.name) > -1);
               return arrayOfSources.includes(field.name.toLowerCase()) ? (
                 <FilterItem
                   key={key}
