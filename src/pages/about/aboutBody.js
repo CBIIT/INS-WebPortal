@@ -1,52 +1,50 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { Grid } from '@material-ui/core';
+import Accordion from './Accordion';
 import flowChart from '../../assets/about/INS_about_page_data_infographic.png';
 import './aboutBody.css';
 
 const AboutBody = () => (
-  <>
-    <div className="aboutPageContainer">
-      <div className="aboutPageHeader">
-        About the Index of NCI Studies (INS)
-      </div>
-      <div className="aboutPageSection">
+  <div className="aboutPageContainer">
+    <div className="aboutPageHeader">
+      About the Index of NCI Studies (INS)
+    </div>
+    <div className="aboutPageSection">
+      <Grid item xs={12}>
+        <div className="keyTakeawaysSection">
+          <h3 className="keyTakeawaysSectionHeader">
+            Key Takeaways
+          </h3>
+          <ul>
+            <li>
+              The National Cancer Institute (NCI) Index of NCI Studies (INS) compiles and shares information about research outputs produced by NCI-supported programs.
+            </li>
+            <li>
+              The INS is continuing to evolve and is not yet comprehensive. Additional programs and output types will be added periodically.
+            </li>
+            <li>
+              The INS incorporates information from
+              {' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://reporter.nih.gov">NIH RePORTER</a>
+              ,
+              {' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://icite.od.nih.gov">NIH iCite</a>
+              {' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://pubmed.ncbi.nlm.nih.gov">NCBI PubMed</a>
+              , and
+              {' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">NCBI dbGaP</a>
+              {' '}
+              along with curated inputs.
+            </li>
+          </ul>
+        </div>
+      </Grid>
+      <Grid container className="aboutPageSectionTop">
         <Grid item xs={12}>
-          <div className="keyTakeawaysSection">
-            <h3 className="keyTakeawaysSectionHeader">
-              Key Takeaways
-            </h3>
-            <ul>
-              <li>
-                The National Cancer Institute (NCI) Index of NCI Studies (INS) compiles and shares information about research outputs produced by NCI-supported programs.
-              </li>
-              <li>
-                The INS is continuing to evolve and is not yet comprehensive. Additional programs and output types will be added periodically.
-              </li>
-              <li>
-                The INS incorporates information from
-                {' '}
-                <a target="_blank" rel="noopener noreferrer" href="https://reporter.nih.gov">NIH RePORTER</a>
-                ,
-                {' '}
-                <a target="_blank" rel="noopener noreferrer" href="https://icite.od.nih.gov">NIH iCite</a>
-                {' '}
-                <a target="_blank" rel="noopener noreferrer" href="https://pubmed.ncbi.nlm.nih.gov">NCBI PubMed</a>
-                , and
-                {' '}
-                <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">NCBI dbGaP</a>
-                {' '}
-                along with curated inputs.
-              </li>
-            </ul>
-          </div>
-        </Grid>
-        <Grid container className="aboutPageSectionTop">
-          <Grid item xs={12}>
+          <Accordion title="OBJECTIVES AND SCOPE">
             <div className="aboutPageDisclaimerContent">
-              <h2 className="disclaimerHeader">
-                INS OBJECTIVES AND SCOPE
-              </h2>
               <p>
                 The National Cancer Institute (NCI) is pleased to release the next phase of the Index of NCI Studies (INS) to tackle the challenge of assembling NCI program information from publicly available resources. Building connections between NCI programs, projects, grants, and research outputs is a complex task typically addressed through manual curation by portfolio analysis experts. Due to the challenging nature of curating this information, the INS is not comprehensive - additional information will be added in an iterative fashion. For detailed documentation about the information within INS, please see our open-source
                 {' '}
@@ -154,19 +152,19 @@ const AboutBody = () => (
                 </li>
               </ul>
             </div>
-          </Grid>
+          </Accordion>
         </Grid>
-        <Grid container className="aboutPageSectionMiddle">
-          <Grid item xs={12}>
-            <img width="1200px" src={flowChart} alt="flow_chart" id="flow-chart" />
-          </Grid>
+      </Grid>
+      <Grid container className="aboutPageSectionMiddle">
+        <Grid item xs={12}>
+          <img className="flowChartSection" src={flowChart} alt="flow_chart" id="flow-chart" />
+          <img className="flowChartSectionMobile" src={flowChart} alt="flow_chart" id="flow-chart-mobile" />
         </Grid>
-        <Grid container className="aboutPageSectionBottom">
-          <Grid item xs={9}>
+      </Grid>
+      <Grid container className="aboutPageSectionBottom">
+        <Grid item xs={12}>
+          <Accordion title="SITE FUNCTIONALITY">
             <div className="aboutPageSectionContent">
-              <h2 className="aboutContentHeader">
-                SITE FUNCTIONALITY
-              </h2>
               <h3 className="aboutContentSubHeader">
                 Home Page
               </h3>
@@ -192,10 +190,9 @@ const AboutBody = () => (
                 Describes the objectives and scope of the INS, its data gathering process, and the site’s functionality.
               </p>
             </div>
+          </Accordion>
+          <Accordion title="Contact Us">
             <div className="aboutPageSectionContent">
-              <h2 className="aboutContentHeader">
-                Contact INS
-              </h2>
               <p>
                 Thank you for visiting! For questions or feedback, please contact
                 {' '}
@@ -204,11 +201,11 @@ const AboutBody = () => (
                 </a>
               </p>
             </div>
-          </Grid>
+          </Accordion>
         </Grid>
-      </div>
+      </Grid>
     </div>
-  </>
+  </div>
 );
 
 export default AboutBody;
