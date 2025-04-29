@@ -108,7 +108,7 @@ const DataSetDetailView = ({
                 <strong>Study Page </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
+                  <div className="tooltip-text-first">
                     Link to an external study website
                   </div>
                 </div>
@@ -129,7 +129,7 @@ const DataSetDetailView = ({
                 <strong>NCI Division/Office/Center  </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
+                  <div className="tooltip-text-first">
                     Each of NCI's divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer research
                   </div>
                 </div>
@@ -141,7 +141,7 @@ const DataSetDetailView = ({
                 <strong>Release Date </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
+                  <div className="tooltip-text-first">
                     Date when study was published to the public
                   </div>
                 </div>
@@ -153,7 +153,7 @@ const DataSetDetailView = ({
                 <strong>Principal Investigator(s) </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
+                  <div className="tooltip-text-first">
                     The individual designated by the applicant organization to have the appropriate level of authority and responsibility to direct the project or program to be supported by the award
                   </div>
                 </div>
@@ -165,7 +165,7 @@ const DataSetDetailView = ({
                 <strong>Funding Source(s) </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
+                  <div className="tooltip-text-first">
                     Grant number funding the study
                   </div>
                 </div>
@@ -177,7 +177,7 @@ const DataSetDetailView = ({
                 <strong>Cited Publication PMID(s) </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
+                  <div className="tooltip-text-first">
                     External link to PubMed
                   </div>
                 </div>
@@ -287,7 +287,7 @@ const DataSetDetailView = ({
                   <strong>Primary Disease </strong>
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
+                    <div className="tooltip-text-last">
                       Study’s primary disease focus
                     </div>
                   </div>
@@ -299,7 +299,7 @@ const DataSetDetailView = ({
                   <strong>Related Genes </strong>
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
+                    <div className="tooltip-text-last">
                       Any genes related to the dataset study
                     </div>
                   </div>
@@ -311,7 +311,7 @@ const DataSetDetailView = ({
                   <strong>Related Diseases </strong>
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
+                    <div className="tooltip-text-last">
                       Any diseases related to the dataset study
                     </div>
                   </div>
@@ -323,7 +323,7 @@ const DataSetDetailView = ({
                   <strong>Related Terms </strong>
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
+                    <div className="tooltip-text-last">
                       Any other terms related to the dataset study
                     </div>
                   </div>
@@ -335,7 +335,7 @@ const DataSetDetailView = ({
                   <strong>Study Link(s) </strong>
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
+                    <div className="tooltip-text-last">
                       Link to an external website associated with the study
                     </div>
                   </div>
@@ -586,7 +586,39 @@ const styles = (theme) => ({
   tooltipIcon: {
     position: 'relative',
     display: 'inline-block',
-    '&:hover': {
+    '&:hover $tooltipText': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:focus $tooltipText': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:active $tooltipText': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:hover $tooltipTextFirst': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:focus $tooltipTextFirst': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:active $tooltipTextFirst': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:hover $tooltipTextLast': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:focus $tooltipTextLast': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:active $tooltipTextLast': {
       visibility: 'visible',
       opacity: 1,
     },
@@ -609,6 +641,52 @@ const styles = (theme) => ({
       top: '100%',
       left: '50%',
       marginLeft: '-5px',
+      borderWidth: '5px',
+      borderStyle: 'solid',
+      borderColor: 'black transparent transparent transparent',
+    },
+  },
+  tooltipTextFirst: {
+    visibility: 'hidden',
+    position: 'absolute',
+    padding: '12px',
+    zIndex: 1,
+    bottom: '125%',
+    left: '-200px',
+    marginLeft: '133px',
+    transition: 'opacity 0.3s',
+    width: '400px',
+    background: '#FFFFFF',
+    border: '1px solid #9C0592',
+    '&::after': {
+      content: "''",
+      position: 'absolute',
+      top: '100%',
+      left: '50%',
+      marginLeft: '-130px',
+      borderWidth: '5px',
+      borderStyle: 'solid',
+      borderColor: 'black transparent transparent transparent',
+    },
+  },
+  tooltipTextLast: {
+    visibility: 'hidden',
+    position: 'absolute',
+    padding: '12px',
+    zIndex: 1,
+    bottom: '125%',
+    left: '-200px',
+    marginLeft: '-165px',
+    transition: 'opacity 0.3s',
+    width: '400px',
+    background: '#FFFFFF',
+    border: '1px solid #9C0592',
+    '&::after': {
+      content: "''",
+      position: 'absolute',
+      top: '100%',
+      left: '50%',
+      marginLeft: '168px',
       borderWidth: '5px',
       borderStyle: 'solid',
       borderColor: 'black transparent transparent transparent',
