@@ -497,7 +497,7 @@ const SearchResult = ({
             const additionalMatches = [];
 
             const hideContent = [
-              { 'dbGaP URL': rst.content.dbGaP_URL },
+              { 'dbGaP URL': rst.content.dataset_source_url },
               { 'PI name': rst.content.PI_name },
               { GPA: rst.content.GPA },
               { 'dataset pmid': rst.content.dataset_pmid },
@@ -541,7 +541,7 @@ const SearchResult = ({
               <div key={keyName} className="container">
                 <div className="row align-items-start headerRow">
                   <div className="col-sm resultTitle">
-                    <Link to={`/dataset/${rst.content.dbGaP_phs}`}>
+                    <Link to={`/dataset/${rst.content.dataset_source_id}`}>
                       {rst.content.dataset_title}
                     </Link>
                   </div>
@@ -553,9 +553,9 @@ const SearchResult = ({
                       dbGaP
                     </span>
                     <img src={dataResourceIcon} alt="data-resource" className="img1" />
-                    {rst.content.dbGaP_URL ? (
-                      <a href={rst.content.dbGaP_URL} target="_blank" rel="noopener noreferrer" className="link">
-                        {rst.content.dbGaP_phs}
+                    {rst.content.dataset_source_url ? (
+                      <a href={rst.content.dataset_source_url} target="_blank" rel="noopener noreferrer" className="link">
+                        {rst.content.dataset_source_id}
                         <img
                           src={externalLinkIcon.src}
                           alt={externalLinkIcon.alt}
@@ -564,7 +564,7 @@ const SearchResult = ({
                       </a>
                     ) : (
                       <span className="link">
-                        {rst.content.dbGaP_phs}
+                        {rst.content.dataset_source_id}
                       </span>
                     )}
                   </div>
