@@ -64,10 +64,7 @@ const DataSetDetailView = ({
               <div className={cn(classes.headerMSubTitle,
                 classes.headerSubTitleCate, classes.link)}
               >
-                <span className="dataRepo">
-                  <img src={databaseIcon} alt="database-icon" className="img0" />
-                  dbGaP
-                </span>
+                <img src={databaseIcon} alt="database-icon" className={classes.databaseImg} />
                 <Link href={data.dataset_source_url} target="_blank" className={classes.link}>
                   dbGaP:
                   {' '}
@@ -398,6 +395,10 @@ const DataSetDetailView = ({
 };
 
 const styles = (theme) => ({
+  databaseImg: {
+    verticalAlign: 'middle',
+    marginRight: '5px',
+  },
   mainContainer: {
     paddingTop: '10px',
     background: '#FFFF',
@@ -612,17 +613,6 @@ const styles = (theme) => ({
       borderStyle: 'solid',
       borderColor: 'black transparent transparent transparent',
     },
-  },
-  img0: {
-    verticalAlign: 'middle',
-    marginRight: '5px',
-  },
-  dataRepo: {
-    color: '#004187',
-    fontSize: '16px',
-    marginRight: '20px',
-    marginLeft: '0',
-    fontWeight: 'bold',
   },
 });
 
