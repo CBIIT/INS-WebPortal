@@ -109,7 +109,9 @@ const DataSetDetailView = ({
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
                   <div className="tooltip-text-first">
-                    Link to an external study website
+                    <span className={classes.tooltipFont}>
+                      Link to an external study website
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -130,7 +132,10 @@ const DataSetDetailView = ({
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
                   <div className="tooltip-text-first">
-                    Each of NCI's divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer research
+                    <span className={classes.tooltipFont}>
+                      Each of NCI's divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer
+                      research
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -142,7 +147,9 @@ const DataSetDetailView = ({
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
                   <div className="tooltip-text-first">
-                    Date when study was published to the public
+                    <span className={classes.tooltipFont}>
+                      Date when study was published to the public
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -154,7 +161,10 @@ const DataSetDetailView = ({
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
                   <div className="tooltip-text-first">
-                    The individual designated by the applicant organization to have the appropriate level of authority and responsibility to direct the project or program to be supported by the award
+                    <span className={classes.tooltipFont}>
+                      The individual designated by the applicant organization to have the appropriate level of authority and
+                      responsibility to direct the project or program to be supported by the award
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -166,7 +176,9 @@ const DataSetDetailView = ({
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
                   <div className="tooltip-text-first">
-                    Grant number funding the study
+                    <span className={classes.tooltipFont}>
+                      Grant number funding the study
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -178,7 +190,9 @@ const DataSetDetailView = ({
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
                   <div className="tooltip-text-first">
-                    External link to PubMed
+                    <span className={classes.tooltipFont}>
+                      External link to PubMed
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -226,7 +240,10 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text">
-                      Study design and scope of analysis, for example, case set, control set, longitudinal, epigenetics, RNA sequencing, or single-cell analysis
+                      <span className={classes.tooltipFont}>
+                        Study design and scope of analysis, for example, case set, control set, longitudinal, epigenetics, RNA
+                        sequencing, or single-cell analysis
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -238,7 +255,10 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text">
-                      Determines how a study's data can be used in the future based on consent groups. Refer to the Glossary in the About section for each consent group definition.
+                      <span className={classes.tooltipFont}>
+                        Determines how a study's data can be used in the future based on consent groups. Refer to the Glossary in the
+                        About section for each consent group definition.
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -250,7 +270,10 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text">
-                      Sequencing assay method(s) used, for example, whole genome sequencing (WGS), whole exome sequencing (WES or WXS), or RNA Sequencing (RNA-seq).
+                      <span className={classes.tooltipFont}>
+                        Sequencing assay method(s) used, for example, whole genome sequencing (WGS), whole exome sequencing (WES or
+                        WXS), or RNA Sequencing (RNA-seq).
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -262,7 +285,9 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text">
-                      Total number of consented subjects in the study
+                      <span className={classes.tooltipFont}>
+                        Total number of consented subjects in the study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -274,7 +299,9 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text">
-                      Total number of samples in the study
+                      <span className={classes.tooltipFont}>
+                        Total number of samples in the study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -288,7 +315,9 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text-last">
-                      Study’s primary disease focus
+                      <span className={classes.tooltipFont}>
+                        Study’s primary disease focus
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -300,7 +329,9 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text-last">
-                      Any genes related to the dataset study
+                      <span className={classes.tooltipFont}>
+                        Any genes related to the dataset study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -312,7 +343,9 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text-last">
-                      Any diseases related to the dataset study
+                      <span className={classes.tooltipFont}>
+                        Any diseases related to the dataset study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -324,7 +357,9 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text-last">
-                      Any other terms related to the dataset study
+                      <span className={classes.tooltipFont}>
+                        Any other terms related to the dataset study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -336,7 +371,9 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text-last">
-                      Link to an external website associated with the study
+                      <span className={classes.tooltipFont}>
+                        Link to an external website associated with the study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -691,6 +728,12 @@ const styles = (theme) => ({
       borderStyle: 'solid',
       borderColor: 'black transparent transparent transparent',
     },
+  },
+  tooltipFont: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize: '14px',
+    fontWeight: '500',
+    color: 'rgba(0, 0, 0, 0.87)',
   },
 });
 
