@@ -5,10 +5,9 @@ import {
   Link,
 } from 'react-router-dom';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { Popover } from 'bootstrap';
 import ReactHtmlParser from 'html-react-parser';
-import externalIcon from '../../../assets/img/resource.svg';
+import databaseIcon from '../../../assets/icons/database.svg';
 import dataResourceIcon from '../../../assets/img/DataResource.png';
 import {
   externalLinkIcon,
@@ -119,7 +118,12 @@ const SearchResultContainer = styled.div`
   }
 
   .subHeaderRow .col-sm {
-    padding: 0 5px;
+    padding: 0;
+  }
+
+  .subHeaderRow .col-sm .img0 {
+    vertical-align: middle;
+    margin-right: 5px;
   }
 
   .subHeaderRow .col-sm .img1 {
@@ -314,6 +318,14 @@ const SearchResultContainer = styled.div`
     word-break: break-word;
   }
 
+  .dataRepo {
+    color: #004187;
+    font-size: 16px;
+    margin-right: 20px;
+    margin-left: 0;
+    font-weight: bold;
+  }
+
 `;
 
 const TableHead = styled.thead`
@@ -485,7 +497,7 @@ const SearchResult = ({
             const additionalMatches = [];
 
             const hideContent = [
-              { 'dbGaP URL': rst.content.dbGaP_URL },
+              { 'dbGaP URL': rst.content.dataset_source_url },
               { 'PI name': rst.content.PI_name },
               { GPA: rst.content.GPA },
               { 'dataset pmid': rst.content.dataset_pmid },
@@ -529,17 +541,21 @@ const SearchResult = ({
               <div key={keyName} className="container">
                 <div className="row align-items-start headerRow">
                   <div className="col-sm resultTitle">
-                    <Link to={`/dataset/${rst.content.dbGaP_phs}`}>
+                    <Link to={`/dataset/${rst.content.dataset_source_id}`}>
                       {rst.content.dataset_title}
                     </Link>
                   </div>
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
+                    <span className="dataRepo">
+                      <img src={databaseIcon} alt="database-icon" className="img0" />
+                      dbGaP
+                    </span>
                     <img src={dataResourceIcon} alt="data-resource" className="img1" />
-                    {rst.content.dbGaP_URL ? (
-                      <a href={rst.content.dbGaP_URL} target="_blank" rel="noopener noreferrer" className="link">
-                        {rst.content.dbGaP_phs}
+                    {rst.content.dataset_source_url ? (
+                      <a href={rst.content.dataset_source_url} target="_blank" rel="noopener noreferrer" className="link">
+                        {rst.content.dataset_source_id}
                         <img
                           src={externalLinkIcon.src}
                           alt={externalLinkIcon.alt}
@@ -548,7 +564,7 @@ const SearchResult = ({
                       </a>
                     ) : (
                       <span className="link">
-                        {rst.content.dbGaP_phs}
+                        {rst.content.dataset_source_id}
                       </span>
                     )}
                   </div>

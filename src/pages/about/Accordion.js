@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import upIcon from './Up.svg';
-import downIcon from './Down.svg';
+import upIcon from '../../assets/about/Up.svg';
+import downIcon from '../../assets/about/Down.svg';
 
 const Accordion = ({ title, children }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 480);

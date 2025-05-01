@@ -11,7 +11,7 @@ const DataSetDetailContainer = ({ match }) => {
     error,
     data,
   } = useQuery(getDataSetDetailDataQuery, {
-    variables: { dbGaP_phs: match.params.id },
+    variables: { dataset_source_id: match.params.id },
   });
 
   if (loading) return <CircularProgress />;

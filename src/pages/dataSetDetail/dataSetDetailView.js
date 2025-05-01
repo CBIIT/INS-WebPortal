@@ -11,9 +11,8 @@ import {
 import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
-import {
-  externalLinkIcon,
-} from '../../bento/datasetDetailData';
+import { externalLinkIcon } from '../../bento/datasetDetailData';
+import databaseIcon from '../../assets/icons/database.svg';
 import helpIcon from './help.svg';
 
 const DataSetDetailView = ({
@@ -55,7 +54,7 @@ const DataSetDetailView = ({
               />
             </div>
             <div className={classes.headerTitle}>
-              <div className={classes.headerMainTitle} id="program_detail_title">
+              <div className={classes.headerMainTitle} id="dataset_detail_title">
                 <span>
                   Dataset:
                   {' '}
@@ -65,10 +64,11 @@ const DataSetDetailView = ({
               <div className={cn(classes.headerMSubTitle,
                 classes.headerSubTitleCate, classes.link)}
               >
-                <Link href={data.dbGaP_URL} target="_blank" className={classes.link}>
+                <img src={databaseIcon} alt="database-icon" className={classes.databaseImg} />
+                <Link href={data.dataset_source_url} target="_blank" className={classes.link}>
                   dbGaP:
                   {' '}
-                  {data.dbGaP_phs || ''}
+                  {data.dataset_source_id || ''}
                   <img
                     src={externalLinkIcon.src}
                     alt={externalLinkIcon.alt}
@@ -108,16 +108,18 @@ const DataSetDetailView = ({
                 <strong>Study Page </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
-                    Link to an external study website
+                  <div className="tooltip-text-first">
+                    <span className={classes.tooltipFont}>
+                      Link to an external study website
+                    </span>
                   </div>
                 </div>
               </Typography>
               <Typography variant="body2" className={classes.text}>
-                <Link href={data.dbGaP_URL} target="_blank" className={classes.link}>
+                <Link href={data.dataset_source_url} target="_blank" className={classes.link}>
                   dbGaP:
                   {' '}
-                  {data.dbGaP_phs || ''}
+                  {data.dataset_source_id || ''}
                   <img
                     src={externalLinkIcon.src}
                     alt={externalLinkIcon.alt}
@@ -129,8 +131,11 @@ const DataSetDetailView = ({
                 <strong>NCI Division/Office/Center  </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
-                    Each of NCI's divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer research
+                  <div className="tooltip-text-first">
+                    <span className={classes.tooltipFont}>
+                      Each of NCI's divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer
+                      research
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -141,8 +146,10 @@ const DataSetDetailView = ({
                 <strong>Release Date </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
-                    Date when study was published to the public
+                  <div className="tooltip-text-first">
+                    <span className={classes.tooltipFont}>
+                      Date when study was published to the public
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -153,8 +160,11 @@ const DataSetDetailView = ({
                 <strong>Principal Investigator(s) </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
-                    The individual designated by the applicant organization to have the appropriate level of authority and responsibility to direct the project or program to be supported by the award
+                  <div className="tooltip-text-first">
+                    <span className={classes.tooltipFont}>
+                      The individual designated by the applicant organization to have the appropriate level of authority and
+                      responsibility to direct the project or program to be supported by the award
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -165,8 +175,10 @@ const DataSetDetailView = ({
                 <strong>Funding Source(s) </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
-                    Grant number funding the study
+                  <div className="tooltip-text-first">
+                    <span className={classes.tooltipFont}>
+                      Grant number funding the study
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -177,8 +189,10 @@ const DataSetDetailView = ({
                 <strong>Cited Publication PMID(s) </strong>
                 <div className="tooltip-icon">
                   <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text">
-                    External link to PubMed
+                  <div className="tooltip-text-first">
+                    <span className={classes.tooltipFont}>
+                      External link to PubMed
+                    </span>
                   </div>
                 </div>
               </Typography>
@@ -226,7 +240,10 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text">
-                      Study design and scope of analysis, for example, case set, control set, longitudinal, epigenetics, RNA sequencing, or single-cell analysis
+                      <span className={classes.tooltipFont}>
+                        Study design and scope of analysis, for example, case set, control set, longitudinal, epigenetics, RNA
+                        sequencing, or single-cell analysis
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -238,7 +255,10 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text">
-                      Determines how a study's data can be used in the future based on consent groups. Refer to the Glossary in the About section for each consent group definition.
+                      <span className={classes.tooltipFont}>
+                        Determines how a study's data can be used in the future based on consent groups. Refer to the Glossary in the
+                        About section for each consent group definition.
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -250,7 +270,10 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text">
-                      Sequencing assay method(s) used, for example, whole genome sequencing (WGS), whole exome sequencing (WES or WXS), or RNA Sequencing (RNA-seq).
+                      <span className={classes.tooltipFont}>
+                        Sequencing assay method(s) used, for example, whole genome sequencing (WGS), whole exome sequencing (WES or
+                        WXS), or RNA Sequencing (RNA-seq).
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -262,7 +285,9 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text">
-                      Total number of consented subjects in the study
+                      <span className={classes.tooltipFont}>
+                        Total number of consented subjects in the study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -274,7 +299,9 @@ const DataSetDetailView = ({
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text">
-                      Total number of samples in the study
+                      <span className={classes.tooltipFont}>
+                        Total number of samples in the study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -287,8 +314,10 @@ const DataSetDetailView = ({
                   <strong>Primary Disease </strong>
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
-                      Study’s primary disease focus
+                    <div className="tooltip-text-last">
+                      <span className={classes.tooltipFont}>
+                        Study’s primary disease focus
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -299,8 +328,10 @@ const DataSetDetailView = ({
                   <strong>Related Genes </strong>
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
-                      Any genes related to the dataset study
+                    <div className="tooltip-text-last">
+                      <span className={classes.tooltipFont}>
+                        Any genes related to the dataset study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -311,8 +342,10 @@ const DataSetDetailView = ({
                   <strong>Related Diseases </strong>
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
-                      Any diseases related to the dataset study
+                    <div className="tooltip-text-last">
+                      <span className={classes.tooltipFont}>
+                        Any diseases related to the dataset study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -323,8 +356,10 @@ const DataSetDetailView = ({
                   <strong>Related Terms </strong>
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
-                      Any other terms related to the dataset study
+                    <div className="tooltip-text-last">
+                      <span className={classes.tooltipFont}>
+                        Any other terms related to the dataset study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -335,8 +370,10 @@ const DataSetDetailView = ({
                   <strong>Study Link(s) </strong>
                   <div className="tooltip-icon">
                     <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
-                      Link to an external website associated with the study
+                    <div className="tooltip-text-last">
+                      <span className={classes.tooltipFont}>
+                        Link to an external website associated with the study
+                      </span>
                     </div>
                   </div>
                 </Typography>
@@ -395,6 +432,10 @@ const DataSetDetailView = ({
 };
 
 const styles = (theme) => ({
+  databaseImg: {
+    verticalAlign: 'middle',
+    marginRight: '5px',
+  },
   mainContainer: {
     paddingTop: '10px',
     background: '#FFFF',
@@ -582,7 +623,39 @@ const styles = (theme) => ({
   tooltipIcon: {
     position: 'relative',
     display: 'inline-block',
-    '&:hover': {
+    '&:hover $tooltipText': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:focus $tooltipText': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:active $tooltipText': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:hover $tooltipTextFirst': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:focus $tooltipTextFirst': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:active $tooltipTextFirst': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:hover $tooltipTextLast': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:focus $tooltipTextLast': {
+      visibility: 'visible',
+      opacity: 1,
+    },
+    '&:active $tooltipTextLast': {
       visibility: 'visible',
       opacity: 1,
     },
@@ -609,6 +682,58 @@ const styles = (theme) => ({
       borderStyle: 'solid',
       borderColor: 'black transparent transparent transparent',
     },
+  },
+  tooltipTextFirst: {
+    visibility: 'hidden',
+    position: 'absolute',
+    padding: '12px',
+    zIndex: 1,
+    bottom: '125%',
+    left: '-200px',
+    marginLeft: '133px',
+    transition: 'opacity 0.3s',
+    width: '400px',
+    background: '#FFFFFF',
+    border: '1px solid #9C0592',
+    '&::after': {
+      content: "''",
+      position: 'absolute',
+      top: '100%',
+      left: '50%',
+      marginLeft: '-130px',
+      borderWidth: '5px',
+      borderStyle: 'solid',
+      borderColor: 'black transparent transparent transparent',
+    },
+  },
+  tooltipTextLast: {
+    visibility: 'hidden',
+    position: 'absolute',
+    padding: '12px',
+    zIndex: 1,
+    bottom: '125%',
+    left: '-200px',
+    marginLeft: '-165px',
+    transition: 'opacity 0.3s',
+    width: '400px',
+    background: '#FFFFFF',
+    border: '1px solid #9C0592',
+    '&::after': {
+      content: "''",
+      position: 'absolute',
+      top: '100%',
+      left: '50%',
+      marginLeft: '168px',
+      borderWidth: '5px',
+      borderStyle: 'solid',
+      borderColor: 'black transparent transparent transparent',
+    },
+  },
+  tooltipFont: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize: '14px',
+    fontWeight: '500',
+    color: 'rgba(0, 0, 0, 0.87)',
   },
 });
 

@@ -18,12 +18,12 @@ const externalLinkIcon = {
 
 // --------------- GraphQL query - Retrieve program details --------------
 const getDataSetDetailDataQuery = gql`
-query datasetDetails($dbGaP_phs: String) {
-    datasetDetails(dbGaP_phs: $dbGaP_phs) {
+query datasetDetails($dataset_source_id: String) {
+    datasetDetails(dataset_source_id: $dataset_source_id) {
         dataset_title
         description
-        dbGaP_phs
-        dbGaP_URL
+        dataset_source_id
+        dataset_source_url
         dataset_doc
         release_date
         PI_name

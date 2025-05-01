@@ -3,11 +3,9 @@ import {
   useLocation,
   useHistory,
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import FilterItem from './FilterItem';
 import './Filters.css';
-import clearAllIcon from '../../../assets/img/clearAllIcon.svg';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -51,8 +49,7 @@ const Filters = ({
   const query = useQuery();
   const history = useHistory();
 
-  // Add sorting state
-  const [sortType, setSortType] = useState('alphabetically'); // Can be 'alphabetically' or 'count'
+  const [sortType, setSortType] = useState('alphabetically');
 
   const sourceFiltersArray = Array.isArray(sourceFilters) ? sourceFilters : [sourceFilters];
   const sources = !sourceFilters || sourceFilters === 'all'
@@ -72,17 +69,29 @@ const Filters = ({
     history.push(`/datasets?${queryStr}`);
   };
 
-  // Add handler to change sorting type
-  const handleSortTypeChange = (type) => {
+  const handleResourceClickDataRepository = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter);
+    history.push(`/datasets?${queryStr}`);
+  };
+
+  const handleResourceClickPrimaryDisease = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter);
+    history.push(`/datasets?${queryStr}`);
+  };
+
+  const handleSortTypeChangeDataRepository = (type) => {
     setSortType(type);
   };
 
-  // Sort searchFilters based on the selected sortType
+  const handleSortTypeChangePrimaryDisease = (type) => {
+    setSortType(type);
+  };
+
   const sortedSearchFilters = [...searchFilters].sort((a, b) => {
     if (sortType === 'alphabetically') {
       return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
     } if (sortType === 'count') {
-      return b.count - a.count; // Assuming there is a 'count' field in the searchFilters items
+      return b.count - a.count;
     }
     return 0;
   });
@@ -93,7 +102,6 @@ const Filters = ({
     size: '12 px',
   };
 
-  // Dynamic CSS classes for sorting options
   const alphabeticallyClass = sortType === 'alphabetically' ? 'sortOption selected' : 'sortOption';
   const countClass = sortType === 'count' ? 'sortOption selected' : 'sortOption';
 
@@ -121,12 +129,12 @@ const Filters = ({
         </div>
         <hr className="divider" />
         <div className="filterLabel">
-          <span>Filter by  Primary Disease</span>
+          <span>Filter by Data Repository</span>
         </div>
         <div className="sort">
           <span className="icon">
             <Button
-              onClick={() => handleResourceClick('')}
+              onClick={() => handleResourceClickDataRepository('')}
               className="reset"
               classes={{ root: 'clearAllButtonRoot' }}
             >
@@ -138,10 +146,55 @@ const Filters = ({
               />
             </Button>
           </span>
-          <span className={alphabeticallyClass} onClick={() => handleSortTypeChange('alphabetically')}>
+          <span className={alphabeticallyClass} onClick={() => handleSortTypeChangeDataRepository('alphabetically')}>
             Sort alphabetically
           </span>
-          <span className={countClass} onClick={() => handleSortTypeChange('count')}>
+          <span className={countClass} onClick={() => handleSortTypeChangeDataRepository('count')}>
+            Sort by count
+          </span>
+        </div>
+        <div className="filterBlock">
+          <div className="accordion">
+            {sortedSearchFilters.map((field, idx) => {
+              const key = `filters_${idx}`;
+              const arrayOfSources = sources.flatMap((item) => item.split('|'));
+              const checked = !!(selectedFilters.dataset_source_repo
+                && selectedFilters.dataset_source_repo.indexOf(field.name) > -1);
+              return arrayOfSources.includes(field.name.toLowerCase()) ? (
+                <FilterItem
+                  key={key}
+                  item={field}
+                  checked={checked}
+                  highlight={sources.indexOf(field.name.toLowerCase()) > -1}
+                  onSourceClick={handleResourceClickDataRepository}
+                />
+              ) : null;
+            })}
+          </div>
+        </div>
+        <hr className="divider" />
+        <div className="filterLabel">
+          <span>Filter by Primary Disease</span>
+        </div>
+        <div className="sort">
+          <span className="icon">
+            <Button
+              onClick={() => handleResourceClickPrimaryDisease('')}
+              className="reset"
+              classes={{ root: 'clearAllButtonRoot' }}
+            >
+              <img
+                src={resetIcon.src}
+                height={resetIcon.size}
+                width={resetIcon.size}
+                alt={resetIcon.alt}
+              />
+            </Button>
+          </span>
+          <span className={alphabeticallyClass} onClick={() => handleSortTypeChangePrimaryDisease('alphabetically')}>
+            Sort alphabetically
+          </span>
+          <span className={countClass} onClick={() => handleSortTypeChangePrimaryDisease('count')}>
             Sort by count
           </span>
         </div>
@@ -158,7 +211,7 @@ const Filters = ({
                   item={field}
                   checked={checked}
                   highlight={sources.indexOf(field.name.toLowerCase()) > -1}
-                  onSourceClick={handleResourceClick}
+                  onSourceClick={handleResourceClickPrimaryDisease}
                 />
               ) : null;
             })}
