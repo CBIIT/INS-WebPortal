@@ -29,7 +29,7 @@ export default {
   custom: {
     maxContentWidth: '1440px',
     maxContent: 'white',
-    bodyBackGround: '#e6f2f7',
+    bodyBackGround: '#E7F4F9',
     cardBackGround: '#f0f6f8',
     fontFamilySans: '"Open Sans", sans-serif',
     footorBackground: '#325068',

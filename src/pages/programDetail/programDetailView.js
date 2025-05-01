@@ -249,7 +249,7 @@ const styles = (theme) => ({
   },
   blankSpace: {
     height: '73px',
-    background: '#e6f2f7',
+    background: '#E7F4F9',
   },
   innerContainer: {
     padding: '0 ',
@@ -261,7 +261,7 @@ const styles = (theme) => ({
     margin: 'auto',
   },
   noResearchOutputsBG: {
-    background: '#E6F2F7',
+    background: '#E7F4F9',
     width: '100%',
     padding: '60px 0 130px 0',
   },
