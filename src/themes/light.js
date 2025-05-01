@@ -229,7 +229,7 @@ export default {
     },
     text: {
       withbackground: 'white',
-      primary: '#4A4A4A',
+      primary: '#333333',
       secondary: '#6E6E6E',
       hint: '#B9B9B9',
       link: '#1669aa',

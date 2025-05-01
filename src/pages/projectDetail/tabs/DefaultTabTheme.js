@@ -10,7 +10,7 @@ const customTheme = {
       color: '#6E6E6E',
       height: '45px',
       overflow: 'hidden',
-      background: '#EAEAEA',
+      background: '#f0f0f0',
       borderTop: '1px solid black',
       borderLeft: '1px solid black',
       borderRight: '1px solid black',
