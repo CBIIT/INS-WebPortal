@@ -29,7 +29,7 @@ export default {
   custom: {
     maxContentWidth: '1440px',
     maxContent: 'white',
-    bodyBackGround: '#e6f2f7',
+    bodyBackGround: '#E7F4F9',
     cardBackGround: '#f0f6f8',
     fontFamilySans: '"Open Sans", sans-serif',
     footorBackground: '#325068',
@@ -229,7 +229,7 @@ export default {
     },
     text: {
       withbackground: 'white',
-      primary: '#4A4A4A',
+      primary: '#333333',
       secondary: '#6E6E6E',
       hint: '#B9B9B9',
       link: '#1669aa',
