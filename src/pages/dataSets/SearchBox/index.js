@@ -152,7 +152,8 @@ const SearchBox = ({
   searchKeyword,
   resourceFilters,
   handleBubbleSearchTextRemoveClick,
-  handleBubbleResourcesRemoveClick,
+  handleBubbleDataRepositoryRemoveClick,
+  handleBubblePrimaryDiseaseRemoveClick,
   onSearchBoxKeyPress,
   onSearchSubmit,
   onSearchTextInputChange,
@@ -226,13 +227,26 @@ const SearchBox = ({
           )
         }
         {
+          resourceFilters.dataset_source_repo
+          && resourceFilters.dataset_source_repo.length > 0
+          && resourceFilters.dataset_source_repo.map((filter, index) => (
+            <BubbleContainer key={index} title={filter}>
+              <span style={{ fontSize: '10px' }}>DATA REPOSITORY:&nbsp;</span>
+              {filter}
+              <span className="removeBubble" onClick={() => handleBubbleDataRepositoryRemoveClick(filter)} aria-hidden="true">
+                <img src={CloseIconImg} alt="close-icon" />
+              </span>
+            </BubbleContainer>
+          ))
+        }
+        {
           resourceFilters.primary_disease
           && resourceFilters.primary_disease.length > 0
           && resourceFilters.primary_disease.map((filter, index) => (
             <BubbleContainer key={index} title={filter}>
               <span style={{ fontSize: '10px' }}>PRIMARY DISEASE:&nbsp;</span>
               {filter}
-              <span className="removeBubble" onClick={() => handleBubbleResourcesRemoveClick(filter)} aria-hidden="true">
+              <span className="removeBubble" onClick={() => handleBubblePrimaryDiseaseRemoveClick(filter)} aria-hidden="true">
                 <img src={CloseIconImg} alt="close-icon" />
               </span>
             </BubbleContainer>

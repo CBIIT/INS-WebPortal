@@ -113,7 +113,13 @@ const SearchCatalogPage = ({
     onBubbleSearchTextRemoveClick();
   };
 
-  const handleBubbleResourcesRemoveClick = (filter) => {
+  const handleBubbleDataRepositoryRemoveClick = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter);
+    history.push(`/datasets?${queryStr}`);
+    onBubbleResourcesRemoveClick();
+  };
+
+  const handleBubblePrimaryDiseaseRemoveClick = (filter) => {
     const queryStr = replaceResourceFilter(query, filter);
     history.push(`/datasets?${queryStr}`);
     onBubbleResourcesRemoveClick();
@@ -150,7 +156,8 @@ const SearchCatalogPage = ({
               searchKeyword={searchKeyword}
               resourceFilters={resourceFilters}
               handleBubbleSearchTextRemoveClick={handleBubbleSearchTextRemoveClick}
-              handleBubbleResourcesRemoveClick={handleBubbleResourcesRemoveClick}
+              handleBubbleDataRepositoryRemoveClick={handleBubbleDataRepositoryRemoveClick}
+              handleBubblePrimaryDiseaseRemoveClick={handleBubblePrimaryDiseaseRemoveClick}
               onSearchBoxKeyPress={handleSearchBoxKeyPress}
               onSearchSubmit={handleSearchSubmit}
               onSearchTextInputChange={handleSearchTextInputChange}

@@ -51,8 +51,12 @@ export function loadDatasetDetailSuccess(id, data) {
 export function loadSearchDataResources() {
   const func = function func(dispatch) {
     return participatingResourcesApi.getAllParticipatingResources()
-      .then((searchResults) => {
-        dispatch(loadSearchFiltersSuccess(searchResults.data.primary_disease));
+      .then((response) => {
+        const resourcesList = {
+          primary_disease: response.data.primary_disease || [],
+          dataset_source_repo: response.data.dataset_source_repo || [],
+        };
+        dispatch(loadSearchFiltersSuccess(resourcesList));
       })
       .catch((error) => {
         throw error;
