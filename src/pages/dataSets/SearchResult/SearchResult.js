@@ -550,7 +550,7 @@ const SearchResult = ({
                   <div className="col-sm resultSubTitle">
                     <span className="dataRepo">
                       <img src={databaseIcon} alt="database-icon" className="img0" />
-                      dbGaP
+                      {rst.content.dataset_source_repo}
                     </span>
                     <img src={dataResourceIcon} alt="data-resource" className="img1" />
                     {rst.content.dataset_source_url ? (

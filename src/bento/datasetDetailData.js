@@ -39,6 +39,7 @@ query datasetDetails($dataset_source_id: String) {
         related_diseases
         related_terms
         study_links
+        dataset_source_repo
     }
 }`;
 
