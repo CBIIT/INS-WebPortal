@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react'; // Add useState
 import {
   useLocation,
@@ -46,18 +47,29 @@ const Filters = ({
   selectedFilters,
   onLoadSearchDataResources,
 }) => {
+  // console.log('searchFilters: ', searchFilters);
   const query = useQuery();
   const history = useHistory();
 
   const [sortType, setSortType] = useState('alphabetically');
 
   const sourceFiltersArray = Array.isArray(sourceFilters) ? sourceFilters : [sourceFilters];
-  const sources = !sourceFilters || sourceFilters === 'all'
-    ? searchFilters.map((element) => element.name.toLowerCase())
+
+  const sourcesDataRepository = !sourceFilters || sourceFilters === 'all'
+    ? (searchFilters.dataset_source_repo || []).map((element) => element.name.toLowerCase())
+    : sourceFiltersArray.filter((element) => element);
+
+  const sourcesPrimaryDisease = !sourceFilters || sourceFilters === 'all'
+    ? (searchFilters.primary_disease || []).map((element) => element.name.toLowerCase())
     : sourceFiltersArray.filter((element) => element);
 
   useEffect(() => {
-    if (searchFilters.length === 0) {
+    if (
+      !searchFilters.dataset_source_repo
+      || !searchFilters.primary_disease
+      || searchFilters.dataset_source_repo.length === 0
+      || searchFilters.primary_disease.length === 0
+    ) {
       onLoadSearchDataResources().catch((error) => {
         throw new Error(`Loading search catalog page filters failed ${error}`);
       });
@@ -87,10 +99,21 @@ const Filters = ({
     setSortType(type);
   };
 
-  const sortedSearchFilters = [...searchFilters].sort((a, b) => {
+  const sortedDataRepositorySearchFilters = [...(searchFilters.dataset_source_repo || [])].sort((a, b) => {
     if (sortType === 'alphabetically') {
       return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
-    } if (sortType === 'count') {
+    }
+    if (sortType === 'count') {
+      return b.count - a.count;
+    }
+    return 0;
+  });
+
+  const sortedPrimaryDiseaseSearchFilters = [...(searchFilters.primary_disease || [])].sort((a, b) => {
+    if (sortType === 'alphabetically') {
+      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+    }
+    if (sortType === 'count') {
       return b.count - a.count;
     }
     return 0;
@@ -155,9 +178,9 @@ const Filters = ({
         </div>
         <div className="filterBlock">
           <div className="accordion">
-            {sortedSearchFilters.map((field, idx) => {
+            {sortedDataRepositorySearchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
-              const arrayOfSources = sources.flatMap((item) => item.split('|'));
+              const arrayOfSources = sourcesDataRepository.flatMap((item) => item.split('|'));
               const checked = !!(selectedFilters.dataset_source_repo
                 && selectedFilters.dataset_source_repo.indexOf(field.name) > -1);
               return arrayOfSources.includes(field.name.toLowerCase()) ? (
@@ -165,7 +188,7 @@ const Filters = ({
                   key={key}
                   item={field}
                   checked={checked}
-                  highlight={sources.indexOf(field.name.toLowerCase()) > -1}
+                  highlight={sourcesDataRepository.indexOf(field.name.toLowerCase()) > -1}
                   onSourceClick={handleResourceClickDataRepository}
                 />
               ) : null;
@@ -200,9 +223,9 @@ const Filters = ({
         </div>
         <div className="filterBlock">
           <div className="accordion">
-            {sortedSearchFilters.map((field, idx) => {
+            {sortedPrimaryDiseaseSearchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
-              const arrayOfSources = sources.flatMap((item) => item.split('|'));
+              const arrayOfSources = sourcesPrimaryDisease.flatMap((item) => item.split('|'));
               const checked = !!(selectedFilters.primary_disease
                 && selectedFilters.primary_disease.indexOf(field.name) > -1);
               return arrayOfSources.includes(field.name.toLowerCase()) ? (
@@ -210,7 +233,7 @@ const Filters = ({
                   key={key}
                   item={field}
                   checked={checked}
-                  highlight={sources.indexOf(field.name.toLowerCase()) > -1}
+                  highlight={sourcesPrimaryDisease.indexOf(field.name.toLowerCase()) > -1}
                   onSourceClick={handleResourceClickPrimaryDisease}
                 />
               ) : null;
