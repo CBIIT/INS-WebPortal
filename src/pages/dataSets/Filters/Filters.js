@@ -47,11 +47,11 @@ const Filters = ({
   selectedFilters,
   onLoadSearchDataResources,
 }) => {
-  // console.log('searchFilters: ', searchFilters);
   const query = useQuery();
   const history = useHistory();
 
-  const [sortType, setSortType] = useState('alphabetically');
+  const [sortTypeRepo, setSortTypeRepo] = useState('alphabetically');
+  const [sortTypeDisease, setSortTypeDisease] = useState('alphabetically');
 
   const sourceFiltersArray = Array.isArray(sourceFilters) ? sourceFilters : [sourceFilters];
 
@@ -91,32 +91,14 @@ const Filters = ({
     history.push(`/datasets?${queryStr}`);
   };
 
-  const handleSortTypeChangeDataRepository = (type) => {
-    setSortType(type);
-  };
-
-  const handleSortTypeChangePrimaryDisease = (type) => {
-    setSortType(type);
-  };
-
   const sortedDataRepositorySearchFilters = [...(searchFilters.dataset_source_repo || [])].sort((a, b) => {
-    if (sortType === 'alphabetically') {
-      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
-    }
-    if (sortType === 'count') {
-      return b.count - a.count;
-    }
-    return 0;
+    if (sortTypeRepo === 'count') return b.count - a.count;
+    return a.name.localeCompare(b.name);
   });
 
   const sortedPrimaryDiseaseSearchFilters = [...(searchFilters.primary_disease || [])].sort((a, b) => {
-    if (sortType === 'alphabetically') {
-      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
-    }
-    if (sortType === 'count') {
-      return b.count - a.count;
-    }
-    return 0;
+    if (sortTypeDisease === 'count') return b.count - a.count;
+    return a.name.localeCompare(b.name);
   });
 
   const resetIcon = {
@@ -124,9 +106,6 @@ const Filters = ({
     alt: 'Reset icon',
     size: '12 px',
   };
-
-  const alphabeticallyClass = sortType === 'alphabetically' ? 'sortOption selected' : 'sortOption';
-  const countClass = sortType === 'count' ? 'sortOption selected' : 'sortOption';
 
   return (
     <>
@@ -169,11 +148,17 @@ const Filters = ({
               />
             </Button>
           </span>
-          <span className={alphabeticallyClass} onClick={() => handleSortTypeChangeDataRepository('alphabetically')}>
-            Sort alphabetically
+          <span
+            className={`alphabetically ${sortTypeRepo === 'alphabetically' ? 'sortOption selected' : ''}`}
+            onClick={() => setSortTypeRepo('alphabetically')}
+          >
+            Sort Alphabetically
           </span>
-          <span className={countClass} onClick={() => handleSortTypeChangeDataRepository('count')}>
-            Sort by count
+          <span
+            className={`count ${sortTypeRepo === 'count' ? 'sortOption selected' : ''}`}
+            onClick={() => setSortTypeRepo('count')}
+          >
+            Sort By Count
           </span>
         </div>
         <div className="filterBlock">
@@ -214,11 +199,17 @@ const Filters = ({
               />
             </Button>
           </span>
-          <span className={alphabeticallyClass} onClick={() => handleSortTypeChangePrimaryDisease('alphabetically')}>
-            Sort alphabetically
+          <span
+            className={`alphabetically ${sortTypeDisease === 'alphabetically' ? 'sortOption selected' : ''}`}
+            onClick={() => setSortTypeDisease('alphabetically')}
+          >
+            Sort Alphabetically
           </span>
-          <span className={countClass} onClick={() => handleSortTypeChangePrimaryDisease('count')}>
-            Sort by count
+          <span
+            className={`count ${sortTypeDisease === 'count' ? 'sortOption selected' : ''}`}
+            onClick={() => setSortTypeDisease('count')}
+          >
+            Sort By Count
           </span>
         </div>
         <div className="filterBlock">
