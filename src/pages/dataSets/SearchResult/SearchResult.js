@@ -380,6 +380,9 @@ const replaceQueryStr = (query, sorting) => {
   if (query.get('filterByResource')) {
     str += `&filterByResource=${query.get('filterByResource')}`;
   }
+  if (query.get('filterByRepo')) {
+    str += `&filterByRepo=${query.get('filterByRepo')}`;
+  }
   if (query.get('page')) {
     str += `&page=${query.get('page')}`;
   }
@@ -417,10 +420,23 @@ const SearchResult = ({
   const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
   const searchTerms = sanatizeSearchTerms.split(' ').filter((item) => item !== '');
   let searchCombination = getCombinations(searchTerms);
-  if (search.filters && search.filters.primary_disease
-    && Array.isArray(search.filters.primary_disease)
-    && search.filters.primary_disease.length > 0) {
-    searchCombination = search.filters.primary_disease.concat(searchCombination);
+
+  if (search.filters) {
+    if (
+      search.filters.primary_disease
+      && Array.isArray(search.filters.primary_disease)
+      && search.filters.primary_disease.length > 0
+    ) {
+      searchCombination = search.filters.primary_disease.concat(searchCombination);
+    }
+
+    if (
+      search.filters.dataset_source_repo
+      && Array.isArray(search.filters.dataset_source_repo)
+      && search.filters.dataset_source_repo.length > 0
+    ) {
+      searchCombination = search.filters.dataset_source_repo.concat(searchCombination);
+    }
   }
 
   searchCombination.sort((a, b) => b.length - a.length);
@@ -476,6 +492,8 @@ const SearchResult = ({
             }
 
             let hightLightedPrimaryDisease = rst.content.primary_disease;
+            let hightLightedDatasetSourceRepo = rst.content.dataset_source_repo;
+
             let hightLightedDesc = description.replace(/<(?![b/])/g, '&lt;');
             let hasMatchInDesc = false;
             searchCombination.forEach((term) => {
@@ -486,7 +504,13 @@ const SearchResult = ({
               const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
               hasMatchInDesc = hasMatchInDesc || regex.test(hightLightedDesc);
 
-              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
+              if (hightLightedPrimaryDisease) {
+                hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
+              }
+              if (hightLightedDatasetSourceRepo) {
+                hightLightedDatasetSourceRepo = hightLightedDatasetSourceRepo.replace(regex, (match) => `<b>${match}</b>`).trim();
+              }
+
               hightLightedDesc = hightLightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
             });
 
@@ -550,7 +574,7 @@ const SearchResult = ({
                   <div className="col-sm resultSubTitle">
                     <span className="dataRepo">
                       <img src={databaseIcon} alt="database-icon" className="img0" />
-                      {rst.content.dataset_source_repo}
+                      {ReactHtmlParser(hightLightedDatasetSourceRepo)}
                     </span>
                     <img src={dataResourceIcon} alt="data-resource" className="img1" />
                     {rst.content.dataset_source_url ? (

@@ -10,13 +10,14 @@ import './Filters.css';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
-const replaceResourceFilter = (query, filter) => {
+const replaceResourceFilter = (query, filter, filterKey) => {
   let str = '';
   if (query.get('search_text')) {
     str += `&search_text=${query.get('search_text')}`;
   }
+
   if (filter !== '') {
-    const tmp = query.get('filterByResource') ? query.get('filterByResource').split('|') : [];
+    const tmp = query.get(filterKey) ? query.get(filterKey).split('|') : [];
     const idx = tmp.indexOf(filter);
     if (idx > -1) {
       tmp.splice(idx, 1);
@@ -24,11 +25,15 @@ const replaceResourceFilter = (query, filter) => {
       tmp.push(filter);
     }
     if (tmp.length > 0) {
-      tmp.sort((a, b) => (a.toLowerCase() < b.toLowerCase() ? -1 : 1));
-      str += `&filterByResource=${tmp.join('|')}`;
+      str += `&${filterKey}=${tmp.join('|')}`;
     }
   }
-  str += '&page=1';
+
+  const otherFilterKey = filterKey === 'filterByResource' ? 'filterByRepo' : 'filterByResource';
+  if (query.get(otherFilterKey)) {
+    str += `&${otherFilterKey}=${query.get(otherFilterKey)}`;
+  }
+
   if (query.get('pageSize')) {
     str += `&pageSize=${query.get('pageSize')}`;
   }
@@ -38,6 +43,9 @@ const replaceResourceFilter = (query, filter) => {
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
   }
+
+  str += '&page=1';
+
   return str.substring(1);
 };
 
@@ -82,12 +90,12 @@ const Filters = ({
   };
 
   const handleResourceClickDataRepository = (filter) => {
-    const queryStr = replaceResourceFilter(query, filter);
+    const queryStr = replaceResourceFilter(query, filter, 'filterByRepo');
     history.push(`/datasets?${queryStr}`);
   };
 
   const handleResourceClickPrimaryDisease = (filter) => {
-    const queryStr = replaceResourceFilter(query, filter);
+    const queryStr = replaceResourceFilter(query, filter, 'filterByResource');
     history.push(`/datasets?${queryStr}`);
   };
 

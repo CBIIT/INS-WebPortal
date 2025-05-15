@@ -72,6 +72,9 @@ const replaceQueryStr = (query, sortOrder) => {
   if (query.get('filterByResource')) {
     str += `&filterByResource=${query.get('filterByResource')}`;
   }
+  if (query.get('filterByRepo')) {
+    str += `&filterByRepo=${query.get('filterByRepo')}`;
+  }
   if (query.get('page')) {
     str += `&page=${query.get('page')}`;
   }

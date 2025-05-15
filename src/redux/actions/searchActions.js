@@ -70,20 +70,24 @@ export function loadFromUrlQuery(searchText, filters) {
     const searchCriteria = {};
     searchCriteria.search_text = searchText;
     searchCriteria.filters = {};
+
     if (Array.isArray(filters.filterByResource) && filters.filterByResource.length > 0) {
       searchCriteria.filters.primary_disease = filters.filterByResource;
     }
+
+    if (Array.isArray(filters.filterByRepo) && filters.filterByRepo.length > 0) {
+      searchCriteria.filters.dataset_source_repo = filters.filterByRepo;
+    }
+
     searchCriteria.pageInfo = {};
     searchCriteria.pageInfo.page = filters.page ? filters.page : 1;
     searchCriteria.pageInfo.pageSize = filters.pageSize ? filters.pageSize : 10;
+
     searchCriteria.sort = {};
     searchCriteria.sort.name = 'Dataset';
     searchCriteria.sort.k = 'dataset_title.sort';
-    if (filters.sortOrder) {
-      searchCriteria.sort.v = filters.sortOrder;
-    } else {
-      searchCriteria.sort.v = 'asc';
-    }
+    searchCriteria.sort.v = filters.sortOrder || 'asc';
+
     return searchApi.searchCatalog(searchCriteria)
       .then((searchResults) => {
         dispatch(loadSearchResultsSuccess(searchResults.data));
@@ -91,9 +95,10 @@ export function loadFromUrlQuery(searchText, filters) {
         dispatch(applyResourcesFilter(searchCriteria.filters));
         dispatch(switchPage(searchResults.data.pageInfo));
         dispatch(switchSize(searchResults.data.pageInfo));
-        dispatch(switchSorting(
-          { name: searchResults.data.sort.name, k: searchResults.data.sort.k },
-        ));
+        dispatch(switchSorting({
+          name: searchResults.data.sort.name,
+          k: searchResults.data.sort.k,
+        }));
         dispatch(switchSortingOrder(searchResults.data.sort.v));
       })
       .catch((error) => {
