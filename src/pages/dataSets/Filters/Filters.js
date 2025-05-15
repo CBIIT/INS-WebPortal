@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useEffect, useState } from 'react'; // Add useState
+import React, { useEffect, useState } from 'react';
 import {
   useLocation,
   useHistory,
@@ -115,6 +115,27 @@ const Filters = ({
     size: '12 px',
   };
 
+  const clearAllFilters = (qry) => {
+    let str = '';
+
+    if (qry.get('search_text')) {
+      str += `&search_text=${qry.get('search_text')}`;
+    }
+    if (qry.get('pageSize')) {
+      str += `&pageSize=${qry.get('pageSize')}`;
+    }
+    if (qry.get('sortBy')) {
+      str += `&sortBy=${qry.get('sortBy')}`;
+    }
+    if (qry.get('sortOrder')) {
+      str += `&sortOrder=${qry.get('sortOrder')}`;
+    }
+
+    str += '&page=1';
+
+    return str.substring(1);
+  };
+
   return (
     <>
       <div>
@@ -122,7 +143,10 @@ const Filters = ({
           <Button
             id="button_sidebar_clear_all_filters"
             variant="outlined"
-            onClick={() => handleResourceClick('')}
+            onClick={() => {
+              const queryStr = clearAllFilters(query);
+              history.push(`/datasets?${queryStr}`);
+            }}
             className="customButton"
             classes={{ root: 'clearAllButtonRoot' }}
           >
