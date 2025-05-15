@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import usaFlagSmall from '../../assets/header/us_flag_small.svg';
 
 const BannerArea = styled.div`
-    flex-direction:row;
+    display: flex;
+    flex-direction: row;
     width: 100%;
     height: 46px;
     background: #F0F0F0;
-
 `;
 const BannerContainer = styled.div`
     display:flex;
