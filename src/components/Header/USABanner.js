@@ -14,7 +14,7 @@ const BannerContainer = styled.div`
     align-items:center;
     max-width: 1800px;
     height:100%;
-    margin-left: auto;
+    margin-left: 11px;
     margin-right: auto;
     padding-left: 2rem;
     img{
