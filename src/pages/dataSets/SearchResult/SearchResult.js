@@ -491,8 +491,8 @@ const SearchResult = ({
               description = '';
             }
 
-            let hightLightedPrimaryDisease = rst.content.primary_disease;
-            let hightLightedDatasetSourceRepo = rst.content.dataset_source_repo;
+            let hightlightedPrimaryDisease = rst.content.primary_disease;
+            let hightlightedDatasetSourceRepo = rst.content.dataset_source_repo;
 
             let hightLightedDesc = description.replace(/<(?![b/])/g, '&lt;');
             let hasMatchInDesc = false;
@@ -504,11 +504,11 @@ const SearchResult = ({
               const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
               hasMatchInDesc = hasMatchInDesc || regex.test(hightLightedDesc);
 
-              if (hightLightedPrimaryDisease) {
-                hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
+              if (hightlightedPrimaryDisease) {
+                hightlightedPrimaryDisease = hightlightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
               }
-              if (hightLightedDatasetSourceRepo) {
-                hightLightedDatasetSourceRepo = hightLightedDatasetSourceRepo.replace(regex, (match) => `<b>${match}</b>`).trim();
+              if (hightlightedDatasetSourceRepo) {
+                hightlightedDatasetSourceRepo = hightlightedDatasetSourceRepo.replace(regex, (match) => `<b>${match}</b>`).trim();
               }
 
               hightLightedDesc = hightLightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
@@ -574,7 +574,7 @@ const SearchResult = ({
                   <div className="col-sm resultSubTitle">
                     <span className="dataRepo">
                       <img src={databaseIcon} alt="database-icon" className="img0" />
-                      {ReactHtmlParser(hightLightedDatasetSourceRepo)}
+                      {ReactHtmlParser(hightlightedDatasetSourceRepo)}
                     </span>
                     <img src={dataResourceIcon} alt="data-resource" className="img1" />
                     {rst.content.dataset_source_url ? (
@@ -598,7 +598,7 @@ const SearchResult = ({
                     <div className="col labelDiv">
                       <span>Primary Disease:&nbsp;&nbsp;&nbsp;</span>
                       <span className="itemSpan">
-                        {ReactHtmlParser(hightLightedPrimaryDisease)}
+                        {ReactHtmlParser(hightlightedPrimaryDisease)}
                       </span>
                     </div>
                   </div>
