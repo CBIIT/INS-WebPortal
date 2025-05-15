@@ -162,7 +162,7 @@ const SearchCatalogPage = ({
         <div className="searchBarArea">
           <div className="searchBarLabel">
             <span>
-              Explore Datasets
+              Explore Datasets & Cohorts
             </span>
           </div>
           <div className="searchBoxContainer">
