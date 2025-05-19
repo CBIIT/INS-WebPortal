@@ -111,7 +111,7 @@ const DataSetDetailView = ({
                   <img src={helpIcon} alt="tooltipIcon" />
                   <div className="tooltip-text-first">
                     <span className={classes.tooltipFont}>
-                      Link to an external study website
+                      Link to the study or dataset source website
                     </span>
                   </div>
                 </div>
@@ -374,7 +374,7 @@ const DataSetDetailView = ({
                     <img src={helpIcon} alt="tooltipIcon" />
                     <div className="tooltip-text-last">
                       <span className={classes.tooltipFont}>
-                        Link to an external website associated with the study
+                        Link to an external website related to the study or dataset
                       </span>
                     </div>
                   </div>
@@ -382,7 +382,11 @@ const DataSetDetailView = ({
                 {data.study_links && data.study_links.length > 0 ? (
                   data.study_links.split(';').map((link, index) => (
                     <Typography variant="body2" className={classes.text} key={index}>
-                      <Link href={link} target="_blank" className={classes.link}>
+                      <Link
+                        href={link.startsWith('http') ? link : `https://${link}`}
+                        target="_blank"
+                        className={classes.link}
+                      >
                         {link}
                         <img
                           src={externalLinkIcon.src}
@@ -399,6 +403,51 @@ const DataSetDetailView = ({
                 )}
               </Grid>
             </Grid>
+          </Grid>
+        </Grid>
+      </div>
+      <div className={classes.cohortDetailsContainer}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={4} className={classes.space}>
+            <Typography variant="h2" className={classes.title}>Cohort Details</Typography>
+            <div className={classes.subSection}>
+              <Typography variant="body2" className={classes.subTitle}>
+                <strong>Enrollment Year (Start - End) </strong>
+                <div className="tooltip-icon">
+                  <img src={helpIcon} alt="tooltipIcon" />
+                  <div className="tooltip-text-first">
+                    <span className={classes.tooltipFont}>
+                      Years when study’s participant enrollment started and ended
+                    </span>
+                  </div>
+                </div>
+              </Typography>
+              <Typography variant="body2" className={classes.text}>
+                {data.dataset_year_enrollment_started}
+                {' '}
+                -
+                {' '}
+                {data.dataset_year_enrollment_ended}
+              </Typography>
+              <Typography variant="body2" className={classes.subTitle}>
+                <strong>Age at Baseline (Min - Max) </strong>
+                <div className="tooltip-icon">
+                  <img src={helpIcon} alt="tooltipIcon" />
+                  <div className="tooltip-text-first">
+                    <span className={classes.tooltipFont}>
+                      Participants’ minimum and maximum ages at study’s enrollment start
+                    </span>
+                  </div>
+                </div>
+              </Typography>
+              <Typography variant="body2" className={classes.text}>
+                {data.dataset_minimum_age_at_baseline}
+                {' '}
+                -
+                {' '}
+                {data.dataset_maximum_age_at_baseline}
+              </Typography>
+            </div>
           </Grid>
         </Grid>
       </div>
@@ -560,7 +609,6 @@ const styles = (theme) => ({
     color: '#3478A5',
     paddingLeft: '15px',
     paddingRight: '15px',
-
   },
   borderRight: {
     borderRight: '1px solid #B0D7E6',
@@ -570,6 +618,19 @@ const styles = (theme) => ({
     paddingRight: '15px',
   },
   basicInformationContainer: {
+    marginTop: '40px',
+    fontFamily: 'Nunito',
+    fontSize: '15px',
+    fontWeight: '700',
+    lineHeight: ' 19px',
+    textAlign: 'left',
+    marginLeft: '32px',
+    background: '#FFFF',
+    paddingBottom: '20px',
+    wordBreak: 'normal',
+    borderBottom: '3px solid #7D91C4',
+  },
+  cohortDetailsContainer: {
     marginTop: '40px',
     fontFamily: 'Nunito',
     fontSize: '15px',

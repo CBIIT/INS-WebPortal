@@ -43,6 +43,11 @@ query datasetDetails($dataset_source_id: String) {
     }
 }`;
 
+// dataset_minimum_age_at_baseline
+// dataset_maximum_age_at_baseline
+// dataset_year_enrollment_started
+// dataset_year_enrollment_ended
+
 export {
   pageTitle,
   pageSubTitle,
