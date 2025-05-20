@@ -14,9 +14,7 @@ RUN NODE_OPTIONS="--openssl-legacy-provider" npm run build --silent
 
 # FROM nginx:1.23.3-alpine
 #FROM nginx:1.25.2 AS fnl_base_image
-FROM nginx:1.27.1-alpine3.20-slim AS fnl_base_image
-
-RUN apk update && apk upgrade musl
+FROM nginx:1.28.0-alpine3.21 AS fnl_base_image
 
 #RUN apt-get update && apt-get -y upgrade
 
