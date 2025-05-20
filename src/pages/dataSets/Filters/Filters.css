@@ -137,18 +137,10 @@
 
 .alphabetically {
   cursor: pointer;
-  font-size: 10px;
-  font-family: Nunito;
-  margin-right: 32px;
 }
 
 .count {
-  float: right;
   cursor: pointer;
-  font-size: 10px;
-  margin-top: 5px;
-  font-family: Nunito;
-  margin-right: 10px;
 }
 
 .sortOption {

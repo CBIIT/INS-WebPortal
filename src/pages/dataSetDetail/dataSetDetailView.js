@@ -66,7 +66,8 @@ const DataSetDetailView = ({
               >
                 <img src={databaseIcon} alt="database-icon" className={classes.databaseImg} />
                 <Link href={data.dataset_source_url} target="_blank" className={classes.link}>
-                  dbGaP:
+                  {data.dataset_source_repo}
+                  :
                   {' '}
                   {data.dataset_source_id || ''}
                   <img
@@ -117,7 +118,8 @@ const DataSetDetailView = ({
               </Typography>
               <Typography variant="body2" className={classes.text}>
                 <Link href={data.dataset_source_url} target="_blank" className={classes.link}>
-                  dbGaP:
+                  {data.dataset_source_repo}
+                  :
                   {' '}
                   {data.dataset_source_id || ''}
                   <img

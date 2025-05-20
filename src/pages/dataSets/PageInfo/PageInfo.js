@@ -16,6 +16,9 @@ const replaceQueryStr = (query, page) => {
   if (query.get('filterByResource')) {
     str += `&filterByResource=${query.get('filterByResource')}`;
   }
+  if (query.get('filterByRepo')) {
+    str += `&filterByRepo=${query.get('filterByRepo')}`;
+  }
   str += `&page=${page}`;
   if (query.get('pageSize')) {
     str += `&pageSize=${query.get('pageSize')}`;
@@ -36,6 +39,9 @@ const replaceQueryStrPageSize = (query, pageSize) => {
   }
   if (query.get('filterByResource')) {
     str += `&filterByResource=${query.get('filterByResource')}`;
+  }
+  if (query.get('filterByRepo')) {
+    str += `&filterByRepo=${query.get('filterByRepo')}`;
   }
   str += '&page=1';
   str += `&pageSize=${pageSize}`;
