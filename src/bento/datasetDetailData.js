@@ -40,13 +40,12 @@ query datasetDetails($dataset_source_id: String) {
         related_terms
         study_links
         dataset_source_repo
+        dataset_minimum_age_at_baseline
+        dataset_maximum_age_at_baseline
+        dataset_year_enrollment_started
+        dataset_year_enrollment_ended
     }
 }`;
-
-// dataset_minimum_age_at_baseline
-// dataset_maximum_age_at_baseline
-// dataset_year_enrollment_started
-// dataset_year_enrollment_ended
 
 export {
   pageTitle,
