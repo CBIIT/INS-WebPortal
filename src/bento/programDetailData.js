@@ -41,7 +41,7 @@ const leftPanel = [
         dataField: 'cancerTypesTransformed',
       },
       {
-        label: 'Principle Investigator(s)',
+        label: 'Principal Investigator(s)',
         dataField: 'contact_pi',
       },
     ],
