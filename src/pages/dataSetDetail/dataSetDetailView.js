@@ -310,6 +310,42 @@ const DataSetDetailView = ({
                 <Typography variant="body2" className={classes.text}>
                   {data.sample_count || ''}
                 </Typography>
+                <Typography variant="body2" className={classes.subTitle}>
+                  <strong>Enrollment Year (Start - End) </strong>
+                  <div className="tooltip-icon">
+                    <img src={helpIcon} alt="tooltipIcon" />
+                    <div className="tooltip-text-first">
+                      <span className={classes.tooltipFont}>
+                        Years when study’s participant enrollment started and ended
+                      </span>
+                    </div>
+                  </div>
+                </Typography>
+                <Typography variant="body2" className={classes.text}>
+                  {data.dataset_year_enrollment_started}
+                  {' '}
+                  -
+                  {' '}
+                  {data.dataset_year_enrollment_ended}
+                </Typography>
+                <Typography variant="body2" className={classes.subTitle}>
+                  <strong>Age at Baseline (Min - Max) </strong>
+                  <div className="tooltip-icon">
+                    <img src={helpIcon} alt="tooltipIcon" />
+                    <div className="tooltip-text-first">
+                      <span className={classes.tooltipFont}>
+                        Participants’ minimum and maximum ages at study’s enrollment start
+                      </span>
+                    </div>
+                  </div>
+                </Typography>
+                <Typography variant="body2" className={classes.text}>
+                  {data.dataset_minimum_age_at_baseline}
+                  {' '}
+                  -
+                  {' '}
+                  {data.dataset_maximum_age_at_baseline}
+                </Typography>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Typography variant="body2" className={classes.subTitle}>
@@ -403,51 +439,6 @@ const DataSetDetailView = ({
                 )}
               </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-      </div>
-      <div className={classes.cohortDetailsContainer}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={4} className={classes.space}>
-            <Typography variant="h2" className={classes.title}>Cohort Details</Typography>
-            <div className={classes.subSection}>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>Enrollment Year (Start - End) </strong>
-                <div className="tooltip-icon">
-                  <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text-first">
-                    <span className={classes.tooltipFont}>
-                      Years when study’s participant enrollment started and ended
-                    </span>
-                  </div>
-                </div>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                {data.dataset_year_enrollment_started}
-                {' '}
-                -
-                {' '}
-                {data.dataset_year_enrollment_ended}
-              </Typography>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>Age at Baseline (Min - Max) </strong>
-                <div className="tooltip-icon">
-                  <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text-first">
-                    <span className={classes.tooltipFont}>
-                      Participants’ minimum and maximum ages at study’s enrollment start
-                    </span>
-                  </div>
-                </div>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                {data.dataset_minimum_age_at_baseline}
-                {' '}
-                -
-                {' '}
-                {data.dataset_maximum_age_at_baseline}
-              </Typography>
-            </div>
           </Grid>
         </Grid>
       </div>
@@ -618,19 +609,6 @@ const styles = (theme) => ({
     paddingRight: '15px',
   },
   basicInformationContainer: {
-    marginTop: '40px',
-    fontFamily: 'Nunito',
-    fontSize: '15px',
-    fontWeight: '700',
-    lineHeight: ' 19px',
-    textAlign: 'left',
-    marginLeft: '32px',
-    background: '#FFFF',
-    paddingBottom: '20px',
-    wordBreak: 'normal',
-    borderBottom: '3px solid #7D91C4',
-  },
-  cohortDetailsContainer: {
     marginTop: '40px',
     fontFamily: 'Nunito',
     fontSize: '15px',
