@@ -499,7 +499,7 @@ const styles = (theme) => ({
   },
   nav: {
     color: '#1B1B1B',
-    fontFamily: 'Public Sans',
+    fontFamily: 'Inter',
     paddingLeft: '32px',
     paddingRight: '32px',
     fontSize: '16px',
@@ -509,7 +509,7 @@ const styles = (theme) => ({
   },
   navLink: {
     color: '#005EA2',
-    fontFamily: 'Public Sans',
+    fontFamily: 'Inter',
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '26px',
