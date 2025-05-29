@@ -605,16 +605,6 @@ const SearchResult = ({
                 {
                   <div className="row align-items-start bodyRow">
                     <div className="col labelDiv">
-                      <span>Participant Count:&nbsp;&nbsp;&nbsp;</span>
-                      <span className="textSpan caseCountHighlight">
-                        {rst.content.participant_count}
-                      </span>
-                    </div>
-                  </div>
-                }
-                {
-                  <div className="row align-items-start bodyRow">
-                    <div className="col labelDiv">
                       <span>Sample Count:&nbsp;&nbsp;&nbsp;</span>
                       <span className="textSpan sampleCountHighlight">
                         {rst.content.sample_count}
