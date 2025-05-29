@@ -523,7 +523,6 @@ const SearchResult = ({
             const hideContent = [
               { 'dbGaP URL': rst.content.dataset_source_url },
               { 'PI name': rst.content.PI_name },
-              { GPA: rst.content.GPA },
               { 'dataset pmid': rst.content.dataset_pmid },
               { 'funding source': rst.content.funding_source },
               { 'related diseases': rst.content.related_diseases },
