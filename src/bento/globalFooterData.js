@@ -33,7 +33,7 @@ export default {
       items: [
         {
           text: 'Release Notes',
-          link: 'Release_v3.0.1.pdf',
+          link: 'Release_v3.1.0.pdf',
         },
         {
           text: `FE Version: ${env.REACT_APP_FE_VERSION || '3.1.0'}`,
