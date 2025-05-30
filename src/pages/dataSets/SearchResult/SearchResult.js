@@ -535,23 +535,30 @@ const SearchResult = ({
               { 'limitations for reuse': rst.content.limitations_for_reuse },
               { 'NCI Division/Office/Center': rst.content.dataset_doc },
             ];
-            // Iterate through hideContent and check for matches
+            const excludedValues = search && search.filters && Array.isArray(search.filters.dataset_source_repo)
+              ? search.filters.dataset_source_repo
+              : [];
+            const filteredSearchCombination = searchCombination.filter((term) => !excludedValues.includes(term));
             hideContent.forEach((item) => {
               Object.entries(item).forEach(([key, value]) => {
                 let highlightedValue = value;
                 let foundMatch = false;
 
-                searchCombination.forEach((term) => {
+                filteredSearchCombination.forEach((term) => {
                   function modifyTerm(text) {
                     return text.replace(/[^a-zA-Z0-9 ]/g, ' ');
                   }
+
                   const modifiedTerm = modifyTerm(term).trim();
                   const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
+
                   if (
-                    value.toLowerCase()
+                    typeof value === 'string'
                     && value.toLowerCase().includes(modifiedTerm.trim().toLowerCase())
                   ) {
-                    highlightedValue = highlightedValue.replace(regex, (match) => `<b>${match}</b>`).trim();
+                    highlightedValue = highlightedValue
+                      .replace(regex, (match) => `<b>${match}</b>`)
+                      .trim();
                     foundMatch = true;
                   }
                 });
