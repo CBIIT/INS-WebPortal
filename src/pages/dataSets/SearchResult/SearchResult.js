@@ -521,7 +521,7 @@ const SearchResult = ({
             const additionalMatches = [];
 
             const hideContent = [
-              { 'Study Page': rst.content.dataset_source_url },
+              { 'study page': rst.content.dataset_source_url },
               { 'PI name': rst.content.PI_name },
               { 'dataset pmid': rst.content.dataset_pmid },
               { 'funding source': rst.content.funding_source },
