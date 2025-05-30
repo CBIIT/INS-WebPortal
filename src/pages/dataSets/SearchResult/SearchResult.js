@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import {
   useLocation,
@@ -624,7 +625,6 @@ const SearchResult = ({
                     </div>
                   )
                 }
-
                 {
                   additionalMatches.length > 0 && additionalMatches.map((match, index) => (
                     <div className="row align-items-start bodyRow" key={index}>
