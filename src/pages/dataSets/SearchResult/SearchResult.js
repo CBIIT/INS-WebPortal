@@ -469,7 +469,7 @@ const SearchResult = ({
   };
 
   function removeHTMLTags(str) {
-    return str.replace(/<\/?[^>]+(>|$)/g, '');
+    return str.replace(/<\/?[a-z][\s\S]*?>/gi, '');
   }
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -495,7 +495,7 @@ const SearchResult = ({
             let highlightedPrimaryDisease = rst.content.primary_disease;
             let highlightedDatasetSourceRepo = rst.content.dataset_source_repo;
 
-            let hightLightedDesc = description.replace(/<(?![b/])/g, '&lt;');
+            let highlightedDesc = description.replace(/<(?![b/])/g, '&lt;');
             let hasMatchInDesc = false;
             searchCombination.forEach((term) => {
               function modifyTerm(text) {
@@ -503,7 +503,7 @@ const SearchResult = ({
               }
               const modifiedTerm = modifyTerm(term).trim();
               const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
-              hasMatchInDesc = hasMatchInDesc || regex.test(hightLightedDesc);
+              hasMatchInDesc = hasMatchInDesc || regex.test(highlightedDesc);
 
               if (highlightedPrimaryDisease) {
                 highlightedPrimaryDisease = highlightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
@@ -512,11 +512,11 @@ const SearchResult = ({
                 highlightedDatasetSourceRepo = highlightedDatasetSourceRepo.replace(regex, (match) => `<b>${match}</b>`).trim();
               }
 
-              hightLightedDesc = hightLightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
+              highlightedDesc = highlightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
             });
 
-            if (hightLightedDesc.length > 500 && !hasMatchInDesc) {
-              hightLightedDesc = `${hightLightedDesc.substring(0, 500)} ...`;
+            if (highlightedDesc.length > 500 && !hasMatchInDesc) {
+              highlightedDesc = `${highlightedDesc.substring(0, 500)}...`;
             }
 
             const additionalMatches = [];
@@ -626,7 +626,7 @@ const SearchResult = ({
                       <div className="col labelDiv">
                         <span>Description:&nbsp;&nbsp;&nbsp;</span>
                         <span className="textSpan">
-                          {ReactHtmlParser(hightLightedDesc)}
+                          {ReactHtmlParser(highlightedDesc)}
                         </span>
                       </div>
                     </div>
