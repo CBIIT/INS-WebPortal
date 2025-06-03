@@ -469,7 +469,7 @@ const SearchResult = ({
   };
 
   function removeHTMLTags(str) {
-    return str.replace(/<\/?[^>]+(>|$)/g, '');
+    return str.replace(/<\/?[a-z][\s\S]*?>/gi, '');
   }
   useEffect(() => {
     window.scrollTo(0, 0);
