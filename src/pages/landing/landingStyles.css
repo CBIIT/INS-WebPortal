@@ -8,6 +8,12 @@
   right: 0;
 }
 
+@media (max-width: 480px) {
+  .heroImageContainer {
+    display: none;
+  }
+}
+
 .NCICommunityBubbleContainer {
   position: absolute;
   width: 10px;

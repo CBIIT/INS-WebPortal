@@ -10,7 +10,7 @@ const customTheme = {
       color: '#6E6E6E',
       height: '45px',
       overflow: 'hidden',
-      background: '#EAEAEA',
+      background: '#f0f0f0',
       borderTop: '1px solid black',
       borderLeft: '1px solid black',
       borderRight: '1px solid black',
@@ -29,16 +29,16 @@ const customTheme = {
           color: '#10a075',
         },
         '&.projects': {
-          background: '#d3f0f2',
-          color: '#0fa8b1',
+          background: '#D6F2EA',
+          color: '#09767B',
         },
         '&.grants': {
-          background: '#cfedf9',
-          color: '#0dafec',
+          background: '#CFEDF9',
+          color: '#087096',
         },
         '&.publications': {
-          background: '#f7d7f7',
-          color: '#c92ec7',
+          background: '#F7E1F1',
+          color: '#8E006B',
         },
         '&.MuiTypography-body1': {
           color: 'red',

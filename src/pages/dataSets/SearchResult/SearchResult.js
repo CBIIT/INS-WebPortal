@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import {
   useLocation,
@@ -5,10 +6,9 @@ import {
   Link,
 } from 'react-router-dom';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { Popover } from 'bootstrap';
 import ReactHtmlParser from 'html-react-parser';
-import externalIcon from '../../../assets/img/resource.svg';
+import databaseIcon from '../../../assets/icons/database.svg';
 import dataResourceIcon from '../../../assets/img/DataResource.png';
 import {
   externalLinkIcon,
@@ -119,7 +119,12 @@ const SearchResultContainer = styled.div`
   }
 
   .subHeaderRow .col-sm {
-    padding: 0 5px;
+    padding: 0;
+  }
+
+  .subHeaderRow .col-sm .img0 {
+    vertical-align: middle;
+    margin-right: 5px;
   }
 
   .subHeaderRow .col-sm .img1 {
@@ -314,6 +319,14 @@ const SearchResultContainer = styled.div`
     word-break: break-word;
   }
 
+  .dataRepo {
+    color: #004187;
+    font-size: 16px;
+    margin-right: 20px;
+    margin-left: 0;
+    font-weight: bold;
+  }
+
 `;
 
 const TableHead = styled.thead`
@@ -368,6 +381,9 @@ const replaceQueryStr = (query, sorting) => {
   if (query.get('filterByResource')) {
     str += `&filterByResource=${query.get('filterByResource')}`;
   }
+  if (query.get('filterByRepo')) {
+    str += `&filterByRepo=${query.get('filterByRepo')}`;
+  }
   if (query.get('page')) {
     str += `&page=${query.get('page')}`;
   }
@@ -405,10 +421,23 @@ const SearchResult = ({
   const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
   const searchTerms = sanatizeSearchTerms.split(' ').filter((item) => item !== '');
   let searchCombination = getCombinations(searchTerms);
-  if (search.filters && search.filters.primary_disease
-    && Array.isArray(search.filters.primary_disease)
-    && search.filters.primary_disease.length > 0) {
-    searchCombination = search.filters.primary_disease.concat(searchCombination);
+
+  if (search.filters) {
+    if (
+      search.filters.primary_disease
+      && Array.isArray(search.filters.primary_disease)
+      && search.filters.primary_disease.length > 0
+    ) {
+      searchCombination = search.filters.primary_disease.concat(searchCombination);
+    }
+
+    if (
+      search.filters.dataset_source_repo
+      && Array.isArray(search.filters.dataset_source_repo)
+      && search.filters.dataset_source_repo.length > 0
+    ) {
+      searchCombination = search.filters.dataset_source_repo.concat(searchCombination);
+    }
   }
 
   searchCombination.sort((a, b) => b.length - a.length);
@@ -440,7 +469,7 @@ const SearchResult = ({
   };
 
   function removeHTMLTags(str) {
-    return str.replace(/<\/?[^>]+(>|$)/g, '');
+    return str.replace(/<\/?[a-z][\s\S]*?>/gi, '');
   }
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -463,8 +492,10 @@ const SearchResult = ({
               description = '';
             }
 
-            let hightLightedPrimaryDisease = rst.content.primary_disease;
-            let hightLightedDesc = description.replace(/<(?![b/])/g, '&lt;');
+            let highlightedPrimaryDisease = rst.content.primary_disease;
+            let highlightedDatasetSourceRepo = rst.content.dataset_source_repo;
+
+            let highlightedDesc = description.replace(/<(?![b/])/g, '&lt;');
             let hasMatchInDesc = false;
             searchCombination.forEach((term) => {
               function modifyTerm(text) {
@@ -472,22 +503,27 @@ const SearchResult = ({
               }
               const modifiedTerm = modifyTerm(term).trim();
               const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
-              hasMatchInDesc = hasMatchInDesc || regex.test(hightLightedDesc);
+              hasMatchInDesc = hasMatchInDesc || regex.test(highlightedDesc);
 
-              hightLightedPrimaryDisease = hightLightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
-              hightLightedDesc = hightLightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
+              if (highlightedPrimaryDisease) {
+                highlightedPrimaryDisease = highlightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
+              }
+              if (highlightedDatasetSourceRepo) {
+                highlightedDatasetSourceRepo = highlightedDatasetSourceRepo.replace(regex, (match) => `<b>${match}</b>`).trim();
+              }
+
+              highlightedDesc = highlightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
             });
 
-            if (hightLightedDesc.length > 500 && !hasMatchInDesc) {
-              hightLightedDesc = `${hightLightedDesc.substring(0, 500)} ...`;
+            if (highlightedDesc.length > 500 && !hasMatchInDesc) {
+              highlightedDesc = `${highlightedDesc.substring(0, 500)}...`;
             }
 
             const additionalMatches = [];
 
             const hideContent = [
-              { 'dbGaP URL': rst.content.dbGaP_URL },
+              { 'study page': rst.content.dataset_source_url },
               { 'PI name': rst.content.PI_name },
-              { GPA: rst.content.GPA },
               { 'dataset pmid': rst.content.dataset_pmid },
               { 'funding source': rst.content.funding_source },
               { 'related diseases': rst.content.related_diseases },
@@ -499,23 +535,30 @@ const SearchResult = ({
               { 'limitations for reuse': rst.content.limitations_for_reuse },
               { 'NCI Division/Office/Center': rst.content.dataset_doc },
             ];
-            // Iterate through hideContent and check for matches
+            const excludedValues = search && search.filters && Array.isArray(search.filters.dataset_source_repo)
+              ? search.filters.dataset_source_repo
+              : [];
+            const filteredSearchCombination = searchCombination.filter((term) => !excludedValues.includes(term));
             hideContent.forEach((item) => {
               Object.entries(item).forEach(([key, value]) => {
                 let highlightedValue = value;
                 let foundMatch = false;
 
-                searchCombination.forEach((term) => {
+                filteredSearchCombination.forEach((term) => {
                   function modifyTerm(text) {
                     return text.replace(/[^a-zA-Z0-9 ]/g, ' ');
                   }
+
                   const modifiedTerm = modifyTerm(term).trim();
                   const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
+
                   if (
-                    value.toLowerCase()
+                    typeof value === 'string'
                     && value.toLowerCase().includes(modifiedTerm.trim().toLowerCase())
                   ) {
-                    highlightedValue = highlightedValue.replace(regex, (match) => `<b>${match}</b>`).trim();
+                    highlightedValue = highlightedValue
+                      .replace(regex, (match) => `<b>${match}</b>`)
+                      .trim();
                     foundMatch = true;
                   }
                 });
@@ -529,17 +572,21 @@ const SearchResult = ({
               <div key={keyName} className="container">
                 <div className="row align-items-start headerRow">
                   <div className="col-sm resultTitle">
-                    <Link to={`/dataset/${rst.content.dbGaP_phs}`}>
+                    <Link to={`/dataset/${rst.content.dataset_source_id}`}>
                       {rst.content.dataset_title}
                     </Link>
                   </div>
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
+                    <span className="dataRepo">
+                      <img src={databaseIcon} alt="database-icon" className="img0" />
+                      {ReactHtmlParser(highlightedDatasetSourceRepo)}
+                    </span>
                     <img src={dataResourceIcon} alt="data-resource" className="img1" />
-                    {rst.content.dbGaP_URL ? (
-                      <a href={rst.content.dbGaP_URL} target="_blank" rel="noopener noreferrer" className="link">
-                        {rst.content.dbGaP_phs}
+                    {rst.content.dataset_source_url ? (
+                      <a href={rst.content.dataset_source_url} target="_blank" rel="noopener noreferrer" className="link">
+                        {rst.content.dataset_source_id}
                         <img
                           src={externalLinkIcon.src}
                           alt={externalLinkIcon.alt}
@@ -548,7 +595,7 @@ const SearchResult = ({
                       </a>
                     ) : (
                       <span className="link">
-                        {rst.content.dbGaP_phs}
+                        {rst.content.dataset_source_id}
                       </span>
                     )}
                   </div>
@@ -558,17 +605,7 @@ const SearchResult = ({
                     <div className="col labelDiv">
                       <span>Primary Disease:&nbsp;&nbsp;&nbsp;</span>
                       <span className="itemSpan">
-                        {ReactHtmlParser(hightLightedPrimaryDisease)}
-                      </span>
-                    </div>
-                  </div>
-                }
-                {
-                  <div className="row align-items-start bodyRow">
-                    <div className="col labelDiv">
-                      <span>Participant Count:&nbsp;&nbsp;&nbsp;</span>
-                      <span className="textSpan caseCountHighlight">
-                        {rst.content.participant_count}
+                        {ReactHtmlParser(highlightedPrimaryDisease)}
                       </span>
                     </div>
                   </div>
@@ -589,13 +626,12 @@ const SearchResult = ({
                       <div className="col labelDiv">
                         <span>Description:&nbsp;&nbsp;&nbsp;</span>
                         <span className="textSpan">
-                          {ReactHtmlParser(hightLightedDesc)}
+                          {ReactHtmlParser(highlightedDesc)}
                         </span>
                       </div>
                     </div>
                   )
                 }
-
                 {
                   additionalMatches.length > 0 && additionalMatches.map((match, index) => (
                     <div className="row align-items-start bodyRow" key={index}>

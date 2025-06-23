@@ -23,6 +23,9 @@ const replaceQueryStr = (query, searchText) => {
   if (query.get('filterByResource')) {
     str += `&filterByResource=${query.get('filterByResource')}`;
   }
+  if (query.get('filterByRepo')) {
+    str += `&filterByRepo=${query.get('filterByRepo')}`;
+  }
   str += '&page=1';
   if (query.get('pageSize')) {
     str += `&pageSize=${query.get('pageSize')}`;
@@ -36,13 +39,14 @@ const replaceQueryStr = (query, searchText) => {
   return str.substring(1);
 };
 
-const replaceResourceFilter = (query, filter) => {
+const replaceResourceFilter = (query, filter, filterKey) => {
   let str = '';
   if (query.get('search_text')) {
     str += `&search_text=${query.get('search_text')}`;
   }
+
   if (filter !== '') {
-    const tmp = query.get('filterByResource') ? query.get('filterByResource').split('|') : [];
+    const tmp = query.get(filterKey) ? query.get(filterKey).split('|') : [];
     const idx = tmp.indexOf(filter);
     if (idx > -1) {
       tmp.splice(idx, 1);
@@ -50,10 +54,15 @@ const replaceResourceFilter = (query, filter) => {
       tmp.push(filter);
     }
     if (tmp.length > 0) {
-      str += `&filterByResource=${tmp.join('|')}`;
+      str += `&${filterKey}=${tmp.join('|')}`;
     }
   }
-  str += '&page=1';
+
+  const otherFilterKey = filterKey === 'filterByResource' ? 'filterByRepo' : 'filterByResource';
+  if (query.get(otherFilterKey)) {
+    str += `&${otherFilterKey}=${query.get(otherFilterKey)}`;
+  }
+
   if (query.get('pageSize')) {
     str += `&pageSize=${query.get('pageSize')}`;
   }
@@ -63,6 +72,9 @@ const replaceResourceFilter = (query, filter) => {
   if (query.get('sortOrder')) {
     str += `&sortOrder=${query.get('sortOrder')}`;
   }
+
+  str += '&page=1';
+
   return str.substring(1);
 };
 
@@ -91,6 +103,9 @@ const SearchCatalogPage = ({
     if (query.get('filterByResource')) {
       options.filterByResource = query.get('filterByResource').trim().split('|');
     }
+    if (query.get('filterByRepo')) {
+      options.filterByRepo = query.get('filterByRepo').trim().split('|');
+    }
     if (query.get('pageSize')) {
       options.pageSize = parseInt(query.get('pageSize').trim(), 10);
     }
@@ -113,8 +128,14 @@ const SearchCatalogPage = ({
     onBubbleSearchTextRemoveClick();
   };
 
-  const handleBubbleResourcesRemoveClick = (filter) => {
-    const queryStr = replaceResourceFilter(query, filter);
+  const handleBubbleDataRepositoryRemoveClick = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter, 'filterByRepo');
+    history.push(`/datasets?${queryStr}`);
+    onBubbleResourcesRemoveClick();
+  };
+
+  const handleBubblePrimaryDiseaseRemoveClick = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter, 'filterByResource');
     history.push(`/datasets?${queryStr}`);
     onBubbleResourcesRemoveClick();
   };
@@ -141,7 +162,7 @@ const SearchCatalogPage = ({
         <div className="searchBarArea">
           <div className="searchBarLabel">
             <span>
-              Explore Datasets
+              Explore Datasets & Cohorts
             </span>
           </div>
           <div className="searchBoxContainer">
@@ -150,7 +171,8 @@ const SearchCatalogPage = ({
               searchKeyword={searchKeyword}
               resourceFilters={resourceFilters}
               handleBubbleSearchTextRemoveClick={handleBubbleSearchTextRemoveClick}
-              handleBubbleResourcesRemoveClick={handleBubbleResourcesRemoveClick}
+              handleBubbleDataRepositoryRemoveClick={handleBubbleDataRepositoryRemoveClick}
+              handleBubblePrimaryDiseaseRemoveClick={handleBubblePrimaryDiseaseRemoveClick}
               onSearchBoxKeyPress={handleSearchBoxKeyPress}
               onSearchSubmit={handleSearchSubmit}
               onSearchTextInputChange={handleSearchTextInputChange}

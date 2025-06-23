@@ -61,9 +61,9 @@ export const tabIndex = [
   },
   {
     title: 'Grants',
-    primaryColor: '#F7D7F7',
+    primaryColor: '#F7E1F1',
     secondaryColor: '#86D6F0',
-    selectedColor: '#C92EC7',
+    selectedColor: '#8E006B',
   },
   {
     title: 'Publications',

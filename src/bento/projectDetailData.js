@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import projectIcon from '../assets/icons/Cases.Icon.svg';
+import projectIcon from '../assets/icons/Projects.svg';
 
 // --------------- Page title configuration --------------
 const pageTitle = {
@@ -14,7 +14,7 @@ const pageSubTitle = {
 // --------------- Icons configuration --------------
 const projectDetailIcon = {
   src: projectIcon,
-  alt: 'INS project logo',
+  alt: 'INS projects logo',
 };
 
 const externalLinkIcon = {
@@ -23,7 +23,7 @@ const externalLinkIcon = {
 };
 
 // --------------- Data panel configuration --------------
-const leftPanel = [
+const topPanel = [
   {
     sectionHeader: 'Project Information',
     properties: [
@@ -50,6 +50,9 @@ const leftPanel = [
       },
     ],
   },
+];
+
+const bottomPanel = [
   {
     sectionHeader: 'Project Summary',
     properties: [
@@ -93,7 +96,8 @@ export {
   pageTitle,
   pageSubTitle,
   projectDetailIcon,
-  leftPanel,
+  topPanel,
+  bottomPanel,
   externalLinkIcon,
   GET_PROJECT_DETAIL_DATA_QUERY,
   PROJECT_STATS_QUERY,

@@ -1,52 +1,54 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import flowChart from '../../assets/about/INS_about_page_data_infographic.png';
+import Accordion from './Accordion';
+import flowChart from '../../assets/about/About_Infographic.svg';
 import './aboutBody.css';
 
 const AboutBody = () => (
-  <>
-    <div className="aboutPageContainer">
-      <div className="aboutPageHeader">
-        About the Index of NCI Studies (INS)
-      </div>
-      <div className="aboutPageSection">
+  <div className="aboutPageContainer">
+    <div className="aboutPageHeader">
+      About the Index of NCI Studies (INS)
+    </div>
+    <div className="aboutPageSection">
+      <Grid item xs={12}>
+        <div className="keyTakeawaysSection">
+          <h3 className="keyTakeawaysSectionHeader">
+            Key Takeaways
+          </h3>
+          <ul>
+            <li>
+              The National Cancer Institute (NCI) Index of NCI Studies (INS) compiles and shares information about research outputs produced by NCI-supported programs.
+            </li>
+            <li>
+              The INS is continuing to evolve and is not yet comprehensive. Additional programs and output types will be added periodically.
+            </li>
+            <li>
+              The INS incorporates information from
+              {' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://reporter.nih.gov">NIH RePORTER</a>
+              ,
+              {' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://icite.od.nih.gov">NIH iCite</a>
+              {' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://pubmed.ncbi.nlm.nih.gov">NCBI PubMed</a>
+              {' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">NCBI dbGaP</a>
+              {' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/geo/">NCBI GEO</a>
+              , and
+              {' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://cedcd.nci.nih.gov/">NCI CEDCD</a>
+              {' '}
+              with curated inputs.
+            </li>
+          </ul>
+        </div>
+      </Grid>
+      <Grid container className="aboutPageSectionTop">
         <Grid item xs={12}>
-          <div className="keyTakeawaysSection">
-            <h3 className="keyTakeawaysSectionHeader">
-              Key Takeaways
-            </h3>
-            <ul>
-              <li>
-                The National Cancer Institute (NCI) Index of NCI Studies (INS) compiles and shares information about research outputs produced by NCI-supported programs.
-              </li>
-              <li>
-                The INS is continuing to evolve and is not yet comprehensive. Additional programs and output types will be added periodically.
-              </li>
-              <li>
-                The INS incorporates information from
-                {' '}
-                <a target="_blank" rel="noopener noreferrer" href="https://reporter.nih.gov">NIH RePORTER</a>
-                ,
-                {' '}
-                <a target="_blank" rel="noopener noreferrer" href="https://icite.od.nih.gov">NIH iCite</a>
-                {' '}
-                <a target="_blank" rel="noopener noreferrer" href="https://pubmed.ncbi.nlm.nih.gov">NCBI PubMed</a>
-                , and
-                {' '}
-                <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">NCBI dbGaP</a>
-                {' '}
-                along with curated inputs.
-              </li>
-            </ul>
-          </div>
-        </Grid>
-        <Grid container className="aboutPageSectionTop">
-          <Grid item xs={12}>
+          <Accordion title="OBJECTIVES AND SCOPE">
             <div className="aboutPageDisclaimerContent">
-              <h2 className="disclaimerHeader">
-                INS OBJECTIVES AND SCOPE
-              </h2>
               <p>
                 The National Cancer Institute (NCI) is pleased to release the next phase of the Index of NCI Studies (INS) to tackle the challenge of assembling NCI program information from publicly available resources. Building connections between NCI programs, projects, grants, and research outputs is a complex task typically addressed through manual curation by portfolio analysis experts. Due to the challenging nature of curating this information, the INS is not comprehensive - additional information will be added in an iterative fashion. For detailed documentation about the information within INS, please see our open-source
                 {' '}
@@ -90,12 +92,15 @@ const AboutBody = () => (
                   NCI-supported projects represent a focused scientific study or effort. Projects are groupings of grants, which represent yearly support and supplements. The INS primarily consists of
                   {' '}
                   <a target="_blank" rel="noopener noreferrer" href="https://www.cancer.gov/research/nci-role/extramural">
-                    extramural grants
+                    extramural projects
                   </a>
-                  , but also includes some projects supported by contracts.
+                  , but also includes some
                   {' '}
+                  <a target="_blank" rel="noopener noreferrer" href="https://www.cancer.gov/research/nci-role/intramural">
+                    intramural projects
+                  </a>
                   {' '}
-                  <b>The INS does not currently include intramural awards.</b>
+                  and a small number of projects supported by contracts.
                   {' '}
                   Only grants and projects that received NCI funding during or after year 2000 are included in the INS. The curation of grants and projects is automated using resources from the
                   {' '}
@@ -138,10 +143,20 @@ const AboutBody = () => (
                 <li>
                   <b>Datasets:</b>
                   {' '}
-                  The INS incorporates information and links to datasets generated from NCI-supported research. Initially, this includes references to NCI supported studies registered with the
+                  The INS incorporates information and links to datasets and cohort studies generated from NCI-supported research. Initially, this includes references to NCI supported studies registered with
                   {' '}
                   <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">
-                    NCBI dbGaP
+                    NCBI Database of Phenotypes and Genotypes (dbGaP)
+                  </a>
+                  ,
+                  {' '}
+                  <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/geo/">
+                    NCBI Gene Expression Omnibus (GEO)
+                  </a>
+                  , and
+                  {' '}
+                  <a target="_blank" rel="noopener noreferrer" href="https://cedcd.nci.nih.gov/">
+                    NCI Cancer Epidemiology Descriptive Cohort Database (CEDCD)
                   </a>
                   ,
                   {' '}
@@ -150,52 +165,51 @@ const AboutBody = () => (
                   {' '}
                   <b>the INS will expand to other repositories and data resources in the future.</b>
                   {' '}
-                  Dataset information is retrieved from NCBI dbGaP using a combination of public dbGaP resources and then reviewed and curated before including within the INS.
+                  Dataset information is retrieved from source repositories using a combination of automated techniques and curation before it is reviewed and included within the INS.
                 </li>
               </ul>
             </div>
-          </Grid>
+          </Accordion>
         </Grid>
-        <Grid container className="aboutPageSectionMiddle">
-          <Grid item xs={12}>
-            <img width="1200px" src={flowChart} alt="flow_chart" id="flow-chart" />
-          </Grid>
+      </Grid>
+      <Grid container className="aboutPageSectionMiddle">
+        <Grid item xs={12}>
+          <img className="flowChartSection" src={flowChart} alt="flow_chart" id="flow-chart" />
+          <img className="flowChartSectionMobile" src={flowChart} alt="flow_chart" id="flow-chart-mobile" />
         </Grid>
-        <Grid container className="aboutPageSectionBottom">
-          <Grid item xs={9}>
+      </Grid>
+      <Grid container className="aboutPageSectionBottom">
+        <Grid item xs={12}>
+          <Accordion title="SITE FUNCTIONALITY">
             <div className="aboutPageSectionContent">
-              <h2 className="aboutContentHeader">
-                SITE FUNCTIONALITY
-              </h2>
               <h3 className="aboutContentSubHeader">
-                Home Page
+                Home
               </h3>
               <p className="p-l-20">
-                Provides an overview of the site, a snapshot of the number of programs, projects, grants, and publications along with links to other site pages.
+                Provides an overview of the site, a snapshot of the number of programs, projects, grants, publications, and datasets along with links to other site pages.
               </p>
               <h3 className="aboutContentSubHeader">
-                Programs Page
+                Programs
               </h3>
               <p className="p-l-20">
                 Provides access to all Program-derived information within INS. Tabs for Programs, Projects, Grants, and Publications each show summary information and provide links to other resources where appropriate. Filters applied on the left will change the information displayed in all tabs and plots accordingly. Select a Program or Project link in the table to view additional information.
               </p>
               <h3 className="aboutContentSubHeader">
-                Datasets Page
+                Datasets & Cohorts
               </h3>
               <p className="p-l-20">
-                Provides access to all Dataset information captured within INS. The list of displayed Datasets can be narrowed using the keyword search box or the left-hand filters. Select a Dataset title to see additional information.
+                Provides access to all information on Datasets and Cohorts captured within INS. The list of displayed Datasets can be narrowed using the keyword search box or the left-hand filters. Select a Dataset title to see additional information.
               </p>
               <h3 className="aboutContentSubHeader">
-                About Page
+                About
               </h3>
               <p className="p-l-20">
                 Describes the objectives and scope of the INS, its data gathering process, and the site’s functionality.
               </p>
             </div>
+          </Accordion>
+          <Accordion title="Contact Us">
             <div className="aboutPageSectionContent">
-              <h2 className="aboutContentHeader">
-                Contact INS
-              </h2>
               <p>
                 Thank you for visiting! For questions or feedback, please contact
                 {' '}
@@ -204,11 +218,11 @@ const AboutBody = () => (
                 </a>
               </p>
             </div>
-          </Grid>
+          </Accordion>
         </Grid>
-      </div>
+      </Grid>
     </div>
-  </>
+  </div>
 );
 
 export default AboutBody;

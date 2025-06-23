@@ -11,12 +11,6 @@ const pageSubTitle = {
   dataField: 'program_name',
 };
 
-// --------------- Icons configuration --------------
-const programDetailIcon = {
-  src: programIcon,
-  alt: 'INS program logo',
-};
-
 const externalLinkIcon = {
   src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/externalLinkIcon.svg',
   alt: 'External link icon',
@@ -24,12 +18,12 @@ const externalLinkIcon = {
 
 // --------------- GraphQL query - Retrieve program details --------------
 const getDataSetDetailDataQuery = gql`
-query datasetDetails($dbGaP_phs: String) {
-    datasetDetails(dbGaP_phs: $dbGaP_phs) {
+query datasetDetails($dataset_source_id: String) {
+    datasetDetails(dataset_source_id: $dataset_source_id) {
         dataset_title
         description
-        dbGaP_phs
-        dbGaP_URL
+        dataset_source_id
+        dataset_source_url
         dataset_doc
         release_date
         PI_name
@@ -45,13 +39,17 @@ query datasetDetails($dbGaP_phs: String) {
         related_diseases
         related_terms
         study_links
+        dataset_source_repo
+        dataset_minimum_age_at_baseline
+        dataset_maximum_age_at_baseline
+        dataset_year_enrollment_started
+        dataset_year_enrollment_ended
     }
 }`;
 
 export {
   pageTitle,
   pageSubTitle,
-  programDetailIcon,
   externalLinkIcon,
   getDataSetDetailDataQuery,
 };

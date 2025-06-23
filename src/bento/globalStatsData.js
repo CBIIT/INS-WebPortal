@@ -11,7 +11,7 @@ export const statsStyling = {
     position: 'relative',
   },
   statTitle: {
-    color: '#D0D0D0',
+    color: '#F0F0F0',
   },
   statCount: {
     color: '#FFFFFF',

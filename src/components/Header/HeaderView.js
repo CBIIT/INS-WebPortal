@@ -4,6 +4,7 @@ import { Header } from '@bento-core/header';
 import { withRouter } from 'react-router-dom';
 import { SearchBarGenerator } from '@bento-core/global-search';
 import { accessLevelTypes } from '@bento-core/authentication';
+import USABanner from './USABanner';
 import headerData from '../../bento/globalHeaderData';
 import {
   queryAutocompleteAPI,
@@ -44,13 +45,16 @@ const INSHeader = (props) => {
   const { SearchBar } = SearchBarGenerator(SearchBarConfig);
 
   return (
-    <Header
-      logo={headerData.globalHeaderLogo}
-      alt={headerData.globalHeaderLogoAltText}
-      homeLink={headerData.globalHeaderLogoLink}
-      customStyle={styles}
-      SearchComponent={!location.pathname.match('/globalsearch') ? SearchBar : undefined}
-    />
+    <>
+      <USABanner />
+      <Header
+        logo={headerData.globalHeaderLogo}
+        alt={headerData.globalHeaderLogoAltText}
+        homeLink={headerData.globalHeaderLogoLink}
+        customStyle={styles}
+        SearchComponent={!location.pathname.match('/globalsearch') ? SearchBar : undefined}
+      />
+    </>
   );
 };
 
