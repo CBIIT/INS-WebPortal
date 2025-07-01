@@ -5,7 +5,7 @@ export default {
   footerLogoText: 'National Cancer Institute',
   footerLogoSubText: 'at the National Institutes of Health',
   footerLogoHyperlink: 'https://cancer.gov/',
-  footerStaticText: 'NIH … Turning Discovery Into Health®',
+  footerStaticText: 'NIH…Turning Discovery Into Health®',
   FEversion: env.REACT_APP_FE_VERSION,
   BEversion: env.REACT_APP_BE_VERSION,
   DATAversion: env.REACT_APP_DATA_VERSION,
