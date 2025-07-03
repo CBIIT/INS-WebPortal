@@ -84,11 +84,6 @@ const Filters = ({
     }
   }, []);
 
-  const handleResourceClick = (filter) => {
-    const queryStr = replaceResourceFilter(query, filter);
-    history.push(`/datasets?${queryStr}`);
-  };
-
   const handleResourceClickDataRepository = (filter) => {
     const queryStr = replaceResourceFilter(query, filter, 'filterByRepo');
     history.push(`/datasets?${queryStr}`);
