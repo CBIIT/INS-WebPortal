@@ -2,6 +2,8 @@ import * as types from './actionTypes';
 import * as searchApi from '../../api/searchApi';
 import * as participatingResourcesApi from '../../api/participatingResourcesApi';
 
+import { getSearchFilters } from '../../api/searchFiltersApi';
+
 export function loadSearchFiltersSuccess(resourcesList) {
   return { type: types.LOAD_RESOURCES_LIST_SUCCESS, resourcesList };
 }
@@ -88,8 +90,17 @@ export function loadFromUrlQuery(searchText, filters) {
     searchCriteria.sort.k = 'dataset_title.sort';
     searchCriteria.sort.v = filters.sortOrder || 'asc';
 
-    return searchApi.searchCatalog(searchCriteria)
-      .then((searchResults) => {
+    // Call both searchCatalog and getSearchFilters in parallel
+    // For filters endpoint, include only search_text and filters in the body
+    const filtersBody = {
+      search_text: searchCriteria.search_text,
+      filters: searchCriteria.filters,
+    };
+    return Promise.all([
+      searchApi.searchCatalog(searchCriteria),
+      getSearchFilters(filtersBody),
+    ])
+      .then(([searchResults, filtersResults]) => {
         dispatch(loadSearchResultsSuccess(searchResults.data));
         dispatch(runFullTextSearch(searchText));
         dispatch(applyResourcesFilter(searchCriteria.filters));
@@ -100,6 +111,10 @@ export function loadFromUrlQuery(searchText, filters) {
           k: searchResults.data.sort.k,
         }));
         dispatch(switchSortingOrder(searchResults.data.sort.v));
+        // Optionally update filters in state if needed
+        if (filtersResults && filtersResults.data) {
+          dispatch(loadSearchFiltersSuccess(filtersResults.data));
+        }
       })
       .catch((error) => {
         throw error;
