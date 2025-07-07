@@ -91,9 +91,14 @@ export function loadFromUrlQuery(searchText, filters) {
     searchCriteria.sort.v = filters.sortOrder || 'asc';
 
     // Call both searchCatalog and getSearchFilters in parallel
+    // For filters endpoint, include only search_text and filters in the body
+    const filtersBody = {
+      search_text: searchCriteria.search_text,
+      filters: searchCriteria.filters,
+    };
     return Promise.all([
       searchApi.searchCatalog(searchCriteria),
-      getSearchFilters(searchCriteria),
+      getSearchFilters(filtersBody),
     ])
       .then(([searchResults, filtersResults]) => {
         dispatch(loadSearchResultsSuccess(searchResults.data));
