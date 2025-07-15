@@ -19,36 +19,20 @@ export default {
       title: 'About',
       items: [
         {
-          text: 'About CCDI Hub',
-          link: '/about',
+          text: 'About INS',
+          link: '#/about',
         },
         {
           text: 'About CCDI',
           link: 'https://www.cancer.gov/research/areas/childhood/childhood-cancer-data-initiative',
         },
         {
-          text: 'Contact CCDI Hub',
-          link: 'mailto:NCIChildhoodCancerDataInitiative@mail.nih.gov',
-        },
-      ],
-    }, {
-      title: 'Resources',
-      items: [
-        {
           text: 'Contact Us',
           link: 'https://www.cancer.gov/contact',
         },
         {
-          text: 'Publications',
-          link: 'https://www.cancer.gov/publications',
-        },
-        {
-          text: 'Dictionary of Cancer Terms',
-          link: 'https://www.cancer.gov/publications/dictionaries/cancer-terms',
-        },
-        {
-          text: 'Find a Clinical Trial',
-          link: 'https://www.cancer.gov/policies/disclaimer',
+          text: 'Release Notes',
+          link: '/Release_v3.1.0.pdf',
         },
       ],
     },
