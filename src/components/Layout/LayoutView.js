@@ -3,7 +3,7 @@ import { withStyles, CssBaseline } from '@material-ui/core';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { AuthenticationMiddlewareGenerator } from '@bento-core/authentication';
 import aboutPageRoutes from '../../bento/aboutPagesRoutes';
-import Header from '../Header/HeaderView';
+import Header from '../Header/index.tsx';
 import NavBar from '../NavBar/NavBarContainer';
 import Footer from '../Footer/index.tsx';
 import Error from '../../pages/error/Error';
