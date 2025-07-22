@@ -7,7 +7,7 @@ import usaFlagSmall from '../assets/header/us_flag_small.svg';
 // globalHeaderImage: image 2200x100
 export const headerData = {
   globalHeaderLogo: Logo,
-  globalHeaderLogoSmall: LogoSmall,
+  globalHeaderLogoSmall: Logo,
   globalHeaderLogoLink: '#/home',
   globalHeaderLogoAltText: 'INS Logo',
   globalHeaderSearchIcon: searchbarIcon,
