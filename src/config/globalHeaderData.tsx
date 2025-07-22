@@ -1,4 +1,4 @@
-import Logo from '../assets/header/Portal_Logo.svg';
+import Logo from '../assets/header/NCI_INS_Logo.svg';
 import LogoSmall from '../assets/header/Portal_Logo_Small.svg';
 import searchbarIcon from '../assets/header/Search_Icon.svg';
 import usaFlagSmall from '../assets/header/us_flag_small.svg';
@@ -8,8 +8,8 @@ import usaFlagSmall from '../assets/header/us_flag_small.svg';
 export const headerData = {
   globalHeaderLogo: Logo,
   globalHeaderLogoSmall: LogoSmall,
-  globalHeaderLogoLink: '/',
-  globalHeaderLogoAltText: 'Portal Logo',
+  globalHeaderLogoLink: '#/home',
+  globalHeaderLogoAltText: 'INS Logo',
   globalHeaderSearchIcon: searchbarIcon,
   globalHeaderSearchIconAltText: 'search Icon',
   usaFlagSmall,
