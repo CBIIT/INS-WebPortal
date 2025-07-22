@@ -360,12 +360,36 @@ const NavBar = () => {
             {
               clickedTitle !== "" ? navbarSublists[clickedTitle].map((dropItem, idx) => {
                 const dropkey = `drop_${idx}`;
+                const isPdf = dropItem.link && dropItem.link.endsWith('.pdf');
+                const isExternal = dropItem.link && (dropItem.link.startsWith('http') || isPdf);
+
                 return (
                   dropItem.link && (
-                    <Link id={dropItem.id} to={dropItem.link} className="dropdownItem" key={dropkey} onClick={() => setClickedTitle("")}>
-                      {dropItem.name}
-                      <div className="dropdownItemText">{dropItem.text}</div>
-                    </Link>
+                    isExternal ? (
+                      <a
+                        id={dropItem.id}
+                        href={dropItem.link}
+                        className="dropdownItem"
+                        key={dropkey}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setClickedTitle("")}
+                      >
+                        {dropItem.name}
+                        <div className="dropdownItemText">{dropItem.text}</div>
+                      </a>
+                    ) : (
+                      <Link
+                        id={dropItem.id}
+                        to={dropItem.link}
+                        className="dropdownItem"
+                        key={dropkey}
+                        onClick={() => setClickedTitle("")}
+                      >
+                        {dropItem.name}
+                        <div className="dropdownItemText">{dropItem.text}</div>
+                      </Link>
+                    )
                   )
                 );
               })

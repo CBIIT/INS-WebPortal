@@ -62,7 +62,7 @@ export const navbarSublists = {
     },
     {
       name: 'Glossary (PDF)',
-      link: 'INS_glossary_v3.1.0_V2.pdf',
+      link: '/INS_glossary_v3.1.0_V2.pdf',
       id: 'navbar-dropdown-item-glossary',
       className: 'navMobileSubItem',
     },
@@ -71,5 +71,6 @@ export const navbarSublists = {
       link: '/Release_v3.1.0.pdf',
       id: 'navbar-dropdown-item-release-notes',
       className: 'navMobileSubItem',
-    }],
+    },
+  ],
 };
