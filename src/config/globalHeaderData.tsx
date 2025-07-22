@@ -19,15 +19,21 @@ export const headerData = {
 export const navMobileList = [
   {
     name: 'Home',
-    link: '',
+    link: 'home',
     id: 'navbar-link-home',
     className: 'navMobileItem',
   },
   {
-    name: 'Other Navbar Item',
-    link: '',
-    id: 'navbar-dropdown-test-other-navbar-item',
-    className: 'navMobileItem clickable',
+    name: 'Programs',
+    link: 'programs',
+    id: 'navbar-link-programs',
+    className: 'navMobileItem',
+  },
+  {
+    name: 'Datasets',
+    link: 'datasets',
+    id: 'navbar-link-datasets',
+    className: 'navMobileItem',
   },
   {
     name: 'About',
@@ -47,38 +53,23 @@ export const navbarSublists = {
   //     className: 'navMobileSubTitle',
   //   },
   // ],
-  "Other Navbar Item": [
-    {
-      name: 'Navbar subitem # 1',
-      link: '/subitemlink1',
-      text: 'testText for subitem #1',
-      id: 'navbar-dropdown-item-navbar-subitem-1',
-      className: 'navMobileSubItem',
-    },
-    {
-      name: 'Navbar subitem #2',
-      link: '/subitemlink2',
-      id: 'navbar-dropdown-item-navbar-subitem-2',
-      className: 'navMobileSubItem',
-    },
-  ],
   About: [
     {
-      name: 'Other Resources',
-      link: '/or',
-      id: 'navbar-dropdown-item-other-resources',
+      name: 'About INS',
+      link: 'about',
+      id: 'navbar-dropdown-item-about-ins',
       className: 'navMobileSubTitle',
     },
     {
-      name: 'Cancer Genomics Cloud',
-      link: '/cgc',
-      id: 'navbar-dropdown-item-cancer-genomics-cloud',
+      name: 'Glossary (PDF)',
+      link: 'INS_glossary_v3.1.0_V2.pdf',
+      id: 'navbar-dropdown-item-glossary',
       className: 'navMobileSubItem',
     },
     {
-      name: 'Database of Genotypes and Phenotypes',
-      link: '/dbgap',
-      id: 'navbar-dropdown-item-database-of-genotypes-and-phenotypes',
+      name: 'Release Notes (PDF)',
+      link: '/Release_v3.1.0.pdf',
+      id: 'navbar-dropdown-item-release-notes',
       className: 'navMobileSubItem',
     }],
 };
