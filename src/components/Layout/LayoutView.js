@@ -35,7 +35,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
       <HashRouter>
         <>
           <Header />
-          <NavBar />
+          {/* <NavBar /> */}
           <Disclaimer />
           <ScreenSizePopup />
           <div
