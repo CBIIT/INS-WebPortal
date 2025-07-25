@@ -16,7 +16,7 @@ const HeaderContainer = styled.div`
     display: flex;
 
     .searchBarArea {
-        padding: 5px 32px 0 0;
+        padding: 5px 300px 0 0;
     }
 
     .headerLowerContainer {
