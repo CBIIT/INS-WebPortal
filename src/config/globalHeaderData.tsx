@@ -1,4 +1,4 @@
-import Logo from '../assets/header/NCI_INS_Logo.svg';
+import Logo from '../assets/header/Logo.svg';
 import searchbarIcon from '../assets/header/Search_Icon.svg';
 import usaFlagSmall from '../assets/header/us_flag_small.svg';
 
