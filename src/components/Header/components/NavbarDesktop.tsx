@@ -350,9 +350,6 @@ const NavBar = () => {
             })
           }
         </UlContainer>
-        <StyledLoginLink id="header-navbar-login-button" to="/login">
-          Login
-        </StyledLoginLink>
       </NavContainer>
       <Dropdown ref={dropdownSelection} className={clickedTitle === ''  ? "invisible" : ""}>
         <DropdownContainer>
