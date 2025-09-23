@@ -88,13 +88,13 @@ const SearchBar = () => {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      history.push(`/sitesearch/${localText.trim()}`);
+      history.push(`/globalsearch/${localText.trim()}`);
       setLocalText('');
     }
   };
 
   const handleSearch = () => {
-    history.push(`/sitesearch/${localText.trim()}`);
+    history.push(`/globalsearch/${localText.trim()}`);
     setLocalText('');
   };
 
