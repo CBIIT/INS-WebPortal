@@ -94,20 +94,8 @@ export default {
   ],
   contact_links: [
     {
-      text: 'Live chat',
-      link: 'https://livehelp.cancer.gov/',
-    },
-    {
-      text: '1-800-4-CANCER',
-      link: 'tel:+18004226237',
-    },
-    {
-      text: 'cdshelpdesk@mail.nih.gov',
-      link: 'mailto:+cdshelpdesk@mail.nih.gov',
-    },
-    {
-      text: 'Site Feedback',
-      link: 'https://nci.az1.qualtrics.com/jfe/form/SV_aeLLobt6ZeGVn5I',
+      text: 'NCIOfficeofDataSharing@mail.nih.gov',
+      link: 'mailto:NCIOfficeofDataSharing@mail.nih.gov',
     },
   ],
   global_footer_links: [
