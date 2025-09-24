@@ -37,7 +37,7 @@ const Header = () => {
       <HeaderContainer>
         <Logo />
         <div className="headerLowerContainer">
-          {path !== '/sitesearch' && <div className="searchBarArea"><SearchBar /></div>}
+          {!path.includes('/globalsearch') && <div className="searchBarArea"><SearchBar /></div>}
         </div>
       </HeaderContainer>
       <div className="navbarContainer"><NavBar /></div>

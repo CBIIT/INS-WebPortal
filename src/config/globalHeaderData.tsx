@@ -18,19 +18,19 @@ export const headerData = {
 export const navMobileList = [
   {
     name: 'Home',
-    link: 'home',
+    link: '/home',
     id: 'navbar-link-home',
     className: 'navMobileItem',
   },
   {
     name: 'Programs',
-    link: 'programs',
+    link: '/programs',
     id: 'navbar-link-programs',
     className: 'navMobileItem',
   },
   {
     name: 'Datasets',
-    link: 'datasets',
+    link: '/datasets',
     id: 'navbar-link-datasets',
     className: 'navMobileItem',
   },
@@ -55,7 +55,7 @@ export const navbarSublists = {
   About: [
     {
       name: 'About INS',
-      link: 'about',
+      link: '/about',
       id: 'navbar-dropdown-item-about-ins',
       className: 'navMobileSubTitle',
     },

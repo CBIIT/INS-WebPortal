@@ -188,7 +188,7 @@ const Header = () => {
             >
               Menu
             </div>
-            {path !== "/sitesearch" && <div className="searchBarArea"><SearchBar /></div>}
+            {!path.includes("/globalsearch") && <div className="searchBarArea"><SearchBar /></div>}
           </div>
         </HeaderContainer>
       </HeaderBanner>
