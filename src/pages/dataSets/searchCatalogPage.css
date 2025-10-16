@@ -138,6 +138,7 @@
 .tooltip-icon {
   display: flex;
   align-items: flex-start;
+  cursor: help;
 }
 
 .tooltip-icon img {
