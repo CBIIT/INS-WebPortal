@@ -138,9 +138,10 @@
 .tooltip-icon {
   display: flex;
   align-items: flex-start;
-  & img {
-    width: 15px;
-  }
+}
+
+.tooltip-icon img {
+  width: 15px;
 }
 
 .tooltip-icon:hover .tooltip-text-search,
@@ -190,7 +191,7 @@
 
 .tooltip-text-search li {
   font-family: 'Nunito', sans-serif;
-font-weight: 400;
+  font-weight: 400;
   font-style: normal;
   font-size: 16px; 
   line-height: 19px;  

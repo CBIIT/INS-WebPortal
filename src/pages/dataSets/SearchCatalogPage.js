@@ -164,7 +164,7 @@ const SearchCatalogPage = ({
               Explore Datasets & Cohorts
             </span>
             <div className="tooltip-icon">
-              <img src={helpIcon} alt="tooltipIcon" />
+              <img src={helpIcon} alt="Help: Search rules" />
               <div className="tooltip-text-search">
                 <span>Search Rules</span>
                 <ul>
