@@ -159,8 +159,8 @@
   position: absolute;
   padding: 12px;
   z-index: 1000;
-  top: -35px;
-  left: -845px;
+  top: 120px;
+  left: -700px;
   margin-left: 133px;
   transition: opacity 0.3s;
   width: 610px;
@@ -185,7 +185,7 @@
 /* Style the UL and LI inside the tooltip */
 .tooltip-text-search ul {
   list-style-type: disc;
-  margin-top: 8px;
+  margin-top: -5px;
   margin-bottom: 0;
   padding-left: 24px;
 }
