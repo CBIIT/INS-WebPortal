@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { OverlayTrigger } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import helpIcon from '../../assets/icons/help.svg';
 import SearchBox from './SearchBox';
 import ExportButton from './ExportButton';
 import Sorting from './Sorting';
@@ -164,6 +163,33 @@ const SearchCatalogPage = ({
             <span>
               Explore Datasets & Cohorts
             </span>
+            <div className="tooltip-icon">
+              <img src={helpIcon} alt="Help: Search rules" />
+              <div className="tooltip-text-search">
+                <span>Search Rules</span>
+                <ul>
+                  <li>A minimum of 3 characters is required to perform a search.</li>
+                  <li>Non-alphanumeric characters (e.g., ? ! / - &lt; &gt;) are ignored.</li>
+                  <li>
+                    Searches return both full and partial word matches
+                    (e.g., searching “leuk” returns results for “leukemia”).
+                  </li>
+                  <li>
+                    Multiple search terms (e.g., “leukemia pediatric WGS”) return only
+                    results containing all terms (Boolean AND).
+                  </li>
+                  <li>Results can be filtered using the checkboxes on the left.</li>
+                  <li>
+                    Selecting multiple filters within the same category returns results
+                    matching any selected filter (Boolean OR).
+                  </li>
+                  <li>
+                    Selecting filters across different categories, or combining filters
+                    with search terms, returns results matching all selections (Boolean AND).
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div className="searchBoxContainer">
             <SearchBox

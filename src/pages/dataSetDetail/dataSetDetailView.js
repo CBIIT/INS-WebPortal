@@ -13,7 +13,7 @@ import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
 import { externalLinkIcon } from '../../bento/datasetDetailData';
 import databaseIcon from '../../assets/icons/database.svg';
-import helpIcon from './help.svg';
+import helpIcon from '../../assets/icons/help.svg';
 
 const DataSetDetailView = ({
   classes, data,
