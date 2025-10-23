@@ -163,9 +163,9 @@ const SearchCatalogPage = ({
             <span>
               Explore Datasets & Cohorts
             </span>
-            <div className="tooltip-icon">
+            <div className="tooltip-icon-datasets">
               <img src={helpIcon} alt="Help: Search rules" />
-              <div className="tooltip-text-search">
+              <div className="tooltip-text-search-datasets">
                 <span>Search Rules</span>
                 <ul>
                   <li>A minimum of 3 characters is required to perform a search.</li>
