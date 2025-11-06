@@ -43,15 +43,49 @@ export const navMobileList = [
 ];
 
 export const navbarSublists = {
-  // Example of how to do a navMobileSubTitle and subtext
-  // Home: [
-  //   {
-  //     name: 'Explore ##',
-  //     link: '',
-  //     text: 'testText',
-  //     className: 'navMobileSubTitle',
-  //   },
-  // ],
+  // Mapping for navbar items to highlight when on related pages
+  Home: [
+    {
+      name: 'Home',
+      link: '/',
+      id: 'navbar-sublist-home',
+      className: 'navMobileSubTitle',
+    },
+    {
+      name: 'Home Alt',
+      link: '/home',
+      id: 'navbar-sublist-home-alt',
+      className: 'navMobileSubTitle',
+    },
+  ],
+  Programs: [
+    {
+      name: 'Programs',
+      link: '/programs',
+      id: 'navbar-sublist-programs',
+      className: 'navMobileSubTitle',
+    },
+    {
+      name: 'Program Detail',
+      link: '/program',
+      id: 'navbar-sublist-program-detail',
+      className: 'navMobileSubTitle',
+    },
+  ],
+  Datasets: [
+    {
+      name: 'Datasets',
+      link: '/datasets',
+      id: 'navbar-sublist-datasets',
+      className: 'navMobileSubTitle',
+    },
+    {
+      name: 'Dataset Detail',
+      link: '/dataset',
+      id: 'navbar-sublist-dataset-detail',
+      className: 'navMobileSubTitle',
+    },
+  ],
   About: [
     {
       name: 'About INS',
