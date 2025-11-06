@@ -289,7 +289,7 @@ const NavBar = () => {
   function shouldBeUnderlined(item) {
     const linkName = item.name;
     const correctPath = window.location.href.slice(window.location.href.lastIndexOf(window.location.host) + window.location.host.length);
-    //Take out the prefix of the hash routing ie '/#/programs' -> '/programs'
+    // Take out the prefix of the hash routing ie '/#/programs' -> '/programs'
     const hashIndex = correctPath.indexOf('#');
     const trimmedPath = hashIndex !== -1 ? correctPath.substring(hashIndex + 1) : correctPath;
 
