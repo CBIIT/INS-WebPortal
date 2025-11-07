@@ -71,6 +71,12 @@ export const navbarSublists = {
       id: 'navbar-sublist-program-detail',
       className: 'navMobileSubTitle',
     },
+    {
+      name: 'Project Detail',
+      link: '/project',
+      id: 'navbar-sublist-project-detail',
+      className: 'navMobileSubTitle',
+    },
   ],
   Datasets: [
     {
