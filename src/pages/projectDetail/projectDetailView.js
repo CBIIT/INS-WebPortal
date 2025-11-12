@@ -41,7 +41,7 @@ const ProjectView = ({
         <div className={classes.innerContainer}>
           <div className={classes.breadCrumbs}>
             <Link href="#programs" className={classes.navLink}>
-              Explore Projects
+              Explore Programs
             </Link>
             {'    '}
             <span className={classes.carrot}>
