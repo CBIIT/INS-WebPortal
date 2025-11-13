@@ -289,14 +289,27 @@ const NavBar = () => {
   function shouldBeUnderlined(item) {
     const linkName = item.name;
     const correctPath = window.location.href.slice(window.location.href.lastIndexOf(window.location.host) + window.location.host.length);
+    // Take out the prefix of the hash routing ie '/#/programs' -> '/programs'
+    const hashIndex = correctPath.indexOf('#');
+    const trimmedPath = hashIndex !== -1 ? correctPath.substring(hashIndex + 1) : correctPath;
+
+    // Check if current path matches any sublist paths for this item
+    if (navbarSublists[linkName] !== undefined) {
+      const linkNames = Object.values(navbarSublists[linkName]).map((e: NavSubLinkData) => e.link);
+      // Check for both exact match and prefix match (for detail pages like /program/xyz)
+      const hasMatch = linkNames.some(link =>
+        trimmedPath === link || trimmedPath.startsWith(link + '/')
+      );
+      if (hasMatch) {
+        return true;
+      }
+    }
+
+    // For direct links without sublists, check exact match
     if (item.className === "navMobileItem") {
-      return correctPath === item.link;
+      return trimmedPath === item.link;
     }
-    if (navbarSublists[linkName] === undefined) {
-      return false;
-    }
-    const linkNames = Object.values(navbarSublists[linkName]).map((e: NavSubLinkData) => e.link);
-    return linkNames.includes(correctPath);
+    return false;
   }
 
   useEffect(() => {
