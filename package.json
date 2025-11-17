@@ -63,7 +63,7 @@
     "jest-pnp-resolver": "1.0.2",
     "jest-resolve": "23.6.0",
     "jest-watch-typeahead": "^0.2.1",
-    "js-yaml": "^3.13.1",
+    "js-yaml": "^3.14.2",
     "line-awesome": "github:icons8/line-awesome",
     "lodash": "^4.17.20",
     "mini-css-extract-plugin": "0.5.0",
