@@ -29,7 +29,7 @@ export default {
       },
       sort: {
         name: 'Dataset',
-        k: 'dataset_title.sort',
+        k: 'dataset_title_sort',
         v: 'asc',
       },
       viewType: 'card',

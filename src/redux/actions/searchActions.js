@@ -87,7 +87,7 @@ export function loadFromUrlQuery(searchText, filters) {
 
     searchCriteria.sort = {};
     searchCriteria.sort.name = 'Dataset';
-    searchCriteria.sort.k = 'dataset_title.sort';
+    searchCriteria.sort.k = 'dataset_title_sort';
     searchCriteria.sort.v = filters.sortOrder || 'asc';
 
     // Call both searchCatalog and getSearchFilters in parallel
