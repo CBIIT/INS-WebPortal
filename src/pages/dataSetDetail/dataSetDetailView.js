@@ -17,23 +17,23 @@ import helpIcon from '../../assets/icons/help.svg';
 
 const dummyResourceLinks = [
   {
-    name: 'Resource Link 1',
+    name: 'Cancer Therapeutics Response Portal (CTRP v1, 2013) dataset',
     url: 'https://google.com',
   },
   {
-    name: 'Resource Link 2',
+    name: 'Cancer Therapeutics Response Portal (CTRP v2, 2025) dataset',
     url: 'https://google.com',
   },
   {
-    name: 'Resource Link 3',
+    name: 'Cancer Therapeutics internal Link',
     url: 'https://google.com',
   },
   {
-    name: 'Resource Link 4',
+    name: 'Annotated Cluster Multidimensional Enrichment (ACME) analysis',
     url: 'https://google.com',
   },
   {
-    name: 'Resource Link 5',
+    name: 'Basal Gene-Expression and Copy-Number Correlation Analysis',
     url: 'https://google.com',
   },
   {
@@ -150,21 +150,25 @@ const DataSetDetailView = ({
                 </Link>
               )}
             </div>
-            <div className={classes.headerResourceContainer}>
-              <span className={classes.subTitle}>Download resource links: </span>
-              <div className={classes.resourceLink}>
-                <Link href="https://www.google.com" target="_blank">
-                  <span className={classes.resourceLinkText}>
-                    This is a placeholder
-                    <img
-                      src={resourceLinkDownloadIcon}
-                      alt="resource link download icon"
-                      className={classes.resourceLinkIcon}
-                    />
-                  </span>
-                </Link>
+            {dummyResourceLinks && (
+              <div className={classes.headerResourceContainer}>
+                <span className={classes.subTitle}>Download resource links: </span>
+                <div className={classes.resourceLinksWrapper}>
+                  {dummyResourceLinks.map((link) => (
+                    <Link href={link.url} target="_blank" key={`resource-link-${link.name}`} className={classes.resourceLink}>
+                      <span className={classes.resourceLinkText}>
+                        {link.name}
+                        <img
+                          src={resourceLinkDownloadIcon}
+                          alt="resource link download icon"
+                          className={classes.resourceLinkIcon}
+                        />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div className={classes.studyContainer}>
@@ -664,6 +668,11 @@ const styles = (theme) => ({
     marginLeft: '50px',
     cursor: 'pointer',
   },
+  resourceLinksWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '5px 11px',
+  },
   resourceLink: {
     background: '#FFFFFF',
     border: '1px solid #4B619A',
@@ -671,7 +680,6 @@ const styles = (theme) => ({
     padding: '0px 10px',
     width: 'fit-content',
     height: '24px',
-    marginTop: '5px',
   },
   resourceLinkText: {
     fontFamily: 'Poppins',
