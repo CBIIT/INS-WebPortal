@@ -12,8 +12,67 @@ import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
 import { externalLinkIcon } from '../../bento/datasetDetailData';
-import databaseIcon from '../../assets/icons/database.svg';
+import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
+
+const dummyResourceLinks = [
+  {
+    name: 'Resource Link 1',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 2',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 3',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 4',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 5',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 6',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 7',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 8',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 9',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 10',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 11',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 12',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 13',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 14',
+    url: 'https://google.com',
+  },
+];
 
 const DataSetDetailView = ({
   classes, data,
@@ -93,7 +152,18 @@ const DataSetDetailView = ({
             </div>
             <div className={classes.headerResourceContainer}>
               <span className={classes.subTitle}>Download resource links: </span>
-              <div>test</div>
+              <div className={classes.resourceLink}>
+                <Link href="https://www.google.com" target="_blank">
+                  <span className={classes.resourceLinkText}>
+                    This is a placeholder
+                    <img
+                      src={resourceLinkDownloadIcon}
+                      alt="resource link download icon"
+                      className={classes.resourceLinkIcon}
+                    />
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -593,6 +663,28 @@ const styles = (theme) => ({
   externalResource: {
     marginLeft: '50px',
     cursor: 'pointer',
+  },
+  resourceLink: {
+    background: '#FFFFFF',
+    border: '1px solid #4B619A',
+    borderRadius: '20px',
+    padding: '0px 10px',
+    width: 'fit-content',
+    height: '24px',
+    marginTop: '5px',
+  },
+  resourceLinkText: {
+    fontFamily: 'Poppins',
+    fontSize: '13px',
+    fontWeight: '600',
+    lineHeight: '19.31px',
+    color: '#4B619A',
+  },
+  resourceLinkIcon: {
+    width: '12px',
+    height: '11px',
+    marginLeft: '6px',
+    verticalAlign: 'middle',
   },
   studyContainer: {
     marginTop: '30px',
