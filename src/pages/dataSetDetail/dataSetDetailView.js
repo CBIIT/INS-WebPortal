@@ -78,7 +78,22 @@ const DataSetDetailView = ({
               </div>
             </div>
             <div className={classes.headerResourceContainer}>
-              Test
+              <span className={classes.subTitle}>Source Repository: </span>
+              <span className={classes.repositoryName}>{data.dataset_source_repo || ''}</span>
+              {data.dataset_source_url && (
+                <Link href={data.dataset_source_url} target="_blank" className={cn(classes.subTitle, classes.externalResource)}>
+                  View Dataset in External Resource
+                  <img
+                    src={externalLinkIcon.src}
+                    alt={externalLinkIcon.alt}
+                    className={classes.externalLinkIcon}
+                  />
+                </Link>
+              )}
+            </div>
+            <div className={classes.headerResourceContainer}>
+              <span className={classes.subTitle}>Download resource links: </span>
+              <div>test</div>
             </div>
           </div>
         </div>
@@ -486,8 +501,7 @@ const styles = (theme) => ({
     margin: '0 auto',
   },
   externalLinkIcon: {
-    width: '16px',
-    verticalAlign: 'sub',
+    width: '13px',
     marginLeft: '4px',
   },
   nav: {
@@ -568,6 +582,17 @@ const styles = (theme) => ({
     width: '100%',
     background: '#E8F2F7',
     padding: '15px 110px',
+    borderBottom: '1px solid #7D91C4',
+  },
+  repositoryName: {
+    fontFamily: 'Inter',
+    fontSize: '18px',
+    fontWeight: '400',
+    color: '#285C9B',
+  },
+  externalResource: {
+    marginLeft: '50px',
+    cursor: 'pointer',
   },
   studyContainer: {
     marginTop: '30px',
@@ -617,11 +642,10 @@ const styles = (theme) => ({
   subTitle: {
     fontFamily: 'Inter',
     fontSize: '16px',
-    fontWeight: 600,
+    fontWeight: 700,
     lineHeight: '20px',
     textAlign: 'left',
-    color: '#1C58A1',
-    paddingTop: '10px',
+    color: '#285C9B',
   },
   title: {
     fontFamily: 'Inter',
