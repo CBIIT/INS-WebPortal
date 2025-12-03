@@ -194,6 +194,43 @@ const DataSetDetailView = ({
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
               Additional Details Coming Soon
             </Typography>
+            <Grid container spacing={4} className={classes.detailsGrid}>
+              {/* Column 1 */}
+              <Grid item xs={12} md={4}>
+                <div className={classes.subSection}>
+                  <Typography variant="body2" className={classes.subTitle}>
+                    Participant/Sample Details
+                  </Typography>
+                  <Typography variant="body2" className={classes.text}>
+                    This information is coming soon.
+                  </Typography>
+                </div>
+              </Grid>
+
+              {/* Column 2 */}
+              <Grid item xs={12} md={4}>
+                <div className={classes.subSection}>
+                  <Typography variant="body2" className={classes.subTitle}>
+                    Data Details
+                  </Typography>
+                  <Typography variant="body2" className={classes.text}>
+                    This information is coming soon.
+                  </Typography>
+                </div>
+              </Grid>
+
+              {/* Column 3 */}
+              <Grid item xs={12} md={4}>
+                <div className={classes.subSection}>
+                  <Typography variant="body2" className={classes.subTitle}>
+                    Program(s)
+                  </Typography>
+                  <Typography variant="body2" className={classes.text}>
+                    This information is coming soon.
+                  </Typography>
+                </div>
+              </Grid>
+            </Grid>
           </div>
         </div>
         <div className={classes.studyContainer}>
@@ -729,6 +766,9 @@ const styles = (theme) => ({
       borderBottom: 'none',
     },
   },
+  detailsGrid: {
+    marginTop: '12px',
+  },
   studyContainer: {
     marginTop: '30px',
     fontFamily: 'Nunito',
@@ -786,12 +826,14 @@ const styles = (theme) => ({
     color: '#3478A5',
   },
   subSection: {
-    padding: '25px 15px',
+    padding: '0px',
   },
   text: {
-    padding: '0 10px 0 0',
+    fontFamily: 'Nunito',
+    fontSize: '18px',
+    fontWeight: '400',
     wordWrap: 'break-word',
-    minHeight: '25px',
+    lineHeight: '25px',
   },
   additionalContainer: {
     marginTop: '40px',
