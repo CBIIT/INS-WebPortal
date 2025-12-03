@@ -11,7 +11,7 @@ import {
 import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
-import { externalLinkIcon, additionalDetailsFields } from '../../bento/datasetDetailData';
+import { externalLinkIcon, basicInformationFields, additionalDetailsFields } from '../../bento/datasetDetailData';
 import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
 
@@ -184,6 +184,32 @@ const DataSetDetailView = ({
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
               Basic Information
             </Typography>
+            <Grid container spacing={4} className={classes.detailsGrid}>
+              {basicInformationFields
+                .filter((field) => !field.dynamic || (field.dynamic && data[field.datafield]))
+                .map((field) => (
+                  <Grid item xs={12} md={4} key={field.datafield}>
+                    <div className={classes.subSection}>
+                      <Typography variant="body2" className={classes.subTitle}>
+                        {field.label}
+                      </Typography>
+                      <Typography variant="body2" className={classes.text}>
+                        {field.isLink ? (
+                          <Link href={data[field.datafield]} target="_blank" className={classes.link}>
+                            {field.linkTextField
+                              ? (field.formatSemicolon ? formatSemicolonSeparatedString(data[field.linkTextField] || '') : data[field.linkTextField])
+                              : (field.formatSemicolon ? formatSemicolonSeparatedString(data[field.datafield] || '') : data[field.datafield] || '')}
+                          </Link>
+                        ) : (
+                          field.formatSemicolon
+                            ? formatSemicolonSeparatedString(data[field.datafield] || '')
+                            : data[field.datafield] || ''
+                        )}
+                      </Typography>
+                    </div>
+                  </Grid>
+                ))}
+            </Grid>
           </div>
           <div className={classes.contentSection}>
             <Typography variant="h6" component="h2" className={classes.studyHeader}>

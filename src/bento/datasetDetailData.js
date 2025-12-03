@@ -16,6 +16,61 @@ const externalLinkIcon = {
   alt: 'External link icon',
 };
 
+// --------------- Basic Information fields configuration --------------
+const basicInformationFields = [
+  {
+    label: 'Investigator(s)',
+    datafield: 'PI_name',
+    dynamic: false,
+    isLink: false,
+    formatSemicolon: true,
+  },
+  {
+    label: 'Study Page',
+    datafield: 'dataset_source_url',
+    linkTextField: 'dataset_source_id',
+    dynamic: true,
+    isLink: true,
+    formatSemicolon: false,
+  },
+  {
+    label: 'Cited Publication PMID(s)',
+    datafield: 'dataset_pmid',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: false,
+  },
+  {
+    label: 'Release Date',
+    datafield: 'release_date',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+  },
+  // TODO: Add institute field to graphql once available
+  {
+    label: 'Institute',
+    datafield: 'institute',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+  },
+  {
+    label: 'Funding Source(s)',
+    datafield: 'funding_source',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+  },
+  {
+    label: 'NCI Division/Office/Center',
+    datafield: 'dataset_doc',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+  },
+];
+
 // --------------- Additional Details fields configuration --------------
 const additionalDetailsFields = [
   {
@@ -67,6 +122,7 @@ export {
   pageTitle,
   pageSubTitle,
   externalLinkIcon,
+  basicInformationFields,
   additionalDetailsFields,
   getDataSetDetailDataQuery,
 };
