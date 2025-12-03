@@ -231,48 +231,53 @@ const DataSetDetailView = ({
                 </p>
               )}
             </div>
-            <Typography variant="h6" component="h2" className={classes.studyHeader} style={{ marginTop: '40px' }}>
-              Experimental Approaches
-            </Typography>
-            <div className={classes.text}>
-              {expandedExperimental ? (
-                <>
-                  {ReactHtmlParser(data.description)}
-                  {plainDescription && plainDescription.length > descMaxLength && (
-                    <>
-                      {' '}
-                      <span
-                        onClick={toggleExpandExperimental}
-                        onKeyDown={(e) => e.key === 'Enter' && toggleExpandExperimental()}
-                        role="button"
-                        tabIndex={0}
-                        className={classes.readMoreLink}
-                      >
-                        Show Less
-                      </span>
-                    </>
-                  )}
-                </>
-              ) : (
-                <p>
-                  {truncatedDescription}
-                  {plainDescription && plainDescription.length > descMaxLength && (
-                    <>
-                      {' '}
-                      <span
-                        onClick={toggleExpandExperimental}
-                        onKeyDown={(e) => e.key === 'Enter' && toggleExpandExperimental()}
-                        role="button"
-                        tabIndex={0}
-                        className={classes.readMoreLink}
-                      >
-                        Read More
-                      </span>
-                    </>
-                  )}
-                </p>
-              )}
-            </div>
+            {true
+            && (
+            <>
+              <Typography variant="h6" component="h2" className={classes.studyHeader} style={{ marginTop: '40px' }}>
+                Experimental Approaches
+              </Typography>
+              <div className={classes.text}>
+                {expandedExperimental ? (
+                  <>
+                    {ReactHtmlParser(data.description)}
+                    {plainDescription && plainDescription.length > descMaxLength && (
+                      <>
+                        {' '}
+                        <span
+                          onClick={toggleExpandExperimental}
+                          onKeyDown={(e) => e.key === 'Enter' && toggleExpandExperimental()}
+                          role="button"
+                          tabIndex={0}
+                          className={classes.readMoreLink}
+                        >
+                          Show Less
+                        </span>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <p>
+                    {truncatedDescription}
+                    {plainDescription && plainDescription.length > descMaxLength && (
+                      <>
+                        {' '}
+                        <span
+                          onClick={toggleExpandExperimental}
+                          onKeyDown={(e) => e.key === 'Enter' && toggleExpandExperimental()}
+                          role="button"
+                          tabIndex={0}
+                          className={classes.readMoreLink}
+                        >
+                          Read More
+                        </span>
+                      </>
+                    )}
+                  </p>
+                )}
+              </div>
+            </>
+            )}
           </div>
           <div className={classes.contentSection}>
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
