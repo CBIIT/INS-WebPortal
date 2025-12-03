@@ -79,6 +79,111 @@ const basicInformationFields = [
   },
 ];
 
+// --------------- Data Details fields configuration --------------
+const dataDetailsFields = [
+  {
+    label: 'Study Type',
+    datafield: 'study_type',
+    dynamic: false,
+    isLink: false,
+    formatSemicolon: true,
+    tooltip: 'Study design and scope of analysis, for example, case set, control set, longitudinal, epigenetics, RNA sequencing, or single-cell analysis',
+  },
+  {
+    label: 'Primary Disease',
+    datafield: 'primary_disease',
+    dynamic: false,
+    isLink: false,
+    formatSemicolon: true,
+    tooltip: 'Study\'s primary disease focus',
+  },
+  {
+    label: 'Assay Method',
+    datafield: 'assay_method',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+    tooltip: 'Sequencing assay method(s) used, for example, whole genome sequencing (WGS), whole exome sequencing (WES or WXS), or RNA Sequencing (RNA-seq).',
+  },
+  {
+    label: 'Participant Count',
+    datafield: 'participant_count',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: false,
+    tooltip: 'Total number of consented subjects in the study',
+  },
+  {
+    label: 'Sample Count',
+    datafield: 'sample_count',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: false,
+    tooltip: 'Total number of samples in the study',
+  },
+  {
+    label: 'Related Genes',
+    datafield: 'related_genes',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+    tooltip: 'Any genes related to the dataset study',
+  },
+  {
+    label: 'Related Diseases',
+    datafield: 'related_diseases',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+    tooltip: 'Any diseases related to the dataset study',
+  },
+  {
+    label: 'Age at Baseline (Min - Max)',
+    datafield: 'dataset_minimum_age_at_baseline',
+    pairedField: 'dataset_maximum_age_at_baseline',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: false,
+    tooltip: 'Participants\' minimum and maximum ages at study\'s enrollment start',
+    isPaired: true,
+  },
+  {
+    label: 'Enrollment Year (Start - End)',
+    datafield: 'dataset_year_enrollment_started',
+    pairedField: 'dataset_year_enrollment_ended',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: false,
+    tooltip: 'Years when study\'s participant enrollment started and ended',
+    isPaired: true,
+  },
+  {
+    label: 'Limitations for Reuse',
+    datafield: 'limitations_for_reuse',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+    tooltip: 'Determines how a study\'s data can be used in the future based on consent groups. Refer to the Glossary in the About section for each consent group definition.',
+  },
+  {
+    label: 'Related Link(s)',
+    datafield: 'study_links',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: false,
+    tooltip: 'Link to an external website related to the study or dataset',
+    isMultiLink: true,
+  },
+  {
+    label: 'Related Terms',
+    datafield: 'related_terms',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+    tooltip: 'Any other terms related to the dataset study',
+  },
+];
+
 // --------------- Additional Details fields configuration --------------
 const additionalDetailsFields = [
   {
@@ -131,6 +236,7 @@ export {
   pageSubTitle,
   externalLinkIcon,
   basicInformationFields,
+  dataDetailsFields,
   additionalDetailsFields,
   getDataSetDetailDataQuery,
 };

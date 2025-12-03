@@ -11,7 +11,9 @@ import {
 import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
-import { externalLinkIcon, basicInformationFields, additionalDetailsFields } from '../../bento/datasetDetailData';
+import {
+  externalLinkIcon, basicInformationFields, dataDetailsFields, additionalDetailsFields,
+} from '../../bento/datasetDetailData';
 import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
 
@@ -257,6 +259,64 @@ const DataSetDetailView = ({
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
               Data Details
             </Typography>
+            <Grid container spacing={4} className={classes.detailsGrid}>
+              {dataDetailsFields
+                .filter((field) => {
+                  if (field.isPaired) {
+                    // Only show if BOTH paired fields have values
+                    return data[field.datafield] && data[field.pairedField];
+                  }
+                  if (!field.dynamic) return true;
+                  return data[field.datafield];
+                })
+                .map((field) => (
+                  <Grid item xs={12} md={4} key={field.datafield}>
+                    <div className={classes.subSection}>
+                      <Typography variant="body2" className={classes.subTitle}>
+                        {field.label}
+                        {field.tooltip && (
+                          <div className="tooltip-icon">
+                            <img src={helpIcon} alt="tooltipIcon" />
+                            <div className="tooltip-text-first">
+                              <span className={classes.tooltipFont}>
+                                {field.tooltip}
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                      </Typography>
+                      <Typography variant="body2" className={classes.text}>
+                        {field.isPaired ? (
+                          // Render paired values (e.g., "min - max")
+                          `${data[field.datafield]} - ${data[field.pairedField]}`
+                        ) : field.isMultiLink && data[field.datafield] ? (
+                          // Render multiple links separated by semicolons
+                          data[field.datafield].split(';').map((link, index) => (
+                            <Typography variant="body2" className={classes.text} key={index}>
+                              <Link
+                                href={link.trim().startsWith('http') ? link.trim() : `https://${link.trim()}`}
+                                target="_blank"
+                                className={classes.link}
+                              >
+                                {link.trim()}
+                                <img
+                                  src={externalLinkIcon.src}
+                                  alt={externalLinkIcon.alt}
+                                  className={classes.externalLinkIcon}
+                                />
+                              </Link>
+                            </Typography>
+                          ))
+                        ) : (
+                          field.formatSemicolon
+                            ? formatSemicolonSeparatedString(data[field.datafield] || '')
+                            : data[field.datafield] || ''
+                        )}
+                      </Typography>
+                    </div>
+                  </Grid>
+                ))}
+            </Grid>
           </div>
           <div className={classes.contentSection}>
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
