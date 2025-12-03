@@ -56,27 +56,10 @@ const DataSetDetailView = ({
               </div>
               <div className={classes.headerTitle}>
                 <div className={classes.headerMainTitle} id="dataset_detail_title">
-                  <span>
-                    Dataset:
-                    {' '}
+                  <span className={classes.datasetLabel}>Dataset:</span>
+                  <span className={classes.datasetTitle}>
                     {formatSemicolonSeparatedString(data.dataset_title || '')}
                   </span>
-                </div>
-                <div className={cn(classes.headerMSubTitle,
-                  classes.headerSubTitleCate, classes.link)}
-                >
-                  <img src={databaseIcon} alt="database-icon" className={classes.databaseImg} />
-                  <Link href={data.dataset_source_url} target="_blank" className={classes.link}>
-                    {data.dataset_source_repo}
-                    :
-                    {' '}
-                    {data.dataset_source_id || ''}
-                    <img
-                      src={externalLinkIcon.src}
-                      alt={externalLinkIcon.alt}
-                      className={classes.externalLinkIcon}
-                    />
-                  </Link>
                 </div>
               </div>
             </div>
@@ -544,20 +527,24 @@ const styles = (theme) => ({
     marginTop: '18px',
   },
   headerMainTitle: {
-    '& > span': {
-      fontWeight: '400',
-      letterSpacing: '0.017em',
-    },
-    '& > span > span': {
-      fontWeight: '600',
-      letterSpacing: '0.025em',
-    },
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '10px',
     fontFamily: 'Inter',
-    letterSpacing: '0.025em',
     color: '#274FA5 ',
     fontSize: '26px',
     lineHeight: '30px',
     paddingLeft: '0px',
+    letterSpacing: '0',
+  },
+  datasetLabel: {
+    fontWeight: '400',
+    flexShrink: 0,
+  },
+  datasetTitle: {
+    fontWeight: '600',
+    flex: 1,
+    wordBreak: 'break-word',
   },
   headerSubTitleCate: {
     color: '#5A656A',
@@ -580,7 +567,7 @@ const styles = (theme) => ({
     float: 'left',
     marginTop: '9px',
     width: '107px',
-    filter: 'drop-shadow(24px 22px 7px rgba(27,28,28,0.29))',
+    filter: 'drop-shadow(10px 12px 8px rgba(27,28,28,0.29))',
   },
   studyContainer: {
     marginTop: '30px',
