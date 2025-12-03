@@ -171,6 +171,31 @@ const DataSetDetailView = ({
             )}
           </div>
         </div>
+        <div className={classes.detailsContainer}>
+          <div className={classes.contentSection}>
+            <Typography variant="h6" component="h2" className={classes.studyHeader}>
+              Study Description
+            </Typography>
+            <Typography variant="h6" component="h2" className={classes.studyHeader}>
+              Experimental Approaches
+            </Typography>
+          </div>
+          <div className={classes.contentSection}>
+            <Typography variant="h6" component="h2" className={classes.studyHeader}>
+              Basic Information
+            </Typography>
+          </div>
+          <div className={classes.contentSection}>
+            <Typography variant="h6" component="h2" className={classes.studyHeader}>
+              Data Details
+            </Typography>
+          </div>
+          <div className={classes.contentSection}>
+            <Typography variant="h6" component="h2" className={classes.studyHeader}>
+              Additional Details Coming Soon
+            </Typography>
+          </div>
+        </div>
         <div className={classes.studyContainer}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -605,7 +630,6 @@ const styles = (theme) => ({
     paddingLeft: '32px',
     paddingRight: '32px',
     background: '#FFFF',
-    paddingBottom: '16px',
   },
   innerContainer: {
     padding: '0 ',
@@ -694,6 +718,17 @@ const styles = (theme) => ({
     marginLeft: '6px',
     verticalAlign: 'middle',
   },
+  detailsContainer: {
+    // Everything pushed in 32px to align with header sections
+    padding: '0px 32px',
+  },
+  contentSection: {
+    padding: '30px 110px',
+    borderBottom: '1px solid #7D91C4',
+    '&:last-child': {
+      borderBottom: 'none',
+    },
+  },
   studyContainer: {
     marginTop: '30px',
     fontFamily: 'Nunito',
@@ -712,12 +747,8 @@ const styles = (theme) => ({
     fontSize: '19px',
     fontWeight: 400,
     lineHeight: '20px',
-    textAlign: 'left',
     textTransform: 'uppercase',
-    padding: '0 0 10px 0',
     color: '#3478A5',
-    paddingLeft: '15px',
-    paddingRight: '15px',
   },
   borderRight: {
     borderRight: '1px solid #B0D7E6',
