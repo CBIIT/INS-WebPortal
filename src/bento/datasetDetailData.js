@@ -16,6 +16,22 @@ const externalLinkIcon = {
   alt: 'External link icon',
 };
 
+// --------------- Additional Details fields configuration --------------
+const additionalDetailsFields = [
+  {
+    label: 'Participant/Sample Details',
+    text: 'This information is coming soon.',
+  },
+  {
+    label: 'Data Details',
+    text: 'This information is coming soon.',
+  },
+  {
+    label: 'Program(s)',
+    text: 'This information is coming soon.',
+  },
+];
+
 // --------------- GraphQL query - Retrieve program details --------------
 const getDataSetDetailDataQuery = gql`
 query datasetDetails($dataset_source_id: String) {
@@ -51,5 +67,6 @@ export {
   pageTitle,
   pageSubTitle,
   externalLinkIcon,
+  additionalDetailsFields,
   getDataSetDetailDataQuery,
 };

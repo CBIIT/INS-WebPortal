@@ -11,7 +11,7 @@ import {
 import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
-import { externalLinkIcon } from '../../bento/datasetDetailData';
+import { externalLinkIcon, additionalDetailsFields } from '../../bento/datasetDetailData';
 import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
 
@@ -195,41 +195,18 @@ const DataSetDetailView = ({
               Additional Details Coming Soon
             </Typography>
             <Grid container spacing={4} className={classes.detailsGrid}>
-              {/* Column 1 */}
-              <Grid item xs={12} md={4}>
-                <div className={classes.subSection}>
-                  <Typography variant="body2" className={classes.subTitle}>
-                    Participant/Sample Details
-                  </Typography>
-                  <Typography variant="body2" className={classes.text}>
-                    This information is coming soon.
-                  </Typography>
-                </div>
-              </Grid>
-
-              {/* Column 2 */}
-              <Grid item xs={12} md={4}>
-                <div className={classes.subSection}>
-                  <Typography variant="body2" className={classes.subTitle}>
-                    Data Details
-                  </Typography>
-                  <Typography variant="body2" className={classes.text}>
-                    This information is coming soon.
-                  </Typography>
-                </div>
-              </Grid>
-
-              {/* Column 3 */}
-              <Grid item xs={12} md={4}>
-                <div className={classes.subSection}>
-                  <Typography variant="body2" className={classes.subTitle}>
-                    Program(s)
-                  </Typography>
-                  <Typography variant="body2" className={classes.text}>
-                    This information is coming soon.
-                  </Typography>
-                </div>
-              </Grid>
+              {additionalDetailsFields.map((field) => (
+                <Grid item xs={12} md={4} key={field.label}>
+                  <div className={classes.subSection}>
+                    <Typography variant="body2" className={classes.subTitle}>
+                      {field.label}
+                    </Typography>
+                    <Typography variant="body2" className={classes.text}>
+                      {field.text}
+                    </Typography>
+                  </div>
+                </Grid>
+              ))}
             </Grid>
           </div>
         </div>
