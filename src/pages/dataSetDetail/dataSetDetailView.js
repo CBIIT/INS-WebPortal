@@ -53,6 +53,22 @@ const DataSetDetailView = ({
     return tmp.textContent || tmp.innerText || '';
   };
 
+  // Helper function to normalize plain text to HTML paragraph format
+  const normalizeDescriptionContent = (content) => {
+    if (!content) return '';
+
+    // Check if content already contains HTML paragraph tags
+    const hasHtmlParagraphs = /<p[\s>]/i.test(content);
+
+    if (hasHtmlParagraphs) {
+      // Content already has proper HTML structure
+      return content;
+    }
+
+    // Plain text detected - wrap in <p> tag to match HTML spacing
+    return `<p>${content}</p>`;
+  };
+
   // Get plain text version of description for truncation
   const plainDescription = stripHtmlTags(data.description);
   const truncatedDescription = plainDescription && plainDescription.length > descMaxLength
@@ -136,7 +152,7 @@ const DataSetDetailView = ({
             <div className={classes.text}>
               {expandedDescription ? (
                 <>
-                  {ReactHtmlParser(data.description)}
+                  {ReactHtmlParser(normalizeDescriptionContent(data.description))}
                   {plainDescription && plainDescription.length > descMaxLength && (
                     <>
                       {' '}
@@ -181,7 +197,7 @@ const DataSetDetailView = ({
               <div className={classes.text}>
                 {expandedExperimental ? (
                   <>
-                    {ReactHtmlParser(data.description)}
+                    {ReactHtmlParser(normalizeDescriptionContent(data.description))}
                     {plainDescription && plainDescription.length > descMaxLength && (
                       <>
                         {' '}
@@ -530,6 +546,7 @@ const styles = (theme) => ({
     borderBottom: '1px solid #7D91C4',
     '&:last-child': {
       borderBottom: 'none',
+      paddingBottom: '85px',
     },
   },
   detailsGrid: {
