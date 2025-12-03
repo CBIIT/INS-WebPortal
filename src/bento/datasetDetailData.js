@@ -42,6 +42,7 @@ const basicInformationFields = [
     isLink: false,
     formatSemicolon: false,
     tooltip: 'External link to PubMed',
+    isPMID: true,
   },
   {
     label: 'Release Date',

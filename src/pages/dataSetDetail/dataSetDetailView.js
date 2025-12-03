@@ -204,11 +204,43 @@ const DataSetDetailView = ({
                         )}
                       </Typography>
                       <Typography variant="body2" className={classes.text}>
-                        {field.isLink ? (
+                        {field.isPMID && data[field.datafield] ? (
+                          data[field.datafield].split(';').map((pmid, index) => {
+                            const trimmedPmid = pmid.trim();
+                            const isNumeric = trimmedPmid !== '' && !Number.isNaN(Number(trimmedPmid));
+                            return (
+                              <span key={index}>
+                                {isNumeric ? (
+                                  <Link
+                                    href={`https://pubmed.ncbi.nlm.nih.gov/${trimmedPmid}/`}
+                                    target="_blank"
+                                    className={classes.link}
+                                  >
+                                    {trimmedPmid}
+                                    <img
+                                      src={externalLinkIcon.src}
+                                      alt={externalLinkIcon.alt}
+                                      className={classes.externalLinkIcon}
+                                    />
+                                  </Link>
+                                ) : (
+                                  <span>{trimmedPmid}</span>
+                                )}
+                                {index < data[field.datafield].split(';').length - 1 && '; '}
+                                {index < data[field.datafield].split(';').length - 1 && ' '}
+                              </span>
+                            );
+                          })
+                        ) : field.isLink ? (
                           <Link href={data[field.datafield]} target="_blank" className={classes.link}>
                             {field.linkTextField
                               ? (field.formatSemicolon ? formatSemicolonSeparatedString(data[field.linkTextField] || '') : data[field.linkTextField])
                               : (field.formatSemicolon ? formatSemicolonSeparatedString(data[field.datafield] || '') : data[field.datafield] || '')}
+                            <img
+                              src={externalLinkIcon.src}
+                              alt={externalLinkIcon.alt}
+                              className={classes.externalLinkIcon}
+                            />
                           </Link>
                         ) : (
                           field.formatSemicolon
