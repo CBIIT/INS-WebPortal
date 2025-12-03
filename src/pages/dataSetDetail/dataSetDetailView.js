@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Container,
   Grid,
@@ -20,10 +20,24 @@ const DataSetDetailView = ({
 }) => {
   const descMaxLength = 9999999;
   const [expanded, setExpanded] = useState(false);
+  const [logoMarginTop, setLogoMarginTop] = useState(-16);
+  const titleRef = useRef(null);
 
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
+
+  useEffect(() => {
+    if (titleRef.current) {
+      const titleHeight = titleRef.current.offsetHeight;
+      const lineHeight = 30; // Based on lineHeight of headerMainTitle
+      const numberOfLines = Math.round(titleHeight / lineHeight);
+
+      // Base margin is -16px, add 30px for each additional line
+      const newMargin = -16 + (Math.max(0, numberOfLines - 1) * 30);
+      setLogoMarginTop(newMargin);
+    }
+  }, [data.dataset_title]);
 
   const truncatedDescription = data.description && data.description.length > descMaxLength
     ? `${data.description.substring(0, descMaxLength)}...`
@@ -48,20 +62,23 @@ const DataSetDetailView = ({
         <div className={classes.container}>
           <div className={classes.innerContainer}>
             <div className={classes.header}>
-              <div className={classes.logo}>
+              <div className={classes.logo} style={{ marginTop: `${logoMarginTop}px` }}>
                 <img
                   src={icon}
                   alt="INS datasets logo"
                 />
               </div>
               <div className={classes.headerTitle}>
-                <div className={classes.headerMainTitle} id="dataset_detail_title">
+                <div className={classes.headerMainTitle} id="dataset_detail_title" ref={titleRef}>
                   <span className={classes.datasetLabel}>Dataset:</span>
                   <span className={classes.datasetTitle}>
                     {formatSemicolonSeparatedString(data.dataset_title || '')}
                   </span>
                 </div>
               </div>
+            </div>
+            <div className={classes.headerResourceContainer}>
+              Test
             </div>
           </div>
         </div>
@@ -459,10 +476,6 @@ const DataSetDetailView = ({
 };
 
 const styles = (theme) => ({
-  databaseImg: {
-    verticalAlign: 'middle',
-    marginRight: '5px',
-  },
   mainContainer: {
     paddingTop: '10px',
     background: '#FFFF',
@@ -512,7 +525,7 @@ const styles = (theme) => ({
     background: '#FFFFFF',
   },
   header: {
-    paddingLeft: '21px',
+    paddingLeft: '10px',
     paddingRight: '35px',
     borderBottom: '#4B619A 10px solid',
     height: 'fit-content',
@@ -522,8 +535,7 @@ const styles = (theme) => ({
   },
   headerTitle: {
     margin: 'auto',
-    float: 'left',
-    marginLeft: '95px',
+    marginLeft: '100px',
     marginTop: '18px',
   },
   headerMainTitle: {
@@ -534,7 +546,7 @@ const styles = (theme) => ({
     color: '#274FA5 ',
     fontSize: '26px',
     lineHeight: '30px',
-    paddingLeft: '0px',
+    paddingBottom: '2px',
     letterSpacing: '0',
   },
   datasetLabel: {
@@ -546,28 +558,16 @@ const styles = (theme) => ({
     flex: 1,
     wordBreak: 'break-word',
   },
-  headerSubTitleCate: {
-    color: '#5A656A',
-    fontWeight: '400',
-    fontFamily: 'Nunito',
-    letterSpacing: '0.023em',
-    fontSize: '16px',
-    overflow: 'hidden',
-    lineHeight: '25px',
-    paddingLeft: '2px',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    paddingRight: '200px',
-  },
-  headerMSubTitle: {
-    paddingBottom: '3px',
-  },
   logo: {
     position: 'absolute',
     float: 'left',
-    marginTop: '9px',
     width: '107px',
     filter: 'drop-shadow(10px 12px 8px rgba(27,28,28,0.29))',
+  },
+  headerResourceContainer: {
+    width: '100%',
+    background: '#E8F2F7',
+    padding: '15px 110px',
   },
   studyContainer: {
     marginTop: '30px',
