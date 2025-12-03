@@ -202,6 +202,65 @@ const additionalDetailsFields = [
   },
 ];
 
+const dummyResourceLinks = [
+  {
+    name: 'Cancer Therapeutics Response Portal (CTRP v1, 2013) dataset',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Cancer Therapeutics Response Portal (CTRP v2, 2025) dataset',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Cancer Therapeutics internal Link',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Annotated Cluster Multidimensional Enrichment (ACME) analysis',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Basal Gene-Expression and Copy-Number Correlation Analysis',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 6',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 7',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 8',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 9',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 10',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 11',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 12',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 13',
+    url: 'https://google.com',
+  },
+  {
+    name: 'Resource Link 14',
+    url: 'https://google.com',
+  },
+];
+
 // --------------- GraphQL query - Retrieve program details --------------
 const getDataSetDetailDataQuery = gql`
 query datasetDetails($dataset_source_id: String) {
@@ -242,4 +301,5 @@ export {
   dataDetailsFields,
   additionalDetailsFields,
   getDataSetDetailDataQuery,
+  dummyResourceLinks,
 };
