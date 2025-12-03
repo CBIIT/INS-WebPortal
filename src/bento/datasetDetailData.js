@@ -16,6 +16,8 @@ const externalLinkIcon = {
   alt: 'External link icon',
 };
 
+const descMaxLength = 750;
+
 // --------------- Basic Information fields configuration --------------
 const basicInformationFields = [
   {
@@ -235,6 +237,7 @@ export {
   pageTitle,
   pageSubTitle,
   externalLinkIcon,
+  descMaxLength,
   basicInformationFields,
   dataDetailsFields,
   additionalDetailsFields,

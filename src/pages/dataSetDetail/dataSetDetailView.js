@@ -12,7 +12,7 @@ import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
 import {
-  externalLinkIcon, basicInformationFields, dataDetailsFields, additionalDetailsFields,
+  externalLinkIcon, descMaxLength, basicInformationFields, dataDetailsFields, additionalDetailsFields,
 } from '../../bento/datasetDetailData';
 import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
@@ -79,13 +79,17 @@ const dummyResourceLinks = [
 const DataSetDetailView = ({
   classes, data,
 }) => {
-  const descMaxLength = 9999999;
-  const [expanded, setExpanded] = useState(false);
+  const [expandedDescription, setExpandedDescription] = useState(false);
+  const [expandedExperimental, setExpandedExperimental] = useState(false);
   const [logoMarginTop, setLogoMarginTop] = useState(-16);
   const titleRef = useRef(null);
 
-  const toggleExpand = () => {
-    setExpanded(!expanded);
+  const toggleExpandDescription = () => {
+    setExpandedDescription(!expandedDescription);
+  };
+
+  const toggleExpandExperimental = () => {
+    setExpandedExperimental(!expandedExperimental);
   };
 
   useEffect(() => {
@@ -100,9 +104,19 @@ const DataSetDetailView = ({
     }
   }, [data.dataset_title]);
 
-  const truncatedDescription = data.description && data.description.length > descMaxLength
-    ? `${data.description.substring(0, descMaxLength)}...`
-    : data.description;
+  // Helper function to strip HTML tags
+  const stripHtmlTags = (html) => {
+    if (!html) return '';
+    const tmp = document.createElement('DIV');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+  };
+
+  // Get plain text version of description for truncation
+  const plainDescription = stripHtmlTags(data.description);
+  const truncatedDescription = plainDescription && plainDescription.length > descMaxLength
+    ? `${plainDescription.substring(0, descMaxLength)}...`
+    : plainDescription;
 
   const formatSemicolonSeparatedString = (str) => str.split(';').map((item) => item.trim()).join('; ');
 
@@ -178,9 +192,87 @@ const DataSetDetailView = ({
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
               Study Description
             </Typography>
-            <Typography variant="h6" component="h2" className={classes.studyHeader}>
+            <div className={classes.text}>
+              {expandedDescription ? (
+                <>
+                  {ReactHtmlParser(data.description)}
+                  {plainDescription && plainDescription.length > descMaxLength && (
+                    <>
+                      {' '}
+                      <span
+                        onClick={toggleExpandDescription}
+                        onKeyDown={(e) => e.key === 'Enter' && toggleExpandDescription()}
+                        role="button"
+                        tabIndex={0}
+                        className={classes.readMoreLink}
+                      >
+                        Show Less
+                      </span>
+                    </>
+                  )}
+                </>
+              ) : (
+                <p>
+                  {truncatedDescription}
+                  {plainDescription && plainDescription.length > descMaxLength && (
+                    <>
+                      {' '}
+                      <span
+                        onClick={toggleExpandDescription}
+                        onKeyDown={(e) => e.key === 'Enter' && toggleExpandDescription()}
+                        role="button"
+                        tabIndex={0}
+                        className={classes.readMoreLink}
+                      >
+                        Read More
+                      </span>
+                    </>
+                  )}
+                </p>
+              )}
+            </div>
+            <Typography variant="h6" component="h2" className={classes.studyHeader} style={{ marginTop: '40px' }}>
               Experimental Approaches
             </Typography>
+            <div className={classes.text}>
+              {expandedExperimental ? (
+                <>
+                  {ReactHtmlParser(data.description)}
+                  {plainDescription && plainDescription.length > descMaxLength && (
+                    <>
+                      {' '}
+                      <span
+                        onClick={toggleExpandExperimental}
+                        onKeyDown={(e) => e.key === 'Enter' && toggleExpandExperimental()}
+                        role="button"
+                        tabIndex={0}
+                        className={classes.readMoreLink}
+                      >
+                        Show Less
+                      </span>
+                    </>
+                  )}
+                </>
+              ) : (
+                <p>
+                  {truncatedDescription}
+                  {plainDescription && plainDescription.length > descMaxLength && (
+                    <>
+                      {' '}
+                      <span
+                        onClick={toggleExpandExperimental}
+                        onKeyDown={(e) => e.key === 'Enter' && toggleExpandExperimental()}
+                        role="button"
+                        tabIndex={0}
+                        className={classes.readMoreLink}
+                      >
+                        Read More
+                      </span>
+                    </>
+                  )}
+                </p>
+              )}
+            </div>
           </div>
           <div className={classes.contentSection}>
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
@@ -345,11 +437,11 @@ const DataSetDetailView = ({
                 Study Description
               </Typography>
               <Typography variant="body1" paragraph className={classes.studyContent}>
-                {expanded ? ReactHtmlParser(data.description) : ReactHtmlParser(truncatedDescription) || ''}
+                {expandedDescription ? ReactHtmlParser(data.description) : ReactHtmlParser(truncatedDescription) || ''}
                 {' '}
                 {data.description && data.description.length > descMaxLength && (
-                  <Button onClick={toggleExpand} color="primary" className={classes.link}>
-                    {expanded ? '' : 'Read More'}
+                  <Button onClick={toggleExpandDescription} color="primary" className={classes.link}>
+                    {expandedDescription ? '' : 'Read More'}
                   </Button>
                 )}
               </Typography>
@@ -765,6 +857,17 @@ const styles = (theme) => ({
   },
   link: {
     color: '#571AFF',
+  },
+  readMoreLink: {
+    color: '#571AFF',
+    fontSize: '15px',
+    fontWeight: 700,
+    lineHeight: '19px',
+    cursor: 'pointer',
+    textTransform: 'uppercase',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
   },
   container: {
     paddingTop: '30px',
