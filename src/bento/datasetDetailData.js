@@ -24,6 +24,7 @@ const basicInformationFields = [
     dynamic: false,
     isLink: false,
     formatSemicolon: true,
+    tooltip: 'The individual designated by the applicant organization to have the appropriate level of authority and responsibility to direct the project or program to be supported by the award',
   },
   {
     label: 'Study Page',
@@ -32,6 +33,7 @@ const basicInformationFields = [
     dynamic: true,
     isLink: true,
     formatSemicolon: false,
+    tooltip: 'Link to the study or dataset source website',
   },
   {
     label: 'Cited Publication PMID(s)',
@@ -39,6 +41,7 @@ const basicInformationFields = [
     dynamic: true,
     isLink: false,
     formatSemicolon: false,
+    tooltip: 'External link to PubMed',
   },
   {
     label: 'Release Date',
@@ -46,6 +49,7 @@ const basicInformationFields = [
     dynamic: true,
     isLink: false,
     formatSemicolon: true,
+    tooltip: 'Date when study was published to the public',
   },
   // TODO: Add institute field to graphql once available
   {
@@ -54,6 +58,7 @@ const basicInformationFields = [
     dynamic: true,
     isLink: false,
     formatSemicolon: true,
+    tooltip: 'Institution where the study was conducted',
   },
   {
     label: 'Funding Source(s)',
@@ -61,6 +66,7 @@ const basicInformationFields = [
     dynamic: true,
     isLink: false,
     formatSemicolon: true,
+    tooltip: 'Grant number funding the study',
   },
   {
     label: 'NCI Division/Office/Center',
@@ -68,6 +74,7 @@ const basicInformationFields = [
     dynamic: true,
     isLink: false,
     formatSemicolon: true,
+    tooltip: 'Each of NCI\'s divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer research',
   },
 ];
 

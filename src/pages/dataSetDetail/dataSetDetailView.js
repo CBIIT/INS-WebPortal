@@ -192,6 +192,16 @@ const DataSetDetailView = ({
                     <div className={classes.subSection}>
                       <Typography variant="body2" className={classes.subTitle}>
                         {field.label}
+                        {field.tooltip && (
+                          <div className="tooltip-icon">
+                            <img src={helpIcon} alt="tooltipIcon" />
+                            <div className="tooltip-text-first">
+                              <span className={classes.tooltipFont}>
+                                {field.tooltip}
+                              </span>
+                            </div>
+                          </div>
+                        )}
                       </Typography>
                       <Typography variant="body2" className={classes.text}>
                         {field.isLink ? (
