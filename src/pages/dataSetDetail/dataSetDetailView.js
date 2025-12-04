@@ -77,6 +77,23 @@ const DataSetDetailView = ({
 
   const formatSemicolonSeparatedString = (str) => str.split(';').map((item) => item.trim()).join('; ');
 
+  // Helper function to format text using textFormat array
+  const formatTextFromArray = (textFormatArray) => {
+    if (!textFormatArray || !Array.isArray(textFormatArray)) return '';
+
+    return textFormatArray
+      .map((item) => {
+        if (item.type === 'datafield') {
+          return data[item.text] || '';
+        }
+        if (item.type === 'string') {
+          return item.text;
+        }
+        return '';
+      })
+      .join('');
+  };
+
   return (
     <Container className={classes.mainContainer}>
       <div className={classes.contentContainer}>
@@ -289,9 +306,11 @@ const DataSetDetailView = ({
                           })
                         ) : field.isLink ? (
                           <Link href={data[field.datafield]} target="_blank" className={classes.link}>
-                            {field.linkTextField
-                              ? (field.formatSemicolon ? formatSemicolonSeparatedString(data[field.linkTextField] || '') : data[field.linkTextField])
-                              : (field.formatSemicolon ? formatSemicolonSeparatedString(data[field.datafield] || '') : data[field.datafield] || '')}
+                            {field.textFormat
+                              ? formatTextFromArray(field.textFormat)
+                              : field.linkTextField
+                                ? (field.formatSemicolon ? formatSemicolonSeparatedString(data[field.linkTextField] || '') : data[field.linkTextField])
+                                : (field.formatSemicolon ? formatSemicolonSeparatedString(data[field.datafield] || '') : data[field.datafield] || '')}
                             <img
                               src={externalLinkIcon.src}
                               alt={externalLinkIcon.alt}

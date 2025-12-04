@@ -31,11 +31,25 @@ const basicInformationFields = [
   {
     label: 'Study Page',
     datafield: 'dataset_source_url',
-    linkTextField: 'dataset_source_id',
+    linkTextField: null, // null to use custom textFormat
     dynamic: true,
     isLink: true,
     formatSemicolon: false,
     tooltip: 'Link to the study or dataset source website',
+    textFormat: [
+      {
+        text: 'dataset_source_repo',
+        type: 'datafield',
+      },
+      {
+        text: ': ',
+        type: 'string',
+      },
+      {
+        text: 'dataset_source_id',
+        type: 'datafield',
+      },
+    ],
   },
   {
     label: 'Cited Publication PMID(s)',
