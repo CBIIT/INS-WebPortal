@@ -12,7 +12,7 @@ import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
 import {
-  externalLinkIcon, descMaxLength, basicInformationFields, dataDetailsFields, additionalDetailsFields, dummyResourceLinks,
+  externalLinkIcon, externalLinkIconBlue, descMaxLength, basicInformationFields, dataDetailsFields, additionalDetailsFields, dummyResourceLinks,
 } from '../../bento/datasetDetailData';
 import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
@@ -133,8 +133,8 @@ const DataSetDetailView = ({
                 <Link href={data.dataset_source_url} target="_blank" className={cn(classes.subTitle, classes.externalResource)}>
                   View Dataset in External Resource
                   <img
-                    src={externalLinkIcon.src}
-                    alt={externalLinkIcon.alt}
+                    src={externalLinkIconBlue.src}
+                    alt={externalLinkIconBlue.alt}
                     className={classes.externalLinkIcon}
                   />
                 </Link>

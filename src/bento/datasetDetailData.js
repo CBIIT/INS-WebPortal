@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import programIcon from '../assets/icons/Icon-Programs.png';
+import externalLinkIconBlueSrc from '../assets/icons/externalLinkIconBlue.svg';
 
 // --------------- Page title configuration --------------
 const pageTitle = {
@@ -14,6 +15,11 @@ const pageSubTitle = {
 const externalLinkIcon = {
   src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/externalLinkIcon.svg',
   alt: 'External link icon',
+};
+
+const externalLinkIconBlue = {
+  src: externalLinkIconBlueSrc,
+  alt: 'External link icon blue',
 };
 
 const descMaxLength = 750;
@@ -310,6 +316,7 @@ export {
   pageTitle,
   pageSubTitle,
   externalLinkIcon,
+  externalLinkIconBlue,
   descMaxLength,
   basicInformationFields,
   dataDetailsFields,
