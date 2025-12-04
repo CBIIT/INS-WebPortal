@@ -336,8 +336,8 @@ const DataSetDetailView = ({
               {dataDetailsFields
                 .filter((field) => {
                   if (field.isPaired) {
-                    // Only show if BOTH paired fields have values
-                    return data[field.datafield] && data[field.pairedField];
+                    // Show if at least ONE paired field has a value
+                    return data[field.datafield] || data[field.pairedField];
                   }
                   if (!field.dynamic) return true;
                   return data[field.datafield];
@@ -360,8 +360,8 @@ const DataSetDetailView = ({
                       </Typography>
                       <Typography variant="body2" className={classes.text}>
                         {field.isPaired ? (
-                          // Render paired values (e.g., "min - max")
-                          `${data[field.datafield]} - ${data[field.pairedField]}`
+                          // Render paired values (e.g., "min - max"), showing partial values if one is missing
+                          `${data[field.datafield] || ''} - ${data[field.pairedField] || ''}`
                         ) : field.isMultiLink && data[field.datafield] ? (
                           // Render multiple links separated by semicolons
                           data[field.datafield].split(';').map((link, index) => (
