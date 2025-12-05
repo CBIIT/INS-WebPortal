@@ -259,7 +259,7 @@ const DataSetDetailView = ({
             </Typography>
             <Grid container spacing={4} className={classes.detailsGrid}>
               {basicInformationFields
-                .filter((field) => !field.dynamic || (field.dynamic && data[field.datafield]))
+                .filter((field) => !field.dynamic || (field.dynamic && data[field.datafield] != null && data[field.datafield] !== ''))
                 .map((field) => (
                   <Grid item xs={12} md={4} key={field.datafield}>
                     <div className={classes.subSection}>
