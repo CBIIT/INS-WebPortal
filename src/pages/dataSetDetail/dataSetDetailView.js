@@ -75,6 +75,12 @@ const DataSetDetailView = ({
     ? `${plainDescription.substring(0, descMaxLength)}...`
     : plainDescription;
 
+  // Get plain text version of experimental approaches for truncation
+  const plainExperimentalApproaches = stripHtmlTags(data.experimental_approaches);
+  const truncatedExperimentalApproaches = plainExperimentalApproaches && plainExperimentalApproaches.length > descMaxLength
+    ? `${plainExperimentalApproaches.substring(0, descMaxLength)}...`
+    : plainExperimentalApproaches;
+
   const formatSemicolonSeparatedString = (str) => str.split(';').map((item) => item.trim()).join('; ');
 
   // Helper function to format text using textFormat array
@@ -205,8 +211,7 @@ const DataSetDetailView = ({
                 </p>
               )}
             </div>
-            {true
-            && (
+            {data.experimental_approaches && (
             <>
               <Typography variant="h6" component="h2" className={classes.studyHeader} style={{ marginTop: '40px' }}>
                 Experimental Approaches
@@ -214,8 +219,8 @@ const DataSetDetailView = ({
               <div className={classes.text}>
                 {expandedExperimental ? (
                   <>
-                    {ReactHtmlParser(normalizeDescriptionContent(data.description))}
-                    {plainDescription && plainDescription.length > descMaxLength && (
+                    {ReactHtmlParser(normalizeDescriptionContent(data.experimental_approaches))}
+                    {plainExperimentalApproaches && plainExperimentalApproaches.length > descMaxLength && (
                       <>
                         {' '}
                         <span
@@ -232,8 +237,8 @@ const DataSetDetailView = ({
                   </>
                 ) : (
                   <p>
-                    {truncatedDescription}
-                    {plainDescription && plainDescription.length > descMaxLength && (
+                    {truncatedExperimentalApproaches}
+                    {plainExperimentalApproaches && plainExperimentalApproaches.length > descMaxLength && (
                       <>
                         {' '}
                         <span
