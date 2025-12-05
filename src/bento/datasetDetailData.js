@@ -106,7 +106,7 @@ const dataDetailsFields = [
   {
     label: 'Study Type',
     datafield: 'study_type',
-    dynamic: false,
+    dynamic: true,
     isLink: false,
     formatSemicolon: true,
     tooltip: 'Study design and scope of analysis, for example, case set, control set, longitudinal, epigenetics, RNA sequencing, or single-cell analysis',
