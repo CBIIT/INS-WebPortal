@@ -336,11 +336,12 @@ const DataSetDetailView = ({
               {dataDetailsFields
                 .filter((field) => {
                   if (field.isPaired) {
-                    // Show if at least ONE paired field has a value
-                    return data[field.datafield] || data[field.pairedField];
+                    // Show if at least ONE paired field has a value (including 0, but not empty string)
+                    return (data[field.datafield] != null && data[field.datafield] !== '')
+                        || (data[field.pairedField] != null && data[field.pairedField] !== '');
                   }
                   if (!field.dynamic) return true;
-                  return data[field.datafield];
+                  return data[field.datafield] != null && data[field.datafield] !== '';
                 })
                 .map((field) => (
                   <Grid item xs={12} md={4} key={field.datafield}>
