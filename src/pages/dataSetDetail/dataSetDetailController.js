@@ -3,25 +3,50 @@ import { useQuery } from '@apollo/client';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DataSetDetailView from './dataSetDetailView';
 import Error from '../error/Error';
-import { getDataSetDetailDataQuery } from '../../bento/datasetDetailData';
+import { getDataSetDetailDataQuery, getDatasetFilesQuery } from '../../bento/datasetDetailData';
 
 const DataSetDetailContainer = ({ match }) => {
   const {
-    loading,
-    error,
-    data,
+    loading: detailsLoading,
+    error: detailsError,
+    data: detailsData,
   } = useQuery(getDataSetDetailDataQuery, {
     variables: { dataset_source_id: match.params.id },
   });
 
-  if (loading) return <CircularProgress />;
+  const {
+    loading: filesLoading,
+    error: filesError,
+    data: filesData,
+  } = useQuery(getDatasetFilesQuery, {
+    variables: {
+      dataset_source_id: match.params.id,
+      accessTypes: ['Open'],
+    },
+  });
 
-  if (error || !data || error || !data || !data.datasetDetails) {
+  if (detailsLoading || filesLoading) return <CircularProgress />;
+
+  if (detailsError || !detailsData || !detailsData.datasetDetails) {
     return (
       <Error />
     );
   }
-  return <DataSetDetailView data={data.datasetDetails} />;
+
+  let datasetFiles = [];
+  if (filesError) {
+    console.error('Failed to load dataset files:', filesError);
+    // Continue with empty files array - files are optional
+  } else if (filesData && filesData.getDatasetFiles) {
+    datasetFiles = filesData.getDatasetFiles;
+  }
+
+  return (
+    <DataSetDetailView
+      data={detailsData.datasetDetails}
+      files={datasetFiles}
+    />
+  );
 };
 
 export default DataSetDetailContainer;
