@@ -172,7 +172,7 @@ const DataSetDetailView = ({
                 </Link>
               )}
             </div>
-            {dummyResourceLinks && (
+            {dummyResourceLinks && Array.isArray(dummyResourceLinks) && dummyResourceLinks.length > 0 && (
               <div className={classes.headerResourceContainer}>
                 <span className={classes.subTitle}>Download resource links: </span>
                 <div className={classes.resourceLinksWrapper}>

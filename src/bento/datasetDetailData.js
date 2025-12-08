@@ -221,7 +221,8 @@ const additionalDetailsFields = [
   },
 ];
 
-const dummyResourceLinks = [
+const dummyResourceLinks = [];
+/* [
   {
     name: 'Cancer Therapeutics Response Portal (CTRP v1, 2013) dataset',
     url: 'https://google.com',
@@ -279,6 +280,7 @@ const dummyResourceLinks = [
     url: 'https://google.com',
   },
 ];
+*/
 
 // --------------- GraphQL query - Retrieve program details --------------
 const getDataSetDetailDataQuery = gql`
