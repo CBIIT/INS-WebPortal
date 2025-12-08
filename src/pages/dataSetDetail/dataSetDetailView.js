@@ -17,12 +17,14 @@ import {
 import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
 
+const BASE_LOGO_MARGIN = -16;
+
 const DataSetDetailView = ({
   classes, data,
 }) => {
   const [expandedDescription, setExpandedDescription] = useState(false);
   const [expandedExperimental, setExpandedExperimental] = useState(false);
-  const [logoMarginTop, setLogoMarginTop] = useState(-16);
+  const [logoMarginTop, setLogoMarginTop] = useState(BASE_LOGO_MARGIN);
   const titleRef = useRef(null);
 
   const toggleExpandDescription = () => {
@@ -36,11 +38,16 @@ const DataSetDetailView = ({
   useEffect(() => {
     if (titleRef.current) {
       const titleHeight = titleRef.current.offsetHeight;
-      const lineHeight = 30; // Based on lineHeight of headerMainTitle
+
+      // Compute lineHeight from actual CSS instead of hardcoding
+      const computedStyle = window.getComputedStyle(titleRef.current);
+      const lineHeightStr = computedStyle.lineHeight;
+      const lineHeight = parseFloat(lineHeightStr);
+
       const numberOfLines = Math.round(titleHeight / lineHeight);
 
-      // Base margin is -16px, add 30px for each additional line
-      const newMargin = -16 + (Math.max(0, numberOfLines - 1) * 30);
+      // Base margin, add lineHeight px for each additional line
+      const newMargin = BASE_LOGO_MARGIN + (Math.max(0, numberOfLines - 1) * lineHeight);
       setLogoMarginTop(newMargin);
     }
   }, [data.dataset_title]);
@@ -98,6 +105,25 @@ const DataSetDetailView = ({
         return '';
       })
       .join('');
+  };
+
+  // Helper function to get link text based on field configuration
+  const getLinkText = (field) => {
+    // If textFormat is provided, use that
+    if (field.textFormat) {
+      return formatTextFromArray(field.textFormat);
+    }
+
+    // Determine which field to use (linkTextField or datafield)
+    const fieldName = field.linkTextField || field.datafield;
+    const fieldValue = data[fieldName] || '';
+
+    // Apply semicolon formatting if specified
+    if (field.formatSemicolon) {
+      return formatSemicolonSeparatedString(fieldValue);
+    }
+
+    return fieldValue;
   };
 
   return (
@@ -311,11 +337,7 @@ const DataSetDetailView = ({
                           })
                         ) : field.isLink ? (
                           <Link href={data[field.datafield]} target="_blank" className={classes.link}>
-                            {field.textFormat
-                              ? formatTextFromArray(field.textFormat)
-                              : field.linkTextField
-                                ? (field.formatSemicolon ? formatSemicolonSeparatedString(data[field.linkTextField] || '') : data[field.linkTextField])
-                                : (field.formatSemicolon ? formatSemicolonSeparatedString(data[field.datafield] || '') : data[field.datafield] || '')}
+                            {getLinkText(field)}
                             <img
                               src={externalLinkIcon.src}
                               alt={externalLinkIcon.alt}
