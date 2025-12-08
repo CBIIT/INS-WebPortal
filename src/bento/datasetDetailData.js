@@ -74,14 +74,13 @@ const basicInformationFields = [
     formatSemicolon: false,
     tooltip: 'Date when study was published to the public',
   },
-  // TODO: Add institute field to graphql once available
   {
     label: 'Institute',
     datafield: 'institute',
     dynamic: true,
     isLink: false,
     formatSemicolon: false,
-    tooltip: 'Institution where the study was conducted',
+    tooltip: 'The educational institution or research organization that the dataset\'s Principal Investigator belongs to',
   },
   {
     label: 'Funding Source(s)',
@@ -125,7 +124,7 @@ const dataDetailsFields = [
     dynamic: true,
     isLink: false,
     formatSemicolon: true,
-    tooltip: 'Sequencing assay method(s) used, for example, whole genome sequencing (WGS), whole exome sequencing (WES or WXS), or RNA Sequencing (RNA-seq).',
+    tooltip: 'Sequencing assay method(s) used, for example, whole genome sequencing (WGS), whole exome sequencing (WES or WXS), or RNA Sequencing (RNA-seq)',
   },
   {
     label: 'Participant Count',
@@ -185,7 +184,7 @@ const dataDetailsFields = [
     dynamic: true,
     isLink: false,
     formatSemicolon: true,
-    tooltip: 'Determines how a study\'s data can be used in the future based on consent groups. Refer to the Glossary in the About section for each consent group definition.',
+    tooltip: 'Determines how a study\'s data can be used in the future based on consent groups (refer to the Glossary in the About section for each consent group definition)',
   },
   {
     label: 'Related Link(s)',
