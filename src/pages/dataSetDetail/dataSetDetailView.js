@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Container,
   Grid,
@@ -11,207 +11,333 @@ import {
 import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
-import { externalLinkIcon } from '../../bento/datasetDetailData';
-import databaseIcon from '../../assets/icons/database.svg';
+import {
+  externalLinkIcon, externalLinkIconBlue, descMaxLength, basicInformationFields, dataDetailsFields, additionalDetailsFields, dummyResourceLinks,
+} from '../../bento/datasetDetailData';
+import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
+
+const BASE_LOGO_MARGIN = -16;
 
 const DataSetDetailView = ({
   classes, data,
 }) => {
-  const descMaxLength = 9999999;
-  const [expanded, setExpanded] = useState(false);
+  const [expandedDescription, setExpandedDescription] = useState(false);
+  const [expandedExperimental, setExpandedExperimental] = useState(false);
+  const [logoMarginTop, setLogoMarginTop] = useState(BASE_LOGO_MARGIN);
+  const titleRef = useRef(null);
 
-  const toggleExpand = () => {
-    setExpanded(!expanded);
+  const toggleExpandDescription = () => {
+    setExpandedDescription(!expandedDescription);
   };
 
-  const truncatedDescription = data.description && data.description.length > descMaxLength
-    ? `${data.description.substring(0, descMaxLength)}...`
-    : data.description;
+  const toggleExpandExperimental = () => {
+    setExpandedExperimental(!expandedExperimental);
+  };
+
+  useEffect(() => {
+    if (titleRef.current) {
+      const titleHeight = titleRef.current.offsetHeight;
+
+      // Compute lineHeight from actual CSS instead of hardcoding
+      const computedStyle = window.getComputedStyle(titleRef.current);
+      const lineHeightStr = computedStyle.lineHeight;
+      const lineHeight = parseFloat(lineHeightStr);
+
+      const numberOfLines = Math.round(titleHeight / lineHeight);
+
+      // Base margin, add lineHeight px for each additional line
+      const newMargin = BASE_LOGO_MARGIN + (Math.max(0, numberOfLines - 1) * lineHeight);
+      setLogoMarginTop(newMargin);
+    }
+  }, [data.dataset_title]);
+
+  // Helper function to strip HTML tags
+  const stripHtmlTags = (html) => {
+    if (!html) return '';
+    const tmp = document.createElement('DIV');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+  };
+
+  // Helper function to normalize plain text to HTML paragraph format
+  const normalizeDescriptionContent = (content) => {
+    if (!content) return '';
+
+    // Check if content already contains HTML paragraph tags
+    const hasHtmlParagraphs = /<p[\s>]/i.test(content);
+
+    if (hasHtmlParagraphs) {
+      // Content already has proper HTML structure
+      return content;
+    }
+
+    // Plain text detected - wrap in <p> tag to match HTML spacing
+    return `<p>${content}</p>`;
+  };
+
+  // Get plain text version of description for truncation
+  const plainDescription = stripHtmlTags(data.description);
+  const truncatedDescription = plainDescription && plainDescription.length > descMaxLength
+    ? `${plainDescription.substring(0, descMaxLength)}...`
+    : plainDescription;
+
+  // Get plain text version of experimental approaches for truncation
+  const plainExperimentalApproaches = stripHtmlTags(data.experimental_approaches);
+  const truncatedExperimentalApproaches = plainExperimentalApproaches && plainExperimentalApproaches.length > descMaxLength
+    ? `${plainExperimentalApproaches.substring(0, descMaxLength)}...`
+    : plainExperimentalApproaches;
 
   const formatSemicolonSeparatedString = (str) => str.split(';').map((item) => item.trim()).join('; ');
 
+  // Helper function to format text using textFormat array
+  const formatTextFromArray = (textFormatArray) => {
+    if (!textFormatArray || !Array.isArray(textFormatArray)) return '';
+
+    return textFormatArray
+      .map((item) => {
+        if (item.type === 'datafield') {
+          return data[item.text] || '';
+        }
+        if (item.type === 'string') {
+          return item.text;
+        }
+        return '';
+      })
+      .join('');
+  };
+
+  // Helper function to get link text based on field configuration
+  const getLinkText = (field) => {
+    // If textFormat is provided, use that
+    if (field.textFormat) {
+      return formatTextFromArray(field.textFormat);
+    }
+
+    // Determine which field to use (linkTextField or datafield)
+    const fieldName = field.linkTextField || field.datafield;
+    const fieldValue = data[fieldName] || '';
+
+    // Apply semicolon formatting if specified
+    if (field.formatSemicolon) {
+      return formatSemicolonSeparatedString(fieldValue);
+    }
+
+    return fieldValue;
+  };
+
   return (
     <Container className={classes.mainContainer}>
-      <Grid container spacing={2} alignItems="center" justify="space-between" className={classes.nav}>
-        <Grid item>
-          <Link href="#datasets" className={classes.navLink}>
-            Explore Datasets
-          </Link>
-          {'    '}
-          {'>'}
-          {'    '}
-          {data.dataset_title || ''}
+      <div className={classes.contentContainer}>
+        <Grid container spacing={2} alignItems="center" justify="space-between" className={classes.nav}>
+          <Grid item>
+            <Link href="#datasets" className={classes.navLink}>
+              Explore Datasets
+            </Link>
+            {'    '}
+            {'>'}
+            {'    '}
+            {data.dataset_title || ''}
+          </Grid>
         </Grid>
-      </Grid>
-      <div className={classes.container}>
-        <div className={classes.innerContainer}>
-          <div className={classes.header}>
-            <div className={classes.logo}>
-              <img
-                src={icon}
-                alt="INS datasets logo"
-              />
-            </div>
-            <div className={classes.headerTitle}>
-              <div className={classes.headerMainTitle} id="dataset_detail_title">
-                <span>
-                  Dataset:
-                  {' '}
-                  {formatSemicolonSeparatedString(data.dataset_title || '')}
-                </span>
+        <div className={classes.container}>
+          <div className={classes.innerContainer}>
+            <div className={classes.header}>
+              <div className={classes.logo} style={{ marginTop: `${logoMarginTop}px` }}>
+                <img
+                  src={icon}
+                  alt="INS datasets logo"
+                />
               </div>
-              <div className={cn(classes.headerMSubTitle,
-                classes.headerSubTitleCate, classes.link)}
-              >
-                <img src={databaseIcon} alt="database-icon" className={classes.databaseImg} />
-                <Link href={data.dataset_source_url} target="_blank" className={classes.link}>
-                  {data.dataset_source_repo}
-                  :
-                  {' '}
-                  {data.dataset_source_id || ''}
+              <div className={classes.headerTitle}>
+                <div className={classes.headerMainTitle} id="dataset_detail_title" ref={titleRef}>
+                  <span className={classes.datasetLabel}>Dataset:</span>
+                  <span className={classes.datasetTitle}>
+                    {formatSemicolonSeparatedString(data.dataset_title || '')}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className={classes.headerResourceContainer}>
+              <span className={classes.subTitle}>Source Repository: </span>
+              <span className={classes.repositoryName}>{data.dataset_source_repo || ''}</span>
+              {data.dataset_source_url && (
+                <Link href={data.dataset_source_url} target="_blank" className={cn(classes.subTitle, classes.externalResource)}>
+                  View Dataset in External Resource
                   <img
-                    src={externalLinkIcon.src}
-                    alt={externalLinkIcon.alt}
+                    src={externalLinkIconBlue.src}
+                    alt={externalLinkIconBlue.alt}
                     className={classes.externalLinkIcon}
                   />
                 </Link>
-              </div>
+              )}
             </div>
+            {dummyResourceLinks && Array.isArray(dummyResourceLinks) && dummyResourceLinks.length > 0 && (
+              <div className={classes.headerResourceContainer}>
+                <span className={classes.subTitle}>Download resource links: </span>
+                <div className={classes.resourceLinksWrapper}>
+                  {dummyResourceLinks.map((link) => (
+                    <Link href={link.url} target="_blank" key={`resource-link-${link.name}`} className={classes.resourceLink}>
+                      <span className={classes.resourceLinkText}>
+                        {link.name}
+                        <img
+                          src={resourceLinkDownloadIcon}
+                          alt="resource link download icon"
+                          className={classes.resourceLinkIcon}
+                        />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      </div>
-      <div className={classes.studyContainer}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
+        <div className={classes.detailsContainer}>
+          <div className={classes.contentSection}>
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
               Study Description
             </Typography>
-            <Typography variant="body1" paragraph className={classes.studyContent}>
-              {expanded ? ReactHtmlParser(data.description) : ReactHtmlParser(truncatedDescription) || ''}
-              {' '}
-              {data.description && data.description.length > descMaxLength && (
-                <Button onClick={toggleExpand} color="primary" className={classes.link}>
-                  {expanded ? '' : 'Read More'}
-                </Button>
+            <div className={classes.text}>
+              {expandedDescription ? (
+                <>
+                  {ReactHtmlParser(normalizeDescriptionContent(data.description))}
+                  {plainDescription && plainDescription.length > descMaxLength && (
+                    <>
+                      {' '}
+                      <span
+                        onClick={toggleExpandDescription}
+                        onKeyDown={(e) => e.key === 'Enter' && toggleExpandDescription()}
+                        role="button"
+                        tabIndex={0}
+                        className={classes.readMoreLink}
+                      >
+                        Show Less
+                      </span>
+                    </>
+                  )}
+                </>
+              ) : (
+                <p>
+                  {truncatedDescription}
+                  {plainDescription && plainDescription.length > descMaxLength && (
+                    <>
+                      {' '}
+                      <span
+                        onClick={toggleExpandDescription}
+                        onKeyDown={(e) => e.key === 'Enter' && toggleExpandDescription()}
+                        role="button"
+                        tabIndex={0}
+                        className={classes.readMoreLink}
+                      >
+                        Read More
+                      </span>
+                    </>
+                  )}
+                </p>
               )}
+            </div>
+            {data.experimental_approaches && (
+            <>
+              <Typography variant="h6" component="h2" className={classes.studyHeader} style={{ marginTop: '40px' }}>
+                Experimental Approaches
+              </Typography>
+              <div className={classes.text}>
+                {expandedExperimental ? (
+                  <>
+                    {ReactHtmlParser(normalizeDescriptionContent(data.experimental_approaches))}
+                    {plainExperimentalApproaches && plainExperimentalApproaches.length > descMaxLength && (
+                      <>
+                        {' '}
+                        <span
+                          onClick={toggleExpandExperimental}
+                          onKeyDown={(e) => e.key === 'Enter' && toggleExpandExperimental()}
+                          role="button"
+                          tabIndex={0}
+                          className={classes.readMoreLink}
+                        >
+                          Show Less
+                        </span>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <p>
+                    {truncatedExperimentalApproaches}
+                    {plainExperimentalApproaches && plainExperimentalApproaches.length > descMaxLength && (
+                      <>
+                        {' '}
+                        <span
+                          onClick={toggleExpandExperimental}
+                          onKeyDown={(e) => e.key === 'Enter' && toggleExpandExperimental()}
+                          role="button"
+                          tabIndex={0}
+                          className={classes.readMoreLink}
+                        >
+                          Read More
+                        </span>
+                      </>
+                    )}
+                  </p>
+                )}
+              </div>
+            </>
+            )}
+          </div>
+          <div className={classes.contentSection}>
+            <Typography variant="h6" component="h2" className={classes.studyHeader}>
+              Basic Information
             </Typography>
-          </Grid>
-        </Grid>
-      </div>
-      <div className={classes.basicInformationContainer}>
-        <Grid container spacing={4}>
-          {/* Basic Information */}
-          <Grid item xs={12} md={4} className={cn(classes.space, classes.borderRight)}>
-            <Typography variant="h2" className={classes.title}>Basic Information</Typography>
-            <div className={classes.subSection}>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>Study Page </strong>
-                <div className="tooltip-icon">
-                  <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text-first">
-                    <span className={classes.tooltipFont}>
-                      Link to the study or dataset source website
-                    </span>
-                  </div>
-                </div>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                <Link href={data.dataset_source_url} target="_blank" className={classes.link}>
-                  {data.dataset_source_repo}
-                  :
-                  {' '}
-                  {data.dataset_source_id || ''}
-                  <img
-                    src={externalLinkIcon.src}
-                    alt={externalLinkIcon.alt}
-                    className={classes.externalLinkIcon}
-                  />
-                </Link>
-              </Typography>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>NCI Division/Office/Center  </strong>
-                <div className="tooltip-icon">
-                  <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text-first">
-                    <span className={classes.tooltipFont}>
-                      Each of NCI's divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer
-                      research
-                    </span>
-                  </div>
-                </div>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                {formatSemicolonSeparatedString(data.dataset_doc || '')}
-              </Typography>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>Release Date </strong>
-                <div className="tooltip-icon">
-                  <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text-first">
-                    <span className={classes.tooltipFont}>
-                      Date when study was published to the public
-                    </span>
-                  </div>
-                </div>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                {formatSemicolonSeparatedString(data.release_date || '')}
-              </Typography>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>Principal Investigator(s) </strong>
-                <div className="tooltip-icon">
-                  <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text-first">
-                    <span className={classes.tooltipFont}>
-                      The individual designated by the applicant organization to have the appropriate level of authority and
-                      responsibility to direct the project or program to be supported by the award
-                    </span>
-                  </div>
-                </div>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                {formatSemicolonSeparatedString(data.PI_name || '')}
-              </Typography>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>Funding Source(s) </strong>
-                <div className="tooltip-icon">
-                  <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text-first">
-                    <span className={classes.tooltipFont}>
-                      Grant number funding the study
-                    </span>
-                  </div>
-                </div>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                {formatSemicolonSeparatedString(data.funding_source || '')}
-              </Typography>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>Cited Publication PMID(s) </strong>
-                <div className="tooltip-icon">
-                  <img src={helpIcon} alt="tooltipIcon" />
-                  <div className="tooltip-text-first">
-                    <span className={classes.tooltipFont}>
-                      External link to PubMed
-                    </span>
-                  </div>
-                </div>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                {data.dataset_pmid ? (
-                  data.dataset_pmid.split(';').map((pmid, index) => {
-                    const trimmedPmid = pmid.trim();
-                    const isNumeric = trimmedPmid !== '' && !Number.isNaN(Number(trimmedPmid));
-                    return (
-                      <span key={index}>
-                        {isNumeric ? (
-                          <Link
-                            href={`https://pubmed.ncbi.nlm.nih.gov/${trimmedPmid}/`}
-                            target="_blank"
-                            className={classes.link}
-                          >
-                            {trimmedPmid}
+            <Grid container spacing={4} className={classes.detailsGrid}>
+              {basicInformationFields
+                .filter((field) => !field.dynamic || (field.dynamic && data[field.datafield] != null && data[field.datafield] !== ''))
+                .map((field) => (
+                  <Grid item xs={12} md={4} key={field.datafield}>
+                    <div className={classes.subSection}>
+                      <Typography variant="body2" className={classes.subTitle}>
+                        {field.label}
+                        {field.tooltip && (
+                          <div className="tooltip-icon">
+                            <img src={helpIcon} alt="tooltipIcon" />
+                            <div className="tooltip-text-first">
+                              <span className={classes.tooltipFont}>
+                                {field.tooltip}
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                      </Typography>
+                      <Typography variant="body2" className={classes.text}>
+                        {field.isPMID && data[field.datafield] ? (
+                          data[field.datafield].split(';').map((pmid, index) => {
+                            const trimmedPmid = pmid.trim();
+                            const isNumeric = trimmedPmid !== '' && !Number.isNaN(Number(trimmedPmid));
+                            return (
+                              <span key={index}>
+                                {isNumeric ? (
+                                  <Link
+                                    href={`https://pubmed.ncbi.nlm.nih.gov/${trimmedPmid}/`}
+                                    target="_blank"
+                                    className={classes.link}
+                                  >
+                                    {trimmedPmid}
+                                    <img
+                                      src={externalLinkIcon.src}
+                                      alt={externalLinkIcon.alt}
+                                      className={classes.externalLinkIcon}
+                                    />
+                                  </Link>
+                                ) : (
+                                  <span>{trimmedPmid}</span>
+                                )}
+                                {index < data[field.datafield].split(';').length - 1 && '; '}
+                                {index < data[field.datafield].split(';').length - 1 && ' '}
+                              </span>
+                            );
+                          })
+                        ) : field.isLink ? (
+                          <Link href={data[field.datafield]} target="_blank" className={classes.link}>
+                            {getLinkText(field)}
                             <img
                               src={externalLinkIcon.src}
                               alt={externalLinkIcon.alt}
@@ -219,273 +345,117 @@ const DataSetDetailView = ({
                             />
                           </Link>
                         ) : (
-                          <span>{trimmedPmid}</span>
+                          field.formatSemicolon
+                            ? formatSemicolonSeparatedString(data[field.datafield] || '')
+                            : data[field.datafield] || ''
                         )}
-                        {index < data.dataset_pmid.split(';').length - 1 && '; '}
-                        {index < data.dataset_pmid.split(';').length - 1 && ' '}
-                      </span>
-                    );
-                  })
-                ) : (
-                  ''
-                )}
-              </Typography>
-            </div>
-          </Grid>
-          <div className={classes.divder} />
-          <Grid item xs={12} md={8} className={classes.space}>
-            <Typography variant="h6" className={classes.title}>Data Details</Typography>
-            <Grid container className={classes.subSection}>
-              <Grid item xs={12} md={6}>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Study Type </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
-                      <span className={classes.tooltipFont}>
-                        Study design and scope of analysis, for example, case set, control set, longitudinal, epigenetics, RNA
-                        sequencing, or single-cell analysis
-                      </span>
+                      </Typography>
                     </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {formatSemicolonSeparatedString(data.study_type || '')}
-                </Typography>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Limitations for Reuse </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
-                      <span className={classes.tooltipFont}>
-                        Determines how a study's data can be used in the future based on consent groups. Refer to the Glossary in the
-                        About section for each consent group definition.
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {formatSemicolonSeparatedString(data.limitations_for_reuse || '')}
-                </Typography>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Assay Method </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
-                      <span className={classes.tooltipFont}>
-                        Sequencing assay method(s) used, for example, whole genome sequencing (WGS), whole exome sequencing (WES or
-                        WXS), or RNA Sequencing (RNA-seq).
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {formatSemicolonSeparatedString(data.assay_method || '')}
-                </Typography>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Participant Count</strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
-                      <span className={classes.tooltipFont}>
-                        Total number of consented subjects in the study
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {data.participant_count || ''}
-                </Typography>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Sample Count </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text">
-                      <span className={classes.tooltipFont}>
-                        Total number of samples in the study
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {data.sample_count || ''}
-                </Typography>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Enrollment Year (Start - End) </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text-first">
-                      <span className={classes.tooltipFont}>
-                        Years when study’s participant enrollment started and ended
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {data.dataset_year_enrollment_started}
-                  {' '}
-                  -
-                  {' '}
-                  {data.dataset_year_enrollment_ended}
-                </Typography>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Age at Baseline (Min - Max) </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text-first">
-                      <span className={classes.tooltipFont}>
-                        Participants’ minimum and maximum ages at study’s enrollment start
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {data.dataset_minimum_age_at_baseline}
-                  {' '}
-                  -
-                  {' '}
-                  {data.dataset_maximum_age_at_baseline}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Primary Disease </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text-last">
-                      <span className={classes.tooltipFont}>
-                        Study’s primary disease focus
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {formatSemicolonSeparatedString(data.primary_disease || '')}
-                </Typography>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Related Genes </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text-last">
-                      <span className={classes.tooltipFont}>
-                        Any genes related to the dataset study
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {formatSemicolonSeparatedString(data.related_genes || '')}
-                </Typography>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Related Diseases </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text-last">
-                      <span className={classes.tooltipFont}>
-                        Any diseases related to the dataset study
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {formatSemicolonSeparatedString(data.related_diseases || '')}
-                </Typography>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Related Terms </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text-last">
-                      <span className={classes.tooltipFont}>
-                        Any other terms related to the dataset study
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                <Typography variant="body2" className={classes.text}>
-                  {formatSemicolonSeparatedString(data.related_terms || '')}
-                </Typography>
-                <Typography variant="body2" className={classes.subTitle}>
-                  <strong>Study Link(s) </strong>
-                  <div className="tooltip-icon">
-                    <img src={helpIcon} alt="tooltipIcon" />
-                    <div className="tooltip-text-last">
-                      <span className={classes.tooltipFont}>
-                        Link to an external website related to the study or dataset
-                      </span>
-                    </div>
-                  </div>
-                </Typography>
-                {data.study_links && data.study_links.length > 0 ? (
-                  data.study_links.split(';').map((link, index) => (
-                    <Typography variant="body2" className={classes.text} key={index}>
-                      <Link
-                        href={link.startsWith('http') ? link : `https://${link}`}
-                        target="_blank"
-                        className={classes.link}
-                      >
-                        {link}
-                        <img
-                          src={externalLinkIcon.src}
-                          alt={externalLinkIcon.alt}
-                          className={classes.externalLinkIcon}
-                        />
-                      </Link>
-                    </Typography>
-                  ))
-                ) : (
-                  <Typography variant="body2" className={classes.text}>
-                    {' '}
-                  </Typography>
-                )}
-              </Grid>
+                  </Grid>
+                ))}
             </Grid>
-          </Grid>
-        </Grid>
-      </div>
-      <div className={classes.additionalContainer}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} className={classes.space}>
-            <Typography variant="h6" className={classes.title}>Additional Details Coming Soon</Typography>
-            <div className={classes.subSection}>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>Participant/Sample Details </strong>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                This information is coming soon.
-              </Typography>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>Data Details </strong>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                This information is coming soon.
-              </Typography>
-              <Typography variant="body2" className={classes.subTitle}>
-                <strong>Program(s) </strong>
-              </Typography>
-              <Typography variant="body2" className={classes.text}>
-                This information is coming soon.
-              </Typography>
-            </div>
-          </Grid>
-        </Grid>
+          </div>
+          <div className={classes.contentSection}>
+            <Typography variant="h6" component="h2" className={classes.studyHeader}>
+              Data Details
+            </Typography>
+            <Grid container spacing={4} className={classes.detailsGrid}>
+              {dataDetailsFields
+                .filter((field) => {
+                  if (field.isPaired) {
+                    // Show if at least ONE paired field has a value (including 0, but not empty string)
+                    return (data[field.datafield] != null && data[field.datafield] !== '')
+                        || (data[field.pairedField] != null && data[field.pairedField] !== '');
+                  }
+                  if (!field.dynamic) return true;
+                  return data[field.datafield] != null && data[field.datafield] !== '';
+                })
+                .map((field) => (
+                  <Grid item xs={12} md={4} key={field.datafield}>
+                    <div className={classes.subSection}>
+                      <Typography variant="body2" className={classes.subTitle}>
+                        {field.label}
+                        {field.tooltip && (
+                          <div className="tooltip-icon">
+                            <img src={helpIcon} alt="tooltipIcon" />
+                            <div className="tooltip-text-first">
+                              <span className={classes.tooltipFont}>
+                                {field.tooltip}
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                      </Typography>
+                      <Typography variant="body2" className={classes.text}>
+                        {field.isPaired ? (
+                          // Render paired values (e.g., "min - max"), showing partial values if one is missing
+                          `${data[field.datafield] || ''} - ${data[field.pairedField] || ''}`
+                        ) : field.isMultiLink && data[field.datafield] ? (
+                          // Render multiple links separated by semicolons
+                          data[field.datafield].split(';').map((link, index) => (
+                            <Typography variant="body2" className={classes.text} key={index}>
+                              <Link
+                                href={link.trim().startsWith('http') ? link.trim() : `https://${link.trim()}`}
+                                target="_blank"
+                                className={classes.link}
+                              >
+                                {link.trim()}
+                                <img
+                                  src={externalLinkIcon.src}
+                                  alt={externalLinkIcon.alt}
+                                  className={classes.externalLinkIcon}
+                                />
+                              </Link>
+                            </Typography>
+                          ))
+                        ) : (
+                          field.formatSemicolon
+                            ? formatSemicolonSeparatedString(data[field.datafield] || '')
+                            : data[field.datafield] || ''
+                        )}
+                      </Typography>
+                    </div>
+                  </Grid>
+                ))}
+            </Grid>
+          </div>
+          <div className={classes.contentSection}>
+            <Typography variant="h6" component="h2" className={classes.studyHeader}>
+              Additional Details Coming Soon
+            </Typography>
+            <Grid container spacing={4} className={classes.detailsGrid}>
+              {additionalDetailsFields.map((field) => (
+                <Grid item xs={12} md={4} key={field.label}>
+                  <div className={classes.subSection}>
+                    <Typography variant="body2" className={classes.subTitle}>
+                      {field.label}
+                    </Typography>
+                    <Typography variant="body2" className={classes.text}>
+                      {field.text}
+                    </Typography>
+                  </div>
+                </Grid>
+              ))}
+            </Grid>
+          </div>
+        </div>
       </div>
     </Container>
   );
 };
 
 const styles = (theme) => ({
-  databaseImg: {
-    verticalAlign: 'middle',
-    marginRight: '5px',
-  },
   mainContainer: {
     paddingTop: '10px',
     background: '#FFFF',
     maxWidth: '100%',
   },
+  contentContainer: {
+    maxWidth: '1400px',
+    margin: '0 auto',
+  },
   externalLinkIcon: {
-    width: '16px',
-    verticalAlign: 'sub',
+    width: '13px',
     marginLeft: '4px',
   },
   nav: {
@@ -509,13 +479,23 @@ const styles = (theme) => ({
   link: {
     color: '#571AFF',
   },
+  readMoreLink: {
+    color: '#571AFF',
+    fontSize: '15px',
+    fontWeight: 700,
+    lineHeight: '19px',
+    cursor: 'pointer',
+    textTransform: 'uppercase',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
   container: {
     paddingTop: '30px',
     fontFamily: theme.custom.fontFamily,
     paddingLeft: '32px',
     paddingRight: '32px',
     background: '#FFFF',
-    paddingBottom: '16px',
   },
   innerContainer: {
     padding: '0 ',
@@ -523,7 +503,7 @@ const styles = (theme) => ({
     background: '#FFFFFF',
   },
   header: {
-    paddingLeft: '21px',
+    paddingLeft: '10px',
     paddingRight: '35px',
     borderBottom: '#4B619A 10px solid',
     height: 'fit-content',
@@ -533,149 +513,121 @@ const styles = (theme) => ({
   },
   headerTitle: {
     margin: 'auto',
-    float: 'left',
-    marginLeft: '95px',
+    marginLeft: '100px',
     marginTop: '18px',
   },
   headerMainTitle: {
-    '& > span': {
-      fontWeight: '400',
-      letterSpacing: '0.017em',
-    },
-    '& > span > span': {
-      fontWeight: '600',
-      letterSpacing: '0.025em',
-    },
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '10px',
     fontFamily: 'Inter',
-    letterSpacing: '0.025em',
     color: '#274FA5 ',
     fontSize: '26px',
     lineHeight: '30px',
-    paddingLeft: '0px',
+    paddingBottom: '2px',
+    letterSpacing: '0',
   },
-  headerSubTitleCate: {
-    color: '#5A656A',
+  datasetLabel: {
     fontWeight: '400',
-    fontFamily: 'Nunito',
-    letterSpacing: '0.023em',
-    fontSize: '16px',
-    overflow: 'hidden',
-    lineHeight: '25px',
-    paddingLeft: '2px',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    paddingRight: '200px',
+    flexShrink: 0,
   },
-  headerMSubTitle: {
-    paddingBottom: '3px',
+  datasetTitle: {
+    fontWeight: '600',
+    flex: 1,
+    wordBreak: 'break-word',
   },
   logo: {
     position: 'absolute',
     float: 'left',
-    marginTop: '9px',
     width: '107px',
-    filter: 'drop-shadow(24px 22px 7px rgba(27,28,28,0.29))',
+    filter: 'drop-shadow(10px 12px 8px rgba(27,28,28,0.29))',
   },
-  studyContainer: {
-    marginTop: '30px',
-    fontFamily: 'Nunito',
-    fontSize: '15px',
-    fontWeight: '700',
-    lineHeight: ' 19px',
-    textAlign: 'left',
-    marginLeft: '32px',
-    background: '#FFFF',
-    paddingBottom: '50px',
-    borderBottom: '3px solid #7D91C4',
-    wordBreak: 'normal',
+  headerResourceContainer: {
+    width: '100%',
+    background: '#E8F2F7',
+    padding: '15px 110px',
+    borderBottom: '1px solid #7D91C4',
+  },
+  repositoryName: {
+    fontFamily: 'Inter',
+    fontSize: '18px',
+    fontWeight: '400',
+    color: '#285C9B',
+  },
+  externalResource: {
+    marginLeft: '50px',
+    cursor: 'pointer',
+  },
+  resourceLinksWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '5px 11px',
+  },
+  resourceLink: {
+    background: '#FFFFFF',
+    border: '1px solid #4B619A',
+    borderRadius: '20px',
+    padding: '0px 10px',
+    width: 'fit-content',
+    height: '24px',
+  },
+  resourceLinkText: {
+    fontFamily: 'Poppins',
+    fontSize: '13px',
+    fontWeight: '600',
+    lineHeight: '19.31px',
+    color: '#4B619A',
+  },
+  resourceLinkIcon: {
+    width: '12px',
+    height: '11px',
+    marginLeft: '6px',
+    verticalAlign: 'middle',
+  },
+  detailsContainer: {
+    // Everything pushed in 32px to align with header sections
+    padding: '0px 32px',
+  },
+  contentSection: {
+    padding: '30px 110px',
+    borderBottom: '1px solid #7D91C4',
+    '&:last-child': {
+      borderBottom: 'none',
+      paddingBottom: '85px',
+    },
+  },
+  detailsGrid: {
+    marginTop: '12px',
   },
   studyHeader: {
     fontFamily: 'Inter',
     fontSize: '19px',
     fontWeight: 400,
     lineHeight: '20px',
-    textAlign: 'left',
     textTransform: 'uppercase',
-    padding: '0 0 10px 0',
     color: '#3478A5',
-    paddingLeft: '15px',
-    paddingRight: '15px',
-  },
-  borderRight: {
-    borderRight: '1px solid #B0D7E6',
-  },
-  studyContent: {
-    paddingLeft: '15px',
-    paddingRight: '15px',
-  },
-  basicInformationContainer: {
-    marginTop: '40px',
-    fontFamily: 'Nunito',
-    fontSize: '15px',
-    fontWeight: '700',
-    lineHeight: ' 19px',
-    textAlign: 'left',
-    marginLeft: '32px',
-    background: '#FFFF',
-    paddingBottom: '20px',
-    wordBreak: 'normal',
-    borderBottom: '3px solid #7D91C4',
   },
   subTitle: {
     fontFamily: 'Inter',
     fontSize: '16px',
-    fontWeight: 600,
+    fontWeight: 700,
     lineHeight: '20px',
     textAlign: 'left',
-    color: '#1C58A1',
-    paddingTop: '10px',
-  },
-  title: {
-    fontFamily: 'Inter',
-    fontSize: '19px',
-    fontWeight: 400,
-    lineHeight: '20px',
-    color: '#3478A5',
+    color: '#285C9B',
   },
   subSection: {
-    padding: '25px 15px',
+    padding: '0px',
   },
   text: {
-    padding: '0 10px 0 0',
-    wordWrap: 'break-word',
-    minHeight: '25px',
-  },
-  additionalContainer: {
-    marginTop: '40px',
     fontFamily: 'Nunito',
-    fontSize: '15px',
-    fontWeight: '700',
-    lineHeight: ' 19px',
-    textAlign: 'left',
-    marginLeft: '32px',
-    background: '#FFFF',
-    paddingBottom: '60px',
-    wordBreak: 'normal',
-  },
-  space: {
-    padding: ' 0 32px !important',
-    margin: '16px 0',
+    fontSize: '18px',
+    fontWeight: '400',
+    wordWrap: 'break-word',
+    lineHeight: '25px',
   },
   tooltipIcon: {
     position: 'relative',
     display: 'inline-block',
-    '&:hover $tooltipText': {
-      visibility: 'visible',
-      opacity: 1,
-    },
-    '&:focus $tooltipText': {
-      visibility: 'visible',
-      opacity: 1,
-    },
-    '&:active $tooltipText': {
-      visibility: 'visible',
-      opacity: 1,
-    },
     '&:hover $tooltipTextFirst': {
       visibility: 'visible',
       opacity: 1,
@@ -687,41 +639,6 @@ const styles = (theme) => ({
     '&:active $tooltipTextFirst': {
       visibility: 'visible',
       opacity: 1,
-    },
-    '&:hover $tooltipTextLast': {
-      visibility: 'visible',
-      opacity: 1,
-    },
-    '&:focus $tooltipTextLast': {
-      visibility: 'visible',
-      opacity: 1,
-    },
-    '&:active $tooltipTextLast': {
-      visibility: 'visible',
-      opacity: 1,
-    },
-  },
-  tooltipText: {
-    visibility: 'hidden',
-    position: 'absolute',
-    padding: '12px',
-    zIndex: 1,
-    bottom: '125%',
-    left: '-200px',
-    marginLeft: '8px',
-    transition: 'opacity 0.3s',
-    width: '400px',
-    background: '#FFFFFF',
-    border: '1px solid #9C0592',
-    '&::after': {
-      content: "''",
-      position: 'absolute',
-      top: '100%',
-      left: '50%',
-      marginLeft: '-5px',
-      borderWidth: '5px',
-      borderStyle: 'solid',
-      borderColor: 'black transparent transparent transparent',
     },
   },
   tooltipTextFirst: {
@@ -742,29 +659,6 @@ const styles = (theme) => ({
       top: '100%',
       left: '50%',
       marginLeft: '-130px',
-      borderWidth: '5px',
-      borderStyle: 'solid',
-      borderColor: 'black transparent transparent transparent',
-    },
-  },
-  tooltipTextLast: {
-    visibility: 'hidden',
-    position: 'absolute',
-    padding: '12px',
-    zIndex: 1,
-    bottom: '125%',
-    left: '-200px',
-    marginLeft: '-165px',
-    transition: 'opacity 0.3s',
-    width: '400px',
-    background: '#FFFFFF',
-    border: '1px solid #9C0592',
-    '&::after': {
-      content: "''",
-      position: 'absolute',
-      top: '100%',
-      left: '50%',
-      marginLeft: '168px',
       borderWidth: '5px',
       borderStyle: 'solid',
       borderColor: 'black transparent transparent transparent',
