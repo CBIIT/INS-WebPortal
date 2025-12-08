@@ -1,3 +1,4 @@
+/* eslint-env jest */
 /* eslint-disable max-len */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
@@ -137,10 +138,10 @@ describe('Basic Functionality', () => {
     expect(screen.getByText('Test Dataset')).toBeInTheDocument();
     expect(screen.getByText(/Primary Disease:/i)).toBeInTheDocument();
     // Primary disease text may be highlighted (wrapped in <b> tags), so check it exists in the document
-    const primaryDiseaseElement = screen.getByText((content, element) => {
+    const primaryDiseaseElement = screen.getByText((content, element) => (
       // Check if element contains the disease name (may have HTML tags)
-      return element.className === 'itemSpan' && element.textContent.includes('Disease');
-    });
+      element.className === 'itemSpan' && element.textContent.includes('Disease')
+    ));
     expect(primaryDiseaseElement).toBeInTheDocument();
     expect(screen.getByText(/Description:/i)).toBeInTheDocument();
 
