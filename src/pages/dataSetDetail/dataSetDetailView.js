@@ -12,7 +12,7 @@ import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
 import {
-  externalLinkIcon, externalLinkIconBlue, descMaxLength, basicInformationFields, dataDetailsFields, additionalDetailsFields, dummyResourceLinks,
+  externalLinkIcon, externalLinkIconBlue, descMaxLength, basicInformationFields, dataDetailsFields, additionalDetailsFields,
 } from '../../bento/datasetDetailData';
 import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
@@ -20,7 +20,7 @@ import helpIcon from '../../assets/icons/help.svg';
 const BASE_LOGO_MARGIN = -16;
 
 const DataSetDetailView = ({
-  classes, data,
+  classes, data, files = [],
 }) => {
   const [expandedDescription, setExpandedDescription] = useState(false);
   const [expandedExperimental, setExpandedExperimental] = useState(false);
@@ -172,14 +172,14 @@ const DataSetDetailView = ({
                 </Link>
               )}
             </div>
-            {dummyResourceLinks && Array.isArray(dummyResourceLinks) && dummyResourceLinks.length > 0 && (
+            {files && Array.isArray(files) && files.length > 0 && (
               <div className={classes.headerResourceContainer}>
                 <span className={classes.subTitle}>Download resource links: </span>
                 <div className={classes.resourceLinksWrapper}>
-                  {dummyResourceLinks.map((link) => (
-                    <Link href={link.url} target="_blank" key={`resource-link-${link.name}`} className={classes.resourceLink}>
+                  {files.map((file) => (
+                    <Link href={file.downloadUrl} target="_blank" key={`resource-link-${file.file_id}`} className={classes.resourceLink}>
                       <span className={classes.resourceLinkText}>
-                        {link.name}
+                        {file.file_name}
                         <img
                           src={resourceLinkDownloadIcon}
                           alt="resource link download icon"
