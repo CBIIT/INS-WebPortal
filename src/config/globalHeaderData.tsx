@@ -107,7 +107,7 @@ export const navbarSublists = {
     },
     {
       name: 'Release Notes (PDF)',
-      link: '/Release_v3.1.0.pdf',
+      link: '/Release_v3.2.0.pdf',
       id: 'navbar-dropdown-item-release-notes',
       className: 'navMobileSubItem',
     },
