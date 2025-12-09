@@ -265,12 +265,9 @@ query getDatasetFiles(
     dataset_source_id: $dataset_source_id,
     accessTypes: $accessTypes
   ) {
-    access_level
     downloadUrl
     file_id
     file_name
-    file_type
-    __typename
   }
 }`;
 
