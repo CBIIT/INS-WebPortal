@@ -1,5 +1,3 @@
-/* eslint-env jest */
-/* eslint-disable max-len */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
@@ -77,7 +75,7 @@ describe('Basic Functionality', () => {
     jest.clearAllMocks();
   });
 
-  test('should display sample count when it has a valid numeric value', () => {
+  it('should display sample count when it has a valid numeric value', () => {
     const mockResultWithSampleCount = createMockResult(150);
     const props = {
       ...defaultProps,
@@ -93,7 +91,7 @@ describe('Basic Functionality', () => {
     expect(screen.getByText('150')).toBeInTheDocument();
   });
 
-  test('should display sample count when it has a string numeric value', () => {
+  it('should display sample count when it has a string numeric value', () => {
     const mockResultWithSampleCount = createMockResult('200');
     const props = {
       ...defaultProps,
@@ -109,7 +107,7 @@ describe('Basic Functionality', () => {
     expect(screen.getByText('200')).toBeInTheDocument();
   });
 
-  test('should display sample count with value of 0', () => {
+  it('should display sample count with value of 0', () => {
     const mockResultWithSampleCount = createMockResult(0);
     const props = {
       ...defaultProps,
@@ -125,7 +123,7 @@ describe('Basic Functionality', () => {
     expect(screen.getByText('0')).toBeInTheDocument();
   });
 
-  test('should still render other dataset information when sample count is not present', () => {
+  it('should still render other dataset information when sample count is not present', () => {
     const mockResultWithoutSampleCount = createMockResult(null);
     const props = {
       ...defaultProps,
@@ -149,7 +147,7 @@ describe('Basic Functionality', () => {
     expect(screen.queryByText(/Sample Count:/i)).not.toBeInTheDocument();
   });
 
-  test('should display no result message when resultList is empty', () => {
+  it('should display no result message when resultList is empty', () => {
     const props = {
       ...defaultProps,
       resultList: [],
@@ -167,7 +165,7 @@ describe('Implementation Requirements', () => {
     jest.clearAllMocks();
   });
 
-  test('should NOT display sample count when it is null', () => {
+  it('should NOT display sample count when it is null', () => {
     const mockResultWithoutSampleCount = createMockResult(null);
     const props = {
       ...defaultProps,
@@ -180,7 +178,7 @@ describe('Implementation Requirements', () => {
     expect(screen.queryByText(/Sample Count:/i)).not.toBeInTheDocument();
   });
 
-  test('should NOT display sample count when it is undefined', () => {
+  it('should NOT display sample count when it is undefined', () => {
     const mockResultWithoutSampleCount = createMockResult(undefined);
     const props = {
       ...defaultProps,
@@ -193,7 +191,7 @@ describe('Implementation Requirements', () => {
     expect(screen.queryByText(/Sample Count:/i)).not.toBeInTheDocument();
   });
 
-  test('should NOT display sample count when it is an empty string', () => {
+  it('should NOT display sample count when it is an empty string', () => {
     const mockResultWithoutSampleCount = createMockResult('');
     const props = {
       ...defaultProps,
@@ -206,7 +204,7 @@ describe('Implementation Requirements', () => {
     expect(screen.queryByText(/Sample Count:/i)).not.toBeInTheDocument();
   });
 
-  test('should display sample count only for results that have valid values', () => {
+  it('should display sample count only for results that have valid values', () => {
     const resultWithSampleCount = createMockResult(100);
     const resultWithoutSampleCount = createMockResult(null);
     const resultWithEmptySampleCount = createMockResult('');
