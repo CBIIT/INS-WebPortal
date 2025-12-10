@@ -32,7 +32,7 @@ export default {
         },
         {
           text: 'Release Notes',
-          link: '/Release_v3.1.0.pdf',
+          link: '/Release_v3.2.0.pdf',
         },
       ],
     },
