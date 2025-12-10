@@ -1,7 +1,7 @@
 {
   "homepage": ".",
   "name": "bento-frontend",
-  "version": "4.0.0",
+  "version": "3.2.0",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.6.9",
@@ -119,7 +119,9 @@
     "start": "PORT=3010 node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
+    "test:ci": "TZ=UTC node scripts/test.js --ci --passWithNoTests --coverage --maxWorkers=2 --logHeapUsage",
     "lint": "eslint src",
+    "lint:ci": "eslint src --ignore-path .eslintignore --max-warnings=0",
     "lint-fix": "eslint src --fix"
   },
   "eslintConfig": {
@@ -140,6 +142,7 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
@@ -178,6 +181,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.6.1",
     "eslint": "^6.2.2",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.22.0",
