@@ -1,7 +1,9 @@
-FROM node:20.11.1-alpine3.19 as build
+FROM node:20.19.6-slim as build
 
 
 WORKDIR /usr/src/app
+
+RUN npm install -g npm@latest
 
 COPY . .
 
