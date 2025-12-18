@@ -5,7 +5,7 @@ export default {
   footerLogoText: 'National Cancer Institute',
   footerLogoSubText: 'at the National Institutes of Health',
   footerLogoHyperlink: 'https://cancer.gov/',
-  footerStaticText: 'NIH … Turning Discovery Into Health®',
+  footerStaticText: 'NIH…Turning Discovery Into Health®',
   FEversion: env.REACT_APP_FE_VERSION,
   BEversion: env.REACT_APP_BE_VERSION,
   DATAversion: env.REACT_APP_DATA_VERSION,
@@ -33,16 +33,16 @@ export default {
       items: [
         {
           text: 'Release Notes',
-          link: 'Release_v3.1.0.pdf',
+          link: 'Release_v3.2.0.pdf',
         },
         {
-          text: `FE Version: ${env.REACT_APP_FE_VERSION || '3.1.0'}`,
+          text: `FE Version: ${env.REACT_APP_FE_VERSION || '3.2.0'}`,
         },
         {
-          text: `BE Version: ${env.REACT_APP_BE_VERSION || '3.1.0'}`,
+          text: `BE Version: ${env.REACT_APP_BE_VERSION || '3.2.0'}`,
         },
         {
-          text: `Data Version: ${env.REACT_APP_DATA_VERSION || '2.0.0'}`,
+          text: `Data Version: ${env.REACT_APP_DATA_VERSION || '2.2.0'}`,
           link: 'https://github.com/CBIIT/INS-Data',
         },
       ],

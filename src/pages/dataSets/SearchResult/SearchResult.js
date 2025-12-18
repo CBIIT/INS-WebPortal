@@ -447,7 +447,7 @@ const SearchResult = ({
     if (name === sort.name) {
       const toSortBy = {};
       toSortBy.name = 'Dataset';
-      toSortBy.k = 'dataset_title.sort';
+      toSortBy.k = 'dataset_title_sort';
       toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
       const queryStr = replaceQueryStr(query, toSortBy);
       history.push(`/datasets?${queryStr}`);
@@ -455,7 +455,7 @@ const SearchResult = ({
     } else {
       const toSortBy = {};
       toSortBy.name = 'Dataset';
-      toSortBy.k = 'dataset_title.sort';
+      toSortBy.k = 'dataset_title_sort';
       toSortBy.v = sort.v;
       const queryStr = replaceQueryStr(query, toSortBy);
       history.push(`/datasets?${queryStr}`);
@@ -611,14 +611,16 @@ const SearchResult = ({
                   </div>
                 }
                 {
-                  <div className="row align-items-start bodyRow">
-                    <div className="col labelDiv">
-                      <span>Sample Count:&nbsp;&nbsp;&nbsp;</span>
-                      <span className="textSpan sampleCountHighlight">
-                        {rst.content.sample_count}
-                      </span>
+                  rst.content.sample_count != null && rst.content.sample_count !== '' && (
+                    <div className="row align-items-start bodyRow">
+                      <div className="col labelDiv">
+                        <span>Sample Count:&nbsp;&nbsp;&nbsp;</span>
+                        <span className="textSpan sampleCountHighlight">
+                          {rst.content.sample_count}
+                        </span>
+                      </div>
                     </div>
-                  </div>
+                  )
                 }
                 {
                   description !== '' && (

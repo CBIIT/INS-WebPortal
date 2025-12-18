@@ -26,16 +26,38 @@ module.exports = {
     "react/no-unescaped-entities": "off", // To escape the html entotoes in static text
     "react/prop-types": "off", //Will add this back
     "react/jsx-filename-extension": "off",
-    "react/no-array-index-key":"off", // This is for passing the array index in .map need to remove this soon
-    "no-nested-ternary":"off",
-    "jsx-a11y/no-static-element-interactions":"off",
-    "jsx-a11y/click-events-have-key-events":"off",
-    "react/jsx-props-no-spreading":"off",
-    "linebreak-style":"off",
-    "no-sequences":"off",
-    "no-console":"off",
-    "no-unused-vars":"off",
+    "react/no-array-index-key": "off", // This is for passing the array index in .map need to remove this soon
+    "no-nested-ternary": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "react/jsx-props-no-spreading": "off",
+    "linebreak-style": "off",
+    "no-sequences": "off",
+    "no-console": "off",
+    "no-unused-vars": "off",
     'react/destructuring-assignment': 'off',
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: [
+          "**/*.{stories,test}.{js,jsx}",
+          "**/setupTests.{js,jsx}",
+        ],
+        optionalDependencies: false,
+      },
+    ],
   },
+  overrides: [
+    {
+      "files": [
+        "**/*.test.js",
+        "**/*.test.jsx",
+        "setupTests.js"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
 };
