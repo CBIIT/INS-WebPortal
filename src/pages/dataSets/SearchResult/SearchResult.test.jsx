@@ -140,6 +140,140 @@ describe('Basic Functionality', () => {
     // Description label should not appear when description is empty
     expect(screen.queryByText(/Description:/i)).not.toBeInTheDocument();
   });
+
+  it('should handle null primary_disease without crashing', () => {
+    const mockResult = createMockResult({
+      primary_disease: null,
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: 'test',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    // Should still render the card
+    expect(screen.getByText('Test Dataset')).toBeInTheDocument();
+    // Primary disease section should still be there (empty value)
+    expect(screen.getByText(/Primary Disease:/i)).toBeInTheDocument();
+  });
+
+  it('should handle empty primary_disease without crashing', () => {
+    const mockResult = createMockResult({
+      primary_disease: '',
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: 'test',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    // Should still render the card
+    expect(screen.getByText('Test Dataset')).toBeInTheDocument();
+  });
+
+  it('should handle null dataset_source_repo without crashing', () => {
+    const mockResult = createMockResult({
+      dataset_source_repo: null,
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: 'test',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    // Should still render the card
+    expect(screen.getByText('Test Dataset')).toBeInTheDocument();
+  });
+
+  it('should handle empty dataset_source_repo without crashing', () => {
+    const mockResult = createMockResult({
+      dataset_source_repo: '',
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: 'test',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    // Should still render the card
+    expect(screen.getByText('Test Dataset')).toBeInTheDocument();
+  });
+
+  it('should truncate description to 500 characters when no match is found', () => {
+    // Create a description longer than 500 characters
+    const longDescription = 'A'.repeat(600);
+    const mockResult = createMockResult({
+      description: longDescription,
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: 'nomatch',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    // Find the description element
+    const descriptionElement = screen.getByText((_, element) => (
+      element.className === 'textSpan'
+      && element.textContent.includes('A'.repeat(500))
+    ));
+
+    // Should be truncated to 500 chars + "..."
+    expect(descriptionElement.textContent).toHaveLength(503); // 500 + "..."
+    expect(descriptionElement.textContent).toMatch(/\.\.\.$/);
+  });
+
+  it('should NOT truncate description when search match is found', () => {
+    // Create a description longer than 500 characters with a match
+    const longDescription = `${'A'.repeat(400)} cancer ${'B'.repeat(200)}`;
+    const mockResult = createMockResult({
+      description: longDescription,
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: 'cancer',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    // Find the description element
+    const descriptionElement = screen.getByText((_, element) => (
+      element.className === 'textSpan'
+      && element.textContent.includes('cancer')
+    ));
+
+    // Should NOT be truncated because match was found
+    expect(descriptionElement.textContent.length).toBeGreaterThan(500);
+    expect(descriptionElement.textContent).not.toMatch(/\.\.\.$/);
+  });
 });
 
 describe('Conditional Field Rendering', () => {
