@@ -551,34 +551,34 @@ describe('Hidden Fields - Additional Matches', () => {
         '$displayName field highlighting',
         ({ fieldName, displayName, searchTerm }) => {
           it(`should highlight matching search term "${searchTerm}" in ${displayName}`, () => {
-          const fieldValue = `This contains ${searchTerm} in the text`;
-          const mockResult = createMockResult({
-            [fieldName]: fieldValue,
+            const fieldValue = `This contains ${searchTerm} in the text`;
+            const mockResult = createMockResult({
+              [fieldName]: fieldValue,
+            });
+            const props = {
+              ...defaultProps,
+              search: {
+                search_text: searchTerm,
+                filters: {},
+              },
+              resultList: [mockResult],
+            };
+
+            renderWithRouter(<SearchResult {...props} />);
+
+            // The matched term should be wrapped in <b> tags (escaped in HTML)
+            // Look specifically for the additionalMatches span element
+            const matchedContent = screen.getAllByText((_, element) => (
+              element.className === 'additionalMatches'
+              && element.innerHTML.includes('&lt;b&gt;')
+              && element.innerHTML.includes('&lt;/b&gt;')
+            ));
+
+            // Should find at least one match with highlighting
+            expect(matchedContent.length).toBeGreaterThan(0);
           });
-          const props = {
-            ...defaultProps,
-            search: {
-              search_text: searchTerm,
-              filters: {},
-            },
-            resultList: [mockResult],
-          };
-
-          renderWithRouter(<SearchResult {...props} />);
-
-          // The matched term should be wrapped in <b> tags (escaped in HTML)
-          // Look specifically for the additionalMatches span element
-          const matchedContent = screen.getAllByText((_, element) => (
-            element.className === 'additionalMatches'
-            && element.innerHTML.includes('&lt;b&gt;')
-            && element.innerHTML.includes('&lt;/b&gt;')
-          ));
-
-          // Should find at least one match with highlighting
-          expect(matchedContent.length).toBeGreaterThan(0);
-        });
-      },
-    );
+        },
+      );
     });
 
     describe('Edge Cases', () => {
