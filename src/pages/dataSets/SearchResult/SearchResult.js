@@ -329,72 +329,6 @@ const SearchResultContainer = styled.div`
 
 `;
 
-const TableHead = styled.thead`
-  th{
-    cursor: pointer;
-    user-select: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-
-    &:hover {
-      background-color: #c6d2db;
-    }
-  }
-`;
-
-const SortingOrder = styled.span`
-  margin-top: 5px;
-  width: 14px;
-  height: 14px;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='rgba(75,108,134,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
-`;
-
-const SortingOrderDesc = styled.span`
-  margin-top: 5px;
-  width: 14px;
-  height: 14px;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='rgba(75,108,134,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
-  transform: rotate(-180deg);
-`;
-
-const toCapitalize = (str) => {
-  const arr = str.split(' ');
-
-  const result = arr.map((t) => t.charAt(0).toUpperCase() + t.slice(1));
-
-  return result.join(' ');
-};
-
-const useQuery = () => new URLSearchParams(useLocation().search);
-
-const replaceQueryStr = (query, sorting) => {
-  let str = '';
-  if (query.get('search_text')) {
-    str += `&search_text=${query.get('search_text')}`;
-  }
-  if (query.get('filterByResource')) {
-    str += `&filterByResource=${query.get('filterByResource')}`;
-  }
-  if (query.get('filterByRepo')) {
-    str += `&filterByRepo=${query.get('filterByRepo')}`;
-  }
-  if (query.get('page')) {
-    str += `&page=${query.get('page')}`;
-  }
-  if (query.get('pageSize')) {
-    str += `&pageSize=${query.get('pageSize')}`;
-  }
-  str += `&sortBy=${sorting.k}`;
-  str += `&sortOrder=${sorting.v}`;
-  return str.substring(1);
-};
-
 function getCombinations(arr) {
   const result = [];
   function combine(prefix, start) {
@@ -410,14 +344,9 @@ function getCombinations(arr) {
 
 const SearchResult = ({
   resultList,
-  sort,
   search,
-  onChangeSorting,
-  onChangeSortingOrder,
   glossaryTerms,
 }) => {
-  const query = useQuery();
-  const history = useHistory();
   const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
   const searchTerms = sanatizeSearchTerms.split(' ').filter((item) => item !== '');
   let searchCombination = getCombinations(searchTerms);
@@ -441,27 +370,6 @@ const SearchResult = ({
   }
 
   searchCombination.sort((a, b) => b.length - a.length);
-
-  const handleSortBy = (column) => {
-    const name = column;
-    if (name === sort.name) {
-      const toSortBy = {};
-      toSortBy.name = 'Dataset';
-      toSortBy.k = 'dataset_title_sort';
-      toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
-      const queryStr = replaceQueryStr(query, toSortBy);
-      history.push(`/datasets?${queryStr}`);
-      onChangeSortingOrder(toSortBy.v);
-    } else {
-      const toSortBy = {};
-      toSortBy.name = 'Dataset';
-      toSortBy.k = 'dataset_title_sort';
-      toSortBy.v = sort.v;
-      const queryStr = replaceQueryStr(query, toSortBy);
-      history.push(`/datasets?${queryStr}`);
-      onChangeSorting(toSortBy);
-    }
-  };
 
   const initializePopover = () => {
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
