@@ -121,6 +121,25 @@ describe('Basic Functionality', () => {
     expect(screen.queryByText(/Sample Count:/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Study Type:/i)).not.toBeInTheDocument();
   });
+
+  it('should handle null description by converting it to empty string', () => {
+    const mockResultWithNullDescription = createMockResult({
+      description: null,
+    });
+    const props = {
+      ...defaultProps,
+      resultList: [mockResultWithNullDescription],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    // Should still render the card without crashing
+    expect(screen.getByText('Test Dataset')).toBeInTheDocument();
+    expect(screen.getByText(/Primary Disease:/i)).toBeInTheDocument();
+
+    // Description label should not appear when description is empty
+    expect(screen.queryByText(/Description:/i)).not.toBeInTheDocument();
+  });
 });
 
 describe('Conditional Field Rendering', () => {

@@ -377,6 +377,7 @@ const SearchResult = ({
   };
 
   function removeHTMLTags(str) {
+    if (!str) return '';
     return str.replace(/<\/?[a-z][\s\S]*?>/gi, '');
   }
   useEffect(() => {
@@ -395,10 +396,7 @@ const SearchResult = ({
             <div className="messageContainer">No result found. Please refine your search.</div>
           ) : resultList.map((rst, idx) => {
             const keyName = `sr_${idx}`;
-            let description = removeHTMLTags(rst.content.description);
-            if (description === null) {
-              description = '';
-            }
+            const description = removeHTMLTags(rst.content.description);
 
             let highlightedPrimaryDisease = rst.content.primary_disease;
             let highlightedDatasetSourceRepo = rst.content.dataset_source_repo;
