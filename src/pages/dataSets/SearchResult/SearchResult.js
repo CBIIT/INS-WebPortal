@@ -537,6 +537,8 @@ const SearchResult = ({
               { 'assay method': rst.content.assay_method },
               { 'limitations for reuse': rst.content.limitations_for_reuse },
               { 'NCI Division/Office/Center': rst.content.dataset_doc },
+              { institute: rst.content.institute },
+              { 'experimental approaches': rst.content.experimental_approaches },
             ];
             const excludedValues = search && search.filters && Array.isArray(search.filters.dataset_source_repo)
               ? search.filters.dataset_source_repo
