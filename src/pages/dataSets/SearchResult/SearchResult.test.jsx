@@ -27,6 +27,7 @@ jest.mock('html-react-parser', () => jest.fn((str) => str));
 // Pass any field you want to override from the defaults
 const createMockResult = (overrides = {}) => ({
   content: {
+    // Required/visible fields
     dataset_title: 'Test Dataset',
     dataset_source_id: 'TEST-001',
     dataset_source_repo: 'Test Repository',
@@ -34,6 +35,8 @@ const createMockResult = (overrides = {}) => ({
     primary_disease: 'Test Disease',
     sample_count: 150,
     description: 'This is a test description',
+    study_type: 'Type 1',
+    // Hidden fields (searchable, appear in "Other Match in...")
     PI_name: 'Test PI',
     dataset_pmid: '12345',
     funding_source: 'Test Funding',
@@ -41,10 +44,11 @@ const createMockResult = (overrides = {}) => ({
     related_terms: 'Term 1',
     study_links: 'Link 1',
     related_genes: 'Gene 1',
-    study_type: 'Type 1',
     assay_method: 'Method 1',
     limitations_for_reuse: 'Limitation 1',
     dataset_doc: 'Doc 1',
+    institute: 'Test Institute',
+    experimental_approaches: 'Test Approach',
     ...overrides,
   },
 });
@@ -240,5 +244,199 @@ describe('Conditional Field Rendering', () => {
         expect(screen.getByText('0')).toBeInTheDocument();
       });
     }
+  });
+});
+
+describe('Hidden Fields - Additional Matches', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  // Test configuration for hidden fields that appear as "Other Match in..."
+  // This should match all fields in the hideContent array in SearchResult.js
+  const hiddenFields = [
+    { fieldName: 'dataset_source_url', displayName: 'study page', searchTerm: 'example.com' },
+    { fieldName: 'PI_name', displayName: 'PI name', searchTerm: 'Smith' },
+    { fieldName: 'dataset_pmid', displayName: 'dataset pmid', searchTerm: '12345' },
+    { fieldName: 'funding_source', displayName: 'funding source', searchTerm: 'NIH' },
+    { fieldName: 'related_diseases', displayName: 'related diseases', searchTerm: 'Diabetes' },
+    { fieldName: 'related_terms', displayName: 'related terms', searchTerm: 'genomics' },
+    { fieldName: 'study_links', displayName: 'study links', searchTerm: 'http' },
+    { fieldName: 'related_genes', displayName: 'related genes', searchTerm: 'BRCA1' },
+    { fieldName: 'assay_method', displayName: 'assay method', searchTerm: 'RNA-seq' },
+    {
+      fieldName: 'limitations_for_reuse',
+      displayName: 'limitations for reuse',
+      searchTerm: 'restriction',
+    },
+    {
+      fieldName: 'dataset_doc',
+      displayName: 'NCI Division/Office/Center',
+      searchTerm: 'Division',
+    },
+    { fieldName: 'institute', displayName: 'institute', searchTerm: 'Institute' },
+    {
+      fieldName: 'experimental_approaches',
+      displayName: 'experimental approaches',
+      searchTerm: 'approach',
+    },
+  ];
+
+  describe.each(hiddenFields)('$displayName field', ({ fieldName, displayName, searchTerm }) => {
+    it(`should NOT display "Other Match in ${displayName}" when search does not match`, () => {
+      const mockResult = createMockResult({
+        [fieldName]: 'Some unrelated content',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: 'NoMatch',
+          filters: {},
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      expect(screen.queryByText(new RegExp(`Other Match in ${displayName}`, 'i')))
+        .not.toBeInTheDocument();
+    });
+
+    it(`should display "Other Match in ${displayName}" when search matches the field`, () => {
+      const fieldValue = `This contains ${searchTerm} in the text`;
+      const mockResult = createMockResult({
+        [fieldName]: fieldValue,
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: searchTerm,
+          filters: {},
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      expect(screen.getByText(new RegExp(`Other Match in ${displayName}`, 'i')))
+        .toBeInTheDocument();
+    });
+
+    it(`should NOT display "Other Match in ${displayName}" when field is null`, () => {
+      const mockResult = createMockResult({
+        [fieldName]: null,
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: searchTerm,
+          filters: {},
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      expect(screen.queryByText(new RegExp(`Other Match in ${displayName}`, 'i')))
+        .not.toBeInTheDocument();
+    });
+
+    it(`should NOT display "Other Match in ${displayName}" when field is undefined`, () => {
+      const mockResult = createMockResult({
+        [fieldName]: undefined,
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: searchTerm,
+          filters: {},
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      expect(screen.queryByText(new RegExp(`Other Match in ${displayName}`, 'i')))
+        .not.toBeInTheDocument();
+    });
+  });
+
+  it('should display multiple "Other Match in" sections when multiple hidden fields match', () => {
+    const mockResult = createMockResult({
+      PI_name: 'Dr. John Smith',
+      related_genes: 'BRCA1 and BRCA2',
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: 'BRCA',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    // Should find the match in related_genes
+    expect(screen.getByText(/Other Match in related genes/i)).toBeInTheDocument();
+
+    // Should NOT find match in PI_name (doesn't contain "BRCA")
+    expect(screen.queryByText(/Other Match in PI name/i)).not.toBeInTheDocument();
+  });
+
+  it('should perform case-insensitive matching for hidden fields', () => {
+    const mockResult = createMockResult({
+      funding_source: 'National Institutes of Health',
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: 'health',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    expect(screen.getByText(/Other Match in funding source/i)).toBeInTheDocument();
+  });
+
+  it('should NOT display hidden fields when there is no search text', () => {
+    const mockResult = createMockResult({
+      PI_name: 'Dr. Smith',
+      related_genes: 'BRCA1',
+      funding_source: 'NIH',
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: '',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    expect(screen.queryByText(/Other Match in/i)).not.toBeInTheDocument();
+  });
+  // Need to see requirements for partial matching
+  it('should match partial words in hidden fields', () => {
+    const mockResult = createMockResult({
+      related_diseases: 'Cardiovascular disease and diabetes',
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: 'cardio',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    expect(screen.getByText(/Other Match in related diseases/i)).toBeInTheDocument();
   });
 });
