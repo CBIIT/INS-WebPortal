@@ -197,126 +197,80 @@ describe('Basic Functionality', () => {
   });
 });
 
-describe('Implementation Requirements', () => {
+describe('Conditional Field Rendering', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should NOT display sample count when it is null', () => {
-    const mockResultWithoutSampleCount = createMockResult({ sample_count: null });
-    const props = {
-      ...defaultProps,
-      resultList: [mockResultWithoutSampleCount],
-    };
+  // Common tests for fields that support conditional rendering
+  describe.each([
+    {
+      fieldName: 'sample_count',
+      fieldLabel: 'Sample Count',
+      labelRegex: /Sample Count:/i,
+      validValue: 100,
+    },
+    {
+      fieldName: 'study_type',
+      fieldLabel: 'Study Type',
+      labelRegex: /Study Type:/i,
+      validValue: 'Clinical Trial',
+    },
+  ])('$fieldLabel field', ({ fieldName, fieldLabel, labelRegex, validValue }) => {
+    it(`should NOT display ${fieldLabel} when it is null`, () => {
+      const mockResult = createMockResult({ [fieldName]: null });
+      const props = {
+        ...defaultProps,
+        resultList: [mockResult],
+      };
 
-    renderWithRouter(<SearchResult {...props} />);
+      renderWithRouter(<SearchResult {...props} />);
 
-    // Check that "Sample Count:" label is NOT displayed
-    expect(screen.queryByText(/Sample Count:/i)).not.toBeInTheDocument();
-  });
+      expect(screen.queryByText(labelRegex)).not.toBeInTheDocument();
+    });
 
-  it('should NOT display sample count when it is undefined', () => {
-    const mockResultWithoutSampleCount = createMockResult({ sample_count: undefined });
-    const props = {
-      ...defaultProps,
-      resultList: [mockResultWithoutSampleCount],
-    };
+    it(`should NOT display ${fieldLabel} when it is undefined`, () => {
+      const mockResult = createMockResult({ [fieldName]: undefined });
+      const props = {
+        ...defaultProps,
+        resultList: [mockResult],
+      };
 
-    renderWithRouter(<SearchResult {...props} />);
+      renderWithRouter(<SearchResult {...props} />);
 
-    // Check that "Sample Count:" label is NOT displayed
-    expect(screen.queryByText(/Sample Count:/i)).not.toBeInTheDocument();
-  });
+      expect(screen.queryByText(labelRegex)).not.toBeInTheDocument();
+    });
 
-  it('should NOT display sample count when it is an empty string', () => {
-    const mockResultWithoutSampleCount = createMockResult({ sample_count: '' });
-    const props = {
-      ...defaultProps,
-      resultList: [mockResultWithoutSampleCount],
-    };
+    it(`should NOT display ${fieldLabel} when it is an empty string`, () => {
+      const mockResult = createMockResult({ [fieldName]: '' });
+      const props = {
+        ...defaultProps,
+        resultList: [mockResult],
+      };
 
-    renderWithRouter(<SearchResult {...props} />);
+      renderWithRouter(<SearchResult {...props} />);
 
-    // Check that "Sample Count:" label is NOT displayed
-    expect(screen.queryByText(/Sample Count:/i)).not.toBeInTheDocument();
-  });
+      expect(screen.queryByText(labelRegex)).not.toBeInTheDocument();
+    });
 
-  it('should display sample count only for results that have valid values', () => {
-    const resultWithSampleCount = createMockResult({ sample_count: 100 });
-    const resultWithoutSampleCount = createMockResult({ sample_count: null });
-    const resultWithEmptySampleCount = createMockResult({ sample_count: '' });
+    it(`should display ${fieldLabel} only for results that have valid values`, () => {
+      const resultWithValue = createMockResult({ [fieldName]: validValue });
+      const resultWithNull = createMockResult({ [fieldName]: null });
+      const resultWithEmpty = createMockResult({ [fieldName]: '' });
 
-    const props = {
-      ...defaultProps,
-      resultList: [resultWithSampleCount, resultWithoutSampleCount, resultWithEmptySampleCount],
-    };
+      const props = {
+        ...defaultProps,
+        resultList: [resultWithValue, resultWithNull, resultWithEmpty],
+      };
 
-    renderWithRouter(<SearchResult {...props} />);
+      renderWithRouter(<SearchResult {...props} />);
 
-    // Should find exactly one "Sample Count:" label
-    const sampleCountLabels = screen.queryAllByText(/Sample Count:/i);
-    expect(sampleCountLabels).toHaveLength(1);
+      // Should find exactly one label
+      const labels = screen.queryAllByText(labelRegex);
+      expect(labels).toHaveLength(1);
 
-    // Should display the value 100
-    expect(screen.getByText('100')).toBeInTheDocument();
-  });
-
-  it('should NOT display study type when it is null', () => {
-    const mockResultWithoutStudyType = createMockResult({ study_type: null });
-    const props = {
-      ...defaultProps,
-      resultList: [mockResultWithoutStudyType],
-    };
-
-    renderWithRouter(<SearchResult {...props} />);
-
-    // Check that "Study Type:" label is NOT displayed
-    expect(screen.queryByText(/Study Type:/i)).not.toBeInTheDocument();
-  });
-
-  it('should NOT display study type when it is undefined', () => {
-    const mockResultWithoutStudyType = createMockResult({ study_type: undefined });
-    const props = {
-      ...defaultProps,
-      resultList: [mockResultWithoutStudyType],
-    };
-
-    renderWithRouter(<SearchResult {...props} />);
-
-    // Check that "Study Type:" label is NOT displayed
-    expect(screen.queryByText(/Study Type:/i)).not.toBeInTheDocument();
-  });
-
-  it('should NOT display study type when it is an empty string', () => {
-    const mockResultWithoutStudyType = createMockResult({ study_type: '' });
-    const props = {
-      ...defaultProps,
-      resultList: [mockResultWithoutStudyType],
-    };
-
-    renderWithRouter(<SearchResult {...props} />);
-
-    // Check that "Study Type:" label is NOT displayed
-    expect(screen.queryByText(/Study Type:/i)).not.toBeInTheDocument();
-  });
-
-  it('should display study type only for results that have valid values', () => {
-    const resultWithStudyType = createMockResult({ study_type: 'Clinical Trial' });
-    const resultWithoutStudyType = createMockResult({ study_type: null });
-    const resultWithEmptyStudyType = createMockResult({ study_type: '' });
-
-    const props = {
-      ...defaultProps,
-      resultList: [resultWithStudyType, resultWithoutStudyType, resultWithEmptyStudyType],
-    };
-
-    renderWithRouter(<SearchResult {...props} />);
-
-    // Should find exactly one "Study Type:" label
-    const studyTypeLabels = screen.queryAllByText(/Study Type:/i);
-    expect(studyTypeLabels).toHaveLength(1);
-
-    // Should display the value 'Clinical Trial'
-    expect(screen.getByText('Clinical Trial')).toBeInTheDocument();
+      // Should display the valid value
+      expect(screen.getByText(validValue.toString())).toBeInTheDocument();
+    });
   });
 });
