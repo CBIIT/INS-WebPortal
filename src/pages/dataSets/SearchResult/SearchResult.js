@@ -347,8 +347,8 @@ const SearchResult = ({
   search,
   glossaryTerms,
 }) => {
-  const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
-  const searchTerms = sanatizeSearchTerms.split(' ').filter((item) => item !== '');
+  const sanitizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
+  const searchTerms = sanitizeSearchTerms.split(' ').filter((item) => item !== '');
   let searchCombination = getCombinations(searchTerms);
 
   if (search.filters) {
