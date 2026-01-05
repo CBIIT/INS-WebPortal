@@ -522,6 +522,18 @@ const SearchResult = ({
                   </div>
                 }
                 {
+                  rst.content.study_type != null && rst.content.study_type !== '' && (
+                    <div className="row align-items-start bodyRow">
+                      <div className="col labelDiv">
+                        <span>Study Type:&nbsp;&nbsp;&nbsp;</span>
+                        <span className="itemSpan">
+                          {ReactHtmlParser(highlightedStudyType)}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                }
+                {
                   rst.content.sample_count != null && rst.content.sample_count !== '' && (
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
@@ -540,18 +552,6 @@ const SearchResult = ({
                         <span>Description:&nbsp;&nbsp;&nbsp;</span>
                         <span className="textSpan">
                           {ReactHtmlParser(highlightedDesc)}
-                        </span>
-                      </div>
-                    </div>
-                  )
-                }
-                {
-                  rst.content.study_type != null && rst.content.study_type !== '' && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col labelDiv">
-                        <span>Study Type:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="itemSpan">
-                          {ReactHtmlParser(highlightedStudyType)}
                         </span>
                       </div>
                     </div>
