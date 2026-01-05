@@ -439,4 +439,90 @@ describe('Hidden Fields - Additional Matches', () => {
 
     expect(screen.getByText(/Other Match in related diseases/i)).toBeInTheDocument();
   });
+
+  describe('Highlighting in Hidden Fields', () => {
+    // Test highlighting for each hidden field
+    describe.each(hiddenFields)(
+      '$displayName field highlighting',
+      ({ fieldName, displayName, searchTerm }) => {
+        it(`should highlight matching search term "${searchTerm}" in ${displayName}`, () => {
+          const fieldValue = `This contains ${searchTerm} in the text`;
+          const mockResult = createMockResult({
+            [fieldName]: fieldValue,
+          });
+          const props = {
+            ...defaultProps,
+            search: {
+              search_text: searchTerm,
+              filters: {},
+            },
+            resultList: [mockResult],
+          };
+
+          renderWithRouter(<SearchResult {...props} />);
+
+          // The matched term should be wrapped in <b> tags (escaped in HTML)
+          // Look specifically for the additionalMatches span element
+          const matchedContent = screen.getAllByText((_, element) => (
+            element.className === 'additionalMatches'
+            && element.innerHTML.includes('&lt;b&gt;')
+            && element.innerHTML.includes('&lt;/b&gt;')
+          ));
+
+          // Should find at least one match with highlighting
+          expect(matchedContent.length).toBeGreaterThan(0);
+        });
+      },
+    );
+
+    it('should highlight multiple occurrences of search term in the same field', () => {
+      const mockResult = createMockResult({
+        related_diseases: 'Cancer research and cancer treatment',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: 'cancer',
+          filters: {},
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // Both occurrences of "cancer" should be highlighted (escaped in HTML)
+      const matchedContent = screen.getByText((_, element) => {
+        if (element.className !== 'additionalMatches') return false;
+        const html = element.innerHTML;
+        const matches = (html.match(/&lt;b&gt;cancer&lt;\/b&gt;/gi) || []).length;
+        return matches === 2;
+      });
+
+      expect(matchedContent).toBeInTheDocument();
+    });
+
+    it('should highlight search terms case-insensitively in hidden fields', () => {
+      const mockResult = createMockResult({
+        funding_source: 'National Institutes of Health',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: 'HEALTH',
+          filters: {},
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // The original casing should be preserved but wrapped in <b> tags (escaped in HTML)
+      const matchedContent = screen.getByText((_, element) => (
+        element.className === 'additionalMatches'
+        && element.innerHTML.includes('&lt;b&gt;Health&lt;/b&gt;')
+      ));
+
+      expect(matchedContent).toBeInTheDocument();
+    });
+  });
 });
