@@ -440,12 +440,117 @@ describe('Hidden Fields - Additional Matches', () => {
     expect(screen.getByText(/Other Match in related diseases/i)).toBeInTheDocument();
   });
 
-  describe('Highlighting in Hidden Fields', () => {
-    // Test highlighting for each hidden field
-    describe.each(hiddenFields)(
-      '$displayName field highlighting',
-      ({ fieldName, displayName, searchTerm }) => {
-        it(`should highlight matching search term "${searchTerm}" in ${displayName}`, () => {
+  describe('Highlighting', () => {
+    describe('Always Visible Fields', () => {
+      it('should highlight matching search term in primary_disease', () => {
+        const mockResult = createMockResult({
+          primary_disease: 'Breast Cancer',
+        });
+        const props = {
+          ...defaultProps,
+          search: {
+            search_text: 'Cancer',
+            filters: {},
+          },
+          resultList: [mockResult],
+        };
+
+        renderWithRouter(<SearchResult {...props} />);
+
+        // Find the primary disease span with highlighting
+        const matchedContent = screen.getByText((_, element) => (
+          element.className === 'itemSpan'
+          && element.textContent.includes('Cancer')
+          && element.innerHTML.includes('&lt;b&gt;Cancer&lt;/b&gt;')
+        ));
+
+        expect(matchedContent).toBeInTheDocument();
+      });
+
+      it('should highlight matching search term in dataset_source_repo', () => {
+        const mockResult = createMockResult({
+          dataset_source_repo: 'National Cancer Institute Repository',
+        });
+        const props = {
+          ...defaultProps,
+          search: {
+            search_text: 'Institute',
+            filters: {},
+          },
+          resultList: [mockResult],
+        };
+
+        renderWithRouter(<SearchResult {...props} />);
+
+        // Find the data repo span with highlighting
+        const matchedContent = screen.getByText((_, element) => (
+          element.className === 'dataRepo'
+          && element.textContent.includes('Institute')
+          && element.innerHTML.includes('&lt;b&gt;Institute&lt;/b&gt;')
+        ));
+
+        expect(matchedContent).toBeInTheDocument();
+      });
+
+      it('should highlight matching search term in description', () => {
+        const mockResult = createMockResult({
+          description: 'This study focuses on genomic research',
+        });
+        const props = {
+          ...defaultProps,
+          search: {
+            search_text: 'genomic',
+            filters: {},
+          },
+          resultList: [mockResult],
+        };
+
+        renderWithRouter(<SearchResult {...props} />);
+
+        // Find the description span with highlighting
+        const matchedContent = screen.getByText((_, element) => (
+          element.className === 'textSpan'
+          && element.textContent.includes('genomic')
+          && element.innerHTML.includes('&lt;b&gt;genomic&lt;/b&gt;')
+        ));
+
+        expect(matchedContent).toBeInTheDocument();
+      });
+    });
+
+    describe('Conditionally Visible Fields', () => {
+      it('should highlight matching search term in study_type when displayed', () => {
+        const mockResult = createMockResult({
+          study_type: 'Clinical Trial Study',
+        });
+        const props = {
+          ...defaultProps,
+          search: {
+            search_text: 'Trial',
+            filters: {},
+          },
+          resultList: [mockResult],
+        };
+
+        renderWithRouter(<SearchResult {...props} />);
+
+        // Find the study type span with highlighting
+        const matchedContent = screen.getByText((_, element) => (
+          element.className === 'itemSpan'
+          && element.textContent.includes('Trial')
+          && element.innerHTML.includes('&lt;b&gt;Trial&lt;/b&gt;')
+        ));
+
+        expect(matchedContent).toBeInTheDocument();
+      });
+    });
+
+    describe('Hidden Fields', () => {
+      // Test highlighting for each hidden field
+      describe.each(hiddenFields)(
+        '$displayName field highlighting',
+        ({ fieldName, displayName, searchTerm }) => {
+          it(`should highlight matching search term "${searchTerm}" in ${displayName}`, () => {
           const fieldValue = `This contains ${searchTerm} in the text`;
           const mockResult = createMockResult({
             [fieldName]: fieldValue,
@@ -474,55 +579,82 @@ describe('Hidden Fields - Additional Matches', () => {
         });
       },
     );
-
-    it('should highlight multiple occurrences of search term in the same field', () => {
-      const mockResult = createMockResult({
-        related_diseases: 'Cancer research and cancer treatment',
-      });
-      const props = {
-        ...defaultProps,
-        search: {
-          search_text: 'cancer',
-          filters: {},
-        },
-        resultList: [mockResult],
-      };
-
-      renderWithRouter(<SearchResult {...props} />);
-
-      // Both occurrences of "cancer" should be highlighted (escaped in HTML)
-      const matchedContent = screen.getByText((_, element) => {
-        if (element.className !== 'additionalMatches') return false;
-        const html = element.innerHTML;
-        const matches = (html.match(/&lt;b&gt;cancer&lt;\/b&gt;/gi) || []).length;
-        return matches === 2;
-      });
-
-      expect(matchedContent).toBeInTheDocument();
     });
 
-    it('should highlight search terms case-insensitively in hidden fields', () => {
-      const mockResult = createMockResult({
-        funding_source: 'National Institutes of Health',
+    describe('Edge Cases', () => {
+      it('should highlight multiple occurrences of search term in the same field', () => {
+        const mockResult = createMockResult({
+          description: 'Cancer research and cancer treatment for cancer patients',
+        });
+        const props = {
+          ...defaultProps,
+          search: {
+            search_text: 'cancer',
+            filters: {},
+          },
+          resultList: [mockResult],
+        };
+
+        renderWithRouter(<SearchResult {...props} />);
+
+        // All three occurrences of "cancer" should be highlighted (escaped in HTML)
+        const matchedContent = screen.getByText((_, element) => {
+          if (element.className !== 'textSpan') return false;
+          const html = element.innerHTML;
+          const matches = (html.match(/&lt;b&gt;cancer&lt;\/b&gt;/gi) || []).length;
+          return matches === 3;
+        });
+
+        expect(matchedContent).toBeInTheDocument();
       });
-      const props = {
-        ...defaultProps,
-        search: {
-          search_text: 'HEALTH',
-          filters: {},
-        },
-        resultList: [mockResult],
-      };
 
-      renderWithRouter(<SearchResult {...props} />);
+      it('should highlight search terms case-insensitively', () => {
+        const mockResult = createMockResult({
+          primary_disease: 'Breast Cancer',
+        });
+        const props = {
+          ...defaultProps,
+          search: {
+            search_text: 'CANCER',
+            filters: {},
+          },
+          resultList: [mockResult],
+        };
 
-      // The original casing should be preserved but wrapped in <b> tags (escaped in HTML)
-      const matchedContent = screen.getByText((_, element) => (
-        element.className === 'additionalMatches'
-        && element.innerHTML.includes('&lt;b&gt;Health&lt;/b&gt;')
-      ));
+        renderWithRouter(<SearchResult {...props} />);
 
-      expect(matchedContent).toBeInTheDocument();
+        // The original casing should be preserved but wrapped in <b> tags (escaped in HTML)
+        const matchedContent = screen.getByText((_, element) => (
+          element.className === 'itemSpan'
+          && element.innerHTML.includes('&lt;b&gt;Cancer&lt;/b&gt;')
+        ));
+
+        expect(matchedContent).toBeInTheDocument();
+      });
+
+      it('should highlight partial word matches', () => {
+        const mockResult = createMockResult({
+          description: 'Cardiovascular research study',
+        });
+        const props = {
+          ...defaultProps,
+          search: {
+            search_text: 'cardio',
+            filters: {},
+          },
+          resultList: [mockResult],
+        };
+
+        renderWithRouter(<SearchResult {...props} />);
+
+        // "cardio" should be highlighted within "Cardiovascular"
+        const matchedContent = screen.getByText((_, element) => (
+          element.className === 'textSpan'
+          && element.innerHTML.includes('&lt;b&gt;Cardio&lt;/b&gt;vascular')
+        ));
+
+        expect(matchedContent).toBeInTheDocument();
+      });
     });
   });
 });
