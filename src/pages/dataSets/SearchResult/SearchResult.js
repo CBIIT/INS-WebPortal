@@ -494,6 +494,7 @@ const SearchResult = ({
 
             let highlightedPrimaryDisease = rst.content.primary_disease;
             let highlightedDatasetSourceRepo = rst.content.dataset_source_repo;
+            let highlightedStudyType = rst.content.study_type;
 
             let highlightedDesc = description.replace(/<(?![b/])/g, '&lt;');
             let hasMatchInDesc = false;
@@ -510,6 +511,9 @@ const SearchResult = ({
               }
               if (highlightedDatasetSourceRepo) {
                 highlightedDatasetSourceRepo = highlightedDatasetSourceRepo.replace(regex, (match) => `<b>${match}</b>`).trim();
+              }
+              if (highlightedStudyType) {
+                highlightedStudyType = highlightedStudyType.replace(regex, (match) => `<b>${match}</b>`).trim();
               }
 
               highlightedDesc = highlightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
@@ -530,7 +534,6 @@ const SearchResult = ({
               { 'related terms': rst.content.related_terms },
               { 'study links': rst.content.study_links },
               { 'related genes': rst.content.related_genes },
-              { 'study type': rst.content.study_type },
               { 'assay method': rst.content.assay_method },
               { 'limitations for reuse': rst.content.limitations_for_reuse },
               { 'NCI Division/Office/Center': rst.content.dataset_doc },
@@ -629,6 +632,18 @@ const SearchResult = ({
                         <span>Description:&nbsp;&nbsp;&nbsp;</span>
                         <span className="textSpan">
                           {ReactHtmlParser(highlightedDesc)}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                }
+                {
+                  rst.content.study_type != null && rst.content.study_type !== '' && (
+                    <div className="row align-items-start bodyRow">
+                      <div className="col labelDiv">
+                        <span>Study Type:&nbsp;&nbsp;&nbsp;</span>
+                        <span className="itemSpan">
+                          {ReactHtmlParser(highlightedStudyType)}
                         </span>
                       </div>
                     </div>
