@@ -274,6 +274,204 @@ describe('Basic Functionality', () => {
     expect(descriptionElement.textContent.length).toBeGreaterThan(500);
     expect(descriptionElement.textContent).not.toMatch(/\.\.\.$/);
   });
+
+  describe('Search Filters', () => {
+    it('should add primary_disease filters to search combination for highlighting', () => {
+      const mockResult = createMockResult({
+        primary_disease: 'Breast Cancer',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: '',
+          filters: {
+            primary_disease: ['Cancer'],
+          },
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // "Cancer" should be highlighted even though there's no search_text
+      // because it's in the filters
+      const matchedContent = screen.getByText((_, element) => (
+        element.className === 'itemSpan'
+        && element.innerHTML.includes('&lt;b&gt;Cancer&lt;/b&gt;')
+      ));
+
+      expect(matchedContent).toBeInTheDocument();
+    });
+
+    it('should add dataset_source_repo filters to search combination for highlighting', () => {
+      const mockResult = createMockResult({
+        dataset_source_repo: 'National Cancer Institute',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: '',
+          filters: {
+            dataset_source_repo: ['Cancer'],
+          },
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // "Cancer" should be highlighted even though there's no search_text
+      const matchedContent = screen.getByText((_, element) => (
+        element.className === 'dataRepo'
+        && element.innerHTML.includes('&lt;b&gt;Cancer&lt;/b&gt;')
+      ));
+
+      expect(matchedContent).toBeInTheDocument();
+    });
+
+    it('should exclude dataset_source_repo filters from hidden field matches', () => {
+      const mockResult = createMockResult({
+        PI_name: 'Repository Researcher',
+        dataset_source_repo: 'Repository',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: '',
+          filters: {
+            dataset_source_repo: ['Repository'],
+          },
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // "Repository" is in dataset_source_repo filter
+      // So it should NOT appear as "Other Match in PI name" even though PI_name contains it
+      expect(screen.queryByText(/Other Match in PI name/i)).not.toBeInTheDocument();
+    });
+
+    it('should handle multiple filters from both primary_disease and dataset_source_repo', () => {
+      const mockResult = createMockResult({
+        primary_disease: 'Breast Cancer Research',
+        dataset_source_repo: 'National Cancer Institute',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: '',
+          filters: {
+            primary_disease: ['Breast'],
+            dataset_source_repo: ['National'],
+          },
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // Both "Breast" and "National" should be highlighted
+      const primaryDiseaseMatch = screen.getByText((_, element) => (
+        element.className === 'itemSpan'
+        && element.innerHTML.includes('&lt;b&gt;Breast&lt;/b&gt;')
+      ));
+
+      const dataRepoMatch = screen.getByText((_, element) => (
+        element.className === 'dataRepo'
+        && element.innerHTML.includes('&lt;b&gt;National&lt;/b&gt;')
+      ));
+
+      expect(primaryDiseaseMatch).toBeInTheDocument();
+      expect(dataRepoMatch).toBeInTheDocument();
+    });
+
+    it('should handle empty filters array', () => {
+      const mockResult = createMockResult({
+        primary_disease: 'Cancer',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: 'Cancer',
+          filters: {
+            primary_disease: [],
+            dataset_source_repo: [],
+          },
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // Should still work with search_text
+      expect(screen.getByText('Test Dataset')).toBeInTheDocument();
+    });
+
+    it('should handle filters that are not arrays', () => {
+      const mockResult = createMockResult({
+        primary_disease: 'Cancer',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: 'Cancer',
+          filters: {
+            primary_disease: 'not-an-array',
+          },
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // Should not crash
+      expect(screen.getByText('Test Dataset')).toBeInTheDocument();
+    });
+
+    it('should handle missing filters (undefined)', () => {
+      const mockResult = createMockResult({
+        primary_disease: 'Cancer',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: 'Cancer',
+          // filters is undefined (not present)
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // Should not crash and should still highlight search_text terms
+      const matchedContent = screen.getByText((_, element) => (
+        element.className === 'itemSpan'
+        && element.innerHTML.includes('&lt;b&gt;Cancer&lt;/b&gt;')
+      ));
+
+      expect(matchedContent).toBeInTheDocument();
+    });
+
+    it('should handle null filters', () => {
+      const mockResult = createMockResult({
+        primary_disease: 'Cancer',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: 'Cancer',
+          filters: null,
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // Should not crash
+      expect(screen.getByText('Test Dataset')).toBeInTheDocument();
+    });
+  });
 });
 
 describe('Conditional Field Rendering', () => {
