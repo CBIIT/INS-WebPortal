@@ -368,7 +368,7 @@ const LandingView = ({ classes, statsData }) => {
                       <img
                         className={classes.image}
                         src={landingPageData.tile3.img}
-                        alt={landingPageData.tile3.src}
+                        alt={landingPageData.tile3.alt}
                         id="tile3_image"
                       />
                     </div>
