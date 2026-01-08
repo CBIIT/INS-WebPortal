@@ -349,27 +349,7 @@ const SearchResult = ({
 }) => {
   const sanitizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
   const searchTerms = sanitizeSearchTerms.split(' ').filter((item) => item !== '');
-  let searchCombination = getCombinations(searchTerms);
-
-  if (search.filters) {
-    if (
-      search.filters.primary_disease
-      && Array.isArray(search.filters.primary_disease)
-      && search.filters.primary_disease.length > 0
-    ) {
-      searchCombination = search.filters.primary_disease.concat(searchCombination);
-    }
-
-    if (
-      search.filters.dataset_source_repo
-      && Array.isArray(search.filters.dataset_source_repo)
-      && search.filters.dataset_source_repo.length > 0
-    ) {
-      searchCombination = search.filters.dataset_source_repo.concat(searchCombination);
-    }
-  }
-
-  searchCombination.sort((a, b) => b.length - a.length);
+  const searchCombination = getCombinations(searchTerms).sort((a, b) => b.length - a.length);
 
   const initializePopover = () => {
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
