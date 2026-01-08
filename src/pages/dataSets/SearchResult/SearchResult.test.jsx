@@ -479,24 +479,32 @@ describe('Conditional Field Rendering', () => {
     jest.clearAllMocks();
   });
 
-  // Common tests for fields that support conditional rendering
-  describe.each([
+  // NUMERIC FIELDS: Conditional fields with numeric values
+  const numericFields = [
     {
       fieldName: 'sample_count',
       fieldLabel: 'Sample Count',
       labelRegex: /Sample Count:/i,
       validValue: 100,
-      isNumeric: true,
     },
+  ];
+
+  // STRING FIELDS: Conditional fields with string values
+  const stringFields = [
     {
       fieldName: 'study_type',
       fieldLabel: 'Study Type',
       labelRegex: /Study Type:/i,
       validValue: 'Clinical Trial',
-      isNumeric: false,
     },
-  ])('$fieldLabel field', ({
-    fieldName, fieldLabel, labelRegex, validValue, isNumeric,
+  ];
+
+  // COMMON BEHAVIOR: Tests for all conditional fields (numeric + string)
+  describe.each([...numericFields, ...stringFields])('Conditional Fields - Common Behavior', ({
+    fieldName,
+    fieldLabel,
+    labelRegex,
+    validValue,
   }) => {
     it(`should NOT display ${fieldLabel} when it is null`, () => {
       const mockResult = createMockResult({ [fieldName]: null });
@@ -553,48 +561,52 @@ describe('Conditional Field Rendering', () => {
       // Should display the valid value
       expect(screen.getByText(validValue.toString())).toBeInTheDocument();
     });
+  });
 
-    // Numeric-specific tests
-    if (isNumeric) {
-      it(`should display ${fieldLabel} when it has a valid numeric value`, () => {
-        const mockResult = createMockResult({ [fieldName]: 150 });
-        const props = {
-          ...defaultProps,
-          resultList: [mockResult],
-        };
+  // NUMERIC-SPECIFIC BEHAVIOR: Tests unique to numeric fields
+  describe.each(numericFields)('Numeric Fields - Numeric-Specific Behavior', ({
+    fieldName,
+    fieldLabel,
+    labelRegex,
+  }) => {
+    it(`should display ${fieldLabel} when it has a valid numeric value`, () => {
+      const mockResult = createMockResult({ [fieldName]: 150 });
+      const props = {
+        ...defaultProps,
+        resultList: [mockResult],
+      };
 
-        renderWithRouter(<SearchResult {...props} />);
+      renderWithRouter(<SearchResult {...props} />);
 
-        expect(screen.getByText(labelRegex)).toBeInTheDocument();
-        expect(screen.getByText('150')).toBeInTheDocument();
-      });
+      expect(screen.getByText(labelRegex)).toBeInTheDocument();
+      expect(screen.getByText('150')).toBeInTheDocument();
+    });
 
-      it(`should display ${fieldLabel} when it has a string numeric value`, () => {
-        const mockResult = createMockResult({ [fieldName]: '200' });
-        const props = {
-          ...defaultProps,
-          resultList: [mockResult],
-        };
+    it(`should display ${fieldLabel} when it has a string numeric value`, () => {
+      const mockResult = createMockResult({ [fieldName]: '200' });
+      const props = {
+        ...defaultProps,
+        resultList: [mockResult],
+      };
 
-        renderWithRouter(<SearchResult {...props} />);
+      renderWithRouter(<SearchResult {...props} />);
 
-        expect(screen.getByText(labelRegex)).toBeInTheDocument();
-        expect(screen.getByText('200')).toBeInTheDocument();
-      });
+      expect(screen.getByText(labelRegex)).toBeInTheDocument();
+      expect(screen.getByText('200')).toBeInTheDocument();
+    });
 
-      it(`should display ${fieldLabel} with value of 0`, () => {
-        const mockResult = createMockResult({ [fieldName]: 0 });
-        const props = {
-          ...defaultProps,
-          resultList: [mockResult],
-        };
+    it(`should display ${fieldLabel} with value of 0`, () => {
+      const mockResult = createMockResult({ [fieldName]: 0 });
+      const props = {
+        ...defaultProps,
+        resultList: [mockResult],
+      };
 
-        renderWithRouter(<SearchResult {...props} />);
+      renderWithRouter(<SearchResult {...props} />);
 
-        expect(screen.getByText(labelRegex)).toBeInTheDocument();
-        expect(screen.getByText('0')).toBeInTheDocument();
-      });
-    }
+      expect(screen.getByText(labelRegex)).toBeInTheDocument();
+      expect(screen.getByText('0')).toBeInTheDocument();
+    });
   });
 });
 
@@ -633,7 +645,7 @@ describe('Hidden Fields - Additional Matches', () => {
     },
   ];
 
-  describe.each(hiddenFields)('$displayName field', ({ fieldName, displayName, searchTerm }) => {
+  describe.each(hiddenFields)('Hidden Field Rendering Tests', ({ fieldName, displayName, searchTerm }) => {
     it(`should NOT display "Other Match in ${displayName}" when search does not match`, () => {
       const mockResult = createMockResult({
         [fieldName]: 'Some unrelated content',
@@ -899,7 +911,7 @@ describe('Hidden Fields - Additional Matches', () => {
     describe('Hidden Fields', () => {
       // Test highlighting for each hidden field
       describe.each(hiddenFields)(
-        '$displayName field highlighting',
+        'Hidden Field Highlighting Tests',
         ({ fieldName, displayName, searchTerm }) => {
           it(`should highlight matching search term "${searchTerm}" in ${displayName}`, () => {
             const fieldValue = `This contains ${searchTerm} in the text`;
