@@ -111,9 +111,7 @@ describe('Basic Functionality', () => {
     // Check that required elements are still rendered
     expect(screen.getByText('Test Dataset')).toBeInTheDocument();
     expect(screen.getByText(/Primary Disease:/i)).toBeInTheDocument();
-    const primaryDiseaseElement = screen.getByText((_, element) => (
-      element.className === 'itemSpan' && element.textContent.includes('Disease')
-    ));
+    const primaryDiseaseElement = screen.getByTestId('primary-disease');
     expect(primaryDiseaseElement).toBeInTheDocument();
     expect(screen.getByText(/Description:/i)).toBeInTheDocument();
 
@@ -237,10 +235,7 @@ describe('Basic Functionality', () => {
     renderWithRouter(<SearchResult {...props} />);
 
     // Find the description element
-    const descriptionElement = screen.getByText((_, element) => (
-      element.className === 'textSpan'
-      && element.textContent.includes('A'.repeat(500))
-    ));
+    const descriptionElement = screen.getByTestId('description');
 
     // Should be truncated to 500 chars + "..."
     expect(descriptionElement.textContent).toHaveLength(503); // 500 + "..."
@@ -265,10 +260,7 @@ describe('Basic Functionality', () => {
     renderWithRouter(<SearchResult {...props} />);
 
     // Find the description element
-    const descriptionElement = screen.getByText((_, element) => (
-      element.className === 'textSpan'
-      && element.textContent.includes('cancer')
-    ));
+    const descriptionElement = screen.getByTestId('description');
 
     // Should NOT be truncated because match was found
     expect(descriptionElement.textContent.length).toBeGreaterThan(500);
@@ -295,12 +287,8 @@ describe('Basic Functionality', () => {
 
       // "Cancer" should be highlighted even though there's no search_text
       // because it's in the filters
-      const matchedContent = screen.getByText((_, element) => (
-        element.className === 'itemSpan'
-        && element.innerHTML.includes('&lt;b&gt;Cancer&lt;/b&gt;')
-      ));
-
-      expect(matchedContent).toBeInTheDocument();
+      const matchedContent = screen.getByTestId('primary-disease');
+      expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
     });
 
     it('should add dataset_source_repo filters to search combination for highlighting', () => {
@@ -321,12 +309,8 @@ describe('Basic Functionality', () => {
       renderWithRouter(<SearchResult {...props} />);
 
       // "Cancer" should be highlighted even though there's no search_text
-      const matchedContent = screen.getByText((_, element) => (
-        element.className === 'dataRepo'
-        && element.innerHTML.includes('&lt;b&gt;Cancer&lt;/b&gt;')
-      ));
-
-      expect(matchedContent).toBeInTheDocument();
+      const matchedContent = screen.getByTestId('dataset-source-repo');
+      expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
     });
 
     it('should exclude dataset_source_repo filters from hidden field matches', () => {
@@ -372,18 +356,11 @@ describe('Basic Functionality', () => {
       renderWithRouter(<SearchResult {...props} />);
 
       // Both "Breast" and "National" should be highlighted
-      const primaryDiseaseMatch = screen.getByText((_, element) => (
-        element.className === 'itemSpan'
-        && element.innerHTML.includes('&lt;b&gt;Breast&lt;/b&gt;')
-      ));
+      const primaryDiseaseMatch = screen.getByTestId('primary-disease');
+      expect(primaryDiseaseMatch.innerHTML).toContain('&lt;b&gt;Breast&lt;/b&gt;');
 
-      const dataRepoMatch = screen.getByText((_, element) => (
-        element.className === 'dataRepo'
-        && element.innerHTML.includes('&lt;b&gt;National&lt;/b&gt;')
-      ));
-
-      expect(primaryDiseaseMatch).toBeInTheDocument();
-      expect(dataRepoMatch).toBeInTheDocument();
+      const dataRepoMatch = screen.getByTestId('dataset-source-repo');
+      expect(dataRepoMatch.innerHTML).toContain('&lt;b&gt;National&lt;/b&gt;');
     });
 
     it('should handle empty filters array', () => {
@@ -445,12 +422,8 @@ describe('Basic Functionality', () => {
       renderWithRouter(<SearchResult {...props} />);
 
       // Should not crash and should still highlight search_text terms
-      const matchedContent = screen.getByText((_, element) => (
-        element.className === 'itemSpan'
-        && element.innerHTML.includes('&lt;b&gt;Cancer&lt;/b&gt;')
-      ));
-
-      expect(matchedContent).toBeInTheDocument();
+      const matchedContent = screen.getByTestId('primary-disease');
+      expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
     });
 
     it('should handle null filters', () => {
@@ -821,13 +794,9 @@ describe('Hidden Fields - Additional Matches', () => {
         renderWithRouter(<SearchResult {...props} />);
 
         // Find the primary disease span with highlighting
-        const matchedContent = screen.getByText((_, element) => (
-          element.className === 'itemSpan'
-          && element.textContent.includes('Cancer')
-          && element.innerHTML.includes('&lt;b&gt;Cancer&lt;/b&gt;')
-        ));
-
-        expect(matchedContent).toBeInTheDocument();
+        const matchedContent = screen.getByTestId('primary-disease');
+        expect(matchedContent.textContent).toContain('Cancer');
+        expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
       });
 
       it('should highlight matching search term in dataset_source_repo', () => {
@@ -846,13 +815,9 @@ describe('Hidden Fields - Additional Matches', () => {
         renderWithRouter(<SearchResult {...props} />);
 
         // Find the data repo span with highlighting
-        const matchedContent = screen.getByText((_, element) => (
-          element.className === 'dataRepo'
-          && element.textContent.includes('Institute')
-          && element.innerHTML.includes('&lt;b&gt;Institute&lt;/b&gt;')
-        ));
-
-        expect(matchedContent).toBeInTheDocument();
+        const matchedContent = screen.getByTestId('dataset-source-repo');
+        expect(matchedContent.textContent).toContain('Institute');
+        expect(matchedContent.innerHTML).toContain('&lt;b&gt;Institute&lt;/b&gt;');
       });
 
       it('should highlight matching search term in description', () => {
@@ -871,13 +836,9 @@ describe('Hidden Fields - Additional Matches', () => {
         renderWithRouter(<SearchResult {...props} />);
 
         // Find the description span with highlighting
-        const matchedContent = screen.getByText((_, element) => (
-          element.className === 'textSpan'
-          && element.textContent.includes('genomic')
-          && element.innerHTML.includes('&lt;b&gt;genomic&lt;/b&gt;')
-        ));
-
-        expect(matchedContent).toBeInTheDocument();
+        const matchedContent = screen.getByTestId('description');
+        expect(matchedContent.textContent).toContain('genomic');
+        expect(matchedContent.innerHTML).toContain('&lt;b&gt;genomic&lt;/b&gt;');
       });
     });
 
@@ -898,13 +859,9 @@ describe('Hidden Fields - Additional Matches', () => {
         renderWithRouter(<SearchResult {...props} />);
 
         // Find the study type span with highlighting
-        const matchedContent = screen.getByText((_, element) => (
-          element.className === 'itemSpan'
-          && element.textContent.includes('Trial')
-          && element.innerHTML.includes('&lt;b&gt;Trial&lt;/b&gt;')
-        ));
-
-        expect(matchedContent).toBeInTheDocument();
+        const matchedContent = screen.getByTestId('study-type');
+        expect(matchedContent.textContent).toContain('Trial');
+        expect(matchedContent.innerHTML).toContain('&lt;b&gt;Trial&lt;/b&gt;');
       });
     });
 
@@ -931,14 +888,12 @@ describe('Hidden Fields - Additional Matches', () => {
 
             // The matched term should be wrapped in <b> tags (escaped in HTML)
             // Look specifically for the additionalMatches span element
-            const matchedContent = screen.getAllByText((_, element) => (
-              element.className === 'additionalMatches'
-              && element.innerHTML.includes('&lt;b&gt;')
-              && element.innerHTML.includes('&lt;/b&gt;')
-            ));
+            const matchedContent = screen.getAllByTestId('additional-match');
 
             // Should find at least one match with highlighting
             expect(matchedContent.length).toBeGreaterThan(0);
+            expect(matchedContent[0].innerHTML).toContain('&lt;b&gt;');
+            expect(matchedContent[0].innerHTML).toContain('&lt;/b&gt;');
           });
         },
       );
@@ -987,12 +942,8 @@ describe('Hidden Fields - Additional Matches', () => {
         renderWithRouter(<SearchResult {...props} />);
 
         // The original casing should be preserved but wrapped in <b> tags (escaped in HTML)
-        const matchedContent = screen.getByText((_, element) => (
-          element.className === 'itemSpan'
-          && element.innerHTML.includes('&lt;b&gt;Cancer&lt;/b&gt;')
-        ));
-
-        expect(matchedContent).toBeInTheDocument();
+        const matchedContent = screen.getByTestId('primary-disease');
+        expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
       });
 
       it('should highlight partial word matches', () => {
@@ -1011,12 +962,8 @@ describe('Hidden Fields - Additional Matches', () => {
         renderWithRouter(<SearchResult {...props} />);
 
         // "cardio" should be highlighted within "Cardiovascular"
-        const matchedContent = screen.getByText((_, element) => (
-          element.className === 'textSpan'
-          && element.innerHTML.includes('&lt;b&gt;Cardio&lt;/b&gt;vascular')
-        ));
-
-        expect(matchedContent).toBeInTheDocument();
+        const matchedContent = screen.getByTestId('description');
+        expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cardio&lt;/b&gt;vascular');
       });
     });
   });

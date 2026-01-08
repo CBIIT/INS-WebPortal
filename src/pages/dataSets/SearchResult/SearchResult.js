@@ -490,7 +490,7 @@ const SearchResult = ({
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
-                    <span className="dataRepo">
+                    <span className="dataRepo" data-testid="dataset-source-repo">
                       <img src={databaseIcon} alt="database-icon" className="img0" />
                       {ReactHtmlParser(highlightedDatasetSourceRepo)}
                     </span>
@@ -515,7 +515,7 @@ const SearchResult = ({
                   <div className="row align-items-start bodyRow">
                     <div className="col labelDiv">
                       <span>Primary Disease:&nbsp;&nbsp;&nbsp;</span>
-                      <span className="itemSpan">
+                      <span className="itemSpan" data-testid="primary-disease">
                         {ReactHtmlParser(highlightedPrimaryDisease)}
                       </span>
                     </div>
@@ -526,7 +526,7 @@ const SearchResult = ({
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
                         <span>Study Type:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="itemSpan">
+                        <span className="itemSpan" data-testid="study-type">
                           {ReactHtmlParser(highlightedStudyType)}
                         </span>
                       </div>
@@ -538,7 +538,7 @@ const SearchResult = ({
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
                         <span>Sample Count:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="textSpan sampleCountHighlight">
+                        <span className="textSpan sampleCountHighlight" data-testid="sample-count">
                           {rst.content.sample_count}
                         </span>
                       </div>
@@ -550,7 +550,7 @@ const SearchResult = ({
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
                         <span>Description:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="textSpan">
+                        <span className="textSpan" data-testid="description">
                           {ReactHtmlParser(highlightedDesc)}
                         </span>
                       </div>
@@ -567,7 +567,7 @@ const SearchResult = ({
                           {Object.keys(match)[0]}
                           :&nbsp;&nbsp;&nbsp;
                         </span>
-                        <span className="additionalMatches">
+                        <span className="additionalMatches" data-testid="additional-match">
                           {ReactHtmlParser(Object.values(match)[0])}
                         </span>
                       </div>
