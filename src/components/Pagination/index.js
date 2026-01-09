@@ -196,7 +196,6 @@ const Pagination = ({
               className="bspage-link-first"
               disabled={pageInfo.page === 1}
               onClick={() => handlePageClick(0)}
-              aria-label="First page"
               title="First page"
             >
               <img src={pageInfo.page === 1 ? FirstDisabledIconImg : FirstIconImg} alt="First Page" aria-hidden="true" />
@@ -206,7 +205,6 @@ const Pagination = ({
               className="bspage-link-prev"
               disabled={pageInfo.page === 1}
               onClick={() => handlePageClick(pageInfo.page - 1)}
-              aria-label="Previous page"
               title="Previous page"
             >
               <img src={pageInfo.page === 1 ? PrevDisabledIconImg : PrevIconImg} alt="Previous Page" aria-hidden="true" />
@@ -216,7 +214,6 @@ const Pagination = ({
               className="bspage-link-next"
               disabled={pageInfo.page === pageCount}
               onClick={() => handlePageClick(pageInfo.page + 1)}
-              aria-label="Next page"
               title="Next page"
             >
               <img src={pageInfo.page === pageCount ? NextDisabledIconImg : NextIconImg} alt="Next Page" aria-hidden="true" />
@@ -226,7 +223,6 @@ const Pagination = ({
               className="bspage-link-last"
               disabled={pageInfo.page === pageCount}
               onClick={() => handlePageClick(pageCount)}
-              aria-label="Last page"
               title="Last page"
             >
               <img src={pageInfo.page === pageCount ? LastDisabledIconImg : LastIconImg} alt="Last Page" aria-hidden="true" />
