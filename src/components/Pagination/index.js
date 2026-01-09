@@ -198,7 +198,7 @@ const Pagination = ({
               onClick={() => handlePageClick(0)}
               title="First page"
             >
-              <img src={pageInfo.page === 1 ? FirstDisabledIconImg : FirstIconImg} alt="First Page" aria-hidden="true" />
+              <img src={pageInfo.page === 1 ? FirstDisabledIconImg : FirstIconImg} alt="First Page" />
             </BSPagination.Item>
 
             <BSPagination.Item
@@ -207,7 +207,7 @@ const Pagination = ({
               onClick={() => handlePageClick(pageInfo.page - 1)}
               title="Previous page"
             >
-              <img src={pageInfo.page === 1 ? PrevDisabledIconImg : PrevIconImg} alt="Previous Page" aria-hidden="true" />
+              <img src={pageInfo.page === 1 ? PrevDisabledIconImg : PrevIconImg} alt="Previous Page" />
             </BSPagination.Item>
 
             <BSPagination.Item
@@ -216,7 +216,7 @@ const Pagination = ({
               onClick={() => handlePageClick(pageInfo.page + 1)}
               title="Next page"
             >
-              <img src={pageInfo.page === pageCount ? NextDisabledIconImg : NextIconImg} alt="Next Page" aria-hidden="true" />
+              <img src={pageInfo.page === pageCount ? NextDisabledIconImg : NextIconImg} alt="Next Page" />
             </BSPagination.Item>
 
             <BSPagination.Item
@@ -225,7 +225,7 @@ const Pagination = ({
               onClick={() => handlePageClick(pageCount)}
               title="Last page"
             >
-              <img src={pageInfo.page === pageCount ? LastDisabledIconImg : LastIconImg} alt="Last Page" aria-hidden="true" />
+              <img src={pageInfo.page === pageCount ? LastDisabledIconImg : LastIconImg} alt="Last Page" />
             </BSPagination.Item>
           </BSPagination>
         </PageSelect>
