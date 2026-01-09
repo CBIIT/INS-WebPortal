@@ -168,15 +168,15 @@ const BentoFacetFilter = ({
               </div>
             )}
           </div>
-          {hasSearch && (
-            <SearchView
-              classes={classes}
-              SearchBox={SearchBox}
-              UploadModal={UploadModal}
-              hidden={!expanded || !showSearch}
-            />
-          )}
         </CustomExpansionPanelSummary>
+        {hasSearch && (
+          <SearchView
+            classes={classes}
+            SearchBox={SearchBox}
+            UploadModal={UploadModal}
+            hidden={!expanded || !showSearch}
+          />
+        )}
       </>
     );
   };

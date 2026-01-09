@@ -111,7 +111,7 @@ export default () => ({
     color: '#e636e4',
   },
   searchContainer: {
-    paddingTop: '15px',
+    padding: '1px 14px 14px 14px',
     margin: '0 2px',
     marginRight: 0,
   },
