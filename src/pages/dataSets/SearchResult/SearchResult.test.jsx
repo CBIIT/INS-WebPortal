@@ -268,7 +268,7 @@ describe('Basic Functionality', () => {
   });
 
   describe('Search Filters', () => {
-    it('should add primary_disease filters to search combination for highlighting', () => {
+    it('should NOT highlight primary_disease filter values in results', () => {
       const mockResult = createMockResult({
         primary_disease: 'Breast Cancer',
       });
@@ -285,13 +285,15 @@ describe('Basic Functionality', () => {
 
       renderWithRouter(<SearchResult {...props} />);
 
-      // "Cancer" should be highlighted even though there's no search_text
-      // because it's in the filters
+      // "Cancer" should NOT be highlighted because it's only in filters, not in search_text
+      // Filters are for filtering results, not for highlighting
       const matchedContent = screen.getByTestId('primary-disease');
-      expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
+      expect(matchedContent.innerHTML).not.toContain('&lt;b&gt;Cancer&lt;/b&gt;');
+      // But the plain text should still be there
+      expect(matchedContent.textContent).toContain('Cancer');
     });
 
-    it('should add dataset_source_repo filters to search combination for highlighting', () => {
+    it('should NOT highlight dataset_source_repo filter values in results', () => {
       const mockResult = createMockResult({
         dataset_source_repo: 'National Cancer Institute',
       });
@@ -308,9 +310,11 @@ describe('Basic Functionality', () => {
 
       renderWithRouter(<SearchResult {...props} />);
 
-      // "Cancer" should be highlighted even though there's no search_text
+      // "Cancer" should NOT be highlighted because it's only in filters, not in search_text
       const matchedContent = screen.getByTestId('dataset-source-repo');
-      expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
+      expect(matchedContent.innerHTML).not.toContain('&lt;b&gt;Cancer&lt;/b&gt;');
+      // But the plain text should still be there
+      expect(matchedContent.textContent).toContain('Cancer');
     });
 
     it('should exclude dataset_source_repo filters from hidden field matches', () => {
@@ -336,7 +340,7 @@ describe('Basic Functionality', () => {
       expect(screen.queryByText(/Other Match in PI name/i)).not.toBeInTheDocument();
     });
 
-    it('should handle multiple filters from both primary_disease and dataset_source_repo', () => {
+    it('should NOT highlight filter values when both primary_disease and dataset_source_repo filters are present', () => {
       const mockResult = createMockResult({
         primary_disease: 'Breast Cancer Research',
         dataset_source_repo: 'National Cancer Institute',
@@ -355,12 +359,14 @@ describe('Basic Functionality', () => {
 
       renderWithRouter(<SearchResult {...props} />);
 
-      // Both "Breast" and "National" should be highlighted
+      // Neither "Breast" nor "National" should be highlighted (filters don't highlight)
       const primaryDiseaseMatch = screen.getByTestId('primary-disease');
-      expect(primaryDiseaseMatch.innerHTML).toContain('&lt;b&gt;Breast&lt;/b&gt;');
+      expect(primaryDiseaseMatch.innerHTML).not.toContain('&lt;b&gt;Breast&lt;/b&gt;');
+      expect(primaryDiseaseMatch.textContent).toContain('Breast');
 
       const dataRepoMatch = screen.getByTestId('dataset-source-repo');
-      expect(dataRepoMatch.innerHTML).toContain('&lt;b&gt;National&lt;/b&gt;');
+      expect(dataRepoMatch.innerHTML).not.toContain('&lt;b&gt;National&lt;/b&gt;');
+      expect(dataRepoMatch.textContent).toContain('National');
     });
 
     it('should handle empty filters array', () => {
@@ -443,6 +449,34 @@ describe('Basic Functionality', () => {
 
       // Should not crash
       expect(screen.getByText('Test Dataset')).toBeInTheDocument();
+    });
+
+    it('should highlight search_text terms but NOT filter values when both are present', () => {
+      const mockResult = createMockResult({
+        dataset_source_repo: 'dbGaP Repository',
+        description: 'Cancer study data available through dbGaP',
+      });
+      const props = {
+        ...defaultProps,
+        search: {
+          search_text: 'Cancer',
+          filters: {
+            dataset_source_repo: ['dbGaP'],
+          },
+        },
+        resultList: [mockResult],
+      };
+
+      renderWithRouter(<SearchResult {...props} />);
+
+      // "Cancer" should be highlighted (it's in search_text)
+      const descriptionElement = screen.getByTestId('description');
+      expect(descriptionElement.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
+
+      // But "dbGaP" should NOT be highlighted (it's only in filters)
+      const dataRepoElement = screen.getByTestId('dataset-source-repo');
+      expect(dataRepoElement.innerHTML).not.toContain('&lt;b&gt;dbGaP&lt;/b&gt;');
+      expect(dataRepoElement.textContent).toContain('dbGaP');
     });
   });
 });
