@@ -959,7 +959,7 @@ const styles = () => ({
     fontFamily: 'Lato',
     fontSize: '20px',
     fontWeight: '1000',
-    color: '#AEABAB',
+    color: '#696969',
     letterSpacing: '-0px',
     textAlign: 'center',
     lineHeight: '34px',
@@ -995,7 +995,7 @@ const styles = () => ({
   },
   INSTitle: {
     fontSize: '50px',
-    color: '#AEABAB',
+    color: '#696969',
     fontFamily: 'Lato',
     fontWeight: '1000',
     letterSpacing: '-0px',
