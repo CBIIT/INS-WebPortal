@@ -9,7 +9,14 @@ import heroBg from '../../assets/error/404_bubbles.png';
 const Error = ({ classes }) => (
   <div className={classes.container}>
     <Grid container className={classes.container2}>
-      <Grid item xs={12} className={classes.heroImage} />
+      <Grid item xs={12} className={classes.heroImage}>
+        <img
+          src={heroBg}
+          alt="404"
+          className={classes.heroImg}
+        />
+      </Grid>
+
       <Grid item xs={12} className={classes.errorTextRow}>
         Sorry, page not found
       </Grid>
@@ -42,10 +49,12 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     height: '180px',
-    background: `url(${heroBg})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'bottom center',
     marginLeft: '25px',
+  },
+  heroImg: {
+    bottom: 0,
+    width: 'auto',
+    height: '180px',
   },
   errorTextRow: {
     display: 'flex',
@@ -73,8 +82,8 @@ const styles = (theme) => ({
   link: {
     padding: '9px 49px 9px 29px',
     textDecoration: 'none',
-    border: '1px solid #A4A0AB',
-    backgroundColor: '#A4A0AB',
+    border: '1px solid #767382',
+    backgroundColor: '#767382',
     color: '#ffffff',
     fontFamily: 'Lato',
     fontSize: '16px',
