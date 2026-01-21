@@ -79,7 +79,7 @@ const theme = {
     MuiTypography: {
       root: {
         '&.programsSubjects': {
-          color: '#10a075',
+          color: '#2E8466',
           fontSize: '12px',
           fontFamily: 'Nunito',
           marginRight: '0px',

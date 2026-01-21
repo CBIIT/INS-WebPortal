@@ -24,7 +24,7 @@ export default () => ({
   resetText: {
     marginTop: '0px',
     marginLeft: '8px',
-    color: '#638fb5',
+    color: '#66797A',
     fontSize: 14,
   },
   resetTextDisabled: {
@@ -102,7 +102,7 @@ export default () => ({
     marginRight: '0px',
   },
   activeFacetPrograms: {
-    color: '#10a075',
+    color: '#2E8466',
   },
   activeFacetSamples: {
     color: '#10beff',
