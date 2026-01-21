@@ -3,14 +3,6 @@ import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
 const theme = {
   overrides: {
-    Mui: {
-      '&$expanded': {
-        margin: '0px 0px',
-      },
-      checked: {
-        color: 'red',
-      },
-    },
     MuiAccordionDetails: {
       root: {
         padding: '0px 1px 0px',
