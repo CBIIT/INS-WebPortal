@@ -329,72 +329,6 @@ const SearchResultContainer = styled.div`
 
 `;
 
-const TableHead = styled.thead`
-  th{
-    cursor: pointer;
-    user-select: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-
-    &:hover {
-      background-color: #c6d2db;
-    }
-  }
-`;
-
-const SortingOrder = styled.span`
-  margin-top: 5px;
-  width: 14px;
-  height: 14px;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='rgba(75,108,134,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
-`;
-
-const SortingOrderDesc = styled.span`
-  margin-top: 5px;
-  width: 14px;
-  height: 14px;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='rgba(75,108,134,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
-  transform: rotate(-180deg);
-`;
-
-const toCapitalize = (str) => {
-  const arr = str.split(' ');
-
-  const result = arr.map((t) => t.charAt(0).toUpperCase() + t.slice(1));
-
-  return result.join(' ');
-};
-
-const useQuery = () => new URLSearchParams(useLocation().search);
-
-const replaceQueryStr = (query, sorting) => {
-  let str = '';
-  if (query.get('search_text')) {
-    str += `&search_text=${query.get('search_text')}`;
-  }
-  if (query.get('filterByResource')) {
-    str += `&filterByResource=${query.get('filterByResource')}`;
-  }
-  if (query.get('filterByRepo')) {
-    str += `&filterByRepo=${query.get('filterByRepo')}`;
-  }
-  if (query.get('page')) {
-    str += `&page=${query.get('page')}`;
-  }
-  if (query.get('pageSize')) {
-    str += `&pageSize=${query.get('pageSize')}`;
-  }
-  str += `&sortBy=${sorting.k}`;
-  str += `&sortOrder=${sorting.v}`;
-  return str.substring(1);
-};
-
 function getCombinations(arr) {
   const result = [];
   function combine(prefix, start) {
@@ -410,58 +344,12 @@ function getCombinations(arr) {
 
 const SearchResult = ({
   resultList,
-  sort,
   search,
-  onChangeSorting,
-  onChangeSortingOrder,
   glossaryTerms,
 }) => {
-  const query = useQuery();
-  const history = useHistory();
-  const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
-  const searchTerms = sanatizeSearchTerms.split(' ').filter((item) => item !== '');
-  let searchCombination = getCombinations(searchTerms);
-
-  if (search.filters) {
-    if (
-      search.filters.primary_disease
-      && Array.isArray(search.filters.primary_disease)
-      && search.filters.primary_disease.length > 0
-    ) {
-      searchCombination = search.filters.primary_disease.concat(searchCombination);
-    }
-
-    if (
-      search.filters.dataset_source_repo
-      && Array.isArray(search.filters.dataset_source_repo)
-      && search.filters.dataset_source_repo.length > 0
-    ) {
-      searchCombination = search.filters.dataset_source_repo.concat(searchCombination);
-    }
-  }
-
-  searchCombination.sort((a, b) => b.length - a.length);
-
-  const handleSortBy = (column) => {
-    const name = column;
-    if (name === sort.name) {
-      const toSortBy = {};
-      toSortBy.name = 'Dataset';
-      toSortBy.k = 'dataset_title_sort';
-      toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
-      const queryStr = replaceQueryStr(query, toSortBy);
-      history.push(`/datasets?${queryStr}`);
-      onChangeSortingOrder(toSortBy.v);
-    } else {
-      const toSortBy = {};
-      toSortBy.name = 'Dataset';
-      toSortBy.k = 'dataset_title_sort';
-      toSortBy.v = sort.v;
-      const queryStr = replaceQueryStr(query, toSortBy);
-      history.push(`/datasets?${queryStr}`);
-      onChangeSorting(toSortBy);
-    }
-  };
+  const sanitizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
+  const searchTerms = sanitizeSearchTerms.split(' ').filter((item) => item !== '');
+  const searchCombination = getCombinations(searchTerms).sort((a, b) => b.length - a.length);
 
   const initializePopover = () => {
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
@@ -469,6 +357,7 @@ const SearchResult = ({
   };
 
   function removeHTMLTags(str) {
+    if (!str) return '';
     return str.replace(/<\/?[a-z][\s\S]*?>/gi, '');
   }
   useEffect(() => {
@@ -487,13 +376,11 @@ const SearchResult = ({
             <div className="messageContainer">No result found. Please refine your search.</div>
           ) : resultList.map((rst, idx) => {
             const keyName = `sr_${idx}`;
-            let description = removeHTMLTags(rst.content.description);
-            if (description === null) {
-              description = '';
-            }
+            const description = removeHTMLTags(rst.content.description);
 
             let highlightedPrimaryDisease = rst.content.primary_disease;
             let highlightedDatasetSourceRepo = rst.content.dataset_source_repo;
+            let highlightedStudyType = rst.content.study_type;
 
             let highlightedDesc = description.replace(/<(?![b/])/g, '&lt;');
             let hasMatchInDesc = false;
@@ -510,6 +397,9 @@ const SearchResult = ({
               }
               if (highlightedDatasetSourceRepo) {
                 highlightedDatasetSourceRepo = highlightedDatasetSourceRepo.replace(regex, (match) => `<b>${match}</b>`).trim();
+              }
+              if (highlightedStudyType) {
+                highlightedStudyType = highlightedStudyType.replace(regex, (match) => `<b>${match}</b>`).trim();
               }
 
               highlightedDesc = highlightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
@@ -530,10 +420,11 @@ const SearchResult = ({
               { 'related terms': rst.content.related_terms },
               { 'study links': rst.content.study_links },
               { 'related genes': rst.content.related_genes },
-              { 'study type': rst.content.study_type },
               { 'assay method': rst.content.assay_method },
               { 'limitations for reuse': rst.content.limitations_for_reuse },
               { 'NCI Division/Office/Center': rst.content.dataset_doc },
+              { institute: rst.content.institute },
+              { 'experimental approaches': rst.content.experimental_approaches },
             ];
             const excludedValues = search && search.filters && Array.isArray(search.filters.dataset_source_repo)
               ? search.filters.dataset_source_repo
@@ -579,7 +470,7 @@ const SearchResult = ({
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
-                    <span className="dataRepo">
+                    <span className="dataRepo" data-testid="dataset-source-repo">
                       <img src={databaseIcon} alt="database-icon" className="img0" />
                       {ReactHtmlParser(highlightedDatasetSourceRepo)}
                     </span>
@@ -604,18 +495,30 @@ const SearchResult = ({
                   <div className="row align-items-start bodyRow">
                     <div className="col labelDiv">
                       <span>Primary Disease:&nbsp;&nbsp;&nbsp;</span>
-                      <span className="itemSpan">
+                      <span className="itemSpan" data-testid="primary-disease">
                         {ReactHtmlParser(highlightedPrimaryDisease)}
                       </span>
                     </div>
                   </div>
                 }
                 {
+                  rst.content.study_type != null && rst.content.study_type !== '' && (
+                    <div className="row align-items-start bodyRow">
+                      <div className="col labelDiv">
+                        <span>Study Type:&nbsp;&nbsp;&nbsp;</span>
+                        <span className="itemSpan" data-testid="study-type">
+                          {ReactHtmlParser(highlightedStudyType)}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                }
+                {
                   rst.content.sample_count != null && rst.content.sample_count !== '' && (
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
                         <span>Sample Count:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="textSpan sampleCountHighlight">
+                        <span className="textSpan sampleCountHighlight" data-testid="sample-count">
                           {rst.content.sample_count}
                         </span>
                       </div>
@@ -627,7 +530,7 @@ const SearchResult = ({
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
                         <span>Description:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="textSpan">
+                        <span className="textSpan" data-testid="description">
                           {ReactHtmlParser(highlightedDesc)}
                         </span>
                       </div>
@@ -644,7 +547,7 @@ const SearchResult = ({
                           {Object.keys(match)[0]}
                           :&nbsp;&nbsp;&nbsp;
                         </span>
-                        <span className="additionalMatches">
+                        <span className="additionalMatches" data-testid="additional-match">
                           {ReactHtmlParser(Object.values(match)[0])}
                         </span>
                       </div>
