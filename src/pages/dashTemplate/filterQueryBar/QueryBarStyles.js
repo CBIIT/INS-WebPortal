@@ -51,14 +51,14 @@ const customStyles = () => ({
   bracketsOpen: {
     fontSize: 20,
     fontFamily: 'Nunito',
-    color: '#969696',
+    color: '#6C6C6C',
     marginRight: 3,
     fontWeight: 600,
   },
   bracketsClose: {
     fontSize: 20,
     fontFamily: 'Nunito',
-    color: '#969696',
+    color: '#6C6C6C',
     marginLeft: 3,
     fontWeight: 600,
   },
