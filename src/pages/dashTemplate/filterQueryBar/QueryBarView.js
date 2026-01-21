@@ -6,6 +6,7 @@ import {
 import { resetAllData, resetUploadData, updateAutocompleteData } from '@bento-core/local-find';
 import { QueryBarGenerator } from '@bento-core/query-bar';
 import { facetsConfig } from '../../../bento/dashTemplate';
+import QueryBarStyles from './QueryBarStyles';
 
 /**
  * Generate the Explore Tab Query Bar
@@ -68,6 +69,7 @@ const QueryBarView = ({ data, statusReducer, localFind }) => {
         }));
       },
     },
+    customStyles: QueryBarStyles(),
   });
 
   return (
