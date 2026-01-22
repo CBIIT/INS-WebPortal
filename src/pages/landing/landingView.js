@@ -807,7 +807,15 @@ const styles = () => ({
     float: 'left',
     width: '602px',
     background: '#fff',
-    backgroundImage: `url(${landingPageData.tile4.img})`,
+    backgroundImage: `
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.4) 30%,
+      rgba(0, 0, 0, 0) 50%
+    ),
+    url(${landingPageData.tile4.img})
+  `,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     marginTop: '5px',
