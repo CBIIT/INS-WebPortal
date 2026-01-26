@@ -36,6 +36,13 @@
   padding-right: 20px;
 }
 
+.aboutPageContainer a[href^="mailto:"] {
+  background: url('../../assets/icons/mailingLinkIcon.svg') right center no-repeat;
+  background-size: 14.5px;
+  display: inline-table;
+  padding-right: 20px;
+}
+
 .aboutPageSection {
   width: 1200px;
   margin: auto;
