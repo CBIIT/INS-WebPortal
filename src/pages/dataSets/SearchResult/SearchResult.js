@@ -402,8 +402,8 @@ const SearchResult = ({
    */
   function removeHTMLTagsExceptBold(str) {
     if (!str) return '';
-    // Remove all HTML tags except <b> and </b>
-    // Pattern: <(?!\/?b(?:\s|>)) matches < not followed by b or /b + space/close
+    // Pattern: <(?!\/?b(?:\s|>))[^>]*> matches any tag that is NOT <b> or </b>,
+    // so the replace call strips all tags while leaving <b> and </b> intact
     return str.replace(/<(?!\/?b(?:\s|>))[^>]*>/gi, '');
   }
 
