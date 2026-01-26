@@ -52,7 +52,6 @@ const styles = (theme) => ({
     marginLeft: '25px',
   },
   heroImg: {
-    bottom: 0,
     width: 'auto',
     height: '180px',
   },
