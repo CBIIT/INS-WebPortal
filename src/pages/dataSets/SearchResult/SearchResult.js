@@ -462,7 +462,7 @@ const SearchResult = ({
             hiddenFieldsConfig.forEach(({ fieldName, displayName }) => {
               if (shouldShowHiddenField(rst, fieldName)) {
                 const highlightedValue = getHighlightedValue(rst, fieldName);
-                additionalMatches.push({ [displayName]: highlightedValue });
+                additionalMatches.push({ displayName, highlightedValue });
               }
             });
 
@@ -551,11 +551,11 @@ const SearchResult = ({
                         <span>
                           Other Match in
                           {' '}
-                          {Object.keys(match)[0]}
+                          {match.displayName}
                           :&nbsp;&nbsp;&nbsp;
                         </span>
                         <span className="additionalMatches" data-testid="additional-match">
-                          {ReactHtmlParser(Object.values(match)[0])}
+                          {ReactHtmlParser(match.highlightedValue)}
                         </span>
                       </div>
                     </div>

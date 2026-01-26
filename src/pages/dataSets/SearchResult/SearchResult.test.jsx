@@ -300,10 +300,16 @@ describe('Basic Functionality', () => {
 
     const descriptionElement = screen.getByTestId('description');
 
-    // Should have removed <p> and <a> tags but kept <b> tag (HTML-escaped in mock)
-    expect(descriptionElement.innerHTML).toContain('Study with link and &lt;b&gt;content&lt;/b&gt;');
+    // Verify dangerous HTML tags (<p>, <a>) are removed
     expect(descriptionElement.textContent).not.toContain('<p>');
     expect(descriptionElement.textContent).not.toContain('<a');
+
+    // Verify <b> tag is preserved (HTML-escaped because html-react-parser is mocked)
+    // In production, html-react-parser would convert this to an actual <b> DOM element
+    expect(descriptionElement.innerHTML).toContain('Study with link and &lt;b&gt;content&lt;/b&gt;');
+
+    // Verify the text content includes the highlighted term
+    expect(descriptionElement.textContent).toContain('content');
   });
 
   describe('Search Filters', () => {
