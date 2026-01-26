@@ -39,7 +39,7 @@ jest.mock('../../../bento/dashTemplate', () => ({
     disabled: '/mock-path/reset-button-disabled.svg',
     hover: '/mock-path/reset-button-hover.svg',
     alt: 'Reset icon',
-    size: '12 px',
+    size: '12px',
   },
   sectionLabel: {},
 }));
@@ -208,8 +208,8 @@ describe('BentoFacetFilter - Reset Button Icon States', () => {
       const img = button.querySelector('img');
 
       expect(img).toHaveAttribute('alt', 'Reset icon');
-      expect(img).toHaveAttribute('height', '12 px');
-      expect(img).toHaveAttribute('width', '12 px');
+      expect(img).toHaveAttribute('height', '12px');
+      expect(img).toHaveAttribute('width', '12px');
     });
   });
 

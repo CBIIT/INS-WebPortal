@@ -107,7 +107,7 @@ const Filters = ({
   const resetIcon = {
     src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Clear-icon.svg',
     alt: 'Reset icon',
-    size: '12 px',
+    size: '12px',
   };
 
   const clearAllFilters = (qry) => {

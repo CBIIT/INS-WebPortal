@@ -12,7 +12,7 @@ export const resetIcon = {
   disabled: resetButtonDisabled,
   hover: resetButtonHover,
   alt: 'Reset icon',
-  size: '12 px',
+  size: '12px',
 };
 
 export const sectionLabel = {
