@@ -23,8 +23,13 @@ jest.mock('bootstrap', () => ({
 jest.mock('html-react-parser', () => jest.fn((str) => str));
 
 // Helper function to create a mock result with configurable fields
-// Usage: createMockResult({ sample_count: 100, highlight: { 'primary_disease.search': ['<b>Cancer</b>'] } })
-// Pass any field you want to override from the defaults
+// Usage: createMockResult({ sample_count: 100, study_type: 'Clinical Trial' })
+// With highlights: createMockResult({
+//   primary_disease: 'Breast Cancer',
+//   highlight: { 'primary_disease.search': ['Breast <b>Cancer</b>'] }
+// })
+// Note: highlight keys follow the pattern 'fieldName.search' and map to arrays of
+// HTML-highlighted strings as returned by the search backend
 const createMockResult = (overrides = {}) => {
   const { highlight, ...contentOverrides } = overrides;
   return {
@@ -1064,7 +1069,7 @@ describe('Hidden Fields - Additional Matches', () => {
         expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
       });
 
-      it('should highlight partial word matches', () => {
+      it('should highlight whole word when partial word is searched (backend behavior)', () => {
         const mockResult = createMockResult({
           description: 'Cardiovascular research study',
           highlight: {
@@ -1082,7 +1087,7 @@ describe('Hidden Fields - Additional Matches', () => {
 
         renderWithRouter(<SearchResult {...props} />);
 
-        // "cardio" should be highlighted within "Cardiovascular" (whole word is highlighted)
+        // Backend highlights entire word "Cardiovascular" when searching for partial match "cardio"
         const matchedContent = screen.getByTestId('description');
         expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cardiovascular&lt;/b&gt;');
       });
