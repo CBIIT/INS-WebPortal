@@ -1115,7 +1115,7 @@ describe('Backend Highlighting - Visible Fields', () => {
     renderWithRouter(<SearchResult {...props} />);
 
     const primaryDisease = screen.getByTestId('primary-disease');
-    expect(primaryDisease.textContent).toContain('Breast <b>Cancer</b>');
+    expect(primaryDisease.innerHTML).toContain('Breast &lt;b&gt;Cancer&lt;/b&gt;');
   });
 
   it('should fallback to content when no highlight provided for primary_disease', () => {
@@ -1132,7 +1132,6 @@ describe('Backend Highlighting - Visible Fields', () => {
 
     const primaryDisease = screen.getByTestId('primary-disease');
     expect(primaryDisease.textContent).toBe('Breast Cancer');
-    expect(primaryDisease.textContent).not.toContain('<b>');
   });
 
   it('should display highlighted dataset_source_repo when backend provides highlight', () => {
@@ -1150,7 +1149,7 @@ describe('Backend Highlighting - Visible Fields', () => {
     renderWithRouter(<SearchResult {...props} />);
 
     const repoElement = screen.getByTestId('dataset-source-repo');
-    expect(repoElement.textContent).toContain('National <b>Cancer</b> Institute');
+    expect(repoElement.innerHTML).toContain('National &lt;b&gt;Cancer&lt;/b&gt; Institute');
   });
 
   it('should display highlighted study_type when backend provides highlight', () => {
@@ -1168,7 +1167,7 @@ describe('Backend Highlighting - Visible Fields', () => {
     renderWithRouter(<SearchResult {...props} />);
 
     const studyType = screen.getByTestId('study-type');
-    expect(studyType.textContent).toContain('<b>Clinical</b> Trial Study');
+    expect(studyType.innerHTML).toContain('&lt;b&gt;Clinical&lt;/b&gt; Trial Study');
   });
 
   it('should handle multiple highlighted fields in same result', () => {
