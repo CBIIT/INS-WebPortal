@@ -329,6 +329,23 @@ const SearchResultContainer = styled.div`
 
 `;
 
+// Configuration for hidden fields that appear as "Other Match in..." when highlighted
+const HIDDEN_FIELDS_CONFIG = [
+  { fieldName: 'dataset_source_url', displayName: 'study page' },
+  { fieldName: 'PI_name', displayName: 'PI name' },
+  { fieldName: 'dataset_pmid', displayName: 'dataset pmid' },
+  { fieldName: 'funding_source', displayName: 'funding source' },
+  { fieldName: 'related_diseases', displayName: 'related diseases' },
+  { fieldName: 'related_terms', displayName: 'related terms' },
+  { fieldName: 'study_links', displayName: 'study links' },
+  { fieldName: 'related_genes', displayName: 'related genes' },
+  { fieldName: 'assay_method', displayName: 'assay method' },
+  { fieldName: 'limitations_for_reuse', displayName: 'limitations for reuse' },
+  { fieldName: 'dataset_doc', displayName: 'NCI Division/Office/Center' },
+  { fieldName: 'institute', displayName: 'institute' },
+  { fieldName: 'experimental_approaches', displayName: 'experimental approaches' },
+];
+
 const SearchResult = ({
   resultList,
   search,
@@ -380,11 +397,14 @@ const SearchResult = ({
 
   /**
    * Removes all HTML tags EXCEPT <b> and </b> tags
+   * Explicitly handles only opening <b> and closing </b> tags to prevent
+   * self-closing tags like <b/> from passing through
    */
   function removeHTMLTagsExceptBold(str) {
     if (!str) return '';
     // Remove all HTML tags except <b> and </b>
-    return str.replace(/<\/?(?!b\b)[a-z][\s\S]*?>/gi, '');
+    // Pattern: <(?!\/?b(?:\s|>)) matches < not followed by b or /b + space/close
+    return str.replace(/<(?!\/?b(?:\s|>))[^>]*>/gi, '');
   }
 
   /**
@@ -442,24 +462,8 @@ const SearchResult = ({
             const highlightedDesc = getDescriptionValue(rst);
 
             // Build list of hidden fields that have matches (backend highlighted them)
-            const hiddenFieldsConfig = [
-              { fieldName: 'dataset_source_url', displayName: 'study page' },
-              { fieldName: 'PI_name', displayName: 'PI name' },
-              { fieldName: 'dataset_pmid', displayName: 'dataset pmid' },
-              { fieldName: 'funding_source', displayName: 'funding source' },
-              { fieldName: 'related_diseases', displayName: 'related diseases' },
-              { fieldName: 'related_terms', displayName: 'related terms' },
-              { fieldName: 'study_links', displayName: 'study links' },
-              { fieldName: 'related_genes', displayName: 'related genes' },
-              { fieldName: 'assay_method', displayName: 'assay method' },
-              { fieldName: 'limitations_for_reuse', displayName: 'limitations for reuse' },
-              { fieldName: 'dataset_doc', displayName: 'NCI Division/Office/Center' },
-              { fieldName: 'institute', displayName: 'institute' },
-              { fieldName: 'experimental_approaches', displayName: 'experimental approaches' },
-            ];
-
             const additionalMatches = [];
-            hiddenFieldsConfig.forEach(({ fieldName, displayName }) => {
+            HIDDEN_FIELDS_CONFIG.forEach(({ fieldName, displayName }) => {
               if (shouldShowHiddenField(rst, fieldName)) {
                 const highlightedValue = getHighlightedValue(rst, fieldName);
                 additionalMatches.push({ displayName, highlightedValue });

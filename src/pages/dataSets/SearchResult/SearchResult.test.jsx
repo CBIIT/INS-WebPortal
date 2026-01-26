@@ -819,6 +819,21 @@ describe('Hidden Fields - Additional Matches', () => {
 
     // Should NOT find match in PI_name (backend didn't highlight it)
     expect(screen.queryByText(/Other Match in PI name/i)).not.toBeInTheDocument();
+
+    // Verify the highlighted values are correctly displayed
+    const additionalMatchElements = screen.getAllByTestId('additional-match');
+    expect(additionalMatchElements).toHaveLength(2);
+
+    // Check for BRCA1 and BRCA2 highlighting in related genes
+    const relatedGenesMatch = additionalMatchElements.find((el) => el.textContent.includes('BRCA1') && el.textContent.includes('BRCA2'));
+    expect(relatedGenesMatch).toBeDefined();
+    expect(relatedGenesMatch.innerHTML).toContain('&lt;b&gt;BRCA1&lt;/b&gt;');
+    expect(relatedGenesMatch.innerHTML).toContain('&lt;b&gt;BRCA2&lt;/b&gt;');
+
+    // Check for Cancer highlighting in funding source
+    const fundingSourceMatch = additionalMatchElements.find((el) => el.textContent.includes('National') && el.textContent.includes('Cancer') && el.textContent.includes('Institute'));
+    expect(fundingSourceMatch).toBeDefined();
+    expect(fundingSourceMatch.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
   });
 
   it('should perform case-insensitive matching for hidden fields', () => {
