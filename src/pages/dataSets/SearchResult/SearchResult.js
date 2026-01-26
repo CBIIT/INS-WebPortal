@@ -404,17 +404,10 @@ const SearchResult = ({
     );
 
     if (hasHighlight) {
-      // Get highlighted description from backend
+      // Backend highlighted the description - show FULL description with highlights
+      // Remove all HTML tags except <b> tags, but DON'T truncate
       const highlightedDesc = resultItem.highlight[highlightKey][0];
-      // Remove all HTML tags except <b> tags
-      const cleanHighlightedDesc = removeHTMLTagsExceptBold(highlightedDesc);
-
-      // Apply truncation if longer than 500 chars
-      if (cleanHighlightedDesc.length > 500) {
-        return `${cleanHighlightedDesc.substring(0, 500)}...`;
-      }
-
-      return cleanHighlightedDesc;
+      return removeHTMLTagsExceptBold(highlightedDesc);
     }
 
     // No highlight - truncate if longer than 500 chars
