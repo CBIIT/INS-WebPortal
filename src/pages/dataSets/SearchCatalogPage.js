@@ -168,8 +168,13 @@ const SearchCatalogPage = ({
               <div className="tooltip-text-search-datasets">
                 <span>Search Rules</span>
                 <ul>
-                  <li>A minimum of 3 characters is required to perform a search.</li>
                   <li>Non-alphanumeric characters (e.g., ? ! / - &lt; &gt;) are ignored.</li>
+                  <li>Search terms must contain at least 3 consecutive alphanumeric characters.</li>
+                  <li>
+                    Within searches with multiple terms, terms with fewer than 3 characters
+                    are ignored (e.g., searching "p53 in lung", returns results for "p53"
+                    AND "lung", but "in" is ignored).
+                  </li>
                   <li>
                     Searches return both full and partial word matches
                     (e.g., searching “leuk” returns results for “leukemia”).
