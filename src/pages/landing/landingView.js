@@ -368,7 +368,7 @@ const LandingView = ({ classes, statsData }) => {
                       <img
                         className={classes.image}
                         src={landingPageData.tile3.img}
-                        alt={landingPageData.tile3.src}
+                        alt={landingPageData.tile3.alt}
                         id="tile3_image"
                       />
                     </div>
@@ -807,7 +807,15 @@ const styles = () => ({
     float: 'left',
     width: '602px',
     background: '#fff',
-    backgroundImage: `url(${landingPageData.tile4.img})`,
+    backgroundImage: `
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.4) 30%,
+      rgba(0, 0, 0, 0) 50%
+    ),
+    url(${landingPageData.tile4.img})
+  `,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     marginTop: '5px',
@@ -959,7 +967,7 @@ const styles = () => ({
     fontFamily: 'Lato',
     fontSize: '20px',
     fontWeight: '1000',
-    color: '#AEABAB',
+    color: '#696969',
     letterSpacing: '-0px',
     textAlign: 'center',
     lineHeight: '34px',
@@ -995,7 +1003,7 @@ const styles = () => ({
   },
   INSTitle: {
     fontSize: '50px',
-    color: '#AEABAB',
+    color: '#696969',
     fontFamily: 'Lato',
     fontWeight: '1000',
     letterSpacing: '-0px',

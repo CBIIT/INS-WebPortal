@@ -4,17 +4,18 @@ export default () => ({
   },
   customButton: {
     borderRadius: '9px',
-    maxWidth: '30px',
+    maxWidth: '32px',
     maxHeight: '30px',
-    minWidth: '30px',
+    minWidth: '32px',
     minHeight: '30px',
     marginTop: '0px',
     fontSize: 9,
     textTransform: 'none',
     color: '#3d4241',
     marginLeft: '0px',
+    border: '1px solid #ADADAD !important',
     '&:hover': {
-      backgroundColor: '#566672',
+      backgroundColor: '#60797B',
       color: 'white',
     },
   },
@@ -24,14 +25,18 @@ export default () => ({
   resetText: {
     marginTop: '0px',
     marginLeft: '8px',
-    color: '#638fb5',
+    color: '#60797B',
+    fontFamily: 'Nunito Sans',
     fontSize: 14,
+    fontWeight: '600',
   },
   resetTextDisabled: {
     marginTop: '0px',
     marginLeft: '8px',
-    color: '#a9b2b9',
+    color: '#AEBDBE',
+    fontFamily: 'Nunito Sans',
     fontSize: 14,
+    fontWeight: '600',
   },
   cases: {
     height: '5px',
@@ -102,7 +107,7 @@ export default () => ({
     marginRight: '0px',
   },
   activeFacetPrograms: {
-    color: '#10a075',
+    color: '#2E8466',
   },
   activeFacetSamples: {
     color: '#10beff',
@@ -111,7 +116,7 @@ export default () => ({
     color: '#e636e4',
   },
   searchContainer: {
-    paddingTop: '15px',
+    padding: '1px 14px 14px 14px',
     margin: '0 2px',
     marginRight: 0,
   },

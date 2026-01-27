@@ -1,13 +1,18 @@
 import { sortType, InputTypes } from '@bento-core/facet-filter';
+import resetButtonActive from '../assets/icons/reset-button-active.svg';
+import resetButtonDisabled from '../assets/icons/reset-button-disabled.svg';
+import resetButtonHover from '../assets/icons/reset-button-hover.svg';
 
 const PROGRAMS = 'Programs';
 const GROUP = 'group';
 
 // --------------- Facet resetIcon link configuration --------------
 export const resetIcon = {
-  src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Clear-icon.svg',
+  active: resetButtonActive,
+  disabled: resetButtonDisabled,
+  hover: resetButtonHover,
   alt: 'Reset icon',
-  size: '12 px',
+  size: '12px',
 };
 
 export const sectionLabel = {
