@@ -3,17 +3,9 @@ import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
 const theme = {
   overrides: {
-    Mui: {
-      '&$expanded': {
-        margin: '0px 0px',
-      },
-      checked: {
-        color: 'red',
-      },
-    },
     MuiAccordionDetails: {
       root: {
-        padding: '0px 1px 0px',
+        padding: '0px 1px',
       },
     },
     MuiAccordion: {
@@ -79,7 +71,7 @@ const theme = {
     MuiTypography: {
       root: {
         '&.programsSubjects': {
-          color: '#10a075',
+          color: '#2E8466',
           fontSize: '12px',
           fontFamily: 'Nunito',
           marginRight: '0px',

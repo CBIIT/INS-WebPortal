@@ -1,0 +1,67 @@
+const customStyles = () => ({
+  clearQueryButton: {
+    margin: '1px',
+    marginLeft: -6,
+    fontWeight: 600,
+    fontSize: '13px',
+    color: '#fff',
+    borderRadius: '15px',
+    fontFamily: 'Nunito',
+    boxSizing: 'border-box',
+    backgroundColor: '#757575',
+    textTransform: 'capitalize',
+    border: '1px solid #B4B4B4',
+    padding: '1px 5px 0px 6px',
+    '&:hover': {
+      backgroundColor: '#969696',
+    },
+  },
+  filterName: {
+    textTransform: 'uppercase',
+    padding: '5px 6px 5px 7px',
+    borderRadius: 4,
+    fontSize: 12,
+    fontWeight: 600,
+    fontFamily: 'Nunito',
+    lineHeight: '33.6px',
+    letterSpacing: '0.5px',
+    cursor: 'pointer',
+  },
+  filterCheckboxes: {
+    padding: '4px 7px 3px 6px',
+    borderRadius: 4,
+    fontSize: 12,
+    fontWeight: 600,
+    border: '1px solid #898989',
+    width: 'fit-content',
+    backgroundColor: '#fff',
+    fontFamily: 'Nunito',
+    lineHeight: '33.6px',
+    letterSpacing: '0.5px',
+    cursor: 'pointer',
+  },
+  facetSectionProgramsBackground: {
+    backgroundColor: '#BFEAD3',
+    color: '#0E3151',
+    border: '1px solid #898989',
+  },
+  facetSectionPrograms: {
+    color: '#056644',
+  },
+  bracketsOpen: {
+    fontSize: 20,
+    fontFamily: 'Nunito',
+    color: '#6C6C6C',
+    marginRight: 3,
+    fontWeight: 600,
+  },
+  bracketsClose: {
+    fontSize: 20,
+    fontFamily: 'Nunito',
+    color: '#6C6C6C',
+    marginLeft: 3,
+    fontWeight: 600,
+  },
+});
+
+export default customStyles;
