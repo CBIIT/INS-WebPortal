@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import * as text from './OverlayText.json';
-import DialogThemeProvider from './OverlayThemConfig';
+import DialogThemeProvider from './OverlayThemeConfig';
 
 const OverlayWindow = () => {
   const [open, setOpen] = useState(false);
