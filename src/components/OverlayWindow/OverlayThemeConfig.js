@@ -5,7 +5,7 @@ import themes from '../../themes';
 export default ({
   children,
 }) => {
-  const overridesObj = themes.light.overrides;
+  const overridesObj = { ...themes.light.overrides };
 
   const MuiDialog = {
     paper: {

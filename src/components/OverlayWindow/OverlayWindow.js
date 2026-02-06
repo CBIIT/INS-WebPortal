@@ -38,7 +38,7 @@ const OverlayWindow = () => {
       <ListItemIcon>
         <FiberManualRecord style={{ fontSize: 8 }} />
       </ListItemIcon>
-      <ListItemText>{item}</ListItemText>
+      <ListItemText primary={item} />
     </ListItem>
   ));
 
@@ -47,7 +47,6 @@ const OverlayWindow = () => {
       <Dialog
         open={open}
         aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
         maxWidth="md"
       >
         <DialogTitle id="alert-dialog-title">Warning</DialogTitle>
