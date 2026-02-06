@@ -1,12 +1,10 @@
 import React from 'react';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
-import themes, { overrides } from '../../themes';
+import themes from '../../themes';
 
 export default ({
   children,
 }) => {
-  const style = [];
-
   const overridesObj = themes.light.overrides;
 
   const MuiDialog = {
@@ -110,7 +108,7 @@ export default ({
   const MuiDialogActions = {
     root: {
       height: '75px',
-      justifyContent: 'right !important',
+      justifyContent: 'flex-end !important',
       padding: '30px 10px 25px 0px !important',
     },
   };
@@ -126,10 +124,11 @@ export default ({
   overridesObj.MuiListItemIcon = MuiListItemIcon;
   overridesObj.MuiDialogContentText = MuiDialogContentText;
   overridesObj.MuiBackdrop = MuiBackdrop;
-  overridesObj.MuiDialogActions = MuiDialogActions;
 
-  style.push(overridesObj);
-  const computedTheme = createTheme({ ...themes.light, ...overrides, ...style });
+  const computedTheme = createTheme({
+    ...themes.light,
+    overrides: overridesObj,
+  });
 
   return (
     <ThemeProvider theme={computedTheme}>{children}</ThemeProvider>
