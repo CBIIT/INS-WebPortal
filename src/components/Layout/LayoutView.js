@@ -11,6 +11,7 @@ import Home from '../../pages/landing/landingController';
 import About from '../../pages/about/aboutController';
 import Disclaimer from '../Disclaimer';
 import ScreenSizePopup from '../Mobile/ScreenSizePopup';
+import OverlayWindow from '../OverlayWindow/OverlayWindow';
 import GlobalSearchController from '../../pages/search/searchViewController';
 import ProgramDetail from '../../pages/programDetail/programDetailController';
 import ProjectDetail from '../../pages/projectDetail/projectDetailController';
@@ -35,6 +36,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
       <HashRouter>
         <>
           <Header />
+          <OverlayWindow />
           {/* <NavBar /> */}
           <Disclaimer />
           <ScreenSizePopup />
