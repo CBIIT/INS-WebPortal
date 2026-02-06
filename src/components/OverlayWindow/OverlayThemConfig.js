@@ -95,7 +95,7 @@ export default ({
     root: {
       color: '#000000',
       marginBottom: '10px',
-      '& p.lastChild': {
+      '& p:last-child': {
         marginBottom: '0px',
       },
     },

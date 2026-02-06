@@ -25,16 +25,16 @@ const OverlayWindow = () => {
   };
 
   useEffect(() => {
-    if (!sessionStorage.length) {
+    if (sessionStorage.getItem('overlayLoad') !== 'true') {
       setOpen(true);
     }
   }, []);
 
-  const content = text.content.map((item, index) => (
-    <DialogContentText key={`${index}`} id="alert-dialog-description">{item}</DialogContentText>
+  const content = text.content.map((item) => (
+    <DialogContentText key={item.substring(0, 30)}>{item}</DialogContentText>
   ));
-  const list = text.list.map((item, index) => (
-    <ListItem key={`${index}`}>
+  const list = text.list.map((item) => (
+    <ListItem key={item.substring(0, 30)}>
       <ListItemIcon>
         <FiberManualRecord style={{ fontSize: 8 }} />
       </ListItemIcon>
@@ -43,32 +43,28 @@ const OverlayWindow = () => {
   ));
 
   return (
-    <>
-      <div>
-        <DialogThemeProvider>
-          <Dialog
-            open={open}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            maxWidth="md"
-          >
-            <DialogTitle id="alert-dialog-title">Warning</DialogTitle>
-            <Divider />
-            <DialogContent>
-              {content}
-              {' By using this system, you understand and consent to the following: '}
-              <List>
-                {list}
-              </List>
-            </DialogContent>
-            <Divider />
-            <DialogActions>
-              <Button onClick={handleClose}>Continue</Button>
-            </DialogActions>
-          </Dialog>
-        </DialogThemeProvider>
-      </div>
-    </>
+    <DialogThemeProvider>
+      <Dialog
+        open={open}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        maxWidth="md"
+      >
+        <DialogTitle id="alert-dialog-title">Warning</DialogTitle>
+        <Divider />
+        <DialogContent>
+          {content}
+          {' By using this system, you understand and consent to the following: '}
+          <List>
+            {list}
+          </List>
+        </DialogContent>
+        <Divider />
+        <DialogActions>
+          <Button onClick={handleClose}>Continue</Button>
+        </DialogActions>
+      </Dialog>
+    </DialogThemeProvider>
   );
 };
 
