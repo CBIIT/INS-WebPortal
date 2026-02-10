@@ -15,17 +15,20 @@ import {
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import * as text from './OverlayText.json';
 import DialogThemeProvider from './OverlayThemeConfig';
+import { setCookie, getCookie } from '../../utils/cookieManager';
+
+const PRIVACY_NOTICE_ACCEPTED_COOKIE = 'privacyNoticeAccepted';
 
 const OverlayWindow = () => {
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
-    sessionStorage.setItem('overlayLoad', 'true');
+    setCookie(PRIVACY_NOTICE_ACCEPTED_COOKIE, 'true');
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem('overlayLoad') !== 'true') {
+    if (!getCookie(PRIVACY_NOTICE_ACCEPTED_COOKIE)) {
       setOpen(true);
     }
   }, []);
