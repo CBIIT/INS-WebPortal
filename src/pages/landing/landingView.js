@@ -928,6 +928,7 @@ const styles = () => ({
     },
     '@media (max-width: 480px)': {
       width: '100%',
+      pointerEvents: 'none',
     },
   },
   hoverInteraction: {
@@ -946,7 +947,9 @@ const styles = () => ({
   heroTextWrapper: {
     width: '420px',
     '@media (max-width: 480px)': {
-      padding: '380px 24px 0 24px',
+      margin: '380px 0 0 0',
+      padding: '0 24px',
+      pointerEvents: 'auto',
     },
   },
   buttonText: {
