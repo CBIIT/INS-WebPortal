@@ -129,7 +129,7 @@ export const landingPageData = {
     callToActionText: 'Contact INS',
   },
   tile4: {
-    alt: 'Cancer patient with abstract data displayed in front of her',
+    alt: 'Cancer patient with abstract data displayed in front of her.',
     img: exploreImg,
     titleText: 'INS DATA GATHERING',
     descriptionText: 'The INS data gathering pipeline uses both expert curation and automated processes to connect programs and studies to research outputs.',
