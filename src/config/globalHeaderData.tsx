@@ -97,7 +97,7 @@ export const navbarSublists = {
       name: 'About INS',
       link: '/about',
       id: 'navbar-dropdown-item-about-ins',
-      className: 'navMobileSubTitle',
+      className: 'navMobileSubItem',
     },
     {
       name: 'Glossary (PDF)',
