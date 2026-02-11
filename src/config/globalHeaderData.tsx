@@ -2,11 +2,17 @@ import Logo from '../assets/header/Logo.svg';
 import searchbarIcon from '../assets/header/Search_Icon.svg';
 import usaFlagSmall from '../assets/header/us_flag_small.svg';
 
+export type NavItemClassName =
+  | 'navMobileItem'
+  | 'navMobileItem clickable'
+  | 'navMobileSubItem'
+  | 'navMobileSubTitle';
+
 export type NavItem = {
   name: string;
   link: string;
   id: string;
-  className: string;
+  className: NavItemClassName;
   externalLink?: boolean;
 };
 
@@ -50,7 +56,7 @@ export const navMobileList: NavItem[] = [
   },
 ];
 
-export const navbarSublists: Record<string, NavItem[]> = {
+export const navbarSublists: { [key: string]: NavItem[] } = {
   // Mapping for navbar items to highlight when on related pages
   Home: [
     {

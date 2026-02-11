@@ -8,34 +8,28 @@ type NavMobileSubItemProps = {
 };
 
 const NavMobileSubItem: React.FC<NavMobileSubItemProps> = ({ item, onClose }) => {
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      onClose();
-    }
-  };
-
   const innerContent = (
-    <div
-      role="button"
-      tabIndex={0}
-      className="navMobileItem SubItem"
-      onKeyDown={handleKeyDown}
-      onClick={onClose}
-    >
+    <div className="navMobileItem SubItem">
       {item.name}
     </div>
   );
 
   if (item.externalLink) {
     return (
-      <a id={item.id} href={item.link} target="_blank" rel="noopener noreferrer">
+      <a
+        id={item.id}
+        href={item.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClose}
+      >
         {innerContent}
       </a>
     );
   }
 
   return (
-    <Link id={item.id} to={item.link}>
+    <Link id={item.id} to={item.link} onClick={onClose}>
       {innerContent}
     </Link>
   );
