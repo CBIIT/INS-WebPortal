@@ -24,34 +24,43 @@ jest.mock('html-react-parser', () => jest.fn((str) => str));
 
 // Helper function to create a mock result with configurable fields
 // Usage: createMockResult({ sample_count: 100, study_type: 'Clinical Trial' })
-// Pass any field you want to override from the defaults
-const createMockResult = (overrides = {}) => ({
-  content: {
-    // Required/visible fields
-    dataset_title: 'Test Dataset',
-    dataset_source_id: 'TEST-001',
-    dataset_source_repo: 'Test Repository',
-    dataset_source_url: 'https://example.com',
-    primary_disease: 'Test Disease',
-    sample_count: 150,
-    description: 'This is a test description',
-    study_type: 'Type 1',
-    // Hidden fields (searchable, appear in "Other Match in...")
-    PI_name: 'Test PI',
-    dataset_pmid: '12345',
-    funding_source: 'Test Funding',
-    related_diseases: 'Related Disease 1',
-    related_terms: 'Term 1',
-    study_links: 'Link 1',
-    related_genes: 'Gene 1',
-    assay_method: 'Method 1',
-    limitations_for_reuse: 'Limitation 1',
-    dataset_doc: 'Doc 1',
-    institute: 'Test Institute',
-    experimental_approaches: 'Test Approach',
-    ...overrides,
-  },
-});
+// With highlights: createMockResult({
+//   primary_disease: 'Breast Cancer',
+//   highlight: { 'primary_disease.search': ['Breast <b>Cancer</b>'] }
+// })
+// Note: highlight keys follow the pattern 'fieldName.search' and map to arrays of
+// HTML-highlighted strings as returned by the search backend
+const createMockResult = (overrides = {}) => {
+  const { highlight, ...contentOverrides } = overrides;
+  return {
+    content: {
+      // Required/visible fields
+      dataset_title: 'Test Dataset',
+      dataset_source_id: 'TEST-001',
+      dataset_source_repo: 'Test Repository',
+      dataset_source_url: 'https://example.com',
+      primary_disease: 'Test Disease',
+      sample_count: 150,
+      description: 'This is a test description',
+      study_type: 'Type 1',
+      // Hidden fields (searchable, appear in "Other Match in...")
+      PI_name: 'Test PI',
+      dataset_pmid: '12345',
+      funding_source: 'Test Funding',
+      related_diseases: 'Related Disease 1',
+      related_terms: 'Term 1',
+      study_links: 'Link 1',
+      related_genes: 'Gene 1',
+      assay_method: 'Method 1',
+      limitations_for_reuse: 'Limitation 1',
+      dataset_doc: 'Doc 1',
+      institute: 'Test Institute',
+      experimental_approaches: 'Test Approach',
+      ...contentOverrides,
+    },
+    highlight: highlight || {},
+  };
+};
 
 // Default props for SearchResult component
 const defaultProps = {
@@ -217,11 +226,12 @@ describe('Basic Functionality', () => {
     expect(screen.getByText('Test Dataset')).toBeInTheDocument();
   });
 
-  it('should truncate description to 500 characters when no match is found', () => {
+  it('should truncate description to 500 characters when no highlight from backend', () => {
     // Create a description longer than 500 characters
     const longDescription = 'A'.repeat(600);
     const mockResult = createMockResult({
       description: longDescription,
+      // No highlight object = no match, should truncate
     });
     const props = {
       ...defaultProps,
@@ -242,11 +252,15 @@ describe('Basic Functionality', () => {
     expect(descriptionElement.textContent).toMatch(/\.\.\.$/);
   });
 
-  it('should NOT truncate description when search match is found', () => {
-    // Create a description longer than 500 characters with a match
+  it('should NOT truncate description when backend provides highlight', () => {
+    // Create a description longer than 500 characters
     const longDescription = `${'A'.repeat(400)} cancer ${'B'.repeat(200)}`;
+    const highlightedDescription = `${'A'.repeat(400)} <b>cancer</b> ${'B'.repeat(200)}`;
     const mockResult = createMockResult({
       description: longDescription,
+      highlight: {
+        'description.search': [highlightedDescription],
+      },
     });
     const props = {
       ...defaultProps,
@@ -262,9 +276,40 @@ describe('Basic Functionality', () => {
     // Find the description element
     const descriptionElement = screen.getByTestId('description');
 
-    // Should NOT be truncated because match was found
-    expect(descriptionElement.textContent.length).toBeGreaterThan(500);
+    // Should NOT be truncated because backend provided highlight
+    expect(descriptionElement.textContent).toContain('cancer');
+    expect(descriptionElement.textContent.length).toBeGreaterThan(600);
     expect(descriptionElement.textContent).not.toMatch(/\.\.\.$/);
+  });
+
+  it('should remove HTML tags except bold tags from highlighted description', () => {
+    const descWithHTML = '<p>Study with <a href="http://example.com">link</a> and content</p>';
+    const highlightedDesc = '<p>Study with <a href="http://example.com">link</a> and <b>content</b></p>';
+    const mockResult = createMockResult({
+      description: descWithHTML,
+      highlight: {
+        'description.search': [highlightedDesc],
+      },
+    });
+    const props = {
+      ...defaultProps,
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    const descriptionElement = screen.getByTestId('description');
+
+    // Verify dangerous HTML tags (<p>, <a>) are removed
+    expect(descriptionElement.textContent).not.toContain('<p>');
+    expect(descriptionElement.textContent).not.toContain('<a');
+
+    // Verify <b> tag is preserved (HTML-escaped because html-react-parser is mocked)
+    // In production, html-react-parser would convert this to an actual <b> DOM element
+    expect(descriptionElement.innerHTML).toContain('Study with link and &lt;b&gt;content&lt;/b&gt;');
+
+    // Verify the text content includes the highlighted term
+    expect(descriptionElement.textContent).toContain('content');
   });
 
   describe('Search Filters', () => {
@@ -415,6 +460,9 @@ describe('Basic Functionality', () => {
     it('should handle missing filters (undefined)', () => {
       const mockResult = createMockResult({
         primary_disease: 'Cancer',
+        highlight: {
+          'primary_disease.search': ['<b>Cancer</b>'],
+        },
       });
       const props = {
         ...defaultProps,
@@ -455,6 +503,9 @@ describe('Basic Functionality', () => {
       const mockResult = createMockResult({
         dataset_source_repo: 'dbGaP Repository',
         description: 'Cancer study data available through dbGaP',
+        highlight: {
+          'description.search': ['<b>Cancer</b> study data available through dbGaP'],
+        },
       });
       const props = {
         ...defaultProps,
@@ -653,9 +704,10 @@ describe('Hidden Fields - Additional Matches', () => {
   ];
 
   describe.each(hiddenFields)('Hidden Field Rendering Tests', ({ fieldName, displayName, searchTerm }) => {
-    it(`should NOT display "Other Match in ${displayName}" when search does not match`, () => {
+    it(`should NOT display "Other Match in ${displayName}" when backend does not provide highlight`, () => {
       const mockResult = createMockResult({
         [fieldName]: 'Some unrelated content',
+        // No highlight object = no match from backend
       });
       const props = {
         ...defaultProps,
@@ -672,10 +724,14 @@ describe('Hidden Fields - Additional Matches', () => {
         .not.toBeInTheDocument();
     });
 
-    it(`should display "Other Match in ${displayName}" when search matches the field`, () => {
+    it(`should display "Other Match in ${displayName}" when backend provides highlight`, () => {
       const fieldValue = `This contains ${searchTerm} in the text`;
+      const highlightedValue = `This contains <b>${searchTerm}</b> in the text`;
       const mockResult = createMockResult({
         [fieldName]: fieldValue,
+        highlight: {
+          [`${fieldName}.search`]: [highlightedValue],
+        },
       });
       const props = {
         ...defaultProps,
@@ -690,11 +746,15 @@ describe('Hidden Fields - Additional Matches', () => {
 
       expect(screen.getByText(new RegExp(`Other Match in ${displayName}`, 'i')))
         .toBeInTheDocument();
+      // Verify the highlighted value is shown
+      const matchElement = screen.getByTestId('additional-match');
+      expect(matchElement.textContent).toContain(searchTerm);
     });
 
     it(`should NOT display "Other Match in ${displayName}" when field is null`, () => {
       const mockResult = createMockResult({
         [fieldName]: null,
+        // No highlight for null field
       });
       const props = {
         ...defaultProps,
@@ -714,6 +774,7 @@ describe('Hidden Fields - Additional Matches', () => {
     it(`should NOT display "Other Match in ${displayName}" when field is undefined`, () => {
       const mockResult = createMockResult({
         [fieldName]: undefined,
+        // No highlight for undefined field
       });
       const props = {
         ...defaultProps,
@@ -731,15 +792,20 @@ describe('Hidden Fields - Additional Matches', () => {
     });
   });
 
-  it('should display multiple "Other Match in" sections when multiple hidden fields match', () => {
+  it('should display multiple "Other Match in" sections when backend highlights multiple hidden fields', () => {
     const mockResult = createMockResult({
       PI_name: 'Dr. John Smith',
       related_genes: 'BRCA1 and BRCA2',
+      funding_source: 'National Cancer Institute',
+      highlight: {
+        'related_genes.search': ['<b>BRCA1</b> and <b>BRCA2</b>'],
+        'funding_source.search': ['National <b>Cancer</b> Institute'],
+      },
     });
     const props = {
       ...defaultProps,
       search: {
-        search_text: 'BRCA',
+        search_text: 'BRCA Cancer',
         filters: {},
       },
       resultList: [mockResult],
@@ -747,16 +813,35 @@ describe('Hidden Fields - Additional Matches', () => {
 
     renderWithRouter(<SearchResult {...props} />);
 
-    // Should find the match in related_genes
+    // Should find matches in both fields that backend highlighted
     expect(screen.getByText(/Other Match in related genes/i)).toBeInTheDocument();
+    expect(screen.getByText(/Other Match in funding source/i)).toBeInTheDocument();
 
-    // Should NOT find match in PI_name (doesn't contain "BRCA")
+    // Should NOT find match in PI_name (backend didn't highlight it)
     expect(screen.queryByText(/Other Match in PI name/i)).not.toBeInTheDocument();
+
+    // Verify the highlighted values are correctly displayed
+    const additionalMatchElements = screen.getAllByTestId('additional-match');
+    expect(additionalMatchElements).toHaveLength(2);
+
+    // Check for BRCA1 and BRCA2 highlighting in related genes
+    const relatedGenesMatch = additionalMatchElements.find((el) => el.textContent.includes('BRCA1') && el.textContent.includes('BRCA2'));
+    expect(relatedGenesMatch).toBeDefined();
+    expect(relatedGenesMatch.innerHTML).toContain('&lt;b&gt;BRCA1&lt;/b&gt;');
+    expect(relatedGenesMatch.innerHTML).toContain('&lt;b&gt;BRCA2&lt;/b&gt;');
+
+    // Check for Cancer highlighting in funding source
+    const fundingSourceMatch = additionalMatchElements.find((el) => el.textContent.includes('National') && el.textContent.includes('Cancer') && el.textContent.includes('Institute'));
+    expect(fundingSourceMatch).toBeDefined();
+    expect(fundingSourceMatch.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
   });
 
   it('should perform case-insensitive matching for hidden fields', () => {
     const mockResult = createMockResult({
       funding_source: 'National Institutes of Health',
+      highlight: {
+        'funding_source.search': ['National Institutes of <b>Health</b>'],
+      },
     });
     const props = {
       ...defaultProps,
@@ -795,6 +880,9 @@ describe('Hidden Fields - Additional Matches', () => {
   it('should match partial words in hidden fields', () => {
     const mockResult = createMockResult({
       related_diseases: 'Cardiovascular disease and diabetes',
+      highlight: {
+        'related_diseases.search': ['<b>Cardiovascular</b> disease and diabetes'],
+      },
     });
     const props = {
       ...defaultProps,
@@ -815,6 +903,9 @@ describe('Hidden Fields - Additional Matches', () => {
       it('should highlight matching search term in primary_disease', () => {
         const mockResult = createMockResult({
           primary_disease: 'Breast Cancer',
+          highlight: {
+            'primary_disease.search': ['Breast <b>Cancer</b>'],
+          },
         });
         const props = {
           ...defaultProps,
@@ -836,6 +927,9 @@ describe('Hidden Fields - Additional Matches', () => {
       it('should highlight matching search term in dataset_source_repo', () => {
         const mockResult = createMockResult({
           dataset_source_repo: 'National Cancer Institute Repository',
+          highlight: {
+            'dataset_source_repo.search': ['National Cancer <b>Institute</b> Repository'],
+          },
         });
         const props = {
           ...defaultProps,
@@ -857,6 +951,9 @@ describe('Hidden Fields - Additional Matches', () => {
       it('should highlight matching search term in description', () => {
         const mockResult = createMockResult({
           description: 'This study focuses on genomic research',
+          highlight: {
+            'description.search': ['This study focuses on <b>genomic</b> research'],
+          },
         });
         const props = {
           ...defaultProps,
@@ -880,6 +977,9 @@ describe('Hidden Fields - Additional Matches', () => {
       it('should highlight matching search term in study_type when displayed', () => {
         const mockResult = createMockResult({
           study_type: 'Clinical Trial Study',
+          highlight: {
+            'study_type.search': ['Clinical <b>Trial</b> Study'],
+          },
         });
         const props = {
           ...defaultProps,
@@ -906,8 +1006,12 @@ describe('Hidden Fields - Additional Matches', () => {
         ({ fieldName, displayName, searchTerm }) => {
           it(`should highlight matching search term "${searchTerm}" in ${displayName}`, () => {
             const fieldValue = `This contains ${searchTerm} in the text`;
+            const highlightedValue = `This contains <b>${searchTerm}</b> in the text`;
             const mockResult = createMockResult({
               [fieldName]: fieldValue,
+              highlight: {
+                [`${fieldName}.search`]: [highlightedValue],
+              },
             });
             const props = {
               ...defaultProps,
@@ -937,6 +1041,9 @@ describe('Hidden Fields - Additional Matches', () => {
       it('should highlight multiple occurrences of search term in the same field', () => {
         const mockResult = createMockResult({
           description: 'Cancer research and cancer treatment for cancer patients',
+          highlight: {
+            'description.search': ['<b>Cancer</b> research and <b>cancer</b> treatment for <b>cancer</b> patients'],
+          },
         });
         const props = {
           ...defaultProps,
@@ -963,6 +1070,9 @@ describe('Hidden Fields - Additional Matches', () => {
       it('should highlight search terms case-insensitively', () => {
         const mockResult = createMockResult({
           primary_disease: 'Breast Cancer',
+          highlight: {
+            'primary_disease.search': ['Breast <b>Cancer</b>'],
+          },
         });
         const props = {
           ...defaultProps,
@@ -980,9 +1090,12 @@ describe('Hidden Fields - Additional Matches', () => {
         expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
       });
 
-      it('should highlight partial word matches', () => {
+      it('should highlight whole word when partial word is searched (backend behavior)', () => {
         const mockResult = createMockResult({
           description: 'Cardiovascular research study',
+          highlight: {
+            'description.search': ['<b>Cardiovascular</b> research study'],
+          },
         });
         const props = {
           ...defaultProps,
@@ -995,10 +1108,113 @@ describe('Hidden Fields - Additional Matches', () => {
 
         renderWithRouter(<SearchResult {...props} />);
 
-        // "cardio" should be highlighted within "Cardiovascular"
+        // Backend highlights entire word "Cardiovascular" when searching for partial match "cardio"
         const matchedContent = screen.getByTestId('description');
-        expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cardio&lt;/b&gt;vascular');
+        expect(matchedContent.innerHTML).toContain('&lt;b&gt;Cardiovascular&lt;/b&gt;');
       });
     });
+  });
+});
+
+describe('Backend Highlighting - Visible Fields', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should display highlighted primary_disease when backend provides highlight', () => {
+    const mockResult = createMockResult({
+      primary_disease: 'Breast Cancer',
+      highlight: {
+        'primary_disease.search': ['Breast <b>Cancer</b>'],
+      },
+    });
+    const props = {
+      ...defaultProps,
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    const primaryDisease = screen.getByTestId('primary-disease');
+    expect(primaryDisease.innerHTML).toContain('Breast &lt;b&gt;Cancer&lt;/b&gt;');
+  });
+
+  it('should fallback to content when no highlight provided for primary_disease', () => {
+    const mockResult = createMockResult({
+      primary_disease: 'Breast Cancer',
+      // No highlight object
+    });
+    const props = {
+      ...defaultProps,
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    const primaryDisease = screen.getByTestId('primary-disease');
+    expect(primaryDisease.textContent).toBe('Breast Cancer');
+  });
+
+  it('should display highlighted dataset_source_repo when backend provides highlight', () => {
+    const mockResult = createMockResult({
+      dataset_source_repo: 'National Cancer Institute',
+      highlight: {
+        'dataset_source_repo.search': ['National <b>Cancer</b> Institute'],
+      },
+    });
+    const props = {
+      ...defaultProps,
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    const repoElement = screen.getByTestId('dataset-source-repo');
+    expect(repoElement.innerHTML).toContain('National &lt;b&gt;Cancer&lt;/b&gt; Institute');
+  });
+
+  it('should display highlighted study_type when backend provides highlight', () => {
+    const mockResult = createMockResult({
+      study_type: 'Clinical Trial Study',
+      highlight: {
+        'study_type.search': ['<b>Clinical</b> Trial Study'],
+      },
+    });
+    const props = {
+      ...defaultProps,
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    const studyType = screen.getByTestId('study-type');
+    expect(studyType.innerHTML).toContain('&lt;b&gt;Clinical&lt;/b&gt; Trial Study');
+  });
+
+  it('should handle multiple highlighted fields in same result', () => {
+    const mockResult = createMockResult({
+      primary_disease: 'Breast Cancer',
+      dataset_source_repo: 'National Cancer Institute',
+      study_type: 'Cancer Research',
+      description: 'Study of cancer treatments',
+      highlight: {
+        'primary_disease.search': ['Breast <b>Cancer</b>'],
+        'dataset_source_repo.search': ['National <b>Cancer</b> Institute'],
+        'study_type.search': ['<b>Cancer</b> Research'],
+        'description.search': ['Study of <b>cancer</b> treatments'],
+      },
+    });
+    const props = {
+      ...defaultProps,
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    // All fields should be highlighted (HTML-escaped because mock returns strings)
+    expect(screen.getByTestId('primary-disease').innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
+    expect(screen.getByTestId('dataset-source-repo').innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
+    expect(screen.getByTestId('study-type').innerHTML).toContain('&lt;b&gt;Cancer&lt;/b&gt;');
+    expect(screen.getByTestId('description').innerHTML).toContain('&lt;b&gt;cancer&lt;/b&gt;');
   });
 });
