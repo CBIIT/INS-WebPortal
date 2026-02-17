@@ -369,7 +369,7 @@ const SearchResult = ({
       return '';
     }
 
-    const highlightKey = `${fieldName}.search`;
+    const highlightKey = fieldName;
 
     // Check if backend provided a highlight for this field
     if (resultItem.highlight
@@ -387,7 +387,7 @@ const SearchResult = ({
    * Determines if a hidden field should be shown (backend found a match)
    */
   function shouldShowHiddenField(resultItem, fieldName) {
-    const highlightKey = `${fieldName}.search`;
+    const highlightKey = fieldName;
     return !!(
       resultItem.highlight
       && resultItem.highlight[highlightKey]
@@ -416,7 +416,7 @@ const SearchResult = ({
     const cleanDescription = removeHTMLTags(rawDescription);
 
     // Check if backend highlighted the description
-    const highlightKey = 'description.search';
+    const highlightKey = 'description';
     const hasHighlight = !!(
       resultItem.highlight
       && resultItem.highlight[highlightKey]
