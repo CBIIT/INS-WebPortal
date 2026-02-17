@@ -26,9 +26,9 @@ jest.mock('html-react-parser', () => jest.fn((str) => str));
 // Usage: createMockResult({ sample_count: 100, study_type: 'Clinical Trial' })
 // With highlights: createMockResult({
 //   primary_disease: 'Breast Cancer',
-//   highlight: { 'primary_disease.search': ['Breast <b>Cancer</b>'] }
+//   highlight: { 'primary_disease': ['Breast <b>Cancer</b>'] }
 // })
-// Note: highlight keys follow the pattern 'fieldName.search' and map to arrays of
+// Note: highlight keys match the field name directly and map to arrays of
 // HTML-highlighted strings as returned by the search backend
 const createMockResult = (overrides = {}) => {
   const { highlight, ...contentOverrides } = overrides;
@@ -259,7 +259,7 @@ describe('Basic Functionality', () => {
     const mockResult = createMockResult({
       description: longDescription,
       highlight: {
-        'description.search': [highlightedDescription],
+        description: [highlightedDescription],
       },
     });
     const props = {
@@ -288,7 +288,7 @@ describe('Basic Functionality', () => {
     const mockResult = createMockResult({
       description: descWithHTML,
       highlight: {
-        'description.search': [highlightedDesc],
+        description: [highlightedDesc],
       },
     });
     const props = {
@@ -461,7 +461,7 @@ describe('Basic Functionality', () => {
       const mockResult = createMockResult({
         primary_disease: 'Cancer',
         highlight: {
-          'primary_disease.search': ['<b>Cancer</b>'],
+          primary_disease: ['<b>Cancer</b>'],
         },
       });
       const props = {
@@ -504,7 +504,7 @@ describe('Basic Functionality', () => {
         dataset_source_repo: 'dbGaP Repository',
         description: 'Cancer study data available through dbGaP',
         highlight: {
-          'description.search': ['<b>Cancer</b> study data available through dbGaP'],
+          description: ['<b>Cancer</b> study data available through dbGaP'],
         },
       });
       const props = {
@@ -730,7 +730,7 @@ describe('Hidden Fields - Additional Matches', () => {
       const mockResult = createMockResult({
         [fieldName]: fieldValue,
         highlight: {
-          [`${fieldName}.search`]: [highlightedValue],
+          [fieldName]: [highlightedValue],
         },
       });
       const props = {
@@ -798,8 +798,8 @@ describe('Hidden Fields - Additional Matches', () => {
       related_genes: 'BRCA1 and BRCA2',
       funding_source: 'National Cancer Institute',
       highlight: {
-        'related_genes.search': ['<b>BRCA1</b> and <b>BRCA2</b>'],
-        'funding_source.search': ['National <b>Cancer</b> Institute'],
+        related_genes: ['<b>BRCA1</b> and <b>BRCA2</b>'],
+        funding_source: ['National <b>Cancer</b> Institute'],
       },
     });
     const props = {
@@ -840,7 +840,7 @@ describe('Hidden Fields - Additional Matches', () => {
     const mockResult = createMockResult({
       funding_source: 'National Institutes of Health',
       highlight: {
-        'funding_source.search': ['National Institutes of <b>Health</b>'],
+        funding_source: ['National Institutes of <b>Health</b>'],
       },
     });
     const props = {
@@ -881,7 +881,7 @@ describe('Hidden Fields - Additional Matches', () => {
     const mockResult = createMockResult({
       related_diseases: 'Cardiovascular disease and diabetes',
       highlight: {
-        'related_diseases.search': ['<b>Cardiovascular</b> disease and diabetes'],
+        related_diseases: ['<b>Cardiovascular</b> disease and diabetes'],
       },
     });
     const props = {
@@ -904,7 +904,7 @@ describe('Hidden Fields - Additional Matches', () => {
         const mockResult = createMockResult({
           primary_disease: 'Breast Cancer',
           highlight: {
-            'primary_disease.search': ['Breast <b>Cancer</b>'],
+            primary_disease: ['Breast <b>Cancer</b>'],
           },
         });
         const props = {
@@ -928,7 +928,7 @@ describe('Hidden Fields - Additional Matches', () => {
         const mockResult = createMockResult({
           dataset_source_repo: 'National Cancer Institute Repository',
           highlight: {
-            'dataset_source_repo.search': ['National Cancer <b>Institute</b> Repository'],
+            dataset_source_repo: ['National Cancer <b>Institute</b> Repository'],
           },
         });
         const props = {
@@ -952,7 +952,7 @@ describe('Hidden Fields - Additional Matches', () => {
         const mockResult = createMockResult({
           description: 'This study focuses on genomic research',
           highlight: {
-            'description.search': ['This study focuses on <b>genomic</b> research'],
+            description: ['This study focuses on <b>genomic</b> research'],
           },
         });
         const props = {
@@ -978,7 +978,7 @@ describe('Hidden Fields - Additional Matches', () => {
         const mockResult = createMockResult({
           study_type: 'Clinical Trial Study',
           highlight: {
-            'study_type.search': ['Clinical <b>Trial</b> Study'],
+            study_type: ['Clinical <b>Trial</b> Study'],
           },
         });
         const props = {
@@ -1010,7 +1010,7 @@ describe('Hidden Fields - Additional Matches', () => {
             const mockResult = createMockResult({
               [fieldName]: fieldValue,
               highlight: {
-                [`${fieldName}.search`]: [highlightedValue],
+                [fieldName]: [highlightedValue],
               },
             });
             const props = {
@@ -1042,7 +1042,7 @@ describe('Hidden Fields - Additional Matches', () => {
         const mockResult = createMockResult({
           description: 'Cancer research and cancer treatment for cancer patients',
           highlight: {
-            'description.search': ['<b>Cancer</b> research and <b>cancer</b> treatment for <b>cancer</b> patients'],
+            description: ['<b>Cancer</b> research and <b>cancer</b> treatment for <b>cancer</b> patients'],
           },
         });
         const props = {
@@ -1071,7 +1071,7 @@ describe('Hidden Fields - Additional Matches', () => {
         const mockResult = createMockResult({
           primary_disease: 'Breast Cancer',
           highlight: {
-            'primary_disease.search': ['Breast <b>Cancer</b>'],
+            primary_disease: ['Breast <b>Cancer</b>'],
           },
         });
         const props = {
@@ -1094,7 +1094,7 @@ describe('Hidden Fields - Additional Matches', () => {
         const mockResult = createMockResult({
           description: 'Cardiovascular research study',
           highlight: {
-            'description.search': ['<b>Cardiovascular</b> research study'],
+            description: ['<b>Cardiovascular</b> research study'],
           },
         });
         const props = {
@@ -1125,7 +1125,7 @@ describe('Backend Highlighting - Visible Fields', () => {
     const mockResult = createMockResult({
       primary_disease: 'Breast Cancer',
       highlight: {
-        'primary_disease.search': ['Breast <b>Cancer</b>'],
+        primary_disease: ['Breast <b>Cancer</b>'],
       },
     });
     const props = {
@@ -1159,7 +1159,7 @@ describe('Backend Highlighting - Visible Fields', () => {
     const mockResult = createMockResult({
       dataset_source_repo: 'National Cancer Institute',
       highlight: {
-        'dataset_source_repo.search': ['National <b>Cancer</b> Institute'],
+        dataset_source_repo: ['National <b>Cancer</b> Institute'],
       },
     });
     const props = {
@@ -1177,7 +1177,7 @@ describe('Backend Highlighting - Visible Fields', () => {
     const mockResult = createMockResult({
       study_type: 'Clinical Trial Study',
       highlight: {
-        'study_type.search': ['<b>Clinical</b> Trial Study'],
+        study_type: ['<b>Clinical</b> Trial Study'],
       },
     });
     const props = {
@@ -1198,10 +1198,10 @@ describe('Backend Highlighting - Visible Fields', () => {
       study_type: 'Cancer Research',
       description: 'Study of cancer treatments',
       highlight: {
-        'primary_disease.search': ['Breast <b>Cancer</b>'],
-        'dataset_source_repo.search': ['National <b>Cancer</b> Institute'],
-        'study_type.search': ['<b>Cancer</b> Research'],
-        'description.search': ['Study of <b>cancer</b> treatments'],
+        primary_disease: ['Breast <b>Cancer</b>'],
+        dataset_source_repo: ['National <b>Cancer</b> Institute'],
+        study_type: ['<b>Cancer</b> Research'],
+        description: ['Study of <b>cancer</b> treatments'],
       },
     });
     const props = {
