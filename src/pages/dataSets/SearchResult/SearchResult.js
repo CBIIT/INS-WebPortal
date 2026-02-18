@@ -329,28 +329,28 @@ const SearchResultContainer = styled.div`
 
 `;
 
-function getCombinations(arr) {
-  const result = [];
-  function combine(prefix, start) {
-    for (let i = start; i < arr.length; i += 1) {
-      const newCombo = `${prefix.trim()} ${arr[i].trim()}`;
-      result.push(newCombo);
-      combine(newCombo, i + 1);
-    }
-  }
-  combine('', 0);
-  return result;
-}
+// Configuration for hidden fields that appear as "Other Match in..." when highlighted
+const HIDDEN_FIELDS_CONFIG = [
+  { fieldName: 'dataset_source_url', displayName: 'study page' },
+  { fieldName: 'PI_name', displayName: 'PI name' },
+  { fieldName: 'dataset_pmid', displayName: 'dataset pmid' },
+  { fieldName: 'funding_source', displayName: 'funding source' },
+  { fieldName: 'related_diseases', displayName: 'related diseases' },
+  { fieldName: 'related_terms', displayName: 'related terms' },
+  { fieldName: 'study_links', displayName: 'study links' },
+  { fieldName: 'related_genes', displayName: 'related genes' },
+  { fieldName: 'assay_method', displayName: 'assay method' },
+  { fieldName: 'limitations_for_reuse', displayName: 'limitations for reuse' },
+  { fieldName: 'dataset_doc', displayName: 'NCI Division/Office/Center' },
+  { fieldName: 'institute', displayName: 'institute' },
+  { fieldName: 'experimental_approaches', displayName: 'experimental approaches' },
+];
 
 const SearchResult = ({
   resultList,
   search,
   glossaryTerms,
 }) => {
-  const sanitizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
-  const searchTerms = sanitizeSearchTerms.split(' ').filter((item) => item !== '');
-  const searchCombination = getCombinations(searchTerms).sort((a, b) => b.length - a.length);
-
   const initializePopover = () => {
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     popoverTriggerList.map((popoverTriggerEl) => new Popover(popoverTriggerEl));
@@ -360,6 +360,84 @@ const SearchResult = ({
     if (!str) return '';
     return str.replace(/<\/?[a-z][\s\S]*?>/gi, '');
   }
+
+  /**
+   * Gets the highlighted value from backend if available, otherwise returns content value
+   */
+  function getHighlightedValue(resultItem, fieldName) {
+    if (!resultItem || !resultItem.content) {
+      return '';
+    }
+
+    const highlightKey = fieldName;
+
+    // Check if backend provided a highlight for this field
+    if (resultItem.highlight
+        && resultItem.highlight[highlightKey]
+        && resultItem.highlight[highlightKey][0]) {
+      return resultItem.highlight[highlightKey][0];
+    }
+
+    // Fallback to content value
+    const contentValue = resultItem.content[fieldName];
+    return contentValue !== null && contentValue !== undefined ? contentValue : '';
+  }
+
+  /**
+   * Determines if a hidden field should be shown (backend found a match)
+   */
+  function shouldShowHiddenField(resultItem, fieldName) {
+    const highlightKey = fieldName;
+    return !!(
+      resultItem.highlight
+      && resultItem.highlight[highlightKey]
+      && resultItem.highlight[highlightKey][0]
+    );
+  }
+
+  /**
+   * Removes all HTML tags EXCEPT <b> and </b> tags
+   * Explicitly handles only opening <b> and closing </b> tags to prevent
+   * self-closing tags like <b/> from passing through
+   */
+  function removeHTMLTagsExceptBold(str) {
+    if (!str) return '';
+    // Pattern: <(?!\/?b(?:\s|>))[^>]*> matches any tag that is NOT <b> or </b>,
+    // so the replace call strips all tags while leaving <b> and </b> intact
+    return str.replace(/<(?!\/?b(?:\s|>))[^>]*>/gi, '');
+  }
+
+  /**
+   * Gets description value with proper truncation logic
+   * Backend provides full description; frontend truncates if no match
+   */
+  function getDescriptionValue(resultItem) {
+    const rawDescription = resultItem.content.description || '';
+    const cleanDescription = removeHTMLTags(rawDescription);
+
+    // Check if backend highlighted the description
+    const highlightKey = 'description';
+    const hasHighlight = !!(
+      resultItem.highlight
+      && resultItem.highlight[highlightKey]
+      && resultItem.highlight[highlightKey][0]
+    );
+
+    if (hasHighlight) {
+      // Backend highlighted the description - show FULL description with highlights
+      // Remove all HTML tags except <b> tags, but DON'T truncate
+      const highlightedDesc = resultItem.highlight[highlightKey][0];
+      return removeHTMLTagsExceptBold(highlightedDesc);
+    }
+
+    // No highlight - truncate if longer than 500 chars
+    if (cleanDescription.length > 500) {
+      return `${cleanDescription.substring(0, 500)}...`;
+    }
+
+    return cleanDescription;
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -376,89 +454,22 @@ const SearchResult = ({
             <div className="messageContainer">No result found. Please refine your search.</div>
           ) : resultList.map((rst, idx) => {
             const keyName = `sr_${idx}`;
-            const description = removeHTMLTags(rst.content.description);
 
-            let highlightedPrimaryDisease = rst.content.primary_disease;
-            let highlightedDatasetSourceRepo = rst.content.dataset_source_repo;
-            let highlightedStudyType = rst.content.study_type;
+            // Get highlighted values from backend (or fallback to content)
+            const highlightedPrimaryDisease = getHighlightedValue(rst, 'primary_disease');
+            const highlightedDatasetSourceRepo = getHighlightedValue(rst, 'dataset_source_repo');
+            const highlightedStudyType = getHighlightedValue(rst, 'study_type');
+            const highlightedDesc = getDescriptionValue(rst);
 
-            let highlightedDesc = description.replace(/<(?![b/])/g, '&lt;');
-            let hasMatchInDesc = false;
-            searchCombination.forEach((term) => {
-              function modifyTerm(text) {
-                return text.replace(/[^a-zA-Z0-9 ]/g, ' ');
-              }
-              const modifiedTerm = modifyTerm(term).trim();
-              const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
-              hasMatchInDesc = hasMatchInDesc || regex.test(highlightedDesc);
-
-              if (highlightedPrimaryDisease) {
-                highlightedPrimaryDisease = highlightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
-              }
-              if (highlightedDatasetSourceRepo) {
-                highlightedDatasetSourceRepo = highlightedDatasetSourceRepo.replace(regex, (match) => `<b>${match}</b>`).trim();
-              }
-              if (highlightedStudyType) {
-                highlightedStudyType = highlightedStudyType.replace(regex, (match) => `<b>${match}</b>`).trim();
-              }
-
-              highlightedDesc = highlightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
-            });
-
-            if (highlightedDesc.length > 500 && !hasMatchInDesc) {
-              highlightedDesc = `${highlightedDesc.substring(0, 500)}...`;
-            }
-
+            // Build list of hidden fields that have matches (backend highlighted them)
             const additionalMatches = [];
-
-            const hideContent = [
-              { 'study page': rst.content.dataset_source_url },
-              { 'PI name': rst.content.PI_name },
-              { 'dataset pmid': rst.content.dataset_pmid },
-              { 'funding source': rst.content.funding_source },
-              { 'related diseases': rst.content.related_diseases },
-              { 'related terms': rst.content.related_terms },
-              { 'study links': rst.content.study_links },
-              { 'related genes': rst.content.related_genes },
-              { 'assay method': rst.content.assay_method },
-              { 'limitations for reuse': rst.content.limitations_for_reuse },
-              { 'NCI Division/Office/Center': rst.content.dataset_doc },
-              { institute: rst.content.institute },
-              { 'experimental approaches': rst.content.experimental_approaches },
-            ];
-            const excludedValues = search && search.filters && Array.isArray(search.filters.dataset_source_repo)
-              ? search.filters.dataset_source_repo
-              : [];
-            const filteredSearchCombination = searchCombination.filter((term) => !excludedValues.includes(term));
-            hideContent.forEach((item) => {
-              Object.entries(item).forEach(([key, value]) => {
-                let highlightedValue = value;
-                let foundMatch = false;
-
-                filteredSearchCombination.forEach((term) => {
-                  function modifyTerm(text) {
-                    return text.replace(/[^a-zA-Z0-9 ]/g, ' ');
-                  }
-
-                  const modifiedTerm = modifyTerm(term).trim();
-                  const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
-
-                  if (
-                    typeof value === 'string'
-                    && value.toLowerCase().includes(modifiedTerm.trim().toLowerCase())
-                  ) {
-                    highlightedValue = highlightedValue
-                      .replace(regex, (match) => `<b>${match}</b>`)
-                      .trim();
-                    foundMatch = true;
-                  }
-                });
-
-                if (foundMatch) {
-                  additionalMatches.push({ [key]: highlightedValue });
-                }
-              });
+            HIDDEN_FIELDS_CONFIG.forEach(({ fieldName, displayName }) => {
+              if (shouldShowHiddenField(rst, fieldName)) {
+                const highlightedValue = getHighlightedValue(rst, fieldName);
+                additionalMatches.push({ displayName, highlightedValue });
+              }
             });
+
             return (
               <div key={keyName} className="container">
                 <div className="row align-items-start headerRow">
@@ -526,7 +537,7 @@ const SearchResult = ({
                   )
                 }
                 {
-                  description !== '' && (
+                  highlightedDesc !== '' && (
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
                         <span>Description:&nbsp;&nbsp;&nbsp;</span>
@@ -544,11 +555,11 @@ const SearchResult = ({
                         <span>
                           Other Match in
                           {' '}
-                          {Object.keys(match)[0]}
+                          {match.displayName}
                           :&nbsp;&nbsp;&nbsp;
                         </span>
                         <span className="additionalMatches" data-testid="additional-match">
-                          {ReactHtmlParser(Object.values(match)[0])}
+                          {ReactHtmlParser(match.highlightedValue)}
                         </span>
                       </div>
                     </div>
