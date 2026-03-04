@@ -402,7 +402,7 @@ const DataSetDetailView = ({
                       <Typography variant="body2" component="div" className={classes.text}>
                         {field.isPaired ? (
                           // Render paired values (e.g., "min - max"), showing partial values if one is missing
-                          `${data[field.datafield] ?? ''} - ${data[field.pairedField] ?? ''}`
+                          `${data[field.datafield] != null ? data[field.datafield] : ''} - ${data[field.pairedField] != null ? data[field.pairedField] : ''}`
                         ) : field.isMultiLink && data[field.datafield] ? (
                           // Render multiple links separated by semicolons
                           data[field.datafield].split(';').map((link, index) => (
