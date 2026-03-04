@@ -12,7 +12,7 @@ import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
 import icon from '../../assets/icons/Datasets.svg';
 import {
-  externalLinkIcon, externalLinkIconBlue, descMaxLength, basicInformationFields, dataDetailsFields, additionalDetailsFields,
+  externalLinkIcon, externalLinkIconBlue, descMaxLength, basicInformationFields, basicInfoAllFieldsDynamic, dataDetailsFields, additionalDetailsFields,
 } from '../../bento/datasetDetailData';
 import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
@@ -284,77 +284,85 @@ const DataSetDetailView = ({
             </>
             )}
           </div>
-          <div className={classes.contentSection}>
-            <Typography variant="h6" component="h2" className={classes.studyHeader}>
-              Basic Information
-            </Typography>
-            <Grid container spacing={4} className={classes.detailsGrid}>
-              {basicInformationFields
-                .filter((field) => !field.dynamic || (field.dynamic && data[field.datafield] != null && data[field.datafield] !== ''))
-                .map((field) => (
-                  <Grid item xs={12} md={4} key={field.datafield}>
-                    <div className={classes.subSection}>
-                      <Typography variant="body2" className={classes.subTitle}>
-                        {field.label}
-                        {field.tooltip && (
-                          <div className="tooltip-icon">
-                            <img src={helpIcon} alt="tooltipIcon" />
-                            <div className="tooltip-text-first">
-                              <span className={classes.tooltipFont}>
-                                {field.tooltip}
-                              </span>
+          {/* Render Basic Information section only if:
+              1) basicInformationFields array is non-empty, AND
+              2) If all fields are dynamic, at least one field has data */}
+          {basicInformationFields.length > 0
+            && (!basicInfoAllFieldsDynamic
+              || basicInformationFields.some((field) => data[field.datafield] != null && data[field.datafield] !== ''))
+            && (
+            <div className={classes.contentSection}>
+              <Typography variant="h6" component="h2" className={classes.studyHeader}>
+                Basic Information
+              </Typography>
+              <Grid container spacing={4} className={classes.detailsGrid}>
+                {basicInformationFields
+                  .filter((field) => !field.dynamic || (field.dynamic && data[field.datafield] != null && data[field.datafield] !== ''))
+                  .map((field) => (
+                    <Grid item xs={12} md={4} key={field.datafield}>
+                      <div className={classes.subSection}>
+                        <Typography variant="body2" className={classes.subTitle}>
+                          {field.label}
+                          {field.tooltip && (
+                            <div className="tooltip-icon">
+                              <img src={helpIcon} alt="tooltipIcon" />
+                              <div className="tooltip-text-first">
+                                <span className={classes.tooltipFont}>
+                                  {field.tooltip}
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </Typography>
-                      <Typography variant="body2" className={classes.text}>
-                        {field.isPMID && data[field.datafield] ? (
-                          data[field.datafield].split(';').map((pmid, index) => {
-                            const trimmedPmid = pmid.trim();
-                            const isNumeric = trimmedPmid !== '' && !Number.isNaN(Number(trimmedPmid));
-                            return (
-                              <span key={index}>
-                                {isNumeric ? (
-                                  <Link
-                                    href={`https://pubmed.ncbi.nlm.nih.gov/${trimmedPmid}/`}
-                                    target="_blank"
-                                    className={classes.link}
-                                  >
-                                    {trimmedPmid}
-                                    <img
-                                      src={externalLinkIcon.src}
-                                      alt={externalLinkIcon.alt}
-                                      className={classes.externalLinkIcon}
-                                    />
-                                  </Link>
-                                ) : (
-                                  <span>{trimmedPmid}</span>
-                                )}
-                                {index < data[field.datafield].split(';').length - 1 && '; '}
-                                {index < data[field.datafield].split(';').length - 1 && ' '}
-                              </span>
-                            );
-                          })
-                        ) : field.isLink ? (
-                          <Link href={data[field.datafield]} target="_blank" className={classes.link}>
-                            {getLinkText(field)}
-                            <img
-                              src={externalLinkIcon.src}
-                              alt={externalLinkIcon.alt}
-                              className={classes.externalLinkIcon}
-                            />
-                          </Link>
-                        ) : (
-                          field.formatSemicolon
-                            ? formatSemicolonSeparatedString(data[field.datafield] || '')
-                            : data[field.datafield] || ''
-                        )}
-                      </Typography>
-                    </div>
-                  </Grid>
-                ))}
-            </Grid>
-          </div>
+                          )}
+                        </Typography>
+                        <Typography variant="body2" className={classes.text}>
+                          {field.isPMID && data[field.datafield] ? (
+                            data[field.datafield].split(';').map((pmid, index) => {
+                              const trimmedPmid = pmid.trim();
+                              const isNumeric = trimmedPmid !== '' && !Number.isNaN(Number(trimmedPmid));
+                              return (
+                                <span key={index}>
+                                  {isNumeric ? (
+                                    <Link
+                                      href={`https://pubmed.ncbi.nlm.nih.gov/${trimmedPmid}/`}
+                                      target="_blank"
+                                      className={classes.link}
+                                    >
+                                      {trimmedPmid}
+                                      <img
+                                        src={externalLinkIcon.src}
+                                        alt={externalLinkIcon.alt}
+                                        className={classes.externalLinkIcon}
+                                      />
+                                    </Link>
+                                  ) : (
+                                    <span>{trimmedPmid}</span>
+                                  )}
+                                  {index < data[field.datafield].split(';').length - 1 && '; '}
+                                  {index < data[field.datafield].split(';').length - 1 && ' '}
+                                </span>
+                              );
+                            })
+                          ) : field.isLink ? (
+                            <Link href={data[field.datafield]} target="_blank" className={classes.link}>
+                              {getLinkText(field)}
+                              <img
+                                src={externalLinkIcon.src}
+                                alt={externalLinkIcon.alt}
+                                className={classes.externalLinkIcon}
+                              />
+                            </Link>
+                          ) : (
+                            field.formatSemicolon
+                              ? formatSemicolonSeparatedString(data[field.datafield] || '')
+                              : data[field.datafield] || ''
+                          )}
+                        </Typography>
+                      </div>
+                    </Grid>
+                  ))}
+              </Grid>
+            </div>
+            )}
           <div className={classes.contentSection}>
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
               Data Details
