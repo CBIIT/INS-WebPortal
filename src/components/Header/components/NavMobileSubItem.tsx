@@ -22,6 +22,7 @@ const NavMobileSubItem: React.FC<NavMobileSubItemProps> = ({ item, onClose }) =>
         target="_blank"
         rel="noopener noreferrer"
         onClick={onClose}
+        aria-label={`${item.name} (opens in a new tab)`}
       >
         {innerContent}
       </a>
