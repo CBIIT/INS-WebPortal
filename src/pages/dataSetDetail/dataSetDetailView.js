@@ -162,7 +162,7 @@ const DataSetDetailView = ({
               <span className={classes.subTitle}>Source Repository: </span>
               <span className={classes.repositoryName}>{data.dataset_source_repo || ''}</span>
               {data.dataset_source_url && (
-                <Link href={data.dataset_source_url} target="_blank" className={cn(classes.subTitle, classes.externalResource)}>
+                <Link href={data.dataset_source_url} target="_blank" rel="noopener noreferrer" className={cn(classes.subTitle, classes.externalResource)}>
                   View Dataset in External Resource
                   <img
                     src={externalLinkIconBlue.src}
@@ -177,7 +177,7 @@ const DataSetDetailView = ({
                 <span className={classes.subTitle}>Download resource links: </span>
                 <div className={classes.resourceLinksWrapper}>
                   {files.map((file) => (
-                    <Link href={file.downloadUrl} target="_blank" key={`resource-link-${file.file_id}`} className={classes.resourceLink}>
+                    <Link href={file.downloadUrl} target="_blank" rel="noopener noreferrer" key={`resource-link-${file.file_id}`} className={classes.resourceLink}>
                       <span className={classes.resourceLinkText}>
                         {file.file_name}
                         <img
@@ -329,6 +329,7 @@ const DataSetDetailView = ({
                                     <Link
                                       href={`https://pubmed.ncbi.nlm.nih.gov/${trimmedPmid}/`}
                                       target="_blank"
+                                      rel="noopener noreferrer"
                                       className={classes.link}
                                     >
                                       {trimmedPmid}
@@ -347,7 +348,7 @@ const DataSetDetailView = ({
                               );
                             })
                           ) : field.isLink ? (
-                            <Link href={data[field.datafield]} target="_blank" className={classes.link}>
+                            <Link href={data[field.datafield]} target="_blank" rel="noopener noreferrer" className={classes.link}>
                               {getLinkText(field)}
                               <img
                                 src={externalLinkIcon.src}
@@ -401,7 +402,7 @@ const DataSetDetailView = ({
                       <Typography variant="body2" component="div" className={classes.text}>
                         {field.isPaired ? (
                           // Render paired values (e.g., "min - max"), showing partial values if one is missing
-                          `${data[field.datafield] || ''} - ${data[field.pairedField] || ''}`
+                          `${data[field.datafield] ?? ''} - ${data[field.pairedField] ?? ''}`
                         ) : field.isMultiLink && data[field.datafield] ? (
                           // Render multiple links separated by semicolons
                           data[field.datafield].split(';').map((link, index) => (
@@ -409,6 +410,7 @@ const DataSetDetailView = ({
                               <Link
                                 href={link.trim().startsWith('http') ? link.trim() : `https://${link.trim()}`}
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className={classes.link}
                               >
                                 {link.trim()}

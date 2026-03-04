@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import DataSetDetailView from './dataSetDetailView';
+import { descMaxLength } from '../../bento/datasetDetailData';
 
 // Mock Material-UI withStyles
 jest.mock('@material-ui/core', () => ({
@@ -182,7 +183,7 @@ describe('DataSetDetailView', () => {
       expect(screen.getByText('Investigator(s)')).toBeInTheDocument();
     });
 
-    it('should NOT show non-dynamic fields (primary_disease) even when empty in Data Details', () => {
+    it('should show non-dynamic fields (primary_disease) even when empty in Data Details', () => {
       const data = createMockData({ primary_disease: '' });
 
       render(<DataSetDetailView data={data} files={[]} />);
@@ -209,8 +210,8 @@ describe('DataSetDetailView', () => {
       expect(screen.getByText('Study Description')).toBeInTheDocument();
     });
 
-    it('should NOT show Read More when description is under 750 chars', () => {
-      const shortDescription = 'A'.repeat(100);
+    it('should NOT show Read More when description is under descMaxLength chars', () => {
+      const shortDescription = 'A'.repeat(descMaxLength - 1);
       const data = createMockData({ description: shortDescription });
 
       render(<DataSetDetailView data={data} files={[]} />);
@@ -218,8 +219,8 @@ describe('DataSetDetailView', () => {
       expect(screen.queryByTestId('description-read-more')).not.toBeInTheDocument();
     });
 
-    it('should show Read More when description exceeds 750 chars', () => {
-      const longDescription = 'A'.repeat(800);
+    it('should show Read More when description exceeds descMaxLength chars', () => {
+      const longDescription = 'A'.repeat(descMaxLength + 50);
       const data = createMockData({ description: longDescription });
 
       render(<DataSetDetailView data={data} files={[]} />);
@@ -228,7 +229,7 @@ describe('DataSetDetailView', () => {
     });
 
     it('should expand description when Read More is clicked', () => {
-      const longDescription = 'A'.repeat(800);
+      const longDescription = 'A'.repeat(descMaxLength + 50);
       const data = createMockData({ description: longDescription });
 
       render(<DataSetDetailView data={data} files={[]} />);
@@ -240,7 +241,7 @@ describe('DataSetDetailView', () => {
     });
 
     it('should collapse description when Show Less is clicked', () => {
-      const longDescription = 'A'.repeat(800);
+      const longDescription = 'A'.repeat(descMaxLength + 50);
       const data = createMockData({ description: longDescription });
 
       render(<DataSetDetailView data={data} files={[]} />);
@@ -299,8 +300,8 @@ describe('DataSetDetailView', () => {
       expect(screen.getByText('Experimental Approaches')).toBeInTheDocument();
     });
 
-    it('should show Read More when experimental_approaches exceeds 750 chars', () => {
-      const longContent = 'B'.repeat(800);
+    it('should show Read More when experimental_approaches exceeds descMaxLength chars', () => {
+      const longContent = 'B'.repeat(descMaxLength + 50);
       const data = createMockData({ experimental_approaches: longContent });
 
       render(<DataSetDetailView data={data} files={[]} />);
@@ -309,7 +310,7 @@ describe('DataSetDetailView', () => {
     });
 
     it('should expand experimental approaches when Read More is clicked', () => {
-      const longContent = 'B'.repeat(800);
+      const longContent = 'B'.repeat(descMaxLength + 50);
       const data = createMockData({ experimental_approaches: longContent });
 
       render(<DataSetDetailView data={data} files={[]} />);
