@@ -29,7 +29,7 @@ const basicInformationFields = [
   {
     label: 'Investigator(s)',
     datafield: 'PI_name',
-    dynamic: false,
+    dynamic: true,
     isLink: false,
     formatSemicolon: true,
     tooltip: 'The individual designated by the applicant organization to have the appropriate level of authority and responsibility to direct the project or program to be supported by the award',
