@@ -129,7 +129,7 @@ const DataSetDetailView = ({
   return (
     <Container className={classes.mainContainer}>
       <div className={classes.contentContainer}>
-        <Grid container spacing={2} alignItems="center" justify="space-between" className={classes.nav}>
+        <Grid container spacing={2} alignItems="center" justifyContent="space-between" className={classes.nav}>
           <Grid item>
             <Link href="#datasets" className={classes.navLink}>
               Explore Datasets
@@ -305,20 +305,20 @@ const DataSetDetailView = ({
                   .map((field) => (
                     <Grid item xs={12} md={4} key={field.datafield} data-testid={`basic-info-${field.datafield}`}>
                       <div className={classes.subSection}>
-                        <Typography variant="body2" className={classes.subTitle}>
+                        <Typography variant="body2" component="span" className={classes.subTitle}>
                           {field.label}
                           {field.tooltip && (
-                            <div className="tooltip-icon">
+                            <span className="tooltip-icon">
                               <img src={helpIcon} alt="tooltipIcon" />
-                              <div className="tooltip-text-first">
+                              <span className="tooltip-text-first">
                                 <span className={classes.tooltipFont}>
                                   {field.tooltip}
                                 </span>
-                              </div>
-                            </div>
+                              </span>
+                            </span>
                           )}
                         </Typography>
-                        <Typography variant="body2" className={classes.text}>
+                        <Typography variant="body2" component="div" className={classes.text}>
                           {field.isPMID && data[field.datafield] ? (
                             data[field.datafield].split(';').map((pmid, index) => {
                               const trimmedPmid = pmid.trim();
@@ -385,27 +385,27 @@ const DataSetDetailView = ({
                 .map((field) => (
                   <Grid item xs={12} md={4} key={field.datafield} data-testid={`data-detail-${field.datafield}`}>
                     <div className={classes.subSection}>
-                      <Typography variant="body2" className={classes.subTitle}>
+                      <Typography variant="body2" component="span" className={classes.subTitle}>
                         {field.label}
                         {field.tooltip && (
-                          <div className="tooltip-icon">
+                          <span className="tooltip-icon">
                             <img src={helpIcon} alt="tooltipIcon" />
-                            <div className="tooltip-text-first">
+                            <span className="tooltip-text-first">
                               <span className={classes.tooltipFont}>
                                 {field.tooltip}
                               </span>
-                            </div>
-                          </div>
+                            </span>
+                          </span>
                         )}
                       </Typography>
-                      <Typography variant="body2" className={classes.text}>
+                      <Typography variant="body2" component="div" className={classes.text}>
                         {field.isPaired ? (
                           // Render paired values (e.g., "min - max"), showing partial values if one is missing
                           `${data[field.datafield] || ''} - ${data[field.pairedField] || ''}`
                         ) : field.isMultiLink && data[field.datafield] ? (
                           // Render multiple links separated by semicolons
                           data[field.datafield].split(';').map((link, index) => (
-                            <Typography variant="body2" className={classes.text} key={index}>
+                            <div className={classes.text} key={index}>
                               <Link
                                 href={link.trim().startsWith('http') ? link.trim() : `https://${link.trim()}`}
                                 target="_blank"
@@ -418,7 +418,7 @@ const DataSetDetailView = ({
                                   className={classes.externalLinkIcon}
                                 />
                               </Link>
-                            </Typography>
+                            </div>
                           ))
                         ) : (
                           field.formatSemicolon
