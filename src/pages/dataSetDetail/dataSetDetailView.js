@@ -173,7 +173,7 @@ const DataSetDetailView = ({
               )}
             </div>
             {files && Array.isArray(files) && files.length > 0 && (
-              <div className={classes.headerResourceContainer}>
+              <div className={classes.headerResourceContainer} data-testid="files-section">
                 <span className={classes.subTitle}>Download resource links: </span>
                 <div className={classes.resourceLinksWrapper}>
                   {files.map((file) => (
@@ -194,11 +194,11 @@ const DataSetDetailView = ({
           </div>
         </div>
         <div className={classes.detailsContainer}>
-          <div className={classes.contentSection}>
+          <div className={classes.contentSection} data-testid="study-description-section">
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
               Study Description
             </Typography>
-            <div className={classes.text}>
+            <div className={classes.text} data-testid="description-text">
               {expandedDescription ? (
                 <>
                   {ReactHtmlParser(normalizeDescriptionContent(data.description))}
@@ -211,6 +211,7 @@ const DataSetDetailView = ({
                         role="button"
                         tabIndex={0}
                         className={classes.readMoreLink}
+                        data-testid="description-show-less"
                       >
                         Show Less
                       </span>
@@ -229,6 +230,7 @@ const DataSetDetailView = ({
                         role="button"
                         tabIndex={0}
                         className={classes.readMoreLink}
+                        data-testid="description-read-more"
                       >
                         Read More
                       </span>
@@ -238,11 +240,11 @@ const DataSetDetailView = ({
               )}
             </div>
             {data.experimental_approaches && (
-            <>
+            <div data-testid="experimental-approaches-section">
               <Typography variant="h6" component="h2" className={classes.studyHeader} style={{ marginTop: '40px' }}>
                 Experimental Approaches
               </Typography>
-              <div className={classes.text}>
+              <div className={classes.text} data-testid="experimental-text">
                 {expandedExperimental ? (
                   <>
                     {ReactHtmlParser(normalizeDescriptionContent(data.experimental_approaches))}
@@ -255,6 +257,7 @@ const DataSetDetailView = ({
                           role="button"
                           tabIndex={0}
                           className={classes.readMoreLink}
+                          data-testid="experimental-show-less"
                         >
                           Show Less
                         </span>
@@ -273,6 +276,7 @@ const DataSetDetailView = ({
                           role="button"
                           tabIndex={0}
                           className={classes.readMoreLink}
+                          data-testid="experimental-read-more"
                         >
                           Read More
                         </span>
@@ -281,7 +285,7 @@ const DataSetDetailView = ({
                   </p>
                 )}
               </div>
-            </>
+            </div>
             )}
           </div>
           {/* Render Basic Information section only if:
@@ -291,7 +295,7 @@ const DataSetDetailView = ({
             && (!basicInfoAllFieldsDynamic
               || basicInformationFields.some((field) => data[field.datafield] != null && data[field.datafield] !== ''))
             && (
-            <div className={classes.contentSection}>
+            <div className={classes.contentSection} data-testid="basic-information-section">
               <Typography variant="h6" component="h2" className={classes.studyHeader}>
                 Basic Information
               </Typography>
@@ -299,7 +303,7 @@ const DataSetDetailView = ({
                 {basicInformationFields
                   .filter((field) => !field.dynamic || (field.dynamic && data[field.datafield] != null && data[field.datafield] !== ''))
                   .map((field) => (
-                    <Grid item xs={12} md={4} key={field.datafield}>
+                    <Grid item xs={12} md={4} key={field.datafield} data-testid={`basic-info-${field.datafield}`}>
                       <div className={classes.subSection}>
                         <Typography variant="body2" className={classes.subTitle}>
                           {field.label}
@@ -363,7 +367,7 @@ const DataSetDetailView = ({
               </Grid>
             </div>
             )}
-          <div className={classes.contentSection}>
+          <div className={classes.contentSection} data-testid="data-details-section">
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
               Data Details
             </Typography>
@@ -379,7 +383,7 @@ const DataSetDetailView = ({
                   return data[field.datafield] != null && data[field.datafield] !== '';
                 })
                 .map((field) => (
-                  <Grid item xs={12} md={4} key={field.datafield}>
+                  <Grid item xs={12} md={4} key={field.datafield} data-testid={`data-detail-${field.datafield}`}>
                     <div className={classes.subSection}>
                       <Typography variant="body2" className={classes.subTitle}>
                         {field.label}
