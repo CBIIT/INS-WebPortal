@@ -37,6 +37,13 @@ export const navMobileList: NavItem[] = [
     className: 'navMobileItem',
   },
   {
+    name: 'NCI Data Sharing Hub',
+    link: 'https://datasharing.cancer.gov/',
+    id: 'navbar-link-data-sharing-hub',
+    className: 'navMobileItem',
+    externalLink: true,
+  },
+  {
     name: 'Programs',
     link: '/programs',
     id: 'navbar-link-programs',
