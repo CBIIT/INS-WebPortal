@@ -323,23 +323,39 @@ const NavBar = () => {
           {
             navMobileList.map((navMobileItem, idx) => {
               const navkey = `nav_${idx}`;
+              const isExternal = navMobileItem.externalLink || navMobileItem.link.startsWith('http');
               return (
                 navMobileItem.className === 'navMobileItem'
                   ? (
                     <LiSection key={navkey}>
                       <div className="navTitle directLink">
-                        <NavLink to={navMobileItem.link}>
-                          <div
-                            id={navMobileItem.id}
-                            onKeyDown={onKeyPressHandler}
-                            role="button"
-                            tabIndex={0}
-                            className={`navText directLink ${shouldBeUnderlined(navMobileItem) ? "shouldBeUnderlined" : ""}`}
-                            onClick={handleMenuClick}
-                          >
-                            {navMobileItem.name}
-                          </div>
-                        </NavLink>
+                        {isExternal ? (
+                          <a href={navMobileItem.link} target="_blank" rel="noopener noreferrer">
+                            <div
+                              id={navMobileItem.id}
+                              onKeyDown={onKeyPressHandler}
+                              role="button"
+                              tabIndex={0}
+                              className={`navText directLink ${shouldBeUnderlined(navMobileItem) ? "shouldBeUnderlined" : ""}`}
+                              onClick={handleMenuClick}
+                            >
+                              {navMobileItem.name}
+                            </div>
+                          </a>
+                        ) : (
+                          <NavLink to={navMobileItem.link}>
+                            <div
+                              id={navMobileItem.id}
+                              onKeyDown={onKeyPressHandler}
+                              role="button"
+                              tabIndex={0}
+                              className={`navText directLink ${shouldBeUnderlined(navMobileItem) ? "shouldBeUnderlined" : ""}`}
+                              onClick={handleMenuClick}
+                            >
+                              {navMobileItem.name}
+                            </div>
+                          </NavLink>
+                        )}
                       </div>
                     </LiSection>
                   )
