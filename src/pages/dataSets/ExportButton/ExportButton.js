@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import * as exportApi from '../../../api/exportApi';
 import './ExportButton.css';
@@ -7,14 +7,23 @@ import ExportIconImg from './export.svg';
 const ExportButton = ({
   searchCriteria,
 }) => {
-  const handleExport = (event) => {
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExport = async (event) => {
     event.preventDefault();
-    exportApi.getSearchResult(searchCriteria);
+    if (isExporting) return;
+
+    setIsExporting(true);
+    try {
+      await exportApi.getSearchResult(searchCriteria);
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   return (
     <>
-      <button type="button" className="buttonStyle" onClick={handleExport}>
+      <button type="button" className="buttonStyle" onClick={handleExport} disabled={isExporting}>
         <span className="spanText">
           <img src={ExportIconImg} alt="export-icon" />
           Export
