@@ -381,6 +381,42 @@ describe('DataSetDetailView', () => {
       expect(screen.queryByTestId('data-detail-dataset_minimum_age_at_baseline')).not.toBeInTheDocument();
     });
 
+    it('should render paired field with zero as first value (0 - num)', () => {
+      const data = createMockData({
+        dataset_minimum_age_at_baseline: 0,
+        dataset_maximum_age_at_baseline: '65',
+      });
+
+      render(<DataSetDetailView data={data} files={[]} />);
+
+      const fieldElement = screen.getByTestId('data-detail-dataset_minimum_age_at_baseline');
+      expect(fieldElement.textContent).toContain('0 - 65');
+    });
+
+    it('should render paired field with zero as second value (num - 0)', () => {
+      const data = createMockData({
+        dataset_minimum_age_at_baseline: '18',
+        dataset_maximum_age_at_baseline: 0,
+      });
+
+      render(<DataSetDetailView data={data} files={[]} />);
+
+      const fieldElement = screen.getByTestId('data-detail-dataset_minimum_age_at_baseline');
+      expect(fieldElement.textContent).toContain('18 - 0');
+    });
+
+    it('should render paired field with both values as zero (0 - 0)', () => {
+      const data = createMockData({
+        dataset_minimum_age_at_baseline: 0,
+        dataset_maximum_age_at_baseline: 0,
+      });
+
+      render(<DataSetDetailView data={data} files={[]} />);
+
+      const fieldElement = screen.getByTestId('data-detail-dataset_minimum_age_at_baseline');
+      expect(fieldElement.textContent).toContain('0 - 0');
+    });
+
     it('should render multi-link field with multiple links', () => {
       const data = createMockData({
         study_links: 'https://link1.com; https://link2.com',
