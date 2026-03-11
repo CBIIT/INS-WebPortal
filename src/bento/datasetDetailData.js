@@ -100,6 +100,10 @@ const basicInformationFields = [
   },
 ];
 
+// Pre-computed flag: true if all basicInformationFields have dynamic: true
+// When true, the section should only render if at least one field has data
+const basicInfoAllFieldsDynamic = basicInformationFields.every((field) => field.dynamic === true);
+
 // --------------- Data Details fields configuration --------------
 const dataDetailsFields = [
   {
@@ -278,6 +282,7 @@ export {
   externalLinkIconBlue,
   descMaxLength,
   basicInformationFields,
+  basicInfoAllFieldsDynamic,
   dataDetailsFields,
   additionalDetailsFields,
   getDataSetDetailDataQuery,
