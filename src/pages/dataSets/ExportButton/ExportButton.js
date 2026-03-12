@@ -16,6 +16,8 @@ const ExportButton = ({
     setIsExporting(true);
     try {
       await exportApi.getSearchResult(searchCriteria);
+    } catch (error) {
+      console.error('Failed to export datasets:', error);
     } finally {
       setIsExporting(false);
     }
