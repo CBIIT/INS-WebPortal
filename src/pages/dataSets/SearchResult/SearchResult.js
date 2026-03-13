@@ -344,6 +344,7 @@ const HIDDEN_FIELDS_CONFIG = [
   { fieldName: 'dataset_doc', displayName: 'NCI Division/Office/Center' },
   { fieldName: 'institute', displayName: 'institute' },
   { fieldName: 'experimental_approaches', displayName: 'experimental approaches' },
+  { fieldName: 'dataset_storage_distribution', displayName: 'Data Storage and Distribution Platform' },
 ];
 
 const SearchResult = ({
