@@ -56,6 +56,7 @@ const createMockResult = (overrides = {}) => {
       dataset_doc: 'Doc 1',
       institute: 'Test Institute',
       experimental_approaches: 'Test Approach',
+      dataset_storage_distribution: 'Test Storage Platform',
       ...contentOverrides,
     },
     highlight: highlight || {},
@@ -700,6 +701,11 @@ describe('Hidden Fields - Additional Matches', () => {
       fieldName: 'experimental_approaches',
       displayName: 'experimental approaches',
       searchTerm: 'approach',
+    },
+    {
+      fieldName: 'dataset_storage_distribution',
+      displayName: 'Data Storage and Distribution Platform',
+      searchTerm: 'storage',
     },
   ];
 
