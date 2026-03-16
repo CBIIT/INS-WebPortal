@@ -385,8 +385,8 @@ describe('Basic Functionality', () => {
       renderWithRouter(<SearchResult {...props} />);
 
       // "Repository" is in dataset_source_repo filter
-      // So it should NOT appear as "Other Match in PI name" even though PI_name contains it
-      expect(screen.queryByText(/Other Match in PI name/i)).not.toBeInTheDocument();
+      // So it should NOT appear as "Other Match in Investigator(s)" even though PI_name contains it
+      expect(screen.queryByText(/Other Match in Investigator\(s\)/i)).not.toBeInTheDocument();
     });
 
     it('should NOT highlight filter values when both primary_disease and dataset_source_repo filters are present', () => {
@@ -823,11 +823,11 @@ describe('Hidden Fields - Additional Matches', () => {
     renderWithRouter(<SearchResult {...props} />);
 
     // Should find matches in both fields that backend highlighted
-    expect(screen.getByText(/Other Match in related genes/i)).toBeInTheDocument();
-    expect(screen.getByText(/Other Match in funding source/i)).toBeInTheDocument();
+    expect(screen.getByText(/Other Match in Related Genes/i)).toBeInTheDocument();
+    expect(screen.getByText(/Other Match in Funding Source\(s\)/i)).toBeInTheDocument();
 
     // Should NOT find match in PI_name (backend didn't highlight it)
-    expect(screen.queryByText(/Other Match in PI name/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Other Match in Investigator\(s\)/i)).not.toBeInTheDocument();
 
     // Verify the highlighted values are correctly displayed
     const additionalMatchElements = screen.getAllByTestId('additional-match');
@@ -863,7 +863,7 @@ describe('Hidden Fields - Additional Matches', () => {
 
     renderWithRouter(<SearchResult {...props} />);
 
-    expect(screen.getByText(/Other Match in funding source/i)).toBeInTheDocument();
+    expect(screen.getByText(/Other Match in Funding Source\(s\)/i)).toBeInTheDocument();
   });
 
   it('should NOT display hidden fields when there is no search text', () => {
@@ -904,7 +904,7 @@ describe('Hidden Fields - Additional Matches', () => {
 
     renderWithRouter(<SearchResult {...props} />);
 
-    expect(screen.getByText(/Other Match in related diseases/i)).toBeInTheDocument();
+    expect(screen.getByText(/Other Match in Related Diseases/i)).toBeInTheDocument();
   });
 
   describe('Highlighting', () => {
