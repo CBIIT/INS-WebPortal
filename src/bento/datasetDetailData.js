@@ -103,7 +103,7 @@ const basicInformationFields = [
     datafield: 'dataset_storage_distribution',
     dynamic: true,
     isLink: false,
-    formatSemicolon: false,
+    formatSemicolon: true,
     tooltip: 'Systems designed to securely house, manage, and disseminate large datasets, such as genomic sequencing or medical imaging.',
   },
 ];
