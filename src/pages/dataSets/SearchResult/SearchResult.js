@@ -332,21 +332,22 @@ const SearchResultContainer = styled.div`
 
 // Configuration for hidden fields that appear as "Other Match in..." when highlighted
 // Display names match the Dataset Details page headers
+// formatSemicolon flag indicates whether to apply semicolon spacing formatting
 const HIDDEN_FIELDS_CONFIG = [
-  { fieldName: 'dataset_source_url', displayName: 'Study Page' },
-  { fieldName: 'PI_name', displayName: 'Investigator(s)' },
-  { fieldName: 'dataset_pmid', displayName: 'Cited Publication PMID(s)' },
-  { fieldName: 'funding_source', displayName: 'Funding Source(s)' },
-  { fieldName: 'related_diseases', displayName: 'Related Diseases' },
-  { fieldName: 'related_terms', displayName: 'Related Terms' },
-  { fieldName: 'study_links', displayName: 'Related Link(s)' },
-  { fieldName: 'related_genes', displayName: 'Related Genes' },
-  { fieldName: 'assay_method', displayName: 'Assay Method' },
-  { fieldName: 'limitations_for_reuse', displayName: 'Limitations for Reuse' },
-  { fieldName: 'dataset_doc', displayName: 'NCI Division/Office/Center' },
-  { fieldName: 'institute', displayName: 'Institute' },
-  { fieldName: 'experimental_approaches', displayName: 'Experimental Approaches' },
-  { fieldName: 'dataset_storage_distribution', displayName: 'Data Storage and Distribution Platform' },
+  { fieldName: 'dataset_source_url', displayName: 'Study Page', formatSemicolon: false },
+  { fieldName: 'PI_name', displayName: 'Investigator(s)', formatSemicolon: true },
+  { fieldName: 'dataset_pmid', displayName: 'Cited Publication PMID(s)', formatSemicolon: true },
+  { fieldName: 'funding_source', displayName: 'Funding Source(s)', formatSemicolon: true },
+  { fieldName: 'related_diseases', displayName: 'Related Diseases', formatSemicolon: true },
+  { fieldName: 'related_terms', displayName: 'Related Terms', formatSemicolon: true },
+  { fieldName: 'study_links', displayName: 'Related Link(s)', formatSemicolon: true },
+  { fieldName: 'related_genes', displayName: 'Related Genes', formatSemicolon: true },
+  { fieldName: 'assay_method', displayName: 'Assay Method', formatSemicolon: true },
+  { fieldName: 'limitations_for_reuse', displayName: 'Limitations for Reuse', formatSemicolon: true },
+  { fieldName: 'dataset_doc', displayName: 'NCI Division/Office/Center', formatSemicolon: true },
+  { fieldName: 'institute', displayName: 'Institute', formatSemicolon: false },
+  { fieldName: 'experimental_approaches', displayName: 'Experimental Approaches', formatSemicolon: false },
+  { fieldName: 'dataset_storage_distribution', displayName: 'Data Storage and Distribution Platform', formatSemicolon: true },
 ];
 
 const SearchResult = ({
@@ -466,10 +467,12 @@ const SearchResult = ({
 
             // Build list of hidden fields that have matches (backend highlighted them)
             const additionalMatches = [];
-            HIDDEN_FIELDS_CONFIG.forEach(({ fieldName, displayName }) => {
+            HIDDEN_FIELDS_CONFIG.forEach(({ fieldName, displayName, formatSemicolon }) => {
               if (shouldShowHiddenField(rst, fieldName)) {
                 const highlightedValue = getHighlightedValue(rst, fieldName);
-                const formattedValue = formatSemicolonSeparatedString(highlightedValue);
+                const formattedValue = formatSemicolon
+                  ? formatSemicolonSeparatedString(highlightedValue)
+                  : highlightedValue;
                 additionalMatches.push({ displayName, highlightedValue: formattedValue });
               }
             });
