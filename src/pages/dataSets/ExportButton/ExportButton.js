@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import * as exportApi from '../../../api/exportApi';
 import './ExportButton.css';
 import ExportIconImg from './export.svg';
