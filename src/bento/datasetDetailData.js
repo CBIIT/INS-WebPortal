@@ -98,6 +98,14 @@ const basicInformationFields = [
     formatSemicolon: true,
     tooltip: 'Each of NCI\'s divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer research',
   },
+  {
+    label: 'Data Storage and Distribution Platform',
+    datafield: 'dataset_storage_distribution',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+    tooltip: 'Systems designed to securely house, manage, and disseminate large datasets, such as genomic sequencing or medical imaging.',
+  },
 ];
 
 // Pre-computed flag: true if all basicInformationFields have dynamic: true
@@ -237,6 +245,7 @@ query datasetDetails($dataset_source_id: String) {
         dataset_source_id
         dataset_source_repo
         dataset_source_url
+        dataset_storage_distribution
         dataset_title
         dataset_year_enrollment_ended
         dataset_year_enrollment_started

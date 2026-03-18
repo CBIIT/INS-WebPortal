@@ -86,6 +86,7 @@ const createMockData = (overrides = {}) => ({
   limitations_for_reuse: 'None',
   study_links: 'https://example.com/study',
   related_terms: 'genomics; oncology',
+  dataset_storage_distribution: 'Test Storage Platform',
   ...overrides,
 });
 
@@ -110,6 +111,7 @@ describe('DataSetDetailView', () => {
         institute: null,
         funding_source: null,
         dataset_doc: null,
+        dataset_storage_distribution: null,
       });
 
       render(<DataSetDetailView data={data} files={[]} />);
@@ -566,6 +568,362 @@ describe('DataSetDetailView', () => {
       expect(screen.getByText('BRCA1; BRCA2; TP53')).toBeInTheDocument();
     });
   });
+});
+
+// ============================================================================
+// COMPREHENSIVE DATA-DRIVEN FIELD TESTS
+// These tests ensure all fields in basicInformationFields and dataDetailsFields
+// are properly tested for dynamic visibility behavior
+// ============================================================================
+
+// Basic Information Fields - all are dynamic (hide when null/empty)
+const basicInformationDynamicFields = [
+  {
+    datafield: 'PI_name',
+    label: 'Investigator(s)',
+    testId: 'basic-info-PI_name',
+    validValue: 'Dr. Smith',
+  },
+  {
+    datafield: 'dataset_source_url',
+    label: 'Study Page',
+    testId: 'basic-info-dataset_source_url',
+    validValue: 'https://example.com',
+  },
+  {
+    datafield: 'dataset_pmid',
+    label: 'Cited Publication PMID(s)',
+    testId: 'basic-info-dataset_pmid',
+    validValue: '12345',
+  },
+  {
+    datafield: 'release_date',
+    label: 'Release Date',
+    testId: 'basic-info-release_date',
+    validValue: '2024-01-01',
+  },
+  {
+    datafield: 'institute',
+    label: 'Institute',
+    testId: 'basic-info-institute',
+    validValue: 'Test Institute',
+  },
+  {
+    datafield: 'funding_source',
+    label: 'Funding Source(s)',
+    testId: 'basic-info-funding_source',
+    validValue: 'NIH Grant',
+  },
+  {
+    datafield: 'dataset_doc',
+    label: 'NCI Division/Office/Center',
+    testId: 'basic-info-dataset_doc',
+    validValue: 'NCI',
+  },
+  {
+    datafield: 'dataset_storage_distribution',
+    label: 'Data Storage and Distribution Platform',
+    testId: 'basic-info-dataset_storage_distribution',
+    validValue: 'Cloud Storage',
+  },
+];
+
+// Data Details Fields - dynamic fields (excluding paired and non-dynamic)
+const dataDetailsDynamicFields = [
+  {
+    datafield: 'study_type',
+    label: 'Study Type',
+    testId: 'data-detail-study_type',
+    validValue: 'Clinical Trial',
+  },
+  {
+    datafield: 'assay_method',
+    label: 'Assay Method',
+    testId: 'data-detail-assay_method',
+    validValue: 'WGS',
+  },
+  {
+    datafield: 'participant_count',
+    label: 'Participant Count',
+    testId: 'data-detail-participant_count',
+    validValue: 100,
+  },
+  {
+    datafield: 'sample_count',
+    label: 'Sample Count',
+    testId: 'data-detail-sample_count',
+    validValue: 200,
+  },
+  {
+    datafield: 'related_genes',
+    label: 'Related Genes',
+    testId: 'data-detail-related_genes',
+    validValue: 'BRCA1; BRCA2',
+  },
+  {
+    datafield: 'related_diseases',
+    label: 'Related Diseases',
+    testId: 'data-detail-related_diseases',
+    validValue: 'Breast Cancer',
+  },
+  {
+    datafield: 'limitations_for_reuse',
+    label: 'Limitations for Reuse',
+    testId: 'data-detail-limitations_for_reuse',
+    validValue: 'None',
+  },
+  {
+    datafield: 'study_links',
+    label: 'Related Link(s)',
+    testId: 'data-detail-study_links',
+    validValue: 'https://example.com/study',
+  },
+  {
+    datafield: 'related_terms',
+    label: 'Related Terms',
+    testId: 'data-detail-related_terms',
+    validValue: 'genomics; oncology',
+  },
+];
+
+// Non-dynamic fields (always show regardless of value)
+const nonDynamicFields = [
+  {
+    datafield: 'primary_disease',
+    label: 'Primary Disease',
+    testId: 'data-detail-primary_disease',
+  },
+];
+
+// Paired fields (show if at least one value exists)
+const pairedFields = [
+  {
+    datafield: 'dataset_minimum_age_at_baseline',
+    pairedField: 'dataset_maximum_age_at_baseline',
+    label: 'Age at Baseline (Min - Max)',
+    testId: 'data-detail-dataset_minimum_age_at_baseline',
+    validFirstValue: '18',
+    validSecondValue: '65',
+  },
+  {
+    datafield: 'dataset_year_enrollment_started',
+    pairedField: 'dataset_year_enrollment_ended',
+    label: 'Enrollment Year (Start - End)',
+    testId: 'data-detail-dataset_year_enrollment_started',
+    validFirstValue: '2020',
+    validSecondValue: '2023',
+  },
+];
+
+describe('Basic Information Fields - Comprehensive Dynamic Field Tests', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe.each(basicInformationDynamicFields)(
+    'Basic Info Field: $label ($datafield)',
+    ({
+      datafield, label, testId, validValue,
+    }) => {
+      it(`should NOT render ${label} when value is null`, () => {
+        const data = createMockData({ [datafield]: null });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+      });
+
+      it(`should NOT render ${label} when value is empty string`, () => {
+        const data = createMockData({ [datafield]: '' });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+      });
+
+      it(`should render ${label} when value exists`, () => {
+        const data = createMockData({ [datafield]: validValue });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByTestId(testId)).toBeInTheDocument();
+      });
+
+      it(`should display label "${label}" when field has data`, () => {
+        const data = createMockData({ [datafield]: validValue });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByText(label)).toBeInTheDocument();
+      });
+    },
+  );
+});
+
+describe('Data Details Fields - Comprehensive Dynamic Field Tests', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe.each(dataDetailsDynamicFields)(
+    'Data Details Field: $label ($datafield)',
+    ({
+      datafield, label, testId, validValue,
+    }) => {
+      it(`should NOT render ${label} when value is null`, () => {
+        const data = createMockData({ [datafield]: null });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+      });
+
+      it(`should NOT render ${label} when value is empty string`, () => {
+        const data = createMockData({ [datafield]: '' });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+      });
+
+      it(`should render ${label} when value exists`, () => {
+        const data = createMockData({ [datafield]: validValue });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByTestId(testId)).toBeInTheDocument();
+      });
+
+      it(`should display label "${label}" when field has data`, () => {
+        const data = createMockData({ [datafield]: validValue });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByText(label)).toBeInTheDocument();
+      });
+    },
+  );
+});
+
+describe('Non-Dynamic Fields - Always Visible Tests', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe.each(nonDynamicFields)(
+    'Non-Dynamic Field: $label ($datafield)',
+    ({ datafield, label, testId }) => {
+      it(`should render ${label} even when value is null`, () => {
+        const data = createMockData({ [datafield]: null });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByTestId(testId)).toBeInTheDocument();
+      });
+
+      it(`should render ${label} even when value is empty string`, () => {
+        const data = createMockData({ [datafield]: '' });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByTestId(testId)).toBeInTheDocument();
+      });
+
+      it(`should render ${label} when value exists`, () => {
+        const data = createMockData({ [datafield]: 'Test Value' });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByTestId(testId)).toBeInTheDocument();
+      });
+
+      it(`should display label "${label}"`, () => {
+        const data = createMockData({ [datafield]: 'Test Value' });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByText(label)).toBeInTheDocument();
+      });
+    },
+  );
+});
+
+describe('Paired Fields - Comprehensive Tests', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe.each(pairedFields)(
+    'Paired Field: $label',
+    ({
+      datafield, pairedField, label, testId, validFirstValue, validSecondValue,
+    }) => {
+      it(`should render ${label} when both values exist`, () => {
+        const data = createMockData({
+          [datafield]: validFirstValue,
+          [pairedField]: validSecondValue,
+        });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByTestId(testId)).toBeInTheDocument();
+        expect(screen.getByText(`${validFirstValue} - ${validSecondValue}`)).toBeInTheDocument();
+      });
+
+      it(`should render ${label} when only first value exists`, () => {
+        const data = createMockData({
+          [datafield]: validFirstValue,
+          [pairedField]: null,
+        });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByTestId(testId)).toBeInTheDocument();
+        const fieldElement = screen.getByTestId(testId);
+        expect(fieldElement.textContent).toContain(`${validFirstValue} -`);
+      });
+
+      it(`should render ${label} when only second value exists`, () => {
+        const data = createMockData({
+          [datafield]: null,
+          [pairedField]: validSecondValue,
+        });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByTestId(testId)).toBeInTheDocument();
+        const fieldElement = screen.getByTestId(testId);
+        expect(fieldElement.textContent).toContain(`- ${validSecondValue}`);
+      });
+
+      it(`should NOT render ${label} when both values are null`, () => {
+        const data = createMockData({
+          [datafield]: null,
+          [pairedField]: null,
+        });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+      });
+
+      it(`should NOT render ${label} when both values are empty strings`, () => {
+        const data = createMockData({
+          [datafield]: '',
+          [pairedField]: '',
+        });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+      });
+
+      it(`should render ${label} with zero as first value`, () => {
+        const data = createMockData({
+          [datafield]: 0,
+          [pairedField]: validSecondValue,
+        });
+        render(<DataSetDetailView data={data} files={[]} />);
+        const fieldElement = screen.getByTestId(testId);
+        expect(fieldElement.textContent).toContain(`0 - ${validSecondValue}`);
+      });
+
+      it(`should render ${label} with zero as second value`, () => {
+        const data = createMockData({
+          [datafield]: validFirstValue,
+          [pairedField]: 0,
+        });
+        render(<DataSetDetailView data={data} files={[]} />);
+        const fieldElement = screen.getByTestId(testId);
+        expect(fieldElement.textContent).toContain(`${validFirstValue} - 0`);
+      });
+
+      it(`should render ${label} with both values as zero`, () => {
+        const data = createMockData({
+          [datafield]: 0,
+          [pairedField]: 0,
+        });
+        render(<DataSetDetailView data={data} files={[]} />);
+        const fieldElement = screen.getByTestId(testId);
+        expect(fieldElement.textContent).toContain('0 - 0');
+      });
+
+      it(`should display label "${label}"`, () => {
+        const data = createMockData({
+          [datafield]: validFirstValue,
+          [pairedField]: validSecondValue,
+        });
+        render(<DataSetDetailView data={data} files={[]} />);
+        expect(screen.getByText(label)).toBeInTheDocument();
+      });
+    },
+  );
 });
 
 // Edge case tests with mocked config

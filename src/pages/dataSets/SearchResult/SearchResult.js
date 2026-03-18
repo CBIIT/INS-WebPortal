@@ -330,20 +330,22 @@ const SearchResultContainer = styled.div`
 `;
 
 // Configuration for hidden fields that appear as "Other Match in..." when highlighted
+// Display names match the Dataset Details page headers
 const HIDDEN_FIELDS_CONFIG = [
-  { fieldName: 'dataset_source_url', displayName: 'study page' },
-  { fieldName: 'PI_name', displayName: 'PI name' },
-  { fieldName: 'dataset_pmid', displayName: 'dataset pmid' },
-  { fieldName: 'funding_source', displayName: 'funding source' },
-  { fieldName: 'related_diseases', displayName: 'related diseases' },
-  { fieldName: 'related_terms', displayName: 'related terms' },
-  { fieldName: 'study_links', displayName: 'study links' },
-  { fieldName: 'related_genes', displayName: 'related genes' },
-  { fieldName: 'assay_method', displayName: 'assay method' },
-  { fieldName: 'limitations_for_reuse', displayName: 'limitations for reuse' },
+  { fieldName: 'dataset_source_url', displayName: 'Study Page' },
+  { fieldName: 'PI_name', displayName: 'Investigator(s)' },
+  { fieldName: 'dataset_pmid', displayName: 'Cited Publication PMID(s)' },
+  { fieldName: 'funding_source', displayName: 'Funding Source(s)' },
+  { fieldName: 'related_diseases', displayName: 'Related Diseases' },
+  { fieldName: 'related_terms', displayName: 'Related Terms' },
+  { fieldName: 'study_links', displayName: 'Related Link(s)' },
+  { fieldName: 'related_genes', displayName: 'Related Genes' },
+  { fieldName: 'assay_method', displayName: 'Assay Method' },
+  { fieldName: 'limitations_for_reuse', displayName: 'Limitations for Reuse' },
   { fieldName: 'dataset_doc', displayName: 'NCI Division/Office/Center' },
-  { fieldName: 'institute', displayName: 'institute' },
-  { fieldName: 'experimental_approaches', displayName: 'experimental approaches' },
+  { fieldName: 'institute', displayName: 'Institute' },
+  { fieldName: 'experimental_approaches', displayName: 'Experimental Approaches' },
+  { fieldName: 'dataset_storage_distribution', displayName: 'Data Storage and Distribution Platform' },
 ];
 
 const SearchResult = ({

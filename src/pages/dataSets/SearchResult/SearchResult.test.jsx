@@ -22,6 +22,9 @@ jest.mock('bootstrap', () => ({
 // Mock html-react-parser
 jest.mock('html-react-parser', () => jest.fn((str) => str));
 
+// Helper function to escape special regex characters in a string
+const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 // Helper function to create a mock result with configurable fields
 // Usage: createMockResult({ sample_count: 100, study_type: 'Clinical Trial' })
 // With highlights: createMockResult({
@@ -56,6 +59,7 @@ const createMockResult = (overrides = {}) => {
       dataset_doc: 'Doc 1',
       institute: 'Test Institute',
       experimental_approaches: 'Test Approach',
+      dataset_storage_distribution: 'Test Storage Platform',
       ...contentOverrides,
     },
     highlight: highlight || {},
@@ -381,8 +385,8 @@ describe('Basic Functionality', () => {
       renderWithRouter(<SearchResult {...props} />);
 
       // "Repository" is in dataset_source_repo filter
-      // So it should NOT appear as "Other Match in PI name" even though PI_name contains it
-      expect(screen.queryByText(/Other Match in PI name/i)).not.toBeInTheDocument();
+      // So it should NOT appear as "Other Match in Investigator(s)" even though PI_name contains it
+      expect(screen.queryByText(/Other Match in Investigator\(s\)/i)).not.toBeInTheDocument();
     });
 
     it('should NOT highlight filter values when both primary_disease and dataset_source_repo filters are present', () => {
@@ -676,18 +680,18 @@ describe('Hidden Fields - Additional Matches', () => {
   // Test configuration for hidden fields that appear as "Other Match in..."
   // This should match all fields in the hideContent array in SearchResult.js
   const hiddenFields = [
-    { fieldName: 'dataset_source_url', displayName: 'study page', searchTerm: 'example.com' },
-    { fieldName: 'PI_name', displayName: 'PI name', searchTerm: 'Smith' },
-    { fieldName: 'dataset_pmid', displayName: 'dataset pmid', searchTerm: '12345' },
-    { fieldName: 'funding_source', displayName: 'funding source', searchTerm: 'NIH' },
-    { fieldName: 'related_diseases', displayName: 'related diseases', searchTerm: 'Diabetes' },
-    { fieldName: 'related_terms', displayName: 'related terms', searchTerm: 'genomics' },
-    { fieldName: 'study_links', displayName: 'study links', searchTerm: 'http' },
-    { fieldName: 'related_genes', displayName: 'related genes', searchTerm: 'BRCA1' },
-    { fieldName: 'assay_method', displayName: 'assay method', searchTerm: 'RNA-seq' },
+    { fieldName: 'dataset_source_url', displayName: 'Study Page', searchTerm: 'example.com' },
+    { fieldName: 'PI_name', displayName: 'Investigator(s)', searchTerm: 'Smith' },
+    { fieldName: 'dataset_pmid', displayName: 'Cited Publication PMID(s)', searchTerm: '12345' },
+    { fieldName: 'funding_source', displayName: 'Funding Source(s)', searchTerm: 'NIH' },
+    { fieldName: 'related_diseases', displayName: 'Related Diseases', searchTerm: 'Diabetes' },
+    { fieldName: 'related_terms', displayName: 'Related Terms', searchTerm: 'genomics' },
+    { fieldName: 'study_links', displayName: 'Related Link(s)', searchTerm: 'http' },
+    { fieldName: 'related_genes', displayName: 'Related Genes', searchTerm: 'BRCA1' },
+    { fieldName: 'assay_method', displayName: 'Assay Method', searchTerm: 'RNA-seq' },
     {
       fieldName: 'limitations_for_reuse',
-      displayName: 'limitations for reuse',
+      displayName: 'Limitations for Reuse',
       searchTerm: 'restriction',
     },
     {
@@ -695,11 +699,16 @@ describe('Hidden Fields - Additional Matches', () => {
       displayName: 'NCI Division/Office/Center',
       searchTerm: 'Division',
     },
-    { fieldName: 'institute', displayName: 'institute', searchTerm: 'Institute' },
+    { fieldName: 'institute', displayName: 'Institute', searchTerm: 'Institute' },
     {
       fieldName: 'experimental_approaches',
-      displayName: 'experimental approaches',
+      displayName: 'Experimental Approaches',
       searchTerm: 'approach',
+    },
+    {
+      fieldName: 'dataset_storage_distribution',
+      displayName: 'Data Storage and Distribution Platform',
+      searchTerm: 'storage',
     },
   ];
 
@@ -720,7 +729,7 @@ describe('Hidden Fields - Additional Matches', () => {
 
       renderWithRouter(<SearchResult {...props} />);
 
-      expect(screen.queryByText(new RegExp(`Other Match in ${displayName}`, 'i')))
+      expect(screen.queryByText(new RegExp(`Other Match in ${escapeRegExp(displayName)}`, 'i')))
         .not.toBeInTheDocument();
     });
 
@@ -744,7 +753,7 @@ describe('Hidden Fields - Additional Matches', () => {
 
       renderWithRouter(<SearchResult {...props} />);
 
-      expect(screen.getByText(new RegExp(`Other Match in ${displayName}`, 'i')))
+      expect(screen.getByText(new RegExp(`Other Match in ${escapeRegExp(displayName)}`, 'i')))
         .toBeInTheDocument();
       // Verify the highlighted value is shown
       const matchElement = screen.getByTestId('additional-match');
@@ -767,7 +776,7 @@ describe('Hidden Fields - Additional Matches', () => {
 
       renderWithRouter(<SearchResult {...props} />);
 
-      expect(screen.queryByText(new RegExp(`Other Match in ${displayName}`, 'i')))
+      expect(screen.queryByText(new RegExp(`Other Match in ${escapeRegExp(displayName)}`, 'i')))
         .not.toBeInTheDocument();
     });
 
@@ -787,7 +796,7 @@ describe('Hidden Fields - Additional Matches', () => {
 
       renderWithRouter(<SearchResult {...props} />);
 
-      expect(screen.queryByText(new RegExp(`Other Match in ${displayName}`, 'i')))
+      expect(screen.queryByText(new RegExp(`Other Match in ${escapeRegExp(displayName)}`, 'i')))
         .not.toBeInTheDocument();
     });
   });
@@ -814,11 +823,11 @@ describe('Hidden Fields - Additional Matches', () => {
     renderWithRouter(<SearchResult {...props} />);
 
     // Should find matches in both fields that backend highlighted
-    expect(screen.getByText(/Other Match in related genes/i)).toBeInTheDocument();
-    expect(screen.getByText(/Other Match in funding source/i)).toBeInTheDocument();
+    expect(screen.getByText(/Other Match in Related Genes/i)).toBeInTheDocument();
+    expect(screen.getByText(/Other Match in Funding Source\(s\)/i)).toBeInTheDocument();
 
     // Should NOT find match in PI_name (backend didn't highlight it)
-    expect(screen.queryByText(/Other Match in PI name/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Other Match in Investigator\(s\)/i)).not.toBeInTheDocument();
 
     // Verify the highlighted values are correctly displayed
     const additionalMatchElements = screen.getAllByTestId('additional-match');
@@ -854,7 +863,7 @@ describe('Hidden Fields - Additional Matches', () => {
 
     renderWithRouter(<SearchResult {...props} />);
 
-    expect(screen.getByText(/Other Match in funding source/i)).toBeInTheDocument();
+    expect(screen.getByText(/Other Match in Funding Source\(s\)/i)).toBeInTheDocument();
   });
 
   it('should NOT display hidden fields when there is no search text', () => {
@@ -895,7 +904,7 @@ describe('Hidden Fields - Additional Matches', () => {
 
     renderWithRouter(<SearchResult {...props} />);
 
-    expect(screen.getByText(/Other Match in related diseases/i)).toBeInTheDocument();
+    expect(screen.getByText(/Other Match in Related Diseases/i)).toBeInTheDocument();
   });
 
   describe('Highlighting', () => {
