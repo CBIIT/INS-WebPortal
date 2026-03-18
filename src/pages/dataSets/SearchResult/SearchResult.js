@@ -13,7 +13,7 @@ import dataResourceIcon from '../../../assets/img/DataResource.png';
 import {
   externalLinkIcon,
 } from '../../../bento/datasetDetailData';
-import { formatSemicolonSeparatedString } from '../../../utils/formatString';
+import formatSemicolonSeparatedString from '../../../utils/formatString';
 
 const SearchResultContainer = styled.div`
   width: 100%;

@@ -16,7 +16,7 @@ import {
 } from '../../bento/datasetDetailData';
 import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
-import { formatSemicolonSeparatedString } from '../../utils/formatString';
+import formatSemicolonSeparatedString from '../../utils/formatString';
 
 const BASE_LOGO_MARGIN = -16;
 
