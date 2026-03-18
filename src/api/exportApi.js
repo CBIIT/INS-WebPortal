@@ -8,6 +8,13 @@ export async function getSearchResult(body) {
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' },
   });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    const message = `Export request failed with status ${response.status} ${response.statusText || ''}`.trim();
+    throw new Error(errorText ? `${message}: ${errorText}` : message);
+  }
+
   const blob = await response.blob();
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -28,6 +35,7 @@ export async function getSearchResult(body) {
   // Set the filename dynamically
   a.download = `INS datasets download ${date} ${timestamp}.csv`;
   a.click();
+  window.URL.revokeObjectURL(url);
 }
 
 export default getSearchResult;
