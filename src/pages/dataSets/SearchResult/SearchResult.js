@@ -410,6 +410,15 @@ const SearchResult = ({
   }
 
   /**
+   * Formats semicolon-separated values by ensuring consistent spacing
+   * Converts "Value1;Value2" or "Value1;  Value2" to "Value1; Value2"
+   */
+  function formatSemicolonSeparatedString(str) {
+    if (!str) return '';
+    return str.split(';').map((item) => item.trim()).join('; ');
+  }
+
+  /**
    * Gets description value with proper truncation logic
    * Backend provides full description; frontend truncates if no match
    */
@@ -468,7 +477,8 @@ const SearchResult = ({
             HIDDEN_FIELDS_CONFIG.forEach(({ fieldName, displayName }) => {
               if (shouldShowHiddenField(rst, fieldName)) {
                 const highlightedValue = getHighlightedValue(rst, fieldName);
-                additionalMatches.push({ displayName, highlightedValue });
+                const formattedValue = formatSemicolonSeparatedString(highlightedValue);
+                additionalMatches.push({ displayName, highlightedValue: formattedValue });
               }
             });
 
