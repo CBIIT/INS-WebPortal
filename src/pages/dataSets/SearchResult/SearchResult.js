@@ -13,6 +13,7 @@ import dataResourceIcon from '../../../assets/img/DataResource.png';
 import {
   externalLinkIcon,
 } from '../../../bento/datasetDetailData';
+import { formatSemicolonSeparatedString } from '../../../utils/formatString';
 
 const SearchResultContainer = styled.div`
   width: 100%;
@@ -407,15 +408,6 @@ const SearchResult = ({
     // Pattern: <(?!\/?b(?:\s|>))[^>]*> matches any tag that is NOT <b> or </b>,
     // so the replace call strips all tags while leaving <b> and </b> intact
     return str.replace(/<(?!\/?b(?:\s|>))[^>]*>/gi, '');
-  }
-
-  /**
-   * Formats semicolon-separated values by ensuring consistent spacing
-   * Converts "Value1;Value2" or "Value1;  Value2" to "Value1; Value2"
-   */
-  function formatSemicolonSeparatedString(str) {
-    if (!str) return '';
-    return str.split(';').map((item) => item.trim()).join('; ');
   }
 
   /**

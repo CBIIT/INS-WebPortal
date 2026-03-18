@@ -16,6 +16,7 @@ import {
 } from '../../bento/datasetDetailData';
 import resourceLinkDownloadIcon from '../../assets/icons/resourceLinkDownload.svg';
 import helpIcon from '../../assets/icons/help.svg';
+import { formatSemicolonSeparatedString } from '../../utils/formatString';
 
 const BASE_LOGO_MARGIN = -16;
 
@@ -87,8 +88,6 @@ const DataSetDetailView = ({
   const truncatedExperimentalApproaches = plainExperimentalApproaches && plainExperimentalApproaches.length > descMaxLength
     ? `${plainExperimentalApproaches.substring(0, descMaxLength)}...`
     : plainExperimentalApproaches;
-
-  const formatSemicolonSeparatedString = (str) => str.split(';').map((item) => item.trim()).join('; ');
 
   // Helper function to format text using textFormat array
   const formatTextFromArray = (textFormatArray) => {
