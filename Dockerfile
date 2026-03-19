@@ -1,4 +1,4 @@
-FROM node:20.19.6-alpine3.23 as build
+FROM node:20.19.6-alpine3.23 AS build
 
 
 WORKDIR /usr/src/app
@@ -14,7 +14,7 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm set progress=false
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm ci --legacy-peer-deps
 RUN NODE_OPTIONS="--openssl-legacy-provider" npm run build --silent
 
-FROM nginx:1.29.4-alpine3.23-slim AS fnl_base_image
+FROM nginx:1.29.6-alpine3.23-slim AS fnl_base_image
 
 RUN apk update && apk upgrade libxml2
 
