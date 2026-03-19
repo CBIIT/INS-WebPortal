@@ -16,7 +16,8 @@ RUN NODE_OPTIONS="--openssl-legacy-provider" npm run build --silent
 
 FROM nginx:1.29.6-alpine3.23-slim AS fnl_base_image
 
-RUN apk update && apk upgrade libxml2
+# zlib: CVE-2026-22184
+RUN apk update && apk upgrade libxml2 && apk add --no-cache --upgrade zlib=1.3.2-r0
 
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 COPY --from=build /usr/src/app/config/inject.template.js /usr/share/nginx/html/inject.template.js
