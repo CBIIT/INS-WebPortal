@@ -866,6 +866,31 @@ describe('Hidden Fields - Additional Matches', () => {
     expect(screen.getByText(/Other Match in Funding Source\(s\)/i)).toBeInTheDocument();
   });
 
+  it('should format semicolon-separated values with consistent spacing', () => {
+    // Test that "Value1;Value2" or "Value1;  Value2" becomes "Value1; Value2"
+    const mockResult = createMockResult({
+      related_genes: 'BRCA1;TP53;EGFR',
+      highlight: {
+        related_genes: ['<b>BRCA1</b>;TP53;EGFR'],
+      },
+    });
+    const props = {
+      ...defaultProps,
+      search: {
+        search_text: 'BRCA1',
+        filters: {},
+      },
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    const matchElement = screen.getByTestId('additional-match');
+    // Should have proper spacing after semicolons
+    // html-react-parser mock returns string as-is, so formatted value is "<b>BRCA1</b>; TP53; EGFR"
+    expect(matchElement.textContent).toContain('; TP53; EGFR');
+  });
+
   it('should NOT display hidden fields when there is no search text', () => {
     const mockResult = createMockResult({
       PI_name: 'Dr. Smith',
