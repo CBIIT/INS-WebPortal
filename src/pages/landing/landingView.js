@@ -401,7 +401,7 @@ const LandingView = ({ classes, statsData }) => {
                   </div>
                 </div>
                 <div className={classes.contentRightBottom}>
-                  <div className={classes.cases} id="tile4_image" role="img" aria-label={landingPageData.tile4.alt}>
+                  <div className={classes.cases} id="tile4_image" role="group" aria-label={landingPageData.tile4.alt}>
                     <div className={classes.mountainMeadowContentHeader} id="tile4_title">
                       {landingPageData.tile4.titleText}
                     </div>

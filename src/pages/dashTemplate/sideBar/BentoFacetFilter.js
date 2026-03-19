@@ -142,8 +142,9 @@ const BentoFacetFilter = ({
             alt={resetIcon.alt}
           />
         </Button>
-        <span className={disable
-          ? classes.resetTextDisabled : classes.resetText}
+        <span
+          className={disable ? classes.resetTextDisabled : classes.resetText}
+          aria-disabled={disable}
         >
           Clear all filtered selections
         </span>
