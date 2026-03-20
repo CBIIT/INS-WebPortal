@@ -3,9 +3,15 @@ import env from '../utils/env';
 const baseUrl = env.REACT_APP_REST_BACKEND_API;
 
 export async function getSearchResult(body) {
+  // TODO: Chunk the export request pages
+  const { pageInfo, ...searchBody } = body || {};
+  const totalItems = pageInfo.total || 10000;
   const response = await fetch(`${baseUrl}export`, {
     method: 'POST',
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      ...searchBody,
+      pageInfo: { page: 1, pageSize: totalItems },
+    }),
     headers: { 'Content-Type': 'application/json' },
   });
 
