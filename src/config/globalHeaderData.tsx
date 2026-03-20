@@ -2,6 +2,8 @@ import Logo from '../assets/header/Logo.svg';
 import searchbarIcon from '../assets/header/Search_Icon.svg';
 import usaFlagSmall from '../assets/header/us_flag_small.svg';
 
+export const RELEASE_NOTES_LINK = '/Release_v3.3.0.pdf';
+
 export type NavItemClassName =
   | 'navMobileItem'
   | 'navMobileItem clickable'
@@ -129,7 +131,7 @@ export const navbarSublists: { [key: string]: NavItem[] } = {
     },
     {
       name: 'Release Notes (PDF)',
-      link: '/Release_v3.2.0.pdf',
+      link: RELEASE_NOTES_LINK,
       id: 'navbar-dropdown-item-release-notes',
       className: 'navMobileSubItem',
       externalLink: true,
