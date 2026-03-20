@@ -110,6 +110,21 @@ describe('Basic Functionality', () => {
     ).toBeInTheDocument();
   });
 
+  it('should link to dataset detail page using dataset_uuid', () => {
+    const mockResult = createMockResult({
+      dataset_uuid: 'test-uuid-abc-123',
+    });
+    const props = {
+      ...defaultProps,
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    const link = screen.getByTestId('dataset-title-link');
+    expect(link).toHaveAttribute('href', '/dataset/test-uuid-abc-123');
+  });
+
   it('should still render other dataset information when optional fields are not present', () => {
     const mockResultWithoutOptionalFields = createMockResult({
       sample_count: null,

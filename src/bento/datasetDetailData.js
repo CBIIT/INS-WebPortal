@@ -233,7 +233,7 @@ const additionalDetailsFields = [
   },
 ];
 
-// --------------- GraphQL query - Retrieve program details --------------
+// --------------- GraphQL query - Retrieve dataset details --------------
 const getDataSetDetailDataQuery = gql`
 query datasetDetails($dataset_uuid: String!) {
     datasetDetails(dataset_uuid: $dataset_uuid) {
