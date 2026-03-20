@@ -4,8 +4,8 @@ const baseUrl = env.REACT_APP_REST_BACKEND_API;
 
 export async function getSearchResult(body) {
   // TODO: Chunk the export request pages
-  const { pageInfo, ...searchBody } = body || {};
-  const totalItems = pageInfo.total || 10000;
+  const { pageInfo = {}, ...searchBody } = body || {};
+  const totalItems = typeof pageInfo.total === 'number' ? pageInfo.total : 10000;
   const response = await fetch(`${baseUrl}export`, {
     method: 'POST',
     body: JSON.stringify({
