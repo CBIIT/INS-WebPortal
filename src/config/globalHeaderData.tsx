@@ -1,7 +1,8 @@
 import Logo from '../assets/header/Logo.svg';
 import searchbarIcon from '../assets/header/Search_Icon.svg';
 import usaFlagSmall from '../assets/header/us_flag_small.svg';
-import { RELEASE_NOTES_LINK } from '../bento/globalFooterData';
+
+export const RELEASE_NOTES_LINK = '/Release_v3.3.0.pdf';
 
 export type NavItemClassName =
   | 'navMobileItem'

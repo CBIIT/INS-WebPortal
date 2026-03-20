@@ -3,7 +3,7 @@ import twitterIcon from '../assets/footer/Twitter_Logo.svg';
 import facebookIcon from '../assets/footer/Facebook_Logo.svg';
 import youtubeIcon from '../assets/footer/Youtube_Logo.svg';
 import linkedInIcon from '../assets/footer/LinkedIn_Logo.svg';
-import { RELEASE_NOTES_LINK } from '../bento/globalFooterData';
+import { RELEASE_NOTES_LINK } from './globalHeaderData.tsx';
 // footerLogoImage ideal image size 310x80 px
 
 export default {

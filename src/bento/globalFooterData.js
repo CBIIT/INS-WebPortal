@@ -1,7 +1,6 @@
 import env from '../utils/env';
+import { RELEASE_NOTES_LINK } from '../config/globalHeaderData.tsx';
 // footerLogoImage ideal image size 310x80 px
-
-export const RELEASE_NOTES_LINK = '/Release_v3.3.0.pdf';
 
 export default {
   footerLogoText: 'National Cancer Institute',

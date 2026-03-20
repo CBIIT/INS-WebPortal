@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { RELEASE_NOTES_LINK } from '../../bento/globalFooterData';
+import { RELEASE_NOTES_LINK } from '../../config/globalHeaderData.tsx';
 
 const Nav = styled.div`
   position: relative;
