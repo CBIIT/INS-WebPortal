@@ -235,7 +235,7 @@ const additionalDetailsFields = [
 
 // --------------- GraphQL query - Retrieve program details --------------
 const getDataSetDetailDataQuery = gql`
-query datasetDetails($dataset_uuid: String) {
+query datasetDetails($dataset_uuid: String!) {
     datasetDetails(dataset_uuid: $dataset_uuid) {
         dataset_uuid
         assay_method
