@@ -1,4 +1,4 @@
-import getSearchResult from './exportApi';
+import getSearchResultUtil from './exportApi';
 import env from '../utils/env';
 
 // Mock the env module
@@ -6,7 +6,7 @@ jest.mock('../utils/env', () => ({
   REACT_APP_REST_BACKEND_API: 'http://api.example.com/',
 }));
 
-describe('getSearchResult tests', () => {
+describe('getSearchResultUtil tests', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     // Mock window methods
@@ -38,14 +38,14 @@ describe('getSearchResult tests', () => {
       pageInfo: { total: 100 },
     };
 
-    await getSearchResult(body);
+    await getSearchResultUtil(body);
 
     expect(global.fetch).toHaveBeenCalledWith(
       'http://api.example.com/export',
       expect.objectContaining({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-      })
+      }),
     );
   });
 
@@ -62,7 +62,7 @@ describe('getSearchResult tests', () => {
       pageInfo: { page: 2, total: 500 },
     };
 
-    await getSearchResult(body);
+    await getSearchResultUtil(body);
 
     const callArgs = global.fetch.mock.calls[0][1];
     const requestBody = JSON.parse(callArgs.body);
@@ -87,7 +87,7 @@ describe('getSearchResult tests', () => {
       pageInfo: {},
     };
 
-    await getSearchResult(body);
+    await getSearchResultUtil(body);
 
     const callArgs = global.fetch.mock.calls[0][1];
     const requestBody = JSON.parse(callArgs.body);
@@ -102,7 +102,7 @@ describe('getSearchResult tests', () => {
       blob: jest.fn().mockResolvedValueOnce(mockBlob),
     });
 
-    await getSearchResult(null);
+    await getSearchResultUtil(null);
 
     const callArgs = global.fetch.mock.calls[0][1];
     const requestBody = JSON.parse(callArgs.body);
@@ -117,7 +117,7 @@ describe('getSearchResult tests', () => {
       blob: jest.fn().mockResolvedValueOnce(mockBlob),
     });
 
-    await getSearchResult(undefined);
+    await getSearchResultUtil(undefined);
 
     const callArgs = global.fetch.mock.calls[0][1];
     const requestBody = JSON.parse(callArgs.body);
@@ -141,7 +141,7 @@ describe('getSearchResult tests', () => {
       click: clickSpy,
     });
 
-    await getSearchResult({ pageInfo: { total: 100 } });
+    await getSearchResultUtil({ pageInfo: { total: 100 } });
 
     const aElement = createElementSpy.mock.results[0].value;
     expect(aElement.download).toMatch(/^INS datasets download \d{4}-\d{2}-\d{2} \d{2}-\d{2}-\d{2}\.csv$/);
@@ -167,7 +167,7 @@ describe('getSearchResult tests', () => {
     const mockDate = new Date('2026-03-20T14:30:45');
     jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
 
-    await getSearchResult({ pageInfo: { total: 100 } });
+    await getSearchResultUtil({ pageInfo: { total: 100 } });
 
     const aElement = createElementSpy.mock.results[0].value;
     expect(aElement.download).toBe('INS datasets download 2026-03-20 14-30-45.csv');
@@ -189,7 +189,7 @@ describe('getSearchResult tests', () => {
       click: clickSpy,
     });
 
-    await getSearchResult({ pageInfo: { total: 100 } });
+    await getSearchResultUtil({ pageInfo: { total: 100 } });
 
     expect(clickSpy).toHaveBeenCalled();
   });
@@ -209,7 +209,7 @@ describe('getSearchResult tests', () => {
       click: jest.fn(),
     });
 
-    await getSearchResult({ pageInfo: { total: 100 } });
+    await getSearchResultUtil({ pageInfo: { total: 100 } });
 
     expect(window.URL.revokeObjectURL).toHaveBeenCalledWith('blob:mock-url');
   });
@@ -224,8 +224,8 @@ describe('getSearchResult tests', () => {
 
     const body = { search_text: 'test', pageInfo: { total: 100 } };
 
-    await expect(getSearchResult(body)).rejects.toThrow(
-      'Export request failed with status 400 Bad Request: Invalid search criteria'
+    await expect(getSearchResultUtil(body)).rejects.toThrow(
+      'Export request failed with status 400 Bad Request: Invalid search criteria',
     );
   });
 
@@ -239,8 +239,8 @@ describe('getSearchResult tests', () => {
 
     const body = { search_text: 'test', pageInfo: { total: 100 } };
 
-    await expect(getSearchResult(body)).rejects.toThrow(
-      'Export request failed with status 500 Internal Server Error'
+    await expect(getSearchResultUtil(body)).rejects.toThrow(
+      'Export request failed with status 500 Internal Server Error',
     );
   });
 
@@ -254,8 +254,8 @@ describe('getSearchResult tests', () => {
 
     const body = { search_text: 'test', pageInfo: { total: 100 } };
 
-    await expect(getSearchResult(body)).rejects.toThrow(
-      'Export request failed with status 403: Forbidden'
+    await expect(getSearchResultUtil(body)).rejects.toThrow(
+      'Export request failed with status 403: Forbidden',
     );
   });
 
@@ -273,7 +273,7 @@ describe('getSearchResult tests', () => {
       pageInfo: { page: 5, pageSize: 20, total: 1000 },
     };
 
-    await getSearchResult(body);
+    await getSearchResultUtil(body);
 
     const callArgs = global.fetch.mock.calls[0][1];
     const requestBody = JSON.parse(callArgs.body);
@@ -290,7 +290,7 @@ describe('getSearchResult tests', () => {
 
     const body = { search_text: 'test', pageInfo: { total: 100 } };
 
-    await expect(getSearchResult(body)).rejects.toThrow('Network request failed');
+    await expect(getSearchResultUtil(body)).rejects.toThrow('Network request failed');
   });
 
   it('should set blob as href on the anchor element', async () => {
@@ -307,7 +307,7 @@ describe('getSearchResult tests', () => {
       click: jest.fn(),
     });
 
-    await getSearchResult({ pageInfo: { total: 100 } });
+    await getSearchResultUtil({ pageInfo: { total: 100 } });
 
     const aElement = createElementSpy.mock.results[0].value;
     expect(aElement.href).toBe('blob:mock-url');
@@ -322,7 +322,7 @@ describe('getSearchResult tests', () => {
 
     const body = { pageInfo: { total: 0 } };
 
-    await getSearchResult(body);
+    await getSearchResultUtil(body);
 
     const callArgs = global.fetch.mock.calls[0][1];
     const requestBody = JSON.parse(callArgs.body);
@@ -339,7 +339,7 @@ describe('getSearchResult tests', () => {
 
     const body = { pageInfo: { total: 1000000 } };
 
-    await getSearchResult(body);
+    await getSearchResultUtil(body);
 
     const callArgs = global.fetch.mock.calls[0][1];
     const requestBody = JSON.parse(callArgs.body);
