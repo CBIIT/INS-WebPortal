@@ -1,6 +1,8 @@
 import env from '../utils/env';
 // footerLogoImage ideal image size 310x80 px
 
+export const RELEASE_NOTES_LINK = '/Release_v3.3.0.pdf';
+
 export default {
   footerLogoText: 'National Cancer Institute',
   footerLogoSubText: 'at the National Institutes of Health',
@@ -33,7 +35,7 @@ export default {
       items: [
         {
           text: 'Release Notes',
-          link: 'Release_v3.2.0.pdf',
+          link: RELEASE_NOTES_LINK,
         },
         {
           text: `FE Version: ${env.REACT_APP_FE_VERSION || '3.2.0'}`,
