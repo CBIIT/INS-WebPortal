@@ -34,8 +34,9 @@ const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 // Note: highlight keys match the field name directly and map to arrays of
 // HTML-highlighted strings as returned by the search backend
 const createMockResult = (overrides = {}) => {
-  const { highlight, ...contentOverrides } = overrides;
+  const { highlight, dataset_uuid, ...contentOverrides } = overrides;
   return {
+    dataset_uuid: dataset_uuid || 'test-uuid-1234-5678',
     content: {
       // Required/visible fields
       dataset_title: 'Test Dataset',
@@ -107,6 +108,21 @@ describe('Basic Functionality', () => {
     expect(
       screen.getByText(/No result found. Please refine your search./i),
     ).toBeInTheDocument();
+  });
+
+  it('should link to dataset detail page using dataset_uuid', () => {
+    const mockResult = createMockResult({
+      dataset_uuid: 'test-uuid-abc-123',
+    });
+    const props = {
+      ...defaultProps,
+      resultList: [mockResult],
+    };
+
+    renderWithRouter(<SearchResult {...props} />);
+
+    const link = screen.getByTestId('dataset-title-link');
+    expect(link).toHaveAttribute('href', '/dataset/test-uuid-abc-123');
   });
 
   it('should still render other dataset information when optional fields are not present', () => {

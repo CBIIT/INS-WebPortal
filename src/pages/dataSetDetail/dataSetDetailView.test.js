@@ -60,6 +60,7 @@ jest.mock('@bento-core/util', () => ({
 
 // Helper function to create mock data
 const createMockData = (overrides = {}) => ({
+  dataset_uuid: 'test-uuid-1234-5678',
   dataset_title: 'Test Dataset',
   dataset_source_id: 'TEST-001',
   dataset_source_repo: 'Test Repository',
