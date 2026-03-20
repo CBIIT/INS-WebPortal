@@ -11,7 +11,7 @@ const DataSetDetailContainer = ({ match }) => {
     error: detailsError,
     data: detailsData,
   } = useQuery(getDataSetDetailDataQuery, {
-    variables: { dataset_source_id: match.params.id },
+    variables: { dataset_uuid: match.params.id },
   });
 
   const {
@@ -20,7 +20,7 @@ const DataSetDetailContainer = ({ match }) => {
     data: filesData,
   } = useQuery(getDatasetFilesQuery, {
     variables: {
-      dataset_source_id: match.params.id,
+      dataset_uuid: match.params.id,
       accessTypes: ['Open'],
     },
   });

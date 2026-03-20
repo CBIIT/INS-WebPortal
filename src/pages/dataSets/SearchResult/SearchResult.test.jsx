@@ -34,8 +34,9 @@ const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 // Note: highlight keys match the field name directly and map to arrays of
 // HTML-highlighted strings as returned by the search backend
 const createMockResult = (overrides = {}) => {
-  const { highlight, ...contentOverrides } = overrides;
+  const { highlight, dataset_uuid, ...contentOverrides } = overrides;
   return {
+    dataset_uuid: dataset_uuid || 'test-uuid-1234-5678',
     content: {
       // Required/visible fields
       dataset_title: 'Test Dataset',

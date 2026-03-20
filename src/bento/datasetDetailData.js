@@ -235,8 +235,9 @@ const additionalDetailsFields = [
 
 // --------------- GraphQL query - Retrieve program details --------------
 const getDataSetDetailDataQuery = gql`
-query datasetDetails($dataset_source_id: String) {
-    datasetDetails(dataset_source_id: $dataset_source_id) {
+query datasetDetails($dataset_uuid: String) {
+    datasetDetails(dataset_uuid: $dataset_uuid) {
+        dataset_uuid
         assay_method
         dataset_doc
         dataset_maximum_age_at_baseline
@@ -271,11 +272,11 @@ query datasetDetails($dataset_source_id: String) {
 // --------------- GraphQL query - Retrieve dataset files --------------
 const getDatasetFilesQuery = gql`
 query getDatasetFiles(
-  $dataset_source_id: String!,
+  $dataset_uuid: String!,
   $accessTypes: [String!]!
 ) {
   getDatasetFiles(
-    dataset_source_id: $dataset_source_id,
+    dataset_uuid: $dataset_uuid,
     accessTypes: $accessTypes
   ) {
     downloadUrl

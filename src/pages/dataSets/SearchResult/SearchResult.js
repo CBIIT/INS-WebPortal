@@ -481,7 +481,7 @@ const SearchResult = ({
               <div key={keyName} className="container">
                 <div className="row align-items-start headerRow">
                   <div className="col-sm resultTitle">
-                    <Link to={`/dataset/${rst.content.dataset_source_id}`}>
+                    <Link to={`/dataset/${rst.dataset_uuid}`}>
                       {rst.content.dataset_title}
                     </Link>
                   </div>
