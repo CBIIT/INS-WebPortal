@@ -1,7 +1,7 @@
 {
   "homepage": ".",
   "name": "bento-frontend",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.6.9",
