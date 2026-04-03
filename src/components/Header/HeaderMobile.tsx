@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from "./components/LogoMobile.tsx";
 import SearchBar from "./components/SearchBarMobile.tsx";
+import NavMobileSubItem from "./components/NavMobileSubItem.tsx";
 import menuClearIcon from '../../assets/header/Menu_Cancel_Icon.svg';
 import rightArrowIcon from '../../assets/header/Right_Arrow.svg';
 import leftArrowIcon from '../../assets/header/Left_Arrow.svg';
@@ -230,11 +231,26 @@ const Header = () => {
               {
                 navbarMobileList.map((navMobileItem, idx) => {
                   const mobilekey = `mobile_${idx}`;
+                  const isExternal = navMobileItem.externalLink || navMobileItem.link.startsWith('http');
                   return (
                     <React.Fragment key={mobilekey}>
-                      {navMobileItem.className === 'navMobileItem' && <NavLink id={navMobileItem.id} to={navMobileItem.link} onClick={() => setNavMobileDisplay('none')}><div className="navMobileItem">{navMobileItem.name}</div></NavLink>}
+                      {navMobileItem.className === 'navMobileItem' && (isExternal
+                        ? (
+                          <a
+                            id={navMobileItem.id}
+                            href={navMobileItem.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setNavMobileDisplay('none')}
+                          >
+                            <div className="navMobileItem">{navMobileItem.name}</div>
+                          </a>
+                        )
+                        : <NavLink id={navMobileItem.id} to={navMobileItem.link} onClick={() => setNavMobileDisplay('none')}><div className="navMobileItem">{navMobileItem.name}</div></NavLink>)}
                       {navMobileItem.className === 'navMobileItem clickable' && <div id={navMobileItem.id} role="button" tabIndex={0} className="navMobileItem clickable" onKeyDown={(e) => { if (e.key === "Enter") { clickNavItem(e); } }} onClick={clickNavItem}>{navMobileItem.name}</div>}
-                      {navMobileItem.className === 'navMobileSubItem' && <Link id={navMobileItem.id} to={navMobileItem.link}><div role="button" tabIndex={0} className="navMobileItem SubItem" onKeyDown={(e) => { if (e.key === "Enter") { setNavMobileDisplay('none'); } }} onClick={() => setNavMobileDisplay('none')}>{navMobileItem.name}</div></Link>}
+                      {navMobileItem.className === 'navMobileSubItem' && (
+                        <NavMobileSubItem item={navMobileItem} onClose={() => setNavMobileDisplay('none')} />
+                      )}
                       {navMobileItem.className === 'navMobileSubTitle' && <div className="navMobileItem">{navMobileItem.name}</div>}
                     </React.Fragment>
                   );

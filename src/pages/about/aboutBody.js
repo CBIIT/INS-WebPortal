@@ -174,8 +174,8 @@ const AboutBody = () => (
       </Grid>
       <Grid container className="aboutPageSectionMiddle">
         <Grid item xs={12}>
-          <img className="flowChartSection" src={flowChart} alt="flow_chart" id="flow-chart" />
-          <img className="flowChartSectionMobile" src={flowChart} alt="flow_chart" id="flow-chart-mobile" />
+          <img className="flowChartSection" src={flowChart} alt="Flow chart displaying the relationship between INS research data and the INS site including programs, grants, publications, and datasets" id="flow-chart" />
+          <img className="flowChartSectionMobile" src={flowChart} alt="Flow chart displaying the relationship between INS research data and the INS site including programs, grants, publications, and datasets" id="flow-chart-mobile" />
         </Grid>
       </Grid>
       <Grid container className="aboutPageSectionBottom">

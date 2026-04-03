@@ -184,7 +184,6 @@ const SearchBox = ({
             type="search"
             placeholder="Search Datasets by keywords"
             aria-label="Search Datasets by keywords"
-            aria-describedby="basic-addon"
             value={searchText}
             onChange={(e) => handleTextInputChange(e)}
             onKeyPress={(e) => handleKeyPress(e)}

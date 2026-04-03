@@ -19,10 +19,12 @@ import LastIconImg from './last.svg';
 const PaginationContainer = styled.div`
   display: flex;
   float: right;
+  align-items: center;
+  align-content: center;
 `;
 
 const ResultsPerPage = styled.div`
-  margin: 5px 12px 0 0;
+  margin: 0 12px 7px 0;
   font-family: Lato;
   font-size: 15px;
   font-weight: 400;
@@ -92,7 +94,7 @@ const ResultsPerPage = styled.div`
 
 const PageSummary = styled.div`
   padding: .2rem 1.5rem .2rem 0;
-  margin: 3px 0 0 0;
+  margin: 0 0 4px 0;
   color: #000;
   font-weight: 400;
   font-family: Lato;
@@ -190,44 +192,41 @@ const Pagination = ({
         </PageSummary>
         <PageSelect>
           <BSPagination className="pagination-ccdc">
-            {pageInfo.page === 1 ? (
-              <>
-                <BSPagination className="bspage-link-first-disabled" disabled>
-                  <img src={FirstDisabledIconImg} alt="first-disabled-icon" />
-                </BSPagination>
-                <BSPagination className="bspage-link-prev-disabled" disabled>
-                  <img src={PrevDisabledIconImg} alt="prev-disabled-icon" />
-                </BSPagination>
-              </>
-            ) : (
-              <>
-                <BSPagination className="bspage-link-first" onClick={() => handlePageClick(0)}>
-                  <img src={FirstIconImg} alt="first-icon" />
-                </BSPagination>
-                <BSPagination className="bspage-link-prev" onClick={() => handlePageClick(pageInfo.page - 1)}>
-                  <img src={PrevIconImg} alt="prev-icon" />
-                </BSPagination>
-              </>
-            )}
-            {pageInfo.page === pageCount ? (
-              <>
-                <BSPagination className="bspage-link-next-disabled" disabled>
-                  <img src={NextDisabledIconImg} alt="next-disabled-icon" />
-                </BSPagination>
-                <BSPagination className="bspage-link-last-disabled" disabled>
-                  <img src={LastDisabledIconImg} alt="last-disabled-icon" />
-                </BSPagination>
-              </>
-            ) : (
-              <>
-                <BSPagination className="bspage-link-next" onClick={() => handlePageClick(pageInfo.page + 1)}>
-                  <img src={NextIconImg} alt="next-icon" />
-                </BSPagination>
-                <BSPagination className="bspage-link-last" onClick={() => handlePageClick(pageCount)}>
-                  <img src={LastIconImg} alt="last-icon" />
-                </BSPagination>
-              </>
-            )}
+            <BSPagination.Item
+              className="bspage-link-first"
+              disabled={pageInfo.page === 1}
+              onClick={() => handlePageClick(0)}
+              title="First page"
+            >
+              <img src={pageInfo.page === 1 ? FirstDisabledIconImg : FirstIconImg} alt="First Page" />
+            </BSPagination.Item>
+
+            <BSPagination.Item
+              className="bspage-link-prev"
+              disabled={pageInfo.page === 1}
+              onClick={() => handlePageClick(pageInfo.page - 1)}
+              title="Previous page"
+            >
+              <img src={pageInfo.page === 1 ? PrevDisabledIconImg : PrevIconImg} alt="Previous Page" />
+            </BSPagination.Item>
+
+            <BSPagination.Item
+              className="bspage-link-next"
+              disabled={pageInfo.page === pageCount}
+              onClick={() => handlePageClick(pageInfo.page + 1)}
+              title="Next page"
+            >
+              <img src={pageInfo.page === pageCount ? NextDisabledIconImg : NextIconImg} alt="Next Page" />
+            </BSPagination.Item>
+
+            <BSPagination.Item
+              className="bspage-link-last"
+              disabled={pageInfo.page === pageCount}
+              onClick={() => handlePageClick(pageCount)}
+              title="Last page"
+            >
+              <img src={pageInfo.page === pageCount ? LastDisabledIconImg : LastIconImg} alt="Last Page" />
+            </BSPagination.Item>
           </BSPagination>
         </PageSelect>
       </>

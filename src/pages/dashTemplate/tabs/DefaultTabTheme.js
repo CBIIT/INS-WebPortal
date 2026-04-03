@@ -26,7 +26,7 @@ const customTheme = {
         fontWeight: 'bolder',
         '&.programs': {
           background: '#d6f2ea',
-          color: '#10a075',
+          color: '#0C7958',
         },
         '&.projects': {
           background: '#D6F2EA',

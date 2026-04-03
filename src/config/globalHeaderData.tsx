@@ -2,6 +2,22 @@ import Logo from '../assets/header/Logo.svg';
 import searchbarIcon from '../assets/header/Search_Icon.svg';
 import usaFlagSmall from '../assets/header/us_flag_small.svg';
 
+export const RELEASE_NOTES_LINK = '/Release_v3.3.0.pdf';
+
+export type NavItemClassName =
+  | 'navMobileItem'
+  | 'navMobileItem clickable'
+  | 'navMobileSubItem'
+  | 'navMobileSubTitle';
+
+export type NavItem = {
+  name: string;
+  link: string;
+  id: string;
+  className: NavItemClassName;
+  externalLink?: boolean;
+};
+
 // globalHeaderLogo image 468x100
 // globalHeaderImage: image 2200x100
 export const headerData = {
@@ -15,12 +31,19 @@ export const headerData = {
   usaFlagSmallAltText: 'usaFlagSmall',
 };
 
-export const navMobileList = [
+export const navMobileList: NavItem[] = [
   {
     name: 'Home',
     link: '/home',
     id: 'navbar-link-home',
     className: 'navMobileItem',
+  },
+  {
+    name: 'NCI Data Sharing Hub',
+    link: 'https://datasharing.cancer.gov/',
+    id: 'navbar-link-data-sharing-hub',
+    className: 'navMobileItem',
+    externalLink: true,
   },
   {
     name: 'Programs',
@@ -42,7 +65,7 @@ export const navMobileList = [
   },
 ];
 
-export const navbarSublists = {
+export const navbarSublists: { [key: string]: NavItem[] } = {
   // Mapping for navbar items to highlight when on related pages
   Home: [
     {
@@ -97,19 +120,21 @@ export const navbarSublists = {
       name: 'About INS',
       link: '/about',
       id: 'navbar-dropdown-item-about-ins',
-      className: 'navMobileSubTitle',
+      className: 'navMobileSubItem',
     },
     {
       name: 'Glossary (PDF)',
       link: '/INS_glossary_v3.1.0_V2.pdf',
       id: 'navbar-dropdown-item-glossary',
       className: 'navMobileSubItem',
+      externalLink: true,
     },
     {
       name: 'Release Notes (PDF)',
-      link: '/Release_v3.2.0.pdf',
+      link: RELEASE_NOTES_LINK,
       id: 'navbar-dropdown-item-release-notes',
       className: 'navMobileSubItem',
+      externalLink: true,
     },
   ],
 };

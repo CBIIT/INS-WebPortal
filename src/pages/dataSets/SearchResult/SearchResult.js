@@ -13,6 +13,7 @@ import dataResourceIcon from '../../../assets/img/DataResource.png';
 import {
   externalLinkIcon,
 } from '../../../bento/datasetDetailData';
+import formatSemicolonSeparatedString from '../../../utils/formatString';
 
 const SearchResultContainer = styled.div`
   width: 100%;
@@ -329,148 +330,118 @@ const SearchResultContainer = styled.div`
 
 `;
 
-const TableHead = styled.thead`
-  th{
-    cursor: pointer;
-    user-select: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-
-    &:hover {
-      background-color: #c6d2db;
-    }
-  }
-`;
-
-const SortingOrder = styled.span`
-  margin-top: 5px;
-  width: 14px;
-  height: 14px;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='rgba(75,108,134,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
-`;
-
-const SortingOrderDesc = styled.span`
-  margin-top: 5px;
-  width: 14px;
-  height: 14px;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='rgba(75,108,134,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
-  transform: rotate(-180deg);
-`;
-
-const toCapitalize = (str) => {
-  const arr = str.split(' ');
-
-  const result = arr.map((t) => t.charAt(0).toUpperCase() + t.slice(1));
-
-  return result.join(' ');
-};
-
-const useQuery = () => new URLSearchParams(useLocation().search);
-
-const replaceQueryStr = (query, sorting) => {
-  let str = '';
-  if (query.get('search_text')) {
-    str += `&search_text=${query.get('search_text')}`;
-  }
-  if (query.get('filterByResource')) {
-    str += `&filterByResource=${query.get('filterByResource')}`;
-  }
-  if (query.get('filterByRepo')) {
-    str += `&filterByRepo=${query.get('filterByRepo')}`;
-  }
-  if (query.get('page')) {
-    str += `&page=${query.get('page')}`;
-  }
-  if (query.get('pageSize')) {
-    str += `&pageSize=${query.get('pageSize')}`;
-  }
-  str += `&sortBy=${sorting.k}`;
-  str += `&sortOrder=${sorting.v}`;
-  return str.substring(1);
-};
-
-function getCombinations(arr) {
-  const result = [];
-  function combine(prefix, start) {
-    for (let i = start; i < arr.length; i += 1) {
-      const newCombo = `${prefix.trim()} ${arr[i].trim()}`;
-      result.push(newCombo);
-      combine(newCombo, i + 1);
-    }
-  }
-  combine('', 0);
-  return result;
-}
+// Configuration for hidden fields that appear as "Other Match in..." when highlighted
+// Display names match the Dataset Details page headers
+// formatSemicolon flag indicates whether to apply semicolon spacing formatting
+const HIDDEN_FIELDS_CONFIG = [
+  { fieldName: 'dataset_source_url', displayName: 'Study Page', formatSemicolon: false },
+  { fieldName: 'PI_name', displayName: 'Investigator(s)', formatSemicolon: true },
+  { fieldName: 'dataset_pmid', displayName: 'Cited Publication PMID(s)', formatSemicolon: true },
+  { fieldName: 'funding_source', displayName: 'Funding Source(s)', formatSemicolon: true },
+  { fieldName: 'related_diseases', displayName: 'Related Diseases', formatSemicolon: true },
+  { fieldName: 'related_terms', displayName: 'Related Terms', formatSemicolon: true },
+  { fieldName: 'study_links', displayName: 'Related Link(s)', formatSemicolon: true },
+  { fieldName: 'related_genes', displayName: 'Related Genes', formatSemicolon: true },
+  { fieldName: 'assay_method', displayName: 'Assay Method', formatSemicolon: true },
+  { fieldName: 'limitations_for_reuse', displayName: 'Limitations for Reuse', formatSemicolon: true },
+  { fieldName: 'dataset_doc', displayName: 'NCI Division/Office/Center', formatSemicolon: true },
+  { fieldName: 'institute', displayName: 'Institute', formatSemicolon: false },
+  { fieldName: 'experimental_approaches', displayName: 'Experimental Approaches', formatSemicolon: false },
+  { fieldName: 'dataset_storage_distribution', displayName: 'Data Storage and Distribution Platform', formatSemicolon: true },
+];
 
 const SearchResult = ({
   resultList,
-  sort,
   search,
-  onChangeSorting,
-  onChangeSortingOrder,
   glossaryTerms,
 }) => {
-  const query = useQuery();
-  const history = useHistory();
-  const sanatizeSearchTerms = search.search_text.replace(/[^a-zA-Z0-9 ]/g, ' ');
-  const searchTerms = sanatizeSearchTerms.split(' ').filter((item) => item !== '');
-  let searchCombination = getCombinations(searchTerms);
-
-  if (search.filters) {
-    if (
-      search.filters.primary_disease
-      && Array.isArray(search.filters.primary_disease)
-      && search.filters.primary_disease.length > 0
-    ) {
-      searchCombination = search.filters.primary_disease.concat(searchCombination);
-    }
-
-    if (
-      search.filters.dataset_source_repo
-      && Array.isArray(search.filters.dataset_source_repo)
-      && search.filters.dataset_source_repo.length > 0
-    ) {
-      searchCombination = search.filters.dataset_source_repo.concat(searchCombination);
-    }
-  }
-
-  searchCombination.sort((a, b) => b.length - a.length);
-
-  const handleSortBy = (column) => {
-    const name = column;
-    if (name === sort.name) {
-      const toSortBy = {};
-      toSortBy.name = 'Dataset';
-      toSortBy.k = 'dataset_title_sort';
-      toSortBy.v = sort.v === 'asc' ? 'desc' : 'asc';
-      const queryStr = replaceQueryStr(query, toSortBy);
-      history.push(`/datasets?${queryStr}`);
-      onChangeSortingOrder(toSortBy.v);
-    } else {
-      const toSortBy = {};
-      toSortBy.name = 'Dataset';
-      toSortBy.k = 'dataset_title_sort';
-      toSortBy.v = sort.v;
-      const queryStr = replaceQueryStr(query, toSortBy);
-      history.push(`/datasets?${queryStr}`);
-      onChangeSorting(toSortBy);
-    }
-  };
-
   const initializePopover = () => {
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     popoverTriggerList.map((popoverTriggerEl) => new Popover(popoverTriggerEl));
   };
 
   function removeHTMLTags(str) {
+    if (!str) return '';
     return str.replace(/<\/?[a-z][\s\S]*?>/gi, '');
   }
+
+  /**
+   * Gets the highlighted value from backend if available, otherwise returns content value
+   */
+  function getHighlightedValue(resultItem, fieldName) {
+    if (!resultItem || !resultItem.content) {
+      return '';
+    }
+
+    const highlightKey = fieldName;
+
+    // Check if backend provided a highlight for this field
+    if (resultItem.highlight
+        && resultItem.highlight[highlightKey]
+        && resultItem.highlight[highlightKey][0]) {
+      return resultItem.highlight[highlightKey][0];
+    }
+
+    // Fallback to content value
+    const contentValue = resultItem.content[fieldName];
+    return contentValue !== null && contentValue !== undefined ? contentValue : '';
+  }
+
+  /**
+   * Determines if a hidden field should be shown (backend found a match)
+   */
+  function shouldShowHiddenField(resultItem, fieldName) {
+    const highlightKey = fieldName;
+    return !!(
+      resultItem.highlight
+      && resultItem.highlight[highlightKey]
+      && resultItem.highlight[highlightKey][0]
+    );
+  }
+
+  /**
+   * Removes all HTML tags EXCEPT <b> and </b> tags
+   * Explicitly handles only opening <b> and closing </b> tags to prevent
+   * self-closing tags like <b/> from passing through
+   */
+  function removeHTMLTagsExceptBold(str) {
+    if (!str) return '';
+    // Pattern: <(?!\/?b(?:\s|>))[^>]*> matches any tag that is NOT <b> or </b>,
+    // so the replace call strips all tags while leaving <b> and </b> intact
+    return str.replace(/<(?!\/?b(?:\s|>))[^>]*>/gi, '');
+  }
+
+  /**
+   * Gets description value with proper truncation logic
+   * Backend provides full description; frontend truncates if no match
+   */
+  function getDescriptionValue(resultItem) {
+    const rawDescription = resultItem.content.description || '';
+    const cleanDescription = removeHTMLTags(rawDescription);
+
+    // Check if backend highlighted the description
+    const highlightKey = 'description';
+    const hasHighlight = !!(
+      resultItem.highlight
+      && resultItem.highlight[highlightKey]
+      && resultItem.highlight[highlightKey][0]
+    );
+
+    if (hasHighlight) {
+      // Backend highlighted the description - show FULL description with highlights
+      // Remove all HTML tags except <b> tags, but DON'T truncate
+      const highlightedDesc = resultItem.highlight[highlightKey][0];
+      return removeHTMLTagsExceptBold(highlightedDesc);
+    }
+
+    // No highlight - truncate if longer than 500 chars
+    if (cleanDescription.length > 500) {
+      return `${cleanDescription.substring(0, 500)}...`;
+    }
+
+    return cleanDescription;
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -487,99 +458,37 @@ const SearchResult = ({
             <div className="messageContainer">No result found. Please refine your search.</div>
           ) : resultList.map((rst, idx) => {
             const keyName = `sr_${idx}`;
-            let description = removeHTMLTags(rst.content.description);
-            if (description === null) {
-              description = '';
-            }
 
-            let highlightedPrimaryDisease = rst.content.primary_disease;
-            let highlightedDatasetSourceRepo = rst.content.dataset_source_repo;
+            // Get highlighted values from backend (or fallback to content)
+            const highlightedPrimaryDisease = getHighlightedValue(rst, 'primary_disease');
+            const highlightedDatasetSourceRepo = getHighlightedValue(rst, 'dataset_source_repo');
+            const highlightedStudyType = getHighlightedValue(rst, 'study_type');
+            const highlightedDesc = getDescriptionValue(rst);
 
-            let highlightedDesc = description.replace(/<(?![b/])/g, '&lt;');
-            let hasMatchInDesc = false;
-            searchCombination.forEach((term) => {
-              function modifyTerm(text) {
-                return text.replace(/[^a-zA-Z0-9 ]/g, ' ');
-              }
-              const modifiedTerm = modifyTerm(term).trim();
-              const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
-              hasMatchInDesc = hasMatchInDesc || regex.test(highlightedDesc);
-
-              if (highlightedPrimaryDisease) {
-                highlightedPrimaryDisease = highlightedPrimaryDisease.replace(regex, (match) => `<b>${match}</b>`).trim();
-              }
-              if (highlightedDatasetSourceRepo) {
-                highlightedDatasetSourceRepo = highlightedDatasetSourceRepo.replace(regex, (match) => `<b>${match}</b>`).trim();
-              }
-
-              highlightedDesc = highlightedDesc.replace(regex, (match) => `<b>${match}</b>`).trim();
-            });
-
-            if (highlightedDesc.length > 500 && !hasMatchInDesc) {
-              highlightedDesc = `${highlightedDesc.substring(0, 500)}...`;
-            }
-
+            // Build list of hidden fields that have matches (backend highlighted them)
             const additionalMatches = [];
-
-            const hideContent = [
-              { 'study page': rst.content.dataset_source_url },
-              { 'PI name': rst.content.PI_name },
-              { 'dataset pmid': rst.content.dataset_pmid },
-              { 'funding source': rst.content.funding_source },
-              { 'related diseases': rst.content.related_diseases },
-              { 'related terms': rst.content.related_terms },
-              { 'study links': rst.content.study_links },
-              { 'related genes': rst.content.related_genes },
-              { 'study type': rst.content.study_type },
-              { 'assay method': rst.content.assay_method },
-              { 'limitations for reuse': rst.content.limitations_for_reuse },
-              { 'NCI Division/Office/Center': rst.content.dataset_doc },
-            ];
-            const excludedValues = search && search.filters && Array.isArray(search.filters.dataset_source_repo)
-              ? search.filters.dataset_source_repo
-              : [];
-            const filteredSearchCombination = searchCombination.filter((term) => !excludedValues.includes(term));
-            hideContent.forEach((item) => {
-              Object.entries(item).forEach(([key, value]) => {
-                let highlightedValue = value;
-                let foundMatch = false;
-
-                filteredSearchCombination.forEach((term) => {
-                  function modifyTerm(text) {
-                    return text.replace(/[^a-zA-Z0-9 ]/g, ' ');
-                  }
-
-                  const modifiedTerm = modifyTerm(term).trim();
-                  const regex = new RegExp(`(${modifiedTerm.trim()})`, 'gi');
-
-                  if (
-                    typeof value === 'string'
-                    && value.toLowerCase().includes(modifiedTerm.trim().toLowerCase())
-                  ) {
-                    highlightedValue = highlightedValue
-                      .replace(regex, (match) => `<b>${match}</b>`)
-                      .trim();
-                    foundMatch = true;
-                  }
-                });
-
-                if (foundMatch) {
-                  additionalMatches.push({ [key]: highlightedValue });
-                }
-              });
+            HIDDEN_FIELDS_CONFIG.forEach(({ fieldName, displayName, formatSemicolon }) => {
+              if (shouldShowHiddenField(rst, fieldName)) {
+                const highlightedValue = getHighlightedValue(rst, fieldName);
+                const formattedValue = formatSemicolon
+                  ? formatSemicolonSeparatedString(highlightedValue)
+                  : highlightedValue;
+                additionalMatches.push({ displayName, highlightedValue: formattedValue });
+              }
             });
+
             return (
               <div key={keyName} className="container">
                 <div className="row align-items-start headerRow">
                   <div className="col-sm resultTitle">
-                    <Link to={`/dataset/${rst.content.dataset_source_id}`}>
+                    <Link to={`/dataset/${rst.dataset_uuid}`} data-testid="dataset-title-link">
                       {rst.content.dataset_title}
                     </Link>
                   </div>
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
-                    <span className="dataRepo">
+                    <span className="dataRepo" data-testid="dataset-source-repo">
                       <img src={databaseIcon} alt="database-icon" className="img0" />
                       {ReactHtmlParser(highlightedDatasetSourceRepo)}
                     </span>
@@ -604,18 +513,30 @@ const SearchResult = ({
                   <div className="row align-items-start bodyRow">
                     <div className="col labelDiv">
                       <span>Primary Disease:&nbsp;&nbsp;&nbsp;</span>
-                      <span className="itemSpan">
+                      <span className="itemSpan" data-testid="primary-disease">
                         {ReactHtmlParser(highlightedPrimaryDisease)}
                       </span>
                     </div>
                   </div>
                 }
                 {
+                  rst.content.study_type != null && rst.content.study_type !== '' && (
+                    <div className="row align-items-start bodyRow">
+                      <div className="col labelDiv">
+                        <span>Study Type:&nbsp;&nbsp;&nbsp;</span>
+                        <span className="itemSpan" data-testid="study-type">
+                          {ReactHtmlParser(highlightedStudyType)}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                }
+                {
                   rst.content.sample_count != null && rst.content.sample_count !== '' && (
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
                         <span>Sample Count:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="textSpan sampleCountHighlight">
+                        <span className="textSpan sampleCountHighlight" data-testid="sample-count">
                           {rst.content.sample_count}
                         </span>
                       </div>
@@ -623,11 +544,11 @@ const SearchResult = ({
                   )
                 }
                 {
-                  description !== '' && (
+                  highlightedDesc !== '' && (
                     <div className="row align-items-start bodyRow">
                       <div className="col labelDiv">
                         <span>Description:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="textSpan">
+                        <span className="textSpan" data-testid="description">
                           {ReactHtmlParser(highlightedDesc)}
                         </span>
                       </div>
@@ -641,11 +562,11 @@ const SearchResult = ({
                         <span>
                           Other Match in
                           {' '}
-                          {Object.keys(match)[0]}
+                          {match.displayName}
                           :&nbsp;&nbsp;&nbsp;
                         </span>
-                        <span className="additionalMatches">
-                          {ReactHtmlParser(Object.values(match)[0])}
+                        <span className="additionalMatches" data-testid="additional-match">
+                          {ReactHtmlParser(match.highlightedValue)}
                         </span>
                       </div>
                     </div>

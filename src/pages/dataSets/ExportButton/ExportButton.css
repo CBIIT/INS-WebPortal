@@ -28,9 +28,14 @@
   top: 5px;
 }
 
-.buttonStyle:hover {
+.buttonStyle:hover:not(:disabled) {
   color: lightgray;
   text-decoration: none;
+}
+
+.buttonStyle:disabled {
+  background: #7a9ba3;
+  cursor: not-allowed;
 }
 
 .buttonStyle::after {

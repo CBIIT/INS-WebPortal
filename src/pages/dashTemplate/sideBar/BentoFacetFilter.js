@@ -107,6 +107,19 @@ const BentoFacetFilter = ({
   * 2. disable - true/ false
   */
   const CustomClearAllFiltersBtn = ({ onClearAllFilters, disable }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    // Determine which icon to display based on state
+    const getIconSrc = () => {
+      if (disable) {
+        return resetIcon.disabled;
+      }
+      if (isHovered) {
+        return resetIcon.hover;
+      }
+      return resetIcon.active;
+    };
+
     return (
       <div className={classes.floatRight}>
         <Button
@@ -117,18 +130,21 @@ const BentoFacetFilter = ({
             onClearAllFilters();
             store.dispatch(resetAllData());
           }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           className={classes.customButton}
           classes={{ root: classes.clearAllButtonRoot }}
         >
           <img
-            src={resetIcon.src}
+            src={getIconSrc()}
             height={resetIcon.size}
             width={resetIcon.size}
             alt={resetIcon.alt}
           />
         </Button>
-        <span className={disable
-          ? classes.resetTextDisabled : classes.resetText}
+        <span
+          className={disable ? classes.resetTextDisabled : classes.resetText}
+          aria-disabled={disable}
         >
           Clear all filtered selections
         </span>
@@ -168,15 +184,15 @@ const BentoFacetFilter = ({
               </div>
             )}
           </div>
-          {hasSearch && (
-            <SearchView
-              classes={classes}
-              SearchBox={SearchBox}
-              UploadModal={UploadModal}
-              hidden={!expanded || !showSearch}
-            />
-          )}
         </CustomExpansionPanelSummary>
+        {hasSearch && (
+          <SearchView
+            classes={classes}
+            SearchBox={SearchBox}
+            UploadModal={UploadModal}
+            hidden={!expanded || !showSearch}
+          />
+        )}
       </>
     );
   };

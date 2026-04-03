@@ -1,4 +1,5 @@
 import env from '../utils/env';
+import { RELEASE_NOTES_LINK } from '../config/globalHeaderData.tsx';
 // footerLogoImage ideal image size 310x80 px
 
 export default {
@@ -33,7 +34,7 @@ export default {
       items: [
         {
           text: 'Release Notes',
-          link: 'Release_v3.2.0.pdf',
+          link: RELEASE_NOTES_LINK,
         },
         {
           text: `FE Version: ${env.REACT_APP_FE_VERSION || '3.2.0'}`,

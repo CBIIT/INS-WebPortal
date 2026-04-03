@@ -29,7 +29,7 @@ const basicInformationFields = [
   {
     label: 'Investigator(s)',
     datafield: 'PI_name',
-    dynamic: false,
+    dynamic: true,
     isLink: false,
     formatSemicolon: true,
     tooltip: 'The individual designated by the applicant organization to have the appropriate level of authority and responsibility to direct the project or program to be supported by the award',
@@ -98,7 +98,19 @@ const basicInformationFields = [
     formatSemicolon: true,
     tooltip: 'Each of NCI\'s divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer research',
   },
+  {
+    label: 'Data Storage and Distribution Platform',
+    datafield: 'dataset_storage_distribution',
+    dynamic: true,
+    isLink: false,
+    formatSemicolon: true,
+    tooltip: 'Systems designed to securely house, manage, and disseminate large datasets, such as genomic sequencing or medical imaging.',
+  },
 ];
+
+// Pre-computed flag: true if all basicInformationFields have dynamic: true
+// When true, the section should only render if at least one field has data
+const basicInfoAllFieldsDynamic = basicInformationFields.every((field) => field.dynamic === true);
 
 // --------------- Data Details fields configuration --------------
 const dataDetailsFields = [
@@ -221,10 +233,11 @@ const additionalDetailsFields = [
   },
 ];
 
-// --------------- GraphQL query - Retrieve program details --------------
+// --------------- GraphQL query - Retrieve dataset details --------------
 const getDataSetDetailDataQuery = gql`
-query datasetDetails($dataset_source_id: String) {
-    datasetDetails(dataset_source_id: $dataset_source_id) {
+query datasetDetails($dataset_uuid: String!) {
+    datasetDetails(dataset_uuid: $dataset_uuid) {
+        dataset_uuid
         assay_method
         dataset_doc
         dataset_maximum_age_at_baseline
@@ -233,6 +246,7 @@ query datasetDetails($dataset_source_id: String) {
         dataset_source_id
         dataset_source_repo
         dataset_source_url
+        dataset_storage_distribution
         dataset_title
         dataset_year_enrollment_ended
         dataset_year_enrollment_started
@@ -258,11 +272,11 @@ query datasetDetails($dataset_source_id: String) {
 // --------------- GraphQL query - Retrieve dataset files --------------
 const getDatasetFilesQuery = gql`
 query getDatasetFiles(
-  $dataset_source_id: String!,
+  $dataset_uuid: String!,
   $accessTypes: [String!]!
 ) {
   getDatasetFiles(
-    dataset_source_id: $dataset_source_id,
+    dataset_uuid: $dataset_uuid,
     accessTypes: $accessTypes
   ) {
     downloadUrl
@@ -278,6 +292,7 @@ export {
   externalLinkIconBlue,
   descMaxLength,
   basicInformationFields,
+  basicInfoAllFieldsDynamic,
   dataDetailsFields,
   additionalDetailsFields,
   getDataSetDetailDataQuery,

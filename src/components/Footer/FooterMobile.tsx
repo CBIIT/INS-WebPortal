@@ -366,11 +366,11 @@ const FooterMobile = () => {
             </div>
             <div className={errorClass !== '' ? 'ErrorBorder' : null}>
               <div className="enterTitle">
-                <label htmlFor="email">
+                <label htmlFor="emailMobile">
                   Enter your email address
                   <div className={errorClass}>
                     {errorClass !== '' ? <div className="enterTitle">Enter a valid email address</div> : null}
-                    <input id="email" type="email" name="email" className="signUpInputBox" value={emailContent} onChange={(e) => handleChange(e)} />
+                    <input id="emailMobile" type="email" name="email" className="signUpInputBox" value={emailContent} onChange={(e) => handleChange(e)} />
                   </div>
                 </label>
               </div>

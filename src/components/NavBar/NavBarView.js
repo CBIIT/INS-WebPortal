@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { RELEASE_NOTES_LINK } from '../../config/globalHeaderData.tsx';
 
 const Nav = styled.div`
   position: relative;
@@ -192,7 +193,7 @@ const NavBar = () => {
               <ul className="dropdown-list">
                 <li><NavLink to="/about" style={path === '/about' ? subMenuActiveStyle : null} onClick={handleMenuItemClick}>About INS</NavLink></li>
                 <li><a href="/INS_glossary_v3.1.0_V2.pdf" target="_blank" rel="noreferrer" onClick={handleMenuItemClick}>Glossary (PDF)</a></li>
-                <li><a href="/Release_v3.2.0.pdf" target="_blank" rel="noreferrer" onClick={handleMenuItemClick}>Release Notes (PDF)</a></li>
+                <li><a href={RELEASE_NOTES_LINK} target="_blank" rel="noreferrer" onClick={handleMenuItemClick}>Release Notes (PDF)</a></li>
               </ul>
             </MenuDropDown>
           </LiSection>

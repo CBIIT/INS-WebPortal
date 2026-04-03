@@ -180,7 +180,7 @@ const styles = () => ({
     display: 'inline-block',
     float: 'right',
     textAlign: 'right',
-    color: '#CECECE',
+    color: '#D9D9D9',
     fontFamily: 'Nunito',
     fontWeight: 900,
     fontSize: '12px',

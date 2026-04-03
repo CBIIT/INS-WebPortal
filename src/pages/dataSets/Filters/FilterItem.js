@@ -68,7 +68,7 @@ const FilterItem = ({
     <OptionContainer>
       <span>
         <span style={{ display: 'none' }}>{item.name}</span>
-        <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.name} checked={checked} readOnly />
+        <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.name} checked={checked} readOnly aria-label={`Select ${item.name}`} />
       </span>
 
       <SearchableOption title={`${item.name}: ${item.count}`} onClick={handleResourceClick}>
