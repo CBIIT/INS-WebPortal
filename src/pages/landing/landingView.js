@@ -528,16 +528,16 @@ const LandingView = ({ classes, statsData }) => {
                   <img
                     className={classes.mobileImg}
                     src={mobileSupportTile}
-                    alt="Mobile About Tile"
-                    id="Mobile-About-Tile"
+                    alt={landingPageData.tile3.alt}
+                    id="Mobile-Support-Tile"
                   />
                 </div>
                 <div className={classes.content}>
                   <div className={classes.contentHeader}>
-                    INS SUPPORT
+                    {landingPageData.tile3.titleText}
                   </div>
                   <div className={classes.contentContainer}>
-                    For questions or feedback, please contact INS support.
+                    {landingPageData.tile3.descriptionText}
                   </div>
                 </div>
                 <div className={classes.yellowButton}>
@@ -554,7 +554,7 @@ const LandingView = ({ classes, statsData }) => {
                         e.preventDefault();
                       }}
                     >
-                      Contact INS
+                      {landingPageData.tile3.callToActionText}
                     </Button>
                   </div>
                 </div>
