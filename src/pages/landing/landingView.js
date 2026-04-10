@@ -470,10 +470,10 @@ const LandingView = ({ classes, statsData }) => {
                 </div>
                 <div className={classes.content}>
                   <div className={classes.contentHeader}>
-                    INS DATA GATHERING
+                    {landingPageData.tile4.titleText}
                   </div>
                   <div className={classes.contentContainer}>
-                    The INS data pipeline combines expert curation and automation to link programs and studies with research outputs.
+                    {landingPageData.tile4.descriptionText}
                   </div>
                 </div>
                 <div className={classes.yellowButton}>
@@ -483,10 +483,10 @@ const LandingView = ({ classes, statsData }) => {
                   </div>
                   <div className={classes.yellowButtonRight}>
                     <Link
-                      to={landingPageData.tile1.callToActionLink}
+                      to={landingPageData.tile4.callToActionLink}
                       className={classes.yellowButton}
                     >
-                      Learn More
+                      {landingPageData.tile4.callToActionText}
                     </Link>
                   </div>
                 </div>
