@@ -496,16 +496,16 @@ const LandingView = ({ classes, statsData }) => {
                   <img
                     className={classes.mobileImg}
                     src={mobileProgramsTile}
-                    alt="Mobile Programs Tile"
+                    alt={landingPageData.tile2.alt}
                     id="Mobile-Programs-Tile"
                   />
                 </div>
                 <div className={classes.content}>
                   <div className={classes.contentHeader}>
-                    PROGRAMS
+                    {landingPageData.tile2.titleText}
                   </div>
                   <div className={classes.contentContainer}>
-                    Provides a list of programs currently included in the site.
+                    {landingPageData.tile2.descriptionText}
                   </div>
                 </div>
                 <div className={classes.yellowButton}>
@@ -518,7 +518,7 @@ const LandingView = ({ classes, statsData }) => {
                       to={landingPageData.tile2.callToActionLink}
                       className={classes.yellowButton}
                     >
-                      view program listing
+                      {landingPageData.tile2.callToActionText}
                     </Link>
                   </div>
                 </div>
