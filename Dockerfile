@@ -14,19 +14,18 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm set progress=false
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm ci --legacy-peer-deps
 RUN NODE_OPTIONS="--openssl-legacy-provider" npm run build --silent
 
-FROM nginx:1.29.6-alpine3.23-slim AS fnl_base_image
+FROM nginx:1.29.8-alpine3.23-slim AS fnl_base_image
 
-# zlib: CVE-2026-22184
-RUN apk update && apk upgrade libxml2 && apk add --no-cache --upgrade zlib=1.3.2-r0
+# zlib: CVE-2026-22184, openssl: CVE-2026-2673, CVE-2026-31790
+RUN apk update && apk add --no-cache --upgrade zlib=1.3.2-r0 openssl
 
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 COPY --from=build /usr/src/app/config/inject.template.js /usr/share/nginx/html/inject.template.js
 COPY --from=build /usr/src/app/config/nginx.conf /etc/nginx/conf.d/configfile.template
 COPY --from=build /usr/src/app/config/entrypoint.sh /
 
-ENV PORT 80
-
-ENV HOST 0.0.0.0
+ENV PORT=80
+ENV HOST=0.0.0.0
 
 RUN sh -c "envsubst '\$PORT'  < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf"
 
