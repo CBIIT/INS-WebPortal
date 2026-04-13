@@ -114,7 +114,7 @@ export const landingPageData = {
     callToActionLink: '/about',
   },
   tile2: {
-    alt: 'abstract depiction of a strand of DNS',
+    alt: 'abstract depiction of a strand of DNA',
     img: programImg,
     titleText: 'PROGRAMS',
     descriptionText: 'Provides a list of programs currently included in the site.',
