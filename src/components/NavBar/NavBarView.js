@@ -192,7 +192,7 @@ const NavBar = () => {
             <MenuDropDown className="dropdown-block">
               <ul className="dropdown-list">
                 <li><NavLink to="/about" style={path === '/about' ? subMenuActiveStyle : null} onClick={handleMenuItemClick}>About INS</NavLink></li>
-                <li><a href="/INS_glossary_v3.1.0_V2.pdf" target="_blank" rel="noreferrer" onClick={handleMenuItemClick}>Glossary (PDF)</a></li>
+                <li><a href="/INS_glossary_v3.3.1.pdf" target="_blank" rel="noreferrer" onClick={handleMenuItemClick}>Glossary (PDF)</a></li>
                 <li><a href={RELEASE_NOTES_LINK} target="_blank" rel="noreferrer" onClick={handleMenuItemClick}>Release Notes (PDF)</a></li>
               </ul>
             </MenuDropDown>
