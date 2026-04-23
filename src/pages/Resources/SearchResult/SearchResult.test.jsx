@@ -122,7 +122,7 @@ describe('Basic Functionality', () => {
     renderWithRouter(<SearchResult {...props} />);
 
     const link = screen.getByTestId('dataset-title-link');
-    expect(link).toHaveAttribute('href', '/dataset/test-uuid-abc-123');
+    expect(link).toHaveAttribute('href', '/resource/test-uuid-abc-123');
   });
 
   it('should still render other dataset information when optional fields are not present', () => {

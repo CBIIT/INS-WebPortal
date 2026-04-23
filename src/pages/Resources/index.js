@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import {
   loadFromUrlQuery, startFullTextSearch, bubbleSearchTextRemoveClick, bubbleResourcesRemoveClick,
 } from '../../redux/actions/searchActions';
-import SearchCatalogPage from './SearchCatalogPage';
+import ResourcesView from './ResourcesView';
 
 const ReduxSearchCatalogPage = (() => {
   const mapStateToProps = (state) => ({
@@ -18,7 +18,7 @@ const ReduxSearchCatalogPage = (() => {
     onBubbleResourcesRemoveClick: bubbleResourcesRemoveClick,
   };
 
-  return connect(mapStateToProps, mapDispatchToProps)(SearchCatalogPage);
+  return connect(mapStateToProps, mapDispatchToProps)(ResourcesView);
 })();
 
 export default ReduxSearchCatalogPage;

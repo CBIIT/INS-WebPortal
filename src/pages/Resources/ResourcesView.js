@@ -6,7 +6,7 @@ import Sorting from './Sorting';
 import PageInfo from './PageInfo';
 import Filters from './Filters';
 import SearchResult from './SearchResult';
-import './searchCatalogPage.css';
+import './ResourcesView.css';
 
 const useSearchParams = () => {
   const { search } = useLocation();
@@ -122,31 +122,31 @@ const SearchCatalogPage = ({
   const handleBubbleSearchTextRemoveClick = () => {
     setSearchText('');
     const queryStr = replaceQueryStr(query, '');
-    history.push(`/datasets?${queryStr}`);
+    history.push(`/resources?${queryStr}`);
     onBubbleSearchTextRemoveClick();
   };
 
   const handleBubbleDataRepositoryRemoveClick = (filter) => {
     const queryStr = replaceResourceFilter(query, filter, 'filterByRepo');
-    history.push(`/datasets?${queryStr}`);
+    history.push(`/resources?${queryStr}`);
     onBubbleResourcesRemoveClick();
   };
 
   const handleBubblePrimaryDiseaseRemoveClick = (filter) => {
     const queryStr = replaceResourceFilter(query, filter, 'filterByResource');
-    history.push(`/datasets?${queryStr}`);
+    history.push(`/resources?${queryStr}`);
     onBubbleResourcesRemoveClick();
   };
 
   const handleSearchBoxKeyPress = () => {
     const queryStr = replaceQueryStr(query, searchText);
-    history.push(`/datasets?${queryStr}`);
+    history.push(`/resources?${queryStr}`);
     onStartFullTextSearch(searchText);
   };
 
   const handleSearchSubmit = () => {
     const queryStr = replaceQueryStr(query, searchText);
-    history.push(`/datasets?${queryStr}`);
+    history.push(`/resources?${queryStr}`);
     onStartFullTextSearch(searchText);
   };
 

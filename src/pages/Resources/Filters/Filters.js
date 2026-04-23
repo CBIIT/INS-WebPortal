@@ -86,12 +86,12 @@ const Filters = ({
 
   const handleResourceClickDataRepository = (filter) => {
     const queryStr = replaceResourceFilter(query, filter, 'filterByRepo');
-    history.push(`/datasets?${queryStr}`);
+    history.push(`/resources?${queryStr}`);
   };
 
   const handleResourceClickPrimaryDisease = (filter) => {
     const queryStr = replaceResourceFilter(query, filter, 'filterByResource');
-    history.push(`/datasets?${queryStr}`);
+    history.push(`/resources?${queryStr}`);
   };
 
   const sortedDataRepositorySearchFilters = [...(searchFilters.dataset_source_repo || [])].sort((a, b) => {
@@ -140,7 +140,7 @@ const Filters = ({
             variant="outlined"
             onClick={() => {
               const queryStr = clearAllFilters(query);
-              history.push(`/datasets?${queryStr}`);
+              history.push(`/resources?${queryStr}`);
             }}
             className="customButton"
             classes={{ root: 'clearAllButtonRoot' }}
