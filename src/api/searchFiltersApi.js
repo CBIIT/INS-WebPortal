@@ -1,10 +1,10 @@
 import { handleResponse, handleError } from './apiUtils';
 import env from '../utils/env';
 
-const baseUrl = env.REACT_APP_REST_BACKEND_API;
+const DATASETS_API_URL = `${env.REACT_APP_REST_BACKEND_API}/datasets/`;
 
 export function getSearchFilters(body) {
-  return fetch(`${baseUrl}filters`, {
+  return fetch(`${DATASETS_API_URL}filters`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' },
@@ -14,7 +14,7 @@ export function getSearchFilters(body) {
 }
 
 export function getAdvancedSearchFilters() {
-  return fetch(`${baseUrl}advancedFilters`)
+  return fetch(`${DATASETS_API_URL}advancedFilters`)
     .then(handleResponse)
     .catch(handleError);
 }

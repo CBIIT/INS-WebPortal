@@ -1,12 +1,12 @@
 import env from '../utils/env';
 
-const baseUrl = env.REACT_APP_REST_BACKEND_API;
+const DATASETS_API_URL = `${env.REACT_APP_REST_BACKEND_API}/datasets/`;
 
 export async function getSearchResult(body) {
   // TODO: Chunk the export request pages
   const { pageInfo = {}, ...searchBody } = body || {};
   const totalItems = typeof pageInfo.total === 'number' ? pageInfo.total : 10000;
-  const response = await fetch(`${baseUrl}export`, {
+  const response = await fetch(`${DATASETS_API_URL}export`, {
     method: 'POST',
     body: JSON.stringify({
       ...searchBody,

@@ -1,10 +1,10 @@
 import { handleResponse, handleError } from './apiUtils';
 import env from '../utils/env';
 
-const baseUrl = env.REACT_APP_REST_BACKEND_API;
+const DATASETS_API_URL = `${env.REACT_APP_REST_BACKEND_API}/datasets/`;
 
 export function searchCatalog(body) {
-  return fetch(`${baseUrl}search`, {
+  return fetch(`${DATASETS_API_URL}search`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' },
@@ -13,7 +13,7 @@ export function searchCatalog(body) {
 }
 
 export function getDatasetById(id) {
-  return fetch(`${baseUrl}${id}`)
+  return fetch(`${DATASETS_API_URL}${id}`)
     .then(handleResponse)
     .catch(handleError);
 }
