@@ -58,6 +58,12 @@ export const navMobileList: NavItem[] = [
     className: 'navMobileItem',
   },
   {
+    name: 'Resources',
+    link: '/resources',
+    id: 'navbar-dropdown-resources',
+    className: 'navMobileItem',
+  },
+  {
     name: 'About',
     link: '',
     id: 'navbar-dropdown-about',
@@ -112,6 +118,20 @@ export const navbarSublists: { [key: string]: NavItem[] } = {
       name: 'Dataset Detail',
       link: '/dataset',
       id: 'navbar-sublist-dataset-detail',
+      className: 'navMobileSubTitle',
+    },
+  ],
+  Resources: [
+    {
+      name: 'Resources',
+      link: '/resources',
+      id: 'navbar-sublist-resources',
+      className: 'navMobileSubTitle',
+    },
+    {
+      name: 'Resource Detail',
+      link: '/resource',
+      id: 'navbar-sublist-resource-detail',
       className: 'navMobileSubTitle',
     },
   ],

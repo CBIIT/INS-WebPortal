@@ -4,7 +4,6 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import { AuthenticationMiddlewareGenerator } from '@bento-core/authentication';
 import aboutPageRoutes from '../../bento/aboutPagesRoutes';
 import Header from '../Header/index.tsx';
-import NavBar from '../NavBar/NavBarContainer';
 import Footer from '../Footer/index.tsx';
 import Error from '../../pages/error/Error';
 import Home from '../../pages/landing/landingController';
@@ -17,8 +16,10 @@ import ProgramDetail from '../../pages/programDetail/programDetailController';
 import ProjectDetail from '../../pages/projectDetail/projectDetailController';
 import { AUTH_MIDDLEWARE_CONFIG } from '../Auth/authMiddlewareConfig';
 import DataSetDetailContainer from '../../pages/dataSetDetail/dataSetDetailController';
+import ResourceDetailController from '../../pages/ResourceDetail/Controller';
 import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
 import DateSet from '../../pages/dataSets';
+import ResourceController from '../../pages/Resources';
 
 const ScrollToTop = () => {
   window.scrollTo(0, 0);
@@ -49,9 +50,11 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <MixedRoute exact path="/home" component={Home} />
               <PrivateRoute path="/programs" access={['admin', 'member']} component={DashTemplate} />
               <PrivateRoute path="/datasets" access={['admin', 'member']} component={DateSet} />
+              <Route path="/resources" component={ResourceController} />
               <PrivateRoute path="/program/:id" access={['admin', 'member']} component={ProgramDetail} />
               <PrivateRoute path="/project/:id" access={['admin', 'member']} component={ProjectDetail} />
               <PrivateRoute path="/dataset/:id" access={['admin', 'member']} component={DataSetDetailContainer} />
+              <Route path="/resource/:uuid" component={ResourceDetailController} />
               <Route exact path="/globalsearch" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
               <Route path="/globalsearch/:id" access={['admin', 'member', 'non-member']} component={GlobalSearchController} />
               {aboutPageRoutes.map(
