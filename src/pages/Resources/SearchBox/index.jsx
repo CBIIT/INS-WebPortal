@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import xIcon from '../../../assets/img/xmark-solid.svg';
-import SearchIconImg from './search.svg';
-import CloseIconImg from './close.svg';
+import SearchIconImg from '../../../assets/icons/search.svg';
+import CloseIconImg from '../../../assets/icons/close.svg';
 
 const Container = styled.div`
   width: 100%;
@@ -182,8 +182,8 @@ const SearchBox = ({
         <InputGroup className="searchBoxInputGroup">
           <FormControl
             type="search"
-            placeholder="Search Datasets by keywords"
-            aria-label="Search Datasets by keywords"
+            placeholder="Search Resources by keywords"
+            aria-label="Search Resources by keywords"
             value={searchText}
             onChange={(e) => handleTextInputChange(e)}
             onKeyPress={(e) => handleKeyPress(e)}

@@ -3,7 +3,6 @@ import {
   useLocation,
   useHistory,
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Pagination from '../../../components/Pagination';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
@@ -71,11 +70,8 @@ const PageInfo = ({
     const queryStr = replaceQueryStrPageSize(query, pageSize);
     history.push(`/resources?${queryStr}`);
   };
-  return (
-    <>
-      <Pagination pageInfo={pageInfo} pageClick={pageClick} sizeClick={sizeClick} />
-    </>
-  );
+
+  return <Pagination pageInfo={pageInfo} pageClick={pageClick} sizeClick={sizeClick} />;
 };
 
 export default PageInfo;
