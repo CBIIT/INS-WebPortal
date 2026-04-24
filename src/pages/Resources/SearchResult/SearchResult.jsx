@@ -1,8 +1,6 @@
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import {
-  useLocation,
-  useHistory,
   Link,
 } from 'react-router-dom';
 import styled from 'styled-components';

@@ -4,11 +4,11 @@ import {
   Container,
   Grid,
   Typography,
-  Link,
   withStyles,
 } from '@material-ui/core';
 import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
+import { Link } from 'react-router-dom';
 import icon from '../../assets/icons/Datasets.svg';
 import {
   externalLinkIcon, externalLinkIconBlue, descMaxLength, basicInformationFields, basicInfoAllFieldsDynamic, dataDetailsFields, additionalDetailsFields,
@@ -126,7 +126,7 @@ const DataSetDetailView = ({ classes, data }) => {
       <div className={classes.contentContainer}>
         <Grid container spacing={2} alignItems="center" justifyContent="space-between" className={classes.nav}>
           <Grid item>
-            <Link href="#resources" className={classes.navLink}>
+            <Link href="/resources" className={classes.navLink}>
               Explore Resources
             </Link>
             {'    '}
