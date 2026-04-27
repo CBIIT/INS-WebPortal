@@ -1,7 +1,7 @@
 {
   "homepage": ".",
-  "name": "bento-frontend",
-  "version": "3.3.1",
+  "name": "ccdi-ins-webportal",
+  "version": "3.4.0",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.6.9",
