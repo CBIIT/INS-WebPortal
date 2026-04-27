@@ -12,7 +12,6 @@ import { getFromLocalStorage } from '../utils/localStorage';
 import participatingResources from '../redux/reducers/participatingResourcesReducer';
 import datasets from '../redux/reducers/searchReducer';
 import resources from '../redux/reducers/resourcesSearchReducer';
-import documentSearch from '../redux/reducers/documentSearchReducer';
 import application from '../redux/reducers/applicationReducer';
 import initialState from '../redux/reducers/initialState';
 
@@ -31,7 +30,6 @@ const reducers = {
   participatingResources,
   datasets,
   resources,
-  documentSearch,
   application,
 };
 const loggerMiddleware = createLogger();
