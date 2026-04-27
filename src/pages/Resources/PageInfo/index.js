@@ -1,13 +1,17 @@
 import { connect } from 'react-redux';
 import {
   pageSelect, sizeSelect,
-} from '../../../redux/actions/searchActions';
+} from '../../../redux/actions/resourcesSearchActions';
 import PageInfo from './PageInfo';
 
 const ReduxPageInfo = (() => {
-  const mapStateToProps = (state) => ({
-    pageInfo: state.datasets.searchCriteria.pageInfo,
-  });
+  const mapStateToProps = (state) => {
+    const resources = state.resources || {};
+    const searchCriteria = resources.searchCriteria || {};
+    return {
+      pageInfo: searchCriteria.pageInfo || { page: 1, pageSize: 10 },
+    };
+  };
 
   const mapDispatchToProps = {
     onPageSelect: pageSelect,

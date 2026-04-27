@@ -1,16 +1,16 @@
 import { connect } from 'react-redux';
 import {
   loadSearchDataResources,
-} from '../../../redux/actions/searchActions';
+} from '../../../redux/actions/resourcesSearchActions';
 import Filters from './Filters';
 
 const ReduxFilters = (() => {
   const mapStateToProps = (state) => {
-    const datasets = state.datasets || {};
+    const resources = state.resources || {};
     return {
-      searchFilters: datasets.resourcesList || [],
-      sourceFilters: datasets.searchSourceResults || [],
-      selectedFilters: (datasets.searchCriteria && datasets.searchCriteria.filters) || [],
+      searchFilters: resources.resourcesList || [],
+      sourceFilters: resources.searchSourceResults || [],
+      selectedFilters: (resources.searchCriteria && resources.searchCriteria.filters) || [],
     };
   };
   const mapDispatchToProps = {

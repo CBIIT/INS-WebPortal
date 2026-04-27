@@ -39,6 +39,31 @@ export default {
     resourcesList: [],
     details: {},
   },
+  resources: {
+    searchCriteria: {
+      search_text: '',
+      filters: {
+        primary_disease: [
+        ],
+        dataset_source_repo: [
+        ],
+      },
+      pageInfo: {
+        page: 1,
+        pageSize: 10,
+      },
+      sort: {
+        name: 'Dataset',
+        k: 'dataset_title_sort',
+        v: 'asc',
+      },
+      viewType: 'card',
+    },
+    searchResults: [],
+    searchSourceResults: 'all',
+    resourcesList: [],
+    details: {},
+  },
   documentSearch: {
     keyword: '',
     results: [],

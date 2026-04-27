@@ -1,15 +1,20 @@
 import { connect } from 'react-redux';
 import {
   loadFromUrlQuery, startFullTextSearch, bubbleSearchTextRemoveClick, bubbleResourcesRemoveClick,
-} from '../../redux/actions/searchActions';
+} from '../../redux/actions/resourcesSearchActions';
 import ResourcesView from './ResourcesView';
 
 const ReduxSearchCatalogPage = (() => {
-  const mapStateToProps = (state) => ({
-    searchCriteria: state.datasets.searchCriteria.search_text,
-    searchKeyword: state.datasets.searchCriteria.search_text,
-    resourceFilters: state.datasets.searchCriteria.filters,
-  });
+  const mapStateToProps = (state) => {
+    const resources = state.resources || {};
+    const searchCriteria = resources.searchCriteria || {};
+
+    return {
+      searchCriteria: searchCriteria.search_text || '',
+      searchKeyword: searchCriteria.search_text || '',
+      resourceFilters: searchCriteria.filters || {},
+    };
+  };
 
   const mapDispatchToProps = {
     onLoadFromUrlQuery: loadFromUrlQuery,

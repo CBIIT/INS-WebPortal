@@ -37,6 +37,22 @@ export function getSearchFilters(body) {
 }
 
 /**
+ * A function to call the resource search filters API with the given criteria.
+ *
+ * @param {Object} body JSON body for the filters API
+ * @returns {Promise<JSON|Error>} Promise resolving to the filter results
+ */
+export function getResourcesSearchFilters(body) {
+  return fetch(`${RESOURCES_API_URL}filters`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+/**
  * A function to call the resource search API with the given search criteria.
  *
  * @param {Object} body JSON body for the search API

@@ -3,16 +3,16 @@ import SearchResult from './SearchResult';
 import {
   changeSorting,
   changeSortingOrder,
-} from '../../../redux/actions/searchActions';
+} from '../../../redux/actions/resourcesSearchActions';
 
 const ReduxSearchResult = (() => {
   const mapStateToProps = (state) => {
-    const datasets = state.datasets || {};
-    const searchCriteria = datasets.searchCriteria || {};
+    const resources = state.resources || {};
+    const searchCriteria = resources.searchCriteria || {};
     const application = state.application || {};
 
     return {
-      resultList: datasets.searchResults || [],
+      resultList: resources.searchResults || [],
       sort: searchCriteria.sort || 'defaultSort',
       search: searchCriteria,
       glossaryTerms: application.glossaryTerms || [],
