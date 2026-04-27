@@ -2,8 +2,6 @@ import * as types from './actionTypes';
 import * as searchApi from '../../api/searchApi';
 import * as participatingResourcesApi from '../../api/participatingResourcesApi';
 
-import { getSearchFilters } from '../../api/searchFiltersApi';
-
 export function loadSearchFiltersSuccess(resourcesList) {
   return { type: types.LOAD_RESOURCES_LIST_SUCCESS, resourcesList };
 }
@@ -42,12 +40,6 @@ export function switchPage(pageInfo) {
 
 export function switchSize(pageInfo) {
   return { type: types.SWITCH_SIZE, pageInfo };
-}
-
-export function loadDatasetDetailSuccess(id, data) {
-  const tmp = {};
-  tmp[id] = data;
-  return { type: types.LOAD_DATASET_DETAIL_SUCCESS, dataset: tmp };
 }
 
 export function loadSearchDataResources() {
@@ -97,8 +89,8 @@ export function loadFromUrlQuery(searchText, filters) {
       filters: searchCriteria.filters,
     };
     return Promise.all([
-      searchApi.searchCatalog(searchCriteria),
-      getSearchFilters(filtersBody),
+      searchApi.searchDatasets(searchCriteria),
+      searchApi.getSearchFilters(filtersBody),
     ])
       .then(([searchResults, filtersResults]) => {
         dispatch(loadSearchResultsSuccess(searchResults.data));
@@ -168,19 +160,6 @@ export function pageSelect(pageInfo) {
 export function sizeSelect(pageInfo) {
   const func = function func(dispatch) {
     dispatch(switchSize({ pageSize: pageInfo.pageSize ? pageInfo.pageSize : 10 }));
-  };
-  return func;
-}
-
-export function loadDatasetDetail(id) {
-  const func = function func(dispatch) {
-    return searchApi.getDatasetById(id)
-      .then((searchResults) => {
-        dispatch(loadDatasetDetailSuccess(id, searchResults.data));
-      })
-      .catch((error) => {
-        throw error;
-      });
   };
   return func;
 }
