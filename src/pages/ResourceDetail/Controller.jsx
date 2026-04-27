@@ -1,9 +1,8 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
+import React, { useState, useEffect } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import DataSetDetailView from './DetailView';
+import DetailView from './DetailView';
+import { getResourceById } from '../../api/searchApi';
 import Error from '../error/Error';
-import { getDataSetDetailDataQuery } from '../../bento/datasetDetailData';
 
 /**
  * The Resource Detail page controller component.
@@ -12,20 +11,35 @@ import { getDataSetDetailDataQuery } from '../../bento/datasetDetailData';
  * @returns {React.ReactElement} The rendered component.
  */
 const ResourceController = ({ match }) => {
-  const { loading, error, data } = useQuery(getDataSetDetailDataQuery, {
-    variables: { dataset_uuid: match.params.uuid },
-    fetchPolicy: 'cache-first',
-  });
+  const { uuid } = match.params;
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    (async () => {
+      try {
+        const resourceData = await getResourceById(uuid);
+        setData(resourceData);
+      } catch (error) {
+        setData(null);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [uuid]);
 
   if (loading) {
     return <CircularProgress />;
   }
 
-  if (error || !data || !data.datasetDetails) {
+  if (!data || !data.datasetDetails) {
     return <Error />;
   }
 
-  return <DataSetDetailView data={data.datasetDetails} />;
+  return <DetailView data={data.datasetDetails} />;
 };
 
 export default ResourceController;

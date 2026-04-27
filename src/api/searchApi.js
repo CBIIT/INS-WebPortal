@@ -67,3 +67,23 @@ export async function searchResources(body) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+/**
+ * A function to call the resource details API with the given resource ID.
+ *
+ * @param {string} uuid The unique identifier of the resource
+ * @returns {Promise<JSON|Error>} Promise resolving to the resource details
+ */
+export async function getResourceById(uuid) {
+  if (!uuid) {
+    throw new Error('Resource ID is required');
+  }
+
+  return fetch(`${RESOURCES_API_URL}${uuid}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    cache: 'force-cache',
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
