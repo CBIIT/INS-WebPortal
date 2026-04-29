@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import helpIcon from '../../assets/icons/help.svg';
 import SearchBox from './SearchBox';
 import ExportButton from './ExportButton';
 import Sorting from './Sorting';
 import PageInfo from './PageInfo';
 import Filters from './Filters';
 import SearchResult from './SearchResult';
+import SearchRulesTooltip from '../../components/SearchRulesTooltip';
 import './searchCatalogPage.css';
 
 const useSearchParams = () => {
@@ -163,38 +163,7 @@ const SearchCatalogPage = ({
             <span>
               Explore Datasets & Cohorts
             </span>
-            <div className="tooltip-icon-datasets">
-              <img src={helpIcon} alt="Help: Search rules" />
-              <div className="tooltip-text-search-datasets">
-                <span>Search Rules</span>
-                <ul>
-                  <li>Non-alphanumeric characters (e.g., ? ! / - &lt; &gt;) are ignored.</li>
-                  <li>Search terms must contain at least 3 consecutive alphanumeric characters.</li>
-                  <li>
-                    Within searches with multiple terms, terms with fewer than 3 characters
-                    are ignored (e.g., searching "p53 in lung", returns results for "p53"
-                    AND "lung", but "in" is ignored).
-                  </li>
-                  <li>
-                    Searches return both full and partial word matches
-                    (e.g., searching “leuk” returns results for “leukemia”).
-                  </li>
-                  <li>
-                    Multiple search terms (e.g., “leukemia pediatric WGS”) return only
-                    results containing all terms (Boolean AND).
-                  </li>
-                  <li>Results can be filtered using the checkboxes on the left.</li>
-                  <li>
-                    Selecting multiple filters within the same category returns results
-                    matching any selected filter (Boolean OR).
-                  </li>
-                  <li>
-                    Selecting filters across different categories, or combining filters
-                    with search terms, returns results matching all selections (Boolean AND).
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <SearchRulesTooltip />
           </div>
           <div className="searchBoxContainer">
             <SearchBox
