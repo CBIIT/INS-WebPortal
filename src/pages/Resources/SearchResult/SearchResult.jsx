@@ -449,9 +449,8 @@ const SearchResult = ({
   }, [resultList, glossaryTerms]);
 
   return (
-    <>
-      <SearchResultContainer>
-        {
+    <SearchResultContainer>
+      {
           resultList.length === 0 ? (
             <div className="messageContainer">No result found. Please refine your search.</div>
           ) : resultList.map((rst, idx) => {
@@ -574,8 +573,7 @@ const SearchResult = ({
             );
           })
         }
-      </SearchResultContainer>
-    </>
+    </SearchResultContainer>
   );
 };
 
