@@ -53,8 +53,8 @@ export default {
         pageSize: 10,
       },
       sort: {
-        name: 'Dataset',
-        k: 'dataset_title_sort',
+        name: 'Resource',
+        k: 'resource_title_sort',
         v: 'asc',
       },
       viewType: 'card',

@@ -9,7 +9,7 @@ const ReduxSorting = (() => {
     const resources = state.resources || {};
     const searchCriteria = resources.searchCriteria || {};
     return {
-      sort: searchCriteria.sort || { name: 'Dataset', k: 'dataset_title_sort', v: 'asc' },
+      sort: searchCriteria.sort || { name: 'Resource', k: 'resource_title_sort', v: 'asc' },
     };
   };
 

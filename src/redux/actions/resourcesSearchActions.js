@@ -77,8 +77,8 @@ export function loadFromUrlQuery(searchText, filters) {
     searchCriteria.pageInfo.pageSize = filters.pageSize ? filters.pageSize : 10;
 
     searchCriteria.sort = {};
-    searchCriteria.sort.name = 'Dataset';
-    searchCriteria.sort.k = 'dataset_title_sort';
+    searchCriteria.sort.name = 'Resource';
+    searchCriteria.sort.k = 'resource_title_sort';
     searchCriteria.sort.v = filters.sortOrder || 'asc';
 
     const filtersBody = {
