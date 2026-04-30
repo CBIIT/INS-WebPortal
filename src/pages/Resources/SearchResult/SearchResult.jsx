@@ -1,8 +1,6 @@
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
-import {
-  Link,
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Popover } from 'bootstrap';
 import ReactHtmlParser from 'html-react-parser';
@@ -329,28 +327,20 @@ const SearchResultContainer = styled.div`
 `;
 
 // Configuration for hidden fields that appear as "Other Match in..." when highlighted
-// Display names match the Dataset Details page headers
+// Display names match the Resource Details page headers
 // formatSemicolon flag indicates whether to apply semicolon spacing formatting
 const HIDDEN_FIELDS_CONFIG = [
-  { fieldName: 'dataset_source_url', displayName: 'Study Page', formatSemicolon: false },
-  { fieldName: 'PI_name', displayName: 'Investigator(s)', formatSemicolon: true },
-  { fieldName: 'dataset_pmid', displayName: 'Cited Publication PMID(s)', formatSemicolon: true },
-  { fieldName: 'funding_source', displayName: 'Funding Source(s)', formatSemicolon: true },
-  { fieldName: 'related_diseases', displayName: 'Related Diseases', formatSemicolon: true },
-  { fieldName: 'related_terms', displayName: 'Related Terms', formatSemicolon: true },
-  { fieldName: 'study_links', displayName: 'Related Link(s)', formatSemicolon: true },
-  { fieldName: 'related_genes', displayName: 'Related Genes', formatSemicolon: true },
-  { fieldName: 'assay_method', displayName: 'Assay Method', formatSemicolon: true },
-  { fieldName: 'limitations_for_reuse', displayName: 'Limitations for Reuse', formatSemicolon: true },
-  { fieldName: 'dataset_doc', displayName: 'NCI Division/Office/Center', formatSemicolon: true },
-  { fieldName: 'institute', displayName: 'Institute', formatSemicolon: false },
-  { fieldName: 'experimental_approaches', displayName: 'Experimental Approaches', formatSemicolon: false },
-  { fieldName: 'dataset_storage_distribution', displayName: 'Data Storage and Distribution Platform', formatSemicolon: true },
+  { fieldName: 'resource_tool_subtype', displayName: 'Tool Subtype', formatSemicolon: true },
+  { fieldName: 'resource_research_type', displayName: 'Research Type', formatSemicolon: true },
+  { fieldName: 'resource_access', displayName: 'Access Control', formatSemicolon: false },
+  { fieldName: 'resource_doc', displayName: 'NCI Division/Office/Center', formatSemicolon: true },
+  { fieldName: 'resource_poc_name', displayName: 'Contact Information', formatSemicolon: true },
+  { fieldName: 'resource_poc_email', displayName: 'Contact Information', formatSemicolon: true },
+  { fieldName: 'resource_full_description', displayName: 'Full Description', formatSemicolon: false },
 ];
 
 const SearchResult = ({
   resultList,
-  search,
   glossaryTerms,
 }) => {
   const initializePopover = () => {
@@ -375,13 +365,17 @@ const SearchResult = ({
 
     // Check if backend provided a highlight for this field
     if (resultItem.highlight
-      && resultItem.highlight[highlightKey]
-      && resultItem.highlight[highlightKey][0]) {
+        && resultItem.highlight[highlightKey]
+        && resultItem.highlight[highlightKey][0]) {
       return resultItem.highlight[highlightKey][0];
     }
 
     // Fallback to content value
     const contentValue = resultItem.content[fieldName];
+    if (Array.isArray(contentValue)) {
+      return formatSemicolonSeparatedString(contentValue.join('; '));
+    }
+
     return contentValue !== null && contentValue !== undefined ? contentValue : '';
   }
 
@@ -414,11 +408,11 @@ const SearchResult = ({
    * Backend provides full description; frontend truncates if no match
    */
   function getDescriptionValue(resultItem) {
-    const rawDescription = resultItem.content.description || '';
+    const rawDescription = resultItem.content.resource_short_description || '';
     const cleanDescription = removeHTMLTags(rawDescription);
 
     // Check if backend highlighted the description
-    const highlightKey = 'description';
+    const highlightKey = 'resource_short_description';
     const hasHighlight = !!(
       resultItem.highlight
       && resultItem.highlight[highlightKey]
@@ -457,9 +451,8 @@ const SearchResult = ({
             const keyName = `sr_${idx}`;
 
             // Get highlighted values from backend (or fallback to content)
-            const highlightedResearchArea = getHighlightedValue(rst, 'resource_research_area');
             const highlightedToolType = getHighlightedValue(rst, 'resource_tool_type');
-            const highlightedStudyType = getHighlightedValue(rst, 'study_type');
+            const highlightedResearchArea = getHighlightedValue(rst, 'resource_research_area');
             const highlightedDesc = getDescriptionValue(rst);
 
             // Build list of hidden fields that have matches (backend highlighted them)
@@ -478,21 +471,22 @@ const SearchResult = ({
               <div key={keyName} className="container">
                 <div className="row align-items-start headerRow">
                   <div className="col-sm resultTitle">
-                    <Link to={`/resource/${rst.dataset_uuid}`} data-testid="dataset-title-link">
-                      {rst.content.dataset_title}
+                    <Link to={`/resource/${rst.resource_uuid}`} data-testid="resource-title-link">
+                      {rst.content.resource_title}
                     </Link>
                   </div>
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
-                    <span className="dataRepo" data-testid="dataset-source-repo">
+                    <span className="dataRepo" data-testid="resource-tool-type">
                       <img src={databaseIcon} alt="database-icon" className="img0" />
                       {ReactHtmlParser(highlightedToolType)}
                     </span>
                     <img src={dataResourceIcon} alt="data-resource" className="img1" />
-                    {rst.content.dataset_source_url ? (
-                      <a href={rst.content.dataset_source_url} target="_blank" rel="noopener noreferrer" className="link">
-                        {rst.content.dataset_source_id}
+                    {rst.content.resource_source_url ? (
+                      <a href={rst.content.resource_source_url} target="_blank" rel="noopener noreferrer" className="link" data-testid="resource-visit-link">
+                        {/* TODO: What label goes here? */}
+                        Visit Resource
                         <img
                           src={externalLinkIcon.src}
                           alt={externalLinkIcon.alt}
@@ -500,8 +494,8 @@ const SearchResult = ({
                         />
                       </a>
                     ) : (
-                      <span className="link">
-                        {rst.content.dataset_source_id}
+                      <span className="link" data-testid="resource-visit-link">
+                        Visit Resource
                       </span>
                     )}
                   </div>
@@ -515,30 +509,6 @@ const SearchResult = ({
                       </span>
                     </div>
                   </div>
-                }
-                {
-                  rst.content.study_type != null && rst.content.study_type !== '' && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col labelDiv">
-                        <span>Study Type:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="itemSpan" data-testid="study-type">
-                          {ReactHtmlParser(highlightedStudyType)}
-                        </span>
-                      </div>
-                    </div>
-                  )
-                }
-                {
-                  rst.content.sample_count != null && rst.content.sample_count !== '' && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col labelDiv">
-                        <span>Sample Count:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="textSpan sampleCountHighlight" data-testid="sample-count">
-                          {rst.content.sample_count}
-                        </span>
-                      </div>
-                    </div>
-                  )
                 }
                 {
                   highlightedDesc !== '' && (
