@@ -29,7 +29,7 @@ const replaceResourceFilter = (query, filter, filterKey) => {
     }
   }
 
-  const otherFilterKey = filterKey === 'filterByResource' ? 'filterByRepo' : 'filterByResource';
+  const otherFilterKey = filterKey === 'filterByResearchArea' ? 'filterByToolType' : 'filterByResearchArea';
   if (query.get(otherFilterKey)) {
     str += `&${otherFilterKey}=${query.get(otherFilterKey)}`;
   }
@@ -58,25 +58,25 @@ const Filters = ({
   const query = useQuery();
   const history = useHistory();
 
-  const [sortTypeRepo, setSortTypeRepo] = useState('alphabetically');
-  const [sortTypeDisease, setSortTypeDisease] = useState('alphabetically');
+  const [sortTypeToolType, setSortTypeToolType] = useState('alphabetically');
+  const [sortTypeResearchArea, setSortTypeResearchArea] = useState('alphabetically');
 
   const sourceFiltersArray = Array.isArray(sourceFilters) ? sourceFilters : [sourceFilters];
 
-  const sourcesDataRepository = !sourceFilters || sourceFilters === 'all'
-    ? (searchFilters.dataset_source_repo || []).map((element) => element.name.toLowerCase())
+  const sourcesToolType = !sourceFilters || sourceFilters === 'all'
+    ? (searchFilters.resource_tool_type || []).map((element) => element.name.toLowerCase())
     : sourceFiltersArray.filter((element) => element);
 
-  const sourcesPrimaryDisease = !sourceFilters || sourceFilters === 'all'
-    ? (searchFilters.primary_disease || []).map((element) => element.name.toLowerCase())
+  const sourcesResearchArea = !sourceFilters || sourceFilters === 'all'
+    ? (searchFilters.resource_research_area || []).map((element) => element.name.toLowerCase())
     : sourceFiltersArray.filter((element) => element);
 
   useEffect(() => {
     if (
-      !searchFilters.dataset_source_repo
-      || !searchFilters.primary_disease
-      || searchFilters.dataset_source_repo.length === 0
-      || searchFilters.primary_disease.length === 0
+      !searchFilters.resource_tool_type
+      || !searchFilters.resource_research_area
+      || searchFilters.resource_tool_type.length === 0
+      || searchFilters.resource_research_area.length === 0
     ) {
       onLoadSearchDataResources().catch((error) => {
         throw new Error(`Loading search catalog page filters failed ${error}`);
@@ -84,23 +84,23 @@ const Filters = ({
     }
   }, []);
 
-  const handleResourceClickDataRepository = (filter) => {
-    const queryStr = replaceResourceFilter(query, filter, 'filterByRepo');
+  const handleResourceClickToolType = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter, 'filterByToolType');
     history.push(`/resources?${queryStr}`);
   };
 
-  const handleResourceClickPrimaryDisease = (filter) => {
-    const queryStr = replaceResourceFilter(query, filter, 'filterByResource');
+  const handleResourceClickResearchArea = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter, 'filterByResearchArea');
     history.push(`/resources?${queryStr}`);
   };
 
-  const sortedDataRepositorySearchFilters = [...(searchFilters.dataset_source_repo || [])].sort((a, b) => {
-    if (sortTypeRepo === 'count') return b.count - a.count;
+  const sortedToolTypeSearchFilters = [...(searchFilters.resource_tool_type || [])].sort((a, b) => {
+    if (sortTypeToolType === 'count') return b.count - a.count;
     return a.name.localeCompare(b.name);
   });
 
-  const sortedPrimaryDiseaseSearchFilters = [...(searchFilters.primary_disease || [])].sort((a, b) => {
-    if (sortTypeDisease === 'count') return b.count - a.count;
+  const sortedResearchAreaSearchFilters = [...(searchFilters.resource_research_area || [])].sort((a, b) => {
+    if (sortTypeResearchArea === 'count') return b.count - a.count;
     return a.name.localeCompare(b.name);
   });
 
@@ -158,12 +158,12 @@ const Filters = ({
         </div>
         <hr className="divider" />
         <div className="filterLabel">
-          <span>Filter by Data Repository</span>
+          <span>Filter by Tool Type</span>
         </div>
         <div className="sort">
           <span className="icon">
             <Button
-              onClick={() => handleResourceClickDataRepository('')}
+              onClick={() => handleResourceClickToolType('')}
               className="reset"
               classes={{ root: 'clearAllButtonRoot' }}
             >
@@ -176,32 +176,32 @@ const Filters = ({
             </Button>
           </span>
           <span
-            className={`alphabetically ${sortTypeRepo === 'alphabetically' ? 'sortOption selected' : ''}`}
-            onClick={() => setSortTypeRepo('alphabetically')}
+            className={`alphabetically ${sortTypeToolType === 'alphabetically' ? 'sortOption selected' : ''}`}
+            onClick={() => setSortTypeToolType('alphabetically')}
           >
             Sort Alphabetically
           </span>
           <span
-            className={`count ${sortTypeRepo === 'count' ? 'sortOption selected' : ''}`}
-            onClick={() => setSortTypeRepo('count')}
+            className={`count ${sortTypeToolType === 'count' ? 'sortOption selected' : ''}`}
+            onClick={() => setSortTypeToolType('count')}
           >
             Sort By Count
           </span>
         </div>
         <div className="filterBlock">
           <div className="accordion">
-            {sortedDataRepositorySearchFilters.map((field, idx) => {
+            {sortedToolTypeSearchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
-              const arrayOfSources = sourcesDataRepository.flatMap((item) => item.split('|'));
-              const checked = !!(selectedFilters.dataset_source_repo
-                && selectedFilters.dataset_source_repo.indexOf(field.name) > -1);
+              const arrayOfSources = sourcesToolType.flatMap((item) => item.split('|'));
+              const checked = !!(selectedFilters.resource_tool_type
+                && selectedFilters.resource_tool_type.indexOf(field.name) > -1);
               return arrayOfSources.includes(field.name.toLowerCase()) ? (
                 <FilterItem
                   key={key}
                   item={field}
                   checked={checked}
-                  highlight={sourcesDataRepository.indexOf(field.name.toLowerCase()) > -1}
-                  onSourceClick={handleResourceClickDataRepository}
+                  highlight={sourcesToolType.indexOf(field.name.toLowerCase()) > -1}
+                  onSourceClick={handleResourceClickToolType}
                 />
               ) : null;
             })}
@@ -209,12 +209,12 @@ const Filters = ({
         </div>
         <hr className="divider" />
         <div className="filterLabel">
-          <span>Filter by Primary Disease</span>
+          <span>Filter by Research Area</span>
         </div>
         <div className="sort">
           <span className="icon">
             <Button
-              onClick={() => handleResourceClickPrimaryDisease('')}
+              onClick={() => handleResourceClickResearchArea('')}
               className="reset"
               classes={{ root: 'clearAllButtonRoot' }}
             >
@@ -227,32 +227,32 @@ const Filters = ({
             </Button>
           </span>
           <span
-            className={`alphabetically ${sortTypeDisease === 'alphabetically' ? 'sortOption selected' : ''}`}
-            onClick={() => setSortTypeDisease('alphabetically')}
+            className={`alphabetically ${sortTypeResearchArea === 'alphabetically' ? 'sortOption selected' : ''}`}
+            onClick={() => setSortTypeResearchArea('alphabetically')}
           >
             Sort Alphabetically
           </span>
           <span
-            className={`count ${sortTypeDisease === 'count' ? 'sortOption selected' : ''}`}
-            onClick={() => setSortTypeDisease('count')}
+            className={`count ${sortTypeResearchArea === 'count' ? 'sortOption selected' : ''}`}
+            onClick={() => setSortTypeResearchArea('count')}
           >
             Sort By Count
           </span>
         </div>
         <div className="filterBlock">
           <div className="accordion">
-            {sortedPrimaryDiseaseSearchFilters.map((field, idx) => {
+            {sortedResearchAreaSearchFilters.map((field, idx) => {
               const key = `filters_${idx}`;
-              const arrayOfSources = sourcesPrimaryDisease.flatMap((item) => item.split('|'));
-              const checked = !!(selectedFilters.primary_disease
-                && selectedFilters.primary_disease.indexOf(field.name) > -1);
+              const arrayOfSources = sourcesResearchArea.flatMap((item) => item.split('|'));
+              const checked = !!(selectedFilters.resource_research_area
+                && selectedFilters.resource_research_area.indexOf(field.name) > -1);
               return arrayOfSources.includes(field.name.toLowerCase()) ? (
                 <FilterItem
                   key={key}
                   item={field}
                   checked={checked}
-                  highlight={sourcesPrimaryDisease.indexOf(field.name.toLowerCase()) > -1}
-                  onSourceClick={handleResourceClickPrimaryDisease}
+                  highlight={sourcesResearchArea.indexOf(field.name.toLowerCase()) > -1}
+                  onSourceClick={handleResourceClickResearchArea}
                 />
               ) : null;
             })}

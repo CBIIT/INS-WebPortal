@@ -18,11 +18,11 @@ const replaceQueryStr = (query, searchText) => {
   if (searchText.trim() !== '') {
     str += `&search_text=${searchText.replace("'", '').replace(/[^a-zA-Z0-9 ]/g, ' ').trim()}`;
   }
-  if (query.get('filterByResource')) {
-    str += `&filterByResource=${query.get('filterByResource')}`;
+  if (query.get('filterByResearchArea')) {
+    str += `&filterByResearchArea=${query.get('filterByResearchArea')}`;
   }
-  if (query.get('filterByRepo')) {
-    str += `&filterByRepo=${query.get('filterByRepo')}`;
+  if (query.get('filterByToolType')) {
+    str += `&filterByToolType=${query.get('filterByToolType')}`;
   }
   str += '&page=1';
   if (query.get('pageSize')) {
@@ -56,7 +56,7 @@ const replaceResourceFilter = (query, filter, filterKey) => {
     }
   }
 
-  const otherFilterKey = filterKey === 'filterByResource' ? 'filterByRepo' : 'filterByResource';
+  const otherFilterKey = filterKey === 'filterByResearchArea' ? 'filterByToolType' : 'filterByResearchArea';
   if (query.get(otherFilterKey)) {
     str += `&${otherFilterKey}=${query.get(otherFilterKey)}`;
   }
@@ -98,11 +98,11 @@ const SearchCatalogPage = ({
     if (query.get('page')) {
       options.page = parseInt(query.get('page').trim(), 10);
     }
-    if (query.get('filterByResource')) {
-      options.filterByResource = query.get('filterByResource').trim().split('|');
+    if (query.get('filterByResearchArea')) {
+      options.filterByResearchArea = query.get('filterByResearchArea').trim().split('|');
     }
-    if (query.get('filterByRepo')) {
-      options.filterByRepo = query.get('filterByRepo').trim().split('|');
+    if (query.get('filterByToolType')) {
+      options.filterByToolType = query.get('filterByToolType').trim().split('|');
     }
     if (query.get('pageSize')) {
       options.pageSize = parseInt(query.get('pageSize').trim(), 10);
@@ -126,14 +126,14 @@ const SearchCatalogPage = ({
     onBubbleSearchTextRemoveClick();
   };
 
-  const handleBubbleDataRepositoryRemoveClick = (filter) => {
-    const queryStr = replaceResourceFilter(query, filter, 'filterByRepo');
+  const handleBubbleToolTypeRemoveClick = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter, 'filterByToolType');
     history.push(`/resources?${queryStr}`);
     onBubbleResourcesRemoveClick();
   };
 
-  const handleBubblePrimaryDiseaseRemoveClick = (filter) => {
-    const queryStr = replaceResourceFilter(query, filter, 'filterByResource');
+  const handleBubbleResearchAreaRemoveClick = (filter) => {
+    const queryStr = replaceResourceFilter(query, filter, 'filterByResearchArea');
     history.push(`/resources?${queryStr}`);
     onBubbleResourcesRemoveClick();
   };
@@ -170,8 +170,8 @@ const SearchCatalogPage = ({
               searchKeyword={searchKeyword}
               resourceFilters={resourceFilters}
               handleBubbleSearchTextRemoveClick={handleBubbleSearchTextRemoveClick}
-              handleBubbleDataRepositoryRemoveClick={handleBubbleDataRepositoryRemoveClick}
-              handleBubblePrimaryDiseaseRemoveClick={handleBubblePrimaryDiseaseRemoveClick}
+              handleBubbleToolTypeRemoveClick={handleBubbleToolTypeRemoveClick}
+              handleBubbleResearchAreaRemoveClick={handleBubbleResearchAreaRemoveClick}
               onSearchBoxKeyPress={handleSearchBoxKeyPress}
               onSearchSubmit={handleSearchSubmit}
               onSearchTextInputChange={handleSearchTextInputChange}

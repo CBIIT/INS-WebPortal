@@ -457,8 +457,8 @@ const SearchResult = ({
             const keyName = `sr_${idx}`;
 
             // Get highlighted values from backend (or fallback to content)
-            const highlightedPrimaryDisease = getHighlightedValue(rst, 'primary_disease');
-            const highlightedDatasetSourceRepo = getHighlightedValue(rst, 'dataset_source_repo');
+            const highlightedResearchArea = getHighlightedValue(rst, 'resource_research_area');
+            const highlightedToolType = getHighlightedValue(rst, 'resource_tool_type');
             const highlightedStudyType = getHighlightedValue(rst, 'study_type');
             const highlightedDesc = getDescriptionValue(rst);
 
@@ -487,7 +487,7 @@ const SearchResult = ({
                   <div className="col-sm resultSubTitle">
                     <span className="dataRepo" data-testid="dataset-source-repo">
                       <img src={databaseIcon} alt="database-icon" className="img0" />
-                      {ReactHtmlParser(highlightedDatasetSourceRepo)}
+                      {ReactHtmlParser(highlightedToolType)}
                     </span>
                     <img src={dataResourceIcon} alt="data-resource" className="img1" />
                     {rst.content.dataset_source_url ? (
@@ -509,9 +509,9 @@ const SearchResult = ({
                 {
                   <div className="row align-items-start bodyRow">
                     <div className="col labelDiv">
-                      <span>Primary Disease:&nbsp;&nbsp;&nbsp;</span>
-                      <span className="itemSpan" data-testid="primary-disease">
-                        {ReactHtmlParser(highlightedPrimaryDisease)}
+                      <span>Research Area:&nbsp;&nbsp;&nbsp;</span>
+                      <span className="itemSpan" data-testid="research-area">
+                        {ReactHtmlParser(highlightedResearchArea)}
                       </span>
                     </div>
                   </div>

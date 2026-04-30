@@ -46,8 +46,8 @@ export function loadSearchDataResources() {
     return searchApi.getResourcesSearchFilters({ filters: {} })
       .then((response) => {
         const resourcesList = {
-          primary_disease: response.data.primary_disease || [],
-          dataset_source_repo: response.data.dataset_source_repo || [],
+          resource_research_area: response.data.resource_research_area || [],
+          resource_tool_type: response.data.resource_tool_type || [],
         };
         dispatch(loadSearchFiltersSuccess(resourcesList));
       })
@@ -64,12 +64,12 @@ export function loadFromUrlQuery(searchText, filters) {
     searchCriteria.search_text = searchText;
     searchCriteria.filters = {};
 
-    if (Array.isArray(filters.filterByResource) && filters.filterByResource.length > 0) {
-      searchCriteria.filters.primary_disease = filters.filterByResource;
+    if (Array.isArray(filters.filterByResearchArea) && filters.filterByResearchArea.length > 0) {
+      searchCriteria.filters.resource_research_area = filters.filterByResearchArea;
     }
 
-    if (Array.isArray(filters.filterByRepo) && filters.filterByRepo.length > 0) {
-      searchCriteria.filters.dataset_source_repo = filters.filterByRepo;
+    if (Array.isArray(filters.filterByToolType) && filters.filterByToolType.length > 0) {
+      searchCriteria.filters.resource_tool_type = filters.filterByToolType;
     }
 
     searchCriteria.pageInfo = {};

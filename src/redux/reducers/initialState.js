@@ -43,9 +43,9 @@ export default {
     searchCriteria: {
       search_text: '',
       filters: {
-        primary_disease: [
+        resource_research_area: [
         ],
-        dataset_source_repo: [
+        resource_tool_type: [
         ],
       },
       pageInfo: {

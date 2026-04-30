@@ -67,11 +67,11 @@ const replaceQueryStr = (query, sortOrder) => {
   if (query.get('search_text')) {
     str += `&search_text=${query.get('search_text')}`;
   }
-  if (query.get('filterByResource')) {
-    str += `&filterByResource=${query.get('filterByResource')}`;
+  if (query.get('filterByResearchArea')) {
+    str += `&filterByResearchArea=${query.get('filterByResearchArea')}`;
   }
-  if (query.get('filterByRepo')) {
-    str += `&filterByRepo=${query.get('filterByRepo')}`;
+  if (query.get('filterByToolType')) {
+    str += `&filterByToolType=${query.get('filterByToolType')}`;
   }
   if (query.get('page')) {
     str += `&page=${query.get('page')}`;
