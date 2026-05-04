@@ -32,7 +32,7 @@ const ResourceController = ({ match }) => {
   }, [uuid]);
 
   if (loading) {
-    return <CircularProgress />;
+    return <CircularProgress data-testid="loading-spinner" />;
   }
 
   if (!resource || !resource.data) {

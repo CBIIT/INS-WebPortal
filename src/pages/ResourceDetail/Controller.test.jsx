@@ -1,164 +1,144 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { useQuery } from '@apollo/client';
-import DataSetDetailContainer from './Controller';
-import migrateDatasetId from '../../utils/datasetUtils';
+import { render, screen, waitFor } from '@testing-library/react';
+import ResourceController from './Controller';
+import * as searchApi from '../../api/searchApi';
 
-/** @param {{ to: string }} props */
-function MockRedirect(props) {
-  return <div data-testid="redirect">{props.to}</div>;
-}
+jest.mock('../error/Error', () => () => <div data-testid="error">Error occurred</div>);
 
-jest.mock('@apollo/client', () => ({
-  useQuery: jest.fn(),
-}));
-
-jest.mock('@material-ui/core/CircularProgress', () => () => <div data-testid="loading" />);
-
-jest.mock('react-router-dom', () => ({
-  Redirect: MockRedirect,
-}));
-
-jest.mock('../error/Error', () => () => <div data-testid="error" />);
-
-jest.mock('./dataSetDetailView', () => jest.fn(({ data, files }) => (
-  <div data-testid="dataset-view" data-title={data?.dataset_title} data-file-count={files?.length || 0} />
+jest.mock('./DetailView', () => jest.fn(({ data }) => (
+  <div data-testid="detail-view" data-resource-name={data?.title} />
 )));
 
-jest.mock('../../bento/datasetDetailData', () => ({
-  getDataSetDetailDataQuery: 'GET_DATASET_DETAILS_QUERY',
-  getDatasetFilesQuery: 'GET_DATASET_FILES_QUERY',
-}));
+jest.mock('../../api/searchApi');
 
-jest.mock('../../utils/datasetUtils', () => jest.fn());
+const mockGetResourceById = searchApi.getResourceById;
 
-const mockUseQuery = useQuery;
-const mockMigrateDatasetId = migrateDatasetId;
+const baseMatch = { params: { uuid: 'resource-123' } };
 
-const baseMatch = { params: { id: 'incoming-id' } };
-
-describe('DataSetDetailContainer', () => {
+describe('ResourceController', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('redirects when incoming id is migrated', () => {
-    mockMigrateDatasetId.mockReturnValue({ originalId: 'old-id', migratedId: 'new-id' });
+  it('shows loading state initially', () => {
+    mockGetResourceById.mockImplementation(
+      () => new Promise((resolve) => {
+        setTimeout(() => resolve({ data: { title: 'Test Resource' } }), 100);
+      }),
+    );
 
-    render(<DataSetDetailContainer match={baseMatch} />);
+    render(<ResourceController match={baseMatch} />);
 
-    expect(screen.getByTestId('redirect')).toHaveTextContent('/dataset/new-id');
-    expect(mockUseQuery).not.toHaveBeenCalled();
+    expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
   });
 
-  it('shows loading when details query is loading', () => {
-    mockMigrateDatasetId.mockReturnValue({ originalId: 'id', migratedId: 'id' });
-    mockUseQuery
-      .mockReturnValueOnce({ loading: true, error: null, data: null })
-      .mockReturnValueOnce({ loading: false, error: null, data: { getDatasetFiles: [] } });
+  it('renders detail view when resource data loads successfully', async () => {
+    const mockData = { uuid: 'resource-123', title: 'Example Resource' };
+    mockGetResourceById.mockResolvedValue({ data: mockData });
 
-    render(<DataSetDetailContainer match={baseMatch} />);
+    render(<ResourceController match={baseMatch} />);
 
-    expect(screen.getByTestId('loading')).toBeInTheDocument();
-  });
-
-  it('shows loading when files query is loading', () => {
-    mockMigrateDatasetId.mockReturnValue({ originalId: 'id', migratedId: 'id' });
-    mockUseQuery
-      .mockReturnValueOnce({ loading: false, error: null, data: { datasetDetails: { dataset_title: 'T1' } } })
-      .mockReturnValueOnce({ loading: true, error: null, data: null });
-
-    render(<DataSetDetailContainer match={baseMatch} />);
-
-    expect(screen.getByTestId('loading')).toBeInTheDocument();
-  });
-
-  it('shows error when details query errors', () => {
-    mockMigrateDatasetId.mockReturnValue({ originalId: 'id', migratedId: 'id' });
-    mockUseQuery
-      .mockReturnValueOnce({ loading: false, error: new Error('details failed'), data: null })
-      .mockReturnValueOnce({ loading: false, error: null, data: { getDatasetFiles: [] } });
-
-    render(<DataSetDetailContainer match={baseMatch} />);
-
-    expect(screen.getByTestId('error')).toBeInTheDocument();
-  });
-
-  it('shows error when datasetDetails payload is missing', () => {
-    mockMigrateDatasetId.mockReturnValue({ originalId: 'id', migratedId: 'id' });
-    mockUseQuery
-      .mockReturnValueOnce({ loading: false, error: null, data: {} })
-      .mockReturnValueOnce({ loading: false, error: null, data: { getDatasetFiles: [] } });
-
-    render(<DataSetDetailContainer match={baseMatch} />);
-
-    expect(screen.getByTestId('error')).toBeInTheDocument();
-  });
-
-  it('renders view with empty files when files query errors', () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
-    mockMigrateDatasetId.mockReturnValue({ originalId: 'id', migratedId: 'id' });
-    mockUseQuery
-      .mockReturnValueOnce({
-        loading: false,
-        error: null,
-        data: { datasetDetails: { dataset_title: 'Dataset X' } },
-      })
-      .mockReturnValueOnce({
-        loading: false,
-        error: new Error('files failed'),
-        data: null,
-      });
-
-    render(<DataSetDetailContainer match={baseMatch} />);
-
-    expect(screen.getByTestId('dataset-view')).toBeInTheDocument();
-    expect(screen.getByTestId('dataset-view')).toHaveAttribute('data-file-count', '0');
-    expect(consoleSpy).toHaveBeenCalled();
-
-    consoleSpy.mockRestore();
-  });
-
-  it('renders view with files when files query succeeds', () => {
-    mockMigrateDatasetId.mockReturnValue({ originalId: 'id', migratedId: 'id' });
-    mockUseQuery
-      .mockReturnValueOnce({
-        loading: false,
-        error: null,
-        data: { datasetDetails: { dataset_title: 'Dataset Y' } },
-      })
-      .mockReturnValueOnce({
-        loading: false,
-        error: null,
-        data: { getDatasetFiles: [{ file_id: 'f1' }, { file_id: 'f2' }] },
-      });
-
-    render(<DataSetDetailContainer match={baseMatch} />);
-
-    expect(screen.getByTestId('dataset-view')).toBeInTheDocument();
-    expect(screen.getByTestId('dataset-view')).toHaveAttribute('data-file-count', '2');
-  });
-
-  it('uses migrated ID in both GraphQL queries and sets skip when migrated id is empty', () => {
-    mockMigrateDatasetId.mockReturnValue({ originalId: '', migratedId: '' });
-    mockUseQuery
-      .mockReturnValueOnce({ loading: false, error: null, data: null })
-      .mockReturnValueOnce({ loading: false, error: null, data: null });
-
-    render(<DataSetDetailContainer match={{ params: { id: '' } }} />);
-
-    expect(mockUseQuery).toHaveBeenNthCalledWith(1, 'GET_DATASET_DETAILS_QUERY', {
-      variables: { dataset_uuid: '' },
-      skip: true,
-    });
-    expect(mockUseQuery).toHaveBeenNthCalledWith(2, 'GET_DATASET_FILES_QUERY', {
-      variables: {
-        dataset_uuid: '',
-        accessTypes: ['Open'],
-      },
-      skip: true,
+    await waitFor(() => {
+      expect(screen.getByTestId('detail-view')).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId('error')).toBeInTheDocument();
+    expect(screen.getByTestId('detail-view')).toHaveAttribute(
+      'data-resource-name',
+      'Example Resource',
+    );
+  });
+
+  it('shows error when API throws', async () => {
+    mockGetResourceById.mockRejectedValue(new Error('API Error'));
+
+    render(<ResourceController match={baseMatch} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('error')).toBeInTheDocument();
+    });
+
+    expect(screen.queryByTestId('detail-view')).not.toBeInTheDocument();
+  });
+
+  it('shows error when response data is null', async () => {
+    mockGetResourceById.mockResolvedValue(null);
+
+    render(<ResourceController match={baseMatch} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('error')).toBeInTheDocument();
+    });
+  });
+
+  it('shows error when response.data is missing', async () => {
+    mockGetResourceById.mockResolvedValue({});
+
+    render(<ResourceController match={baseMatch} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('error')).toBeInTheDocument();
+    });
+  });
+
+  it('passes correct uuid from match params to API call', async () => {
+    const mockData = { uuid: 'custom-uuid', title: 'Custom Resource' };
+    mockGetResourceById.mockResolvedValue({ data: mockData });
+
+    render(<ResourceController match={{ params: { uuid: 'custom-uuid' } }} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('detail-view')).toBeInTheDocument();
+    });
+
+    expect(mockGetResourceById).toHaveBeenCalledWith('custom-uuid');
+  });
+
+  it('re-fetches data when uuid param changes', async () => {
+    const mockData1 = { uuid: 'resource-1', title: 'Resource 1' };
+    mockGetResourceById.mockResolvedValueOnce({ data: mockData1 });
+
+    const { rerender } = render(<ResourceController match={{ params: { uuid: 'resource-1' } }} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('detail-view')).toBeInTheDocument();
+    });
+
+    expect(mockGetResourceById).toHaveBeenCalledWith('resource-1');
+
+    const mockData2 = { uuid: 'resource-2', title: 'Resource 2' };
+    mockGetResourceById.mockResolvedValueOnce({ data: mockData2 });
+
+    // Re-render with new uuid
+    rerender(<ResourceController match={{ params: { uuid: 'resource-2' } }} />);
+
+    await waitFor(() => {
+      expect(mockGetResourceById).toHaveBeenCalledWith('resource-2');
+    });
+
+    expect(mockGetResourceById).toHaveBeenCalledTimes(2);
+  });
+
+  it('renders detail view with complex resource data', async () => {
+    const mockData = {
+      uuid: 'resource-advanced',
+      title: 'Advanced Resource',
+      resource_description: 'A detailed description',
+      resource_tool_type: ['Tool Type 1'],
+      resource_research_area: ['Research Area 1'],
+      resource_access: 'Open',
+      resource_doc: ['NCI Division 1'],
+    };
+    mockGetResourceById.mockResolvedValue({ data: mockData });
+
+    render(<ResourceController match={{ params: { uuid: 'resource-advanced' } }} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('detail-view')).toBeInTheDocument();
+    });
+
+    expect(screen.getByTestId('detail-view')).toHaveAttribute(
+      'data-resource-name',
+      'Advanced Resource',
+    );
   });
 });
