@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React, { useState, useRef, useEffect } from 'react';
 import {
+  Link,
   Container,
   Grid,
   Typography,
@@ -8,46 +9,27 @@ import {
 } from '@material-ui/core';
 import ReactHtmlParser from 'html-react-parser';
 import { cn } from '@bento-core/util';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import icon from '../../assets/icons/Datasets.svg';
 import {
-  externalLinkIcon, externalLinkIconBlue, descMaxLength, basicInformationFields, basicInfoAllFieldsDynamic, dataDetailsFields, additionalDetailsFields,
-} from '../../bento/datasetDetailData';
+  externalLinkIconBlue,
+  descMaxLength,
+  resourceCategoriesFields,
+  resourceInformationFields,
+  resourceCategoriesFieldsAllDynamic,
+} from '../../bento/resourceDetailData';
 import helpIcon from '../../assets/icons/help.svg';
-import formatSemicolonSeparatedString from '../../utils/formatString';
 
 const BASE_LOGO_MARGIN = -16;
 
 const DataSetDetailView = ({ classes, data }) => {
   const [expandedDescription, setExpandedDescription] = useState(false);
-  const [expandedExperimental, setExpandedExperimental] = useState(false);
   const [logoMarginTop, setLogoMarginTop] = useState(BASE_LOGO_MARGIN);
   const titleRef = useRef(null);
 
   const toggleExpandDescription = () => {
     setExpandedDescription(!expandedDescription);
   };
-
-  const toggleExpandExperimental = () => {
-    setExpandedExperimental(!expandedExperimental);
-  };
-
-  useEffect(() => {
-    if (titleRef.current) {
-      const titleHeight = titleRef.current.offsetHeight;
-
-      // Compute lineHeight from actual CSS instead of hardcoding
-      const computedStyle = window.getComputedStyle(titleRef.current);
-      const lineHeightStr = computedStyle.lineHeight;
-      const lineHeight = parseFloat(lineHeightStr);
-
-      const numberOfLines = Math.round(titleHeight / lineHeight);
-
-      // Base margin, add lineHeight px for each additional line
-      const newMargin = BASE_LOGO_MARGIN + (Math.max(0, numberOfLines - 1) * lineHeight);
-      setLogoMarginTop(newMargin);
-    }
-  }, [data.dataset_title]);
 
   // Helper function to strip HTML tags
   const stripHtmlTags = (html) => {
@@ -74,91 +56,60 @@ const DataSetDetailView = ({ classes, data }) => {
   };
 
   // Get plain text version of description for truncation
-  const plainDescription = stripHtmlTags(data.description);
+  const plainDescription = stripHtmlTags(data.resource_full_description);
   const truncatedDescription = plainDescription && plainDescription.length > descMaxLength
     ? `${plainDescription.substring(0, descMaxLength)}...`
     : plainDescription;
 
-  // Get plain text version of experimental approaches for truncation
-  const plainExperimentalApproaches = stripHtmlTags(data.experimental_approaches);
-  const truncatedExperimentalApproaches = plainExperimentalApproaches && plainExperimentalApproaches.length > descMaxLength
-    ? `${plainExperimentalApproaches.substring(0, descMaxLength)}...`
-    : plainExperimentalApproaches;
+  useEffect(() => {
+    if (titleRef.current) {
+      const titleHeight = titleRef.current.offsetHeight;
 
-  // Helper function to format text using textFormat array
-  const formatTextFromArray = (textFormatArray) => {
-    if (!textFormatArray || !Array.isArray(textFormatArray)) return '';
+      // Compute lineHeight from actual CSS instead of hardcoding
+      const computedStyle = window.getComputedStyle(titleRef.current);
+      const lineHeightStr = computedStyle.lineHeight;
+      const lineHeight = parseFloat(lineHeightStr);
 
-    return textFormatArray
-      .map((item) => {
-        if (item.type === 'datafield') {
-          return data[item.text] || '';
-        }
-        if (item.type === 'string') {
-          return item.text;
-        }
-        return '';
-      })
-      .join('');
-  };
+      const numberOfLines = Math.round(titleHeight / lineHeight);
 
-  // Helper function to get link text based on field configuration
-  const getLinkText = (field) => {
-    // If textFormat is provided, use that
-    if (field.textFormat) {
-      return formatTextFromArray(field.textFormat);
+      // Base margin, add lineHeight px for each additional line
+      const newMargin = BASE_LOGO_MARGIN + (Math.max(0, numberOfLines - 1) * lineHeight);
+      setLogoMarginTop(newMargin);
     }
-
-    // Determine which field to use (linkTextField or datafield)
-    const fieldName = field.linkTextField || field.datafield;
-    const fieldValue = data[fieldName] || '';
-
-    // Apply semicolon formatting if specified
-    if (field.formatSemicolon) {
-      return formatSemicolonSeparatedString(fieldValue);
-    }
-
-    return fieldValue;
-  };
+  }, [data.resource_title]);
 
   return (
     <Container className={classes.mainContainer}>
       <div className={classes.contentContainer}>
         <Grid container spacing={2} alignItems="center" justifyContent="space-between" className={classes.nav}>
           <Grid item>
-            <Link href="/resources" className={classes.navLink}>
+            <Link to="/resources" className={classes.navLink} component={RouterLink}>
               Explore Resources
             </Link>
-            {'    '}
-            {'>'}
-            {'    '}
-            {data.dataset_title || ''}
+            {' > '}
+            {data.resource_title || ''}
           </Grid>
         </Grid>
         <div className={classes.container}>
           <div className={classes.innerContainer}>
             <div className={classes.header}>
               <div className={classes.logo} style={{ marginTop: `${logoMarginTop}px` }}>
-                <img
-                  src={icon}
-                  alt="INS datasets logo"
-                />
+                <img src={icon} alt="INS resources logo" />
               </div>
               <div className={classes.headerTitle}>
-                <div className={classes.headerMainTitle} id="dataset_detail_title" ref={titleRef}>
-                  <span className={classes.datasetLabel}>Dataset:</span>
-                  <span className={classes.datasetTitle}>
-                    {formatSemicolonSeparatedString(data.dataset_title || '')}
-                  </span>
+                <div className={classes.headerMainTitle} data-testid="resource-detail-title" ref={titleRef}>
+                  <span className={classes.datasetLabel}>Resource:</span>
+                  <Typography component="h1" className={classes.datasetTitle}>
+                    {data.resource_title}
+                  </Typography>
                 </div>
               </div>
             </div>
             <div className={classes.headerResourceContainer}>
-              <span className={classes.subTitle}>Source Repository: </span>
-              <span className={classes.repositoryName}>{data.dataset_source_repo || ''}</span>
-              {data.dataset_source_url && (
-                <Link href={data.dataset_source_url} target="_blank" rel="noopener noreferrer" className={cn(classes.subTitle, classes.externalResource)}>
-                  View Dataset in External Resource
+              <span className={classes.subTitle}>Resource Link: </span>
+              {data.resource_source_url && (
+                <Link href={data.resource_source_url} target="_blank" rel="noopener noreferrer" className={cn(classes.subTitle, classes.externalResource)}>
+                  Visit Resource
                   <img
                     src={externalLinkIconBlue.src}
                     alt={externalLinkIconBlue.alt}
@@ -172,12 +123,13 @@ const DataSetDetailView = ({ classes, data }) => {
         <div className={classes.detailsContainer}>
           <div className={classes.contentSection} data-testid="study-description-section">
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
-              Study Description
+              Resource Description
             </Typography>
             <div className={classes.text} data-testid="description-text">
+              {/* TODO: Verify HTML renders in both expanded and collapsed states */}
               {expandedDescription ? (
                 <>
-                  {ReactHtmlParser(normalizeDescriptionContent(data.description))}
+                  {ReactHtmlParser(normalizeDescriptionContent(data.resource_full_description))}
                   {plainDescription && plainDescription.length > descMaxLength && (
                     <>
                       {' '}
@@ -215,148 +167,19 @@ const DataSetDetailView = ({ classes, data }) => {
                 </p>
               )}
             </div>
-            {data.experimental_approaches && (
-            <div data-testid="experimental-approaches-section">
-              <Typography variant="h6" component="h2" className={classes.studyHeader} style={{ marginTop: '40px' }}>
-                Experimental Approaches
-              </Typography>
-              <div className={classes.text} data-testid="experimental-text">
-                {expandedExperimental ? (
-                  <>
-                    {ReactHtmlParser(normalizeDescriptionContent(data.experimental_approaches))}
-                    {plainExperimentalApproaches && plainExperimentalApproaches.length > descMaxLength && (
-                      <>
-                        {' '}
-                        <span
-                          onClick={toggleExpandExperimental}
-                          onKeyDown={(e) => e.key === 'Enter' && toggleExpandExperimental()}
-                          role="button"
-                          tabIndex={0}
-                          className={classes.readMoreLink}
-                          data-testid="experimental-show-less"
-                        >
-                          Show Less
-                        </span>
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <p>
-                    {truncatedExperimentalApproaches}
-                    {plainExperimentalApproaches && plainExperimentalApproaches.length > descMaxLength && (
-                      <>
-                        {' '}
-                        <span
-                          onClick={toggleExpandExperimental}
-                          onKeyDown={(e) => e.key === 'Enter' && toggleExpandExperimental()}
-                          role="button"
-                          tabIndex={0}
-                          className={classes.readMoreLink}
-                          data-testid="experimental-read-more"
-                        >
-                          Read More
-                        </span>
-                      </>
-                    )}
-                  </p>
-                )}
-              </div>
-            </div>
-            )}
           </div>
-          {/* Render Basic Information section only if:
-              1) basicInformationFields array is non-empty, AND
-              2) If all fields are dynamic, at least one field has data */}
-          {basicInformationFields.length > 0
-            && (!basicInfoAllFieldsDynamic
-              || basicInformationFields.some((field) => data[field.datafield] != null && data[field.datafield] !== ''))
-            && (
-            <div className={classes.contentSection} data-testid="basic-information-section">
-              <Typography variant="h6" component="h2" className={classes.studyHeader}>
-                Basic Information
-              </Typography>
-              <Grid container spacing={4} className={classes.detailsGrid}>
-                {basicInformationFields
-                  .filter((field) => !field.dynamic || (field.dynamic && data[field.datafield] != null && data[field.datafield] !== ''))
-                  .map((field) => (
-                    <Grid item xs={12} md={4} key={field.datafield} data-testid={`basic-info-${field.datafield}`}>
-                      <div className={classes.subSection}>
-                        <Typography variant="body2" component="span" className={classes.subTitle}>
-                          {field.label}
-                          {field.tooltip && (
-                            <span className="tooltip-icon">
-                              <img src={helpIcon} alt="tooltipIcon" />
-                              <span className="tooltip-text-first">
-                                <span className={classes.tooltipFont}>
-                                  {field.tooltip}
-                                </span>
-                              </span>
-                            </span>
-                          )}
-                        </Typography>
-                        <Typography variant="body2" component="div" className={classes.text}>
-                          {field.isPMID && data[field.datafield] ? (
-                            data[field.datafield].split(';').map((pmid, index) => {
-                              const trimmedPmid = pmid.trim();
-                              const isNumeric = trimmedPmid !== '' && !Number.isNaN(Number(trimmedPmid));
-                              return (
-                                <span key={index}>
-                                  {isNumeric ? (
-                                    <Link
-                                      href={`https://pubmed.ncbi.nlm.nih.gov/${trimmedPmid}/`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className={classes.link}
-                                    >
-                                      {trimmedPmid}
-                                      <img
-                                        src={externalLinkIcon.src}
-                                        alt={externalLinkIcon.alt}
-                                        className={classes.externalLinkIcon}
-                                      />
-                                    </Link>
-                                  ) : (
-                                    <span>{trimmedPmid}</span>
-                                  )}
-                                  {index < data[field.datafield].split(';').length - 1 && '; '}
-                                  {index < data[field.datafield].split(';').length - 1 && ' '}
-                                </span>
-                              );
-                            })
-                          ) : field.isLink ? (
-                            <Link href={data[field.datafield]} target="_blank" rel="noopener noreferrer" className={classes.link}>
-                              {getLinkText(field)}
-                              <img
-                                src={externalLinkIcon.src}
-                                alt={externalLinkIcon.alt}
-                                className={classes.externalLinkIcon}
-                              />
-                            </Link>
-                          ) : (
-                            field.formatSemicolon
-                              ? formatSemicolonSeparatedString(data[field.datafield] || '')
-                              : data[field.datafield] || ''
-                          )}
-                        </Typography>
-                      </div>
-                    </Grid>
-                  ))}
-              </Grid>
-            </div>
-            )}
           <div className={classes.contentSection} data-testid="data-details-section">
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
-              Data Details
+              Resource Information
             </Typography>
             <Grid container spacing={4} className={classes.detailsGrid}>
-              {dataDetailsFields
+              {resourceInformationFields
+              // TODO: Broken filter logic. Empty arrays!
                 .filter((field) => {
-                  if (field.isPaired) {
-                    // Show if at least ONE paired field has a value (including 0, but not empty string)
-                    return (data[field.datafield] != null && data[field.datafield] !== '')
-                        || (data[field.pairedField] != null && data[field.pairedField] !== '');
+                  if (!field.dynamic) {
+                    return true;
                   }
-                  if (!field.dynamic) return true;
+
                   return data[field.datafield] != null && data[field.datafield] !== '';
                 })
                 .map((field) => (
@@ -376,58 +199,59 @@ const DataSetDetailView = ({ classes, data }) => {
                         )}
                       </Typography>
                       <Typography variant="body2" component="div" className={classes.text}>
-                        {field.isPaired ? (
-                          // Render paired values (e.g., "min - max"), showing partial values if one is missing
-                          `${data[field.datafield] != null ? data[field.datafield] : ''} - ${data[field.pairedField] != null ? data[field.pairedField] : ''}`
-                        ) : field.isMultiLink && data[field.datafield] ? (
-                          // Render multiple links separated by semicolons
-                          data[field.datafield].split(';').map((link, index) => (
-                            <div className={classes.text} key={index}>
-                              <Link
-                                href={link.trim().startsWith('http') ? link.trim() : `https://${link.trim()}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={classes.link}
-                              >
-                                {link.trim()}
-                                <img
-                                  src={externalLinkIcon.src}
-                                  alt={externalLinkIcon.alt}
-                                  className={classes.externalLinkIcon}
-                                />
-                              </Link>
-                            </div>
-                          ))
-                        ) : (
-                          field.formatSemicolon
-                            ? formatSemicolonSeparatedString(data[field.datafield] || '')
+                        {
+                          field.isArray
+                            ? data[field.datafield].join('; ')
                             : data[field.datafield] || ''
-                        )}
+                        }
                       </Typography>
                     </div>
                   </Grid>
                 ))}
             </Grid>
           </div>
-          <div className={classes.contentSection}>
-            <Typography variant="h6" component="h2" className={classes.studyHeader}>
-              Additional Details Coming Soon
-            </Typography>
-            <Grid container spacing={4} className={classes.detailsGrid}>
-              {additionalDetailsFields.map((field) => (
-                <Grid item xs={12} md={4} key={field.label}>
-                  <div className={classes.subSection}>
-                    <Typography variant="body2" className={classes.subTitle}>
-                      {field.label}
-                    </Typography>
-                    <Typography variant="body2" className={classes.text}>
-                      {field.text}
-                    </Typography>
-                  </div>
+          {resourceCategoriesFields.length > 0
+            && (!resourceCategoriesFieldsAllDynamic
+              // TODO: Fix broken filter logic here too
+              || resourceCategoriesFields.some((field) => data[field.datafield] != null && data[field.datafield] !== ''))
+            && (
+              <div className={classes.contentSection} data-testid="basic-information-section">
+                <Typography variant="h6" component="h2" className={classes.studyHeader}>
+                  Resource Categories
+                </Typography>
+                <Grid container spacing={4} className={classes.detailsGrid}>
+                  {resourceCategoriesFields
+                  // TODO: Fix this logic because empty arrays are still shown
+                    .filter((field) => !field.dynamic || (field.dynamic && data[field.datafield] != null && data[field.datafield] !== ''))
+                    .map((field) => (
+                      <Grid item xs={12} md={4} key={field.datafield} data-testid={`basic-info-${field.datafield}`}>
+                        <div className={classes.subSection}>
+                          <Typography variant="body2" component="span" className={classes.subTitle}>
+                            {field.label}
+                            {field.tooltip && (
+                              <span className="tooltip-icon">
+                                <img src={helpIcon} alt="tooltipIcon" />
+                                <span className="tooltip-text-first">
+                                  <span className={classes.tooltipFont}>
+                                    {field.tooltip}
+                                  </span>
+                                </span>
+                              </span>
+                            )}
+                          </Typography>
+                          <Typography variant="body2" component="div" className={classes.text}>
+                            {
+                              field.isArray
+                                ? data[field.datafield].join('; ')
+                                : data[field.datafield] || ''
+                            }
+                          </Typography>
+                        </div>
+                      </Grid>
+                    ))}
                 </Grid>
-              ))}
-            </Grid>
-          </div>
+              </div>
+            )}
         </div>
       </div>
     </Container>
@@ -523,6 +347,9 @@ const styles = (theme) => ({
   },
   datasetTitle: {
     fontWeight: '600',
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
     flex: 1,
     wordBreak: 'break-word',
   },

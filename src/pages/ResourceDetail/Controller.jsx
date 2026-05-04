@@ -13,7 +13,7 @@ import Error from '../error/Error';
 const ResourceController = ({ match }) => {
   const { uuid } = match.params;
 
-  const [data, setData] = useState(null);
+  const [resource, setResource] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -21,10 +21,10 @@ const ResourceController = ({ match }) => {
 
     (async () => {
       try {
-        const resourceData = await getResourceById(uuid);
-        setData(resourceData);
+        const response = await getResourceById(uuid);
+        setResource(response);
       } catch (error) {
-        setData(null);
+        setResource(null);
       } finally {
         setLoading(false);
       }
@@ -35,11 +35,11 @@ const ResourceController = ({ match }) => {
     return <CircularProgress />;
   }
 
-  if (!data || !data.datasetDetails) {
+  if (!resource || !resource.data) {
     return <Error />;
   }
 
-  return <DetailView data={data.datasetDetails} />;
+  return <DetailView data={resource.data} />;
 };
 
 export default ResourceController;
