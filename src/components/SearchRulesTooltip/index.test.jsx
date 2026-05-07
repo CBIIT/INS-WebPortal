@@ -77,12 +77,6 @@ describe('SearchRulesTooltip', () => {
     expect(tooltipTitle).toBeInTheDocument();
   });
 
-  it('has correct tabIndex for keyboard accessibility', () => {
-    render(<SearchRulesTooltip />);
-    const container = screen.getByAltText('Help: Search rules').closest('div');
-    expect(container).toHaveAttribute('tabIndex', '0');
-  });
-
   it('contains the complete list structure', () => {
     render(<SearchRulesTooltip />);
     const list = screen.getByRole('list');

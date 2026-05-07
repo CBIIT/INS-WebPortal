@@ -52,7 +52,7 @@ const replaceResourceFilter = (query, filter, filterKey) => {
 const Filters = ({
   searchFilters,
   sourceFilters,
-  selectedFilters,
+  selectedFilters = {},
   onLoadSearchDataResources,
 }) => {
   const query = useQuery();
@@ -79,7 +79,7 @@ const Filters = ({
       || searchFilters.resource_research_area.length === 0
     ) {
       onLoadSearchDataResources().catch((error) => {
-        throw new Error(`Loading search catalog page filters failed ${error}`);
+        console.error(`Loading search catalog page filters failed: ${error}`);
       });
     }
   }, []);
@@ -137,6 +137,7 @@ const Filters = ({
         <div className="floatRight">
           <Button
             id="button_sidebar_clear_all_filters"
+            data-testid="button_sidebar_clear_all_filters"
             variant="outlined"
             onClick={() => {
               const queryStr = clearAllFilters(query);
@@ -163,6 +164,7 @@ const Filters = ({
         <div className="sort">
           <span className="icon">
             <Button
+              data-testid="button_tooltype_reset"
               onClick={() => handleResourceClickToolType('')}
               className="reset"
               classes={{ root: 'clearAllButtonRoot' }}
@@ -214,6 +216,7 @@ const Filters = ({
         <div className="sort">
           <span className="icon">
             <Button
+              data-testid="button_researcharea_reset"
               onClick={() => handleResourceClickResearchArea('')}
               className="reset"
               classes={{ root: 'clearAllButtonRoot' }}

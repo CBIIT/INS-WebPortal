@@ -149,7 +149,7 @@ const getSearchableText = (searchString) => {
 const SearchBox = ({
   searchText,
   searchKeyword,
-  resourceFilters,
+  resourceFilters = {},
   handleBubbleSearchTextRemoveClick,
   handleBubbleToolTypeRemoveClick,
   handleBubbleResearchAreaRemoveClick,

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const OptionContainer = styled.div`
@@ -70,16 +69,8 @@ const FilterItem = ({
         <span style={{ display: 'none' }}>{item.name}</span>
         <input className="form-check-input" onClick={handleResourceClick} type="checkbox" value={item.name} checked={checked} readOnly aria-label={`Select ${item.name}`} />
       </span>
-
-      <SearchableOption title={`${item.name}: ${item.count}`} onClick={handleResourceClick}>
-        {item.name}
-
-      </SearchableOption>
-      <CountSpan>
-        (
-        {item.count}
-        )
-      </CountSpan>
+      <SearchableOption title={`${item.name}: ${item.count}`} onClick={handleResourceClick}>{item.name}</SearchableOption>
+      <CountSpan>{item.count}</CountSpan>
     </OptionContainer>
   );
 };
