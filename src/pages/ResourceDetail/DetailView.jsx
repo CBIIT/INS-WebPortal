@@ -106,7 +106,6 @@ const DataSetDetailView = ({ classes, data }) => {
               </div>
             </div>
             <div className={classes.headerResourceContainer}>
-              <span className={classes.subTitle}>Resource Link: </span>
               {data.resource_source_url && (
                 <Link href={data.resource_source_url} target="_blank" rel="noopener noreferrer" className={cn(classes.subTitle, classes.externalResource)}>
                   Visit Resource
@@ -362,7 +361,7 @@ const styles = (theme) => ({
   headerResourceContainer: {
     width: '100%',
     background: '#E8F2F7',
-    padding: '15px 110px',
+    padding: '15px 62px',
     borderBottom: '1px solid #7D91C4',
   },
   repositoryName: {
