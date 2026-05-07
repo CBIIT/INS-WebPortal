@@ -478,14 +478,9 @@ const SearchResult = ({
                 </div>
                 <div className="row align-items-start subHeaderRow">
                   <div className="col-sm resultSubTitle">
-                    <span className="dataRepo" data-testid="resource-tool-type">
-                      <img src={databaseIcon} alt="database-icon" className="img0" />
-                      {ReactHtmlParser(highlightedToolType)}
-                    </span>
                     <img src={dataResourceIcon} alt="data-resource" className="img1" />
                     {rst.content.resource_source_url ? (
                       <a href={rst.content.resource_source_url} target="_blank" rel="noopener noreferrer" className="link" data-testid="resource-visit-link">
-                        {/* TODO: What label goes here? */}
                         Visit Resource
                         <img
                           src={externalLinkIcon.src}
@@ -501,6 +496,19 @@ const SearchResult = ({
                   </div>
                 </div>
                 {
+                  highlightedToolType && (
+                    <div className="row align-items-start bodyRow">
+                      <div className="col labelDiv">
+                        <span>Tool Type:&nbsp;&nbsp;&nbsp;</span>
+                        <span className="itemSpan" data-testid="tool-type">
+                          {ReactHtmlParser(highlightedToolType)}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                }
+                {
+                  highlightedResearchArea && (
                   <div className="row align-items-start bodyRow">
                     <div className="col labelDiv">
                       <span>Research Area:&nbsp;&nbsp;&nbsp;</span>
@@ -509,6 +517,7 @@ const SearchResult = ({
                       </span>
                     </div>
                   </div>
+                  )
                 }
                 {
                   highlightedDesc !== '' && (
