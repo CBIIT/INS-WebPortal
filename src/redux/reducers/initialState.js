@@ -64,15 +64,6 @@ export default {
     resourcesList: [],
     details: {},
   },
-  documentSearch: {
-    keyword: '',
-    results: [],
-    pageInfo: {
-      page: 1,
-      pageSize: 10,
-      total: 100,
-    },
-  },
   application: {
     softwareVersion: '',
     siteDataUpdate: '',
