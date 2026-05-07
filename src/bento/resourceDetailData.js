@@ -56,7 +56,6 @@ const resourceInformationFields = [
     isArray: true,
     tooltip: 'Each of NCI\'s divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer research',
   },
-  // TODO: Separate contact fields?
   {
     label: 'Contact Information',
     datafield: 'resource_poc_name',
@@ -73,10 +72,14 @@ const resourceInformationFields = [
   },
 ];
 
+const resourceInformationFieldsAllDynamic = resourceInformationFields
+  .every((field) => field.dynamic === true);
+
 export {
   externalLinkIconBlue,
   descMaxLength,
   resourceCategoriesFields,
   resourceCategoriesFieldsAllDynamic,
   resourceInformationFields,
+  resourceInformationFieldsAllDynamic,
 };

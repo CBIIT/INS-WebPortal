@@ -167,6 +167,7 @@ const DataSetDetailView = ({ classes, data }) => {
               )}
             </div>
           </div>
+          {/* TODO: This needs to support the case when no dynamic fields are available */}
           <div className={classes.contentSection} data-testid="data-details-section">
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
               Resource Information
