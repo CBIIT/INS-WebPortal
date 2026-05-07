@@ -25,15 +25,16 @@ const mockErrorResponse = ({ status, statusText = '', errorText = '' }) => ({
   text: jest.fn().mockResolvedValue(errorText),
 });
 
+beforeEach(() => {
+  jest.spyOn(console, 'error').mockImplementation(() => { });
+  global.fetch = jest.fn();
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('searchDatasets', () => {
-  beforeEach(() => {
-    global.fetch = jest.fn();
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('posts the search body to the datasets search endpoint', async () => {
     const body = { query: 'cancer', pageInfo: { page: 1 } };
     const responseData = { results: [{ id: 'dataset-1' }] };
@@ -68,14 +69,6 @@ describe('searchDatasets', () => {
 });
 
 describe('getSearchFilters', () => {
-  beforeEach(() => {
-    global.fetch = jest.fn();
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('posts the filter body to the datasets filters endpoint', async () => {
     const body = { query: 'cancer', filters: { disease: ['Lung Cancer'] } };
     const responseData = { filters: ['disease', 'program'] };
