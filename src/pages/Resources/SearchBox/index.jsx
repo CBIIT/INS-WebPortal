@@ -181,11 +181,11 @@ const SearchBox = ({
         <InputGroup className="searchBoxInputGroup">
           <FormControl
             type="search"
-            placeholder="Search Resources by keywords"
-            aria-label="Search Resources by keywords"
+            placeholder="Search Tools and Resources by keywords"
+            aria-label="Search Tools and Resources by keywords"
             value={searchText}
             onChange={(e) => handleTextInputChange(e)}
-            onKeyPress={(e) => handleKeyPress(e)}
+            onKeyUp={(e) => handleKeyPress(e)}
           />
           {
             searchText.length > 0 ? (
