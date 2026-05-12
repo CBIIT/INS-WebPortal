@@ -87,8 +87,9 @@ const replaceQueryStr = (query, sortOrder) => {
 };
 
 const Sorting = ({
-  sort,
+  sort = {},
 }) => {
+  const sortV = sort && sort.v ? sort.v : 'desc';
   const query = useQuery();
   const history = useHistory();
 
@@ -104,23 +105,23 @@ const Sorting = ({
 
   return (
     <>
-      <SortingContainer>
+      <SortingContainer data-testid="sorting-container">
         <SortingLabel>
           SORT BY TITLE
         </SortingLabel>
       </SortingContainer>
       {
-        sort.v === 'asc'
+        sortV === 'asc'
           ? (
             <>
-              <SortingOrderASC onClick={handleASCSorting} />
-              <SortingOrderDESCInactive onClick={handleDESCSorting} />
+              <SortingOrderASC data-testid="sorting-asc-active" onClick={handleASCSorting} />
+              <SortingOrderDESCInactive data-testid="sorting-desc-inactive" onClick={handleDESCSorting} />
             </>
           )
           : (
             <>
-              <SortingOrderASCInactive onClick={handleASCSorting} />
-              <SortingOrderDESC onClick={handleDESCSorting} />
+              <SortingOrderASCInactive data-testid="sorting-asc-inactive" onClick={handleASCSorting} />
+              <SortingOrderDESC data-testid="sorting-desc-active" onClick={handleDESCSorting} />
             </>
           )
       }

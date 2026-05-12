@@ -343,6 +343,8 @@ const SearchResult = ({
   resultList,
   glossaryTerms,
 }) => {
+  const safeResultList = Array.isArray(resultList) ? resultList : [];
+
   const initializePopover = () => {
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     popoverTriggerList.map((popoverTriggerEl) => new Popover(popoverTriggerEl));
@@ -445,9 +447,9 @@ const SearchResult = ({
   return (
     <SearchResultContainer>
       {
-          resultList.length === 0 ? (
+          safeResultList.length === 0 ? (
             <div className="messageContainer">No result found. Please refine your search.</div>
-          ) : resultList.map((rst, idx) => {
+          ) : safeResultList.map((rst, idx) => {
             const keyName = `sr_${idx}`;
 
             // Get highlighted values from backend (or fallback to content)
