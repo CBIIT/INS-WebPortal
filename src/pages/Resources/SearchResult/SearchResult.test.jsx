@@ -169,6 +169,143 @@ describe('Basic Functionality', () => {
     expect(visitLinks[0]).toHaveAttribute('href', 'https://external-resource.com');
     expect(visitLinks[0]).toHaveAttribute('target', '_blank');
   });
+
+  it('should display multiple highlighted values for a single field separated by semicolons', () => {
+    const result = createMockResult({
+      content: { resource_poc_email: 'contact@example.com' },
+      highlight: {
+        resource_poc_email: ['<b>contact1@example.com</b>', '<b>contact2@example.com</b>'],
+      },
+    });
+
+    renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
+
+    const additionalMatches = screen.getAllByTestId('additional-match');
+    expect(additionalMatches.length).toBeGreaterThanOrEqual(1);
+    // Should contain both email addresses separated by semicolon
+    const matchText = additionalMatches[0].textContent;
+    expect(matchText).toContain('contact1@example.com');
+    expect(matchText).toContain('contact2@example.com');
+    expect(matchText).toContain(';');
+  });
+
+  it('should display multiple contact information matches', () => {
+    const result = createMockResult({
+      highlight: {
+        resource_poc_email: [
+          '<b>user1@mail.nih.gov</b>',
+          '<b>user2@mail.nih.gov</b>',
+          '<b>user3@mail.nih.gov</b>',
+        ],
+      },
+    });
+
+    renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
+
+    const additionalMatches = screen.getAllByTestId('additional-match');
+    expect(additionalMatches.length).toBeGreaterThanOrEqual(1);
+    const matchText = additionalMatches[0].textContent;
+    // All three email addresses should be present
+    expect(matchText).toContain('user1@mail.nih.gov');
+    expect(matchText).toContain('user2@mail.nih.gov');
+    expect(matchText).toContain('user3@mail.nih.gov');
+  });
+
+  it('should display multiple matches for resource_poc_name field', () => {
+    const result = createMockResult({
+      highlight: {
+        resource_poc_name: [
+          '<b>John Doe</b>',
+          '<b>Jane Smith</b>',
+        ],
+      },
+    });
+
+    renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
+
+    const additionalMatches = screen.getAllByTestId('additional-match');
+    expect(additionalMatches.length).toBeGreaterThanOrEqual(1);
+    const matchText = additionalMatches[0].textContent;
+    expect(matchText).toContain('John Doe');
+    expect(matchText).toContain('Jane Smith');
+  });
+
+  it('should display multiple matches for resource_research_type field', () => {
+    const result = createMockResult({
+      highlight: {
+        resource_research_type: [
+          '<b>Basic Research</b>',
+          '<b>Applied Research</b>',
+        ],
+      },
+    });
+
+    renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
+
+    const additionalMatches = screen.getAllByTestId('additional-match');
+    expect(additionalMatches.length).toBeGreaterThanOrEqual(1);
+    expect(additionalMatches[0]).toBeInTheDocument();
+  });
+
+  it('should format multiple highlighted values with proper spacing and semicolons', () => {
+    const result = createMockResult({
+      highlight: {
+        resource_tool_subtype: [
+          'Database',
+          '<b>Analysis Tool</b>',
+          'Visualization Tool',
+        ],
+      },
+    });
+
+    renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
+
+    const additionalMatches = screen.getAllByTestId('additional-match');
+    expect(additionalMatches.length).toBeGreaterThanOrEqual(1);
+    const text = additionalMatches[0].textContent;
+    // Should have all three values with semicolon separators
+    expect(text).toContain('Database');
+    expect(text).toContain('Analysis Tool');
+    expect(text).toContain('Visualization Tool');
+    expect(text).toContain(';');
+  });
+
+  it('should handle mixed highlights: multiple matches for some fields and single match for others', () => {
+    const result = createMockResult({
+      highlight: {
+        resource_poc_email: [
+          '<b>contact1@example.com</b>',
+          '<b>contact2@example.com</b>',
+        ],
+        resource_research_type: ['<b>Clinical Research</b>'],
+      },
+    });
+
+    renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
+
+    const additionalMatches = screen.getAllByTestId('additional-match');
+    // Should have at least 2 rows: one for email (multiple), one for research type (single)
+    expect(additionalMatches.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('should display all matches even when there are many for a single field', () => {
+    const emails = Array.from({ length: 5 }, (_, i) => `<b>contact${i}@example.com</b>`);
+    const result = createMockResult({
+      highlight: {
+        resource_poc_email: emails,
+      },
+    });
+
+    renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
+
+    const additionalMatches = screen.getAllByTestId('additional-match');
+    const matchText = additionalMatches[0].textContent;
+    expect(matchText).toContain('contact0@example.com');
+    expect(matchText).toContain('contact1@example.com');
+    expect(matchText).toContain('contact2@example.com');
+    expect(matchText).toContain('contact3@example.com');
+    expect(matchText).toContain('contact4@example.com');
+  });
 });
 
 describe('Implementation Requirements', () => {

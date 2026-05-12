@@ -355,6 +355,7 @@ const SearchResult = ({
 
   /**
    * Gets the highlighted value from backend if available, otherwise returns content value
+   * Joins multiple highlighted values with semicolon separator
    */
   function getHighlightedValue(resultItem, fieldName) {
     if (!resultItem || !resultItem.content) {
@@ -363,17 +364,19 @@ const SearchResult = ({
 
     const highlightKey = fieldName;
 
-    // Check if backend provided a highlight for this field
-    if (resultItem.highlight
-        && resultItem.highlight[highlightKey]
-        && resultItem.highlight[highlightKey][0]) {
-      return resultItem.highlight[highlightKey][0];
+    // Check if backend provided highlights for this field
+    if (resultItem.highlight && resultItem.highlight[highlightKey]) {
+      const highlightedValues = resultItem.highlight[highlightKey];
+      // Join all highlighted values (backend may return multiple matches for same field)
+      return Array.isArray(highlightedValues)
+        ? highlightedValues.join('; ')
+        : highlightedValues;
     }
 
     // Fallback to content value
     const contentValue = resultItem.content[fieldName];
     if (Array.isArray(contentValue)) {
-      return formatSemicolonSeparatedString(contentValue.join('; '));
+      return contentValue.join('; ');
     }
 
     return contentValue !== null && contentValue !== undefined ? contentValue : '';
