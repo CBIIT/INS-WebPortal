@@ -1,5 +1,6 @@
-/* eslint-disable max-len */
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState, useRef, useEffect, useMemo,
+} from 'react';
 import {
   Link,
   Container,
@@ -16,66 +17,90 @@ import {
   descMaxLength,
   resourceCategoriesFields,
   resourceInformationFields,
-  resourceCategoriesFieldsAllDynamic,
 } from '../../bento/resourceDetailData';
 import helpIcon from '../../assets/icons/help.svg';
 
 const BASE_LOGO_MARGIN = -16;
 
-const DataSetDetailView = ({ classes, data }) => {
+// Helper function to strip HTML tags
+const stripHtmlTags = (html) => {
+  if (!html) return '';
+  const tmp = document.createElement('DIV');
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || '';
+};
+
+// Helper function to normalize plain text to HTML paragraph format
+const normalizeDescriptionContent = (content) => {
+  if (!content) return '';
+
+  // Check if content already contains HTML paragraph tags
+  const hasHtmlParagraphs = /<p[\s>]/i.test(content);
+
+  if (hasHtmlParagraphs) {
+    // Content already has proper HTML structure
+    return content;
+  }
+
+  // Plain text detected - wrap in <p> tag to match HTML spacing
+  return `<p>${content}</p>`;
+};
+
+/**
+ * A utility function to determine if a field value should be considered empty
+ *
+ * @param {unknown} value The field value to determine if it's empty
+ * @param {typeof resourceInformationFields[number]} field The field definition
+ */
+const fieldIsEmpty = (value, field) => {
+  if (field.isArray) {
+    return !Array.isArray(value) || value.length === 0;
+  }
+
+  return value == null || value === '';
+};
+
+const ResourceDetailView = ({ classes, data }) => {
   const [expandedDescription, setExpandedDescription] = useState(false);
   const [logoMarginTop, setLogoMarginTop] = useState(BASE_LOGO_MARGIN);
   const titleRef = useRef(null);
+
+  const plainDescription = useMemo(
+    () => stripHtmlTags(data.resource_full_description),
+    [data.resource_full_description],
+  );
+
+  const truncatedDescription = useMemo(() => {
+    if (!plainDescription) {
+      return '';
+    }
+
+    return plainDescription.length > descMaxLength
+      ? `${plainDescription.substring(0, descMaxLength)}...`
+      : plainDescription;
+  }, [plainDescription]);
 
   const toggleExpandDescription = () => {
     setExpandedDescription(!expandedDescription);
   };
 
-  // Helper function to strip HTML tags
-  const stripHtmlTags = (html) => {
-    if (!html) return '';
-    const tmp = document.createElement('DIV');
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || '';
-  };
-
-  // Helper function to normalize plain text to HTML paragraph format
-  const normalizeDescriptionContent = (content) => {
-    if (!content) return '';
-
-    // Check if content already contains HTML paragraph tags
-    const hasHtmlParagraphs = /<p[\s>]/i.test(content);
-
-    if (hasHtmlParagraphs) {
-      // Content already has proper HTML structure
-      return content;
-    }
-
-    // Plain text detected - wrap in <p> tag to match HTML spacing
-    return `<p>${content}</p>`;
-  };
-
-  // Get plain text version of description for truncation
-  const plainDescription = stripHtmlTags(data.resource_full_description);
-  const truncatedDescription = plainDescription && plainDescription.length > descMaxLength
-    ? `${plainDescription.substring(0, descMaxLength)}...`
-    : plainDescription;
-
   useEffect(() => {
-    if (titleRef.current) {
-      const titleHeight = titleRef.current.offsetHeight;
-
-      // Compute lineHeight from actual CSS instead of hardcoding
-      const computedStyle = window.getComputedStyle(titleRef.current);
-      const lineHeightStr = computedStyle.lineHeight;
-      const lineHeight = parseFloat(lineHeightStr);
-
-      const numberOfLines = Math.round(titleHeight / lineHeight);
-
-      // Base margin, add lineHeight px for each additional line
-      const newMargin = BASE_LOGO_MARGIN + (Math.max(0, numberOfLines - 1) * lineHeight);
-      setLogoMarginTop(newMargin);
+    if (!titleRef.current) {
+      return;
     }
+
+    const titleHeight = titleRef.current.offsetHeight;
+
+    // Compute lineHeight from actual CSS instead of hardcoding
+    const computedStyle = window.getComputedStyle(titleRef.current);
+    const lineHeightStr = computedStyle.lineHeight;
+    const lineHeight = parseFloat(lineHeightStr);
+
+    const numberOfLines = Math.round(titleHeight / lineHeight);
+
+    // Base margin, add lineHeight px for each additional line
+    const newMargin = BASE_LOGO_MARGIN + (Math.max(0, numberOfLines - 1) * lineHeight);
+    setLogoMarginTop(newMargin);
   }, [data.resource_title]);
 
   return (
@@ -167,27 +192,21 @@ const DataSetDetailView = ({ classes, data }) => {
               )}
             </div>
           </div>
-          {/* TODO: This needs to support the case when no dynamic fields are available */}
-          <div className={classes.contentSection} data-testid="data-details-section">
-            <Typography variant="h6" component="h2" className={classes.studyHeader}>
-              Resource Information
-            </Typography>
-            <Grid container spacing={4} className={classes.detailsGrid}>
-              {resourceInformationFields
-              // TODO: Broken filter logic. Empty arrays!
-                .filter((field) => {
-                  if (!field.dynamic) {
-                    return true;
-                  }
-
-                  return data[field.datafield] != null && data[field.datafield] !== '';
-                })
-                .map((field) => (
-                  <Grid item xs={12} md={4} key={field.datafield} data-testid={`data-detail-${field.datafield}`}>
-                    <div className={classes.subSection}>
-                      <Typography variant="body2" component="span" className={classes.subTitle}>
-                        {field.label}
-                        {field.tooltip && (
+          {resourceInformationFields.some((field) => !fieldIsEmpty(data[field.datafield], field))
+            && (
+            <div className={classes.contentSection} data-testid="data-details-section">
+              <Typography variant="h6" component="h2" className={classes.studyHeader}>
+                Resource Information
+              </Typography>
+              <Grid container spacing={4} className={classes.detailsGrid}>
+                {resourceInformationFields
+                  .filter((field) => !fieldIsEmpty(data[field.datafield], field))
+                  .map((field) => (
+                    <Grid item xs={12} md={4} key={field.datafield} data-testid={`data-detail-${field.datafield}`}>
+                      <div className={classes.subSection}>
+                        <Typography variant="body2" component="span" className={classes.subTitle}>
+                          {field.label}
+                          {field.tooltip && (
                           <span className="tooltip-icon">
                             <img src={helpIcon} alt="tooltipIcon" />
                             <span className="tooltip-text-first">
@@ -196,24 +215,18 @@ const DataSetDetailView = ({ classes, data }) => {
                               </span>
                             </span>
                           </span>
-                        )}
-                      </Typography>
-                      <Typography variant="body2" component="div" className={classes.text}>
-                        {
-                          field.isArray
-                            ? data[field.datafield].join('; ')
-                            : data[field.datafield] || ''
-                        }
-                      </Typography>
-                    </div>
-                  </Grid>
-                ))}
-            </Grid>
-          </div>
-          {resourceCategoriesFields.length > 0
-            && (!resourceCategoriesFieldsAllDynamic
-              // TODO: Fix broken filter logic here too
-              || resourceCategoriesFields.some((field) => data[field.datafield] != null && data[field.datafield] !== ''))
+                          )}
+                        </Typography>
+                        <Typography variant="body2" component="div" className={classes.text}>
+                          {field.isArray ? data[field.datafield].join('; ') : data[field.datafield] || ''}
+                        </Typography>
+                      </div>
+                    </Grid>
+                  ))}
+              </Grid>
+            </div>
+            )}
+          {resourceCategoriesFields.some((field) => !fieldIsEmpty(data[field.datafield], field))
             && (
               <div className={classes.contentSection} data-testid="basic-information-section">
                 <Typography variant="h6" component="h2" className={classes.studyHeader}>
@@ -221,8 +234,7 @@ const DataSetDetailView = ({ classes, data }) => {
                 </Typography>
                 <Grid container spacing={4} className={classes.detailsGrid}>
                   {resourceCategoriesFields
-                  // TODO: Fix this logic because empty arrays are still shown
-                    .filter((field) => !field.dynamic || (field.dynamic && data[field.datafield] != null && data[field.datafield] !== ''))
+                    .filter((field) => !fieldIsEmpty(data[field.datafield], field))
                     .map((field) => (
                       <Grid item xs={12} md={4} key={field.datafield} data-testid={`basic-info-${field.datafield}`}>
                         <div className={classes.subSection}>
@@ -240,11 +252,7 @@ const DataSetDetailView = ({ classes, data }) => {
                             )}
                           </Typography>
                           <Typography variant="body2" component="div" className={classes.text}>
-                            {
-                              field.isArray
-                                ? data[field.datafield].join('; ')
-                                : data[field.datafield] || ''
-                            }
+                            {field.isArray ? data[field.datafield].join('; ') : data[field.datafield] || ''}
                           </Typography>
                         </div>
                       </Grid>
@@ -489,4 +497,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles, { withTheme: true })(DataSetDetailView);
+export default withStyles(styles, { withTheme: true })(ResourceDetailView);

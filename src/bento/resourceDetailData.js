@@ -38,9 +38,6 @@ const resourceCategoriesFields = [
   },
 ];
 
-const resourceCategoriesFieldsAllDynamic = resourceCategoriesFields
-  .every((field) => field.dynamic === true);
-
 const resourceInformationFields = [
   {
     label: 'Access Control',
@@ -72,14 +69,9 @@ const resourceInformationFields = [
   },
 ];
 
-const resourceInformationFieldsAllDynamic = resourceInformationFields
-  .every((field) => field.dynamic === true);
-
 export {
   externalLinkIconBlue,
   descMaxLength,
   resourceCategoriesFields,
-  resourceCategoriesFieldsAllDynamic,
   resourceInformationFields,
-  resourceInformationFieldsAllDynamic,
 };
