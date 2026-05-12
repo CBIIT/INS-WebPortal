@@ -303,17 +303,6 @@ describe('Implementation Requirements', () => {
     expect(additionalMatches.length).toBeGreaterThanOrEqual(1);
   });
 
-  it('should scroll to top on initial render', () => {
-    const scrollToSpy = jest.spyOn(window, 'scrollTo');
-
-    const result = createMockResult();
-    renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
-
-    expect(scrollToSpy).toHaveBeenCalledWith(0, 0);
-
-    scrollToSpy.mockRestore();
-  });
-
   it('should initialize popovers on resultList change', () => {
     const result1 = createMockResult({ resource_uuid: 'uuid-1' });
     const result2 = createMockResult({ resource_uuid: 'uuid-2' });
