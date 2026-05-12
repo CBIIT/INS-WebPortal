@@ -1,10 +1,8 @@
-/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Popover } from 'bootstrap';
 import ReactHtmlParser from 'html-react-parser';
-import databaseIcon from '../../../assets/icons/database.svg';
 import dataResourceIcon from '../../../assets/img/DataResource.png';
 import {
   externalLinkIcon,
@@ -437,123 +435,123 @@ const SearchResult = ({
   }
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
     initializePopover();
   }, [resultList, glossaryTerms]);
 
+  if (safeResultList.length === 0) {
+    return (
+      <SearchResultContainer>
+        <div className="messageContainer">No result found. Please refine your search.</div>
+      </SearchResultContainer>
+    );
+  }
+
   return (
     <SearchResultContainer>
-      {
-          safeResultList.length === 0 ? (
-            <div className="messageContainer">No result found. Please refine your search.</div>
-          ) : safeResultList.map((rst, idx) => {
-            const keyName = `sr_${idx}`;
+      {safeResultList.map((rst, idx) => {
+        const keyName = `sr_${idx}`;
 
-            // Get highlighted values from backend (or fallback to content)
-            const highlightedToolType = getHighlightedValue(rst, 'resource_tool_type');
-            const highlightedResearchArea = getHighlightedValue(rst, 'resource_research_area');
-            const highlightedDesc = getDescriptionValue(rst);
+        // Get highlighted values from backend (or fallback to content)
+        const highlightedToolType = getHighlightedValue(rst, 'resource_tool_type');
+        const highlightedResearchArea = getHighlightedValue(rst, 'resource_research_area');
+        const highlightedDesc = getDescriptionValue(rst);
 
-            // Build list of hidden fields that have matches (backend highlighted them)
-            const additionalMatches = [];
-            HIDDEN_FIELDS_CONFIG.forEach(({ fieldName, displayName, formatSemicolon }) => {
-              if (shouldShowHiddenField(rst, fieldName)) {
-                const highlightedValue = getHighlightedValue(rst, fieldName);
-                const formattedValue = formatSemicolon
-                  ? formatSemicolonSeparatedString(highlightedValue)
-                  : highlightedValue;
-                additionalMatches.push({ displayName, highlightedValue: formattedValue });
-              }
-            });
+        // Build list of hidden fields that have matches (backend highlighted them)
+        const additionalMatches = [];
+        HIDDEN_FIELDS_CONFIG.forEach(({ fieldName, displayName, formatSemicolon }) => {
+          if (shouldShowHiddenField(rst, fieldName)) {
+            const highlightedValue = getHighlightedValue(rst, fieldName);
+            const formattedValue = formatSemicolon
+              ? formatSemicolonSeparatedString(highlightedValue)
+              : highlightedValue;
+            additionalMatches.push({ displayName, highlightedValue: formattedValue });
+          }
+        });
 
-            return (
-              <div key={keyName} className="container">
-                <div className="row align-items-start headerRow">
-                  <div className="col-sm resultTitle">
-                    <Link to={`/resource/${rst.resource_uuid}`} data-testid="resource-title-link">
-                      {rst.content.resource_title}
-                    </Link>
-                  </div>
-                </div>
-                <div className="row align-items-start subHeaderRow">
-                  <div className="col-sm resultSubTitle">
-                    <img src={dataResourceIcon} alt="data-resource" className="img1" />
-                    {rst.content.resource_source_url ? (
-                      <a href={rst.content.resource_source_url} target="_blank" rel="noopener noreferrer" className="link" data-testid="resource-visit-link">
-                        Visit Resource
-                        <img
-                          src={externalLinkIcon.src}
-                          alt={externalLinkIcon.alt}
-                          className="img2"
-                        />
-                      </a>
-                    ) : (
-                      <span className="link" data-testid="resource-visit-link">
-                        Visit Resource
-                      </span>
-                    )}
-                  </div>
-                </div>
-                {
-                  highlightedToolType && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col labelDiv">
-                        <span>Tool Type:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="itemSpan" data-testid="tool-type">
-                          {ReactHtmlParser(highlightedToolType)}
-                        </span>
-                      </div>
-                    </div>
-                  )
-                }
-                {
-                  highlightedResearchArea && (
-                  <div className="row align-items-start bodyRow">
-                    <div className="col labelDiv">
-                      <span>Research Area:&nbsp;&nbsp;&nbsp;</span>
-                      <span className="itemSpan" data-testid="research-area">
-                        {ReactHtmlParser(highlightedResearchArea)}
-                      </span>
-                    </div>
-                  </div>
-                  )
-                }
-                {
-                  highlightedDesc !== '' && (
-                    <div className="row align-items-start bodyRow">
-                      <div className="col labelDiv">
-                        <span>Description:&nbsp;&nbsp;&nbsp;</span>
-                        <span className="textSpan" data-testid="description">
-                          {ReactHtmlParser(highlightedDesc)}
-                        </span>
-                      </div>
-                    </div>
-                  )
-                }
-                {
-                  additionalMatches.length > 0 && additionalMatches.map((match, index) => (
-                    <div className="row align-items-start bodyRow" key={index}>
-                      <div className="col labelDiv">
-                        <span>
-                          Other Match in
-                          {' '}
-                          {match.displayName}
-                          :&nbsp;&nbsp;&nbsp;
-                        </span>
-                        <span className="additionalMatches" data-testid="additional-match">
-                          {ReactHtmlParser(match.highlightedValue)}
-                        </span>
-                      </div>
-                    </div>
-                  ))
-                }
+        return (
+          <div key={keyName} className="container">
+            <div className="row align-items-start headerRow">
+              <div className="col-sm resultTitle">
+                <Link to={`/resource/${rst.resource_uuid}`} data-testid="resource-title-link">
+                  {rst.content.resource_title}
+                </Link>
               </div>
-            );
-          })
-        }
+            </div>
+            <div className="row align-items-start subHeaderRow">
+              <div className="col-sm resultSubTitle">
+                <img src={dataResourceIcon} alt="data-resource" className="img1" />
+                {rst.content.resource_source_url ? (
+                  <a href={rst.content.resource_source_url} target="_blank" rel="noopener noreferrer" className="link" data-testid="resource-visit-link">
+                    Visit Resource
+                    <img
+                      src={externalLinkIcon.src}
+                      alt={externalLinkIcon.alt}
+                      className="img2"
+                    />
+                  </a>
+                ) : (
+                  <span className="link" data-testid="resource-visit-link">
+                    Visit Resource
+                  </span>
+                )}
+              </div>
+            </div>
+            {
+              highlightedToolType && (
+                <div className="row align-items-start bodyRow">
+                  <div className="col labelDiv">
+                    <span>Tool Type:&nbsp;&nbsp;&nbsp;</span>
+                    <span className="itemSpan" data-testid="tool-type">
+                      {ReactHtmlParser(highlightedToolType)}
+                    </span>
+                  </div>
+                </div>
+              )
+            }
+            {
+              highlightedResearchArea && (
+              <div className="row align-items-start bodyRow">
+                <div className="col labelDiv">
+                  <span>Research Area:&nbsp;&nbsp;&nbsp;</span>
+                  <span className="itemSpan" data-testid="research-area">
+                    {ReactHtmlParser(highlightedResearchArea)}
+                  </span>
+                </div>
+              </div>
+              )
+            }
+            {
+              highlightedDesc !== '' && (
+                <div className="row align-items-start bodyRow">
+                  <div className="col labelDiv">
+                    <span>Description:&nbsp;&nbsp;&nbsp;</span>
+                    <span className="textSpan" data-testid="description">
+                      {ReactHtmlParser(highlightedDesc)}
+                    </span>
+                  </div>
+                </div>
+              )
+            }
+            {
+              additionalMatches.length > 0 && additionalMatches.map((match, index) => (
+                <div className="row align-items-start bodyRow" key={index}>
+                  <div className="col labelDiv">
+                    <span>
+                      Other Match in
+                      {' '}
+                      {match.displayName}
+                      :&nbsp;&nbsp;&nbsp;
+                    </span>
+                    <span className="additionalMatches" data-testid="additional-match">
+                      {ReactHtmlParser(match.highlightedValue)}
+                    </span>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        );
+      })}
     </SearchResultContainer>
   );
 };
