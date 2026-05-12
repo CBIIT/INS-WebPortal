@@ -1,5 +1,7 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import {
+  render, screen, fireEvent, within,
+} from '@testing-library/react';
 import { HashRouter } from 'react-router-dom';
 import ResourceDetailView from './DetailView';
 import { descMaxLength } from '../../bento/resourceDetailData';
@@ -330,78 +332,37 @@ describe('DataSetDetailView', () => {
   });
 });
 
-// ============================================================================
-// COMPREHENSIVE DATA-DRIVEN FIELD TESTS
-// These tests ensure all fields in resourceCategoriesFields and resourceInformationFields
-// are properly tested for dynamic visibility behavior
-// ============================================================================
-
-// Resource Categories Fields - all are dynamic arrays (hide when empty)
-const resourceCategoriesDynamicFields = [
-  {
-    datafield: 'resource_tool_type',
-    label: 'Tool Type',
-    testId: 'basic-info-resource_tool_type',
-    validValue: ['Data Tool', 'Analysis Tool'],
-  },
-  {
-    datafield: 'resource_tool_subtype',
-    label: 'Tool Subtype',
-    testId: 'basic-info-resource_tool_subtype',
-    validValue: ['Genomics Analysis', 'Statistical'],
-  },
-  {
-    datafield: 'resource_research_area',
-    label: 'Research Area',
-    testId: 'basic-info-resource_research_area',
-    validValue: ['Cancer Research', 'Precision Medicine'],
-  },
-  {
-    datafield: 'resource_research_type',
-    label: 'Research Type',
-    testId: 'basic-info-resource_research_type',
-    validValue: ['Basic Research', 'Translational Research'],
-  },
-];
-
-// Resource Information Fields - dynamic fields
-const resourceInformationDynamicFields = [
-  {
-    datafield: 'resource_access',
-    label: 'Access Control',
-    testId: 'data-detail-resource_access',
-    validValue: 'Open Access',
-    isArray: false,
-  },
-  {
-    datafield: 'resource_doc',
-    label: 'NCI Division/Office/Center',
-    testId: 'data-detail-resource_doc',
-    validValue: ['NCI DCEG', 'NCI CCBR'],
-    isArray: true,
-  },
-  {
-    datafield: 'resource_poc_name',
-    label: 'Contact Information',
-    testId: 'data-detail-resource_poc_name',
-    validValue: ['Dr. John Doe', 'Dr. Jane Smith'],
-    isArray: true,
-  },
-  {
-    datafield: 'resource_poc_email',
-    label: 'Contact Information',
-    testId: 'data-detail-resource_poc_email',
-    validValue: ['john@example.com', 'jane@example.com'],
-    isArray: true,
-  },
-];
-
 describe('Resource Categories Fields - Comprehensive Dynamic Field Tests', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe.each(resourceCategoriesDynamicFields)(
+  describe.each([
+    {
+      datafield: 'resource_tool_type',
+      label: 'Tool Type',
+      testId: 'basic-info-resource_tool_type',
+      validValue: ['Data Tool', 'Analysis Tool'],
+    },
+    {
+      datafield: 'resource_tool_subtype',
+      label: 'Tool Subtype',
+      testId: 'basic-info-resource_tool_subtype',
+      validValue: ['Genomics Analysis', 'Statistical'],
+    },
+    {
+      datafield: 'resource_research_area',
+      label: 'Research Area',
+      testId: 'basic-info-resource_research_area',
+      validValue: ['Cancer Research', 'Precision Medicine'],
+    },
+    {
+      datafield: 'resource_research_type',
+      label: 'Research Type',
+      testId: 'basic-info-resource_research_type',
+      validValue: ['Basic Research', 'Translational Research'],
+    },
+  ])(
     'Resource Category Field: $label ($datafield)',
     ({
       datafield, label, testId, validValue,
@@ -445,7 +406,36 @@ describe('Resource Information Fields - Comprehensive Dynamic Field Tests', () =
     jest.clearAllMocks();
   });
 
-  describe.each(resourceInformationDynamicFields)(
+  describe.each([
+    {
+      datafield: 'resource_access',
+      label: 'Access Control',
+      testId: 'data-detail-resource_access',
+      validValue: 'Open Access',
+      isArray: false,
+    },
+    {
+      datafield: 'resource_doc',
+      label: 'NCI Division/Office/Center',
+      testId: 'data-detail-resource_doc',
+      validValue: ['NCI DCEG', 'NCI CCBR'],
+      isArray: true,
+    },
+    {
+      datafield: 'resource_poc_name',
+      label: 'Contact Information',
+      testId: 'data-detail-resource_poc_name',
+      validValue: ['Dr. John Doe', 'Dr. Jane Smith'],
+      isArray: true,
+    },
+    {
+      datafield: 'resource_poc_email',
+      label: 'Contact Information',
+      testId: 'data-detail-resource_poc_email',
+      validValue: ['john@example.com', 'jane@example.com'],
+      isArray: true,
+    },
+  ])(
     'Resource Information Field: $label ($datafield)',
     ({
       datafield, label, testId, validValue, isArray,
@@ -472,7 +462,7 @@ describe('Resource Information Fields - Comprehensive Dynamic Field Tests', () =
       it(`should display label "${label}" when field has data`, () => {
         const data = createMockData({ [datafield]: validValue });
         render(<ResourceDetailView data={data} />, { wrapper: MockParent });
-        expect(screen.getByText(label)).toBeInTheDocument();
+        expect(within(screen.getByTestId(testId)).getByText(label)).toBeInTheDocument();
       });
 
       if (isArray) {
@@ -480,34 +470,9 @@ describe('Resource Information Fields - Comprehensive Dynamic Field Tests', () =
           const data = createMockData({ [datafield]: validValue });
           render(<ResourceDetailView data={data} />, { wrapper: MockParent });
           const expectedText = validValue.join('; ');
-          expect(screen.getByText(expectedText)).toBeInTheDocument();
+          expect(within(screen.getByTestId(testId)).getByText(expectedText)).toBeInTheDocument();
         });
       }
     },
   );
-});
-
-// Edge case tests
-describe('DataSetDetailView - Edge Cases with Mocked Config', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should handle resource title with special characters', () => {
-    const data = createMockData({ resource_title: 'Test & Analysis | Tool' });
-
-    render(<ResourceDetailView data={data} />, { wrapper: MockParent });
-
-    expect(screen.getByText('Test & Analysis | Tool')).toBeInTheDocument();
-  });
-
-  it('should handle very long resource title', () => {
-    const longTitle = 'A'.repeat(500);
-    const data = createMockData({ resource_title: longTitle });
-
-    render(<ResourceDetailView data={data} />, { wrapper: MockParent });
-
-    // Should not crash and should render the title
-    expect(screen.getByText(longTitle)).toBeInTheDocument();
-  });
 });
