@@ -22,23 +22,21 @@ import helpIcon from '../../assets/icons/help.svg';
 
 const BASE_LOGO_MARGIN = -16;
 
-// Helper function to strip HTML tags
-const stripHtmlTags = (html) => {
-  if (!html) return '';
-  const tmp = document.createElement('DIV');
-  tmp.innerHTML = html;
-  return tmp.textContent || tmp.innerText || '';
-};
-
-// Helper function to normalize plain text to HTML paragraph format
+/**
+ * A utility function to normalize description content by checking if it contains HTML tags
+ * and wrapping plain text in a <p> tag for consistent spacing
+ *
+ * @param {string} content The description content to normalize.
+ * @returns {string} The normalized description content with appropriate HTML tags for spacing.
+ */
 const normalizeDescriptionContent = (content) => {
-  if (!content) return '';
+  if (!content || typeof content !== 'string') {
+    return '';
+  }
 
   // Check if content already contains HTML paragraph tags
   const hasHtmlParagraphs = /<p[\s>]/i.test(content);
-
   if (hasHtmlParagraphs) {
-    // Content already has proper HTML structure
     return content;
   }
 
@@ -60,25 +58,48 @@ const fieldIsEmpty = (value, field) => {
   return value == null || value === '';
 };
 
+/**
+ * A utility function to strip HTML tags from a string
+ *
+ * @param {unknown} html The HTML string to strip tags from
+ * @returns {string} The plain text content without HTML tags
+ */
+const stripHtmlTags = (html) => {
+  if (!html || typeof html !== 'string') {
+    return '';
+  }
+
+  const tmp = document.createElement('DIV');
+  tmp.innerHTML = html;
+
+  return tmp.textContent || tmp.innerText || '';
+};
+
 const ResourceDetailView = ({ classes, data }) => {
   const [expandedDescription, setExpandedDescription] = useState(false);
   const [logoMarginTop, setLogoMarginTop] = useState(BASE_LOGO_MARGIN);
   const titleRef = useRef(null);
 
-  const plainDescription = useMemo(
-    () => stripHtmlTags(data.resource_full_description),
-    [data.resource_full_description],
-  );
-
-  const truncatedDescription = useMemo(() => {
-    if (!plainDescription) {
-      return '';
+  const [exceedsMax, description] = useMemo(() => {
+    // No description is available or description is empty after stripping HTML tags
+    if (!data || !data.resource_full_description) {
+      return [false, ''];
+    }
+    const strippedDescription = stripHtmlTags(data.resource_full_description);
+    if (!strippedDescription.trim()) {
+      return [false, ''];
     }
 
-    return plainDescription.length > descMaxLength
-      ? `${plainDescription.substring(0, descMaxLength)}...`
-      : plainDescription;
-  }, [plainDescription]);
+    // Description is expanded or does not exceed max length, show formatted description
+    const exceedsMaxLength = strippedDescription.length > descMaxLength;
+    if (!exceedsMaxLength || expandedDescription) {
+      return [exceedsMaxLength, normalizeDescriptionContent(data.resource_full_description)];
+    }
+
+    // Description exceeds max length and is not expanded, show truncated description
+    const truncatedDescription = strippedDescription.slice(0, descMaxLength);
+    return [true, `${truncatedDescription}...`];
+  }, [expandedDescription, data.resource_full_description]);
 
   const toggleExpandDescription = () => {
     setExpandedDescription(!expandedDescription);
@@ -145,53 +166,31 @@ const ResourceDetailView = ({ classes, data }) => {
           </div>
         </div>
         <div className={classes.detailsContainer}>
-          <div className={classes.contentSection} data-testid="resource-description-section">
-            <Typography variant="h6" component="h2" className={classes.studyHeader}>
-              Description
-            </Typography>
-            <div className={classes.text} data-testid="description-text">
-              {expandedDescription ? (
+          {description && (
+            <div className={classes.contentSection} data-testid="resource-description-section">
+              <Typography variant="h6" component="h2" className={classes.studyHeader} style={{ marginBottom: exceedsMax && !expandedDescription ? '18px' : undefined }}>
+                Description
+              </Typography>
+              <div className={classes.text} data-testid="description-text">
+                {ReactHtmlParser(description)}
+                {exceedsMax && (
                 <>
-                  {ReactHtmlParser(normalizeDescriptionContent(data.resource_full_description))}
-                  {plainDescription && plainDescription.length > descMaxLength && (
-                    <>
-                      {' '}
-                      <span
-                        onClick={toggleExpandDescription}
-                        onKeyDown={(e) => e.key === 'Enter' && toggleExpandDescription()}
-                        role="button"
-                        tabIndex={0}
-                        className={classes.readMoreLink}
-                        data-testid="description-show-less"
-                      >
-                        Show Less
-                      </span>
-                    </>
-                  )}
+                  {' '}
+                  <span
+                    onClick={toggleExpandDescription}
+                    onKeyDown={(e) => e.key === 'Enter' && toggleExpandDescription()}
+                    role="button"
+                    tabIndex={0}
+                    className={classes.readMoreLink}
+                    data-testid="description-toggle-expansion"
+                  >
+                    {expandedDescription ? 'Show Less' : 'Read More'}
+                  </span>
                 </>
-              ) : (
-                <p>
-                  {/* TODO: TRUNCATED DESC IS NOT RENDERING HTML */}
-                  {truncatedDescription}
-                  {plainDescription && plainDescription.length > descMaxLength && (
-                    <>
-                      {' '}
-                      <span
-                        onClick={toggleExpandDescription}
-                        onKeyDown={(e) => e.key === 'Enter' && toggleExpandDescription()}
-                        role="button"
-                        tabIndex={0}
-                        className={classes.readMoreLink}
-                        data-testid="description-read-more"
-                      >
-                        Read More
-                      </span>
-                    </>
-                  )}
-                </p>
-              )}
+                )}
+              </div>
             </div>
-          </div>
+          )}
           {resourceInformationFields.some((field) => !fieldIsEmpty(data[field.datafield], field))
             && (
             <div className={classes.contentSection} data-testid="data-details-section">

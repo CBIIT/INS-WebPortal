@@ -185,67 +185,75 @@ describe('DataSetDetailView', () => {
       expect(within(screen.getByTestId('resource-description-section')).getByText('Description')).toBeInTheDocument();
     });
 
-    it('should NOT show Read More when description is under descMaxLength chars', () => {
-      const shortDescription = 'A'.repeat(descMaxLength - 1);
+    it('should NOT show description section when description is empty or only HTML with no text', () => {
+      const dataEmpty = createMockData({ resource_full_description: '' });
+      render(<ResourceDetailView data={dataEmpty} />, { wrapper: MockParent });
+      expect(screen.queryByTestId('resource-description-section')).not.toBeInTheDocument();
+
+      const dataNull = createMockData({ resource_full_description: null });
+      render(<ResourceDetailView data={dataNull} />, { wrapper: MockParent });
+      expect(screen.queryByTestId('resource-description-section')).not.toBeInTheDocument();
+
+      const dataHtmlOnly = createMockData({ resource_full_description: '<p><br></p>' });
+      render(<ResourceDetailView data={dataHtmlOnly} />, { wrapper: MockParent });
+      expect(screen.queryByTestId('resource-description-section')).not.toBeInTheDocument();
+    });
+
+    it('should show full description (including embedded HTML) when under descMaxLength', () => {
+      const shortDescription = '<p>Short <b>bold</b> text</p>';
       const data = createMockData({ resource_full_description: shortDescription });
 
       render(<ResourceDetailView data={data} />, { wrapper: MockParent });
 
-      expect(screen.queryByTestId('description-read-more')).not.toBeInTheDocument();
+      // No toggle when under limit
+      expect(screen.queryByTestId('description-toggle-expansion')).not.toBeInTheDocument();
+
+      // The embedded HTML should be preserved (mock returns the string)
+      const descContainer = screen.getByTestId('description-text');
+      expect(descContainer.textContent).toContain('<b>bold</b>');
+      expect(descContainer.textContent).toContain('Short');
     });
 
-    it('should show Read More when description exceeds descMaxLength chars', () => {
-      const longDescription = 'A'.repeat(descMaxLength + 50);
+    it('should show truncated description and a Read More toggle when over descMaxLength', () => {
+      const innerText = 'A'.repeat(descMaxLength + 50);
+      const longDescription = `<p>${innerText}</p>`; // contains HTML but decision is based on stripped length
       const data = createMockData({ resource_full_description: longDescription });
 
       render(<ResourceDetailView data={data} />, { wrapper: MockParent });
 
-      expect(screen.getByTestId('description-read-more')).toBeInTheDocument();
+      const toggle = screen.getByTestId('description-toggle-expansion');
+      expect(toggle).toBeInTheDocument();
+      expect(toggle.textContent).toBe('Read More');
+
+      const descContainer = screen.getByTestId('description-text');
+      // truncated output should end with ellipses
+      expect(descContainer.textContent).toContain('...');
+      // should not contain the full innerText
+      expect(descContainer.textContent).not.toContain(innerText);
     });
 
-    it('should expand description when Read More is clicked', () => {
-      const longDescription = 'A'.repeat(descMaxLength + 50);
+    it('should expand to show full description (including HTML) when Read More is clicked, and collapse back', () => {
+      const innerText = 'B'.repeat(descMaxLength + 30);
+      const longDescription = `<p>Prefix <span class="x">${innerText}</span></p>`;
       const data = createMockData({ resource_full_description: longDescription });
 
       render(<ResourceDetailView data={data} />, { wrapper: MockParent });
 
-      fireEvent.click(screen.getByTestId('description-read-more'));
+      const toggle = screen.getByTestId('description-toggle-expansion');
+      expect(toggle.textContent).toBe('Read More');
 
-      expect(screen.getByTestId('description-show-less')).toBeInTheDocument();
-      expect(screen.queryByTestId('description-read-more')).not.toBeInTheDocument();
-    });
+      // Expand
+      fireEvent.click(toggle);
+      expect(toggle.textContent).toBe('Show Less');
 
-    it('should collapse description when Show Less is clicked', () => {
-      const longDescription = 'A'.repeat(descMaxLength + 50);
-      const data = createMockData({ resource_full_description: longDescription });
+      const descContainer = screen.getByTestId('description-text');
+      // Full inner text should now be present
+      expect(descContainer.textContent).toContain(innerText);
 
-      render(<ResourceDetailView data={data} />, { wrapper: MockParent });
-
-      // Expand first
-      fireEvent.click(screen.getByTestId('description-read-more'));
-      expect(screen.getByTestId('description-show-less')).toBeInTheDocument();
-
-      // Then collapse
-      fireEvent.click(screen.getByTestId('description-show-less'));
-      expect(screen.getByTestId('description-read-more')).toBeInTheDocument();
-    });
-
-    it('should handle empty description gracefully', () => {
-      const data = createMockData({ resource_full_description: '' });
-
-      render(<ResourceDetailView data={data} />, { wrapper: MockParent });
-
-      // Should still render the section without crashing
-      expect(screen.getByTestId('study-description-section')).toBeInTheDocument();
-    });
-
-    it('should handle null description gracefully', () => {
-      const data = createMockData({ resource_full_description: null });
-
-      render(<ResourceDetailView data={data} />, { wrapper: MockParent });
-
-      // Should still render the section without crashing
-      expect(screen.getByTestId('study-description-section')).toBeInTheDocument();
+      // Collapse
+      fireEvent.click(toggle);
+      expect(toggle.textContent).toBe('Read More');
+      expect(descContainer.textContent).toContain('...');
     });
   });
 
