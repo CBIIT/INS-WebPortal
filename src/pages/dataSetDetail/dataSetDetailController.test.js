@@ -5,9 +5,7 @@ import DataSetDetailContainer from './dataSetDetailController';
 import migrateDatasetId from '../../utils/datasetUtils';
 
 /** @param {{ to: string }} props */
-function MockRedirect(props) {
-  return <div data-testid="redirect">{props.to}</div>;
-}
+const MockRedirect = (props) => <div data-testid="redirect">{props.to}</div>;
 
 jest.mock('@apollo/client', () => ({
   useQuery: jest.fn(),
