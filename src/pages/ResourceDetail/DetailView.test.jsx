@@ -181,8 +181,8 @@ describe('DataSetDetailView', () => {
     it('should render Resource Description section', () => {
       render(<ResourceDetailView {...defaultProps} />, { wrapper: MockParent });
 
-      expect(screen.getByTestId('study-description-section')).toBeInTheDocument();
-      expect(screen.getByText('Resource Description')).toBeInTheDocument();
+      expect(screen.getByTestId('resource-description-section')).toBeInTheDocument();
+      expect(within(screen.getByTestId('resource-description-section')).getByText('Description')).toBeInTheDocument();
     });
 
     it('should NOT show Read More when description is under descMaxLength chars', () => {

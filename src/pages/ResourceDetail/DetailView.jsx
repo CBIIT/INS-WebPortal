@@ -145,12 +145,11 @@ const ResourceDetailView = ({ classes, data }) => {
           </div>
         </div>
         <div className={classes.detailsContainer}>
-          <div className={classes.contentSection} data-testid="study-description-section">
+          <div className={classes.contentSection} data-testid="resource-description-section">
             <Typography variant="h6" component="h2" className={classes.studyHeader}>
-              Resource Description
+              Description
             </Typography>
             <div className={classes.text} data-testid="description-text">
-              {/* TODO: Verify HTML renders in both expanded and collapsed states */}
               {expandedDescription ? (
                 <>
                   {ReactHtmlParser(normalizeDescriptionContent(data.resource_full_description))}
@@ -172,6 +171,7 @@ const ResourceDetailView = ({ classes, data }) => {
                 </>
               ) : (
                 <p>
+                  {/* TODO: TRUNCATED DESC IS NOT RENDERING HTML */}
                   {truncatedDescription}
                   {plainDescription && plainDescription.length > descMaxLength && (
                     <>
@@ -218,6 +218,7 @@ const ResourceDetailView = ({ classes, data }) => {
                           )}
                         </Typography>
                         <Typography variant="body2" component="div" className={classes.text}>
+                          {/* TODO: THE ARRAY FIELDS MUST BE SORTED */}
                           {field.isArray ? data[field.datafield].join('; ') : data[field.datafield] || ''}
                         </Typography>
                       </div>
@@ -252,6 +253,7 @@ const ResourceDetailView = ({ classes, data }) => {
                             )}
                           </Typography>
                           <Typography variant="body2" component="div" className={classes.text}>
+                            {/* TODO: THE ARRAY FIELDS MUST BE SORTED */}
                             {field.isArray ? data[field.datafield].join('; ') : data[field.datafield] || ''}
                           </Typography>
                         </div>
