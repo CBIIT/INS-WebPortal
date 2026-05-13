@@ -45,19 +45,12 @@ const SearchableOption = styled.span`
   }
 `;
 
-const OptionLabel = styled.span`
-  color: lightgray;
-  padding-left: 8px;
-  font-weight: bold;
-  font-size: 17px;
-`;
-
 const CountSpan = styled.span`
   float: right;
   padding-right: 10px;
 `;
 const FilterItem = ({
-  item, checked, highlight, onSourceClick,
+  item, checked, onSourceClick,
 }) => {
   const handleResourceClick = () => {
     onSourceClick(item.name);

@@ -4,8 +4,6 @@ import {
   useHistory,
 } from 'react-router-dom';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import SelectionInput from '../../../components/SelectionInput';
 import ascActiveImage from '../../../assets/img/Ascending.Active.svg';
 import ascInActiveImage from '../../../assets/img/Ascending.Inactive.svg';
 import descActiveImage from '../../../assets/img/Descending.Active.svg';

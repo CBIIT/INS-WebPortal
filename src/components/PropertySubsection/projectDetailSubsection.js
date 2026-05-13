@@ -17,7 +17,6 @@ const PropertyItem = ({
   link,
   labelLink,
   classes,
-  index,
 }) => {
   const defaultValue = '';
   let concatenatedLinks = '';
@@ -122,7 +121,7 @@ const Subsection = ({ config, data, classes }) => {
   );
 };
 
-const styles = (theme) => ({
+const styles = () => ({
   content: {
     fontFamily: 'Nunito',
     fontSize: '18px',

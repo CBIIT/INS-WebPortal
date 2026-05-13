@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Grid, Paper, Typography, withStyles,
-} from '@material-ui/core';
+import { Grid, withStyles } from '@material-ui/core';
 import bg from '../../assets/error/background.png';
 import heroBg from '../../assets/error/404_bubbles.png';
 
@@ -31,7 +29,7 @@ const Error = ({ classes }) => (
   </div>
 );
 
-const styles = (theme) => ({
+const styles = () => ({
   container: {
     display: 'flex',
     marginTop: '-49px',

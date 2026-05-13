@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const OptionContainer = styled.div`
@@ -46,20 +45,12 @@ const SearchableOption = styled.span`
   }
 `;
 
-const OptionLabel = styled.span`
-  color: lightgray;
-  padding-left: 8px;
-  font-weight: bold;
-  font-size: 17px;
-`;
-
 const CountSpan = styled.span`
   float: right;
   padding-right: 10px;
 `;
-const FilterItem = ({
-  item, checked, highlight, onSourceClick,
-}) => {
+
+const FilterItem = ({ item, checked, onSourceClick }) => {
   const handleResourceClick = () => {
     onSourceClick(item.name);
   };

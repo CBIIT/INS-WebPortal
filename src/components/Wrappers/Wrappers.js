@@ -8,7 +8,7 @@ import {
 import { useTheme, makeStyles } from '@material-ui/styles';
 import classnames from 'classnames';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   badge: {
     fontWeight: 600,
     height: 16,

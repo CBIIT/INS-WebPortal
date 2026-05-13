@@ -34,7 +34,7 @@ module.exports = {
     "linebreak-style": "off",
     "no-sequences": "off",
     "no-console": "off",
-    "no-unused-vars": "off",
+    "no-unused-vars": "warn",
     'react/destructuring-assignment': 'off',
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
     "import/no-extraneous-dependencies": [

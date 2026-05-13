@@ -1,10 +1,6 @@
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
-import {
-  useLocation,
-  useHistory,
-  Link,
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Popover } from 'bootstrap';
 import ReactHtmlParser from 'html-react-parser';
@@ -350,11 +346,7 @@ const HIDDEN_FIELDS_CONFIG = [
   { fieldName: 'dataset_storage_distribution', displayName: 'Data Storage and Distribution Platform', formatSemicolon: true },
 ];
 
-const SearchResult = ({
-  resultList,
-  search,
-  glossaryTerms,
-}) => {
+const SearchResult = ({ resultList, glossaryTerms }) => {
   const initializePopover = () => {
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     popoverTriggerList.map((popoverTriggerEl) => new Popover(popoverTriggerEl));
