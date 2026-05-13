@@ -547,8 +547,7 @@ describe('Edge Cases', () => {
 
     renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
 
-    const visitLink = screen.getAllByTestId('resource-visit-link')[0];
-    expect(visitLink).not.toHaveAttribute('href');
+    expect(screen.queryByTestId('resource-visit-link')).not.toBeInTheDocument();
   });
 
   it('should handle result with empty resource_source_url', () => {
@@ -558,8 +557,7 @@ describe('Edge Cases', () => {
 
     renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
 
-    const visitLink = screen.getAllByTestId('resource-visit-link')[0];
-    expect(visitLink).not.toHaveAttribute('href');
+    expect(screen.queryByTestId('resource-visit-link')).not.toBeInTheDocument();
   });
 
   it('should handle highlight object with extra fields', () => {

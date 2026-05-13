@@ -328,6 +328,7 @@ const SearchResultContainer = styled.div`
 // Display names match the Resource Details page headers
 // formatSemicolon flag indicates whether to apply semicolon spacing formatting
 const HIDDEN_FIELDS_CONFIG = [
+  // TODO: THE ARRAY FIELDS MUST BE SORTED alphabetically
   { fieldName: 'resource_tool_subtype', displayName: 'Tool Subtype', formatSemicolon: true },
   { fieldName: 'resource_research_type', displayName: 'Research Type', formatSemicolon: true },
   { fieldName: 'resource_access', displayName: 'Access Control', formatSemicolon: false },
@@ -483,7 +484,7 @@ const SearchResult = ({
             <div className="row align-items-start subHeaderRow">
               <div className="col-sm resultSubTitle">
                 <img src={dataResourceIcon} alt="data-resource" className="img1" />
-                {rst.content.resource_source_url ? (
+                {rst.content.resource_source_url && (
                   <a href={rst.content.resource_source_url} target="_blank" rel="noopener noreferrer" className="link" data-testid="resource-visit-link">
                     Visit Resource
                     <img
@@ -492,10 +493,6 @@ const SearchResult = ({
                       className="img2"
                     />
                   </a>
-                ) : (
-                  <span className="link" data-testid="resource-visit-link">
-                    Visit Resource
-                  </span>
                 )}
               </div>
             </div>
