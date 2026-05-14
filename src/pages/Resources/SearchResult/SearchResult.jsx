@@ -328,13 +328,12 @@ const SearchResultContainer = styled.div`
 // Display names match the Resource Details page headers
 // formatSemicolon flag indicates whether to apply semicolon spacing formatting
 const HIDDEN_FIELDS_CONFIG = [
-  // TODO: THE ARRAY FIELDS MUST BE SORTED alphabetically
   { fieldName: 'resource_tool_subtype', displayName: 'Tool Subtype', formatSemicolon: true },
   { fieldName: 'resource_research_type', displayName: 'Research Type', formatSemicolon: true },
   { fieldName: 'resource_access', displayName: 'Access Control', formatSemicolon: false },
   { fieldName: 'resource_doc', displayName: 'NCI Division/Office/Center', formatSemicolon: true },
-  { fieldName: 'resource_poc_name', displayName: 'Contact Information', formatSemicolon: true },
-  { fieldName: 'resource_poc_email', displayName: 'Contact Information', formatSemicolon: true },
+  { fieldName: 'resource_poc_name', displayName: 'Contact Name', formatSemicolon: true },
+  { fieldName: 'resource_poc_email', displayName: 'Contact Email', formatSemicolon: true },
   { fieldName: 'resource_full_description', displayName: 'Full Description', formatSemicolon: false },
 ];
 

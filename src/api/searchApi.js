@@ -3,6 +3,7 @@ import env from '../utils/env';
 
 const DATASETS_API_URL = `${env.REACT_APP_REST_BACKEND_API}/datasets/`;
 const RESOURCES_API_URL = `${env.REACT_APP_REST_BACKEND_API}/resources/`;
+const RESOURCE_API_URL = `${env.REACT_APP_REST_BACKEND_API}/resource/`;
 
 /**
  * A function to call the dataset search API with the given search criteria.
@@ -79,7 +80,7 @@ export async function getResourceById(uuid) {
     throw new Error('Resource ID is required');
   }
 
-  return fetch(`${RESOURCES_API_URL}${uuid}`, {
+  return fetch(`${RESOURCE_API_URL}${uuid}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     cache: 'force-cache',
