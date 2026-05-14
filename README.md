@@ -1,6 +1,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CBIIT/INS-WebPortal/badge.svg)](https://coveralls.io/github/CBIIT/INS-WebPortal)
 [![Test](https://github.com/CBIIT/INS-WebPortal/actions/workflows/test.yml/badge.svg)](https://github.com/CBIIT/INS-WebPortal/actions/workflows/test.yml)
 [![ESLint](https://github.com/CBIIT/INS-WebPortal/actions/workflows/lint.yml/badge.svg)](https://github.com/CBIIT/INS-WebPortal/actions/workflows/lint.yml)
+[![RelativeCI](https://badges.relative-ci.com/badges/9WpD0b1xVSio9qkl5UTg?branch=main&style=flat)](https://app.relative-ci.com/projects/9WpD0b1xVSio9qkl5UTg)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
