@@ -8,7 +8,7 @@ import {
 import { useTheme, makeStyles } from '@material-ui/styles';
 import classnames from 'classnames';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   badge: {
     fontWeight: 600,
     height: 16,
@@ -79,9 +79,9 @@ function getFontSize(size, variant = '', theme) {
   return `calc(${defaultSize} * ${multiplier})`;
 }
 
-function Badge({
+const Badge = ({
   children, colorBrightness, color, ...props
-}) {
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const Styled = createStyled({
@@ -104,9 +104,9 @@ function Badge({
       )}
     </Styled>
   );
-}
+};
 
-function Typography({
+const Typography = ({
   children,
   weight,
   size,
@@ -114,7 +114,7 @@ function Typography({
   color,
   family,
   ...props
-}) {
+}) => {
   const theme = useTheme();
 
   return (
@@ -130,11 +130,11 @@ function Typography({
       {children}
     </TypographyBase>
   );
-}
+};
 
-function Button({
+const Button = ({
   children, color, bgColor, className, ...props
-}) {
+}) => {
   const theme = useTheme();
 
   const Styled = createStyled({
@@ -188,6 +188,6 @@ function Button({
       )}
     </Styled>
   );
-}
+};
 
 export { Badge, Typography, Button };

@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import AboutView from './aboutView';
 
-const About = ({ match }) => {
-  const [data, setData] = useState([]);
+const About = () => <AboutView />;
 
-  return (
-    <AboutView data={data} />
-  );
-};
 export default About;

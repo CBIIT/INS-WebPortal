@@ -1,5 +1,4 @@
 import getSearchResultUtil from './exportApi';
-import env from '../utils/env';
 
 // Mock the env module
 jest.mock('../utils/env', () => ({
