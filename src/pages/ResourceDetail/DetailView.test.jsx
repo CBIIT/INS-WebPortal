@@ -431,17 +431,18 @@ describe('Resource Information Fields - Comprehensive Dynamic Field Tests', () =
     },
     {
       datafield: 'resource_poc_name',
-      label: 'Contact Information',
+      label: 'Contact Name',
       testId: 'data-detail-resource_poc_name',
       validValue: ['Dr. John Doe', 'Dr. Jane Smith'],
       isArray: true,
     },
     {
       datafield: 'resource_poc_email',
-      label: 'Contact Information',
+      label: 'Contact Email',
       testId: 'data-detail-resource_poc_email',
       validValue: ['john@example.com', 'jane@example.com'],
       isArray: true,
+      hyperlink: true,
     },
   ])(
     'Resource Information Field: $label ($datafield)',
@@ -472,15 +473,59 @@ describe('Resource Information Fields - Comprehensive Dynamic Field Tests', () =
         render(<ResourceDetailView data={data} />, { wrapper: MockParent });
         expect(within(screen.getByTestId(testId)).getByText(label)).toBeInTheDocument();
       });
-
-      if (isArray) {
-        it(`should format array values with semicolon separator for ${label}`, () => {
-          const data = createMockData({ [datafield]: validValue });
-          render(<ResourceDetailView data={data} />, { wrapper: MockParent });
-          const expectedText = validValue.join('; ');
-          expect(within(screen.getByTestId(testId)).getByText(expectedText)).toBeInTheDocument();
-        });
-      }
     },
   );
+
+  describe('Resource Information Fields - Hyperlink Support', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should render mailto links for Contact Email', () => {
+      const emails = ['john@example.com', 'jane@example.com'];
+      const data = createMockData({ resource_poc_email: emails });
+      render(<ResourceDetailView data={data} />, { wrapper: MockParent });
+
+      const container = screen.getByTestId('data-detail-resource_poc_email');
+      const links = within(container).getAllByRole('link');
+
+      expect(links).toHaveLength(emails.length);
+      emails.forEach((email, index) => {
+        expect(links[index]).toHaveAttribute('href', `mailto:${email}`);
+        expect(links[index]).toHaveTextContent(email);
+      });
+      expect(container.textContent).toContain(';');
+    });
+  });
+
+  describe('Resource Information Fields - Array Formatting', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should format array values with semicolon separator for NCI Division/Office/Center', () => {
+      const values = ['NCI DCEG', 'NCI CCBR'];
+      const data = createMockData({ resource_doc: values });
+      render(<ResourceDetailView data={data} />, { wrapper: MockParent });
+      const expectedText = values.join('; ');
+      expect(within(screen.getByTestId('data-detail-resource_doc')).getByText(expectedText)).toBeInTheDocument();
+    });
+
+    it('should format array values with semicolon separator for Contact Name', () => {
+      const values = ['Dr. John Doe', 'Dr. Jane Smith'];
+      const data = createMockData({ resource_poc_name: values });
+      render(<ResourceDetailView data={data} />, { wrapper: MockParent });
+      const expectedText = values.join('; ');
+      expect(within(screen.getByTestId('data-detail-resource_poc_name')).getByText(expectedText)).toBeInTheDocument();
+    });
+
+    it('should format array values with semicolon separator for Contact Email', () => {
+      const emails = ['john@example.com', 'jane@example.com'];
+      const data = createMockData({ resource_poc_email: emails });
+      render(<ResourceDetailView data={data} />, { wrapper: MockParent });
+      const expectedText = emails.join('; ');
+      const container = screen.getByTestId('data-detail-resource_poc_email');
+      expect(container.textContent).toContain(expectedText);
+    });
+  });
 });

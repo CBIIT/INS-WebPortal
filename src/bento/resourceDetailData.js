@@ -54,17 +54,18 @@ const resourceInformationFields = [
     tooltip: 'Each of NCI\'s divisions, offices, and centers (DOC) who work together to build and maintain comprehensive cancer research',
   },
   {
-    label: 'Contact Information',
+    label: 'Contact Name',
     datafield: 'resource_poc_name',
     dynamic: true,
     isArray: true,
     tooltip: 'The resource\'s point of contact name',
   },
   {
-    label: 'Contact Information',
+    label: 'Contact Email',
     datafield: 'resource_poc_email',
     dynamic: true,
     isArray: true,
+    hyperlink: true,
     tooltip: 'The resource\'s point of contact email',
   },
 ];
