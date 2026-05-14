@@ -333,8 +333,8 @@ const HIDDEN_FIELDS_CONFIG = [
   { fieldName: 'resource_research_type', displayName: 'Research Type', formatSemicolon: true },
   { fieldName: 'resource_access', displayName: 'Access Control', formatSemicolon: false },
   { fieldName: 'resource_doc', displayName: 'NCI Division/Office/Center', formatSemicolon: true },
-  { fieldName: 'resource_poc_name', displayName: 'Contact Information', formatSemicolon: true },
-  { fieldName: 'resource_poc_email', displayName: 'Contact Information', formatSemicolon: true },
+  { fieldName: 'resource_poc_name', displayName: 'Contact Name', formatSemicolon: true },
+  { fieldName: 'resource_poc_email', displayName: 'Contact Email', formatSemicolon: true },
   { fieldName: 'resource_full_description', displayName: 'Full Description', formatSemicolon: false },
 ];
 

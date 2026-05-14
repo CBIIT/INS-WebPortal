@@ -189,7 +189,7 @@ describe('Basic Functionality', () => {
     expect(matchText).toContain(';');
   });
 
-  it('should display multiple contact information matches', () => {
+  it('should display multiple contact email matches', () => {
     const result = createMockResult({
       highlight: {
         resource_poc_email: [

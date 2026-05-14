@@ -431,14 +431,14 @@ describe('Resource Information Fields - Comprehensive Dynamic Field Tests', () =
     },
     {
       datafield: 'resource_poc_name',
-      label: 'Contact Information',
+      label: 'Contact Name',
       testId: 'data-detail-resource_poc_name',
       validValue: ['Dr. John Doe', 'Dr. Jane Smith'],
       isArray: true,
     },
     {
       datafield: 'resource_poc_email',
-      label: 'Contact Information',
+      label: 'Contact Email',
       testId: 'data-detail-resource_poc_email',
       validValue: ['john@example.com', 'jane@example.com'],
       isArray: true,
