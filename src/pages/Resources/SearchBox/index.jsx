@@ -199,8 +199,8 @@ const SearchBox = ({
             )
           }
           {
-            searchText.length > 3 ? (
-              <Button variant="outline-secondary" className="searchBoxButton" onClick={() => handleSubmit()}>SUBMIT</Button>
+            searchableText.length > 0 ? (
+              <Button variant="outline-secondary" className="searchBoxButton" onClick={handleSubmit}>SUBMIT</Button>
             ) : (
               <Button type="button" variant="outline-secondary" className="searchBoxButton buttonDisabled" disabled>SUBMIT</Button>
             )
