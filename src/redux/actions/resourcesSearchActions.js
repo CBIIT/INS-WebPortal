@@ -1,54 +1,53 @@
 import * as types from './actionTypes';
 import * as searchApi from '../../api/searchApi';
-import * as participatingResourcesApi from '../../api/participatingResourcesApi';
 
 export function loadSearchFiltersSuccess(resourcesList) {
-  return { type: types.LOAD_RESOURCES_LIST_SUCCESS, resourcesList };
+  return { type: types.RESOURCES_LOAD_RESOURCES_LIST_SUCCESS, resourcesList };
 }
 
 export function loadSearchResultsSuccess(searchResults) {
-  return { type: types.LOAD_SEARCH_RESULTS_SUCCESS, searchResults };
+  return { type: types.RESOURCES_LOAD_SEARCH_RESULTS_SUCCESS, searchResults };
 }
 
 export function runFullTextSearch(searchText) {
-  return { type: types.RUN_FULL_TEXT_SEARCH, searchText };
+  return { type: types.RESOURCES_RUN_FULL_TEXT_SEARCH, searchText };
 }
 
 export function applyResourcesFilter(filter) {
-  return { type: types.UPDATE_RESOURCES_FILTER_SUCCESS, filter };
+  return { type: types.RESOURCES_UPDATE_FILTER_SUCCESS, filter };
 }
 
 export function handleBubbleSearchTextRemove() {
-  return { type: types.RUN_FULL_TEXT_SEARCH, searchText: '' };
+  return { type: types.RESOURCES_RUN_FULL_TEXT_SEARCH, searchText: '' };
 }
 
 export function handleBubbleResourcesRemove() {
-  return { type: types.UPDATE_RESOURCES_FILTER_SUCCESS, filter: [] };
+  return { type: types.RESOURCES_UPDATE_FILTER_SUCCESS, filter: [] };
 }
 
 export function switchSorting(sorting) {
-  return { type: types.SWITCH_SORTING, sorting };
+  return { type: types.RESOURCES_SWITCH_SORTING, sorting };
 }
 
 export function switchSortingOrder(order) {
-  return { type: types.SWITCH_SORTING_ORDER, order };
+  return { type: types.RESOURCES_SWITCH_SORTING_ORDER, order };
 }
 
 export function switchPage(pageInfo) {
-  return { type: types.SWITCH_PAGE, pageInfo };
+  return { type: types.RESOURCES_SWITCH_PAGE, pageInfo };
 }
 
 export function switchSize(pageInfo) {
-  return { type: types.SWITCH_SIZE, pageInfo };
+  return { type: types.RESOURCES_SWITCH_SIZE, pageInfo };
 }
 
 export function loadSearchDataResources() {
   const func = function func(dispatch) {
-    return participatingResourcesApi.getAllParticipatingResources()
+    return searchApi.getResourcesSearchFilters({ filters: {} })
       .then((response) => {
         const resourcesList = {
-          primary_disease: response.data.primary_disease || [],
-          dataset_source_repo: response.data.dataset_source_repo || [],
+          resource_research_area: response.data.resource_research_area || [],
+          resource_tool_type: response.data.resource_tool_type || [],
         };
         dispatch(loadSearchFiltersSuccess(resourcesList));
       })
@@ -65,12 +64,12 @@ export function loadFromUrlQuery(searchText, filters) {
     searchCriteria.search_text = searchText;
     searchCriteria.filters = {};
 
-    if (Array.isArray(filters.filterByResource) && filters.filterByResource.length > 0) {
-      searchCriteria.filters.primary_disease = filters.filterByResource;
+    if (Array.isArray(filters.filterByResearchArea) && filters.filterByResearchArea.length > 0) {
+      searchCriteria.filters.resource_research_area = filters.filterByResearchArea;
     }
 
-    if (Array.isArray(filters.filterByRepo) && filters.filterByRepo.length > 0) {
-      searchCriteria.filters.dataset_source_repo = filters.filterByRepo;
+    if (Array.isArray(filters.filterByToolType) && filters.filterByToolType.length > 0) {
+      searchCriteria.filters.resource_tool_type = filters.filterByToolType;
     }
 
     searchCriteria.pageInfo = {};
@@ -78,19 +77,17 @@ export function loadFromUrlQuery(searchText, filters) {
     searchCriteria.pageInfo.pageSize = filters.pageSize ? filters.pageSize : 10;
 
     searchCriteria.sort = {};
-    searchCriteria.sort.name = 'Dataset';
-    searchCriteria.sort.k = 'dataset_title_sort';
+    searchCriteria.sort.name = 'Resource';
+    searchCriteria.sort.k = 'resource_title_sort';
     searchCriteria.sort.v = filters.sortOrder || 'asc';
 
-    // Call both searchCatalog and getSearchFilters in parallel
-    // For filters endpoint, include only search_text and filters in the body
     const filtersBody = {
       search_text: searchCriteria.search_text,
       filters: searchCriteria.filters,
     };
     return Promise.all([
-      searchApi.searchDatasets(searchCriteria),
-      searchApi.getSearchFilters(filtersBody),
+      searchApi.searchResources(searchCriteria),
+      searchApi.getResourcesSearchFilters(filtersBody),
     ])
       .then(([searchResults, filtersResults]) => {
         dispatch(loadSearchResultsSuccess(searchResults.data));
@@ -103,7 +100,6 @@ export function loadFromUrlQuery(searchText, filters) {
           k: searchResults.data.sort.k,
         }));
         dispatch(switchSortingOrder(searchResults.data.sort.v));
-        // Optionally update filters in state if needed
         if (filtersResults && filtersResults.data) {
           dispatch(loadSearchFiltersSuccess(filtersResults.data));
         }

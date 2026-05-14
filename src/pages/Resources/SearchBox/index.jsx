@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import xIcon from '../../../assets/img/xmark-solid.svg';
@@ -85,6 +84,7 @@ const SearchBoxArea = styled.div`
   }
   
   .searchBoxButton {
+    cursor: pointer;
     width: 120px;
     height: 40px;
     border-radius: 0 8px 8px 0;
@@ -101,6 +101,7 @@ const SearchBoxArea = styled.div`
     color: #fff;
     background-color: #564587;
     border-color: #564587;
+    cursor: not-allowed;
   }
 
   input[type="search"]::-webkit-search-cancel-button {
@@ -150,10 +151,10 @@ const getSearchableText = (searchString) => {
 const SearchBox = ({
   searchText,
   searchKeyword,
-  resourceFilters,
+  resourceFilters = {},
   handleBubbleSearchTextRemoveClick,
-  handleBubbleDataRepositoryRemoveClick,
-  handleBubblePrimaryDiseaseRemoveClick,
+  handleBubbleToolTypeRemoveClick,
+  handleBubbleResearchAreaRemoveClick,
   onSearchBoxKeyPress,
   onSearchSubmit,
   onSearchTextInputChange,
@@ -182,11 +183,11 @@ const SearchBox = ({
         <InputGroup className="searchBoxInputGroup">
           <FormControl
             type="search"
-            placeholder="Search Datasets by keywords"
-            aria-label="Search Datasets by keywords"
+            placeholder="Search Tools and Resources by keywords"
+            aria-label="Search Tools and Resources by keywords"
             value={searchText}
             onChange={(e) => handleTextInputChange(e)}
-            onKeyPress={(e) => handleKeyPress(e)}
+            onKeyUp={(e) => handleKeyPress(e)}
           />
           {
             searchText.length > 0 ? (
@@ -198,8 +199,8 @@ const SearchBox = ({
             )
           }
           {
-            searchText.length > 3 ? (
-              <Button variant="outline-secondary" className="searchBoxButton" onClick={() => handleSubmit()}>SUBMIT</Button>
+            searchableText.length > 0 ? (
+              <Button variant="outline-secondary" className="searchBoxButton" onClick={handleSubmit}>SUBMIT</Button>
             ) : (
               <Button type="button" variant="outline-secondary" className="searchBoxButton buttonDisabled" disabled>SUBMIT</Button>
             )
@@ -226,26 +227,26 @@ const SearchBox = ({
           )
         }
         {
-          resourceFilters.dataset_source_repo
-          && resourceFilters.dataset_source_repo.length > 0
-          && resourceFilters.dataset_source_repo.map((filter, index) => (
+          resourceFilters.resource_tool_type
+          && resourceFilters.resource_tool_type.length > 0
+          && resourceFilters.resource_tool_type.map((filter, index) => (
             <BubbleContainer key={index} title={filter}>
-              <span style={{ fontSize: '10px' }}>DATA REPOSITORY:&nbsp;</span>
+              <span style={{ fontSize: '10px' }}>TOOL TYPE:&nbsp;</span>
               {filter}
-              <span className="removeBubble" onClick={() => handleBubbleDataRepositoryRemoveClick(filter)} aria-hidden="true">
+              <span className="removeBubble" onClick={() => handleBubbleToolTypeRemoveClick(filter)} aria-hidden="true">
                 <img src={CloseIconImg} alt="close-icon" />
               </span>
             </BubbleContainer>
           ))
         }
         {
-          resourceFilters.primary_disease
-          && resourceFilters.primary_disease.length > 0
-          && resourceFilters.primary_disease.map((filter, index) => (
+          resourceFilters.resource_research_area
+          && resourceFilters.resource_research_area.length > 0
+          && resourceFilters.resource_research_area.map((filter, index) => (
             <BubbleContainer key={index} title={filter}>
-              <span style={{ fontSize: '10px' }}>PRIMARY DISEASE:&nbsp;</span>
+              <span style={{ fontSize: '10px' }}>RESEARCH AREA:&nbsp;</span>
               {filter}
-              <span className="removeBubble" onClick={() => handleBubblePrimaryDiseaseRemoveClick(filter)} aria-hidden="true">
+              <span className="removeBubble" onClick={() => handleBubbleResearchAreaRemoveClick(filter)} aria-hidden="true">
                 <img src={CloseIconImg} alt="close-icon" />
               </span>
             </BubbleContainer>

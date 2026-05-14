@@ -3,7 +3,7 @@ import env from '../utils/env';
 
 // Mock the env module
 jest.mock('../utils/env', () => ({
-  REACT_APP_REST_BACKEND_API: 'http://api.example.com/',
+  REACT_APP_REST_BACKEND_API: 'http://api.example.com',
 }));
 
 describe('getSearchResultUtil tests', () => {
@@ -41,7 +41,7 @@ describe('getSearchResultUtil tests', () => {
     await getSearchResultUtil(body);
 
     expect(global.fetch).toHaveBeenCalledWith(
-      'http://api.example.com/export',
+      'http://api.example.com/datasets/export',
       expect.objectContaining({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

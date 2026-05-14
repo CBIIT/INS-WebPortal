@@ -39,14 +39,30 @@ export default {
     resourcesList: [],
     details: {},
   },
-  documentSearch: {
-    keyword: '',
-    results: [],
-    pageInfo: {
-      page: 1,
-      pageSize: 10,
-      total: 100,
+  resources: {
+    searchCriteria: {
+      search_text: '',
+      filters: {
+        resource_research_area: [
+        ],
+        resource_tool_type: [
+        ],
+      },
+      pageInfo: {
+        page: 1,
+        pageSize: 10,
+      },
+      sort: {
+        name: 'Resource',
+        k: 'resource_title_sort',
+        v: 'asc',
+      },
+      viewType: 'card',
     },
+    searchResults: [],
+    searchSourceResults: 'all',
+    resourcesList: [],
+    details: {},
   },
   application: {
     softwareVersion: '',
