@@ -503,12 +503,6 @@ describe('Resource Information Fields - Comprehensive Dynamic Field Tests', () =
       jest.clearAllMocks();
     });
 
-    it('should format array values with semicolon separator for Access Control', () => {
-      const data = createMockData({ resource_access: 'Open Access' });
-      render(<ResourceDetailView data={data} />, { wrapper: MockParent });
-      // This field is not an array, so this test is skipped for it
-    });
-
     it('should format array values with semicolon separator for NCI Division/Office/Center', () => {
       const values = ['NCI DCEG', 'NCI CCBR'];
       const data = createMockData({ resource_doc: values });
