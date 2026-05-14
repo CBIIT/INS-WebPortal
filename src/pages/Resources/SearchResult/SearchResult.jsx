@@ -328,7 +328,6 @@ const SearchResultContainer = styled.div`
 // Display names match the Resource Details page headers
 // formatSemicolon flag indicates whether to apply semicolon spacing formatting
 const HIDDEN_FIELDS_CONFIG = [
-  // TODO: THE ARRAY FIELDS MUST BE SORTED alphabetically
   { fieldName: 'resource_tool_subtype', displayName: 'Tool Subtype', formatSemicolon: true },
   { fieldName: 'resource_research_type', displayName: 'Research Type', formatSemicolon: true },
   { fieldName: 'resource_access', displayName: 'Access Control', formatSemicolon: false },

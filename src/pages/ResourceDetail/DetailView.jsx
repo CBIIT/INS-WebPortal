@@ -248,7 +248,6 @@ const ResourceDetailView = ({ classes, data }) => {
                           )}
                         </Typography>
                         <Typography variant="body2" component="div" className={classes.text}>
-                          {/* TODO: THE ARRAY FIELDS MUST BE SORTED */}
                           {renderFieldValue(field, data[field.datafield], classes)}
                         </Typography>
                       </div>
@@ -283,7 +282,6 @@ const ResourceDetailView = ({ classes, data }) => {
                             )}
                           </Typography>
                           <Typography variant="body2" component="div" className={classes.text}>
-                            {/* TODO: THE ARRAY FIELDS MUST BE SORTED */}
                             {renderFieldValue(field, data[field.datafield], classes)}
                           </Typography>
                         </div>
