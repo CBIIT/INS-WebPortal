@@ -202,7 +202,7 @@ describe('getResourceById', () => {
     await expect(getResourceById(resourceId)).resolves.toEqual(responseData);
 
     expect(global.fetch).toHaveBeenCalledWith(
-      'http://api.example.com/resources/resource-123',
+      'http://api.example.com/resource/resource-123',
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
