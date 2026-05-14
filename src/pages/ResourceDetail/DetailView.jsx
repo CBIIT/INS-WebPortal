@@ -75,6 +75,37 @@ const stripHtmlTags = (html) => {
   return tmp.textContent || tmp.innerText || '';
 };
 
+/**
+ * Renders the value of a field based on its definition and the provided value
+ *
+ * @param {typeof resourceInformationFields[number]} field The field definition
+ * @param {unknown} value The field value to render
+ * @param {object} classes The CSS classes for styling the rendered value
+ * @returns {React.JSX.Element[]|React.JSX.Element|string} The rendered field value
+ */
+const renderFieldValue = (field, value, classes) => {
+  if (field.hyperlink && field.isArray && Array.isArray(value)) {
+    return value.map((item, index) => (
+      <React.Fragment key={`${field.datafield}-${item}-${index}`}>
+        {index > 0 && '; '}
+        <Link href={`mailto:${item}`} className={classes.link}>
+          {item}
+        </Link>
+      </React.Fragment>
+    ));
+  }
+
+  if (field.hyperlink && !field.isArray && value) {
+    return (
+      <Link href={`mailto:${value}`} className={classes.link}>
+        {value}
+      </Link>
+    );
+  }
+
+  return field.isArray ? value.join('; ') : value || '';
+};
+
 const ResourceDetailView = ({ classes, data }) => {
   const [expandedDescription, setExpandedDescription] = useState(false);
   const [logoMarginTop, setLogoMarginTop] = useState(BASE_LOGO_MARGIN);
@@ -218,7 +249,7 @@ const ResourceDetailView = ({ classes, data }) => {
                         </Typography>
                         <Typography variant="body2" component="div" className={classes.text}>
                           {/* TODO: THE ARRAY FIELDS MUST BE SORTED */}
-                          {field.isArray ? data[field.datafield].join('; ') : data[field.datafield] || ''}
+                          {renderFieldValue(field, data[field.datafield], classes)}
                         </Typography>
                       </div>
                     </Grid>
@@ -253,7 +284,7 @@ const ResourceDetailView = ({ classes, data }) => {
                           </Typography>
                           <Typography variant="body2" component="div" className={classes.text}>
                             {/* TODO: THE ARRAY FIELDS MUST BE SORTED */}
-                            {field.isArray ? data[field.datafield].join('; ') : data[field.datafield] || ''}
+                            {renderFieldValue(field, data[field.datafield], classes)}
                           </Typography>
                         </div>
                       </Grid>

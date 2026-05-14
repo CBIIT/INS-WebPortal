@@ -65,6 +65,7 @@ const resourceInformationFields = [
     datafield: 'resource_poc_email',
     dynamic: true,
     isArray: true,
+    hyperlink: true,
     tooltip: 'The resource\'s point of contact email',
   },
 ];
