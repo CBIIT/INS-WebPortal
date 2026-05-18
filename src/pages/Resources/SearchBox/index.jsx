@@ -84,7 +84,6 @@ const SearchBoxArea = styled.div`
   }
   
   .searchBoxButton {
-    cursor: pointer;
     width: 120px;
     height: 40px;
     border-radius: 0 8px 8px 0;
