@@ -101,7 +101,6 @@ const SearchBoxArea = styled.div`
     color: #fff;
     background-color: #564587;
     border-color: #564587;
-    cursor: not-allowed;
   }
 
   input[type="search"]::-webkit-search-cancel-button {
