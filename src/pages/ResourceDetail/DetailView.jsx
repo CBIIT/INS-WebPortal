@@ -88,7 +88,7 @@ const renderFieldValue = (field, value, classes) => {
     return value.map((item, index) => (
       <React.Fragment key={`${field.datafield}-${item}-${index}`}>
         {index > 0 && '; '}
-        <Link href={`mailto:${item}`} className={classes.link}>
+        <Link href={`mailto:${item}`} target="_blank" rel="noopener noreferrer" className={classes.link}>
           {item}
         </Link>
       </React.Fragment>
@@ -97,7 +97,7 @@ const renderFieldValue = (field, value, classes) => {
 
   if (field.hyperlink && !field.isArray && value) {
     return (
-      <Link href={`mailto:${value}`} className={classes.link}>
+      <Link href={`mailto:${value}`} target="_blank" rel="noopener noreferrer" className={classes.link}>
         {value}
       </Link>
     );
