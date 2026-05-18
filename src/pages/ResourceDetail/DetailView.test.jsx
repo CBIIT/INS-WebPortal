@@ -493,6 +493,8 @@ describe('Resource Information Fields - Comprehensive Dynamic Field Tests', () =
       emails.forEach((email, index) => {
         expect(links[index]).toHaveAttribute('href', `mailto:${email}`);
         expect(links[index]).toHaveTextContent(email);
+        expect(links[index]).toHaveAttribute('target', '_blank');
+        expect(links[index]).toHaveAttribute('rel', 'noopener noreferrer');
       });
       expect(container.textContent).toContain(';');
     });
