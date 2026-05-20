@@ -11,7 +11,7 @@ const HeaderBanner = styled.div`
 
 const HeaderContainer = styled.div`
     margin: 0 auto;
-    padding-left: 32px;
+    padding-left: 25px;
     max-width: 1400px;
     display: flex;
 
