@@ -19,7 +19,7 @@ const BannerContainer = styled.div`
     padding-left: 25px;
 
     img {
-      margin-right: 14px;
+      margin-right: 15px;
       height: 11px;
       width: 16px;
     }
@@ -28,11 +28,12 @@ const BannerContainer = styled.div`
         font-family: 'Open Sans';
         font-style: normal;
         font-weight: 400;
-        font-size: 12px;
+        font-size: 12.16px;
         line-height: 16px;
+        letter-spacing: normal;
         width: fit-content;
         height: 16px;
-        color: #000000;
+        color: #1b1b1b;
     }
 
     @media (max-width: 1023px) {
