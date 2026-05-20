@@ -15,18 +15,15 @@ const HeaderContainer = styled.div`
     max-width: 1400px;
     display: flex;
 
-    .searchBarArea {
-        padding: 5px 300px 0 0;
+    .headerSearchBarArea {
+        padding: 5px 24px 0 0;
+        margin-top: 42px;
     }
 
     .headerLowerContainer {
         display: flex;
         margin-left: auto;
     }
-
-    .searchBarArea {
-      margin-top: 42px;
-  }
 `;
 
 const Header = () => {
@@ -37,7 +34,7 @@ const Header = () => {
       <HeaderContainer>
         <Logo />
         <div className="headerLowerContainer">
-          {!path.includes('/globalsearch') && <div className="searchBarArea"><SearchBar /></div>}
+          {!path.includes('/globalsearch') && <div className="headerSearchBarArea"><SearchBar /></div>}
         </div>
       </HeaderContainer>
       <div className="navbarContainer"><NavBar /></div>
