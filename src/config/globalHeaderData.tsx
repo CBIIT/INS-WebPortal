@@ -144,7 +144,7 @@ export const navbarSublists: { [key: string]: NavItem[] } = {
     },
     {
       name: 'Glossary (PDF)',
-      link: '/INS_glossary_v3.3.1.pdf',
+      link: '/INS_glossary_v3.4.0.pdf',
       id: 'navbar-dropdown-item-glossary',
       className: 'navMobileSubItem',
       externalLink: true,
