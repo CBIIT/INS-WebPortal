@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import xIcon from '../../../assets/img/xmark-solid.svg';
-import SearchIconImg from './search.svg';
-import CloseIconImg from './close.svg';
+import SearchIconImg from '../../../assets/icons/search.svg';
+import CloseIconImg from '../../../assets/icons/close.svg';
 
 const Container = styled.div`
   width: 100%;
@@ -198,8 +197,8 @@ const SearchBox = ({
             )
           }
           {
-            searchText.length > 3 ? (
-              <Button variant="outline-secondary" className="searchBoxButton" onClick={() => handleSubmit()}>SUBMIT</Button>
+            searchableText.length > 0 ? (
+              <Button variant="outline-secondary" className="searchBoxButton" onClick={handleSubmit}>SUBMIT</Button>
             ) : (
               <Button type="button" variant="outline-secondary" className="searchBoxButton buttonDisabled" disabled>SUBMIT</Button>
             )

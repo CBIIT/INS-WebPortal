@@ -96,9 +96,8 @@ query globalSearch($input: String, $first: Int, $offset: Int){
  * Maps a datafield to the correct search query
  *
  * @param {string} field datatable field name
- * @param {boolean} isPublic whether the search is public or not
  */
-export function getResultQueryByField(field, isPublic) {
+export function getResultQueryByField(field) {
   switch (field) {
     case 'all':
       return SEARCH_PAGE_RESULT_PROJECT;

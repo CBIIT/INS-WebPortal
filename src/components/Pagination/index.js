@@ -105,28 +105,6 @@ const PageSelect = styled.div`
   border: 0;
 `;
 
-const getPager = (totalPages, currentPage) => {
-  let startPage = 1;
-  let endPage = totalPages;
-  if (totalPages <= 5) {
-    startPage = 1;
-    endPage = totalPages;
-  } else if (currentPage <= 3) {
-    startPage = 1;
-    endPage = 5;
-  } else if (currentPage + 2 >= totalPages) {
-    startPage = totalPages - 4;
-    endPage = totalPages;
-  } else {
-    startPage = currentPage - 2;
-    endPage = currentPage + 2;
-  }
-
-  const pages = [...Array((endPage + 1) - startPage).keys()].map((i) => startPage + i);
-
-  return pages;
-};
-
 const Pagination = ({
   pageInfo,
   pageClick,
@@ -136,7 +114,7 @@ const Pagination = ({
   const pageCount = pageInfo.total && pageInfo.pageSize
     ? Math.ceil(pageInfo.total / pageInfo.pageSize)
     : 0;
-  const pages = getPager(pageCount, pageInfo.page);
+
   const handlePageClick = (pageIndex) => {
     pageClick(pageIndex);
   };

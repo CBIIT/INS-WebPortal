@@ -18,6 +18,15 @@ export const SWITCH_SIZE = 'switch_size';
 export const SWITCH_VIEW = 'switch_view';
 export const LOAD_DATASET_DETAIL_SUCCESS = 'load_dataset_detail_success';
 
+export const RESOURCES_LOAD_RESOURCES_LIST_SUCCESS = 'resources_load_resources_list_success';
+export const RESOURCES_LOAD_SEARCH_RESULTS_SUCCESS = 'resources_load_search_results_success';
+export const RESOURCES_UPDATE_FILTER_SUCCESS = 'resources_update_filter_success';
+export const RESOURCES_RUN_FULL_TEXT_SEARCH = 'resources_run_full_text_search';
+export const RESOURCES_SWITCH_SORTING = 'resources_switch_sorting';
+export const RESOURCES_SWITCH_SORTING_ORDER = 'resources_switch_sorting_order';
+export const RESOURCES_SWITCH_PAGE = 'resources_switch_page';
+export const RESOURCES_SWITCH_SIZE = 'resources_switch_size';
+
 export const LOAD_DATARESOURCE_DETAIL_SUCCESS = 'load_dataresource_detail_success';
 export const LOAD_DATARESOURCE_DETAIL_DATASETS_SUCCESS = 'load_dataresource_detail_datasets_success';
 

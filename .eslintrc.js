@@ -23,20 +23,40 @@ module.exports = {
     'react',
   ],
   rules: {
-    "react/no-unescaped-entities": "off", // To escape the html entotoes in static text
-    "react/prop-types": "off", //Will add this back
+    /* React rules */
+    "react/no-unescaped-entities": "off",
+    "react/prop-types": "off",
     "react/jsx-filename-extension": "off",
-    "react/no-array-index-key": "off", // This is for passing the array index in .map need to remove this soon
-    "no-nested-ternary": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off",
+    'react/destructuring-assignment': 'off',
+    "react/function-component-definition": [
+      "error",
+      {
+        namedComponents: "arrow-function",
+        unnamedComponents: "arrow-function",
+      },
+    ],
+
+    /* A11y rules */
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/click-events-have-key-events": "off",
-    "react/jsx-props-no-spreading": "off",
+
+    /* Base ESLint rules */
+    "no-empty-function": "error",
+    "no-nested-ternary": "off",
     "linebreak-style": "off",
     "no-sequences": "off",
-    "no-console": "off",
-    "no-unused-vars": "off",
-    'react/destructuring-assignment': 'off',
+    "no-console": [
+      "warn",
+      {
+        allow: ["error"],
+      },
+    ],
+    "no-unused-vars": "warn",
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+
+    /* Import rules */
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -45,6 +65,13 @@ module.exports = {
           "**/setupTests.{js,jsx}",
         ],
         optionalDependencies: false,
+      },
+    ],
+    "import/newline-after-import": [
+      "error",
+      {
+        count: 1,
+        considerComments: true,
       },
     ],
   },

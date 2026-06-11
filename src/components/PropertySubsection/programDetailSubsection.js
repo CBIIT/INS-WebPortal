@@ -16,7 +16,6 @@ const PropertyItem = ({
   link,
   labelLink,
   classes,
-  index,
 }) => {
   const defaultValue = '';
   return (
@@ -86,7 +85,7 @@ const Subsection = ({ config, data, classes }) => {
   );
 };
 
-const styles = (theme) => ({
+const styles = () => ({
   content: {
     fontFamily: 'Nunito',
     fontSize: '18px',

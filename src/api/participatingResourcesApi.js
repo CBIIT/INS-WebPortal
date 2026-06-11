@@ -1,16 +1,16 @@
 import { handleResponse, handleError } from './apiUtils';
 import env from '../utils/env';
 
-const baseUrl = env.REACT_APP_REST_BACKEND_API;
+const DATASETS_API_URL = `${env.REACT_APP_REST_BACKEND_API}/datasets/`;
 
 export function getLandingParticipatingResources() {
-  return fetch(`${baseUrl}landing`)
+  return fetch(`${DATASETS_API_URL}landing`)
     .then(handleResponse)
     .catch(handleError);
 }
 
 export function getAllParticipatingResources() {
-  return fetch(`${baseUrl}filters`, {
+  return fetch(`${DATASETS_API_URL}filters`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
   }).then(handleResponse)
@@ -18,13 +18,13 @@ export function getAllParticipatingResources() {
 }
 
 export function getSearchFilters() {
-  return fetch(`${baseUrl}filters`)
+  return fetch(`${DATASETS_API_URL}filters`)
     .then(handleResponse)
     .catch(handleError);
 }
 
 export function searchParticipatingResources(body) {
-  return fetch(`${baseUrl}search`, {
+  return fetch(`${DATASETS_API_URL}search`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' },
@@ -33,13 +33,13 @@ export function searchParticipatingResources(body) {
 }
 
 export function getDataresourceById(id) {
-  return fetch(`${baseUrl}${id}`)
+  return fetch(`${DATASETS_API_URL}${id}`)
     .then(handleResponse)
     .catch(handleError);
 }
 
 export function getDatasetsById(id) {
-  return fetch(`${baseUrl}${id}/datasets`)
+  return fetch(`${DATASETS_API_URL}${id}/datasets`)
     .then(handleResponse)
     .catch(handleError);
 }

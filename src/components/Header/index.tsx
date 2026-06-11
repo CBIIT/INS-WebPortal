@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import HeaderDesktop from './HeaderDesktop.tsx';
 import HeaderTablet from './HeaderTablet.tsx';
 import HeaderMobile from './HeaderMobile.tsx';
-import USABanner from './USABanner';
+import USABanner from './USABanner.tsx';
 
 const HeaderContainer = styled.div`
  @media (min-width: 1024px) {

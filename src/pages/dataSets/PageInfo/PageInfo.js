@@ -3,7 +3,6 @@ import {
   useLocation,
   useHistory,
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Pagination from '../../../components/Pagination';
 
 const useQuery = () => new URLSearchParams(useLocation().search);

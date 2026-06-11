@@ -2,7 +2,7 @@ import Logo from '../assets/header/Logo.svg';
 import searchbarIcon from '../assets/header/Search_Icon.svg';
 import usaFlagSmall from '../assets/header/us_flag_small.svg';
 
-export const RELEASE_NOTES_LINK = '/Release_v3.3.0.pdf';
+export const RELEASE_NOTES_LINK = '/Release_v3.4.0.pdf';
 
 export type NavItemClassName =
   | 'navMobileItem'
@@ -55,6 +55,12 @@ export const navMobileList: NavItem[] = [
     name: 'Datasets',
     link: '/datasets',
     id: 'navbar-link-datasets',
+    className: 'navMobileItem',
+  },
+  {
+    name: 'Resources',
+    link: '/resources',
+    id: 'navbar-dropdown-resources',
     className: 'navMobileItem',
   },
   {
@@ -115,6 +121,20 @@ export const navbarSublists: { [key: string]: NavItem[] } = {
       className: 'navMobileSubTitle',
     },
   ],
+  Resources: [
+    {
+      name: 'Resources',
+      link: '/resources',
+      id: 'navbar-sublist-resources',
+      className: 'navMobileSubTitle',
+    },
+    {
+      name: 'Resource Detail',
+      link: '/resource',
+      id: 'navbar-sublist-resource-detail',
+      className: 'navMobileSubTitle',
+    },
+  ],
   About: [
     {
       name: 'About INS',
@@ -124,7 +144,7 @@ export const navbarSublists: { [key: string]: NavItem[] } = {
     },
     {
       name: 'Glossary (PDF)',
-      link: '/INS_glossary_v3.3.1.pdf',
+      link: '/INS_glossary_v3.4.0.pdf',
       id: 'navbar-dropdown-item-glossary',
       className: 'navMobileSubItem',
       externalLink: true,

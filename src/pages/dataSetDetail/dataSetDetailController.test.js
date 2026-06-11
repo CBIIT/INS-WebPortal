@@ -5,10 +5,10 @@ import DataSetDetailContainer from './dataSetDetailController';
 import migrateDatasetId from '../../utils/datasetUtils';
 
 /** @param {{ to: string }} props */
+// eslint-disable-next-line react/function-component-definition
 function MockRedirect(props) {
   return <div data-testid="redirect">{props.to}</div>;
 }
-
 jest.mock('@apollo/client', () => ({
   useQuery: jest.fn(),
 }));

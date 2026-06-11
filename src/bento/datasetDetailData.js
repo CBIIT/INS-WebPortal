@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-import programIcon from '../assets/icons/Icon-Programs.png';
 import externalLinkIconBlueSrc from '../assets/icons/externalLinkIconBlue.svg';
 
 // --------------- Page title configuration --------------

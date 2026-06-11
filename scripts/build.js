@@ -81,20 +81,20 @@ checkBrowsers(paths.appPath, isInteractive)
     ({ stats, previousFileSizes, warnings }) => {
       if (warnings.length) {
         /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-       
+
         console.warn(chalk.yellow('Compiled with warnings.\n'));
         console.warn(warnings.join('\n\n'));
         console.warn(
           '\nSearch for the ' +
-            chalk.underline(chalk.yellow('keywords')) +
-            ' to learn more about each warning.'
+          chalk.underline(chalk.yellow('keywords')) +
+          ' to learn more about each warning.'
         );
         console.warn(
           'To ignore, add ' +
-            chalk.cyan('// eslint-disable-next-line') +
-            ' to the line before.\n'
+          chalk.cyan('// eslint-disable-next-line') +
+          ' to the line before.\n'
         );
-      } 
+      }
 
       printFileSizesAfterBuild(
         stats,
@@ -172,7 +172,7 @@ function build(previousFileSizes) {
         console.warn(
           chalk.yellow(
             '\nTreating warnings as errors because process.env.CI = true.\n' +
-              'Most CI servers set it automatically.\n'
+            'Most CI servers set it automatically.\n'
           ),
         );
         return reject(new Error(messages.warnings.join('\n\n')));
