@@ -29,11 +29,12 @@ export default {
         },
         {
           text: 'Contact Us',
-          link: 'https://www.cancer.gov/contact',
+          link: 'mailto:nciofficeofdatasharing@mail.nih.gov?subject=Index%20of%20NCI%20Studies%20(INS)%20-%20User%20Feedback',
         },
         {
           text: 'Release Notes',
           link: RELEASE_NOTES_LINK,
+          externalLink: true,
         },
       ],
     },
