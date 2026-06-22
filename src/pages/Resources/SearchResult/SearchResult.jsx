@@ -353,9 +353,29 @@ const SearchResult = ({
     return str.replace(/<\/?[a-z][\s\S]*?>/gi, '');
   }
 
+  function stripBoldTags(str) {
+    if (!str) return '';
+    return str.replace(/<\/?b>/gi, '');
+  }
+
+  function normalizeFieldItems(value) {
+    if (Array.isArray(value)) {
+      return value.map((item) => String(item).trim()).filter(Boolean);
+    }
+    if (value === null || value === undefined || value === '') return [];
+    return String(value).split(';').map((item) => item.trim()).filter(Boolean);
+  }
+
+  function formatContentValue(contentValue) {
+    if (Array.isArray(contentValue)) {
+      return contentValue.join('; ');
+    }
+    return contentValue !== null && contentValue !== undefined ? contentValue : '';
+  }
+
   /**
-   * Gets the highlighted value from backend if available, otherwise returns content value
-   * Joins multiple highlighted values with semicolon separator
+   * Gets the highlighted value from backend if available, otherwise returns content value.
+   * Joins multiple highlighted values with semicolon separator.
    */
   function getHighlightedValue(resultItem, fieldName) {
     if (!resultItem || !resultItem.content) {
@@ -364,22 +384,47 @@ const SearchResult = ({
 
     const highlightKey = fieldName;
 
-    // Check if backend provided highlights for this field
     if (resultItem.highlight && resultItem.highlight[highlightKey]) {
       const highlightedValues = resultItem.highlight[highlightKey];
-      // Join all highlighted values (backend may return multiple matches for same field)
       return Array.isArray(highlightedValues)
         ? highlightedValues.join('; ')
         : highlightedValues;
     }
 
-    // Fallback to content value
-    const contentValue = resultItem.content[fieldName];
-    if (Array.isArray(contentValue)) {
-      return contentValue.join('; ');
+    return formatContentValue(resultItem.content[fieldName]);
+  }
+
+  /**
+   * Shows all content values for visible multi-value fields, applying highlight markup
+   * only to items that match a backend highlight fragment.
+   */
+  function getHighlightedVisibleFieldValue(resultItem, fieldName) {
+    if (!resultItem || !resultItem.content) {
+      return '';
     }
 
-    return contentValue !== null && contentValue !== undefined ? contentValue : '';
+    const contentItems = normalizeFieldItems(resultItem.content[fieldName]);
+    if (contentItems.length === 0) {
+      return '';
+    }
+
+    const highlights = resultItem.highlight && resultItem.highlight[fieldName];
+    if (!highlights) {
+      return contentItems.join('; ');
+    }
+
+    const highlightItems = Array.isArray(highlights) ? highlights : [highlights];
+
+    return contentItems.map((contentItem) => {
+      const contentLower = contentItem.toLowerCase();
+      const matchedHighlight = highlightItems.find((highlight) => {
+        const plainHighlight = stripBoldTags(highlight).trim().toLowerCase();
+        return plainHighlight === contentLower
+          || contentLower.includes(plainHighlight)
+          || plainHighlight.includes(contentLower);
+      });
+      return matchedHighlight || contentItem;
+    }).join('; ');
   }
 
   /**
@@ -455,8 +500,8 @@ const SearchResult = ({
         const keyName = `sr_${idx}`;
 
         // Get highlighted values from backend (or fallback to content)
-        const highlightedToolType = getHighlightedValue(rst, 'resource_tool_type');
-        const highlightedResearchArea = getHighlightedValue(rst, 'resource_research_area');
+        const highlightedToolType = getHighlightedVisibleFieldValue(rst, 'resource_tool_type');
+        const highlightedResearchArea = getHighlightedVisibleFieldValue(rst, 'resource_research_area');
         const highlightedDesc = getDescriptionValue(rst);
 
         // Build list of hidden fields that have matches (backend highlighted them)
