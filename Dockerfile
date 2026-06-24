@@ -14,7 +14,7 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm set progress=false
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm ci --legacy-peer-deps
 RUN NODE_OPTIONS="--openssl-legacy-provider" npm run build --silent
 
-FROM nginx:1.30.1-alpine3.23-slim AS fnl_base_image
+FROM nginx:1.31.2-alpine3.23-slim AS fnl_base_image
 
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 COPY --from=build /usr/src/app/config/inject.template.js /usr/share/nginx/html/inject.template.js
