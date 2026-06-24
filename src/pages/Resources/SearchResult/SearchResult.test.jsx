@@ -143,6 +143,42 @@ describe('Basic Functionality', () => {
     expect(researchAreas[0]).toHaveTextContent('Cancer Research');
   });
 
+  it('should display all research areas when only one matches search text', () => {
+    const result = createMockResult({
+      content: {
+        resource_research_area: ['Cancer Research', 'Genomics', 'Bioinformatics'],
+      },
+      highlight: {
+        resource_research_area: ['<b>Genomics</b>'],
+      },
+    });
+
+    renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
+
+    const researchArea = screen.getByTestId('research-area');
+    expect(researchArea.textContent).toContain('Cancer Research');
+    expect(researchArea.textContent).toContain('Genomics');
+    expect(researchArea.textContent).toContain('Bioinformatics');
+  });
+
+  it('should display all tool types when only one matches search text', () => {
+    const result = createMockResult({
+      content: {
+        resource_tool_type: ['Database', 'Analysis Tool', 'Visualization Tool'],
+      },
+      highlight: {
+        resource_tool_type: ['<b>Analysis Tool</b>'],
+      },
+    });
+
+    renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
+
+    const toolType = screen.getByTestId('tool-type');
+    expect(toolType.textContent).toContain('Database');
+    expect(toolType.textContent).toContain('Analysis Tool');
+    expect(toolType.textContent).toContain('Visualization Tool');
+  });
+
   it('should display Description when available', () => {
     const result = createMockResult();
     renderWithRouter(<SearchResult {...defaultProps} resultList={[result]} />);
