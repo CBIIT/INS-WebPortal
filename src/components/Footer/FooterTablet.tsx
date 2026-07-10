@@ -293,7 +293,7 @@ const FooterTablet = () => {
                         return (
                           <div className="footItemSubtitle" key={itemkey}>
                             {
-                              item.link.includes('http')
+                              (item.externalLink || item.link.includes('http'))
                                 ? <a className="footItemLink" href={item.link} target="_blank" rel="noopener noreferrer">{item.text}</a>
                                 : <a className="footItemLink" href={item.link}>{item.text}</a>
                             }

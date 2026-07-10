@@ -2,7 +2,7 @@ import Logo from '../assets/header/Logo.svg';
 import searchbarIcon from '../assets/header/Search_Icon.svg';
 import usaFlagSmall from '../assets/header/us_flag_small.svg';
 
-export const RELEASE_NOTES_LINK = '/Release_v3.4.0.pdf';
+export const RELEASE_NOTES_LINK = '/Release_v3.4.1.pdf';
 
 export type NavItemClassName =
   | 'navMobileItem'
