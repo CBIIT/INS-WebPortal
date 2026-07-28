@@ -401,7 +401,7 @@ describe('Basic Functionality', () => {
       renderWithRouter(<SearchResult {...props} />);
 
       // "Repository" is in dataset_source_repo filter
-      // So it should NOT appear as "Other Match in Investigator(s)" even though PI_name contains it
+      // So it should NOT appear as "Other Match in Principal Investigators" even though PI_name contains it
       expect(screen.queryByText(/Other Match in Investigator\(s\)/i)).not.toBeInTheDocument();
     });
 
@@ -697,7 +697,7 @@ describe('Hidden Fields - Additional Matches', () => {
   // This should match all fields in the hideContent array in SearchResult.js
   const hiddenFields = [
     { fieldName: 'dataset_source_url', displayName: 'Study Page', searchTerm: 'example.com' },
-    { fieldName: 'PI_name', displayName: 'Investigator(s)', searchTerm: 'Smith' },
+    { fieldName: 'PI_name', displayName: 'Principal Investigators', searchTerm: 'Smith' },
     { fieldName: 'dataset_pmid', displayName: 'Cited Publication PMID(s)', searchTerm: '12345' },
     { fieldName: 'funding_source', displayName: 'Funding Source(s)', searchTerm: 'NIH' },
     { fieldName: 'related_diseases', displayName: 'Related Diseases', searchTerm: 'Diabetes' },

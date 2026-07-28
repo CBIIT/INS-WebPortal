@@ -331,7 +331,7 @@ const SearchResultContainer = styled.div`
 // formatSemicolon flag indicates whether to apply semicolon spacing formatting
 const HIDDEN_FIELDS_CONFIG = [
   { fieldName: 'dataset_source_url', displayName: 'Study Page', formatSemicolon: false },
-  { fieldName: 'PI_name', displayName: 'Investigator(s)', formatSemicolon: true },
+  { fieldName: 'PI_name', displayName: 'Principal Investigators', formatSemicolon: true },
   { fieldName: 'dataset_pmid', displayName: 'Cited Publication PMID(s)', formatSemicolon: true },
   { fieldName: 'funding_source', displayName: 'Funding Source(s)', formatSemicolon: true },
   { fieldName: 'related_diseases', displayName: 'Related Diseases', formatSemicolon: true },
