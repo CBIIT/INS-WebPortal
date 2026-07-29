@@ -3,8 +3,6 @@ FROM node:20.19.6-alpine3.23 AS build
 
 WORKDIR /usr/src/app
 
-RUN npm install -g npm@latest
-
 COPY . .
 
 RUN apk upgrade --update && apk --no-cache add git
