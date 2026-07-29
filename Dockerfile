@@ -3,11 +3,7 @@ FROM node:20.19.6-alpine3.23 AS build
 
 WORKDIR /usr/src/app
 
-RUN npm install -g npm@latest
-
 COPY . .
-
-RUN apk upgrade --update && apk --no-cache add git
 
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm set progress=false
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm ci --legacy-peer-deps
