@@ -581,8 +581,9 @@ const styles = () => ({
   texture: {
     backgroundSize: 'cover',
     background: '#9D0995',
-    padding: '355px 0 80px 0',
+    padding: '405px 0 80px 0',
     '@media (max-width: 480px)': {
+      padding: '355px 0 80px 0',
       marginTop: 'calc(950px + calc(430px - 100vw))',
       marginBottom: '-40px',
     },
