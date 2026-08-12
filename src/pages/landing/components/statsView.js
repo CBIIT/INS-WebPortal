@@ -3,130 +3,160 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { STAT_VISUALS_BY_API } from '../../../bento/landingPageData';
 import './statsStyles.css';
 
 const linkPage = '/programs';
 
-const LandingStatsView = ({ classes, stats, statsData }) => {
-  const mobileStylePrograms = {
-    height: `calc(${Math.log10(statsData.numberOfPrograms) * 63}px)`,
-  };
-  const mobileStyleDatasets = {
-    height: `calc(${Math.log10(statsData.numberOfDatasets) * 63}px)`,
-  };
-  const mobileStyleProjects = {
-    height: `calc(${Math.log10(statsData.numberOfProjects) * 63}px)`,
-  };
-  const mobileStyleGrants = {
-    height: `calc(${Math.log10(statsData.numberOfGrants) * 63}px)`,
-  };
-  const mobileStylePublications = {
-    height: `calc(${Math.log10(statsData.numberOfPublications) * 63}px)`,
-  };
-  const statsBarColor = [
-    'linear-gradient(to right, #c56e6e, #923b3c)',
-    'linear-gradient(to right, #fabe5f, #EDA534)',
-    'linear-gradient(to right, #6b7ea1, #384c6e)',
-    'linear-gradient(to right, #aabbff, #7788cc)',
-    'linear-gradient(to right, #be73d6, #8b40a3)',
-  ];
-  const statsStyle = stats.map((stat, index) => ({
-    right: {
-      right: `calc(${Math.log10(statsData[stat.statAPI]) * 63}px)`,
-    },
-    width: {
-      width: `calc(${Math.log10(statsData[stat.statAPI]) * 63}px)`,
-      background: statsBarColor[index],
-    },
+export const STAT_SCALE_FACTOR = 63;
+export const MOBILE_STAT_SCALE_FACTOR = 38;
+export const DESKTOP_BAR_TRACK_PX = 350;
+export const MOBILE_COLUMN_COUNT = 6;
+export const MOBILE_COLUMN_HEIGHT_PX = 330;
+export const MOBILE_LABEL_REGION_PX = 110;
+export const MOBILE_BAR_TRACK_PX = MOBILE_COLUMN_HEIGHT_PX - MOBILE_LABEL_REGION_PX;
+
+export const normalizeStatValue = (value) => {
+  if (value === null || value === undefined || value === '') return 0;
+
+  const numericValue = Number(value);
+  return Number.isFinite(numericValue) && numericValue >= 0 ? numericValue : 0;
+};
+
+export const formatDesktopStatValue = (value) => normalizeStatValue(value).toLocaleString(
+  'en-US',
+  { maximumFractionDigits: 0 },
+);
+
+export const formatMobileStatValue = (value) => {
+  const normalizedValue = normalizeStatValue(value);
+
+  if (normalizedValue < 1000) return Math.floor(normalizedValue).toString();
+  if (normalizedValue < 1000000) return `${Math.floor(normalizedValue / 1000)}K`;
+  return `${Math.floor(normalizedValue / 1000000)}M`;
+};
+
+export const getScaledBarSize = (value, maxSize, scaleFactor = STAT_SCALE_FACTOR) => {
+  const normalizedValue = normalizeStatValue(value);
+  const normalizedMax = Number(maxSize);
+
+  if (normalizedValue <= 0 || !Number.isFinite(normalizedMax) || normalizedMax <= 0) return 0;
+
+  const scaledValue = Math.log10(normalizedValue) * scaleFactor;
+  if (!Number.isFinite(scaledValue)) return 0;
+  return Math.min(normalizedMax, Math.max(0, scaledValue));
+};
+
+const LandingStatsView = ({ classes, stats, statsData = {} }) => {
+  const metricRows = stats.map((stat) => ({
+    ...stat,
+    value: normalizeStatValue(statsData[stat.statAPI]),
+    visual: STAT_VISUALS_BY_API[stat.statAPI],
   }));
 
   return (
-    <>
-      <div className={classes.statsSectionCenter}>
-        <div className={classes.leftBox}>
-          <div className={classes.leftGroup}>
-            <div className={classes.leftText}>
-              INS compiles programs, projects, and outputs funded by the NCI.
-              <br />
-              <br />
-              Explore the data
-              <Link to={linkPage} className={classes.linkText}> here</Link>
-              .
-            </div>
+    <div className={classes.statsSectionCenter}>
+      <div className={classes.leftBox}>
+        <div className={classes.leftGroup}>
+          <div className={classes.leftText}>
+            INS compiles programs, projects, and outputs funded by the NCI.
+            <br />
+            <br />
+            Explore the data
+            <Link to={linkPage} className={classes.linkText}> here</Link>
+            .
           </div>
         </div>
-        <div className="statsBox">
-          {stats.length > 0 && (
-            <div className={classes.box}>
-              {
-                stats.map((stat, index) => {
-                  const dynamicMarginRight = statsStyle[index].right;
-                  const dynamicWith = statsStyle[index].width;
-                  return (
-                    <div className={classes.statsGroup}>
-                      <div className={classes.statsText}>
-                        <div className="statsFadeIn ">
-                          <div style={dynamicMarginRight} className={classes.statsSlideText}>
-                            <div className={classes.statTitle} id={`title_${index + 1}`}>
-                              {stat.statTitle}
-                            </div>
-                            <div className={classes.statCount} id={`count_${index + 1}`}>
-                              {statsData[stat.statAPI]}
-                            </div>
-                          </div>
+      </div>
+      <div className="statsBox">
+        {metricRows.length > 0 && (
+          <div className={classes.box} role="list" aria-label="INS statistics">
+            {metricRows.map((stat) => {
+              const barSize = getScaledBarSize(stat.value, DESKTOP_BAR_TRACK_PX);
+              const accessibleName = `${formatDesktopStatValue(stat.value)} ${stat.statTitle}`;
+              return (
+                <div
+                  key={stat.statAPI}
+                  className={classes.statsGroup}
+                  data-testid={`desktop-stat-${stat.statAPI}`}
+                  role="listitem"
+                  aria-label={accessibleName}
+                >
+                  <div className={classes.statsText} aria-hidden="true">
+                    <div className="statsFadeIn">
+                      <div
+                        style={{ right: `${barSize}px` }}
+                        className={classes.statsSlideText}
+                      >
+                        <div className={classes.statTitle}>
+                          {stat.statTitle}
                         </div>
-                        <div className={classes.statsSlideBg}>
-                          <div className="statsSlide">
-                            <div style={dynamicWith} id={`bar_${index + 1}`} className={classes.statsSlideBar} />
-                          </div>
+                        <div className={classes.statCount}>
+                          {formatDesktopStatValue(stat.value)}
                         </div>
                       </div>
                     </div>
-                  );
-                })
-              }
-            </div>
-          )}
-        </div>
-        <div className={classes.mobileStatsBox}>
-          {stats.length > 0 && (
-            <div className={classes.chart}>
-              <div className={classes.chartBar}>
-                <span>{statsData.numberOfPrograms}</span>
-                <div className={classes.label}>PROGRAMS</div>
-                <div className={classes.programs} style={mobileStylePrograms} />
-              </div>
-              <div className={classes.chartBar}>
-                <span>{statsData.numberOfDatasets}</span>
-                <div className={classes.label}>DATASETS</div>
-                <div className={classes.datasets} style={mobileStyleDatasets} />
-              </div>
-              <div className={classes.chartBar}>
-                <span>{statsData.numberOfProjects}</span>
-                <div className={classes.label}>PROJECTS</div>
-                <div className={classes.projects} style={mobileStyleProjects} />
-              </div>
-              <div className={classes.chartBar}>
-                <span>{statsData.numberOfGrants}</span>
-                <div className={classes.label}>GRANTS</div>
-                <div className={classes.grants} style={mobileStyleGrants} />
-              </div>
-              <div className={classes.chartBar}>
-                <span>{statsData.numberOfPublications}</span>
-                <div className={classes.label}>PUBLICATIONS</div>
-                <div className={classes.publications} style={mobileStylePublications} />
-              </div>
-            </div>
-          )}
-        </div>
+                    <div className={classes.statsSlideBg}>
+                      <div className="statsSlide">
+                        <div
+                          style={{
+                            width: `${barSize}px`,
+                            background: stat.visual.desktopGradient,
+                          }}
+                          className={classes.statsSlideBar}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
-    </>
+      <div className={classes.mobileStatsBox}>
+        {metricRows.length > 0 && (
+          <div className={classes.chart} role="list" aria-label="INS statistics">
+            {metricRows.map((stat) => {
+              const barSize = getScaledBarSize(
+                stat.value,
+                MOBILE_BAR_TRACK_PX,
+                MOBILE_STAT_SCALE_FACTOR,
+              );
+              const accessibleName = `${formatDesktopStatValue(stat.value)} ${stat.statTitle}`;
+              return (
+                <div
+                  key={stat.statAPI}
+                  className={classes.mobileChartColumn}
+                  data-testid={`mobile-stat-${stat.statAPI}`}
+                  role="listitem"
+                  aria-label={accessibleName}
+                >
+                  <span aria-hidden="true">{formatMobileStatValue(stat.value)}</span>
+                  <div className={classes.label} aria-hidden="true">
+                    {stat.statTitle.toUpperCase()}
+                  </div>
+                  <div
+                    className={classes.mobileBar}
+                    aria-hidden="true"
+                    style={{
+                      height: `${barSize}px`,
+                      background: stat.visual.mobileColor,
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
 const styles = () => ({
   statsSectionCenter: {
-    height: '315px',
+    height: '365px',
     zIndex: 2,
     background: '#403e41',
     backgroundRepeat: 'no-repeat',
@@ -145,29 +175,18 @@ const styles = () => ({
     },
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
     '@media (max-width: 480px)': {
-      marginTop: '550px',
       height: 'auto',
       flexDirection: 'column',
+      marginTop: '550px',
     },
-  },
-  bannerTexture: {
-    color: '#4898B4',
-    fontFamily: 'Raleway',
-    fontSize: '19px',
-    fontWeight: '600',
-    lineHeight: '60px',
-    textAlign: 'center',
-    margin: '0 auto',
-    letterSpacing: '0.050pt',
-    textTransform: 'uppercase',
-    width: '869px',
   },
   box: {
     direction: 'ltr',
     display: 'block',
-    height: '255px',
+    height: '315px',
     paddingTop: '1px',
     marginRight: '10px',
+    transform: 'translateY(-8.5px)',
   },
   statsText: {
     height: '43px',
@@ -197,16 +216,6 @@ const styles = () => ({
     fontWeight: 600,
     marginRight: '5px',
   },
-  floatLeft: {
-    float: 'left',
-    marginTop: '3px',
-    letterSpacing: '1px',
-  },
-  floatRight: {
-    float: 'right',
-    marginLeft: '6px',
-    marginTop: '3px',
-  },
   statsGroup: {
     margin: '5px 5px -10px 5px',
   },
@@ -224,6 +233,8 @@ const styles = () => ({
     textAlign: 'left',
     lineHeight: '40px',
     '@media (max-width: 480px)': {
+      fontSize: '32px',
+      lineHeight: '31px',
       letterSpacing: '0.1%',
     },
   },
@@ -231,18 +242,16 @@ const styles = () => ({
     color: '#E26063',
     textDecoration: 'none',
   },
-  leftBox: {
-  },
+  leftBox: {},
   statsSlideBg: {
-    width: '350px',
+    width: `${DESKTOP_BAR_TRACK_PX}px`,
     background: 'linear-gradient(270deg, rgba(94, 94, 94, 1) 0%, rgba(65, 62, 65, 1) 100%)',
     height: '50px',
     marginRight: '-15px',
   },
   statsSlideBar: {
-    borderRadius: '79px 0px 0px 79px',
-    backgroundImage: 'linear-gradient(to right, #c56e6e, #923b3c)',
-    padding: '10px',
+    borderRadius: '79px 0 0 79px',
+    boxSizing: 'border-box',
     height: '50px',
     float: 'right',
     marginRight: '-15px',
@@ -253,75 +262,54 @@ const styles = () => ({
     marginTop: '18px',
   },
   mobileStatsBox: {
-    '@media (min-width: 480px)': {
+    '@media (min-width: 481px)': {
       display: 'none',
     },
   },
   chart: {
     display: 'flex',
     alignItems: 'flex-end',
-    gap: '5px',
+    gap: '4px',
     padding: '0 16px',
-    '& div': {
-      width: 'calc((100vw - 56px)/5)',
-      textAlign: 'center',
-      color: 'white',
-      fontWeight: 'bold',
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      '& span': {
-        marginBottom: '20px',
-        fontFamily: 'Oswald',
-        fontWeight: '500',
-        fontSize: '22px',
-        lineHeight: '15px',
-        letterSpacing: '0%',
-        verticalAlign: 'middle',
-      },
+  },
+  mobileChartColumn: {
+    boxSizing: 'border-box',
+    flex: '1 1 0',
+    width: 'calc((100% - 20px) / 6)',
+    minWidth: 0,
+    height: `${MOBILE_COLUMN_HEIGHT_PX}px`,
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    '& span': {
+      marginBottom: '20px',
+      fontFamily: 'Oswald',
+      fontWeight: '500',
+      fontSize: '22px',
+      lineHeight: '15px',
+      letterSpacing: '0%',
+      verticalAlign: 'middle',
     },
   },
   label: {
     writingMode: 'vertical-rl',
     fontFamily: 'Nunito Sans',
     fontWeight: '700',
-    fontSize: '11.5px',
+    fontSize: '10px',
     lineHeight: '15px',
     letterSpacing: '2%',
-    verticalAlign: 'bottom',
-    paddingLeft: 'calc(((100vw - 56px)/10) - 6px)',
     marginBottom: '20px',
   },
-  chartBar: {
-    height: '400px',
-    background: 'linear-gradient(0deg, rgba(94, 94, 94, 1) 0%, rgba(65, 62, 65, 1) 100%)',
-  },
-  programs: {
-    background: '#E26063',
-    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
-    position: 'relative',
-  },
-  datasets: {
-    background: '#EDA534',
-    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
-    position: 'relative',
-  },
-  projects: {
-    background: '#B06DCE',
-    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
-    position: 'relative',
-  },
-  grants: {
-    background: '#6488E5',
-    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
-    position: 'relative',
-  },
-  publications: {
-    background: '#9DA9F9',
-    borderRadius: 'calc((100vw - 56px)/10) calc((100vw - 56px)/10) 0 0',
-    position: 'relative',
+  mobileBar: {
+    boxSizing: 'border-box',
+    width: '100%',
+    borderRadius: '999px 999px 0 0',
+    flexShrink: 0,
   },
 });
 
