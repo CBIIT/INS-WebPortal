@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Grid,
   withStyles,
@@ -12,8 +12,11 @@ import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
 import mobileHeroImg from '../../assets/landing/MobileHeroImg.svg';
 import mobileAboutTile from '../../assets/landing/mobileAboutTile.svg';
+import mobileAboutTile2x from '../../assets/landing/mobileAboutTile@2x.svg';
 import mobileDataTile from '../../assets/landing/mobileDataTile.svg';
+import mobileDataTile2x from '../../assets/landing/mobileDataTile@2x.svg';
 import mobileProgramsTile from '../../assets/landing/mobileProgramsTile.svg';
+import mobileProgramsTile2x from '../../assets/landing/mobileProgramsTile@2x.svg';
 import mobileSupportTile from '../../assets/landing/mobileSupportTile.svg';
 import './landingStyles.css';
 
@@ -21,8 +24,23 @@ let forwardAnimationReady = true;
 let backwardAnimationReady = false;
 
 const LandingView = ({ classes, statsData }) => {
+  const mobileQuery = '(max-width: 480px)';
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window.matchMedia === 'function' && window.matchMedia(mobileQuery).matches,
+  );
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return undefined;
+
+    const mediaQuery = window.matchMedia(mobileQuery);
+    const handleChange = (event) => setIsMobile(event.matches);
+    mediaQuery.addListener(handleChange);
+
+    return () => mediaQuery.removeListener(handleChange);
   }, []);
 
   const [showHover, setHoverState] = React.useState(false);
@@ -90,6 +108,7 @@ const LandingView = ({ classes, statsData }) => {
                 </div>
               </div>
             </div>
+            {!isMobile && (
             <div className="heroImageContainer">
               <div onMouseEnter={activateHover} onMouseLeave={deactivateHover} className={classes.hoverInteraction} />
               <img
@@ -97,6 +116,10 @@ const LandingView = ({ classes, statsData }) => {
                 src={landingPageData.interactiveImg.img}
                 alt={landingPageData.interactiveImg.alt}
                 id="interactive_img"
+                width="842"
+                height="843"
+                loading={isMobile ? 'lazy' : 'eager'}
+                decoding="async"
               />
               <div className={classes.INSTextContainer}>
                 <div className={classes.INSTitle}>
@@ -288,15 +311,27 @@ const LandingView = ({ classes, statsData }) => {
                   </>
                 )}
             </div>
+            )}
+            {isMobile && (
             <div className={classes.heroImageContainerMobile}>
-              <img src={mobileHeroImg} className={classes.mobileHeroImg} alt="Mobile Hero Img" />
+              <img
+                src={mobileHeroImg}
+                className={classes.mobileHeroImg}
+                alt="Mobile Hero Img"
+                width="343"
+                height="325"
+                loading={isMobile ? 'eager' : 'lazy'}
+                decoding="async"
+              />
             </div>
+            )}
           </Grid>
         </div>
         <div className={classes.whiteSection} />
         <StatsView stats={landingPageData.landingPageStatsBar} statsData={statsData} />
         <div className={classes.container}>
           <div className={classes.texture}>
+            {!isMobile && (
             <Grid container spacing={16} direction="row" className={classes.landingContainerBottom}>
               <div className={classes.contentLeft}>
                 <div className={classes.about}>
@@ -306,6 +341,10 @@ const LandingView = ({ classes, statsData }) => {
                       className={classes.aboutImage}
                       alt={landingPageData.tile1.alt}
                       id="tile1_image"
+                      width="268"
+                      height="215"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <div className={classes.DCWords} id="tile1_title">
@@ -338,6 +377,10 @@ const LandingView = ({ classes, statsData }) => {
                         src={landingPageData.tile2.img}
                         alt={landingPageData.tile2.alt}
                         id="tile2_image"
+                        width="291"
+                        height="244"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                     <div className={classes.content}>
@@ -370,6 +413,10 @@ const LandingView = ({ classes, statsData }) => {
                         src={landingPageData.tile3.img}
                         alt={landingPageData.tile3.alt}
                         id="tile3_image"
+                        width="290"
+                        height="245"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                     <div className={classes.content}>
@@ -401,6 +448,16 @@ const LandingView = ({ classes, statsData }) => {
                   </div>
                 </div>
                 <div className={classes.contentRightBottom}>
+                  <img
+                    src={landingPageData.tile4.img}
+                    className={classes.casesBackground}
+                    alt=""
+                    aria-hidden="true"
+                    width="596"
+                    height="424"
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <div className={classes.cases} id="tile4_image" role="group" aria-label={landingPageData.tile4.alt}>
                     <div className={classes.mountainMeadowContentHeader} id="tile4_title">
                       {landingPageData.tile4.titleText}
@@ -426,14 +483,22 @@ const LandingView = ({ classes, statsData }) => {
                 </div>
               </div>
             </Grid>
+            )}
+            {isMobile && (
             <Grid container direction="row" className={classes.landingContainerBottomMobile}>
               <div className={classes.mobileTiles}>
                 <div className={classes.mobileImgTile}>
                   <img
                     className={classes.mobileImg}
                     src={mobileAboutTile}
+                    srcSet={`${mobileAboutTile} 291w, ${mobileAboutTile2x} 582w`}
+                    sizes="(max-width: 480px) calc(100vw - 80px), 291px"
                     alt={landingPageData.tile1.alt}
                     id="Mobile-About-Tile"
+                    width="291"
+                    height="250"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className={classes.content}>
@@ -464,8 +529,14 @@ const LandingView = ({ classes, statsData }) => {
                   <img
                     className={classes.mobileImg}
                     src={mobileDataTile}
+                    srcSet={`${mobileDataTile} 291w, ${mobileDataTile2x} 582w`}
+                    sizes="(max-width: 480px) calc(100vw - 80px), 291px"
                     alt={landingPageData.tile4.alt}
                     id="Mobile-Data-Tile"
+                    width="291"
+                    height="250"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className={classes.content}>
@@ -496,8 +567,14 @@ const LandingView = ({ classes, statsData }) => {
                   <img
                     className={classes.mobileImg}
                     src={mobileProgramsTile}
+                    srcSet={`${mobileProgramsTile} 291w, ${mobileProgramsTile2x} 582w`}
+                    sizes="(max-width: 480px) calc(100vw - 80px), 291px"
                     alt={landingPageData.tile2.alt}
                     id="Mobile-Programs-Tile"
+                    width="291"
+                    height="250"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className={classes.content}>
@@ -530,6 +607,10 @@ const LandingView = ({ classes, statsData }) => {
                     src={mobileSupportTile}
                     alt={landingPageData.tile3.alt}
                     id="Mobile-Support-Tile"
+                    width="291"
+                    height="250"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className={classes.content}>
@@ -560,6 +641,7 @@ const LandingView = ({ classes, statsData }) => {
                 </div>
               </div>
             </Grid>
+            )}
           </div>
         </div>
       </div>
@@ -808,23 +890,28 @@ const styles = () => ({
     float: 'left',
     width: '602px',
     background: '#fff',
-    backgroundImage: `
-    linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(0, 0, 0, 0.4) 30%,
-      rgba(0, 0, 0, 0) 50%
-    ),
-    url(${landingPageData.tile4.img})
-  `,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
     marginTop: '5px',
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  casesBackground: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    position: 'absolute',
+    inset: 0,
   },
   cases: {
     height: '436px',
     paddingLeft: '340px',
     paddingTop: '70px',
+    position: 'relative',
+    background: `linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.4) 30%,
+      rgba(0, 0, 0, 0) 50%
+    )`,
   },
   mountainMeadowButtonSection: {
     height: '46px',
@@ -1039,6 +1126,7 @@ const styles = () => ({
   },
   mobileImg: {
     width: 'calc(100vw - 80px)',
+    height: 'auto',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);
