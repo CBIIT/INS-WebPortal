@@ -774,7 +774,7 @@ const styles = () => ({
     },
   },
   landingContainerBottomMobile: {
-    '@media (min-width: 480px)': {
+    '@media (min-width: 481px)': {
       display: 'none',
     },
   },
@@ -1101,7 +1101,7 @@ const styles = () => ({
     textAlign: 'center',
   },
   heroImageContainerMobile: {
-    '@media (min-width: 480px)': {
+    '@media (min-width: 481px)': {
       display: 'none',
     },
   },
@@ -1113,7 +1113,7 @@ const styles = () => ({
     mixBlendMode: 'multiply',
   },
   mobileOnlyStyle: {
-    '@media (min-width: 480px)': {
+    '@media (min-width: 481px)': {
       display: 'none',
     },
   },
