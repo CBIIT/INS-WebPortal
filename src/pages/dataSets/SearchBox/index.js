@@ -229,7 +229,7 @@ const SearchBox = ({
           && resourceFilters.dataset_source_repo.length > 0
           && resourceFilters.dataset_source_repo.map((filter, index) => (
             <BubbleContainer key={index} title={filter}>
-              <span style={{ fontSize: '10px' }}>DATA REPOSITORY:&nbsp;</span>
+              <span style={{ fontSize: '10px' }}>DATA RESOURCE:&nbsp;</span>
               {filter}
               <span className="removeBubble" onClick={() => handleBubbleDataRepositoryRemoveClick(filter)} aria-hidden="true">
                 <img src={CloseIconImg} alt="close-icon" />

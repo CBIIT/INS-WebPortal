@@ -157,7 +157,7 @@ const DataSetDetailView = ({
               </div>
             </div>
             <div className={classes.headerResourceContainer}>
-              <span className={classes.subTitle}>Source Repository: </span>
+              <span className={classes.subTitle}>Data Resource: </span>
               <span className={classes.repositoryName}>{data.dataset_source_repo || ''}</span>
               {data.dataset_source_url && (
                 <Link href={data.dataset_source_url} target="_blank" rel="noopener noreferrer" className={cn(classes.subTitle, classes.externalResource)}>
