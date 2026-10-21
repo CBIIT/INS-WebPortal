@@ -30,24 +30,18 @@ const AboutBody = () => (
               ,
               {' '}
               <a target="_blank" rel="noopener noreferrer" href="https://icite.od.nih.gov">NIH iCite</a>
+              ,
               {' '}
-              <a target="_blank" rel="noopener noreferrer" href="https://pubmed.ncbi.nlm.nih.gov">NCBI PubMed</a>
+              <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/search/">NCBI Entrez databases</a>
               {' '}
-              <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">NCBI dbGaP</a>
-              {' '}
-              <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/geo/">NCBI GEO</a>
-              , and
-              {' '}
-              <a target="_blank" rel="noopener noreferrer" href="https://cedcd.nci.nih.gov/">NCI CEDCD</a>
-              {' '}
-              with curated inputs.
+              (including PubMed, dbGaP, GEO, and SRA), and a range of NCI-supported data resources.
             </li>
           </ul>
         </div>
       </Grid>
       <Grid container className="aboutPageSectionTop">
         <Grid item xs={12}>
-          <Accordion title="OBJECTIVES AND SCOPE">
+          <Accordion title="INS OBJECTIVES AND SCOPE">
             <div className="aboutPageDisclaimerContent">
               <p>
                 The National Cancer Institute (NCI) is pleased to release the next phase of the Index of NCI Studies (INS) to tackle the challenge of assembling NCI program information from publicly available resources. Building connections between NCI programs, projects, grants, and research outputs is a complex task typically addressed through manual curation by portfolio analysis experts. Due to the challenging nature of curating this information, the INS is not comprehensive - additional information will be added in an iterative fashion. For detailed documentation about the information within INS, please see our open-source
@@ -141,31 +135,77 @@ const AboutBody = () => (
                   .
                 </li>
                 <li>
-                  <b>Datasets:</b>
+                  <b>Datasets & Cohorts:</b>
                   {' '}
-                  The INS incorporates information and links to datasets and cohort studies generated from NCI-supported research. Initially, this includes references to NCI supported studies registered with
+                  The INS incorporates information and links to datasets and cohort studies generated from NCI-supported research. Dataset information is retrieved from public sources using a combination of automated techniques and curation before it is reviewed and included within the INS. Initially, this includes references to NCI-supported study information from the following data sources, though
                   {' '}
-                  <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">
-                    NCBI Database of Phenotypes and Genotypes (dbGaP)
-                  </a>
-                  ,
+                  <b>the INS will continue to expand to other data resources in the future.</b>
+                  <ul>
+                    <li>
+                      <b>CEDCD:</b>
+                      {' '}
+                      <a target="_blank" rel="noopener noreferrer" href="https://cedcd.nci.nih.gov/">NCI Cancer Epidemiology Descriptive Cohort Database</a>
+                    </li>
+                    <li>
+                      <b>
+                        CTD
+                        <sup>2</sup>
+                        {' '}
+                        Network:
+                      </b>
+                      {' '}
+                      <a target="_blank" rel="noopener noreferrer" href="https://www.cancer.gov/ccg/research/functional-genomics/ctd2">NCI Cancer Target Discovery and Development Network</a>
+                    </li>
+                    <li>
+                      <b>dbGaP:</b>
+                      {' '}
+                      <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/gap/">NCBI Database of Genotypes and Phenotypes</a>
+                    </li>
+                    <li>
+                      <b>DCEG:</b>
+                      {' '}
+                      <a target="_blank" rel="noopener noreferrer" href="https://dceg.cancer.gov/research">NCI Division of Cancer Epidemiology & Genetics</a>
+                    </li>
+                    <li>
+                      <b>DCTD:</b>
+                      {' '}
+                      <a target="_blank" rel="noopener noreferrer" href="https://dctd.cancer.gov/data-tools-biospecimens/data">NCI Division of Cancer Treatment & Diagnosis</a>
+                    </li>
+                    <li>
+                      <b>GDC:</b>
+                      {' '}
+                      <a target="_blank" rel="noopener noreferrer" href="https://gdc.cancer.gov/">NCI Genomic Data Commons</a>
+                    </li>
+                    <li>
+                      <b>GEO:</b>
+                      {' '}
+                      <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/geo/">NCBI Gene Expression Omnibus</a>
+                    </li>
+                    <li>
+                      <b>NCCR Data Platform:</b>
+                      {' '}
+                      <a target="_blank" rel="noopener noreferrer" href="https://nccrdataplatform.ccdi.cancer.gov/">NCI CCDI National Childhood Cancer Registry Data Platform</a>
+                    </li>
+                    <li>
+                      <b>SRA:</b>
+                      {' '}
+                      <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/sra">NCBI Sequence Read Archive</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Tools & Resources:</b>
                   {' '}
-                  <a target="_blank" rel="noopener noreferrer" href="https://www.ncbi.nlm.nih.gov/geo/">
-                    NCBI Gene Expression Omnibus (GEO)
-                  </a>
-                  , and
-                  {' '}
-                  <a target="_blank" rel="noopener noreferrer" href="https://cedcd.nci.nih.gov/">
-                    NCI Cancer Epidemiology Descriptive Cohort Database (CEDCD)
-                  </a>
-                  ,
-                  {' '}
-                  though
-                  {' '}
-                  {' '}
-                  <b>the INS will expand to other repositories and data resources in the future.</b>
-                  {' '}
-                  Dataset information is retrieved from source repositories using a combination of automated techniques and curation before it is reviewed and included within the INS.
+                  The INS is compiling an index of known tools, resources, and data repositories that support the NCI’s mission to support the cancer research community. Most resources listed within the INS were previously included in the retired Resources for Researchers (R4R) catalog, though more are curated and included as they are found. This page includes a wide variety of resources grouped into several categories listed below.
+                  <ul>
+                    <li>Analytic Tool</li>
+                    <li>Data Repository</li>
+                    <li>Catalog</li>
+                    <li>Knowledgebase</li>
+                    <li>Biorepository</li>
+                    <li>Registry</li>
+                    <li>Guidance and Documentation</li>
+                  </ul>
                 </li>
               </ul>
             </div>
@@ -186,19 +226,25 @@ const AboutBody = () => (
                 Home
               </h3>
               <p className="p-l-20">
-                Provides an overview of the site, a snapshot of the number of programs, projects, grants, publications, and datasets along with links to other site pages.
+                Provides an overview of the site, links to selected site pages, and a snapshot of the number of programs, resources, datasets, projects, grants, and publications.
               </p>
               <h3 className="aboutContentSubHeader">
                 Programs
               </h3>
               <p className="p-l-20">
-                Provides access to all Program-derived information within INS. Tabs for Programs, Projects, Grants, and Publications each show summary information and provide links to other resources where appropriate. Filters applied on the left will change the information displayed in all tabs and plots accordingly. Select a Program or Project link in the table to view additional information.
+                Provides access to all Program-derived information within the INS. Tabs for Programs, Projects, Grants, and Publications each show summary information and provide links to other resources where appropriate. Filters applied on the left will change the information displayed in all tabs and plots accordingly. Select a Program or Project link in the table to view additional information.
               </p>
               <h3 className="aboutContentSubHeader">
                 Datasets & Cohorts
               </h3>
               <p className="p-l-20">
-                Provides access to all information on Datasets and Cohorts captured within INS. The list of displayed Datasets can be narrowed using the keyword search box or the left-hand filters. Select a Dataset title to see additional information.
+                Provides access to all information on Datasets and Cohorts captured within the INS. The list of displayed Datasets can be narrowed using the keyword search box or the left-hand filters. Select a Dataset title to see additional information.
+              </p>
+              <h3 className="aboutContentSubHeader">
+                Tools & Resources
+              </h3>
+              <p className="p-l-20">
+                Provides access to all information on Resources captured within the INS. The list of displayed Resources can be narrowed using the keyword search box or the left-hand filters. Select a Resource title to see additional information.
               </p>
               <h3 className="aboutContentSubHeader">
                 About
@@ -208,7 +254,7 @@ const AboutBody = () => (
               </p>
             </div>
           </Accordion>
-          <Accordion title="Contact Us">
+          <Accordion title="CONTACT INS">
             <div className="aboutPageSectionContent">
               <p>
                 Thank you for visiting! For questions or feedback, please contact
