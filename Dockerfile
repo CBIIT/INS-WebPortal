@@ -11,6 +11,8 @@ RUN NODE_OPTIONS="--openssl-legacy-provider" npm run build --silent
 
 FROM nginx:1.31.2-alpine3.23-slim AS fnl_base_image
 
+RUN apk update && apk upgrade --no-cache
+
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 COPY --from=build /usr/src/app/config/inject.template.js /usr/share/nginx/html/inject.template.js
 COPY --from=build /usr/src/app/config/nginx.conf /etc/nginx/conf.d/configfile.template
