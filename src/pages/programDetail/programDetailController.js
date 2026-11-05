@@ -33,7 +33,6 @@ const ProgramDetailContainer = ({ match }) => {
   if (
     programCountsError
     || !programCountsData
-    || !programCountsData.searchProjects
     || programDetailsError
     || !programDetailsData
     || !programDetailsData.programDetails
@@ -44,13 +43,13 @@ const ProgramDetailContainer = ({ match }) => {
   }
 
   const programDetailsAllData = {
-    ...programCountsData.searchProjects,
+    ...(programCountsData.searchProjects || {}),
     ...programDetailsData.programDetails,
     program_id: match.params.id,
-    docTransformed: [programDetailsData.programDetails.program_doc.join(';')],
-    focusAreaTransformed: [programDetailsData.programDetails.focus_area.join(';')],
-    cancerTypesTransformed: [programDetailsData.programDetails.cancer_type.join(';')],
-    nofoTransformed: [programDetailsData.programDetails.nofo.join(';')],
+    docTransformed: [(programDetailsData.programDetails.program_doc || []).join(';')],
+    focusAreaTransformed: [(programDetailsData.programDetails.focus_area || []).join(';')],
+    cancerTypesTransformed: [(programDetailsData.programDetails.cancer_type || []).join(';')],
+    nofoTransformed: [(programDetailsData.programDetails.nofo || []).join(';')],
   };
 
   return <ProgramView data={programDetailsAllData} />;

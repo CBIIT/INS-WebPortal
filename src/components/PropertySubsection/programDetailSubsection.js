@@ -91,6 +91,7 @@ const styles = () => ({
     fontSize: '18px',
     fontWeight: '400',
     lineHeight: '25px',
+    minHeight: '25px',
     position: 'relative',
     top: '15px',
     marginBottom: '10px',

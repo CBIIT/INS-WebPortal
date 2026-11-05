@@ -16,6 +16,33 @@ import arrowOutputs from '../assets/landing/arrow-outputs.svg';
 import arrowMetrics from '../assets/landing/arrow-metrics.svg';
 import heroExploreButtonArrow from '../assets/landing/heroExploreButtonArrow.svg';
 
+export const STAT_VISUALS_BY_API = {
+  numberOfPrograms: {
+    desktopGradient: 'linear-gradient(to right, #c56e6e, #923b3c)',
+    mobileColor: 'linear-gradient(to top, #c34f54, #e26063)',
+  },
+  numberOfResources: {
+    desktopGradient: 'linear-gradient(to right, #fabe5f, #EDA534)',
+    mobileColor: 'linear-gradient(to top, #c98619, #EDA534)',
+  },
+  numberOfDatasets: {
+    desktopGradient: 'linear-gradient(to right, #7297ed, #4f72c9)',
+    mobileColor: 'linear-gradient(to top, #5074ca, #6488E5)',
+  },
+  numberOfProjects: {
+    desktopGradient: 'linear-gradient(to right, #aabbff, #7788cc)',
+    mobileColor: 'linear-gradient(to top, #7f8ad4, #9DA9F9)',
+  },
+  numberOfGrants: {
+    desktopGradient: 'linear-gradient(to right, #be73d6, #8b40a3)',
+    mobileColor: 'linear-gradient(to top, #8b40a3, #B06DCE)',
+  },
+  numberOfPublications: {
+    desktopGradient: 'linear-gradient(to right, #e6a0df, #c56ec2)',
+    mobileColor: 'linear-gradient(to top, #c56ec2, #e6a0df)',
+  },
+};
+
 // The ideal image size of landingPageHero 1400x600px
 // Tile1 Tile2 Tile3 images 293x349 px
 // Tile4 image optimum size 600x 436 px
@@ -89,6 +116,10 @@ export const landingPageData = {
       statAPI: 'numberOfPrograms',
     },
     {
+      statTitle: 'Resources',
+      statAPI: 'numberOfResources',
+    },
+    {
       statTitle: 'Datasets',
       statAPI: 'numberOfDatasets',
     },
@@ -141,9 +172,10 @@ export const landingPageData = {
 // --------------- GraphQL query - Retrieve Landing page data --------------
 export const GET_LANDING_PAGE_DATA_QUERY = gql`{
   numberOfPrograms
+  numberOfResources
+  numberOfDatasets
   numberOfProjects
   numberOfGrants
   numberOfPublications
-  numberOfDatasets
 }
   `;

@@ -183,7 +183,7 @@ describe('DataSetDetailView', () => {
 
       render(<DataSetDetailView data={data} files={[]} />);
 
-      expect(screen.getByText('Investigator(s)')).toBeInTheDocument();
+      expect(screen.getByText('Principal Investigators')).toBeInTheDocument();
     });
 
     it('should show non-dynamic fields (primary_disease) even when empty in Data Details', () => {
@@ -581,7 +581,7 @@ describe('DataSetDetailView', () => {
 const basicInformationDynamicFields = [
   {
     datafield: 'PI_name',
-    label: 'Investigator(s)',
+    label: 'Principal Investigators',
     testId: 'basic-info-PI_name',
     validValue: 'Dr. Smith',
   },

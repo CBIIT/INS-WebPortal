@@ -158,7 +158,7 @@ const Filters = ({
         </div>
         <hr className="divider" />
         <div className="filterLabel">
-          <span>Filter by Data Repository</span>
+          <span>Filter by Data Resource</span>
         </div>
         <div className="sort">
           <span className="icon">

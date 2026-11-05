@@ -26,7 +26,7 @@ const descMaxLength = 750;
 // --------------- Basic Information fields configuration --------------
 const basicInformationFields = [
   {
-    label: 'Investigator(s)',
+    label: 'Principal Investigators',
     datafield: 'PI_name',
     dynamic: true,
     isLink: false,
