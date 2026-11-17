@@ -17,7 +17,7 @@ const useSearchParams = () => {
 const replaceQueryStr = (query, searchText) => {
   let str = '';
   if (searchText.trim() !== '') {
-    str += `&search_text=${searchText.replace("'", '').replace(/[^a-zA-Z0-9 ]/g, ' ').trim()}`;
+    str += `&search_text=${searchText}`;
   }
   if (query.get('filterByResource')) {
     str += `&filterByResource=${query.get('filterByResource')}`;
@@ -139,16 +139,15 @@ const SearchCatalogPage = ({
     onBubbleResourcesRemoveClick();
   };
 
-  const handleSearchBoxKeyPress = () => {
-    const queryStr = replaceQueryStr(query, searchText);
+  const handleSearchSubmit = () => {
+    const normalizedSearchText = searchText.replace("'", '').replace(/[^a-zA-Z0-9 ]/g, ' ').trim();
+    const queryStr = replaceQueryStr(query, normalizedSearchText);
     history.push(`/datasets?${queryStr}`);
-    onStartFullTextSearch(searchText);
+    onStartFullTextSearch(normalizedSearchText);
   };
 
-  const handleSearchSubmit = () => {
-    const queryStr = replaceQueryStr(query, searchText);
-    history.push(`/datasets?${queryStr}`);
-    onStartFullTextSearch(searchText);
+  const handleSearchBoxKeyPress = () => {
+    handleSearchSubmit();
   };
 
   const handleSearchTextInputChange = (keyword) => {
